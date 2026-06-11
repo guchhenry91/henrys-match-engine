@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: worldcup-predictor
+    runtime: static
+    staticPublishPath: .
+    buildCommand: ""
+    headers:
+      - path: /data/*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /
+        destination: /index.html
