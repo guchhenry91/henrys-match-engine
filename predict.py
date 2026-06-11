@@ -108,15 +108,19 @@ TOTAL_GOALS = 2.65     # expected combined goals in a WC group match
 MAX_SUP = 3.0          # cap goal supremacy so no favorite is a lock
 
 
+def team_lambdas(dr):
+    """Elo diff (incl. venue) -> (expected home goals, expected away goals)."""
+    sup = max(-MAX_SUP, min(MAX_SUP, dr / ELO_PER_GOAL))
+    return max(0.18, (TOTAL_GOALS + sup) / 2.0), max(0.18, (TOTAL_GOALS - sup) / 2.0)
+
+
 def outcome_probs(dr):
     """Elo diff -> (p_home, p_draw, p_away, best_score) via goal-supremacy Poisson.
 
     Calibrated so a ~200 Elo edge ~= a 55-60% favorite and even the biggest
     mismatches top out near ~88%, matching real World Cup market odds.
     """
-    sup = max(-MAX_SUP, min(MAX_SUP, dr / ELO_PER_GOAL))
-    lh = max(0.18, (TOTAL_GOALS + sup) / 2.0)
-    la = max(0.18, (TOTAL_GOALS - sup) / 2.0)
+    lh, la = team_lambdas(dr)
     ph = pd = pa = 0.0
     best = {"home": (1, 0), "draw": (1, 1), "away": (0, 1)}
     bestp = {"home": 0.0, "draw": 0.0, "away": 0.0}
@@ -149,6 +153,69 @@ def confidence(p):
     return 1
 
 
+# --- player scorer model -------------------------------------------------
+POS_RATE = {"FW": 0.55, "W": 0.40, "AM": 0.32, "MF": 0.18, "DF": 0.07}
+BENCH_RESERVE = 1.45   # notional scoring weight of all non-listed players
+ANYTIME_CAP = 0.62
+
+
+def player_rate(p):
+    """A player's baseline goals-per-match weight from club stats or position."""
+    g, a = p.get("goals"), p.get("apps")
+    if g is not None and a:
+        rate = g / max(a, 1)
+    else:
+        rate = POS_RATE.get(p.get("pos", "FW"), 0.45)
+    if p.get("pens"):
+        rate *= 1.15
+    return max(rate, 0.04)
+
+
+def scorer_badge(prob, has_stats):
+    """Confidence 1-3 + label for an anytime-scorer call."""
+    if prob >= 0.40 and has_stats:
+        return 3, "High"
+    if prob >= 0.27:
+        return 2, "Medium"
+    return 1, "Low"
+
+
+def shots_tier(prob, pos):
+    if pos in ("FW", "W") or prob >= 0.34:
+        return "High"
+    if pos in ("AM", "MF") or prob >= 0.20:
+        return "Medium"
+    return "Low"
+
+
+def team_scorers(players, lam_team):
+    """Top 3 likely scorers for a team given its expected goals this match."""
+    if not players:
+        return []
+    rated = [(p, player_rate(p)) for p in players]
+    total = sum(r for _, r in rated) + BENCH_RESERVE
+    out = []
+    for p, r in rated:
+        share = r / total
+        lam_p = lam_team * share
+        prob = min(ANYTIME_CAP, 1 - math.exp(-lam_p))
+        conf, label = scorer_badge(prob, p.get("goals") is not None)
+        out.append({
+            "player": p.get("player"),
+            "club": p.get("club"),
+            "pos": p.get("pos"),
+            "goals": p.get("goals"),
+            "apps": p.get("apps"),
+            "pens": bool(p.get("pens")),
+            "anytime": round(prob, 3),
+            "shots": shots_tier(prob, p.get("pos", "")),
+            "confidence": conf,
+            "conf_label": label,
+        })
+    out.sort(key=lambda x: -x["anytime"])
+    return out[:3]
+
+
 def elo_update(elo_h, elo_w, gh, ga, dr):
     """eloratings.net update: returns delta for home team."""
     we = 1 / (1 + 10 ** (-dr / 400.0))
@@ -162,6 +229,7 @@ def main():
     schedule = load("schedule.json")
     ratings = load("ratings.json")
     news = (load("news.json", {}) or {}).get("teams", {})
+    players = (load("players.json", {}) or {}).get("teams", {})
     results = load("results.json", {}) or {}  # {"1": {"home_goals":2,"away_goals":1}, ...}
 
     elo = {t["team"]: float(t["elo"]) for t in ratings["teams"] if t.get("elo")}
@@ -209,6 +277,11 @@ def main():
             reasons.insert(0, f"{h} effectively at home in {m.get('city')} (+{HOME_ADV} Elo)")
         dr = eh - ea + adv
         ph, pd, pa, scores = outcome_probs(dr)
+        lh, la = team_lambdas(dr)
+        scorers = {
+            "home": team_scorers(players.get(h, []), lh),
+            "away": team_scorers(players.get(a, []), la),
+        }
         reasons.insert(0, f"Rating edge: {h} {eh:.0f} vs {a} {ea:.0f} ({dr:+.0f} incl. venue)")
         fh, fa = news.get(h, {}).get("form"), news.get(a, {}).get("form")
         if fh or fa:
@@ -250,6 +323,7 @@ def main():
                 "pick": pick, "pick_type": ptype, "score": score,
                 "confidence": confidence(pmax), "reasons": reasons[:4],
             },
+            "scorers": scorers,
         })
 
     standings = {}
