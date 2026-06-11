@@ -173,9 +173,9 @@ def player_rate(p):
 
 def scorer_badge(prob, has_stats):
     """Confidence 1-3 + label for an anytime-scorer call."""
-    if prob >= 0.40 and has_stats:
+    if prob >= 0.42 or (prob >= 0.33 and has_stats):
         return 3, "High"
-    if prob >= 0.27:
+    if prob >= 0.20:
         return 2, "Medium"
     return 1, "Low"
 
