@@ -1,0 +1,46 @@
+{
+  "rounds": [
+    {"name": "Round of 32", "matches": [
+      {"id": 73, "date": "2026-06-28", "city": "Inglewood",     "home": {"t": "R", "g": "A"}, "away": {"t": "R", "g": "B"}},
+      {"id": 74, "date": "2026-06-29", "city": "Foxborough",    "home": {"t": "W", "g": "E"}, "away": {"t": "3", "g": ["A","B","C","D","F"]}},
+      {"id": 75, "date": "2026-06-29", "city": "Guadalajara",   "home": {"t": "W", "g": "F"}, "away": {"t": "R", "g": "C"}},
+      {"id": 76, "date": "2026-06-29", "city": "Houston",       "home": {"t": "W", "g": "C"}, "away": {"t": "R", "g": "F"}},
+      {"id": 77, "date": "2026-06-30", "city": "East Rutherford","home": {"t": "W", "g": "I"}, "away": {"t": "3", "g": ["C","D","F","G","H"]}},
+      {"id": 78, "date": "2026-06-30", "city": "Arlington",     "home": {"t": "R", "g": "E"}, "away": {"t": "R", "g": "I"}},
+      {"id": 79, "date": "2026-06-30", "city": "Mexico City",   "home": {"t": "W", "g": "A"}, "away": {"t": "3", "g": ["C","E","F","H","I"]}},
+      {"id": 80, "date": "2026-07-01", "city": "Atlanta",       "home": {"t": "W", "g": "L"}, "away": {"t": "3", "g": ["E","H","I","J","K"]}},
+      {"id": 81, "date": "2026-07-01", "city": "Santa Clara",   "home": {"t": "W", "g": "D"}, "away": {"t": "3", "g": ["B","E","F","I","J"]}},
+      {"id": 82, "date": "2026-07-01", "city": "Seattle",       "home": {"t": "W", "g": "G"}, "away": {"t": "3", "g": ["A","E","H","I","J"]}},
+      {"id": 83, "date": "2026-07-02", "city": "Toronto",       "home": {"t": "R", "g": "K"}, "away": {"t": "R", "g": "L"}},
+      {"id": 84, "date": "2026-07-02", "city": "Inglewood",     "home": {"t": "W", "g": "H"}, "away": {"t": "R", "g": "J"}},
+      {"id": 85, "date": "2026-07-02", "city": "Vancouver",     "home": {"t": "W", "g": "B"}, "away": {"t": "3", "g": ["E","F","G","I","J"]}},
+      {"id": 86, "date": "2026-07-03", "city": "Miami Gardens", "home": {"t": "W", "g": "J"}, "away": {"t": "R", "g": "H"}},
+      {"id": 87, "date": "2026-07-03", "city": "Kansas City",   "home": {"t": "W", "g": "K"}, "away": {"t": "3", "g": ["D","E","I","J","L"]}},
+      {"id": 88, "date": "2026-07-03", "city": "Arlington",     "home": {"t": "R", "g": "D"}, "away": {"t": "R", "g": "G"}}
+    ]},
+    {"name": "Round of 16", "matches": [
+      {"id": 89, "date": "2026-07-04", "city": "Philadelphia",  "home": {"t": "M", "m": 74}, "away": {"t": "M", "m": 77}},
+      {"id": 90, "date": "2026-07-04", "city": "Houston",       "home": {"t": "M", "m": 73}, "away": {"t": "M", "m": 75}},
+      {"id": 91, "date": "2026-07-05", "city": "East Rutherford","home": {"t": "M", "m": 76}, "away": {"t": "M", "m": 78}},
+      {"id": 92, "date": "2026-07-05", "city": "Mexico City",   "home": {"t": "M", "m": 79}, "away": {"t": "M", "m": 80}},
+      {"id": 93, "date": "2026-07-06", "city": "Arlington",     "home": {"t": "M", "m": 83}, "away": {"t": "M", "m": 84}},
+      {"id": 94, "date": "2026-07-06", "city": "Seattle",       "home": {"t": "M", "m": 81}, "away": {"t": "M", "m": 82}},
+      {"id": 95, "date": "2026-07-07", "city": "Atlanta",       "home": {"t": "M", "m": 86}, "away": {"t": "M", "m": 88}},
+      {"id": 96, "date": "2026-07-07", "city": "Vancouver",     "home": {"t": "M", "m": 85}, "away": {"t": "M", "m": 87}}
+    ]},
+    {"name": "Quarter-finals", "matches": [
+      {"id": 97,  "date": "2026-07-09", "city": "Foxborough",   "home": {"t": "M", "m": 89}, "away": {"t": "M", "m": 90}},
+      {"id": 98,  "date": "2026-07-10", "city": "Inglewood",    "home": {"t": "M", "m": 93}, "away": {"t": "M", "m": 94}},
+      {"id": 99,  "date": "2026-07-11", "city": "Miami Gardens","home": {"t": "M", "m": 91}, "away": {"t": "M", "m": 92}},
+      {"id": 100, "date": "2026-07-11", "city": "Kansas City",  "home": {"t": "M", "m": 95}, "away": {"t": "M", "m": 96}}
+    ]},
+    {"name": "Semi-finals", "matches": [
+      {"id": 101, "date": "2026-07-14", "city": "Arlington",    "home": {"t": "M", "m": 97}, "away": {"t": "M", "m": 98}},
+      {"id": 102, "date": "2026-07-15", "city": "Atlanta",      "home": {"t": "M", "m": 99}, "away": {"t": "M", "m": 100}}
+    ]},
+    {"name": "Final", "matches": [
+      {"id": 104, "date": "2026-07-19", "city": "East Rutherford","home": {"t": "M", "m": 101}, "away": {"t": "M", "m": 102}}
+    ]}
+  ],
+  "third_place": {"id": 103, "date": "2026-07-18", "city": "Miami Gardens", "home": {"t": "L", "m": 101}, "away": {"t": "L", "m": 102}}
+}

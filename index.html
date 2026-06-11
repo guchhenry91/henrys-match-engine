@@ -73,9 +73,10 @@ header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:1
 .record span{display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);margin-top:3px}
 /* floating tab bar */
 nav.tabs{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:30;display:flex;gap:4px;padding:6px;border-radius:999px;
-  --ac1:transparent;--ac2:transparent;box-shadow:0 20px 54px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.2);animation:rise .7s .1s cubic-bezier(.2,.85,.25,1) both}
-nav.tabs button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 22px;border:none;border-radius:999px;background:transparent;
-  color:var(--txt3);font-family:'Sora';font-weight:600;font-size:11px;cursor:pointer;transition:color .3s;z-index:1}
+  --ac1:transparent;--ac2:transparent;box-shadow:0 20px 54px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.2);animation:riseTab .7s .1s cubic-bezier(.2,.85,.25,1) both}
+@keyframes riseTab{from{opacity:0;transform:translateX(-50%) translateY(18px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+nav.tabs button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 17px;border:none;border-radius:999px;background:transparent;
+  color:var(--txt3);font-family:'Sora';font-weight:600;font-size:10.5px;cursor:pointer;transition:color .3s;z-index:1}
 nav.tabs button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.9}
 nav.tabs button.on{color:#0a0a12}
 nav.tabs .pill{position:absolute;top:6px;bottom:6px;border-radius:999px;background:linear-gradient(150deg,var(--g1),var(--g2));box-shadow:0 6px 18px rgba(247,176,52,.4);transition:all .42s cubic-bezier(.34,1.4,.5,1);z-index:0}
@@ -189,6 +190,41 @@ nav.tabs .pill{position:absolute;top:6px;bottom:6px;border-radius:999px;backgrou
 .grow .elo{color:var(--txt3);font-size:11px;text-align:right;font-weight:600}
 .grow.q::after{content:"";position:absolute;left:-20px;top:6px;bottom:6px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(180deg,var(--g1),var(--g2))}
 .grow.q .pos{color:var(--g1)}
+/* knockout / bracket */
+.kchamp{padding:20px 22px;margin-bottom:18px;display:flex;align-items:center;gap:16px;--ac1:var(--g1);--ac2:var(--g2);animation:rise .6s both}
+.kchamp .tro{font-size:40px;filter:drop-shadow(0 6px 16px rgba(247,176,52,.5))}
+.kchamp .ci{flex:1;min-width:0}
+.kchamp .cl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--g2);font-weight:700}
+.kchamp .cn{font-family:'Clash Display','Sora';font-weight:700;font-size:24px;display:flex;align-items:center;gap:11px;margin-top:4px;letter-spacing:-.4px}
+.kchamp .cp{text-align:right}
+.kchamp .cp b{font-family:'Clash Display','Sora';font-weight:700;font-size:26px;background:linear-gradient(100deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.kchamp .cp span{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-top:2px}
+.odds{padding:8px 14px;animation:rise .55s both;--ac1:var(--g1);--ac2:var(--g2)}
+.orow{display:grid;grid-template-columns:20px 28px 1fr 56px;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid var(--stroke-soft);position:relative}
+.orow:last-child{border-bottom:none}
+.orow .ork{font-family:'Clash Display','Sora';font-weight:700;font-size:12px;color:var(--txt3);text-align:center}
+.orow .onm{min-width:0}
+.orow .onm .onn{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.orow .obar{height:5px;border-radius:99px;background:rgba(255,255,255,.06);margin-top:5px;overflow:hidden}
+.orow .obar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g2),var(--g1));box-shadow:0 0 10px rgba(247,176,52,.5);transition:width .9s cubic-bezier(.2,.85,.25,1)}
+.orow .och{font-family:'Clash Display','Sora';font-weight:700;font-size:17px;text-align:right;background:linear-gradient(100deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.orow .och small{display:block;font-family:'Figtree';font-weight:600;font-size:9px;color:var(--txt3);-webkit-text-fill-color:var(--txt3);margin-top:1px}
+.kround{margin-top:8px}
+.kround .krh{font-family:'Clash Display','Sora';font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--g2);margin:20px 4px 11px;display:flex;align-items:center;gap:10px}
+.kround .krh::after{content:"";flex:1;height:1px;background:var(--stroke-soft)}
+.kround .krh span{font-family:'Figtree';font-size:10px;letter-spacing:.04em;text-transform:none;color:var(--txt3)}
+.ktie{display:flex;align-items:center;gap:10px;padding:11px 15px;margin-bottom:9px;border-radius:15px;--ac1:var(--g1);--ac2:var(--g2);animation:rise .5s both}
+.ktie .kside{flex:1;display:flex;align-items:center;gap:9px;min-width:0;font-weight:600;font-size:13.5px}
+.ktie .kside.away{flex-direction:row-reverse;text-align:right}
+.ktie .kside .knm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--txt2)}
+.ktie .kside.win .knm{color:var(--txt);font-weight:700}
+.ktie .kside.win .knm::after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:linear-gradient(var(--g1),var(--g2));margin-left:6px;box-shadow:0 0 7px var(--g2);vertical-align:middle}
+.ktie .ksc{flex:0 0 auto;text-align:center;min-width:54px}
+.ktie .ksc .kk{font-family:'Clash Display','Sora';font-weight:700;font-size:14px;letter-spacing:.5px}
+.ktie .ksc .kpb{font-size:8.5px;color:var(--txt3);letter-spacing:.04em;margin-top:2px}
+.ktie .ksc .kfin{font-size:8px;color:var(--g1);font-weight:700;letter-spacing:.14em}
+.kdate{font-size:9px;color:var(--txt3);text-align:center;margin-bottom:3px}
+.knote{font-size:11px;color:var(--txt3);margin:14px 4px 4px;line-height:1.5}
 /* team sheet */
 .sheet-bg{position:fixed;inset:0;background:rgba(2,3,8,.68);backdrop-filter:blur(8px);z-index:40;opacity:0;pointer-events:none;transition:opacity .35s}
 .sheet-bg.on{opacity:1;pointer-events:auto}
@@ -251,6 +287,7 @@ nav.tabs .pill{position:absolute;top:6px;bottom:6px;border-radius:999px;backgrou
   <button class="on" data-v="today"><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1zM4 9h16M9 4v3M15 4v3"/></svg>Today</button>
   <button data-v="schedule"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Schedule</button>
   <button data-v="groups"><svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM13 5h7v6h-7zM4 13h7v6H4zM13 13h7v6h-7z"/></svg>Groups</button>
+  <button data-v="bracket"><svg viewBox="0 0 24 24"><path d="M4 5h6v5H4zM4 14h6v5H4zM10 7h4v10h-4zM14 11h6"/></svg>Bracket</button>
 </nav>
 
 <div class="sheet-bg" id="sheetBg" onclick="closeSheet()"></div>
@@ -443,6 +480,7 @@ function render(){
       return `<div class="shead"><h2 class="dsp" style="font-size:16px">${fmtDate(d)}</h2><span class="meta">${ms.length} games</span></div>`+ms.map(matchCard).join('');
     }).join('');
   }
+  else if(curView==='bracket'){ renderBracket(v); }
   else{
     v.innerHTML=`<div class="shead"><h2 class="dsp">Group projections</h2><span class="meta">expected points</span></div>
     <div class="ggrid">${Object.keys(DATA.standings).sort().map((g,i)=>`
@@ -458,6 +496,47 @@ function render(){
   }
 }
 function eloSum(m){return (DATA.teams[m.home]?.elo||0)+(DATA.teams[m.away]?.elo||0);}
+
+function renderBracket(v){
+  const k=DATA.knockout;
+  if(!k){v.innerHTML='<div class="empty glass">Knockout projections will appear here.</div>';return;}
+  const champ=k.projected_champion,co=k.odds.find(o=>o.team===champ)||{};
+  const top=k.odds.filter(o=>o.champion>0||o.qualify>0.5).slice(0,16);
+  const maxc=Math.max(...top.map(o=>o.champion),0.01);
+  const[ca1,ca2]=acc(champ);
+  let html=`<div class="kchamp glass" style="--ac1:${ca1};--ac2:${ca2}"><div class="edge"></div>
+    <span class="tro">🏆</span>
+    <div class="ci"><div class="cl">Projected champion</div><div class="cn">${fl(champ,34)} ${champ}</div></div>
+    <div class="cp"><b>${pct(co.champion||0)}</b><span>title odds</span></div>
+  </div>
+  <div class="shead"><h2 class="dsp">Title odds</h2><span class="meta">${k.sims.toLocaleString()} simulations</span></div>
+  <div class="odds glass"><div class="edge"></div>
+  ${top.map((o,i)=>`<div class="orow">
+    <span class="ork">${i+1}</span>${fl(o.team,28)}
+    <div class="onm"><div class="onn">${o.team}</div><div class="obar"><i style="width:${Math.round(o.champion/maxc*100)}%"></i></div></div>
+    <div class="och">${pct(o.champion)}<small>${pct(o.final)} final · ${pct(o.qualify)} R32</small></div>
+  </div>`).join('')}
+  </div>
+  <div class="shead"><h2 class="dsp">Projected bracket</h2><span class="meta">most likely path</span></div>`;
+  const rounds=['Round of 32','Round of 16','Quarter-finals','Semi-finals','Final','Third place'];
+  rounds.forEach(rd=>{
+    const ms=k.bracket.filter(m=>m.round===rd);if(!ms.length)return;
+    html+=`<div class="kround"><div class="krh">${rd}${ms[0].date?`<span>from ${new Date(ms[0].date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>`:''}</div>`;
+    ms.forEach((m,i)=>{
+      const[a1]=acc(m.home),[,b2]=acc(m.away),fin=m.status==='final';
+      const hw=m.pick===m.home,aw=m.pick===m.away;
+      const sc=fin&&m.result?`${m.result.home_goals}–${m.result.away_goals}`:m.score.replace('-','–');
+      html+=`<div class="ktie glass" style="--ac1:${a1};--ac2:${b2};animation-delay:${Math.min(i*0.03,0.3)}s"><div class="edge"></div>
+        <div class="kside ${hw?'win':''}">${fl(m.home,26)}<span class="knm">${m.home||'—'}</span></div>
+        <div class="ksc"><div class="kk">${sc}</div>${fin?'<div class="kfin">FINAL</div>':`<div class="kpb">${pct(Math.max(m.p_home,m.p_away))} win</div>`}</div>
+        <div class="kside away ${aw?'win':''}">${fl(m.away,26)}<span class="knm">${m.away||'—'}</span></div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`<div class="knote">32 teams advance: top 2 from each group plus the 8 best third-placed sides. Bracket teams are the model's projected qualifiers and update as real results come in. Knockout ties shown as regulation projections — the highlighted side is predicted to advance.</div>`;
+  v.innerHTML=html;
+}
 
 function openSheet(name){
   const t=DATA.teams[name];if(!t)return;

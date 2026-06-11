@@ -10,6 +10,8 @@ import math
 import os
 from datetime import datetime, timezone
 
+import knockout
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(ROOT, "data-raw")
 OUT = os.path.join(ROOT, "data")
@@ -286,6 +288,7 @@ def main():
         played.append(m["id"])
 
     matches_out = []
+    gmatches = []  # compact group-match list for the knockout simulator
     exp_pts = {}
     for m in sorted(schedule["matches"], key=lambda x: (x["date"], x.get("time_et", ""), x["id"])):
         h, a = m["home"], m["away"]
@@ -298,6 +301,9 @@ def main():
         dr = eh - ea + adv
         ph, pd, pa, scores = outcome_probs(dr)
         lh, la = team_lambdas(dr)
+        gmatches.append({"id": m["id"], "group": m["group"], "home": h, "away": a,
+                         "lh": lh, "la": la, "city": m.get("city", ""),
+                         "result": results.get(str(m["id"]))})
         scorers = {
             "home": team_scorers(players.get(h, []), lh, news.get(h, {}).get("injuries", [])),
             "away": team_scorers(players.get(a, []), la, news.get(a, {}).get("injuries", [])),
@@ -373,6 +379,16 @@ def main():
         "total": len(graded),
     }
 
+    knockout_out = None
+    bracket_path = os.path.join(RAW, "bracket.json")
+    if os.path.exists(bracket_path):
+        with open(bracket_path, encoding="utf-8") as f:
+            bracket_json = json.load(f)
+        sims = int(os.environ.get("WC_SIMS", "20000"))
+        knockout_out = knockout.run(
+            live, schedule["groups"], gmatches, standings, bracket_json, results,
+            match_country, HOME_ADV, ELO_PER_GOAL, TOTAL_GOALS, MAX_SUP, sims=sims)
+
     out = {
         "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "record": record,
@@ -380,6 +396,7 @@ def main():
         "teams": teams_out,
         "matches": matches_out,
         "standings": standings,
+        "knockout": knockout_out,
     }
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "predictions.json"), "w", encoding="utf-8") as f:
