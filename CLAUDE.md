@@ -12,6 +12,7 @@ Static site (index.html + data/predictions.json) deployed on Render, predicting 
 - `data-raw/results.json` — final scores keyed by match id as STRING: `{"5": {"home_goals":2,"away_goals":0}}`. Group matches are ids 1–72; **knockout matches are ids 73–104** (R32 73–88, R16 89–96, QF 97–100, SF 101–102, 3rd place 103, Final 104) — record those the same way once the knockouts begin and the projected bracket will use the real winners.
 - `data-raw/bracket.json` — knockout bracket structure (slots, dates, venues). Static; do not edit.
 - `predict.py` runs a 20k-sim Monte Carlo each time → `knockout` section in predictions.json (title odds + projected bracket). Set env `WC_SIMS` to change sim count.
+- `data-raw/picks_log.json` — **auto-managed pick tracker** (do not hand-edit). predict.py locks each match's pick before kickoff and freezes it once a result lands, so the win/loss record grades the genuine pre-match pick (never a hindsight re-computation). It is committed each run so the record persists. `record` in predictions.json = `{correct, wrong, total, pending, by_confidence}`.
 
 ## Daily update procedure (run every morning)
 1. Web-search final scores of all WC matches played yesterday (and any missed earlier); add them to `data-raw/results.json`.

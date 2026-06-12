@@ -341,7 +341,7 @@ fetch('data/predictions.json?t='+Date.now()).then(r=>r.json()).then(d=>{
   const up=new Date(d.updated);
   $('#updated').textContent='Updated '+up.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
   const rec=d.record,pctv=rec.total?Math.round(rec.correct/rec.total*100):null;
-  $('#record').innerHTML=`<div class="edge"></div><b>${rec.correct}<span style="opacity:.4">/</span>${rec.total}</b>${pctv!=null?`<div class="pctn">${pctv}% hit</div>`:''}<span>picks record</span>`;
+  $('#record').innerHTML=`<div class="edge"></div><b><span style="-webkit-text-fill-color:var(--win);color:var(--win)">${rec.correct}</span><span style="-webkit-text-fill-color:rgba(255,255,255,.35)">–</span><span style="-webkit-text-fill-color:var(--loss);color:var(--loss)">${rec.wrong||0}</span></b><div class="pctn">${rec.total?pctv+'% hit':(rec.pending||0)+' to play'}</div><span>picks record</span>`;
   render();
 }).catch(e=>{$('#view').innerHTML='<div class="empty glass">Predictions data not loaded yet.<br><small>'+e+'</small></div>';});
 

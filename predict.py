@@ -253,6 +253,8 @@ def main():
     news = (load("news.json", {}) or {}).get("teams", {})
     players = (load("players.json", {}) or {}).get("teams", {})
     results = load("results.json", {}) or {}  # {"1": {"home_goals":2,"away_goals":1}, ...}
+    picks_log = load("picks_log.json", {}) or {}  # locked pre-match picks, id -> pred
+    now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
     elo = {t["team"]: float(t["elo"]) for t in ratings["teams"] if t.get("elo")}
     fifa = {t["team"]: t for t in ratings["teams"]}
@@ -323,12 +325,31 @@ def main():
         if ptype == "draw" and abs(ph - pa) > 0.03:
             pick, ptype, pmax = (h, "home", ph) if ph > pa else (a, "away", pa)
         score = scores[ptype]  # displayed scoreline consistent with the pick
+        cur_pred = {
+            "p_home": round(ph, 3), "p_draw": round(pd, 3), "p_away": round(pa, 3),
+            "pick": pick, "pick_type": ptype, "score": score,
+            "confidence": confidence(pmax),
+        }
 
-        r = results.get(str(m["id"]))
+        # --- pick tracking: lock each pick before kickoff, grade the locked
+        # pick (not a hindsight re-computation) once the result is in. ---
+        mid = str(m["id"])
+        r = results.get(mid)
         graded = None
-        if r:
+        if r is None:
+            # upcoming: keep the locked pick refreshed with the latest model
+            entry = dict(cur_pred); entry["locked_at"] = now_iso
+            picks_log[mid] = entry
+            shown = cur_pred
+        else:
+            # played: freeze and grade the pick locked before the result
+            entry = picks_log.get(mid)
+            if entry is None:  # match settled before tracking began — best effort
+                entry = dict(cur_pred); entry["locked_at"] = now_iso
+                picks_log[mid] = entry
             actual = "home" if r["home_goals"] > r["away_goals"] else "away" if r["away_goals"] > r["home_goals"] else "draw"
-            graded = "correct" if actual == ptype else "wrong"
+            graded = "correct" if entry.get("pick_type") == actual else "wrong"
+            shown = entry
 
         exp_pts.setdefault(h, 0.0)
         exp_pts.setdefault(a, 0.0)
@@ -345,9 +366,10 @@ def main():
             "result": r,
             "graded": graded,
             "prediction": {
-                "p_home": round(ph, 3), "p_draw": round(pd, 3), "p_away": round(pa, 3),
-                "pick": pick, "pick_type": ptype, "score": score,
-                "confidence": confidence(pmax), "reasons": reasons[:4],
+                "p_home": shown["p_home"], "p_draw": shown["p_draw"], "p_away": shown["p_away"],
+                "pick": shown["pick"], "pick_type": shown["pick_type"], "score": shown["score"],
+                "confidence": shown["confidence"], "reasons": reasons[:4],
+                "locked_at": shown.get("locked_at"),
             },
             "scorers": scorers,
         })
@@ -374,9 +396,19 @@ def main():
         }
 
     graded = [m for m in matches_out if m["graded"]]
+    correct = sum(1 for m in graded if m["graded"] == "correct")
+    by_conf = {}
+    for m in graded:
+        c = m["prediction"]["confidence"]
+        slot = by_conf.setdefault(c, {"correct": 0, "total": 0})
+        slot["total"] += 1
+        slot["correct"] += 1 if m["graded"] == "correct" else 0
     record = {
-        "correct": sum(1 for m in graded if m["graded"] == "correct"),
+        "correct": correct,
+        "wrong": len(graded) - correct,
         "total": len(graded),
+        "pending": sum(1 for m in matches_out if m["status"] != "final"),
+        "by_confidence": by_conf,
     }
 
     knockout_out = None
@@ -401,7 +433,12 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "predictions.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
-    print(f"Wrote {len(matches_out)} matches, {len(played)} played, record {record['correct']}/{record['total']}")
+    # persist the locked-pick log so the track record survives across runs
+    with open(os.path.join(RAW, "picks_log.json"), "w", encoding="utf-8") as f:
+        json.dump(picks_log, f, ensure_ascii=False, indent=1)
+    print(f"Wrote {len(matches_out)} matches, {len(played)} played, "
+          f"record {record['correct']}-{record['wrong']} of {record['total']} "
+          f"({record['pending']} pending)")
 
 
 if __name__ == "__main__":
