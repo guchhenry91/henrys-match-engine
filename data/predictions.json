@@ -1,5 +1,5 @@
 {
- "updated": "2026-06-12T16:21:53+00:00",
+ "updated": "2026-06-12T17:11:00+00:00",
  "record": {
   "correct": 2,
   "wrong": 0,
@@ -292,8 +292,8 @@
    "injuries": [
     {
      "player": "Edin Dzeko",
-     "status": "doubtful",
-     "note": "Shoulder injury; missed training and was on bench for final friendly vs Panama, but multiple pre-match sources now show him in the predicted starting XI for Canada (June 12) — expected to start despite fitness concerns"
+     "status": "fit",
+     "note": "Overcame shoulder injury; confirmed in starting XI for Canada opener (June 12)"
     },
     {
      "player": "Haris Tabakovic",
@@ -304,6 +304,11 @@
      "player": "Ivan Sunjic",
      "status": "doubtful",
      "note": "Muscle problem; managed carefully, should be available"
+    },
+    {
+     "player": "Osman Hadzikic",
+     "status": "out",
+     "note": "Reserve GK withdrew with injury before the tournament; replaced in squad by Mladen Jurkas"
     }
    ],
    "key_players": [
@@ -312,12 +317,13 @@
      "club": "Schalke 04",
      "goals": null,
      "assists": null,
-     "note": "Veteran talisman expected to lead the line at 40; shoulder concern monitored"
+     "note": "Veteran talisman confirmed to start at 40 despite pre-tournament shoulder concern"
     }
    ],
    "news": [
     "Returning to the finals after a 12-year absence.",
-    "Dzeko fitness being managed ahead of opener vs Canada."
+    "Dzeko confirmed fit and starting vs Canada despite shoulder injury scare.",
+    "Reserve GK Hadzikic withdrew injured; Mladen Jurkas added to squad."
    ]
   },
   "Qatar": {
@@ -2139,13 +2145,26 @@
     ],
     "away": [
      {
+      "player": "Edin Dzeko",
+      "club": "Schalke 04",
+      "pos": "FW",
+      "goals": 6,
+      "apps": null,
+      "pens": false,
+      "anytime": 0.099,
+      "shots": "High",
+      "confidence": 1,
+      "conf_label": "Low",
+      "doubtful": false
+     },
+     {
       "player": "Ermedin Demirovic",
       "club": "VfB Stuttgart",
       "pos": "FW",
       "goals": 12,
       "apps": 25,
       "pens": false,
-      "anytime": 0.094,
+      "anytime": 0.087,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -2158,24 +2177,11 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.079,
+      "anytime": 0.073,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
-     },
-     {
-      "player": "Edin Dzeko",
-      "club": "Schalke 04",
-      "pos": "FW",
-      "goals": 6,
-      "apps": null,
-      "pens": false,
-      "anytime": 0.061,
-      "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
-      "doubtful": true
      }
     ]
    }
@@ -4657,9 +4663,9 @@
     "confidence": 5,
     "reasons": [
      "Rating edge: Switzerland 1884 vs Bosnia and Herzegovina 1573 (+312 incl. venue)",
-     "Bosnia and Herzegovina: Edin Dzeko doubtful",
      "Bosnia and Herzegovina: Haris Tabakovic doubtful",
-     "Bosnia and Herzegovina: Ivan Sunjic doubtful"
+     "Bosnia and Herzegovina: Ivan Sunjic doubtful",
+     "Bosnia and Herzegovina: Osman Hadzikic out (Reserve GK withdrew with injury before the tournament; replaced in squad by Mladen Jurkas)"
     ],
     "locked_at": null
    },
@@ -4707,13 +4713,26 @@
     ],
     "away": [
      {
+      "player": "Edin Dzeko",
+      "club": "Schalke 04",
+      "pos": "FW",
+      "goals": 6,
+      "apps": null,
+      "pens": false,
+      "anytime": 0.07,
+      "shots": "High",
+      "confidence": 1,
+      "conf_label": "Low",
+      "doubtful": false
+     },
+     {
       "player": "Ermedin Demirovic",
       "club": "VfB Stuttgart",
       "pos": "FW",
       "goals": 12,
       "apps": 25,
       "pens": false,
-      "anytime": 0.067,
+      "anytime": 0.061,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -4726,24 +4745,11 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.056,
+      "anytime": 0.051,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
-     },
-     {
-      "player": "Edin Dzeko",
-      "club": "Schalke 04",
-      "pos": "FW",
-      "goals": 6,
-      "apps": null,
-      "pens": false,
-      "anytime": 0.043,
-      "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
-      "doubtful": true
      }
     ]
    }
@@ -7341,14 +7347,27 @@
     "confidence": 4,
     "reasons": [
      "Rating edge: Bosnia and Herzegovina 1573 vs Qatar 1452 (+120 incl. venue)",
-     "Bosnia and Herzegovina: Edin Dzeko doubtful",
      "Bosnia and Herzegovina: Haris Tabakovic doubtful",
-     "Bosnia and Herzegovina: Ivan Sunjic doubtful"
+     "Bosnia and Herzegovina: Ivan Sunjic doubtful",
+     "Bosnia and Herzegovina: Osman Hadzikic out (Reserve GK withdrew with injury before the tournament; replaced in squad by Mladen Jurkas)"
     ],
     "locked_at": null
    },
    "scorers": {
     "home": [
+     {
+      "player": "Edin Dzeko",
+      "club": "Schalke 04",
+      "pos": "FW",
+      "goals": 6,
+      "apps": null,
+      "pens": false,
+      "anytime": 0.276,
+      "shots": "High",
+      "confidence": 2,
+      "conf_label": "Medium",
+      "doubtful": false
+     },
      {
       "player": "Ermedin Demirovic",
       "club": "VfB Stuttgart",
@@ -7356,7 +7375,7 @@
       "goals": 12,
       "apps": 25,
       "pens": false,
-      "anytime": 0.265,
+      "anytime": 0.245,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -7369,24 +7388,11 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.226,
+      "anytime": 0.209,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
       "doubtful": false
-     },
-     {
-      "player": "Edin Dzeko",
-      "club": "Schalke 04",
-      "pos": "FW",
-      "goals": 6,
-      "apps": null,
-      "pens": false,
-      "anytime": 0.176,
-      "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
-      "doubtful": true
      }
     ],
     "away": [
