@@ -108,6 +108,7 @@ def effective_elo(team, base_elo, news, reasons):
 ELO_PER_GOAL = 165.0   # ~1 goal of supremacy per 165 Elo
 TOTAL_GOALS = 2.65     # expected combined goals in a WC group match
 MAX_SUP = 3.0          # cap goal supremacy so no favorite is a lock
+DRAW_PICK_MAX = 0.40   # if no team's win prob exceeds this, predict a draw
 
 
 def team_lambdas(dr):
@@ -315,15 +316,17 @@ def main():
         if fh or fa:
             reasons.append(f"Form: {h} {fh or '—'} · {a} {fa or '—'}")
 
-        if ph >= pa and ph >= pd:
-            pick, ptype, pmax = h, "home", ph
-        elif pa >= ph and pa >= pd:
-            pick, ptype, pmax = a, "away", pa
-        else:
+        # Pick the most likely team — but call a DRAW when the match is a
+        # genuine toss-up (no side better than ~40% to win). The independent
+        # Poisson keeps the draw from ever being the single highest outcome,
+        # so without this the model is forced to guess a team in even games.
+        fav_p = max(ph, pa)
+        if fav_p <= DRAW_PICK_MAX and pd >= 0.23:
             pick, ptype, pmax = "Draw", "draw", pd
-        # never pick a draw as primary unless clearly highest
-        if ptype == "draw" and abs(ph - pa) > 0.03:
-            pick, ptype, pmax = (h, "home", ph) if ph > pa else (a, "away", pa)
+        elif ph >= pa:
+            pick, ptype, pmax = h, "home", ph
+        else:
+            pick, ptype, pmax = a, "away", pa
         score = scores[ptype]  # displayed scoreline consistent with the pick
         cur_pred = {
             "p_home": round(ph, 3), "p_draw": round(pd, 3), "p_away": round(pa, 3),
