@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-14",
+  "updated": "2026-06-15",
   "teams": {
     "Argentina": {
       "form": null,
@@ -144,13 +144,13 @@
         },
         {
           "player": "Lamine Yamal",
-          "status": "doubtful",
-          "note": "Left hamstring injury from April 22 (Barcelona); coach De la Fuente expects him fit for the opener vs Cape Verde June 15"
+          "status": "fit",
+          "note": "Cleared fit and available (returned to full training); Yamal set to feature off the bench vs Cape Verde"
         },
         {
           "player": "Nico Williams",
-          "status": "doubtful",
-          "note": "Late-season knock being managed"
+          "status": "fit",
+          "note": "Cleared fit and available (returned to full training); Yamal set to feature off the bench vs Cape Verde"
         }
       ],
       "key_players": [
@@ -241,8 +241,8 @@
       ]
     },
     "Brazil": {
-      "form": null,
-      "form_note": "Ancelotti's record stands at 7W-2D-3L from 12 games; most recent result a 2-1 win over Egypt. Opener vs Morocco June 13.",
+      "form": "D",
+      "form_note": "Drew 1-1 with Morocco in Group C opener (Vinicius Jr 32'); without Neymar. Next vs Haiti June 19.",
       "injuries": [
         {
           "player": "Rodrygo",
@@ -355,8 +355,8 @@
       ]
     },
     "Netherlands": {
-      "form": null,
-      "form_note": "Unbeaten in qualifying, scoring 27 goals across eight games. Group F opener vs Japan.",
+      "form": "W",
+      "form_note": "Won 1-0 vs Japan in Group F opener (van Dijk 51'). Next vs Sweden June 20.",
       "injuries": [
         {
           "player": "Xavi Simons",
@@ -425,8 +425,8 @@
       ]
     },
     "Germany": {
-      "form": null,
-      "form_note": "Julian Nagelsmann's side led by captain Joshua Kimmich; face Curacao, Ivory Coast and Ecuador in a favorable Group E.",
+      "form": "W",
+      "form_note": "Crushed Curaçao 7-1 in Group E opener (Havertz x2, Nmecha, Schlotterbeck, Musiala, Brown, Undav). Next vs Ivory Coast June 20.",
       "injuries": [
         {
           "player": "Serge Gnabry",
@@ -579,8 +579,24 @@
     },
     "Uruguay": {
       "form": null,
-      "form_note": "Qualified 4th in CONMEBOL (28 pts: 7W-7D-4L, 22 scored, 12 conceded); drew England 1-1 at Wembley in March via a stoppage-time Valverde penalty.",
-      "injuries": [],
+      "form_note": "Qualified 4th in CONMEBOL (28 pts: 7W-7D-4L, 22 scored, 12 conceded); drew England 1-1 at Wembley in March via a stoppage-time Valverde penalty. Opener vs Saudi Arabia June 15.",
+      "injuries": [
+        {
+          "player": "Ronald Araujo",
+          "status": "out",
+          "note": "Minor muscle injury; highly unlikely to play vs Saudi Arabia — targeting return for matchday 2 vs Cape Verde (June 22)"
+        },
+        {
+          "player": "Jose Maria Gimenez",
+          "status": "out",
+          "note": "Severe ankle sprain (Atletico Madrid, May); expected to miss opener vs Saudi Arabia"
+        },
+        {
+          "player": "Giorgian de Arrascaeta",
+          "status": "doubtful",
+          "note": "Right calf injury; unlikely to feature in group stage at all — targeting knockout rounds"
+        }
+      ],
       "key_players": [
         {
           "player": "Federico Valverde",
@@ -649,8 +665,8 @@
       ]
     },
     "Morocco": {
-      "form": null,
-      "form_note": "2022 semi-finalists hit by multiple pre-tournament injuries; open against Brazil on June 13 in Group C.",
+      "form": "D",
+      "form_note": "Drew 1-1 with Brazil in Group C opener; held Vinicius Jr's side with Hakimi fit. Next vs Scotland June 19.",
       "injuries": [
         {
           "player": "Achraf Hakimi",
@@ -862,8 +878,8 @@
       ]
     },
     "Japan": {
-      "form": null,
-      "form_note": "Group F with Netherlands, Sweden and Tunisia; squad named May 15 with two devastating injury omissions on the wings.",
+      "form": "L",
+      "form_note": "Lost 0-1 to Netherlands in Group F opener (van Dijk 51'). Mitoma absence felt in attack. Next vs Tunisia June 21.",
       "injuries": [
         {
           "player": "Kaoru Mitoma",
@@ -949,8 +965,8 @@
       ]
     },
     "Switzerland": {
-      "form": null,
-      "form_note": "Group B with Canada, Qatar and Bosnia and Herzegovina; opened vs Qatar in the first round of fixtures.",
+      "form": "D",
+      "form_note": "Drew 1-1 with Qatar (Embolo pen 17' then conceded 90+4' equalizer). Next vs Bosnia June 18.",
       "injuries": [
         {
           "player": "Ruben Vargas",
@@ -1170,8 +1186,8 @@
       ]
     },
     "Qatar": {
-      "form": null,
-      "form_note": "In Group B; played Switzerland in their opening fixture. First World Cup qualified on merit after hosting in 2022.",
+      "form": "D",
+      "form_note": "Drew 1-1 with Switzerland (Khoukhi header in stoppage time) — first-ever World Cup point. Next vs Canada June 18.",
       "injuries": [],
       "key_players": [],
       "news": [
@@ -1179,8 +1195,8 @@
       ]
     },
     "Haiti": {
-      "form": null,
-      "form_note": "In Group C with Brazil, Morocco and Scotland; second-ever World Cup and first since 1974.",
+      "form": "L",
+      "form_note": "Lost 0-1 to Scotland in Group C opener (McGinn 28'); next vs Brazil June 19.",
       "injuries": [],
       "key_players": [],
       "news": [
@@ -1188,8 +1204,8 @@
       ]
     },
     "Scotland": {
-      "form": null,
-      "form_note": "In Group C with Brazil, Morocco and Haiti; first World Cup since 1998. Midfield options thinning ahead of June 13 opener vs Haiti.",
+      "form": "W",
+      "form_note": "Won 1-0 vs Haiti in Group C opener (McGinn 28'); first WC win since 1990. Next vs Morocco June 19.",
       "injuries": [
         {
           "player": "Billy Gilmour",
@@ -1258,8 +1274,8 @@
       ]
     },
     "Australia": {
-      "form": null,
-      "form_note": "In Group D with United States, Turkey and Paraguay; sixth consecutive World Cup appearance.",
+      "form": "W",
+      "form_note": "Won 2-0 vs Turkey in Group D opener (Irankunda 27', Metcalfe 75'). Next vs USA June 19.",
       "injuries": [],
       "key_players": [],
       "news": [
@@ -1267,8 +1283,8 @@
       ]
     },
     "Turkey": {
-      "form": null,
-      "form_note": "In Group D with United States, Australia and Paraguay; first World Cup since 2002. Open vs Australia at BC Place on June 14.",
+      "form": "L",
+      "form_note": "Lost 0-2 to Australia in Group D opener (Irankunda 27', Metcalfe 75'). Next vs Paraguay June 19.",
       "injuries": [
         {
           "player": "Arda Guler",
@@ -1310,8 +1326,8 @@
       ]
     },
     "Curacao": {
-      "form": null,
-      "form_note": "World Cup debutants in Group E with Germany, Ecuador and Ivory Coast.",
+      "form": "L",
+      "form_note": "Lost 1-7 to Germany in Group E opener (Comenencia scored consolation). Next vs Ecuador June 25.",
       "injuries": [],
       "key_players": [],
       "news": [
@@ -1319,13 +1335,13 @@
       ]
     },
     "Ecuador": {
-      "form": null,
-      "form_note": "In Group E with Germany, Ivory Coast and Curacao; finalized squad May 31. Qualified comfortably from CONMEBOL behind a very strong defensive record.",
+      "form": "L",
+      "form_note": "Lost 0-1 to Ivory Coast in Group E opener (June 14); Valencia absent injured. Next vs Curaçao June 20.",
       "injuries": [
         {
           "player": "Enner Valencia",
-          "status": "doubtful",
-          "note": "Minor knock; rated a doubt for the Ivory Coast opener (June 14) — the only player in the squad with a double-figure international goal tally (49)"
+          "status": "out",
+          "note": "Injury; confirmed unavailable for the Ivory Coast opener (June 14) — the only player in the squad with a double-figure international goal tally (49)"
         }
       ],
       "key_players": [
@@ -1349,13 +1365,18 @@
       ]
     },
     "Ivory Coast": {
-      "form": null,
-      "form_note": "In Group E with Germany, Ecuador and Curacao; reigning AFCON champions (2023).",
+      "form": "W",
+      "form_note": "Won 1-0 vs Ecuador in Group E opener (June 14). Reigning AFCON champions. Next vs Germany June 20.",
       "injuries": [
         {
           "player": "Evan N'Dicka",
           "status": "out",
           "note": "Thigh injury; ruled out of the opener vs Ecuador (June 14)"
+        },
+        {
+          "player": "Ousmane Diomande",
+          "status": "out",
+          "note": "Injury; confirmed unavailable for the Ecuador opener"
         }
       ],
       "key_players": [
@@ -1372,8 +1393,8 @@
       ]
     },
     "Sweden": {
-      "form": null,
-      "form_note": "In Group F with Netherlands, Japan and Tunisia; first World Cup since 2018, qualified via the playoffs.",
+      "form": "W",
+      "form_note": "Crushed Tunisia 5-1 in Group F opener (June 14). Isak-Gyokeres strike duo delivered. Next vs Netherlands June 20.",
       "injuries": [
         {
           "player": "Dejan Kulusevski",
@@ -1402,8 +1423,8 @@
       ]
     },
     "Tunisia": {
-      "form": null,
-      "form_note": "In Group F with Netherlands, Japan and Sweden; qualified unbeaten from African qualifying.",
+      "form": "L",
+      "form_note": "Lost 1-5 to Sweden in Group F opener (June 14). Next vs Japan June 21.",
       "injuries": [],
       "key_players": [],
       "news": [
@@ -1429,8 +1450,14 @@
     },
     "New Zealand": {
       "form": null,
-      "form_note": "Oceania's representative in Group G with Belgium, Egypt and Iran; first World Cup since 2010.",
-      "injuries": [],
+      "form_note": "Oceania's representative in Group G with Belgium, Egypt and Iran; first World Cup since 2010. Opener vs Iran June 15.",
+      "injuries": [
+        {
+          "player": "Ryan Thomas",
+          "status": "out",
+          "note": "Not expected to feature in the opening match vs Iran"
+        }
+      ],
       "key_players": [
         {
           "player": "Chris Wood",
