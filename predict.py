@@ -109,6 +109,8 @@ ELO_PER_GOAL = 165.0   # ~1 goal of supremacy per 165 Elo
 TOTAL_GOALS = 2.65     # expected combined goals in a WC group match
 MAX_SUP = 3.0          # cap goal supremacy so no favorite is a lock
 DRAW_PICK_MAX = 0.40   # if no team's win prob exceeds this, predict a draw
+DC_RHO = -0.15         # Dixon-Coles low-score correction (raises draw prob;
+                       # independent Poisson under-counts 0-0 & 1-1 draws)
 
 
 def team_lambdas(dr):
@@ -117,11 +119,26 @@ def team_lambdas(dr):
     return max(0.18, (TOTAL_GOALS + sup) / 2.0), max(0.18, (TOTAL_GOALS - sup) / 2.0)
 
 
+def dc_tau(h, a, lh, la):
+    """Dixon-Coles dependency factor for low scores — lifts the draw outcomes
+    (0-0, 1-1) and trims 1-0/0-1, correcting the independent-Poisson draw bias."""
+    if h == 0 and a == 0:
+        return 1.0 - lh * la * DC_RHO
+    if h == 0 and a == 1:
+        return 1.0 + lh * DC_RHO
+    if h == 1 and a == 0:
+        return 1.0 + la * DC_RHO
+    if h == 1 and a == 1:
+        return 1.0 - DC_RHO
+    return 1.0
+
+
 def outcome_probs(dr):
-    """Elo diff -> (p_home, p_draw, p_away, best_score) via goal-supremacy Poisson.
+    """Elo diff -> (p_home, p_draw, p_away, best_score) via a Dixon-Coles-
+    corrected goal-supremacy Poisson.
 
     Calibrated so a ~200 Elo edge ~= a 55-60% favorite and even the biggest
-    mismatches top out near ~88%, matching real World Cup market odds.
+    mismatches top out near ~88%, with realistic (~30%) draw rates.
     """
     lh, la = team_lambdas(dr)
     ph = pd = pa = 0.0
@@ -129,7 +146,7 @@ def outcome_probs(dr):
     bestp = {"home": 0.0, "draw": 0.0, "away": 0.0}
     for h in range(9):
         for a in range(9):
-            p = poisson(lh, h) * poisson(la, a)
+            p = poisson(lh, h) * poisson(la, a) * dc_tau(h, a, lh, la)
             cat = "home" if h > a else "draw" if h == a else "away"
             if cat == "home":
                 ph += p
