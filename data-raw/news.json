@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24",
+  "updated": "2026-06-26",
   "teams": {
     "Argentina": {
       "form": "WW",
@@ -838,12 +838,17 @@
     },
     "United States": {
       "form": "WW",
-      "form_note": "Won 4-1 vs Paraguay (Balogun x2). Won 2-0 vs Australia (June 19). Through to R32, top of Group D. Next vs Turkey June 25.",
+      "form_note": "Won 4-1 vs Paraguay (Balogun x2). Won 2-0 vs Australia (June 19). Through to R32, top of Group D with 6 pts. Next vs Turkey June 25 (already qualified — R32 placement on the line).",
       "injuries": [
         {
           "player": "Christian Pulisic",
           "status": "doubtful",
-          "note": "Calf injury sustained in Paraguay match (June 12); missed Australia game; expected to be medically available vs Turkey but US already through to R32 — Pochettino may rest him for the knockouts"
+          "note": "Calf injury sustained in Paraguay match (June 12); missed Australia game; medically available vs Turkey but Pochettino may rest him for the knockouts"
+        },
+        {
+          "player": "Cristian Roldan",
+          "status": "doubtful",
+          "note": "Doubtful for Turkey match"
         },
         {
           "player": "Patrick Agyemang",
@@ -853,7 +858,7 @@
         {
           "player": "Chris Richards",
           "status": "doubtful",
-          "note": "Ankle injury May 17; only just resumed training — late fitness test ahead of the Paraguay opener (June 12); Miles Robinson and Mark McKenzie in contention"
+          "note": "Ankle injury; late fitness test ahead of Turkey game. Yellow card warning — one more booking means R32 suspension."
         }
       ],
       "key_players": [
@@ -862,14 +867,14 @@
           "club": "AC Milan",
           "goals": null,
           "assists": null,
-          "note": "Most-capped player (84) and on-field leader; rested at 2025 Gold Cup to manage load, enters fit and expected to start every game"
+          "note": "Most-capped player (84) and on-field leader; doubtful (calf) for Turkey match"
         },
         {
           "player": "Folarin Balogun",
           "club": "AS Monaco",
           "goals": 19,
           "assists": 4,
-          "note": "19 goals and 4 assists in all competitions this season"
+          "note": "19 goals and 4 assists in all competitions this season; on yellow card — suspension risk"
         },
         {
           "player": "Haji Wright",
@@ -889,7 +894,7 @@
       "news": [
         "Pochettino named the 26 on May 26 after parts of the roster leaked; Gio Reyna in, Diego Luna the notable omission.",
         "Forward line arrives in the best collective form of any US World Cup squad (Balogun, Wright, Pepi all 17+ goals).",
-        "Group D with Paraguay, Australia and Turkey."
+        "2026-06-25: Yellow card concerns ahead of Turkey — Tyler Adams, Balogun, Antonee Robinson, and Chris Richards all on one booking; second yellow = R32 suspension. Pulisic and Roldan doubtful."
       ]
     },
     "Mexico": {
@@ -1441,12 +1446,17 @@
     },
     "Paraguay": {
       "form": "LW",
-      "form_note": "Lost 1-4 to USA. Won 1-0 vs Turkey (June 19). Alive in Group D with 3 pts. Next vs Australia June 25.",
+      "form_note": "Lost 1-4 to USA. Won 1-0 vs Turkey (June 19). Alive in Group D with 3 pts. Next vs Australia June 25 — win to secure R32.",
       "injuries": [
+        {
+          "player": "Miguel Almiron",
+          "status": "out",
+          "note": "Sent off vs Turkey; suspended for Australia match (June 25)"
+        },
         {
           "player": "Julio Enciso",
           "status": "doubtful",
-          "note": "Thigh injury; will likely miss the USA opener (June 12) — spotted training with the ball showing improvement but not expected to feature"
+          "note": "Thigh injury; doubtful but shaking off knock ahead of Australia match"
         },
         {
           "player": "Damian Bobadilla",
@@ -1456,40 +1466,57 @@
       ],
       "key_players": [
         {
-          "player": "Miguel Almiron",
-          "club": "Atlanta United",
+          "player": "Antonio Sanabria",
+          "club": "Cremonese",
           "goals": null,
           "assists": null,
-          "note": "Experienced attacking reference point"
+          "note": "Main striker option with Almiron suspended"
         }
       ],
       "news": [
         "Qualified comfortably from CONMEBOL on the back of a famously stingy defense.",
-        "Star attacker Julio Enciso a fitness doubt for the opener with a thigh issue."
+        "2026-06-25: Miguel Almiron suspended (sent off vs Turkey); significant loss for Australia match. Enciso and Galarza expected to shake off knocks to start."
       ]
     },
     "Australia": {
       "form": "WL",
-      "form_note": "Won 2-0 vs Turkey (Irankunda, Metcalfe). Lost 0-2 to USA (June 19). Next vs Paraguay June 25 — must win.",
-      "injuries": [],
+      "form_note": "Won 2-0 vs Turkey (Irankunda, Metcalfe). Lost 0-2 to USA (June 19). Next vs Paraguay June 25 — must win to advance.",
+      "injuries": [
+        {
+          "player": "Jacob Italiano",
+          "status": "out",
+          "note": "Right adductor injury; unavailable for Paraguay match"
+        },
+        {
+          "player": "Mathew Leckie",
+          "status": "out",
+          "note": "Left hamstring injury; sidelined — significant attacking loss"
+        }
+      ],
       "key_players": [],
       "news": [
-        "Tony Popovic's side qualified directly through AFC qualifying."
+        "Tony Popovic's side qualified directly through AFC qualifying.",
+        "2026-06-25: Mathew Leckie (hamstring) and Jacob Italiano (adductor) both OUT for Paraguay match — Australia weakened in attack."
       ]
     },
     "Turkey": {
-      "form": "LW",
-      "form_note": "Lost 0-2 to Australia. Won 1-0 vs Paraguay (June 19). Alive in Group D with 3 pts. Next vs USA June 25.",
+      "form": "LL",
+      "form_note": "Lost 0-2 to Australia. Lost 0-1 to Paraguay (June 19). Eliminated from Group D with 0 pts. Last game vs USA June 25.",
       "injuries": [
         {
           "player": "Arda Guler",
           "status": "fit",
-          "note": "Fully fit and the focal point of the team; expected to start vs Australia"
+          "note": "Fully fit and expected to start vs USA"
         },
         {
           "player": "Kenan Yildiz",
+          "status": "probable",
+          "note": "Calf injury; listed as probable for USA match — expected to feature"
+        },
+        {
+          "player": "Yunus Akgun",
           "status": "doubtful",
-          "note": "Calf injury; would be a surprise to see him feature vs Australia on June 14"
+          "note": "Doubtful for USA match"
         }
       ],
       "key_players": [
@@ -1505,7 +1532,7 @@
           "club": "Juventus",
           "goals": null,
           "assists": null,
-          "note": "Second star of the young attacking core; doubt with calf injury"
+          "note": "Second star of the young attacking core; probable for USA match"
         },
         {
           "player": "Hakan Calhanoglu",
@@ -1517,7 +1544,7 @@
       ],
       "news": [
         "Final squad announced June 2 after a 35-man preliminary list; genuine dark-horse buzz around the young attack.",
-        "Yildiz calf injury clouds opener; Guler confirmed fit and will carry attacking responsibility."
+        "2026-06-25: Turkey eliminated after two consecutive defeats; last group game vs USA is dead rubber for Turkey."
       ]
     },
     "Curacao": {

@@ -1,5 +1,5 @@
 {
- "updated": "2026-06-26T01:51:23+00:00",
+ "updated": "2026-06-26T01:53:46+00:00",
  "record": {
   "correct": 36,
   "wrong": 22,
@@ -634,12 +634,17 @@
    "elo": 1838,
    "fifa_rank": 16,
    "form": "WW",
-   "form_note": "Won 4-1 vs Paraguay (Balogun x2). Won 2-0 vs Australia (June 19). Through to R32, top of Group D. Next vs Turkey June 25.",
+   "form_note": "Won 4-1 vs Paraguay (Balogun x2). Won 2-0 vs Australia (June 19). Through to R32, top of Group D with 6 pts. Next vs Turkey June 25 (already qualified — R32 placement on the line).",
    "injuries": [
     {
      "player": "Christian Pulisic",
      "status": "doubtful",
-     "note": "Calf injury sustained in Paraguay match (June 12); missed Australia game; expected to be medically available vs Turkey but US already through to R32 — Pochettino may rest him for the knockouts"
+     "note": "Calf injury sustained in Paraguay match (June 12); missed Australia game; medically available vs Turkey but Pochettino may rest him for the knockouts"
+    },
+    {
+     "player": "Cristian Roldan",
+     "status": "doubtful",
+     "note": "Doubtful for Turkey match"
     },
     {
      "player": "Patrick Agyemang",
@@ -649,7 +654,7 @@
     {
      "player": "Chris Richards",
      "status": "doubtful",
-     "note": "Ankle injury May 17; only just resumed training — late fitness test ahead of the Paraguay opener (June 12); Miles Robinson and Mark McKenzie in contention"
+     "note": "Ankle injury; late fitness test ahead of Turkey game. Yellow card warning — one more booking means R32 suspension."
     }
    ],
    "key_players": [
@@ -658,14 +663,14 @@
      "club": "AC Milan",
      "goals": null,
      "assists": null,
-     "note": "Most-capped player (84) and on-field leader; rested at 2025 Gold Cup to manage load, enters fit and expected to start every game"
+     "note": "Most-capped player (84) and on-field leader; doubtful (calf) for Turkey match"
     },
     {
      "player": "Folarin Balogun",
      "club": "AS Monaco",
      "goals": 19,
      "assists": 4,
-     "note": "19 goals and 4 assists in all competitions this season"
+     "note": "19 goals and 4 assists in all competitions this season; on yellow card — suspension risk"
     },
     {
      "player": "Haji Wright",
@@ -685,7 +690,7 @@
    "news": [
     "Pochettino named the 26 on May 26 after parts of the roster leaked; Gio Reyna in, Diego Luna the notable omission.",
     "Forward line arrives in the best collective form of any US World Cup squad (Balogun, Wright, Pepi all 17+ goals).",
-    "Group D with Paraguay, Australia and Turkey."
+    "2026-06-25: Yellow card concerns ahead of Turkey — Tyler Adams, Balogun, Antonee Robinson, and Chris Richards all on one booking; second yellow = R32 suspension. Pulisic and Roldan doubtful."
    ]
   },
   "Paraguay": {
@@ -693,12 +698,17 @@
    "elo": 1798,
    "fifa_rank": 40,
    "form": "LW",
-   "form_note": "Lost 1-4 to USA. Won 1-0 vs Turkey (June 19). Alive in Group D with 3 pts. Next vs Australia June 25.",
+   "form_note": "Lost 1-4 to USA. Won 1-0 vs Turkey (June 19). Alive in Group D with 3 pts. Next vs Australia June 25 — win to secure R32.",
    "injuries": [
+    {
+     "player": "Miguel Almiron",
+     "status": "out",
+     "note": "Sent off vs Turkey; suspended for Australia match (June 25)"
+    },
     {
      "player": "Julio Enciso",
      "status": "doubtful",
-     "note": "Thigh injury; will likely miss the USA opener (June 12) — spotted training with the ball showing improvement but not expected to feature"
+     "note": "Thigh injury; doubtful but shaking off knock ahead of Australia match"
     },
     {
      "player": "Damian Bobadilla",
@@ -708,16 +718,16 @@
    ],
    "key_players": [
     {
-     "player": "Miguel Almiron",
-     "club": "Atlanta United",
+     "player": "Antonio Sanabria",
+     "club": "Cremonese",
      "goals": null,
      "assists": null,
-     "note": "Experienced attacking reference point"
+     "note": "Main striker option with Almiron suspended"
     }
    ],
    "news": [
     "Qualified comfortably from CONMEBOL on the back of a famously stingy defense.",
-    "Star attacker Julio Enciso a fitness doubt for the opener with a thigh issue."
+    "2026-06-25: Miguel Almiron suspended (sent off vs Turkey); significant loss for Australia match. Enciso and Galarza expected to shake off knocks to start."
    ]
   },
   "Australia": {
@@ -725,29 +735,46 @@
    "elo": 1796,
    "fifa_rank": 27,
    "form": "WL",
-   "form_note": "Won 2-0 vs Turkey (Irankunda, Metcalfe). Lost 0-2 to USA (June 19). Next vs Paraguay June 25 — must win.",
-   "injuries": [],
+   "form_note": "Won 2-0 vs Turkey (Irankunda, Metcalfe). Lost 0-2 to USA (June 19). Next vs Paraguay June 25 — must win to advance.",
+   "injuries": [
+    {
+     "player": "Jacob Italiano",
+     "status": "out",
+     "note": "Right adductor injury; unavailable for Paraguay match"
+    },
+    {
+     "player": "Mathew Leckie",
+     "status": "out",
+     "note": "Left hamstring injury; sidelined — significant attacking loss"
+    }
+   ],
    "key_players": [],
    "news": [
-    "Tony Popovic's side qualified directly through AFC qualifying."
+    "Tony Popovic's side qualified directly through AFC qualifying.",
+    "2026-06-25: Mathew Leckie (hamstring) and Jacob Italiano (adductor) both OUT for Paraguay match — Australia weakened in attack."
    ]
   },
   "Turkey": {
    "flag": "🇹🇷",
    "elo": 1797,
    "fifa_rank": 22,
-   "form": "LW",
-   "form_note": "Lost 0-2 to Australia. Won 1-0 vs Paraguay (June 19). Alive in Group D with 3 pts. Next vs USA June 25.",
+   "form": "LL",
+   "form_note": "Lost 0-2 to Australia. Lost 0-1 to Paraguay (June 19). Eliminated from Group D with 0 pts. Last game vs USA June 25.",
    "injuries": [
     {
      "player": "Arda Guler",
      "status": "fit",
-     "note": "Fully fit and the focal point of the team; expected to start vs Australia"
+     "note": "Fully fit and expected to start vs USA"
     },
     {
      "player": "Kenan Yildiz",
+     "status": "probable",
+     "note": "Calf injury; listed as probable for USA match — expected to feature"
+    },
+    {
+     "player": "Yunus Akgun",
      "status": "doubtful",
-     "note": "Calf injury; would be a surprise to see him feature vs Australia on June 14"
+     "note": "Doubtful for USA match"
     }
    ],
    "key_players": [
@@ -763,7 +790,7 @@
      "club": "Juventus",
      "goals": null,
      "assists": null,
-     "note": "Second star of the young attacking core; doubt with calf injury"
+     "note": "Second star of the young attacking core; probable for USA match"
     },
     {
      "player": "Hakan Calhanoglu",
@@ -775,7 +802,7 @@
    ],
    "news": [
     "Final squad announced June 2 after a 35-man preliminary list; genuine dark-horse buzz around the young attack.",
-    "Yildiz calf injury clouds opener; Guler confirmed fit and will carry attacking responsibility."
+    "2026-06-25: Turkey eliminated after two consecutive defeats; last group game vs USA is dead rubber for Turkey."
    ]
   },
   "Germany": {
@@ -2541,10 +2568,10 @@
     "score": "1-0",
     "confidence": 1,
     "reasons": [
-     "Rating edge: United States 1818 vs Paraguay 1794 (+104 incl. venue)",
+     "Rating edge: United States 1814 vs Paraguay 1786 (+108 incl. venue)",
      "United States effectively at home in Inglewood (+80 Elo)",
      "United States: Christian Pulisic doubtful",
-     "United States: Patrick Agyemang out (Achilles tendon rupture in April)"
+     "United States: Cristian Roldan doubtful"
     ],
     "locked_at": "2026-06-12T17:41:10+00:00"
    },
@@ -2557,7 +2584,7 @@
       "goals": 19,
       "apps": null,
       "pens": false,
-      "anytime": 0.251,
+      "anytime": 0.253,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -2570,7 +2597,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.251,
+      "anytime": 0.253,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -2583,7 +2610,7 @@
       "goals": 2,
       "apps": null,
       "pens": false,
-      "anytime": 0.19,
+      "anytime": 0.191,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -2598,7 +2625,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.174,
+      "anytime": 0.192,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -2611,24 +2638,24 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.13,
+      "anytime": 0.144,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
      },
      {
-      "player": "Miguel Almiron",
-      "club": "Atlanta United",
+      "player": "Julio Enciso",
+      "club": "Strasbourg",
       "pos": "AM",
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.106,
+      "anytime": 0.066,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
-      "doubtful": false
+      "doubtful": true
      }
     ]
    }
@@ -3004,9 +3031,10 @@
     "score": "0-1",
     "confidence": 3,
     "reasons": [
-     "Rating edge: Australia 1796 vs Turkey 1789 (+7 incl. venue)",
-     "Turkey: Kenan Yildiz doubtful",
-     "Form: Australia WL · Turkey LW"
+     "Rating edge: Australia 1780 vs Turkey 1793 (-13 incl. venue)",
+     "Australia: Jacob Italiano out (Right adductor injury; unavailable for Paraguay match)",
+     "Australia: Mathew Leckie out (Left hamstring injury; sidelined — significant attacking loss)",
+     "Turkey: Yunus Akgun doubtful"
     ],
     "locked_at": "2026-06-13T17:28:49+00:00"
    },
@@ -3019,10 +3047,10 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.203,
+      "anytime": 0.194,
       "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
       "doubtful": false
      },
      {
@@ -3032,10 +3060,10 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.203,
+      "anytime": 0.194,
       "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
       "doubtful": false
      },
      {
@@ -3045,7 +3073,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.152,
+      "anytime": 0.145,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -3060,21 +3088,8 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.2,
+      "anytime": 0.198,
       "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
-      "doubtful": false
-     },
-     {
-      "player": "Hakan Calhanoglu",
-      "club": "Inter",
-      "pos": "MF",
-      "goals": 9,
-      "apps": null,
-      "pens": true,
-      "anytime": 0.109,
-      "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
@@ -3086,11 +3101,24 @@
       "goals": 10,
       "apps": 33,
       "pens": false,
-      "anytime": 0.089,
+      "anytime": 0.154,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
-      "doubtful": true
+      "doubtful": false
+     },
+     {
+      "player": "Hakan Calhanoglu",
+      "club": "Inter",
+      "pos": "MF",
+      "goals": 9,
+      "apps": null,
+      "pens": true,
+      "anytime": 0.108,
+      "shots": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
+      "doubtful": false
      }
     ]
    }
@@ -5397,10 +5425,10 @@
     "score": "1-1",
     "confidence": 1,
     "reasons": [
-     "Rating edge: United States 1818 vs Australia 1796 (+102 incl. venue)",
+     "Rating edge: United States 1814 vs Australia 1780 (+114 incl. venue)",
      "United States effectively at home in Seattle (+80 Elo)",
      "United States: Christian Pulisic doubtful",
-     "United States: Patrick Agyemang out (Achilles tendon rupture in April)"
+     "United States: Cristian Roldan doubtful"
     ],
     "locked_at": "2026-06-22T13:18:57+00:00"
    },
@@ -5413,7 +5441,7 @@
       "goals": 19,
       "apps": null,
       "pens": false,
-      "anytime": 0.25,
+      "anytime": 0.255,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -5426,7 +5454,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.25,
+      "anytime": 0.255,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -5439,7 +5467,7 @@
       "goals": 2,
       "apps": null,
       "pens": false,
-      "anytime": 0.189,
+      "anytime": 0.193,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -5454,7 +5482,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.157,
+      "anytime": 0.152,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -5467,7 +5495,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.157,
+      "anytime": 0.152,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -5480,7 +5508,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.117,
+      "anytime": 0.113,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -5745,10 +5773,10 @@
     "score": "2-1",
     "confidence": 2,
     "reasons": [
-     "Rating edge: Turkey 1789 vs Paraguay 1794 (-4 incl. venue)",
-     "Turkey: Kenan Yildiz doubtful",
-     "Paraguay: Julio Enciso doubtful",
-     "Form: Turkey LW · Paraguay LW"
+     "Rating edge: Turkey 1793 vs Paraguay 1786 (+8 incl. venue)",
+     "Turkey: Yunus Akgun doubtful",
+     "Paraguay: Miguel Almiron out (Sent off vs Turkey; suspended for Australia match (June 25))",
+     "Paraguay: Julio Enciso doubtful"
     ],
     "locked_at": "2026-06-22T13:18:57+00:00"
    },
@@ -5761,21 +5789,8 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.201,
+      "anytime": 0.196,
       "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
-      "doubtful": false
-     },
-     {
-      "player": "Hakan Calhanoglu",
-      "club": "Inter",
-      "pos": "MF",
-      "goals": 9,
-      "apps": null,
-      "pens": true,
-      "anytime": 0.11,
-      "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
@@ -5787,11 +5802,24 @@
       "goals": 10,
       "apps": 33,
       "pens": false,
-      "anytime": 0.089,
+      "anytime": 0.152,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
-      "doubtful": true
+      "doubtful": false
+     },
+     {
+      "player": "Hakan Calhanoglu",
+      "club": "Inter",
+      "pos": "MF",
+      "goals": 9,
+      "apps": null,
+      "pens": true,
+      "anytime": 0.107,
+      "shots": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
+      "doubtful": false
      }
     ],
     "away": [
@@ -5802,7 +5830,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.224,
+      "anytime": 0.243,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -5815,24 +5843,24 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.169,
+      "anytime": 0.183,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
      },
      {
-      "player": "Miguel Almiron",
-      "club": "Atlanta United",
+      "player": "Julio Enciso",
+      "club": "Strasbourg",
       "pos": "AM",
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.137,
+      "anytime": 0.085,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
-      "doubtful": false
+      "doubtful": true
      }
     ]
    }
@@ -8809,18 +8837,18 @@
    "result": null,
    "graded": null,
    "prediction": {
-    "p_home": 0.312,
-    "p_draw": 0.297,
-    "p_away": 0.391,
+    "p_home": 0.323,
+    "p_draw": 0.298,
+    "p_away": 0.38,
     "pick": "Draw",
     "pick_type": "draw",
     "score": "1-1",
     "confidence": 1,
     "reasons": [
-     "Rating edge: Turkey 1789 vs United States 1818 (-28 incl. venue)",
-     "Turkey: Kenan Yildiz doubtful",
+     "Rating edge: Turkey 1793 vs United States 1814 (-20 incl. venue)",
+     "Turkey: Yunus Akgun doubtful",
      "United States: Christian Pulisic doubtful",
-     "United States: Patrick Agyemang out (Achilles tendon rupture in April)"
+     "United States: Cristian Roldan doubtful"
     ],
     "locked_at": null
    },
@@ -8833,21 +8861,8 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.191,
+      "anytime": 0.184,
       "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
-      "doubtful": false
-     },
-     {
-      "player": "Hakan Calhanoglu",
-      "club": "Inter",
-      "pos": "MF",
-      "goals": 9,
-      "apps": null,
-      "pens": true,
-      "anytime": 0.104,
-      "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
@@ -8859,11 +8874,24 @@
       "goals": 10,
       "apps": 33,
       "pens": false,
-      "anytime": 0.084,
+      "anytime": 0.143,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
-      "doubtful": true
+      "doubtful": false
+     },
+     {
+      "player": "Hakan Calhanoglu",
+      "club": "Inter",
+      "pos": "MF",
+      "goals": 9,
+      "apps": null,
+      "pens": true,
+      "anytime": 0.1,
+      "shots": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
+      "doubtful": false
      }
     ],
     "away": [
@@ -8874,7 +8902,7 @@
       "goals": 19,
       "apps": null,
       "pens": false,
-      "anytime": 0.22,
+      "anytime": 0.217,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -8887,7 +8915,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.22,
+      "anytime": 0.217,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -8900,7 +8928,7 @@
       "goals": 2,
       "apps": null,
       "pens": false,
-      "anytime": 0.166,
+      "anytime": 0.163,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -8922,17 +8950,18 @@
    "result": null,
    "graded": null,
    "prediction": {
-    "p_home": 0.347,
+    "p_home": 0.359,
     "p_draw": 0.298,
-    "p_away": 0.354,
+    "p_away": 0.343,
     "pick": "Draw",
     "pick_type": "draw",
     "score": "1-1",
     "confidence": 1,
     "reasons": [
-     "Rating edge: Paraguay 1794 vs Australia 1796 (-2 incl. venue)",
+     "Rating edge: Paraguay 1786 vs Australia 1780 (+6 incl. venue)",
+     "Paraguay: Miguel Almiron out (Sent off vs Turkey; suspended for Australia match (June 25))",
      "Paraguay: Julio Enciso doubtful",
-     "Form: Paraguay LW · Australia WL"
+     "Australia: Jacob Italiano out (Right adductor injury; unavailable for Paraguay match)"
     ],
     "locked_at": null
    },
@@ -8945,7 +8974,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.221,
+      "anytime": 0.249,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -8958,24 +8987,24 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.166,
+      "anytime": 0.188,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
       "doubtful": false
      },
      {
-      "player": "Miguel Almiron",
-      "club": "Atlanta United",
+      "player": "Julio Enciso",
+      "club": "Strasbourg",
       "pos": "AM",
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.135,
+      "anytime": 0.088,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
-      "doubtful": false
+      "doubtful": true
      }
     ],
     "away": [
@@ -8986,10 +9015,10 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.201,
+      "anytime": 0.198,
       "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
       "doubtful": false
      },
      {
@@ -8999,10 +9028,10 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.201,
+      "anytime": 0.198,
       "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
+      "confidence": 1,
+      "conf_label": "Low",
       "doubtful": false
      },
      {
@@ -9012,7 +9041,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.15,
+      "anytime": 0.148,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -10417,22 +10446,22 @@
   "D": [
    {
     "team": "United States",
-    "exp_pts": 7.5,
+    "exp_pts": 7.4,
     "elo": 1838
    },
    {
-    "team": "Australia",
-    "exp_pts": 4.4,
-    "elo": 1796
-   },
-   {
     "team": "Paraguay",
-    "exp_pts": 4.3,
+    "exp_pts": 4.4,
     "elo": 1798
    },
    {
+    "team": "Australia",
+    "exp_pts": 4.3,
+    "elo": 1796
+   },
+   {
     "team": "Turkey",
-    "exp_pts": 1.2,
+    "exp_pts": 1.3,
     "elo": 1797
    }
   ],
@@ -10621,16 +10650,16 @@
     "team": "Argentina",
     "qualify": 1.0,
     "r16": 0.929,
-    "qf": 0.803,
-    "sf": 0.606,
-    "final": 0.429,
-    "champion": 0.27
+    "qf": 0.804,
+    "sf": 0.604,
+    "final": 0.426,
+    "champion": 0.266
    },
    {
     "team": "Spain",
     "qualify": 1.0,
     "r16": 0.834,
-    "qf": 0.597,
+    "qf": 0.598,
     "sf": 0.484,
     "final": 0.321,
     "champion": 0.197
@@ -10638,152 +10667,152 @@
    {
     "team": "France",
     "qualify": 1.0,
-    "r16": 0.857,
-    "qf": 0.652,
-    "sf": 0.461,
+    "r16": 0.856,
+    "qf": 0.65,
+    "sf": 0.459,
     "final": 0.273,
-    "champion": 0.155
+    "champion": 0.156
    },
    {
     "team": "Netherlands",
     "qualify": 1.0,
-    "r16": 0.66,
-    "qf": 0.556,
-    "sf": 0.282,
-    "final": 0.136,
+    "r16": 0.665,
+    "qf": 0.558,
+    "sf": 0.285,
+    "final": 0.137,
     "champion": 0.061
    },
    {
     "team": "England",
     "qualify": 1.0,
-    "r16": 0.775,
-    "qf": 0.447,
+    "r16": 0.776,
+    "qf": 0.448,
     "sf": 0.268,
-    "final": 0.122,
+    "final": 0.123,
     "champion": 0.058
    },
    {
     "team": "Colombia",
     "qualify": 1.0,
-    "r16": 0.793,
-    "qf": 0.471,
-    "sf": 0.207,
-    "final": 0.109,
-    "champion": 0.048
+    "r16": 0.798,
+    "qf": 0.473,
+    "sf": 0.209,
+    "final": 0.108,
+    "champion": 0.047
    },
    {
     "team": "Brazil",
     "qualify": 1.0,
-    "r16": 0.678,
-    "qf": 0.419,
-    "sf": 0.244,
-    "final": 0.104,
+    "r16": 0.675,
+    "qf": 0.415,
+    "sf": 0.24,
+    "final": 0.103,
     "champion": 0.046
    },
    {
     "team": "Portugal",
     "qualify": 1.0,
-    "r16": 0.716,
+    "r16": 0.718,
     "qf": 0.366,
-    "sf": 0.186,
-    "final": 0.092,
-    "champion": 0.038
+    "sf": 0.184,
+    "final": 0.089,
+    "champion": 0.036
    },
    {
     "team": "United States",
     "qualify": 1.0,
-    "r16": 0.841,
+    "r16": 0.839,
     "qf": 0.578,
-    "sf": 0.189,
+    "sf": 0.191,
     "final": 0.074,
     "champion": 0.024
    },
    {
     "team": "Norway",
     "qualify": 1.0,
-    "r16": 0.732,
-    "qf": 0.345,
-    "sf": 0.162,
-    "final": 0.055,
-    "champion": 0.019
+    "r16": 0.733,
+    "qf": 0.35,
+    "sf": 0.163,
+    "final": 0.056,
+    "champion": 0.02
    },
    {
     "team": "Mexico",
     "qualify": 1.0,
-    "r16": 0.686,
-    "qf": 0.37,
-    "sf": 0.163,
+    "r16": 0.684,
+    "qf": 0.368,
+    "sf": 0.162,
     "final": 0.05,
-    "champion": 0.019
+    "champion": 0.02
    },
    {
     "team": "Germany",
     "qualify": 1.0,
-    "r16": 0.731,
+    "r16": 0.732,
     "qf": 0.259,
     "sf": 0.125,
-    "final": 0.046,
-    "champion": 0.015
+    "final": 0.048,
+    "champion": 0.016
+   },
+   {
+    "team": "Morocco",
+    "qualify": 1.0,
+    "r16": 0.335,
+    "qf": 0.248,
+    "sf": 0.089,
+    "final": 0.031,
+    "champion": 0.01
    },
    {
     "team": "Switzerland",
     "qualify": 1.0,
-    "r16": 0.651,
-    "qf": 0.268,
+    "r16": 0.653,
+    "qf": 0.266,
     "sf": 0.072,
     "final": 0.029,
     "champion": 0.01
    },
    {
-    "team": "Morocco",
-    "qualify": 1.0,
-    "r16": 0.34,
-    "qf": 0.25,
-    "sf": 0.089,
-    "final": 0.031,
-    "champion": 0.009
-   },
-   {
     "team": "Croatia",
     "qualify": 0.986,
-    "r16": 0.41,
-    "qf": 0.147,
-    "sf": 0.066,
+    "r16": 0.408,
+    "qf": 0.144,
+    "sf": 0.065,
     "final": 0.023,
     "champion": 0.007
    },
    {
     "team": "Belgium",
-    "qualify": 0.959,
-    "r16": 0.586,
-    "qf": 0.183,
+    "qualify": 0.96,
+    "r16": 0.59,
+    "qf": 0.186,
     "sf": 0.061,
-    "final": 0.023,
+    "final": 0.022,
     "champion": 0.007
    },
    {
     "team": "Japan",
     "qualify": 1.0,
-    "r16": 0.322,
-    "qf": 0.146,
-    "sf": 0.058,
-    "final": 0.017,
+    "r16": 0.325,
+    "qf": 0.148,
+    "sf": 0.059,
+    "final": 0.018,
     "champion": 0.006
    },
    {
     "team": "Ecuador",
     "qualify": 1.0,
-    "r16": 0.337,
+    "r16": 0.338,
     "qf": 0.131,
-    "sf": 0.051,
-    "final": 0.014,
+    "sf": 0.053,
+    "final": 0.015,
     "champion": 0.004
    },
    {
     "team": "Austria",
-    "qualify": 0.919,
-    "r16": 0.211,
-    "qf": 0.074,
+    "qualify": 0.921,
+    "r16": 0.213,
+    "qf": 0.076,
     "sf": 0.028,
     "final": 0.008,
     "champion": 0.002
@@ -10791,7 +10820,7 @@
    {
     "team": "Canada",
     "qualify": 1.0,
-    "r16": 0.728,
+    "r16": 0.729,
     "qf": 0.166,
     "sf": 0.036,
     "final": 0.007,
@@ -10799,10 +10828,10 @@
    },
    {
     "team": "Australia",
-    "qualify": 0.85,
-    "r16": 0.333,
+    "qualify": 0.842,
+    "r16": 0.329,
     "qf": 0.06,
-    "sf": 0.018,
+    "sf": 0.019,
     "final": 0.005,
     "champion": 0.001
    },
@@ -10810,35 +10839,26 @@
     "team": "Egypt",
     "qualify": 1.0,
     "r16": 0.403,
-    "qf": 0.117,
-    "sf": 0.019,
+    "qf": 0.116,
+    "sf": 0.02,
     "final": 0.004,
     "champion": 0.001
    },
    {
     "team": "Paraguay",
-    "qualify": 0.695,
-    "r16": 0.233,
-    "qf": 0.049,
-    "sf": 0.016,
+    "qualify": 0.707,
+    "r16": 0.236,
+    "qf": 0.051,
+    "sf": 0.017,
     "final": 0.004,
     "champion": 0.001
    },
    {
     "team": "Senegal",
-    "qualify": 0.587,
-    "r16": 0.206,
+    "qualify": 0.582,
+    "r16": 0.203,
     "qf": 0.072,
     "sf": 0.016,
-    "final": 0.004,
-    "champion": 0.001
-   },
-   {
-    "team": "Iran",
-    "qualify": 0.662,
-    "r16": 0.279,
-    "qf": 0.073,
-    "sf": 0.015,
     "final": 0.004,
     "champion": 0.001
    },
@@ -10847,15 +10867,33 @@
     "qualify": 0.226,
     "r16": 0.08,
     "qf": 0.033,
-    "sf": 0.012,
+    "sf": 0.011,
     "final": 0.004,
     "champion": 0.001
    },
    {
+    "team": "Algeria",
+    "qualify": 0.648,
+    "r16": 0.145,
+    "qf": 0.04,
+    "sf": 0.01,
+    "final": 0.003,
+    "champion": 0.001
+   },
+   {
+    "team": "Iran",
+    "qualify": 0.659,
+    "r16": 0.279,
+    "qf": 0.074,
+    "sf": 0.015,
+    "final": 0.004,
+    "champion": 0.0
+   },
+   {
     "team": "South Korea",
-    "qualify": 0.777,
-    "r16": 0.325,
-    "qf": 0.101,
+    "qualify": 0.776,
+    "r16": 0.323,
+    "qf": 0.099,
     "sf": 0.015,
     "final": 0.003,
     "champion": 0.0
@@ -10864,79 +10902,70 @@
     "team": "Sweden",
     "qualify": 1.0,
     "r16": 0.268,
-    "qf": 0.053,
-    "sf": 0.015,
+    "qf": 0.051,
+    "sf": 0.014,
     "final": 0.003,
     "champion": 0.0
    },
    {
     "team": "Ivory Coast",
     "qualify": 1.0,
-    "r16": 0.231,
-    "qf": 0.053,
+    "r16": 0.23,
+    "qf": 0.052,
     "sf": 0.013,
     "final": 0.002,
     "champion": 0.0
    },
    {
-    "team": "Algeria",
-    "qualify": 0.649,
-    "r16": 0.145,
-    "qf": 0.039,
-    "sf": 0.009,
-    "final": 0.002,
-    "champion": 0.0
-   },
-   {
     "team": "Turkey",
-    "qualify": 0.123,
-    "r16": 0.022,
-    "qf": 0.009,
+    "qualify": 0.128,
+    "r16": 0.023,
+    "qf": 0.01,
     "sf": 0.003,
     "final": 0.001,
     "champion": 0.0
    },
    {
-    "team": "South Africa",
-    "qualify": 1.0,
-    "r16": 0.272,
-    "qf": 0.028,
-    "sf": 0.004,
-    "final": 0.0,
-    "champion": 0.0
-   },
-   {
     "team": "Bosnia and Herzegovina",
     "qualify": 1.0,
-    "r16": 0.155,
+    "r16": 0.156,
     "qf": 0.046,
     "sf": 0.004,
     "final": 0.0,
     "champion": 0.0
    },
    {
+    "team": "South Africa",
+    "qualify": 1.0,
+    "r16": 0.271,
+    "qf": 0.028,
+    "sf": 0.003,
+    "final": 0.0,
+    "champion": 0.0
+   },
+   {
     "team": "Scotland",
-    "qualify": 0.136,
-    "r16": 0.022,
+    "qualify": 0.139,
+    "r16": 0.024,
     "qf": 0.006,
-    "sf": 0.002,
+    "sf": 0.001,
     "final": 0.0,
     "champion": 0.0
    },
    {
     "team": "Cape Verde",
-    "qualify": 0.673,
-    "r16": 0.041,
+    "qualify": 0.669,
+    "r16": 0.04,
     "qf": 0.009,
-    "sf": 0.002,
+    "sf": 0.001,
     "final": 0.0,
     "champion": 0.0
    },
    {
     "team": "DR Congo",
-    "qualify": 0.377,
-    "r16": 0.05,
-    "qf": 0.007,
+    "qualify": 0.373,
+    "r16": 0.047,
+    "qf": 0.006,
     "sf": 0.001,
     "final": 0.0,
     "champion": 0.0
@@ -10944,8 +10973,8 @@
    {
     "team": "Ghana",
     "qualify": 1.0,
-    "r16": 0.092,
-    "qf": 0.014,
+    "r16": 0.088,
+    "qf": 0.012,
     "sf": 0.001,
     "final": 0.0,
     "champion": 0.0
@@ -10997,7 +11026,7 @@
    },
    {
     "team": "New Zealand",
-    "qualify": 0.039,
+    "qualify": 0.038,
     "r16": 0.006,
     "qf": 0.0,
     "sf": 0.0,
@@ -11006,8 +11035,8 @@
    },
    {
     "team": "Saudi Arabia",
-    "qualify": 0.326,
-    "r16": 0.014,
+    "qualify": 0.329,
+    "r16": 0.015,
     "qf": 0.003,
     "sf": 0.0,
     "final": 0.0,
@@ -11016,7 +11045,7 @@
    {
     "team": "Iraq",
     "qualify": 0.004,
-    "r16": 0.001,
+    "r16": 0.0,
     "qf": 0.0,
     "sf": 0.0,
     "final": 0.0,
@@ -11025,7 +11054,7 @@
    {
     "team": "Jordan",
     "qualify": 0.004,
-    "r16": 0.0,
+    "r16": 0.001,
     "qf": 0.0,
     "sf": 0.0,
     "final": 0.0,
@@ -11071,9 +11100,9 @@
     "date": "2026-06-29",
     "city": "Foxborough",
     "home": "Germany",
-    "away": "Paraguay",
-    "p_home": 0.663,
-    "p_away": 0.337,
+    "away": "Australia",
+    "p_home": 0.665,
+    "p_away": 0.335,
     "pick": "Germany",
     "score": "2-1",
     "status": "projected",
@@ -11266,10 +11295,10 @@
     "round": "Round of 32",
     "date": "2026-07-03",
     "city": "Arlington",
-    "home": "Australia",
+    "home": "Paraguay",
     "away": "Belgium",
-    "p_home": 0.388,
-    "p_away": 0.612,
+    "p_home": 0.39,
+    "p_away": 0.61,
     "pick": "Belgium",
     "score": "2-1",
     "status": "projected",
