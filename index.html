@@ -335,7 +335,8 @@ const formHTML=f=>!f?'':[...f].map(c=>`<span style="color:${c==='W'?'var(--win)'
 
 fetch('data/predictions.json?t='+Date.now()).then(r=>r.json()).then(d=>{
   DATA=d;
-  const dates=[...new Set(d.matches.map(m=>m.date))].sort();
+  const ko=(d.knockout&&d.knockout.bracket)?d.knockout.bracket.filter(m=>m.home&&m.away).map(m=>m.date):[];
+  const dates=[...new Set(d.matches.map(m=>m.date).concat(ko))].sort();
   const t=todayStr();
   curDate=dates.includes(t)?t:(dates.find(x=>x>=t)||dates[dates.length-1]);
   const up=new Date(d.updated);
@@ -401,7 +402,7 @@ function heroCard(m){
   const winP=homePicked?p.p_home:awayPicked?p.p_away:p.p_draw,fin=m.status==='final';
   return `<div class="hero glass" style="--ac1:${a1};--ac2:${b2}" onclick="this.classList.toggle('open')">
     <div class="edge"></div>
-    <div class="band"><span>★ Match of the Day · Group ${m.group}</span><span>${m.time_et||''} ET</span></div>
+    <div class="band"><span>★ ${m.ko?m.round:'Match of the Day · Group '+m.group}</span><span>${m.ko?'Knockout':(m.time_et||'')+' ET'}</span></div>
     <div class="body"><div class="glow"></div>
       <div class="row">
         <div class="side ${homePicked?'win':''}">
@@ -436,7 +437,7 @@ function matchCard(m,i){
     :`<div class="score">${p.score.replace('-','–')}</div><div class="t">${m.time_et||'TBD'} ET</div>`;
   return `<div class="match glass" style="--ac1:${a1};--ac2:${b2};animation-delay:${Math.min(i*0.04,0.35)}s" onclick="this.classList.toggle('open')">
     <div class="edge"></div>
-    <div class="meta"><span class="chip">Group ${m.group}</span><span>${m.venue?m.venue+' · ':''}${m.city||''}</span></div>
+    <div class="meta"><span class="chip">${m.ko?m.round:'Group '+m.group}</span><span>${m.venue?m.venue+' · ':''}${m.city||''}</span></div>
     <div class="teams">
       <div class="team ${homePicked?'picked':''}">
         ${fl(m.home,38)}
@@ -449,7 +450,7 @@ function matchCard(m,i){
       </div>
     </div>
     <div class="probs"><i class="ph" style="width:${p.p_home*100}%"></i><i class="pd" style="width:${p.p_draw*100}%"></i><i class="pa" style="width:${p.p_away*100}%"></i></div>
-    <div class="plabels"><span>${pct(p.p_home)}</span><span class="dr">draw ${pct(p.p_draw)}</span><span>${pct(p.p_away)}</span></div>
+    <div class="plabels"><span>${pct(p.p_home)}</span>${m.ko?'<span class="dr">to advance</span>':'<span class="dr">draw '+pct(p.p_draw)+'</span>'}<span>${pct(p.p_away)}</span></div>
     <div class="pickline">
       <div class="pick ${m.graded||''}">PICK <span class="tag ${p.pick_type==='draw'?'draw':''}">${p.pick}${m.graded?(m.graded==='correct'?' ✓':' ✗'):''}</span></div>
       ${confBars(p.confidence)}
@@ -458,16 +459,43 @@ function matchCard(m,i){
   </div>`;
 }
 
+function koConf(p){return p>=0.65?5:p>=0.58?4:p>=0.52?3:p>=0.45?2:1;}
+function koGraded(m){
+  if(m.status!=='final'||!m.result)return null;
+  const h=m.result.home_goals,a=m.result.away_goals;
+  if(h===a)return null;            // decided on penalties — winner not in the score
+  return ((h>a?m.home:m.away)===m.pick)?'correct':'wrong';
+}
+function koAsMatch(m){
+  return {
+    id:m.id,date:m.date,time_et:'',city:m.city,venue:'',round:m.round,ko:true,
+    home:m.home,away:m.away,status:m.status==='final'?'final':'scheduled',
+    result:m.result||null,graded:koGraded(m),scorers:null,
+    prediction:{p_home:m.p_home,p_draw:0,p_away:m.p_away,pick:m.pick,
+      pick_type:m.pick===m.away?'away':'home',score:m.score,
+      confidence:koConf(Math.max(m.p_home,m.p_away)),
+      reasons:[`${m.round}${m.city?' · '+m.city:''}`,
+               `Win probability — ${m.home} ${pct(m.p_home)} · ${m.away} ${pct(m.p_away)}`,
+               m.status==='final'?'Result settled':'Projected tie (teams confirm as earlier rounds finish)']}
+  };
+}
+// group fixtures + knockout fixtures, normalized to one shape
+function allFixtures(){
+  const ko=(DATA.knockout&&DATA.knockout.bracket)?DATA.knockout.bracket.filter(m=>m.home&&m.away).map(koAsMatch):[];
+  return DATA.matches.concat(ko);
+}
+
 function render(){
   const v=$('#view');
   if(curView==='today'){
-    const dates=[...new Set(DATA.matches.map(m=>m.date))].sort();
+    const fx=allFixtures();
+    const dates=[...new Set(fx.map(m=>m.date))].sort();
     const t=todayStr();
-    const ms=DATA.matches.filter(m=>m.date===curDate).sort((a,b)=>(a.time_et||'').localeCompare(b.time_et||''));
+    const ms=fx.filter(m=>m.date===curDate).sort((a,b)=>(a.id-b.id));
     const hero=ms.slice().sort((a,b)=>b.prediction.confidence-a.prediction.confidence||(eloSum(b)-eloSum(a)))[0];
     const rest=ms.filter(m=>m!==hero);
     v.innerHTML=`<div class="dates">${dates.map(d=>{
-      const dt=new Date(d+'T12:00:00'),n=DATA.matches.filter(x=>x.date===d).length;
+      const dt=new Date(d+'T12:00:00'),n=fx.filter(x=>x.date===d).length;
       return `<button class="dpill ${d===curDate?'on':''} ${d===t?'today':''}" onclick="curDate='${d}';render()">${dt.toLocaleDateString('en-US',{weekday:'short'})}<span class="d">${dt.getDate()}</span><span class="cnt">${n} ${n===1?'game':'games'}</span></button>`;
     }).join('')}</div>
     <div class="shead"><h2 class="dsp">${fmtDate(curDate)}</h2><span class="meta">${ms.length} match${ms.length!==1?'es':''}</span></div>`
@@ -475,10 +503,11 @@ function render(){
     requestAnimationFrame(()=>{const sc=v.querySelector('.dates'),on=v.querySelector('.dpill.on');if(sc&&on){const s=sc.getBoundingClientRect(),o=on.getBoundingClientRect();sc.scrollLeft+=(o.left-s.left)-(s.width-o.width)/2;}});
   }
   else if(curView==='schedule'){
-    const byDate={};DATA.matches.forEach(m=>{(byDate[m.date]=byDate[m.date]||[]).push(m);});
+    const byDate={};allFixtures().forEach(m=>{(byDate[m.date]=byDate[m.date]||[]).push(m);});
     v.innerHTML=Object.keys(byDate).sort().map(d=>{
-      const ms=byDate[d].sort((a,b)=>(a.time_et||'').localeCompare(b.time_et||''));
-      return `<div class="shead"><h2 class="dsp" style="font-size:16px">${fmtDate(d)}</h2><span class="meta">${ms.length} games</span></div>`+ms.map(matchCard).join('');
+      const ms=byDate[d].sort((a,b)=>(a.id-b.id));
+      const ko=ms[0].ko?` · ${ms[0].round}`:'';
+      return `<div class="shead"><h2 class="dsp" style="font-size:16px">${fmtDate(d)}</h2><span class="meta">${ms.length} game${ms.length!==1?'s':''}${ko}</span></div>`+ms.map(matchCard).join('');
     }).join('');
   }
   else if(curView==='bracket'){ renderBracket(v); }
