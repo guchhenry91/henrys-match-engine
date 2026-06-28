@@ -472,6 +472,7 @@ function render(){
     }).join('')}</div>
     <div class="shead"><h2 class="dsp">${fmtDate(curDate)}</h2><span class="meta">${ms.length} match${ms.length!==1?'es':''}</span></div>`
     +(ms.length?(hero?heroCard(hero):'')+(rest.length?`<div class="shead"><h2 class="dsp" style="font-size:15px;color:var(--txt2)">More fixtures</h2></div>`:'')+rest.map(matchCard).join(''):'<div class="empty glass">No matches scheduled this day.</div>');
+    requestAnimationFrame(()=>{const sc=v.querySelector('.dates'),on=v.querySelector('.dpill.on');if(sc&&on){const s=sc.getBoundingClientRect(),o=on.getBoundingClientRect();sc.scrollLeft+=(o.left-s.left)-(s.width-o.width)/2;}});
   }
   else if(curView==='schedule'){
     const byDate={};DATA.matches.forEach(m=>{(byDate[m.date]=byDate[m.date]||[]).push(m);});
