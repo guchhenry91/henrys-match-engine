@@ -8,9 +8,15 @@ Run: python predict.py
 import json
 import math
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import knockout
+
+try:
+    from zoneinfo import ZoneInfo
+    ET = ZoneInfo("America/New_York")
+except Exception:                       # no tzdata -> fixed EDT (WC is Jun-Jul)
+    ET = timezone(timedelta(hours=-4))
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(ROOT, "data-raw")
@@ -96,10 +102,10 @@ def effective_elo(team, base_elo, news, reasons):
     for inj in info.get("injuries", []):
         is_key = inj.get("player") in key_names
         if inj.get("status") == "out":
-            adj += INJURY_OUT if is_key else INJURY_OUT // 2
+            adj += INJURY_OUT if is_key else int(INJURY_OUT / 2)   # trunc: -7, not floor -8
             reasons.append(f"{team}: {inj.get('player')} out ({inj.get('note', 'injury')})")
         elif inj.get("status") in ("doubtful", "suspended"):
-            adj += INJURY_DOUBT if is_key else INJURY_DOUBT // 2
+            adj += INJURY_DOUBT if is_key else int(INJURY_DOUBT / 2)
             reasons.append(f"{team}: {inj.get('player')} {inj.get('status')}")
     adj = max(adj, INJURY_CAP)
     return base_elo + adj
@@ -307,9 +313,33 @@ def main():
         live[a] -= delta
         played.append(m["id"])
 
+    # ...and from played knockout ties (ids 73+), so later rounds are rated on
+    # current form. Knockout results carry their actual teams; pens count as
+    # a draw for Elo (standard eloratings treatment of the 90/120-min score).
+    bracket_json = load("bracket.json")
+    ko_city = {}
+    if bracket_json:
+        for rd in bracket_json["rounds"]:
+            for bm in rd["matches"]:
+                ko_city[bm["id"]] = bm.get("city", "")
+        if bracket_json.get("third_place"):
+            tp = bracket_json["third_place"]
+            ko_city[tp["id"]] = tp.get("city", "")
+    for mid in sorted((int(k) for k in results if int(k) >= 73)):
+        r = results[str(mid)]
+        h, a = r.get("home"), r.get("away")
+        if not h or not a or h not in live or a not in live:
+            continue
+        adv = HOME_ADV if match_country(ko_city.get(mid, "")) == h else 0
+        dr = live[h] - live[a] + adv
+        delta = elo_update(live[h], live[a], r["home_goals"], r["away_goals"], dr)
+        live[h] += delta
+        live[a] -= delta
+
     matches_out = []
     gmatches = []  # compact group-match list for the knockout simulator
     exp_pts = {}
+    gd = {}        # team -> [goal difference, goals for] from real results
     for m in sorted(schedule["matches"], key=lambda x: (x["date"], x.get("time_et", ""), x["id"])):
         h, a = m["home"], m["away"]
         reasons = []
@@ -356,26 +386,47 @@ def main():
         mid = str(m["id"])
         r = results.get(mid)
         graded = None
+        try:
+            kickoff = datetime.strptime(
+                f"{m['date']} {m.get('time_et') or '12:00'}", "%Y-%m-%d %H:%M").replace(tzinfo=ET)
+        except ValueError:
+            kickoff = None
+        started = kickoff is not None and datetime.now(ET) >= kickoff
         if r is None:
-            # upcoming: keep the locked pick refreshed with the latest model
-            entry = dict(cur_pred); entry["locked_at"] = now_iso
-            picks_log[mid] = entry
-            shown = cur_pred
+            if not started or mid not in picks_log:
+                # upcoming: keep the locked pick refreshed with the latest model
+                entry = dict(cur_pred); entry["locked_at"] = now_iso
+                picks_log[mid] = entry
+            # in-play (kicked off, result pending): the lock stays frozen
+            shown = picks_log[mid] if started else cur_pred
         else:
             # played: freeze and grade the pick locked before the result
             entry = picks_log.get(mid)
             if entry is None:  # match settled before tracking began — best effort
                 entry = dict(cur_pred); entry["locked_at"] = now_iso
+                entry["tainted"] = True    # cannot prove it pre-dates the result
                 picks_log[mid] = entry
+            # a pick "locked" >2.5h after kickoff may have seen the result
+            # (hindsight) — grade it for display but void it from the record
+            if "tainted" not in entry and kickoff is not None:
+                try:
+                    locked = datetime.fromisoformat(entry.get("locked_at", now_iso))
+                    entry["tainted"] = locked > kickoff.astimezone(timezone.utc) + timedelta(hours=2.5)
+                except ValueError:
+                    entry["tainted"] = False
             actual = "home" if r["home_goals"] > r["away_goals"] else "away" if r["away_goals"] > r["home_goals"] else "draw"
             graded = "correct" if entry.get("pick_type") == actual else "wrong"
             shown = entry
+        void = bool(r) and bool(picks_log.get(mid, {}).get("tainted"))
 
         exp_pts.setdefault(h, 0.0)
         exp_pts.setdefault(a, 0.0)
         if r:
             exp_pts[h] += 3 if r["home_goals"] > r["away_goals"] else 1 if r["home_goals"] == r["away_goals"] else 0
             exp_pts[a] += 3 if r["away_goals"] > r["home_goals"] else 1 if r["home_goals"] == r["away_goals"] else 0
+            gd.setdefault(h, [0, 0]); gd.setdefault(a, [0, 0])
+            gd[h][0] += r["home_goals"] - r["away_goals"]; gd[h][1] += r["home_goals"]
+            gd[a][0] += r["away_goals"] - r["home_goals"]; gd[a][1] += r["away_goals"]
         else:
             exp_pts[h] += 3 * ph + pd
             exp_pts[a] += 3 * pa + pd
@@ -385,6 +436,7 @@ def main():
             "status": "final" if r else "scheduled",
             "result": r,
             "graded": graded,
+            "void": void,
             "prediction": {
                 "p_home": shown["p_home"], "p_draw": shown["p_draw"], "p_away": shown["p_away"],
                 "pick": shown["pick"], "pick_type": shown["pick_type"], "score": shown["score"],
@@ -397,8 +449,10 @@ def main():
     standings = {}
     for g, teams in schedule["groups"].items():
         rows = [{"team": t, "exp_pts": round(exp_pts.get(t, 0.0), 1),
+                 "gd": gd.get(t, [0, 0])[0], "gf": gd.get(t, [0, 0])[1],
                  "elo": round(live.get(t, 1500))} for t in teams]
-        rows.sort(key=lambda r: -r["exp_pts"])
+        # FIFA tie-breakers: points, then goal difference, then goals scored
+        rows.sort(key=lambda r: (-r["exp_pts"], -r["gd"], -r["gf"]))
         standings[g] = rows
 
     teams_out = {}
@@ -415,7 +469,10 @@ def main():
             "news": info.get("news", []),
         }
 
-    graded = [m for m in matches_out if m["graded"]]
+    # only cleanly pre-match-locked picks count toward the official record;
+    # picks locked after the fact ("void") are shown on cards but not scored
+    graded = [m for m in matches_out if m["graded"] and not m["void"]]
+    voided = sum(1 for m in matches_out if m["graded"] and m["void"])
     correct = sum(1 for m in graded if m["graded"] == "correct")
     by_conf = {}
     for m in graded:
@@ -427,19 +484,39 @@ def main():
         "correct": correct,
         "wrong": len(graded) - correct,
         "total": len(graded),
+        "void": voided,
         "pending": sum(1 for m in matches_out if m["status"] != "final"),
         "by_confidence": by_conf,
     }
 
     knockout_out = None
-    bracket_path = os.path.join(RAW, "bracket.json")
-    if os.path.exists(bracket_path):
-        with open(bracket_path, encoding="utf-8") as f:
-            bracket_json = json.load(f)
+    if bracket_json:
         sims = int(os.environ.get("WC_SIMS", "20000"))
+        # knockout predictions should feel injuries too, not just raw Elo
+        ko_elo = {t: effective_elo(t, live[t], news, []) for t in live}
         knockout_out = knockout.run(
-            live, schedule["groups"], gmatches, standings, bracket_json, results,
+            ko_elo, schedule["groups"], gmatches, standings, bracket_json, results,
             match_country, HOME_ADV, ELO_PER_GOAL, TOTAL_GOALS, MAX_SUP, sims=sims)
+
+        # lock knockout picks pre-match (same no-hindsight rule as the groups)
+        for b in knockout_out["bracket"]:
+            if not (b.get("home") and b.get("away")):
+                continue
+            kid = str(b["id"])
+            if b["status"] != "final":
+                picks_log[kid] = {
+                    "pick": b["pick"], "p_home": b["p_home"], "p_away": b["p_away"],
+                    "home": b["home"], "away": b["away"],
+                    "score": b["score"], "locked_at": now_iso,
+                }
+            else:
+                locked = picks_log.get(kid)
+                if locked and locked.get("home") == b["home"] and locked.get("away") == b["away"]:
+                    # show and grade the pre-match pick, not a post-result recompute
+                    b["pick"] = locked["pick"]
+                    b["p_home"], b["p_away"] = locked["p_home"], locked["p_away"]
+                    b["score"] = locked.get("score", b["score"])
+
         # fold settled knockout ties into the overall record (pick vs advancer)
         ko_c = ko_t = 0
         for b in knockout_out["bracket"]:

@@ -68,8 +68,9 @@ def main():
     # group stage (has kickoff times)
     for m in sched["matches"]:
         try:
-            ko = datetime.strptime(f"{m['date']} {m['time_et']}", "%Y-%m-%d %H:%M").replace(tzinfo=ET)
-        except (ValueError, KeyError):
+            ko = datetime.strptime(f"{m['date']} {m.get('time_et') or '12:00'}",
+                                   "%Y-%m-%d %H:%M").replace(tzinfo=ET)
+        except ValueError:
             continue
         if str(m["id"]) in results:
             continue
@@ -90,9 +91,12 @@ def main():
             d = datetime.strptime(m["date"], "%Y-%m-%d").date()
         except ValueError:
             continue
-        if d < todate:                        # a past day, still no result
+        days_ago = (todate - d).days
+        # a 22:00-ET tie ends ~00:15 next day — don't declare yesterday's
+        # matches "finished" until 03:00 ET
+        if days_ago > 1 or (days_ago == 1 and today.hour >= 3):
             finished.append(m)
-        elif d == todate:                     # plays today
+        elif days_ago == 0:                   # plays today
             upcoming.append(m)
     print(json.dumps({"finished_unrecorded": finished, "upcoming_4h": upcoming}))
 

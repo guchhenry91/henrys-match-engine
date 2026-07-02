@@ -150,29 +150,48 @@ def run(elo, groups, gmatches, standings, bracket_json, results,
         for g, t, *_ in qual:
             counts[t]["r32"] += 1
 
+        def settled(mid):
+            """A recorded knockout result fixes the advancer — eliminated
+            teams must carry zero odds, so never re-simulate played ties."""
+            r = results.get(str(mid))
+            if not r:
+                return None
+            if r.get("winner"):
+                return r["winner"]
+            if r["home_goals"] != r["away_goals"] and r.get("home"):
+                return r["home"] if r["home_goals"] > r["away_goals"] else r["away"]
+            return None
+
         res = {}  # match id -> winner team
         # Round of 32
         for m in r32:
-            home = winners[m["home"]["g"]] if m["home"]["t"] == "W" else (
-                   runners[m["home"]["g"]] if m["home"]["t"] == "R" else third_team.get(slot_group.get(m["id"])))
-            away = winners[m["away"]["g"]] if m["away"]["t"] == "W" else (
-                   runners[m["away"]["g"]] if m["away"]["t"] == "R" else third_team.get(slot_group.get(m["id"])))
-            if home is None or away is None:
-                # unmatched third fallback: skip cleanly
-                res[m["id"]] = home or away
-                continue
-            res[m["id"]] = winner(home, away, m["city"])
-            counts[res[m["id"]]]["r16"] += 1
+            adv = settled(m["id"])
+            if adv is None:
+                home = winners[m["home"]["g"]] if m["home"]["t"] == "W" else (
+                       runners[m["home"]["g"]] if m["home"]["t"] == "R" else third_team.get(slot_group.get(m["id"])))
+                away = winners[m["away"]["g"]] if m["away"]["t"] == "W" else (
+                       runners[m["away"]["g"]] if m["away"]["t"] == "R" else third_team.get(slot_group.get(m["id"])))
+                if home is None or away is None:
+                    res[m["id"]] = home or away
+                    continue
+                adv = winner(home, away, m["city"])
+            res[m["id"]] = adv
+            if adv in counts:
+                counts[adv]["r16"] += 1
         # later rounds
         round_key = {"Round of 16": "qf", "Quarter-finals": "sf", "Semi-finals": "final", "Final": "champ"}
         for rd in br.rounds[1:]:
             ck = round_key[rd["name"]]
             for m in rd["matches"]:
-                home = res.get(m["home"]["m"]); away = res.get(m["away"]["m"])
-                if home is None or away is None:
-                    res[m["id"]] = home or away; continue
-                res[m["id"]] = winner(home, away, m["city"])
-                counts[res[m["id"]]][ck] += 1
+                adv = settled(m["id"])
+                if adv is None:
+                    home = res.get(m["home"]["m"]); away = res.get(m["away"]["m"])
+                    if home is None or away is None:
+                        res[m["id"]] = home or away; continue
+                    adv = winner(home, away, m["city"])
+                res[m["id"]] = adv
+                if adv in counts:
+                    counts[adv][ck] += 1
 
     odds = []
     for t in teams:

@@ -226,11 +226,11 @@ nav.tabs .pill{position:absolute;top:6px;bottom:6px;border-radius:999px;backgrou
 .kdate{font-size:9px;color:var(--txt3);text-align:center;margin-bottom:3px}
 .knote{font-size:11px;color:var(--txt3);margin:14px 4px 4px;line-height:1.5}
 /* team sheet */
-.sheet-bg{position:fixed;inset:0;background:rgba(2,3,8,.68);backdrop-filter:blur(8px);z-index:40;opacity:0;pointer-events:none;transition:opacity .35s}
+.sheet-bg{position:fixed;inset:0;background:rgba(2,3,8,.68);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:40;opacity:0;pointer-events:none;transition:opacity .35s}
 .sheet-bg.on{opacity:1;pointer-events:auto}
 .sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,105%);width:min(660px,100%);max-height:86vh;overflow-y:auto;z-index:41;
   border-radius:30px 30px 0 0;transition:transform .5s cubic-bezier(.25,1.1,.35,1);background:rgba(12,16,30,.92);
-  backdrop-filter:blur(36px) saturate(185%);border:1px solid var(--stroke);border-bottom:none}
+  backdrop-filter:blur(36px) saturate(185%);-webkit-backdrop-filter:blur(36px) saturate(185%);border:1px solid var(--stroke);border-bottom:none}
 .sheet.on{transform:translate(-50%,0)}
 .sheet::-webkit-scrollbar{width:0}
 .sheet .grab{width:42px;height:5px;border-radius:99px;background:rgba(255,255,255,.22);margin:14px auto 0;position:sticky;top:14px}
@@ -279,7 +279,7 @@ nav.tabs .pill{position:absolute;top:6px;bottom:6px;border-radius:999px;backgrou
     <div class="record glass" id="record"><div class="edge"></div><b>–</b><span>picks record</span></div>
   </header>
   <div id="view"></div>
-  <div class="foot">Elo + FIFA model · injuries, form &amp; venue adjusted · Poisson scorelines &amp; scorer probabilities<br>Predictions refresh daily through the group stage ⚽</div>
+  <div class="foot">Elo + FIFA model · injuries, form &amp; venue adjusted · Poisson scorelines &amp; scorer probabilities<br>Predictions refresh daily · * pick logged late, shown but not counted in the record ⚽</div>
 </div>
 
 <nav class="tabs glass">
@@ -325,8 +325,10 @@ const fl=(t,px)=>{const c=ISO[t];const sz=px||30;
 let DATA=null, curView='today', curDate=null;
 const $=s=>document.querySelector(s);
 const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-const todayStr=()=>{const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');};
-const esc=s=>(s||'').replace(/'/g,"\\'");
+// "today" anchored to US Eastern — the tournament's clock — so phones in
+// other timezones don't jump a day ahead after 9pm ET
+const todayStr=()=>{try{return new Date().toLocaleDateString('en-CA',{timeZone:'America/New_York'});}catch(e){const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}};
+const esc=s=>(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
 const acc=t=>NC[t]||DEF;
 const flag=t=>(DATA.teams[t]&&DATA.teams[t].flag)||'🏳️';
 const pct=p=>Math.round(p*100)+'%';
@@ -350,13 +352,15 @@ const btns=document.querySelectorAll('nav.tabs button'),pill=$('.tabs .pill');
 function movePill(){const b=document.querySelector('nav.tabs button.on');pill.style.left=b.offsetLeft+'px';pill.style.width=b.offsetWidth+'px';}
 btns.forEach(b=>b.onclick=()=>{btns.forEach(x=>x.classList.remove('on'));b.classList.add('on');curView=b.dataset.v;movePill();render();});
 window.addEventListener('load',()=>setTimeout(movePill,60));window.addEventListener('resize',movePill);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>movePill());
 
+let meterSeq=0;
 function meter(p,size){
-  const r=size/2-5,c=2*Math.PI*r,off=c*(1-p);
+  const r=size/2-5,c=2*Math.PI*r,off=c*(1-p),gid='mg'+(++meterSeq);
   return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-    <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f7b034"/></linearGradient></defs>
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f7b034"/></linearGradient></defs>
     <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/>
-    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#mg)" stroke-width="4" stroke-linecap="round"
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#${gid})" stroke-width="4" stroke-linecap="round"
       stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 ${size/2} ${size/2})" style="transition:stroke-dashoffset 1s cubic-bezier(.2,.85,.25,1);filter:drop-shadow(0 0 6px rgba(247,176,52,.45))"/>
     <text x="50%" y="50%" text-anchor="middle" dy="0" font-family="Clash Display,Sora" font-weight="700" font-size="${size*.26}" fill="#fff">${Math.round(p*100)}</text>
     <text x="50%" y="50%" text-anchor="middle" dy="${size*.22}" font-size="${size*.12}" fill="rgba(255,255,255,.4)">%</text>
@@ -402,7 +406,7 @@ function heroCard(m){
   const winP=homePicked?p.p_home:awayPicked?p.p_away:p.p_draw,fin=m.status==='final';
   return `<div class="hero glass" style="--ac1:${a1};--ac2:${b2}" onclick="this.classList.toggle('open')">
     <div class="edge"></div>
-    <div class="band"><span>★ ${m.ko?m.round:'Match of the Day · Group '+m.group}</span><span>${m.ko?'Knockout':(m.time_et||'')+' ET'}</span></div>
+    <div class="band"><span>★ ${m.ko?m.round:'Match of the Day · Group '+m.group}</span><span>${fin?(m.ko&&m.result&&m.result.home_goals===m.result.away_goals?'PENS · FINAL':'FINAL'):(m.ko?'Knockout':(m.time_et||'')+' ET')}</span></div>
     <div class="body"><div class="glow"></div>
       <div class="row">
         <div class="side ${homePicked?'win':''}">
@@ -420,7 +424,7 @@ function heroCard(m){
         </div>
       </div>
       <div class="pickrow">
-        <div class="pick ${m.graded||''}">PICK <span class="tag ${drawPick?'draw':''}">${p.pick}${m.graded?(m.graded==='correct'?' ✓':' ✗'):''}</span></div>
+        <div class="pick ${m.graded||''}">PICK <span class="tag ${drawPick?'draw':''}">${p.pick}${m.graded?(m.graded==='correct'?' ✓':' ✗')+(m.void?'*':''):''}</span></div>
         ${confBars(p.confidence)}
       </div>
       ${whyBlock(m,p)}
@@ -453,7 +457,7 @@ function matchCard(m,i){
     <div class="probs"><i class="ph" style="width:${p.p_home*100}%"></i><i class="pd" style="width:${p.p_draw*100}%"></i><i class="pa" style="width:${p.p_away*100}%"></i></div>
     <div class="plabels"><span>${pct(p.p_home)}</span>${m.ko?'<span class="dr">to advance</span>':'<span class="dr">draw '+pct(p.p_draw)+'</span>'}<span>${pct(p.p_away)}</span></div>
     <div class="pickline">
-      <div class="pick ${m.graded||''}">PICK <span class="tag ${p.pick_type==='draw'?'draw':''}">${p.pick}${m.graded?(m.graded==='correct'?' ✓':' ✗'):''}</span></div>
+      <div class="pick ${m.graded||''}">PICK <span class="tag ${p.pick_type==='draw'?'draw':''}">${p.pick}${m.graded?(m.graded==='correct'?' ✓':' ✗')+(m.void?'*':''):''}</span></div>
       ${confBars(p.confidence)}
     </div>
     ${whyBlock(m,p)}
