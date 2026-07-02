@@ -22,11 +22,10 @@ GIT_ENV = {**os.environ, "GIT_AUTHOR_NAME": "John", "GIT_AUTHOR_EMAIL": "guchhen
 
 def git(*args, fatal=True):
     r = subprocess.run(["git", "-C", ROOT, *args], capture_output=True, text=True, env=GIT_ENV)
-    if r.returncode != 0:
+    if r.returncode != 0 and fatal:
         print(f"git {' '.join(args)} -> {r.returncode}\n{r.stderr.strip()}")
-        if fatal:
-            print("ABORT: git step failed — not publishing a half-done state.")
-            sys.exit(1)
+        print("ABORT: git step failed — not publishing a half-done state.")
+        sys.exit(1)
     return r
 
 
