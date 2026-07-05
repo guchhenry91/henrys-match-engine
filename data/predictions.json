@@ -1,5 +1,5 @@
 {
- "updated": "2026-07-05T08:56:13+00:00",
+ "updated": "2026-07-05T17:39:28+00:00",
  "record": {
   "correct": 54,
   "wrong": 22,
@@ -491,12 +491,17 @@
     {
      "player": "Raphinha",
      "status": "doubtful",
-     "note": "Hamstring injury; missed Scotland and R32 vs Japan; returned to training this week ahead of R16 vs Norway (July 5) but Ancelotti expected to make a late call on his involvement"
+     "note": "Hamstring injury; returned to training Friday but Ancelotti has confirmed he is not ready to start R16 vs Norway (July 5) — available only from the bench, Rayan continues on the right wing"
     },
     {
      "player": "Lucas Paqueta",
      "status": "out",
      "note": "Grade-two thigh strain picked up after the R32 win over Japan; ruled out of R16 vs Norway (July 5), recovery timeline uncertain"
+    },
+    {
+     "player": "Casemiro",
+     "status": "doubtful",
+     "note": "Went down holding his leg in the 92nd minute of the R32 win over Japan; no official diagnosis released, faces a late fitness test but widespread optimism he starts vs Norway (July 5)"
     },
     {
      "player": "Wesley",
@@ -540,7 +545,8 @@
     "Big-name omissions: Joao Pedro, Richarlison, Savinho, Gabriel Jesus, Andrey Santos and 113-cap Thiago Silva all left out; 19-year-old Endrick included.",
     "2026-06-28: R32 vs Japan, June 29 (NRG Stadium, Houston). Neymar expected on bench; Vinicius and Cunha lead attack. Raphinha OUT.",
     "2026-06-29: R32 TODAY vs Japan. Raphinha confirmed OUT (hamstring, targeting R16). 19-year-old Rayan starts on the wing. Expected XI: Alisson; Danilo, Marquinhos, Gabriel, Santos; Guimaraes, Casemiro; Rayan, Paqueta, Vinicius; Cunha.",
-    "2026-07-03 pre-match vs Norway (R16, July 5): Lucas Paqueta ruled OUT with a grade-two thigh strain suffered in the Japan win. Raphinha has returned to training and is a doubt but not yet confirmed to start."
+    "2026-07-03 pre-match vs Norway (R16, July 5): Lucas Paqueta ruled OUT with a grade-two thigh strain suffered in the Japan win. Raphinha has returned to training and is a doubt but not yet confirmed to start.",
+    "2026-07-05 pre-match vs Norway (R16, today): Ancelotti confirms Raphinha not ready to start, available from bench only — Rayan keeps his spot. Casemiro carrying a knock from the Japan win, late fitness test, but expected to start. Predicted XI: Alisson; Danilo, Marquinhos, Gabriel, Santos; Guimaraes, Casemiro; Rayan, Cunha, Vinicius; Endrick."
    ]
   },
   "Morocco": {
@@ -2783,26 +2789,13 @@
    "scorers": {
     "home": [
      {
-      "player": "Folarin Balogun",
-      "club": "Monaco",
-      "pos": "FW",
-      "goals": 19,
-      "apps": null,
-      "pens": false,
-      "anytime": 0.241,
-      "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
-      "doubtful": false
-     },
-     {
       "player": "Ricardo Pepi",
       "club": "PSV Eindhoven",
       "pos": "FW",
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.241,
+      "anytime": 0.282,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -2815,7 +2808,20 @@
       "goals": 2,
       "apps": null,
       "pens": false,
-      "anytime": 0.181,
+      "anytime": 0.214,
+      "shots": "High",
+      "confidence": 2,
+      "conf_label": "Medium",
+      "doubtful": false
+     },
+     {
+      "player": "Christian Pulisic",
+      "club": "AC Milan",
+      "pos": "W",
+      "goals": 8,
+      "apps": 30,
+      "pens": true,
+      "anytime": 0.169,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -3007,7 +3013,7 @@
     "score": "1-0",
     "confidence": 3,
     "reasons": [
-     "Rating edge: Brazil 1985 vs Morocco 1920 (+65 incl. venue)",
+     "Rating edge: Brazil 1981 vs Morocco 1920 (+61 incl. venue)",
      "Brazil: Rodrygo out (ACL rupture and meniscus tear; 7-9 month recovery, likely out for rest of 2026)",
      "Brazil: Eder Militao out (Biceps femoris tendon rupture; 5-month recovery)",
      "Brazil: Estevao out (Grade-four hamstring injury in April; left off the squad)"
@@ -3023,7 +3029,7 @@
       "goals": 10,
       "apps": null,
       "pens": false,
-      "anytime": 0.246,
+      "anytime": 0.244,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -3036,7 +3042,7 @@
       "goals": 15,
       "apps": null,
       "pens": false,
-      "anytime": 0.246,
+      "anytime": 0.244,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -3049,7 +3055,7 @@
       "goals": 22,
       "apps": 53,
       "pens": false,
-      "anytime": 0.192,
+      "anytime": 0.19,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -3064,7 +3070,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.19,
+      "anytime": 0.192,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -3077,7 +3083,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.19,
+      "anytime": 0.192,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -3090,7 +3096,7 @@
       "goals": 1,
       "apps": null,
       "pens": false,
-      "anytime": 0.115,
+      "anytime": 0.116,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
@@ -5667,26 +5673,13 @@
    "scorers": {
     "home": [
      {
-      "player": "Folarin Balogun",
-      "club": "Monaco",
-      "pos": "FW",
-      "goals": 19,
-      "apps": null,
-      "pens": false,
-      "anytime": 0.243,
-      "shots": "High",
-      "confidence": 2,
-      "conf_label": "Medium",
-      "doubtful": false
-     },
-     {
       "player": "Ricardo Pepi",
       "club": "PSV Eindhoven",
       "pos": "FW",
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.243,
+      "anytime": 0.285,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -5699,7 +5692,20 @@
       "goals": 2,
       "apps": null,
       "pens": false,
-      "anytime": 0.183,
+      "anytime": 0.216,
+      "shots": "High",
+      "confidence": 2,
+      "conf_label": "Medium",
+      "doubtful": false
+     },
+     {
+      "player": "Christian Pulisic",
+      "club": "AC Milan",
+      "pos": "W",
+      "goals": 8,
+      "apps": 30,
+      "pens": true,
+      "anytime": 0.17,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -5891,7 +5897,7 @@
     "score": "2-0",
     "confidence": 5,
     "reasons": [
-     "Rating edge: Brazil 1985 vs Haiti 1504 (+481 incl. venue)",
+     "Rating edge: Brazil 1981 vs Haiti 1504 (+477 incl. venue)",
      "Brazil: Rodrygo out (ACL rupture and meniscus tear; 7-9 month recovery, likely out for rest of 2026)",
      "Brazil: Eder Militao out (Biceps femoris tendon rupture; 5-month recovery)",
      "Brazil: Estevao out (Grade-four hamstring injury in April; left off the squad)"
@@ -5907,7 +5913,7 @@
       "goals": 10,
       "apps": null,
       "pens": false,
-      "anytime": 0.403,
+      "anytime": 0.402,
       "shots": "High",
       "confidence": 3,
       "conf_label": "High",
@@ -5920,7 +5926,7 @@
       "goals": 15,
       "apps": null,
       "pens": false,
-      "anytime": 0.403,
+      "anytime": 0.402,
       "shots": "High",
       "confidence": 3,
       "conf_label": "High",
@@ -5933,7 +5939,7 @@
       "goals": 22,
       "apps": 53,
       "pens": false,
-      "anytime": 0.323,
+      "anytime": 0.321,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -8189,7 +8195,7 @@
     "score": "0-2",
     "confidence": 4,
     "reasons": [
-     "Rating edge: Scotland 1726 vs Brazil 1985 (-258 incl. venue)",
+     "Rating edge: Scotland 1726 vs Brazil 1981 (-254 incl. venue)",
      "Scotland: Billy Gilmour out (Knee injury in final friendly vs Curacao; flew to Boston to support teammates as a spectator)",
      "Brazil: Rodrygo out (ACL rupture and meniscus tear; 7-9 month recovery, likely out for rest of 2026)",
      "Brazil: Eder Militao out (Biceps femoris tendon rupture; 5-month recovery)"
@@ -8205,7 +8211,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.103,
+      "anytime": 0.105,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -8218,7 +8224,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.076,
+      "anytime": 0.077,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -8231,7 +8237,7 @@
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.035,
+      "anytime": 0.036,
       "shots": "Medium",
       "confidence": 1,
       "conf_label": "Low",
@@ -8246,7 +8252,7 @@
       "goals": 10,
       "apps": null,
       "pens": false,
-      "anytime": 0.324,
+      "anytime": 0.322,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -8259,7 +8265,7 @@
       "goals": 15,
       "apps": null,
       "pens": false,
-      "anytime": 0.324,
+      "anytime": 0.322,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -8272,7 +8278,7 @@
       "goals": 22,
       "apps": 53,
       "pens": false,
-      "anytime": 0.255,
+      "anytime": 0.254,
       "shots": "High",
       "confidence": 2,
       "conf_label": "Medium",
@@ -9163,29 +9169,16 @@
     ],
     "away": [
      {
-      "player": "Folarin Balogun",
-      "club": "Monaco",
-      "pos": "FW",
-      "goals": 19,
-      "apps": null,
-      "pens": false,
-      "anytime": 0.192,
-      "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
-      "doubtful": false
-     },
-     {
       "player": "Ricardo Pepi",
       "club": "PSV Eindhoven",
       "pos": "FW",
       "goals": null,
       "apps": null,
       "pens": false,
-      "anytime": 0.192,
+      "anytime": 0.226,
       "shots": "High",
-      "confidence": 1,
-      "conf_label": "Low",
+      "confidence": 2,
+      "conf_label": "Medium",
       "doubtful": false
      },
      {
@@ -9195,7 +9188,20 @@
       "goals": 2,
       "apps": null,
       "pens": false,
-      "anytime": 0.143,
+      "anytime": 0.17,
+      "shots": "High",
+      "confidence": 1,
+      "conf_label": "Low",
+      "doubtful": false
+     },
+     {
+      "player": "Christian Pulisic",
+      "club": "AC Milan",
+      "pos": "W",
+      "goals": 8,
+      "apps": 30,
+      "pens": true,
+      "anytime": 0.133,
       "shots": "High",
       "confidence": 1,
       "conf_label": "Low",
@@ -11080,8 +11086,8 @@
     "r16": 1.0,
     "qf": 0.875,
     "sf": 0.605,
-    "final": 0.425,
-    "champion": 0.238
+    "final": 0.426,
+    "champion": 0.239
    },
    {
     "team": "Spain",
@@ -11090,16 +11096,16 @@
     "qf": 0.646,
     "sf": 0.501,
     "final": 0.276,
-    "champion": 0.165
+    "champion": 0.166
    },
    {
     "team": "England",
     "qualify": 1.0,
     "r16": 1.0,
     "qf": 0.501,
-    "sf": 0.294,
-    "final": 0.132,
-    "champion": 0.057
+    "sf": 0.296,
+    "final": 0.133,
+    "champion": 0.058
    },
    {
     "team": "Colombia",
@@ -11114,10 +11120,10 @@
     "team": "Brazil",
     "qualify": 1.0,
     "r16": 1.0,
-    "qf": 0.615,
-    "sf": 0.315,
-    "final": 0.128,
-    "champion": 0.048
+    "qf": 0.61,
+    "sf": 0.308,
+    "final": 0.123,
+    "champion": 0.045
    },
    {
     "team": "Portugal",
@@ -11142,9 +11148,9 @@
     "qualify": 1.0,
     "r16": 1.0,
     "qf": 0.499,
-    "sf": 0.235,
-    "final": 0.08,
-    "champion": 0.026
+    "sf": 0.238,
+    "final": 0.081,
+    "champion": 0.027
    },
    {
     "team": "Switzerland",
@@ -11168,8 +11174,8 @@
     "team": "Norway",
     "qualify": 1.0,
     "r16": 1.0,
-    "qf": 0.385,
-    "sf": 0.156,
+    "qf": 0.39,
+    "sf": 0.158,
     "final": 0.048,
     "champion": 0.012
    },
@@ -11569,8 +11575,8 @@
     "city": "Houston",
     "home": "Brazil",
     "away": "Japan",
-    "p_home": 0.685,
-    "p_away": 0.315,
+    "p_home": 0.68,
+    "p_away": 0.32,
     "pick": "Brazil",
     "winner": "Brazil",
     "score": "2-1",
@@ -11884,8 +11890,8 @@
     "city": "East Rutherford",
     "home": "Brazil",
     "away": "Norway",
-    "p_home": 0.614,
-    "p_away": 0.386,
+    "p_home": 0.608,
+    "p_away": 0.392,
     "pick": "Brazil",
     "winner": null,
     "score": "2-1",
@@ -12004,8 +12010,8 @@
     "city": "Miami Gardens",
     "home": "Brazil",
     "away": "England",
-    "p_home": 0.458,
-    "p_away": 0.542,
+    "p_home": 0.452,
+    "p_away": 0.548,
     "pick": "England",
     "winner": null,
     "score": "2-1",
