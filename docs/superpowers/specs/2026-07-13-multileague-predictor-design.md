@@ -14,7 +14,7 @@ Extend the existing World Cup app (`C:\Users\John\worldcup`, live at worldcup-nn
 
 **In (v1):**
 - **4 leagues:** Premier League (E0, 20 teams), La Liga (SP1, 20), Bundesliga (D1, 18), Ligue 1 (F1, 18). All 2026-27 fixtures already released.
-- Per-match: 1X2 %, predicted scoreline, confidence, top-3 anytime scorers/team, locked + graded pick.
+- Per-match: 1X2 %, predicted scoreline, confidence, **player props (top-3/team: anytime scorer, shots, shots on target)**, locked + graded pick.
 - Per-league: projected final table + title / top-4 (European) / relegation odds via season Monte Carlo, refreshed weekly.
 - Backtest report per league (accuracy, RPS, Brier vs market).
 - Integrated into the existing app behind a **competition switcher** (World Cup stays as-is; leagues added).
@@ -78,15 +78,24 @@ Built on **penaltyblog** (MIT, maintained through 2026) so we compose tested cod
 
 Everything is `.fit()` once per league per update (seconds), then `.predict()` per fixture.
 
-## 6. Player scorer model (`scorers.py`)
+## 6. Player props model (`scorers.py`) — goals **and shots**
 
-A real upgrade over the WC's `goals/apps × share`:
+A real upgrade over the WC's `goals/apps × share`. Same machinery drives three player props: **anytime scorer**, **shots**, and **shots on target**.
 
+**6a. Anytime scorer**
 - **Per-90 rate** blending realized and expected: `rate90 = w·(npG/90s) + (1-w)·(npxG/90s)`, `w`≈0.6 for high-minute players, ~0.4 for low-sample. Uses **non-penalty** xG/goals.
-- **Empirical-Bayes shrinkage** to position priors for new signings/few-minutes: `rate90 = (m·obs + K·prior_pos)/(m+K)`, K≈5–10 nineties; position priors (FW ~0.45, W ~0.25, AM ~0.20, DF ~0.05 g/90) computed from our own 5-season pool. Cross-league transfers adjusted by ClubElo league-strength ratio.
+- **Empirical-Bayes shrinkage** to position priors for new signings/few-minutes: `rate90 = (m·obs + K·prior_pos)/(m+K)`, K≈5–10 nineties; position priors (FW ~0.45, W ~0.25, AM ~0.20, DF ~0.05 g/90) from our own 5-season pool. Cross-league transfers adjusted by ClubElo league-strength ratio.
 - **Season decay:** weight each historical 90 by `α^(seasons_ago)`, α≈0.7.
 - **Penalties separate:** only the designated taker gets `λ_pen = ExpPens_team × 0.76`.
-- **Tie to the match model:** rescale players so `Σλ_i = Λ_team` (the fitted team goal expectation), then **anytime P = 1 − exp(−λ_i)**. Top-3/team surfaced, penalty-taker flagged, "DOUBT" flag when injured/doubtful (reusing WC logic).
+- **Tie to the match model:** rescale players so `Σλ_i = Λ_team` (fitted team goal expectation), then **anytime P = 1 − exp(−λ_i)**.
+
+**6b. Shots & shots on target** (new — per the "player shots / shot attempts" requirement)
+- **Expected shots per match:** `s_i = shots90_i × (exp_minutes_i/90) × opp_volume_adj`, where `shots90_i` is the player's decay-weighted, shrinkage-corrected **total shots per 90** (FBref `Sh`), and `opp_volume_adj` scales by how many shots the opponent typically concedes vs league average (a team is more/less likely to generate shots by matchup). Same empirical-Bayes shrinkage to **position shot priors** (FW ~2.5, W ~1.8, AM ~1.4, MF ~0.9, DF ~0.4 shots/90) for low-sample players.
+- **Shots on target:** `sot_i = s_i × player_sot_ratio_i` (career shots-on-target ÷ shots, shrunk to a ~0.35 league prior).
+- **Prop probabilities** (Poisson on the expected counts): **P(1+ shot) = 1−exp(−s_i)**, **P(2+ shots) = 1−exp(−s_i)(1+s_i)**, **P(1+ shot on target) = 1−exp(−sot_i)**. Also surface the **expected shot count** itself (e.g. "Saka — 3.1 shots, 78% 2+").
+- Team's overall shot volume is anchored to the match model's expected goals (more expected goals ⇒ proportionally more expected shots via the league's goals-per-shot conversion), keeping shots and the scoreline internally consistent.
+
+**Shared:** top-3 players/team per prop; penalty-taker flagged; **"DOUBT"** flag when injured/doubtful (reusing WC logic); everything backtested against historical player shot/goal logs where feasible.
 
 ## 7. Season simulation (`sim.py`)
 
@@ -125,7 +134,7 @@ Before trusting picks, **walk-forward** validate: train on matches up to date t,
 
 1. **Data layer + name maps** — pull & cache 5 seasons for all 4 leagues; verify against known tables.
 2. **Match model + backtest** — fit Dixon-Coles + xG + priors + calibration; walk-forward validate each league; tune ξ and xG weight. **Gate: must beat baseline & approach market before proceeding.**
-3. **Player scorer model.**
+3. **Player props model** — anytime scorer **+ shots + shots on target**.
 4. **Season simulation.**
 5. **Orchestrator → `data/leagues/<lg>.json`** (contract mirrors WC `predictions.json` where possible).
 6. **UI: competition switcher + league views + performance page.**
