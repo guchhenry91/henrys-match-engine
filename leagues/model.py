@@ -59,6 +59,32 @@ def outcome_probs(grid: np.ndarray) -> tuple[float, float, float]:
             float(np.triu(grid, 1).sum()))
 
 
+def elo_priors(elo: dict[str, float], model: "LeagueModel") -> dict[str, tuple[float, float]]:
+    """Convert raw ClubElo ratings onto the model's LOG-STRENGTH scale.
+
+    ClubElo is ~1500-2000; attack/defence live in a band roughly +/-0.5 wide.
+    Feeding raw Elo into the strengths would blow lambda to the clip on every
+    match. Instead map each club's Elo z-score onto the fitted spread of the
+    league's strengths: a club one standard deviation above average in Elo gets
+    a strength one standard deviation above average.
+    """
+    if not elo or not model.attack:
+        return {}
+    vals = np.array(list(elo.values()), dtype=float)
+    mu = float(vals.mean())
+    sd = float(vals.std()) or 1.0
+    att = np.array(list(model.attack.values()), dtype=float)
+    dfn = np.array(list(model.defence.values()), dtype=float)
+    a_mu, a_sd = float(att.mean()), float(att.std())
+    d_mu, d_sd = float(dfn.mean()), float(dfn.std())
+    out = {}
+    for team, rating in elo.items():
+        z = (float(rating) - mu) / sd
+        # stronger club: higher attack, more negative (better) defence
+        out[team] = (a_mu + a_sd * z, d_mu - d_sd * z)
+    return out
+
+
 @dataclass
 class LeagueModel:
     xi: float = XI_PER_DAY
@@ -84,17 +110,35 @@ class LeagueModel:
 
         xg_att, xg_def = self._xg_strengths(df, ref)
         teams = sorted(set(goal_att) | set(goal_def))
+
+        # Blend DEVIATIONS, not raw values. penaltyblog identifies the model by
+        # pinning mean(attack)=1 and letting defence absorb the league scoring
+        # level (mean ~ -0.8), while the xG log-ratios are centred on 0. Mixing
+        # the two raw scales shifts every lambda down ~12-18% — under-predicting
+        # goals and inflating draws. Re-centring both on the goal model's level
+        # keeps the league's true scoring rate and makes the xG channel purely a
+        # (better) estimate of how far each team deviates from average.
+        ga_mean = float(np.mean(list(goal_att.values()))) if goal_att else 0.0
+        gd_mean = float(np.mean(list(goal_def.values()))) if goal_def else 0.0
+        xa_mean = float(np.mean(list(xg_att.values()))) if xg_att else 0.0
+        xd_mean = float(np.mean(list(xg_def.values()))) if xg_def else 0.0
+
         self.attack, self.defence = {}, {}
         for t in teams:
-            ga, gd = goal_att.get(t, 0.0), goal_def.get(t, 0.0)
+            ga, gd = goal_att.get(t, ga_mean), goal_def.get(t, gd_mean)
             xa, xd = xg_att.get(t), xg_def.get(t)
             if xa is None or xd is None:
+                # no xG for this team: use its goal-based deviation only. Because
+                # everything is expressed on the goal model's level, this team is
+                # on the SAME scale as the rest (previously it became a superteam).
                 self.attack[t], self.defence[t] = ga, gd
             else:
-                self.attack[t] = self.xg_weight * xa + (1 - self.xg_weight) * ga
-                self.defence[t] = self.xg_weight * xd + (1 - self.xg_weight) * gd
-        if priors:
-            self._apply_priors(df, w, priors)
+                w_xg = self.xg_weight
+                self.attack[t] = ga_mean + w_xg * (xa - xa_mean) + (1 - w_xg) * (ga - ga_mean)
+                self.defence[t] = gd_mean + w_xg * (xd - xd_mean) + (1 - w_xg) * (gd - gd_mean)
+
+        self.level = (ga_mean, gd_mean)
+        self._shrink_low_data(df, w, priors, ga_mean, gd_mean)
         return self
 
     def _parse_params(self, clf):
@@ -138,17 +182,35 @@ class LeagueModel:
             dfn[team] = float(np.log(max(a, 0.05) / avg))
         return att, dfn
 
-    def _apply_priors(self, df, w, priors):
-        """Shrink strengths toward a prior for teams with little history."""
+    def _shrink_low_data(self, df, w, priors, ga_mean, gd_mean):
+        """Partial pooling: pull thinly-evidenced teams toward a prior.
+
+        Without this, a promoted club fitted on one or two matches gets an absurd
+        rating (a side that lost 0-4 on debut was rated 1.8% to win at home vs
+        mid-table). Two prior sources, in order of preference:
+
+        * `priors` — a team -> (attack, defence) mapping ALREADY on the log-strength
+          scale (see `elo_priors`). Use for promoted clubs, where ClubElo knows the
+          team from the division below and the league itself knows nothing.
+        * otherwise the league average — plain hierarchical shrinkage toward the mean.
+
+        A team with NO matches at all is seeded outright, so it becomes predictable
+        instead of raising KeyError.
+        """
+        priors = priors or {}
+        for team, p in priors.items():           # seed teams with zero history
+            if team not in self.attack:
+                self.attack[team], self.defence[team] = p
+
         for team in list(self.attack):
-            p = priors.get(team)
-            if p is None:
-                continue
             mask = ((df["home"] == team) | (df["away"] == team)).to_numpy()
-            eff = float(w[mask].sum())
-            k = PRIOR_STRENGTH / (PRIOR_STRENGTH + eff)
-            self.attack[team] = (1 - k) * self.attack[team] + k * p
-            self.defence[team] = (1 - k) * self.defence[team] - k * p
+            eff = float(w[mask].sum()) if len(mask) == len(w) else 0.0
+            k = PRIOR_STRENGTH / (PRIOR_STRENGTH + eff)      # k -> 1 when no data
+            if k < 0.02:                                      # plenty of evidence
+                continue
+            pa, pdf = priors.get(team, (ga_mean, gd_mean))
+            self.attack[team] = (1 - k) * self.attack[team] + k * pa
+            self.defence[team] = (1 - k) * self.defence[team] + k * pdf
 
     def lambdas(self, home: str, away: str):
         for t in (home, away):
