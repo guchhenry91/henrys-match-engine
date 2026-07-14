@@ -91,3 +91,9 @@ tr.ucl td:first-child{box-shadow:inset 3px 0 0 var(--win)}
 .metric{font-size:12px;color:var(--txt3)}
 .metric b{display:block;font-size:19px;color:var(--txt);font-family:'Clash Display','Sora',sans-serif}
 .note{margin-top:12px;font-size:12.5px;color:var(--txt3)}
+
+/* honest gaps: never let missing data look like an empty section */
+.missing{font-size:12px;color:var(--txt3);line-height:1.5;margin-top:2px}
+.warn{padding:12px 16px;border-radius:var(--r-md);font-size:13px;line-height:1.55;
+  color:#ffd9a0;background:rgba(247,176,52,.09);border:1px solid rgba(247,176,52,.28);margin-bottom:14px}
+.warn b{color:var(--g1)}

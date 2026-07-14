@@ -59,11 +59,19 @@ def build(league: str = "PL") -> dict:
         # fitted at league average and quietly kept out of the relegation places.
         no_history = [t for t in squad_teams if t not in base.attack]
         priors = promoted_priors(base, no_history)
+        if len(no_history) > 1:
+            names = ", ".join(no_history[:-1]) + f" and {no_history[-1]}"
+        elif no_history:
+            names = no_history[0]
+        else:
+            names = "the promoted clubs"
         warnings.append(
-            f"ClubElo unavailable ({exc.__class__.__name__}); promoted clubs "
-            f"{no_history} seeded at the strength of the league's weakest sides "
-            f"instead of their true rating from the division below.")
-        print("WARNING:", warnings[-1])
+            f"The club-rating service was unreachable when this was built, so "
+            f"{names} are rated as if they were the weakest side in the league "
+            f"rather than by their actual form in the division below. Their "
+            f"projected finish is a rough placeholder until it recovers.")
+        print(f"WARNING: ClubElo unavailable ({exc}); {names} seeded from the "
+              f"weakest fitted sides")
     model = LeagueModel().fit(matches, ref=ref, priors=priors)
 
     # Only players who actually appeared last season, with realistic minutes.

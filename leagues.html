@@ -94,9 +94,15 @@ async function load() {
           <span><b>${pct(100 * p.p_away)}</b></span>
         </div>
         ${homeProps.length ? `<div class="side-label">${m.home} — likely scorers</div>
-          <ul class="props">${propList(homeProps)}</ul>` : ''}
+          <ul class="props">${propList(homeProps)}</ul>`
+          : `<div class="side-label">${m.home} — likely scorers</div>
+             <p class="missing">No player data: newly promoted, so they have no
+             top-flight record to build scorer or shot numbers from.</p>`}
         ${awayProps.length ? `<div class="side-label">${m.away} — likely scorers</div>
-          <ul class="props">${propList(awayProps)}</ul>` : ''}`;
+          <ul class="props">${propList(awayProps)}</ul>`
+          : `<div class="side-label">${m.away} — likely scorers</div>
+             <p class="missing">No player data: newly promoted, so they have no
+             top-flight record to build scorer or shot numbers from.</p>`}`;
       grid.append(card);
     }
     app.append(grid);
@@ -104,6 +110,11 @@ async function load() {
 
   // ---- projected table ----
   app.append(el('h2', 'dsp', 'Projected final table'));
+  if ((data.data_warnings || []).length) {
+    const warn = el('div', 'warn');
+    warn.innerHTML = `<b>Heads up —</b> ${data.data_warnings.join(' ')}`;
+    app.append(warn);
+  }
   const wrap = el('div', 'table-wrap glass');
   const rows = data.table.map((t, i) => {
     const rel = i >= data.table.length - 3 ? 'rel' : '';
