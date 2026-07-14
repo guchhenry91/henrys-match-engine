@@ -1,0 +1,152 @@
+"""Player props: anytime scorer, shots, shots on target.
+
+Pipeline: rates -> shrinkage -> expected minutes -> penalties -> RESCALE to the
+match model's team lambda -> Poisson props.
+
+The rescale (match_props) is load-bearing: it is the ONLY channel by which
+opponent strength and home advantage reach the player numbers. Without it a
+striker's number is identical against Brentford and Liverpool -- a season-long
+rate table wearing a costume.
+
+All constants below are PROVISIONAL: they come from the design spec's research,
+not from our own data. props_backtest.py is what tunes them.
+"""
+import numpy as np
+import pandas as pd
+
+# non-penalty goals per 90, by primary position
+GOAL_PRIORS = {"FW": 0.45, "AM": 0.20, "MF": 0.10, "DF": 0.05, "GK": 0.001}
+# total shots per 90, by primary position
+SHOT_PRIORS = {"FW": 2.5, "AM": 1.4, "MF": 0.9, "DF": 0.4, "GK": 0.02}
+SOT_RATIO_PRIOR = 0.35
+SOT_PRIOR_SHOTS = 10.0    # shrinkage strength for the on-target ratio, in shots
+
+SEASON_DECAY = 0.7        # alpha ^ (seasons ago)
+K_NINETIES = 7.0          # empirical-Bayes strength, in 90s
+W_REALIZED_HIGH = 0.6     # weight on actual goals for high-minute players
+W_REALIZED_LOW = 0.4      # ...and for low-sample players (trust xG more)
+HIGH_MINUTE_90S = 10.0
+PEN_CONVERSION = 0.76
+
+
+def _prior(pos: str, table: dict, default_key: str = "MF") -> float:
+    return table.get(pos, table[default_key])
+
+
+def player_rates(logs: pd.DataFrame, ref: pd.Timestamp) -> pd.DataFrame:
+    """Decay-weighted, shrunk per-90 rates for every player in the logs.
+
+    One row per player: team, pos, nineties, rate90 (non-penalty goals),
+    shots90, sot_ratio.
+    """
+    df = logs.copy()
+    df["date"] = pd.to_datetime(df["date"])
+    seasons_ago = ((ref - df["date"]).dt.days / 365.25).clip(lower=0)
+    df["w"] = SEASON_DECAY ** seasons_ago
+    df["w90"] = df["w"] * df["minutes"] / 90.0
+
+    out = []
+    for (team, player), g in df.groupby(["team", "player"], sort=False):
+        n90 = float(g["w90"].sum())
+        if n90 <= 0:
+            continue
+        pos = g["pos"].mode().iat[0] if not g["pos"].mode().empty else "MF"
+
+        # 1. blend realized goals with xG; trust xG more when the sample is thin,
+        #    because goals are near-pure noise at low volume.
+        w_real = W_REALIZED_HIGH if n90 >= HIGH_MINUTE_90S else W_REALIZED_LOW
+        g_per90 = float((g["np_goals"] * g["w"]).sum()) / n90
+        x_per90 = float((g["npxg"] * g["w"]).sum()) / n90
+        obs_goal = w_real * g_per90 + (1 - w_real) * x_per90
+        obs_shot = float((g["shots"] * g["w"]).sum()) / n90
+
+        shots_tot = float((g["shots"] * g["w"]).sum())
+        sot_tot = float((g["sot"] * g["w"]).sum())
+
+        # 2. empirical-Bayes shrinkage toward the position prior
+        k = K_NINETIES
+        rate90 = (n90 * obs_goal + k * _prior(pos, GOAL_PRIORS)) / (n90 + k)
+        shots90 = (n90 * obs_shot + k * _prior(pos, SHOT_PRIORS)) / (n90 + k)
+        # the on-target ratio shrinks on SHOTS taken, not on nineties
+        sot_ratio = ((sot_tot + SOT_PRIOR_SHOTS * SOT_RATIO_PRIOR)
+                     / (shots_tot + SOT_PRIOR_SHOTS))
+
+        out.append({"team": team, "player": player, "pos": pos, "nineties": n90,
+                    "rate90": rate90, "shots90": shots90, "sot_ratio": sot_ratio})
+
+    return pd.DataFrame(out)
+
+
+def match_props(rates: pd.DataFrame, home: str, away: str,
+                lam_home: float, lam_away: float,
+                minutes: dict | None = None,
+                pen_taker: dict | None = None,
+                opp_shot_factor: dict | None = None,
+                exp_pens: dict | None = None) -> list[dict]:
+    """Per-player props for ONE fixture.
+
+    lam_home/lam_away are the match model's fitted team goal expectations
+    (LeagueModel.predict -> lambda_home/lambda_away). Every player's goal lambda
+    is rescaled so that each team's players sum to exactly that number.
+
+    minutes:         player -> expected minutes (default 90)
+    pen_taker:       team -> the player who takes penalties
+    opp_shot_factor: team -> multiplier for how many shots the OPPONENT concedes
+                     relative to league average (1.0 = average)
+    exp_pens:        team -> expected penalties awarded in this match
+    """
+    minutes = minutes or {}
+    pen_taker = pen_taker or {}
+    opp_shot_factor = opp_shot_factor or {}
+    exp_pens = exp_pens or {}
+
+    out = []
+    for team, lam_team in ((home, lam_home), (away, lam_away)):
+        squad = rates[rates["team"] == team].copy()
+        if squad.empty:
+            continue
+
+        squad["exp_min"] = [float(minutes.get(p, 90.0)) for p in squad["player"]]
+        squad["raw"] = squad["rate90"] * squad["exp_min"] / 90.0
+
+        # Penalties are a TEAM property: take them out of the open-play budget
+        # and hand them to exactly one player, rather than smearing them across
+        # every attacker.
+        taker = pen_taker.get(team)
+        lam_pen = float(exp_pens.get(team, 0.0)) * PEN_CONVERSION
+        lam_pen = min(lam_pen, max(lam_team - 1e-6, 0.0))
+        lam_open = max(lam_team - lam_pen, 0.0)
+
+        total_raw = float(squad["raw"].sum())
+        scale = (lam_open / total_raw) if total_raw > 0 else 0.0
+        factor = float(opp_shot_factor.get(team, 1.0))
+
+        for _, r in squad.iterrows():
+            lam_goals = float(r["raw"]) * scale
+            is_taker = bool(r["player"] == taker)
+            if is_taker:
+                lam_goals += lam_pen
+
+            s = float(r["shots90"]) * float(r["exp_min"]) / 90.0 * factor
+            sot = s * float(r["sot_ratio"])
+
+            out.append({
+                "team": team,
+                "player": r["player"],
+                "position": r["pos"],
+                "lambda_goals": lam_goals,
+                "anytime_pct": round(100.0 * (1.0 - np.exp(-lam_goals)), 1),
+                "exp_shots": round(s, 2),
+                "p_shots_2plus": round(100.0 * (1.0 - np.exp(-s) * (1.0 + s)), 1),
+                "exp_sot": round(sot, 2),
+                "p_sot_1plus": round(100.0 * (1.0 - np.exp(-sot)), 1),
+                "penalty_taker": is_taker,
+                "doubt": False,
+            })
+    return out
+
+
+def top_props(props: list[dict], team: str, n: int = 3) -> list[dict]:
+    """Top-n players for a team by anytime probability."""
+    squad = [p for p in props if p["team"] == team]
+    return sorted(squad, key=lambda p: p["anytime_pct"], reverse=True)[:n]
