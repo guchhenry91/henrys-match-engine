@@ -28,3 +28,44 @@ Never run predict.py + git + deploy hook by hand in the tasks. After editing any
 6. Render is connected by public Git URL and does NOT auto-deploy on push — trigger a redeploy by POSTing the deploy hook stored at `C:\Users\John\.claude\worldcup-deploy-hook.txt` (PowerShell: `Invoke-RestMethod -Method Post -Uri "<hook>"`).
 
 Rules: never invent scores or injuries — only verified info. Team names must exactly match the names in schedule.json. Keep reasons concise.
+
+---
+
+# Leagues engine (Premier League — Phase 2a)
+
+A second, independent predictor living in `leagues/`. It shares the repo and
+`deploy.py` with the World Cup app but **touches none of its files**: the WC
+engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
+
+- `leagues.html` + `leagues.css` — the PL page. Reads `data/leagues/pl.json` and
+  `data/leagues/clubs.json` only. Linked to/from `index.html` by a plain switcher.
+- `python -m leagues.publish` — the one command. Fits the model, sims the season,
+  builds player props, locks picks, writes `data/leagues/pl.json` atomically.
+- `python -m leagues.tune` — the match-model gate (walk-forward vs de-vigged
+  closing odds). `python -m leagues.props_backtest` — the props gate.
+
+## Data sources
+- Results + closing odds: football-data.co.uk. Team xG: Understat.
+- **Players: Understat season stats + shot events** — NOT FBref. soccerdata's
+  FBref player-match reader drives a headless Chrome per match page (~4/min):
+  five seasons of one league is ~8 hours. Understat gives the same signal in
+  seconds.
+- **Penalties are unlabelled**: soccerdata maps Understat's "Penalty" situation
+  to NA. Match on NA, not on the string, or every club silently gets no penalty
+  taker (see the regression test in `tests/leagues/test_players.py`).
+- ClubElo (promoted-club priors) is disk-cached under `data-raw/leagues/cache/`
+  and **fails loudly**: if it is unreachable, publish seeds promoted clubs at the
+  weakest fitted sides and records it in the payload's `data_warnings`, rather
+  than rating every club at the league median.
+
+## Scheduled jobs — NOT YET REGISTERED
+`ops/leagues_weekly.py` and `ops/leagues_matchday.py` are written and working but
+deliberately unregistered: the 2026-27 season starts **2026-08-21** (MW1: Arsenal
+v Coventry), and before then they would republish an unchanged file every week.
+
+**Register them in mid-August:**
+- `leagues-weekly` — cron `0 6 * * 2` (Tue 06:00, after Monday-night football).
+- `leagues-matchday` — cron `0 23 * * 6,0` (Sat/Sun 23:00, after the day's games).
+
+Both abort rather than deploy if a fetch fails — never ship a stale-but-fresh-
+looking file.
