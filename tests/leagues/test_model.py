@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from leagues.model import LeagueModel, dc_tau, scoreline_grid
+from leagues.model import Calibrator, LeagueModel, blend_probs, dc_tau, scoreline_grid
 
 
 def test_dc_tau_lifts_draws_and_trims_1_0():
@@ -52,3 +52,20 @@ def test_predict_unknown_team_raises():
     m = LeagueModel().fit(_toy_matches(), ref=pd.Timestamp("2026-06-20"))
     with pytest.raises(KeyError):
         m.predict("A", "ZZ")
+
+
+def test_blend_probs_averages_and_normalizes():
+    out = blend_probs((0.5, 0.3, 0.2), (0.7, 0.2, 0.1), weight=0.5)
+    assert abs(sum(out) - 1.0) < 1e-9
+    assert abs(out[0] - 0.6) < 1e-9
+
+
+def test_calibrator_preserves_discrimination_and_normalizes():
+    rng = np.random.default_rng(1)
+    p = rng.dirichlet([2, 1, 2], size=500)
+    y = np.array([rng.choice(3, p=row) for row in p])
+    cal = Calibrator().fit(p, y)
+    out = cal.transform(p)
+    assert out.shape == p.shape
+    assert np.allclose(out.sum(axis=1), 1.0, atol=1e-6)
+    assert np.corrcoef(out[:, 0], p[:, 0])[0, 1] > 0.9

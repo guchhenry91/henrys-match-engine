@@ -20,6 +20,8 @@ import numpy as np
 import pandas as pd
 import penaltyblog as pb
 from scipy.stats import poisson
+from sklearn.isotonic import IsotonicRegression
+
 from leagues.weights import XI_PER_DAY, decay_weights
 
 XG_WEIGHT = 0.75
@@ -164,3 +166,34 @@ class LeagueModel:
         return {"p_home": ph, "p_draw": pdw, "p_away": pa,
                 "lambda_home": lh, "lambda_away": la,
                 "score": f"{int(h)}-{int(a)}", "grid": grid}
+
+
+def blend_probs(a, b, weight: float = 0.5):
+    """Convex blend of two 1X2 forecasts, renormalized."""
+    out = np.array(a, dtype=float) * weight + np.array(b, dtype=float) * (1 - weight)
+    out = np.clip(out, 1e-9, None)
+    out = out / out.sum()
+    return float(out[0]), float(out[1]), float(out[2])
+
+
+class Calibrator:
+    """One-vs-rest isotonic recalibration of 1X2 probabilities, renormalized.
+    Fit on a HELD-OUT period only — never on the training matches."""
+
+    def __init__(self):
+        self.iso = []
+
+    def fit(self, probs: np.ndarray, outcomes: np.ndarray):
+        self.iso = []
+        for k in range(3):
+            ir = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0)
+            ir.fit(probs[:, k], (outcomes == k).astype(float))
+            self.iso.append(ir)
+        return self
+
+    def transform(self, probs: np.ndarray) -> np.ndarray:
+        if not self.iso:
+            return probs
+        out = np.column_stack([self.iso[k].predict(probs[:, k]) for k in range(3)])
+        out = np.clip(out, 1e-6, None)
+        return out / out.sum(axis=1, keepdims=True)
