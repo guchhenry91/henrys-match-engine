@@ -93,7 +93,7 @@ ALIASES = {
         "Bielefeld": {"Arminia Bielefeld", "DSC Arminia Bielefeld"},
         "Bochum": {"VfL Bochum"},
         "Darmstadt": {"SV Darmstadt 98", "Darmstadt 98"},
-        "Greuther Furth": {"SpVgg Greuther Fürth", "SpVgg Greuther Furth", "Greuther Fürth"},
+        "Greuther Furth": {"SpVgg Greuther Fürth", "SpVgg Greuther Furth", "Greuther Fürth", "Greuther Fuerth"},
         "Hertha": {"Hertha Berlin", "Hertha BSC"},
         "Holstein Kiel": {"KSV Holstein Kiel"},
     },
