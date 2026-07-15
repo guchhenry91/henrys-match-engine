@@ -12,10 +12,210 @@
 
 ---
 
-## PRECONDITIONS — do not start until both hold
+## PRECONDITIONS
 
-- [ ] **ClubElo reachable.** `curl -m 10 "http://api.clubelo.com/$(date +%Y-%m-%d)"` returns HTTP 200 with >100 rows. Every league's promoted-club priors depend on it; building during an outage ships degraded tables. (As of 2026-07-14 it is DOWN — a watch is running.)
-- [ ] **Build-phase 6 (the `index.html` swap) waits until after 2026-07-19.** Build-phases 1-5 and 7 may proceed before then; only the swap is date-gated.
+- [ ] **Build-phase 0 removes the ClubElo precondition.** Once the second-tier prior lands, the real four-league publish (BP4) no longer needs ClubElo, so it should be built FIRST. (ClubElo has been down for this entire build — a watch is running — which is precisely the single-point-of-failure BP0 eliminates.)
+- [ ] **Build-phase 6 (the `index.html` swap) waits until after 2026-07-19.** All other build-phases may proceed before then; only the swap is date-gated.
+
+---
+
+## Build-phase 0: Promoted-club prior from second-tier form (removes ClubElo dependency)
+
+**Files:**
+- Modify: `leagues/config.py` (add `fd_code2` per league)
+- Create: `leagues/second_tier.py`, `tests/leagues/test_second_tier.py`
+- Modify: `leagues/names.py` (second-tier club aliases), `leagues/publish.py` (use it as the primary prior)
+
+**Confirmed by prototype (2026-07-15):** all four second-tier feeds exist
+(`https://www.football-data.co.uk/mmz4281/2526/{E1,SP2,D2,F2}.csv`, HTTP 200, full
+seasons). Coventry's 2025-26 Championship (95 pts, 2.11-0.98 g/g) maps to a prior of
+attack +0.35 / defence -0.21 at a 0.72 damping — sensible and club-specific, versus
+today's fallback that seeds every promoted club at the weakest existing club's strength.
+
+Second-tier `Div` codes: PL=E1, La Liga=SP2, Bundesliga=D2, Ligue 1=F2.
+
+- [ ] **Step 1: Add `fd_code2` to `config.League`**
+
+```python
+# in the League dataclass, alongside fd_code:
+fd_code2: str = ""          # second-tier football-data.co.uk code (promotion source)
+# and per league: PL -> "E1", LALIGA -> "SP2", BUNDESLIGA -> "D2", LIGUE1 -> "F2"
+```
+
+- [ ] **Step 2: Write the failing test** (pure derivation + calibration, fixed CSV, no network)
+
+```python
+# tests/leagues/test_second_tier.py
+import io
+import numpy as np
+
+from leagues.second_tier import table_strengths, level_adjusted_priors
+
+CSV = (
+    "Div,Date,HomeTeam,AwayTeam,FTHG,FTAG\n"
+    + "".join(f"E1,01/01/2026,Coventry,Weak{i},3,0\n" for i in range(5))       # strong
+    + "".join(f"E1,01/01/2026,Weak{i},Mid,1,1\n" for i in range(5))
+)
+
+
+def test_table_strengths_rank_by_goal_form():
+    s = table_strengths(io.StringIO(CSV), "PL")
+    assert s["Coventry"]["gf_pg"] > s["Mid"]["gf_pg"]          # Coventry scores more
+    assert s["Coventry"]["ga_pg"] < s["Mid"]["ga_pg"]          # ...and concedes less
+
+
+def test_level_adjustment_damps_toward_zero():
+    """A promoted club's second-tier dominance must be DAMPED at top-flight level
+    (a Championship winner is not a top-flight force). att/def shrink toward 0 as
+    the gap factor drops below 1."""
+    s = table_strengths(io.StringIO(CSV), "PL")
+    full = level_adjusted_priors(s, ["Coventry"], gap=1.0)
+    damped = level_adjusted_priors(s, ["Coventry"], gap=0.5)
+    assert abs(damped["Coventry"][0]) < abs(full["Coventry"][0])   # attack pulled in
+    assert abs(damped["Coventry"][1]) < abs(full["Coventry"][1])   # defence pulled in
+```
+
+- [ ] **Step 3: Run to verify it fails** — `python -m pytest tests/leagues/test_second_tier.py -v` → ModuleNotFound.
+
+- [ ] **Step 4: Implement `second_tier.py`**
+
+```python
+"""Promoted-club prior from the club's SECOND-TIER season.
+
+A promoted club has no top-flight history to fit on. ClubElo used to supply the
+prior, but it is a single third-party point of failure (down for days at a time).
+football-data.co.uk publishes the second divisions (E1/SP2/D2/F2) from the SAME
+feed as our top-flight results, so we derive the prior from the club's actual
+promotion-season goal form, damped by a calibrated top-flight/second-tier gap.
+"""
+import io
+import urllib.request
+
+import numpy as np
+import pandas as pd
+
+from leagues import config
+from leagues.names import canonical, UnknownTeam
+
+FEED = "https://www.football-data.co.uk/mmz4281/{season}/{code}.csv"
+
+
+def table_strengths(buf, league: str) -> dict:
+    """Per-team goals-for / goals-against per game from a second-tier CSV, plus
+    the league's average goals/game (the strength baseline)."""
+    d = pd.read_csv(buf).dropna(subset=["FTHG", "FTAG"])
+    agg = {}
+    for _, r in d.iterrows():
+        h, a = r["HomeTeam"], r["AwayTeam"]
+        hg, ag = int(r["FTHG"]), int(r["FTAG"])
+        for t in (h, a):
+            agg.setdefault(t, {"gf": 0, "ga": 0, "p": 0})
+        agg[h]["gf"] += hg; agg[h]["ga"] += ag; agg[h]["p"] += 1
+        agg[a]["gf"] += ag; agg[a]["ga"] += hg; agg[a]["p"] += 1
+    lg = sum(t["gf"] for t in agg.values()) / max(sum(t["p"] for t in agg.values()), 1)
+    return {t: {"gf_pg": v["gf"] / v["p"], "ga_pg": v["ga"] / v["p"], "lg": lg}
+            for t, v in agg.items() if v["p"] > 0}
+
+
+def level_adjusted_priors(strengths: dict, teams: list, gap: float) -> dict:
+    """Map second-tier goal form onto damped top-flight log-strengths.
+
+    `gap` in (0,1]: 1.0 = second-tier form taken at face value (wrong -- too strong),
+    lower = more damping toward the league mean. Calibrated in Step 6.
+    """
+    out = {}
+    for t in teams:
+        s = strengths.get(t)
+        if not s:
+            continue
+        att = np.log(max(s["gf_pg"], 0.3) / s["lg"]) * gap
+        dfn = np.log(max(s["ga_pg"], 0.3) / s["lg"]) * gap
+        out[t] = (float(att), float(dfn))
+    return out
+
+
+def _second_tier_name(raw: str, league: str) -> str | None:
+    try:
+        return canonical(raw, league)
+    except UnknownTeam:
+        return None
+
+
+def fetch_strengths(league: str, season: str = "2526") -> dict:
+    """Download the second-tier table for one league (canonical names)."""
+    code = config.get(league).fd_code2
+    req = urllib.request.Request(FEED.format(season=season, code=code),
+                                 headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        raw = table_strengths(io.StringIO(resp.read().decode("utf-8", "replace")), league)
+    # remap raw second-tier spellings to canonical; drop unmapped (logged by caller)
+    out = {}
+    for team, s in raw.items():
+        canon = _second_tier_name(team, league)
+        if canon:
+            out[canon] = s
+    return out
+
+
+# Calibrated per league in Step 6; default is the prototype value.
+LEVEL_GAP = {"PL": 0.72, "LALIGA": 0.72, "BUNDESLIGA": 0.72, "LIGUE1": 0.72}
+
+
+def second_tier_priors(league: str, teams: list, season: str = "2526") -> dict:
+    """team -> (attack, defence) prior for promoted clubs, from second-tier form."""
+    strengths = fetch_strengths(league, season)
+    return level_adjusted_priors(strengths, teams, LEVEL_GAP.get(league, 0.72))
+```
+
+- [ ] **Step 5: Run to green** — `python -m pytest tests/leagues/test_second_tier.py -v` → 2 passed.
+
+- [ ] **Step 6: CALIBRATE the level gap (do NOT ship the guessed 0.72)**
+
+For each league, fit `gap` against how past promoted clubs ACTUALLY performed in the top flight:
+```
+for each of the last ~4 seasons S:
+    promoted = clubs in top-flight season S that were in the second tier in S-1
+    for gap in a grid (0.5 .. 0.9 step 0.05):
+        prior = level_adjusted_priors(second_tier_strengths[S-1], promoted, gap)
+        seed a model for season S with that prior, predict the promoted clubs' matches
+        score RPS / goals-MAE on their real top-flight results
+    pick the gap minimising error, per league
+```
+Write the fitted per-league values into `LEVEL_GAP` with a comment citing the RPS/MAE it achieved. **Gate:** a promoted club seeded from second-tier form must backtest at least as well as the old ClubElo prior did (compare on the seasons where both are available). If it does not, keep ClubElo primary and this secondary. Persist `data-raw/leagues/level_gap_calibration.json`.
+
+- [ ] **Step 7: Second-tier name coverage**
+
+The second-tier CSVs spell clubs their own way. For each league, cross-check every team in the second-tier feed against `names.ALIASES` and add missing aliases (e.g. "Sheffield Weds", "Nott'm Forest"). A promoted club that does not resolve = silently no prior, so this must be complete for the promoted set. Add a test mirroring `test_clubs_coverage` that asserts every promoted club (in the top-flight fixtures but absent from top-flight history) resolves in the second-tier feed.
+
+- [ ] **Step 8: Wire it into `publish.build()` as the PRIMARY prior**
+
+Replace the ClubElo-first block:
+```python
+base = LeagueModel().fit(matches, ref=ref)
+no_history = [t for t in squad_teams if t not in base.attack]
+priors = second_tier.second_tier_priors(league, no_history)     # primary, no ClubElo
+still_missing = [t for t in no_history if t not in priors]
+if still_missing:
+    # a promoted club we could not find in the second tier (e.g. promoted from a
+    # lower level) -> the honest weakest-club fallback, and a data_warning
+    priors.update(promoted_priors(base, still_missing))
+    warnings.append(f"No second-tier record for {still_missing}; seeded at the "
+                    f"league's weakest sides.")
+model = LeagueModel().fit(matches, ref=ref, priors=priors)
+```
+ClubElo (`elo.elo_for_league` / `elo_priors`) becomes optional — either dropped or kept behind a flag as a refinement. The `ClubEloUnavailable` warning path is removed: an outage of ClubElo no longer affects the published tables.
+
+- [ ] **Step 9: Verify end-to-end for all four leagues**
+
+`python -m leagues.publish` (no ClubElo needed). For each league, confirm the promoted clubs land in a believable table position — mid-to-lower, higher relegation %, NOT rock bottom at 0% survival and NOT mid-table. Spot-check one promoted club per league against its second-tier finish.
+
+- [ ] **Step 10: Commit**
+
+```bash
+git add leagues/second_tier.py leagues/config.py leagues/names.py leagues/publish.py \
+        tests/leagues/test_second_tier.py data-raw/leagues/level_gap_calibration.json
+git commit -m "feat(leagues): promoted-club prior from second-tier form; drop ClubElo single point of failure"
+```
 
 ---
 

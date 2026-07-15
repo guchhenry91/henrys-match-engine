@@ -30,6 +30,8 @@ Phase 2a proved the contract on one league. Phase 2b is mostly a loop plus a UI 
 - Second-tier data to fix promoted-club player props (structural gap, not a 2b task).
 - Any paid data source.
 
+- **Promoted-club prior from second-tier form** — derive each promoted club's starting strength from its actual second-division season (football-data.co.uk E1/SP2/D2/F2 — the SAME source as the backtest), level-adjusted by a **calibrated** gap factor, and use it as the PRIMARY prior. This removes ClubElo as a single point of failure: today a ClubElo outage degrades every league's table (see the standing outage during this build); a second-tier prior comes from the feed everything else already depends on. ClubElo is demoted to an optional refinement or dropped.
+
 **Hard constraints:**
 - **The unified `index.html` must not ship until after the World Cup final (2026-07-19).** Until then the WC app stays exactly as it is on `main`. The new page is built and verified behind a copy (`app.html` in the worktree), and only becomes `index.html` once the WC winds down.
 - **ClubElo must be reachable at build time.** Every league's promoted-club priors depend on it. A league built during a ClubElo outage carries the same degraded-prior warning as the PL does now; we do not publish a league's final table on a fallback prior without the on-page warning.
