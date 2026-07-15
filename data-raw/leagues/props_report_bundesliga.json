@@ -1,0 +1,45 @@
+{
+  "league": "BUNDESLIGA",
+  "n_players": 271,
+  "goals_mae": 1.27,
+  "goals_mae_baseline": 1.683,
+  "shots_mae": 6.099,
+  "shots_mae_baseline": 8.869,
+  "goals_corr": 0.827,
+  "shots_corr": 0.899,
+  "goals_lift": 24.5,
+  "shots_lift": 31.2,
+  "passes": true,
+  "calibration": [
+    {
+      "bucket": "0-1",
+      "n": 103,
+      "predicted": 0.45,
+      "actual": 0.63
+    },
+    {
+      "bucket": "1-3",
+      "n": 101,
+      "predicted": 1.83,
+      "actual": 2.09
+    },
+    {
+      "bucket": "3-6",
+      "n": 42,
+      "predicted": 3.87,
+      "actual": 3.76
+    },
+    {
+      "bucket": "6-10",
+      "n": 18,
+      "predicted": 7.77,
+      "actual": 7.39
+    },
+    {
+      "bucket": "10+",
+      "n": 7,
+      "predicted": 14.91,
+      "actual": 14.29
+    }
+  ]
+}

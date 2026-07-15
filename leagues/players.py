@@ -56,6 +56,21 @@ def build_player_logs(season_stats: pd.DataFrame, shots: pd.DataFrame,
         df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0)
     df = df.rename(columns={"np_xg": "npxg"})
 
+    if shots is None or len(shots) == 0:
+        # Shot-level data unavailable (an upstream soccerdata parser bug crashes
+        # read_shot_events on some leagues -- one match returns its roster as a
+        # list, not a dict). Degrade rather than lose the whole league: estimate
+        # SOT from the league-average on-target ratio, and leave penalties unknown.
+        from leagues.props import SOT_RATIO_PRIOR
+        df["season"] = df["season"].astype(str)
+        df["sot"] = (df["shots"] * SOT_RATIO_PRIOR).round().astype(int)
+        df["pens_att"] = 0
+        latest = df.sort_values("season").groupby("player")["team"].last()
+        df["team"] = df["player"].map(latest)
+        df["date"] = [season_end(s) for s in df["season"]]
+        return df[["date", "season", "team", "player", "pos", "minutes", "np_goals",
+                   "shots", "sot", "npxg", "pens_att"]].reset_index(drop=True)
+
     # shots on target + penalty attempts, per player-season, from the shot events
     ev = shots.copy()
     ev["team"] = [canonical(t, league) for t in ev["team"]]
@@ -100,13 +115,34 @@ def fetch_player_logs(league: str) -> pd.DataFrame:
         raise RuntimeError(f"Understat player schema changed; missing {sorted(missing)}. "
                            f"Got: {list(stats.columns)}")
 
-    shots = us.read_shot_events().reset_index()
-    for col in ("season", "team", "player", "result", "situation"):
-        if col not in shots.columns:
-            raise RuntimeError(f"Understat shot schema changed; missing {col!r}. "
-                               f"Got: {list(shots.columns)}")
+    try:
+        shots = us.read_shot_events().reset_index()
+        for col in ("season", "team", "player", "result", "situation"):
+            if col not in shots.columns:
+                raise RuntimeError(f"Understat shot schema changed; missing {col!r}. "
+                                   f"Got: {list(shots.columns)}")
+    except Exception as exc:
+        # Upstream soccerdata bug (e.g. GER-Bundesliga: a match roster comes back
+        # as a list, not a dict, crashing read_shot_events). Don't sink the whole
+        # league -- degrade to season stats only (see build_player_logs).
+        print(f"WARNING: shot events unavailable for {league} ({type(exc).__name__}: "
+              f"{exc}); shots-on-target use the league-average ratio and penalty "
+              f"takers are not identified")
+        shots = None
 
     return build_player_logs(stats, shots, league)
+
+
+def shot_events_available(league: str) -> bool:
+    """Whether shot-level data could be read (False -> SOT/pens are degraded).
+    Used by publish to surface an honest data_warning."""
+    lg = config.get(league)
+    us = sd.Understat(leagues=lg.understat, seasons=list(lg.history_seasons))
+    try:
+        us.read_shot_events()
+        return True
+    except Exception:
+        return False
 
 
 def penalty_takers(logs: pd.DataFrame) -> dict:

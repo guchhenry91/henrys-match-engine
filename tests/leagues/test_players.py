@@ -111,3 +111,16 @@ def test_current_squad_excludes_players_who_did_not_appear_last_season():
     squad = current_squad(df)
     assert "Mover" in squad and "Keeper" in squad
     assert "LongGone" not in squad
+
+
+def test_missing_shot_events_degrades_instead_of_crashing():
+    """If shot-level data is unavailable (upstream parser bug on some leagues),
+    logs still build from season stats: SOT falls back to the league-average
+    ratio and penalty attempts are zero, rather than the whole league failing."""
+    stats = _season_stats()
+    df = build_player_logs(stats, None, "PL")          # shots=None
+    assert len(df) == 3
+    row = df[(df["player"] == "Mover") & (df["season"] == "2526")].iloc[0]
+    # 85 shots at the ~0.35 league on-target prior -> ~30, and no penalties known
+    assert row["pens_att"] == 0
+    assert 0 < row["sot"] <= row["shots"]
