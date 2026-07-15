@@ -141,6 +141,34 @@ function renderPerformance(app, data) {
   app.append(perf);
 }
 
+// World Cup has no market-odds backtest (no odds data), so its "performance" is
+// the honest live pick record, broken down by the model's OWN stated confidence —
+// a calibration check: higher-confidence picks should hit more often.
+function renderWCPerformance(app, rec) {
+  if (!rec || !rec.total) return;
+  app.append(el('h2', 'dsp', 'How the picks have done'));
+  const perf = el('section', 'performance glass');
+  const bands = Object.keys(rec.by_confidence || {}).sort((a, b) => b - a);
+  const rows = bands.map(c => {
+    const b = rec.by_confidence[c];
+    const rate = b.total ? 100 * b.correct / b.total : 0;
+    return `<tr><td>${'★'.repeat(+c)}</td><td class="num">${b.correct}/${b.total}</td>
+      <td class="barcell"><span class="bar" style="--pct:${rate}%"></span><span>${pct(rate)}</span></td></tr>`;
+  }).join('');
+  const ko = rec.knockout || {};
+  perf.innerHTML = `
+    <p>Every pick is frozen before kickoff and graded on the real result — never
+    re-picked with hindsight. Overall <b>${rec.correct}–${rec.wrong}</b>
+    (<b>${pct(100 * rec.correct / rec.total)}</b> of ${rec.total})${ko.total
+      ? `, and <b>${ko.correct}/${ko.total}</b> in the knockouts` : ''}.</p>
+    <p>Broken down by the model's own confidence — if it is calibrated, five-star
+    picks should land more often than one-star ones:</p>
+    <div class="odds-wrap"><table class="odds-table" style="margin-top:6px">
+      <thead><tr><th>Confidence</th><th>Record</th><th>Hit rate</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>`;
+  app.append(perf);
+}
+
 // ---------------- adapter: World Cup (cup) view ----------------
 function renderWC(app, data) {
   app.append(el('h1', 'dsp', 'World Cup <span>2026</span>'));
@@ -193,6 +221,8 @@ function renderWC(app, data) {
       <tbody>${top.map(o => `<tr><td>${o.team}</td><td>${pct(100 * o.final)}</td><td><b>${pct(100 * o.champion)}</b></td></tr>`).join('')}</tbody></table>`;
     app.append(wrap);
   }
+
+  renderWCPerformance(app, data.record);
 
   // group standings
   if (data.standings && Object.keys(data.standings).length) {
