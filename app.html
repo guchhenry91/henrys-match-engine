@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Football Predictor</title>
+<meta name="theme-color" content="#05060d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⚽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="sky"></div>
+<div class="wrap">
+  <nav class="switcher" id="switcher"></nav>
+  <main id="app"><p class="sub">Loading…</p></main>
+</div>
+
+<script>
+// Each competition is described here; the switcher and router are generic.
+const COMPETITIONS = [
+  {key: "wc",         label: "World Cup 2026",  data: "data/predictions.json",        kind: "cup"},
+  {key: "pl",         label: "Premier League",  data: "data/leagues/pl.json",         clubs: "data/leagues/clubs.json",            kind: "league"},
+  {key: "laliga",     label: "La Liga",         data: "data/leagues/laliga.json",     clubs: "data/leagues/clubs_laliga.json",     kind: "league"},
+  {key: "bundesliga", label: "Bundesliga",      data: "data/leagues/bundesliga.json", clubs: "data/leagues/clubs_bundesliga.json", kind: "league"},
+  {key: "ligue1",     label: "Ligue 1",         data: "data/leagues/ligue1.json",     clubs: "data/leagues/clubs_ligue1.json",     kind: "league"},
+];
+
+const pct = (n, d = 0) => `${Number(n).toFixed(d)}%`;
+const num = (n, d = 1) => Number(n).toFixed(d);
+function el(tag, cls, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function recordChip(rec) {
+  const chip = el('div', 'record-chip');
+  chip.innerHTML = (rec && rec.total)
+    ? `<b>${rec.correct}–${rec.wrong}</b> · ${pct(100 * rec.correct / rec.total)} of ${rec.total} graded picks`
+    : 'No graded picks yet — the season starts in August';
+  return chip;
+}
+
+// ---------------- shared: league (and any round-robin) view ----------------
+function propList(props) {
+  return props.map(p => `
+    <li class="${p.penalty_taker ? 'pen' : ''}">
+      <span class="who">${p.player}</span>
+      <span class="pct">${num(p.anytime_pct)}%</span>
+      <span class="shots">${num(p.exp_shots)} shots · ${Math.round(p.p_shots_2plus)}% 2+ · ${Math.round(p.p_sot_1plus)}% on target</span>
+    </li>`).join('');
+}
+
+function renderLeague(app, data, clubs, label) {
+  const colour = t => (clubs[t] || {}).primary || '#8891a8';
+  app.append(el('h1', 'dsp', `${label} <span>2026-27</span>`));
+  app.append(recordChip(data.record));
+
+  if (data.matches && data.matches.length) {
+    app.append(el('h2', 'dsp', `Matchweek ${data.matches[0].matchweek}`));
+    const grid = el('section', 'fixtures');
+    for (const m of data.matches) {
+      const card = el('article', 'card glass');
+      card.style.setProperty('--home', colour(m.home));
+      card.style.setProperty('--away', colour(m.away));
+      const p = m.prediction;
+      const homeProps = m.props.filter(x => x.team === m.home);
+      const awayProps = m.props.filter(x => x.team === m.away);
+      const when = new Date(m.date).toLocaleDateString('en-GB',
+        { weekday: 'short', day: 'numeric', month: 'short' });
+      const mkt = m.market ? `<div class="probs" style="margin-top:6px">
+          <span>market <b>${pct(100 * m.market.p_home)}</b></span>
+          <span><b>${pct(100 * m.market.p_draw)}</b></span>
+          <span><b>${pct(100 * m.market.p_away)}</b></span>
+        </div>
+        <div class="mw" style="margin-top:4px">Model edge on the pick: <b>${m.market.edge >= 0 ? '+' : ''}${pct(100 * m.market.edge, 1)}</b></div>` : '';
+      const side = (team, props) => props.length
+        ? `<div class="side-label">${team} — likely scorers</div><ul class="props">${propList(props)}</ul>`
+        : `<div class="side-label">${team} — likely scorers</div><p class="missing">No player data: newly promoted, so they have no top-flight record yet.</p>`;
+      card.innerHTML = `
+        <div class="mw">${when} · ${m.venue || ''}</div>
+        <header><span class="team">${m.home}</span><span class="score">${p.score}</span><span class="team away">${m.away}</span></header>
+        <div class="pick">Pick: <strong>${p.pick}</strong> <span class="conf">${'★'.repeat(p.confidence)}</span></div>
+        <div class="probs"><span><b>${pct(100 * p.p_home)}</b></span><span>draw <b>${pct(100 * p.p_draw)}</b></span><span><b>${pct(100 * p.p_away)}</b></span></div>
+        ${mkt}
+        ${side(m.home, homeProps)}
+        ${side(m.away, awayProps)}`;
+      grid.append(card);
+    }
+    app.append(grid);
+  }
+
+  app.append(el('h2', 'dsp', 'Projected final table'));
+  if ((data.data_warnings || []).length) {
+    app.append(el('div', 'warn', `<b>Heads up —</b> ${data.data_warnings.join(' ')}`));
+  }
+  const wrap = el('div', 'table-wrap glass');
+  const rows = data.table.map((t, i) => {
+    const rel = i >= data.table.length - 3 ? 'rel' : '', ucl = i < 4 ? 'ucl' : '';
+    return `<tr class="${rel} ${ucl}">
+      <td class="num">${i + 1}</td>
+      <td><span class="dot" style="background:${colour(t.team)}"></span>${t.team}</td>
+      <td class="num">${num(t.proj_points)}</td>
+      <td class="barcell"><span class="bar" style="--pct:${Math.min(t.title_pct, 100)}%"></span><span>${num(t.title_pct)}%</span></td>
+      <td class="num">${num(t.top4_pct)}%</td>
+      <td class="num">${num(t.relegation_pct)}%</td>
+    </tr>`;
+  }).join('');
+  wrap.innerHTML = `<table class="league-table">
+    <thead><tr><th>#</th><th>Team</th><th>Proj pts</th><th>Title</th><th>Top 4</th><th>Relegation</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+  app.append(wrap);
+
+  renderPerformance(app, data);
+}
+
+// shared performance panel (league backtest vs market + props gate)
+function renderPerformance(app, data) {
+  const b = data.backtest || {}, pb = data.props_backtest || {};
+  if (!b.rps) return;
+  app.append(el('h2', 'dsp', 'Does this model actually work?'));
+  const perf = el('section', 'performance glass');
+  perf.innerHTML = `
+    <p>Walk-forward tested on <b>${b.n}</b> past matches, always training only on games
+    played before the one predicted. It called <b>${pct(100 * b.accuracy, 1)}</b> correctly,
+    ranked-probability score <b>${num(b.rps, 4)}</b> (lower is better).</p>
+    <p>The betting market's closing odds, stripped of margin, score
+    <b>${pct(100 * b.market_accuracy, 1)}</b> and <b>${num(b.market_rps, 4)}</b> — still
+    slightly better than us, which is the honest expected result.</p>
+    <div class="metrics">
+      <div class="metric"><b>${pct(100 * b.accuracy, 1)}</b>model accuracy</div>
+      <div class="metric"><b>${num(b.rps, 4)}</b>model RPS</div>
+      <div class="metric"><b>${num(b.market_rps, 4)}</b>market RPS</div>
+      ${pb.goals_lift ? `<div class="metric"><b>+${num(pb.goals_lift)}%</b>scorer picks vs baseline</div>` : ''}
+      ${pb.shots_lift ? `<div class="metric"><b>+${num(pb.shots_lift)}%</b>shot picks vs baseline</div>` : ''}
+    </div>`;
+  app.append(perf);
+}
+
+// ---------------- adapter: World Cup (cup) view ----------------
+function renderWC(app, data) {
+  app.append(el('h1', 'dsp', 'World Cup <span>2026</span>'));
+  app.append(recordChip(data.record));
+
+  const ko = data.knockout || {};
+  if (ko.projected_champion) {
+    const champOdds = (ko.odds || []).find(o => o.team === ko.projected_champion);
+    const champ = el('div', 'champ glass');
+    champ.innerHTML = `<span class="crown">🏆</span><div>
+      <b>${ko.projected_champion}</b> <span class="cs">projected champion${champOdds ? ` · ${pct(100 * champOdds.champion)} title odds (${(ko.sims || 0).toLocaleString()} sims)` : ''}</span>
+    </div>`;
+    app.append(champ);
+  }
+
+  // remaining / recent knockout matches with the model's pick, graded
+  const bracket = (ko.bracket || []).slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+  const upcoming = bracket.filter(m => m.status !== 'final');
+  const recent = bracket.filter(m => m.status === 'final').slice(-6);
+  const show = (upcoming.length ? upcoming : recent);
+  if (show.length) {
+    app.append(el('h2', 'dsp', upcoming.length ? 'Still to play' : 'Latest knockout results'));
+    const grid = el('section', 'fixtures');
+    for (const m of show) {
+      const card = el('article', 'card glass');
+      const when = new Date(m.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+      let res = '';
+      if (m.status === 'final' && m.result) {
+        const correct = m.result.winner === m.pick;
+        res = `<div class="res ${correct ? 'correct' : 'wrong'}"><span class="tick">${correct ? '✓' : '✗'}</span>
+          ${m.result.home} ${m.result.home_goals}–${m.result.away_goals} ${m.result.away} · through: <b>${m.result.winner}</b></div>`;
+      }
+      card.innerHTML = `
+        <div class="ko-when">${m.round} · ${when} · ${m.city || ''}</div>
+        <header><span class="team">${m.home}</span><span class="score">${m.score || ''}</span><span class="team away">${m.away}</span></header>
+        <div class="pick">Pick: <strong>${m.pick}</strong></div>
+        ${res}`;
+      grid.append(card);
+    }
+    app.append(grid);
+  }
+
+  // title odds table (top 8 by champion probability)
+  if ((ko.odds || []).length) {
+    app.append(el('h2', 'dsp', 'Title odds'));
+    const top = ko.odds.slice().sort((a, b) => b.champion - a.champion).slice(0, 8);
+    const wrap = el('div', 'odds-wrap glass');
+    wrap.innerHTML = `<table class="odds-table">
+      <thead><tr><th>Team</th><th>Reach final</th><th>Champion</th></tr></thead>
+      <tbody>${top.map(o => `<tr><td>${o.team}</td><td>${pct(100 * o.final)}</td><td><b>${pct(100 * o.champion)}</b></td></tr>`).join('')}</tbody></table>`;
+    app.append(wrap);
+  }
+
+  // group standings
+  if (data.standings && Object.keys(data.standings).length) {
+    app.append(el('h2', 'dsp', 'Group standings'));
+    const groups = el('section', 'groups');
+    for (const [g, teams] of Object.entries(data.standings)) {
+      const box = el('div', 'group glass');
+      const rows = teams.map((t, i) => `<tr class="${i < 2 ? 'adv' : ''}">
+        <td>${t.team}</td><td class="n">${num(t.exp_pts, 0)}</td><td class="n">${t.gd > 0 ? '+' : ''}${t.gd}</td></tr>`).join('');
+      box.innerHTML = `<h3>Group ${g}</h3><table><tbody>${rows}</tbody></table>`;
+      groups.append(box);
+    }
+    app.append(groups);
+  }
+}
+
+// ---------------- router ----------------
+function activeKey() {
+  const k = location.hash.replace('#', '');
+  return COMPETITIONS.some(c => c.key === k) ? k : COMPETITIONS[0].key;
+}
+
+function renderSwitcher() {
+  const nav = document.getElementById('switcher');
+  nav.innerHTML = '';
+  const active = activeKey();
+  for (const c of COMPETITIONS) {
+    const a = el('a', c.key === active ? 'active' : '', c.label);
+    a.href = `#${c.key}`;
+    nav.append(a);
+  }
+}
+
+async function route() {
+  renderSwitcher();
+  const comp = COMPETITIONS.find(c => c.key === activeKey());
+  const app = document.getElementById('app');
+  app.innerHTML = '<p class="sub">Loading…</p>';
+  try {
+    const data = await fetch(comp.data).then(r => r.json());
+    const clubs = comp.clubs ? await fetch(comp.clubs).then(r => r.json()) : {};
+    app.innerHTML = '';
+    if (comp.kind === 'cup') renderWC(app, data);
+    else renderLeague(app, data, clubs, comp.label);
+  } catch (err) {
+    app.innerHTML = `<p class="sub">Could not load ${comp.label}.</p>`;
+  }
+}
+
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
