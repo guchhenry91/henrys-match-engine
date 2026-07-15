@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from leagues import config, dataset, elo, fixtures, picks, players, props, sim
+from leagues import config, dataset, elo, fixtures, odds, picks, players, props, sim
 from leagues.model import LeagueModel, elo_priors, promoted_priors
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -25,6 +25,19 @@ def _confidence(p_pick: float) -> int:
         if p_pick >= threshold:
             return conf
     return 1
+
+
+def _market_block(mkt: dict | None, pred: dict, pick_type: str) -> dict | None:
+    """Attach the de-vigged market line + the model's edge on its pick.
+
+    `edge` = model probability minus market probability on the picked outcome:
+    positive means the model rates the pick higher than the bookmakers do. It is a
+    disagreement measure, NOT a claim of profit. None when no line is posted
+    (off-season, or a fixture not yet priced)."""
+    if not mkt:
+        return None
+    model_p = pred[f"p_{pick_type}"] if pick_type != "draw" else pred["p_draw"]
+    return {**mkt, "edge": round(model_p - mkt[f"p_{pick_type}"], 3)}
 
 
 def build(league: str = "PL") -> dict:
@@ -90,6 +103,10 @@ def build(league: str = "PL") -> dict:
     log_path = PICKS_DIR / lg.key.lower() / "picks_log.json"
     log = picks.load_log(log_path)
 
+    # Live bookmaker lines for upcoming fixtures (empty off-season -> every
+    # match gets market: None; the card renders fine either way).
+    market_odds = odds.fetch_fixture_odds(league)
+
     if remaining.empty:
         upcoming = remaining
     else:
@@ -142,6 +159,8 @@ def build(league: str = "PL") -> dict:
             },
             "props": (props.top_props(squad_props, home)
                       + props.top_props(squad_props, away)),
+            "market": _market_block(odds.market_for(market_odds, home, away),
+                                    pred, pick_type),
             "result": None,
             "graded": None,
             "void": False,
