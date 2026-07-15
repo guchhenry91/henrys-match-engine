@@ -177,7 +177,16 @@ def team_shot_context(league: str, recent_seasons: int = 2) -> dict:
     lg = config.get(league)
     seasons = list(lg.history_seasons)[-recent_seasons:]
     us = sd.Understat(leagues=lg.understat, seasons=seasons)
-    ev = us.read_shot_events().reset_index()
+    try:
+        ev = us.read_shot_events().reset_index()
+    except Exception as exc:
+        # Same upstream soccerdata bug that fetch_player_logs guards against (a
+        # match roster comes back as a list, not a dict). Degrade to neutral:
+        # every opponent concedes at the league average (factor 1.0) and a
+        # typical penalty rate. No shot-volume tilt, but the league still builds.
+        print(f"WARNING: shot context unavailable for {league} "
+              f"({type(exc).__name__}); using neutral opponent factors")
+        return {"concede_factor": {}, "pens_per_team_match": 0.12}
     ev["team"] = [canonical(t, league) for t in ev["team"]]
 
     # shots conceded = shots taken by the OTHER team in the same game
