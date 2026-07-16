@@ -183,6 +183,26 @@ def build(league: str = "PL") -> dict:
 
     picks.save_log(log, log_path)
 
+    # Whole-season fixture list: every match, played or not, with its frozen pick
+    # and grade. Deliberately WITHOUT props — 380 fixtures of scorer data would
+    # bloat the payload; the props live on the current matchweek's cards only.
+    season = []
+    for _, m in fx.sort_values(["round", "date"]).iterrows():
+        entry = log.get(str(m["match_id"])) or {}
+        played_row = bool(m["played"])
+        season.append({
+            "id": int(m["match_id"]),
+            "matchweek": int(m["round"]),
+            "date": pd.Timestamp(m["date"]).isoformat(),
+            "home": m["home"],
+            "away": m["away"],
+            "result": ({"home_goals": int(m["home_goals"]),
+                        "away_goals": int(m["away_goals"])} if played_row else None),
+            "pick": entry.get("pick"),
+            "graded": entry.get("graded"),
+            "void": bool(entry.get("void", False)),
+        })
+
     def _read(path):
         p = PICKS_DIR / path
         return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
@@ -192,6 +212,7 @@ def build(league: str = "PL") -> dict:
         "updated": datetime.now(timezone.utc).isoformat(),
         "record": picks.record(graded),
         "matches": out_matches,
+        "season": season,
         "table": table.to_dict(orient="records"),
         "backtest": _read("backtest_report.json").get(league, {}),
         "props_backtest": _read("props_report.json"),

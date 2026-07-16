@@ -69,6 +69,60 @@ def _sampler(model, rng):
     return sample
 
 
+def order_teams(pts, gd, gf, h2h_pts, h2h_gd, tiebreak: str):
+    """Finishing order (best first) for every simulated season, as team indices.
+
+    `tiebreak` selects the league's real rule for clubs level on points:
+      "gd"  -> goal difference, then goals for   (PL, Bundesliga, Ligue 1)
+      "h2h" -> head-to-head points, then head-to-head goal difference, then
+               overall goal difference           (La Liga)
+
+    The h2h pass is a bubble over ADJACENT tied pairs, repeated until settled.
+    That is exact for the two-club ties that dominate; a 3+-club tie is resolved
+    pairwise rather than by a full mini-league table, which can differ in rare
+    cyclic cases (A beat B beat C beat A).
+    """
+    n, T = pts.shape
+    # base order: points, then GD, then GF (packed into one sortable key)
+    key = pts.astype(np.int64) * 10**7 + (gd.astype(np.int64) + 500) * 10**3 + gf
+    order = np.argsort(-key, axis=1, kind="stable")
+    if tiebreak != "h2h" or T < 2:
+        return order
+
+    rows = np.arange(n)
+    for _ in range(T):                     # enough passes to settle any tied run
+        swapped = False
+        for p in range(T - 1):
+            i, j = order[:, p], order[:, p + 1]
+            level = pts[rows, i] == pts[rows, j]        # only clubs tied on points
+            if not level.any():
+                continue
+            hp_i, hp_j = h2h_pts[i, j, rows], h2h_pts[j, i, rows]
+            hg_i = h2h_gd[i, j, rows]
+            # j outranks i if it won the h2h points, or level there and better h2h GD
+            better = (hp_j > hp_i) | ((hp_j == hp_i) & (hg_i < 0))
+            swap = level & better
+            if swap.any():
+                order[swap, p], order[swap, p + 1] = order[swap, p + 1], order[swap, p]
+                swapped = True
+        if not swapped:
+            break
+    return order
+
+
+def _h2h_tables(fixtures_idx, samples, T: int, n: int):
+    """h2h_pts/h2h_gd [T,T,n]: points and goal difference team i took off team j."""
+    h2h_pts = np.zeros((T, T, n), dtype=np.int16)
+    h2h_gd = np.zeros((T, T, n), dtype=np.int16)
+    for (h, a), (hg, ag) in zip(fixtures_idx, samples):
+        h2h_pts[h, a] += np.where(hg > ag, 3, np.where(hg == ag, 1, 0)).astype(np.int16)
+        h2h_pts[a, h] += np.where(ag > hg, 3, np.where(hg == ag, 1, 0)).astype(np.int16)
+        diff = (hg - ag).astype(np.int16)
+        h2h_gd[h, a] += diff
+        h2h_gd[a, h] -= diff
+    return h2h_pts, h2h_gd
+
+
 def simulate_season(model, played: pd.DataFrame, remaining: pd.DataFrame,
                     league: str = "PL", n: int = N_SIMS, seed: int = 7) -> pd.DataFrame:
     """Run n seasons; return the projected table with title/top-4/relegation %.
@@ -99,6 +153,11 @@ def simulate_season(model, played: pd.DataFrame, remaining: pd.DataFrame,
         pts[:, h] += 3 if hg > ag else (1 if hg == ag else 0)
         pts[:, a] += 3 if ag > hg else (1 if hg == ag else 0)
 
+    # Head-to-head leagues need each fixture's sampled scoreline kept, not just the
+    # running totals, so tied clubs can be separated by their meetings.
+    needs_h2h = getattr(lg, "tiebreak", "gd") == "h2h"
+    fixtures_idx, samples = [], []
+
     for _, m in remaining.iterrows():
         h, a = idx[m["home"]], idx[m["away"]]
         lh, la = model.lambdas(m["home"], m["away"])
@@ -112,12 +171,21 @@ def simulate_season(model, played: pd.DataFrame, remaining: pd.DataFrame,
         gf[:, a] += ag; ga[:, a] += hg
         pts[:, h] += np.where(hg > ag, 3, np.where(hg == ag, 1, 0))
         pts[:, a] += np.where(ag > hg, 3, np.where(hg == ag, 1, 0))
+        if needs_h2h:
+            fixtures_idx.append((h, a)); samples.append((hg, ag))
+
+    if needs_h2h:
+        for _, m in played.iterrows():      # real results count in the h2h too
+            h, a = idx[m["home"]], idx[m["away"]]
+            hg = np.full(n, int(m["home_goals"]), dtype=np.int32)
+            ag = np.full(n, int(m["away_goals"]), dtype=np.int32)
+            fixtures_idx.append((h, a)); samples.append((hg, ag))
+        h2h_pts, h2h_gd = _h2h_tables(fixtures_idx, samples, T, n)
+    else:
+        h2h_pts = h2h_gd = None
 
     gd = gf - ga
-    # PL tie-breakers: points, then goal difference, then goals for. Packed into
-    # one sortable key (gd is offset to stay non-negative; gf < 1000).
-    key = pts.astype(np.int64) * 10**7 + (gd.astype(np.int64) + 500) * 10**3 + gf
-    order = np.argsort(-key, axis=1, kind="stable")        # team indices, best first
+    order = order_teams(pts, gd, gf, h2h_pts, h2h_gd, getattr(lg, "tiebreak", "gd"))
     position = np.empty_like(order)
     rows = np.arange(n)[:, None]
     position[rows, order] = np.arange(T)[None, :]          # 0-based finishing place

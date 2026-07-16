@@ -115,7 +115,46 @@ function renderLeague(app, data, clubs, label) {
     <tbody>${rows}</tbody></table>`;
   app.append(wrap);
 
+  renderSeason(app, data);
   renderPerformance(app, data);
+}
+
+// Whole-season fixtures & results, grouped by matchweek. Collapsed to the current
+// matchweek by default — 380 rows open is unusable; you expand what you want.
+function renderSeason(app, data) {
+  const season = data.season || [];
+  if (!season.length) return;
+  app.append(el('h2', 'dsp', 'Fixtures & results'));
+
+  const weeks = [...new Set(season.map(m => m.matchweek))].sort((a, b) => a - b);
+  // default open: the earliest week that still has an unplayed match
+  const current = (season.find(m => !m.result) || season[season.length - 1]).matchweek;
+
+  const wrap = el('div', 'season glass');
+  wrap.innerHTML = weeks.map(w => {
+    const rows = season.filter(m => m.matchweek === w).map(m => {
+      const when = new Date(m.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      let score = '<span class="tbd">—</span>', mark = '';
+      if (m.result) {
+        score = `<b>${m.result.home_goals}–${m.result.away_goals}</b>`;
+        if (m.void) mark = `<span class="tick void" title="pick locked late — excluded from the record">✓✗*</span>`;
+        else if (m.graded === 'correct') mark = '<span class="tick correct">✓</span>';
+        else if (m.graded === 'wrong') mark = '<span class="tick wrong">✗</span>';
+      }
+      return `<tr>
+        <td class="fx-d">${when}</td>
+        <td class="fx-t">${m.home}</td>
+        <td class="fx-s">${score}</td>
+        <td class="fx-t away">${m.away}</td>
+        <td class="fx-p">${m.pick ? `<span class="pk">${m.pick}</span>` : ''}${mark}</td>
+      </tr>`;
+    }).join('');
+    return `<details ${w === current ? 'open' : ''}>
+      <summary>Matchweek ${w}</summary>
+      <table class="fx-table"><tbody>${rows}</tbody></table>
+    </details>`;
+  }).join('');
+  app.append(wrap);
 }
 
 // shared performance panel (league backtest vs market + props gate)
