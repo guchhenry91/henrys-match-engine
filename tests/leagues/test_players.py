@@ -124,3 +124,20 @@ def test_missing_shot_events_degrades_instead_of_crashing():
     # 85 shots at the ~0.35 league on-target prior -> ~30, and no penalties known
     assert row["pens_att"] == 0
     assert 0 < row["sot"] <= row["shots"]
+
+
+def test_transfer_override_moves_and_removes_players():
+    """Summer-window moves aren't in last season's data, so an override layer
+    re-attributes a moved player to his new club and drops one who left."""
+    stats = _season_stats()   # Mover (Man City), Keeper (Man City)
+    # add a player at Brentford who "left" for another league this window
+    import pandas as pd
+    stats = pd.concat([stats, pd.DataFrame([
+        {"season": "2526", "team": "Brentford", "player": "Leaver", "position": "F S",
+         "matches": 30, "minutes": 2500, "np_goals": 18, "np_xg": 15.0, "shots": 90},
+    ])], ignore_index=True)
+    transfers = {"Mover": "Arsenal", "Leaver": None}   # Mover -> Arsenal; Leaver gone
+    df = build_player_logs(stats, _shots(), "PL", transfers=transfers)
+    assert set(df[df["player"] == "Mover"]["team"]) == {"Arsenal"}   # reattributed
+    assert "Leaver" not in set(df["player"])                          # removed
+    assert "Keeper" in set(df["player"])                             # untouched

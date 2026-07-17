@@ -18,6 +18,8 @@ sums over rows and weights them by age, so season rows and appearance rows carry
 identical semantics -- the only thing lost is per-match granularity, which the
 props gate works around (see props_backtest.py).
 """
+import json
+
 import pandas as pd
 import soccerdata as sd
 
@@ -46,8 +48,24 @@ def season_end(season: str) -> pd.Timestamp:
     return pd.Timestamp(year=end_year, month=5, day=31)
 
 
+def _assign_current_club(df: pd.DataFrame, transfers: dict | None) -> pd.DataFrame:
+    """Attribute every player to his CURRENT club and drop players who left.
+
+    A player's club is his most recent SEASON's club -- but Understat has no data
+    for the in-progress season, so summer-window moves are invisible. `transfers`
+    (player -> new canonical club, or None if he left the league) is a manual
+    override applied on top: it re-attributes a moved player's whole history to
+    his new club (his scoring rate follows him) and removes anyone who left."""
+    latest = df.sort_values("season").groupby("player")["team"].last()
+    for player, club in (transfers or {}).items():
+        latest[player] = club                        # club may be None (departed)
+    df = df.copy()
+    df["team"] = df["player"].map(latest)
+    return df[df["team"].notna()].reset_index(drop=True)   # drop departed players
+
+
 def build_player_logs(season_stats: pd.DataFrame, shots: pd.DataFrame,
-                      league: str) -> pd.DataFrame:
+                      league: str, transfers: dict | None = None) -> pd.DataFrame:
     """Pure parser -- no network. One row per player-season."""
     df = season_stats.copy()
     df["team"] = [canonical(t, league) for t in df["team"]]
@@ -65,8 +83,7 @@ def build_player_logs(season_stats: pd.DataFrame, shots: pd.DataFrame,
         df["season"] = df["season"].astype(str)
         df["sot"] = (df["shots"] * SOT_RATIO_PRIOR).round().astype(int)
         df["pens_att"] = 0
-        latest = df.sort_values("season").groupby("player")["team"].last()
-        df["team"] = df["player"].map(latest)
+        df = _assign_current_club(df, transfers)
         df["date"] = [season_end(s) for s in df["season"]]
         return df[["date", "season", "team", "player", "pos", "minutes", "np_goals",
                    "shots", "sot", "npxg", "pens_att"]].reset_index(drop=True)
@@ -93,9 +110,8 @@ def build_player_logs(season_stats: pd.DataFrame, shots: pd.DataFrame,
 
     # A player who changed clubs must be attributed to his CURRENT club, or
     # props.player_rates (which groups by team+player) would split him into two
-    # half-players at two different clubs.
-    latest = (df.sort_values("season").groupby("player")["team"].last())
-    df["team"] = df["player"].map(latest)
+    # half-players at two different clubs. Transfer overrides are applied here too.
+    df = _assign_current_club(df, transfers)
 
     df["date"] = [season_end(s) for s in df["season"]]
     return df[["date", "season", "team", "player", "pos", "minutes", "np_goals",
@@ -130,7 +146,27 @@ def fetch_player_logs(league: str) -> pd.DataFrame:
               f"takers are not identified")
         shots = None
 
-    return build_player_logs(stats, shots, league)
+    return build_player_logs(stats, shots, league, transfers=load_transfers(league))
+
+
+def load_transfers(league: str) -> dict:
+    """Manual current-window transfer overrides for one league: player -> new
+    canonical club (or None if he left the league).
+
+    Understat only has completed seasons, so summer-window moves are invisible
+    until real 2026-27 games exist. This file (data-raw/leagues/transfers.json)
+    carries verified moves so the props show players at their CURRENT club. Keyed
+    by league; player names must match the Understat spelling; club names are
+    canonicalised here. Absent file or league -> no overrides."""
+    from pathlib import Path
+    path = Path(__file__).resolve().parent.parent / "data-raw" / "leagues" / "transfers.json"
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8")).get(league, {})
+    out = {}
+    for player, club in raw.items():
+        out[player] = canonical(club, league) if club else None
+    return out
 
 
 def shot_events_available(league: str) -> bool:
