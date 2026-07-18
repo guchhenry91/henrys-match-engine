@@ -150,6 +150,43 @@ def check_league(fn, key, n_teams, releg):
             fail(L, f"mojibake {bad!r} in payload (encoding bug)")
 
 
+def check_squad_freshness():
+    """Player-club attribution is only as fresh as data-raw/leagues/transfers.json.
+
+    Understat has no in-progress-season data, so every displayed player is placed by
+    LAST season's club until a verified transfer override says otherwise. This can't
+    verify a squad by itself, but it can refuse to let the file go quietly stale
+    while a window is open -- which is how a departed player keeps appearing.
+    """
+    import datetime as dt
+    p = ROOT / "data-raw" / "leagues" / "transfers.json"
+    if not p.exists():
+        fail("transfers", "data-raw/leagues/transfers.json is missing entirely")
+        return
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    today = dt.date.today()
+    # European summer window: mid-June to 1 September. Deals land daily.
+    in_window = (today.month, today.day) >= (6, 10) and (today.month, today.day) <= (9, 2)
+    if in_window:
+        checked = raw.get("_verified_on")
+        if not checked:
+            warn("transfers", "window is OPEN and no _verified_on date recorded")
+        else:
+            try:
+                age = (today - dt.date.fromisoformat(checked)).days
+                if age > 7:
+                    fail("transfers",
+                         f"squads last verified {age} days ago ({checked}) with the "
+                         f"window open -- re-verify before publishing")
+                elif age > 3:
+                    warn("transfers", f"squads last verified {age} days ago ({checked})")
+            except ValueError:
+                fail("transfers", f"_verified_on {checked!r} is not an ISO date")
+        for lg in ("PL", "LALIGA", "BUNDESLIGA", "LIGUE1"):
+            if lg not in raw:
+                fail("transfers", f"no entry for {lg}")
+
+
 def check_wc():
     p = ROOT / "data/predictions.json"
     if not p.exists():
@@ -199,6 +236,7 @@ def main():
             check_league(fn, key, n, releg)
         except FileNotFoundError:
             warn(key, "payload not published yet")
+    check_squad_freshness()
     check_wc()
 
     for w in warns:

@@ -118,8 +118,13 @@ def build_player_logs(season_stats: pd.DataFrame, shots: pd.DataFrame,
                "shots", "sot", "npxg", "pens_att"]].reset_index(drop=True)
 
 
-def fetch_player_logs(league: str) -> pd.DataFrame:
-    """Download (cached) five seasons of player season totals + shot events."""
+def fetch_player_logs(league: str, apply_transfers: bool = True) -> pd.DataFrame:
+    """Download (cached) five seasons of player season totals + shot events.
+
+    apply_transfers=False returns the RAW attribution with no overrides -- used by
+    scripts/apply_transfers.py so it can still find players a previous override
+    removed (otherwise resolving names against an already-filtered list would drop
+    them from the file and silently restore them to their old club)."""
     lg = config.get(league)
     us = sd.Understat(leagues=lg.understat, seasons=list(lg.history_seasons))
 
@@ -146,7 +151,8 @@ def fetch_player_logs(league: str) -> pd.DataFrame:
               f"takers are not identified")
         shots = None
 
-    return build_player_logs(stats, shots, league, transfers=load_transfers(league))
+    tr = load_transfers(league) if apply_transfers else None
+    return build_player_logs(stats, shots, league, transfers=tr)
 
 
 def load_transfers(league: str) -> dict:

@@ -1,11 +1,77 @@
 {
-  "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves are invisible to the model without this file. Each key is a player's EXACT Understat spelling; the value is his new canonical club (to move his history with him) or null if he left this league entirely. The window closes 2026-09-01 -- keep this current. Verified against ESPN + NBC per-club ins/outs.",
+  "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves (and late 2025-26 ones) are invisible without this file. Keys are EXACT Understat spellings, resolved by scripts/apply_transfers.py. Value = new canonical club, or null if the player left this league. Verified by per-league agents requiring two independent sources or an official announcement; rumours excluded.",
+  "_verified_on": "2026-07-18",
+  "_held_back": {
+    "LIGUE1": {
+      "Sekou Mara": "Strasbourg (Transfermarkt only -- two pages, one source)"
+    }
+  },
   "PL": {
     "Mohamed Salah": null,
     "Anthony Gordon": null,
-    "Raúl Jiménez": null
+    "Raúl Jiménez": null,
+    "Leandro Trossard": null,
+    "Antoine Semenyo": "Manchester City",
+    "Donyell Malen": null,
+    "Tyrique George": "Everton",
+    "Harry Wilson": "Leeds",
+    "Eliezer Mayenda": null,
+    "Bertrand Traoré": null,
+    "Brajan Gruda": null,
+    "Jack Grealish": "Manchester City",
+    "Lorenzo Lucca": null,
+    "Samuel Chukwueze": null,
+    "Reiss Nelson": "Arsenal"
   },
-  "LALIGA": {},
-  "BUNDESLIGA": {},
-  "LIGUE1": {}
+  "LALIGA": {
+    "Robert Lewandowski": null,
+    "Marcus Rashford": null,
+    "Alexis Sánchez": null,
+    "Dodi Lukebakio": null,
+    "Umar Sadiq": "Valencia",
+    "Largie Ramazani": null,
+    "Morales": null
+  },
+  "BUNDESLIGA": {
+    "Samuel Essende": null,
+    "Phillip Tietz": "Mainz",
+    "Elias Saad": null,
+    "Nicolas Jackson": null,
+    "Karim Adeyemi": null,
+    "Arnaud Kalimuendo Muinga": null,
+    "Junior Adamu": "Schalke 04",
+    "Maximilian Philipp": null,
+    "Robert Glatzel": null,
+    "Haris Tabakovic": null,
+    "Nelson Weiper": null,
+    "Armindo Sieb": "Bayern Munich",
+    "Loïs Openda": null,
+    "Timo Werner": null,
+    "Nick Woltemade": null,
+    "Jovan Milosevic": "Stuttgart",
+    "Victor Boniface": "Leverkusen"
+  },
+  "LIGUE1": {
+    "Sidiki Chérif": null,
+    "Goduine Koyalipou": null,
+    "Ibrahim Osman": null,
+    "Remy Labeau Lascary": "Lens",
+    "Eric Junior Dina Ebimbe": null,
+    "Kenny Quetant": null,
+    "Wesley Said": null,
+    "Ahmadou Bamba Dieng": null,
+    "Sambou Soumano": null,
+    "Pablo Pagis": "Paris FC",
+    "Georges Mikautadze": null,
+    "Roman Yaremchuk": null,
+    "Endrick": null,
+    "Pierre-Emerick Aubameyang": null,
+    "Sepe Elye Wahi": null,
+    "Gonçalo Ramos": null,
+    "Esteban Lepaul": "Rennes",
+    "Emanuel Emegha": null,
+    "David Datro Fofana": null,
+    "Emersonn": null,
+    "Frank Magri": null
+  }
 }
