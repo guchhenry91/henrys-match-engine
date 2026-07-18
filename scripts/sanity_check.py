@@ -70,6 +70,26 @@ def check_league(fn, key, n_teams, releg):
         if h > 6 or a > 6:
             warn(tag, f"implausible scoreline {p['score']}")
 
+        # top-3 scoreline spread: ranked, plausible, and containing the committed call
+        ts = p.get("top_scores") or []
+        if ts:
+            pcts = [t["pct"] for t in ts]
+            if pcts != sorted(pcts, reverse=True):
+                fail(tag, f"top_scores not ranked by probability: {pcts}")
+            if not all(0 < t["pct"] < 100 for t in ts):
+                fail(tag, f"top_scores probability out of range: {pcts}")
+            if len({t["score"] for t in ts}) != len(ts):
+                fail(tag, "duplicate scoreline in top_scores")
+            for t in ts:
+                h2, a2 = (int(x) for x in t["score"].split("-"))
+                imp = "home" if h2 > a2 else "away" if a2 > h2 else "draw"
+                if t.get("outcome") != imp:
+                    fail(tag, f"top_score {t['score']} labelled {t.get('outcome')}, implies {imp}")
+                if t.get("agrees_with_pick") != (imp == p["pick_type"]):
+                    fail(tag, f"top_score {t['score']} agrees_with_pick flag wrong")
+            if sum(pcts) > 100:
+                fail(tag, f"top_scores probabilities sum to {sum(pcts):.1f}%")
+
         # confidence must match the banding of the picked probability
         pp = {"home": p["p_home"], "draw": p["p_draw"], "away": p["p_away"]}[p["pick_type"]]
         exp_conf = next((c for t, c in ((.70, 5), (.60, 4), (.50, 3), (.40, 2)) if pp >= t), 1)

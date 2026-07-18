@@ -90,6 +90,12 @@ function renderLeague(app, data, clubs, label) {
         <header><span class="team">${esc(m.home)}</span><span class="score">${esc(p.score)}</span><span class="team away">${esc(m.away)}</span></header>
         <div class="pick">Pick: <strong>${esc(p.pick)}</strong> <span class="conf">${'★'.repeat(p.confidence)}</span></div>
         <div class="probs"><span><b>${pct(100 * p.p_home)}</b></span><span>draw <b>${pct(100 * p.p_draw)}</b></span><span><b>${pct(100 * p.p_away)}</b></span></div>
+        ${(p.top_scores || []).length ? `<div class="scores">
+          <span class="sc-label">Scoreline</span>
+          ${p.top_scores.map((s, i) => `<span class="sc ${s.score === p.score ? 'call' : ''}"
+             title="${s.agrees_with_pick ? 'agrees with the pick' : 'implies a different result'}">
+             ${esc(s.score)} <b>${num(s.pct)}%</b></span>`).join('')}
+        </div>` : ''}
         ${mkt}
         ${side(m.home, homeProps)}
         ${side(m.away, awayProps)}`;

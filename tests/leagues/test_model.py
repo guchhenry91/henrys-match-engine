@@ -91,3 +91,29 @@ def test_score_for_outcome_agrees_with_the_picked_result():
     assert hh > ha, f"home pick gave {home_s}"       # a home win scoreline
     assert dh == da, f"draw pick gave {draw_s}"      # a level scoreline
     assert aa > ah, f"away pick gave {away_s}"       # an away win scoreline
+
+
+def test_top_scorelines_are_ranked_and_probabilities_sane():
+    from leagues.model import scoreline_grid, top_scorelines
+    grid = scoreline_grid(1.6, 1.1, rho=-0.05)
+    top = top_scorelines(grid, n=3)
+    assert len(top) == 3
+    pcts = [t["pct"] for t in top]
+    assert pcts == sorted(pcts, reverse=True)        # ranked most likely first
+    assert all(0 < p < 100 for p in pcts)
+    assert len({t["score"] for t in top}) == 3       # no duplicates
+    # the top entry must be the true grid mode
+    import numpy as np
+    h, a = np.unravel_index(np.argmax(grid), grid.shape)
+    assert top[0]["score"] == f"{int(h)}-{int(a)}"
+
+
+def test_top_scorelines_probabilities_match_the_grid():
+    """The displayed % must be the real cell probability, not a re-normalised one."""
+    import numpy as np
+    from leagues.model import scoreline_grid, top_scorelines
+    grid = scoreline_grid(2.0, 0.7, rho=-0.03)
+    top = top_scorelines(grid, n=3)
+    for t in top:
+        h, a = (int(x) for x in t["score"].split("-"))
+        assert abs(t["pct"] - 100 * grid[h, a]) < 0.05

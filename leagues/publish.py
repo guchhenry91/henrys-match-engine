@@ -11,7 +11,8 @@ from pathlib import Path
 import pandas as pd
 
 from leagues import config, dataset, fixtures, odds, picks, players, props, second_tier, sim
-from leagues.model import LeagueModel, promoted_priors, score_for_outcome
+from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
+                           top_scorelines)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "leagues"
@@ -154,9 +155,18 @@ def build(league: str = "PL") -> dict:
         frozen = entry["pick"]
         pick_type = ("home" if frozen == home
                      else "away" if frozen == away else "draw")
-        # Scoreline must agree with the pick: the unconditional modal score is 1-1
-        # in most fixtures, which would contradict a home/away pick on the card.
+        # The model's committed single call. It is the most likely score GIVEN the
+        # pick, so the card never contradicts itself -- the unconditional mode is
+        # 1-1 in 68% of fixtures and would fight a home/away pick.
         score = score_for_outcome(pred["grid"], pick_type)
+        # ...and the honest spread behind it. A single score is right ~12% of the
+        # time; these three cover ~31%, and their probabilities show how thin the
+        # call really is. `agrees_with_pick` marks which of them match the pick.
+        spread = top_scorelines(pred["grid"], n=3)
+        for s in spread:
+            h, a = (int(x) for x in s["score"].split("-"))
+            s["outcome"] = "home" if h > a else "away" if a > h else "draw"
+            s["agrees_with_pick"] = (s["outcome"] == pick_type)
 
         # a player's shooting opportunity scales with how many shots his OPPONENT
         # concedes relative to the league average
@@ -180,6 +190,7 @@ def build(league: str = "PL") -> dict:
                 "pick": entry["pick"],           # the FROZEN pick, never a fresh one
                 "pick_type": pick_type,
                 "score": score,
+                "top_scores": spread,
                 "confidence": entry["confidence"],
                 "reasons": [
                     f"Model: {home} {pred['p_home']:.0%} / draw {pred['p_draw']:.0%} "

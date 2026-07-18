@@ -155,3 +155,16 @@ tr.ucl td:first-child{box-shadow:inset 3px 0 0 var(--win)}
 .fx-p .tick.correct{color:var(--win)} .fx-p .tick.wrong{color:var(--loss)}
 .fx-p .tick.void{color:var(--txt3)}
 @media (max-width:560px){ .fx-p .pk{max-width:7ch} .fx-t{width:32%} }
+
+/* correct-score spread: the committed call plus the honest alternatives */
+.scores{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:9px;
+  padding-top:9px;border-top:1px solid var(--stroke-soft)}
+.sc-label{font-size:10.5px;color:var(--txt3);text-transform:uppercase;
+  letter-spacing:.08em;margin-right:2px}
+.sc{font-size:12px;color:var(--txt3);padding:3px 8px;border-radius:999px;
+  border:1px solid var(--stroke-soft);font-variant-numeric:tabular-nums}
+.sc b{color:var(--txt2);font-weight:600}
+/* the model's committed call -- the one it says will happen */
+.sc.call{color:#1a1206;border-color:transparent;
+  background:linear-gradient(120deg,var(--g1),var(--g2))}
+.sc.call b{color:#1a1206}
