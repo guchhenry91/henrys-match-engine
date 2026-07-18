@@ -1,0 +1,46 @@
+{
+  "grid": [
+    {
+      "prior_strength": 6.0,
+      "n": 1136,
+      "grid_logloss": 2.971,
+      "attack_sd": 0.194,
+      "modal_1_1_pct": 68.3
+    },
+    {
+      "prior_strength": 3.0,
+      "n": 1136,
+      "grid_logloss": 2.9686,
+      "attack_sd": 0.218,
+      "modal_1_1_pct": 63.6
+    },
+    {
+      "prior_strength": 1.5,
+      "n": 1136,
+      "grid_logloss": 2.9686,
+      "attack_sd": 0.237,
+      "modal_1_1_pct": 61.7
+    },
+    {
+      "prior_strength": 0.75,
+      "n": 1136,
+      "grid_logloss": 2.9696,
+      "attack_sd": 0.251,
+      "modal_1_1_pct": 60.4
+    },
+    {
+      "prior_strength": 0.0,
+      "n": 1136,
+      "grid_logloss": 2.9725,
+      "attack_sd": 0.28,
+      "modal_1_1_pct": 59.2
+    }
+  ],
+  "best": {
+    "prior_strength": 3.0,
+    "n": 1136,
+    "grid_logloss": 2.9686,
+    "attack_sd": 0.218,
+    "modal_1_1_pct": 63.6
+  }
+}

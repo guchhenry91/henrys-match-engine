@@ -26,7 +26,13 @@ from leagues.weights import XI_PER_DAY, decay_weights
 
 XG_WEIGHT = 0.75
 MAX_GOALS = 10
-PRIOR_STRENGTH = 6.0
+# Empirical-Bayes pull toward the league mean, in units of DECAY-WEIGHTED matches.
+# Tuned on PL by walk-forward sweep (scripts/tune_prior_strength.py): 6.0 -> 3.0
+# improves 1X2 RPS 0.2001 -> 0.1990 (market gap +0.0061 -> +0.0050) and grid
+# log-loss 2.9710 -> 2.9686, with a proper interior optimum (both 6.0 and 0.0 are
+# worse). Neither delta is individually significant, but they agree in direction
+# and 3.0 leaves team strengths closer to their real spread.
+PRIOR_STRENGTH = 3.0
 
 
 def dc_tau(h: int, a: int, lh: float, la: float, rho: float) -> float:
@@ -151,6 +157,7 @@ def promoted_priors(model: "LeagueModel", teams, n_weakest: int = 3) -> dict:
 class LeagueModel:
     xi: float = XI_PER_DAY
     xg_weight: float = XG_WEIGHT
+    prior_strength: float = PRIOR_STRENGTH   # empirical-Bayes pull toward the mean
     rho: float = 0.0
     home_adv: float = 0.0
     attack: dict = field(default_factory=dict)
@@ -274,9 +281,19 @@ class LeagueModel:
         for team in list(self.attack):
             mask = ((df["home"] == team) | (df["away"] == team)).to_numpy()
             eff = float(w[mask].sum()) if len(mask) == len(w) else 0.0
-            k = PRIOR_STRENGTH / (PRIOR_STRENGTH + eff)      # k -> 1 when no data
-            if k < 0.02:                                      # plenty of evidence
-                continue
+            # SCALE: `eff` is a sum of DECAY WEIGHTS, not a raw match count. With a
+            # ~231-day half-life even a club with five full seasons has eff ~= 38,
+            # so this shrinkage lands on EVERY team, not only thin-data ones. That
+            # is correct empirical-Bayes behaviour -- but it means prior_strength
+            # controls the whole league's strength spread, not just promoted clubs,
+            # so it is tuned (scripts/tune_prior_strength.py) rather than guessed.
+            # A previous `if k < 0.02: continue` guard lived here, intended to skip
+            # well-evidenced teams; it needed eff > 294 and so could never fire.
+            # Removed rather than left as dead code implying protection it never gave.
+            ps = getattr(self, "prior_strength", PRIOR_STRENGTH)
+            if ps <= 0:
+                continue                                      # shrinkage disabled
+            k = ps / (ps + eff)                               # k -> 1 when no data
             pa, pdf = priors.get(team, (ga_mean, gd_mean))
             self.attack[team] = (1 - k) * self.attack[team] + k * pa
             self.defence[team] = (1 - k) * self.defence[team] + k * pdf

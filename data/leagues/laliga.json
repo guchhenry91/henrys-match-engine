@@ -1,6 +1,6 @@
 {
   "league": "La Liga",
-  "updated": "2026-07-18T21:15:14.799594+00:00",
+  "updated": "2026-07-18T21:51:48.310907+00:00",
   "record": {
     "correct": 0,
     "wrong": 0,
@@ -19,35 +19,36 @@
       "away": "Getafe",
       "prediction": {
         "p_home": 0.473,
-        "p_draw": 0.294,
-        "p_away": 0.233,
+        "p_draw": 0.297,
+        "p_away": 0.23,
         "pick": "Alaves",
         "pick_type": "home",
         "score": "1-0",
         "top_scores": [
           {
             "score": "1-0",
-            "pct": 17.1,
+            "pct": 17.5,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "0-0",
-            "pct": 13.5,
+            "pct": 14.1,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "1-1",
-            "pct": 12.6,
+            "pct": 12.5,
             "outcome": "draw",
             "agrees_with_pick": false
           }
         ],
         "confidence": 2,
+        "provisional": true,
         "reasons": [
-          "Model: Alaves 47% / draw 29% / Getafe 23%",
-          "Expected goals: 1.22 - 0.76"
+          "Model: Alaves 47% / draw 30% / Getafe 23%",
+          "Expected goals: 1.20 - 0.74"
         ]
       },
       "props": [
@@ -55,8 +56,8 @@
           "team": "Alaves",
           "player": "Antonio Mart\u00ednez",
           "position": "FW",
-          "lambda_goals": 0.32243850884396613,
-          "anytime_pct": 27.6,
+          "lambda_goals": 0.3173117815008659,
+          "anytime_pct": 27.2,
           "exp_shots": 2.09,
           "p_shots_2plus": 61.7,
           "exp_sot": 0.77,
@@ -68,8 +69,8 @@
           "team": "Alaves",
           "player": "Lucas Boy\u00e9",
           "position": "FW",
-          "lambda_goals": 0.1840047983018729,
-          "anytime_pct": 16.8,
+          "lambda_goals": 0.18107914765890845,
+          "anytime_pct": 16.6,
           "exp_shots": 1.2,
           "p_shots_2plus": 33.8,
           "exp_sot": 0.37,
@@ -81,8 +82,8 @@
           "team": "Alaves",
           "player": "Carlos Vicente",
           "position": "DF",
-          "lambda_goals": 0.1702237276773618,
-          "anytime_pct": 15.7,
+          "lambda_goals": 0.1696187409287789,
+          "anytime_pct": 15.6,
           "exp_shots": 0.28,
           "p_shots_2plus": 3.3,
           "exp_sot": 0.12,
@@ -94,8 +95,8 @@
           "team": "Getafe",
           "player": "Mauro Arambarri",
           "position": "MF",
-          "lambda_goals": 0.218568572068721,
-          "anytime_pct": 19.6,
+          "lambda_goals": 0.21566950156465353,
+          "anytime_pct": 19.4,
           "exp_shots": 1.36,
           "p_shots_2plus": 39.5,
           "exp_sot": 0.42,
@@ -107,8 +108,8 @@
           "team": "Getafe",
           "player": "Mart\u00edn Satriano",
           "position": "FW",
-          "lambda_goals": 0.10730677489795123,
-          "anytime_pct": 10.2,
+          "lambda_goals": 0.10370597469220745,
+          "anytime_pct": 9.9,
           "exp_shots": 0.92,
           "p_shots_2plus": 23.5,
           "exp_sot": 0.34,
@@ -120,8 +121,8 @@
           "team": "Getafe",
           "player": "Adri\u00e1n Liso",
           "position": "FW",
-          "lambda_goals": 0.07728652291067183,
-          "anytime_pct": 7.4,
+          "lambda_goals": 0.07469308621608636,
+          "anytime_pct": 7.2,
           "exp_shots": 0.78,
           "p_shots_2plus": 18.4,
           "exp_sot": 0.29,
@@ -143,9 +144,9 @@
       "home": "Sevilla",
       "away": "Vallecano",
       "prediction": {
-        "p_home": 0.378,
-        "p_draw": 0.279,
-        "p_away": 0.343,
+        "p_home": 0.372,
+        "p_draw": 0.28,
+        "p_away": 0.348,
         "pick": "Sevilla",
         "pick_type": "home",
         "score": "1-0",
@@ -164,15 +165,16 @@
           },
           {
             "score": "0-1",
-            "pct": 11.5,
+            "pct": 11.7,
             "outcome": "away",
             "agrees_with_pick": false
           }
         ],
         "confidence": 1,
+        "provisional": true,
         "reasons": [
-          "Model: Sevilla 38% / draw 28% / Vallecano 34%",
-          "Expected goals: 1.18 - 1.11"
+          "Model: Sevilla 37% / draw 28% / Vallecano 35%",
+          "Expected goals: 1.16 - 1.11"
         ]
       },
       "props": [
@@ -180,8 +182,8 @@
           "team": "Sevilla",
           "player": "Akor Adams",
           "position": "FW",
-          "lambda_goals": 0.3226152643733573,
-          "anytime_pct": 27.6,
+          "lambda_goals": 0.31898707896682965,
+          "anytime_pct": 27.3,
           "exp_shots": 1.53,
           "p_shots_2plus": 45.1,
           "exp_sot": 0.68,
@@ -193,8 +195,8 @@
           "team": "Sevilla",
           "player": "Isaac Romero",
           "position": "FW",
-          "lambda_goals": 0.12356540142401488,
-          "anytime_pct": 11.6,
+          "lambda_goals": 0.1212113003684003,
+          "anytime_pct": 11.4,
           "exp_shots": 1.08,
           "p_shots_2plus": 29.3,
           "exp_sot": 0.38,
@@ -206,8 +208,8 @@
           "team": "Sevilla",
           "player": "Ruben Vargas",
           "position": "FW",
-          "lambda_goals": 0.1031371714112983,
-          "anytime_pct": 9.8,
+          "lambda_goals": 0.10117225792180712,
+          "anytime_pct": 9.6,
           "exp_shots": 1.09,
           "p_shots_2plus": 29.7,
           "exp_sot": 0.26,
@@ -219,7 +221,7 @@
           "team": "Vallecano",
           "player": "Isi Palaz\u00f3n",
           "position": "FW",
-          "lambda_goals": 0.21421186941537562,
+          "lambda_goals": 0.21451553850356608,
           "anytime_pct": 19.3,
           "exp_shots": 1.35,
           "p_shots_2plus": 39.1,
@@ -232,8 +234,8 @@
           "team": "Vallecano",
           "player": "Jorge De Frutos",
           "position": "FW",
-          "lambda_goals": 0.17231713234255408,
-          "anytime_pct": 15.8,
+          "lambda_goals": 0.17295497595509912,
+          "anytime_pct": 15.9,
           "exp_shots": 1.33,
           "p_shots_2plus": 38.3,
           "exp_sot": 0.53,
@@ -245,7 +247,7 @@
           "team": "Vallecano",
           "player": "\u00c1lvaro Garc\u00eda",
           "position": "FW",
-          "lambda_goals": 0.10754274247879732,
+          "lambda_goals": 0.10794081927147114,
           "anytime_pct": 10.2,
           "exp_shots": 1.09,
           "p_shots_2plus": 29.5,
@@ -268,16 +270,16 @@
       "home": "Racing Santander",
       "away": "Villarreal",
       "prediction": {
-        "p_home": 0.266,
-        "p_draw": 0.238,
-        "p_away": 0.496,
+        "p_home": 0.256,
+        "p_draw": 0.234,
+        "p_away": 0.51,
         "pick": "Villarreal",
         "pick_type": "away",
         "score": "0-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 11.2,
+            "pct": 11.0,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -294,10 +296,11 @@
             "agrees_with_pick": true
           }
         ],
-        "confidence": 2,
+        "confidence": 3,
+        "provisional": true,
         "reasons": [
-          "Model: Racing Santander 27% / draw 24% / Villarreal 50%",
-          "Expected goals: 1.15 - 1.67"
+          "Model: Racing Santander 26% / draw 23% / Villarreal 51%",
+          "Expected goals: 1.14 - 1.71"
         ]
       },
       "props": [
@@ -305,8 +308,8 @@
           "team": "Villarreal",
           "player": "Georges Mikautadze",
           "position": "FW",
-          "lambda_goals": 0.31394128243588987,
-          "anytime_pct": 26.9,
+          "lambda_goals": 0.32312218883902794,
+          "anytime_pct": 27.6,
           "exp_shots": 1.7,
           "p_shots_2plus": 50.6,
           "exp_sot": 0.77,
@@ -318,8 +321,8 @@
           "team": "Villarreal",
           "player": "Gerard Moreno",
           "position": "FW",
-          "lambda_goals": 0.2669032971179781,
-          "anytime_pct": 23.4,
+          "lambda_goals": 0.27084332646150044,
+          "anytime_pct": 23.7,
           "exp_shots": 1.08,
           "p_shots_2plus": 29.3,
           "exp_sot": 0.43,
@@ -331,8 +334,8 @@
           "team": "Villarreal",
           "player": "Nicolas Pepe",
           "position": "FW",
-          "lambda_goals": 0.1933713175670525,
-          "anytime_pct": 17.6,
+          "lambda_goals": 0.1990262730219699,
+          "anytime_pct": 18.0,
           "exp_shots": 1.73,
           "p_shots_2plus": 51.7,
           "exp_sot": 0.7,
@@ -354,22 +357,22 @@
       "home": "Espanol",
       "away": "Levante",
       "prediction": {
-        "p_home": 0.426,
-        "p_draw": 0.251,
-        "p_away": 0.323,
+        "p_home": 0.422,
+        "p_draw": 0.25,
+        "p_away": 0.328,
         "pick": "Espanol",
         "pick_type": "home",
         "score": "1-0",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 11.9,
+            "pct": 11.8,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "1-0",
-            "pct": 10.0,
+            "pct": 9.8,
             "outcome": "home",
             "agrees_with_pick": true
           },
@@ -381,9 +384,10 @@
           }
         ],
         "confidence": 2,
+        "provisional": true,
         "reasons": [
-          "Model: Espanol 43% / draw 25% / Levante 32%",
-          "Expected goals: 1.47 - 1.24"
+          "Model: Espanol 42% / draw 25% / Levante 33%",
+          "Expected goals: 1.47 - 1.26"
         ]
       },
       "props": [
@@ -391,8 +395,8 @@
           "team": "Espanol",
           "player": "Roberto Fern\u00e1ndez",
           "position": "FW",
-          "lambda_goals": 0.2346090905966378,
-          "anytime_pct": 20.9,
+          "lambda_goals": 0.23544915552893855,
+          "anytime_pct": 21.0,
           "exp_shots": 1.72,
           "p_shots_2plus": 51.2,
           "exp_sot": 0.65,
@@ -404,8 +408,8 @@
           "team": "Espanol",
           "player": "Pere Milla",
           "position": "FW",
-          "lambda_goals": 0.22056667010559936,
-          "anytime_pct": 19.8,
+          "lambda_goals": 0.22135645333317527,
+          "anytime_pct": 19.9,
           "exp_shots": 1.69,
           "p_shots_2plus": 50.4,
           "exp_sot": 0.61,
@@ -417,7 +421,7 @@
           "team": "Espanol",
           "player": "Kike Garc\u00eda",
           "position": "FW",
-          "lambda_goals": 0.197086691755906,
+          "lambda_goals": 0.19779240020883193,
           "anytime_pct": 17.9,
           "exp_shots": 1.73,
           "p_shots_2plus": 51.5,
@@ -430,8 +434,8 @@
           "team": "Levante",
           "player": "Carlos Esp\u00ed",
           "position": "FW",
-          "lambda_goals": 0.1915426896576367,
-          "anytime_pct": 17.4,
+          "lambda_goals": 0.19516208986437317,
+          "anytime_pct": 17.7,
           "exp_shots": 1.51,
           "p_shots_2plus": 44.5,
           "exp_sot": 0.62,
@@ -443,8 +447,8 @@
           "team": "Levante",
           "player": "Iv\u00e1n Romero",
           "position": "FW",
-          "lambda_goals": 0.17652325670338823,
-          "anytime_pct": 16.2,
+          "lambda_goals": 0.17985884895672882,
+          "anytime_pct": 16.5,
           "exp_shots": 1.79,
           "p_shots_2plus": 53.5,
           "exp_sot": 0.54,
@@ -456,8 +460,8 @@
           "team": "Levante",
           "player": "Adri\u00e1n De la Fuente",
           "position": "DF",
-          "lambda_goals": 0.17194436652349104,
-          "anytime_pct": 15.8,
+          "lambda_goals": 0.1726958709938775,
+          "anytime_pct": 15.9,
           "exp_shots": 1.01,
           "p_shots_2plus": 26.8,
           "exp_sot": 0.26,
@@ -479,16 +483,16 @@
       "home": "Celta",
       "away": "Osasuna",
       "prediction": {
-        "p_home": 0.472,
+        "p_home": 0.473,
         "p_draw": 0.259,
-        "p_away": 0.269,
+        "p_away": 0.268,
         "pick": "Celta",
         "pick_type": "home",
         "score": "1-0",
         "top_scores": [
           {
             "score": "1-0",
-            "pct": 12.4,
+            "pct": 12.5,
             "outcome": "home",
             "agrees_with_pick": true
           },
@@ -506,9 +510,10 @@
           }
         ],
         "confidence": 2,
+        "provisional": true,
         "reasons": [
           "Model: Celta 47% / draw 26% / Osasuna 27%",
-          "Expected goals: 1.45 - 1.03"
+          "Expected goals: 1.45 - 1.02"
         ]
       },
       "props": [
@@ -516,7 +521,7 @@
           "team": "Celta",
           "player": "Borja Iglesias",
           "position": "FW",
-          "lambda_goals": 0.23317245117945765,
+          "lambda_goals": 0.23322130946721045,
           "anytime_pct": 20.8,
           "exp_shots": 1.23,
           "p_shots_2plus": 34.8,
@@ -529,7 +534,7 @@
           "team": "Celta",
           "player": "Iago Aspas",
           "position": "FW",
-          "lambda_goals": 0.2170990627874949,
+          "lambda_goals": 0.21711685776019712,
           "anytime_pct": 19.5,
           "exp_shots": 0.79,
           "p_shots_2plus": 18.8,
@@ -542,7 +547,7 @@
           "team": "Celta",
           "player": "Ferr\u00e1n Jutgl\u00e0",
           "position": "FW",
-          "lambda_goals": 0.2050242178554113,
+          "lambda_goals": 0.2050671780429532,
           "anytime_pct": 18.5,
           "exp_shots": 1.2,
           "p_shots_2plus": 33.7,
@@ -555,7 +560,7 @@
           "team": "Osasuna",
           "player": "Ante Budimir",
           "position": "FW",
-          "lambda_goals": 0.37903964837596227,
+          "lambda_goals": 0.37812622691489506,
           "anytime_pct": 31.5,
           "exp_shots": 2.35,
           "p_shots_2plus": 68.0,
@@ -568,7 +573,7 @@
           "team": "Osasuna",
           "player": "V\u00edctor Mu\u00f1oz",
           "position": "FW",
-          "lambda_goals": 0.14555536131615546,
+          "lambda_goals": 0.1450167957245374,
           "anytime_pct": 13.5,
           "exp_shots": 1.94,
           "p_shots_2plus": 57.8,
@@ -581,7 +586,7 @@
           "team": "Osasuna",
           "player": "Raul Garc\u00eda",
           "position": "FW",
-          "lambda_goals": 0.09994070825528527,
+          "lambda_goals": 0.0995709202503534,
           "anytime_pct": 9.5,
           "exp_shots": 0.76,
           "p_shots_2plus": 17.7,
@@ -604,9 +609,9 @@
       "home": "La Coruna",
       "away": "Elche",
       "prediction": {
-        "p_home": 0.358,
-        "p_draw": 0.269,
-        "p_away": 0.373,
+        "p_home": 0.36,
+        "p_draw": 0.268,
+        "p_away": 0.371,
         "pick": "Elche",
         "pick_type": "away",
         "score": "0-1",
@@ -619,21 +624,22 @@
           },
           {
             "score": "0-1",
-            "pct": 11.0,
+            "pct": 10.9,
             "outcome": "away",
             "agrees_with_pick": true
           },
           {
             "score": "1-0",
-            "pct": 10.8,
+            "pct": 10.7,
             "outcome": "home",
             "agrees_with_pick": false
           }
         ],
         "confidence": 1,
+        "provisional": true,
         "reasons": [
           "Model: La Coruna 36% / draw 27% / Elche 37%",
-          "Expected goals: 1.20 - 1.23"
+          "Expected goals: 1.21 - 1.24"
         ]
       },
       "props": [
@@ -641,7 +647,7 @@
           "team": "Elche",
           "player": "Andr\u00e9 Silva",
           "position": "FW",
-          "lambda_goals": 0.31907633243681965,
+          "lambda_goals": 0.31923141133219524,
           "anytime_pct": 27.3,
           "exp_shots": 1.42,
           "p_shots_2plus": 41.4,
@@ -654,7 +660,7 @@
           "team": "Elche",
           "player": "Alvaro Rodr\u00edguez",
           "position": "FW",
-          "lambda_goals": 0.21183178081570928,
+          "lambda_goals": 0.21200754439694575,
           "anytime_pct": 19.1,
           "exp_shots": 1.85,
           "p_shots_2plus": 55.1,
@@ -667,7 +673,7 @@
           "team": "Elche",
           "player": "Rafa Mir",
           "position": "FW",
-          "lambda_goals": 0.18420088131618512,
+          "lambda_goals": 0.18435371865929945,
           "anytime_pct": 16.8,
           "exp_shots": 1.74,
           "p_shots_2plus": 52.0,
@@ -690,36 +696,37 @@
       "home": "Ath Madrid",
       "away": "Malaga",
       "prediction": {
-        "p_home": 0.716,
-        "p_draw": 0.175,
-        "p_away": 0.109,
+        "p_home": 0.729,
+        "p_draw": 0.168,
+        "p_away": 0.103,
         "pick": "Ath Madrid",
         "pick_type": "home",
         "score": "2-0",
         "top_scores": [
           {
             "score": "2-0",
-            "pct": 12.9,
+            "pct": 13.0,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "1-0",
-            "pct": 11.7,
+            "pct": 11.5,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "3-0",
-            "pct": 9.6,
+            "pct": 9.8,
             "outcome": "home",
             "agrees_with_pick": true
           }
         ],
         "confidence": 5,
+        "provisional": true,
         "reasons": [
-          "Model: Ath Madrid 72% / draw 17% / Malaga 11%",
-          "Expected goals: 2.23 - 0.73"
+          "Model: Ath Madrid 73% / draw 17% / Malaga 10%",
+          "Expected goals: 2.28 - 0.72"
         ]
       },
       "props": [
@@ -727,8 +734,8 @@
           "team": "Ath Madrid",
           "player": "Alexander S\u00f8rloth",
           "position": "FW",
-          "lambda_goals": 0.473331952234864,
-          "anytime_pct": 37.7,
+          "lambda_goals": 0.4860487491823086,
+          "anytime_pct": 38.5,
           "exp_shots": 1.76,
           "p_shots_2plus": 52.4,
           "exp_sot": 0.84,
@@ -740,8 +747,8 @@
           "team": "Ath Madrid",
           "player": "Juli\u00e1n \u00c1lvarez",
           "position": "FW",
-          "lambda_goals": 0.39273604955396785,
-          "anytime_pct": 32.5,
+          "lambda_goals": 0.399736455435192,
+          "anytime_pct": 33.0,
           "exp_shots": 1.42,
           "p_shots_2plus": 41.7,
           "exp_sot": 0.69,
@@ -753,8 +760,8 @@
           "team": "Ath Madrid",
           "player": "Antoine Griezmann",
           "position": "FW",
-          "lambda_goals": 0.18908487845724187,
-          "anytime_pct": 17.2,
+          "lambda_goals": 0.19416493695280665,
+          "anytime_pct": 17.6,
           "exp_shots": 1.07,
           "p_shots_2plus": 29.0,
           "exp_sot": 0.45,
@@ -776,9 +783,9 @@
       "home": "Valencia",
       "away": "Betis",
       "prediction": {
-        "p_home": 0.41,
-        "p_draw": 0.262,
-        "p_away": 0.327,
+        "p_home": 0.406,
+        "p_draw": 0.263,
+        "p_away": 0.332,
         "pick": "Valencia",
         "pick_type": "home",
         "score": "1-0",
@@ -791,7 +798,7 @@
           },
           {
             "score": "1-0",
-            "pct": 11.1,
+            "pct": 11.0,
             "outcome": "home",
             "agrees_with_pick": true
           },
@@ -803,9 +810,10 @@
           }
         ],
         "confidence": 2,
+        "provisional": true,
         "reasons": [
           "Model: Valencia 41% / draw 26% / Betis 33%",
-          "Expected goals: 1.35 - 1.17"
+          "Expected goals: 1.34 - 1.18"
         ]
       },
       "props": [
@@ -813,8 +821,8 @@
           "team": "Valencia",
           "player": "Hugo Duro",
           "position": "FW",
-          "lambda_goals": 0.22366865355886328,
-          "anytime_pct": 20.0,
+          "lambda_goals": 0.22216904542491733,
+          "anytime_pct": 19.9,
           "exp_shots": 1.03,
           "p_shots_2plus": 27.5,
           "exp_sot": 0.4,
@@ -826,7 +834,7 @@
           "team": "Valencia",
           "player": "Pepelu",
           "position": "MF",
-          "lambda_goals": 0.15321246237436512,
+          "lambda_goals": 0.15307140738431163,
           "anytime_pct": 14.2,
           "exp_shots": 0.54,
           "p_shots_2plus": 10.4,
@@ -839,8 +847,8 @@
           "team": "Valencia",
           "player": "Arnaut Danjuma Groeneveld",
           "position": "FW",
-          "lambda_goals": 0.1382584325118794,
-          "anytime_pct": 12.9,
+          "lambda_goals": 0.13733146547075636,
+          "anytime_pct": 12.8,
           "exp_shots": 1.01,
           "p_shots_2plus": 26.6,
           "exp_sot": 0.42,
@@ -852,8 +860,8 @@
           "team": "Betis",
           "player": "Juan Camilo Hern\u00e1ndez",
           "position": "FW",
-          "lambda_goals": 0.20776951537675384,
-          "anytime_pct": 18.8,
+          "lambda_goals": 0.20966684987436154,
+          "anytime_pct": 18.9,
           "exp_shots": 2.12,
           "p_shots_2plus": 62.5,
           "exp_sot": 0.61,
@@ -865,8 +873,8 @@
           "team": "Betis",
           "player": "Antony",
           "position": "FW",
-          "lambda_goals": 0.1652287088344893,
-          "anytime_pct": 15.2,
+          "lambda_goals": 0.16673756410952034,
+          "anytime_pct": 15.4,
           "exp_shots": 2.02,
           "p_shots_2plus": 60.0,
           "exp_sot": 0.77,
@@ -878,8 +886,8 @@
           "team": "Betis",
           "player": "Abdessamad Ezzalzouli",
           "position": "FW",
-          "lambda_goals": 0.1511465578728832,
-          "anytime_pct": 14.0,
+          "lambda_goals": 0.15252681607836086,
+          "anytime_pct": 14.1,
           "exp_shots": 1.73,
           "p_shots_2plus": 51.5,
           "exp_sot": 0.63,
@@ -901,36 +909,37 @@
       "home": "Real Madrid",
       "away": "Sociedad",
       "prediction": {
-        "p_home": 0.66,
-        "p_draw": 0.19,
-        "p_away": 0.15,
+        "p_home": 0.677,
+        "p_draw": 0.183,
+        "p_away": 0.14,
         "pick": "Real Madrid",
         "pick_type": "home",
         "score": "2-0",
         "top_scores": [
           {
             "score": "2-0",
-            "pct": 10.7,
+            "pct": 10.8,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "1-0",
-            "pct": 10.1,
+            "pct": 9.8,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "2-1",
-            "pct": 9.9,
+            "pct": 9.8,
             "outcome": "home",
             "agrees_with_pick": true
           }
         ],
         "confidence": 4,
+        "provisional": true,
         "reasons": [
-          "Model: Real Madrid 66% / draw 19% / Sociedad 15%",
-          "Expected goals: 2.16 - 0.92"
+          "Model: Real Madrid 68% / draw 18% / Sociedad 14%",
+          "Expected goals: 2.24 - 0.91"
         ]
       },
       "props": [
@@ -938,8 +947,8 @@
           "team": "Real Madrid",
           "player": "Kylian Mbappe-Lottin",
           "position": "FW",
-          "lambda_goals": 0.650389566871785,
-          "anytime_pct": 47.8,
+          "lambda_goals": 0.6690739791130298,
+          "anytime_pct": 48.8,
           "exp_shots": 3.57,
           "p_shots_2plus": 87.1,
           "exp_sot": 1.65,
@@ -951,8 +960,8 @@
           "team": "Real Madrid",
           "player": "Vin\u00edcius J\u00fanior",
           "position": "FW",
-          "lambda_goals": 0.3754899103022954,
-          "anytime_pct": 31.3,
+          "lambda_goals": 0.3890283054177015,
+          "anytime_pct": 32.2,
           "exp_shots": 2.53,
           "p_shots_2plus": 71.9,
           "exp_sot": 1.09,
@@ -964,8 +973,8 @@
           "team": "Real Madrid",
           "player": "Jude Bellingham",
           "position": "MF",
-          "lambda_goals": 0.21306573999111056,
-          "anytime_pct": 19.2,
+          "lambda_goals": 0.22074788562115896,
+          "anytime_pct": 19.8,
           "exp_shots": 1.21,
           "p_shots_2plus": 34.2,
           "exp_sot": 0.56,
@@ -977,8 +986,8 @@
           "team": "Sociedad",
           "player": "Mikel Oyarzabal",
           "position": "FW",
-          "lambda_goals": 0.27114594479187304,
-          "anytime_pct": 23.7,
+          "lambda_goals": 0.2691314765972481,
+          "anytime_pct": 23.6,
           "exp_shots": 1.45,
           "p_shots_2plus": 42.7,
           "exp_sot": 0.63,
@@ -990,8 +999,8 @@
           "team": "Sociedad",
           "player": "Gon\u00e7alo Guedes",
           "position": "FW",
-          "lambda_goals": 0.1045769883888284,
-          "anytime_pct": 9.9,
+          "lambda_goals": 0.10306109332455848,
+          "anytime_pct": 9.8,
           "exp_shots": 1.07,
           "p_shots_2plus": 28.9,
           "exp_sot": 0.4,
@@ -1003,8 +1012,8 @@
           "team": "Sociedad",
           "player": "Orri \u00d3skarsson",
           "position": "FW",
-          "lambda_goals": 0.08722355215916057,
-          "anytime_pct": 8.4,
+          "lambda_goals": 0.08595920371842572,
+          "anytime_pct": 8.2,
           "exp_shots": 0.51,
           "p_shots_2plus": 9.2,
           "exp_sot": 0.26,
@@ -1026,36 +1035,37 @@
       "home": "Barcelona",
       "away": "Ath Bilbao",
       "prediction": {
-        "p_home": 0.65,
-        "p_draw": 0.194,
-        "p_away": 0.156,
+        "p_home": 0.666,
+        "p_draw": 0.188,
+        "p_away": 0.146,
         "pick": "Barcelona",
         "pick_type": "home",
         "score": "2-0",
         "top_scores": [
           {
             "score": "2-0",
-            "pct": 10.7,
+            "pct": 10.8,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "1-0",
-            "pct": 10.3,
+            "pct": 10.0,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "2-1",
-            "pct": 9.9,
+            "pct": 9.8,
             "outcome": "home",
             "agrees_with_pick": true
           }
         ],
         "confidence": 4,
+        "provisional": true,
         "reasons": [
-          "Model: Barcelona 65% / draw 19% / Ath Bilbao 16%",
-          "Expected goals: 2.12 - 0.92"
+          "Model: Barcelona 67% / draw 19% / Ath Bilbao 15%",
+          "Expected goals: 2.19 - 0.91"
         ]
       },
       "props": [
@@ -1063,8 +1073,8 @@
           "team": "Barcelona",
           "player": "Ferr\u00e1n Torres",
           "position": "FW",
-          "lambda_goals": 0.40176478928434023,
-          "anytime_pct": 33.1,
+          "lambda_goals": 0.4155002772259323,
+          "anytime_pct": 34.0,
           "exp_shots": 1.34,
           "p_shots_2plus": 38.7,
           "exp_sot": 0.6,
@@ -1076,8 +1086,8 @@
           "team": "Barcelona",
           "player": "Raphinha",
           "position": "FW",
-          "lambda_goals": 0.3658651544964957,
-          "anytime_pct": 30.6,
+          "lambda_goals": 0.37385456351053925,
+          "anytime_pct": 31.2,
           "exp_shots": 1.1,
           "p_shots_2plus": 30.1,
           "exp_sot": 0.4,
@@ -1089,8 +1099,8 @@
           "team": "Barcelona",
           "player": "Lamine Yamal",
           "position": "FW",
-          "lambda_goals": 0.28805251705928453,
-          "anytime_pct": 25.0,
+          "lambda_goals": 0.29790042304841013,
+          "anytime_pct": 25.8,
           "exp_shots": 1.94,
           "p_shots_2plus": 57.9,
           "exp_sot": 0.63,
@@ -1102,8 +1112,8 @@
           "team": "Ath Bilbao",
           "player": "Oihan Sancet",
           "position": "MF",
-          "lambda_goals": 0.22269085742732259,
-          "anytime_pct": 20.0,
+          "lambda_goals": 0.22143949260868734,
+          "anytime_pct": 19.9,
           "exp_shots": 0.77,
           "p_shots_2plus": 18.1,
           "exp_sot": 0.26,
@@ -1115,8 +1125,8 @@
           "team": "Ath Bilbao",
           "player": "Gorka Guruzeta",
           "position": "FW",
-          "lambda_goals": 0.172579323779952,
-          "anytime_pct": 15.9,
+          "lambda_goals": 0.17019347552057754,
+          "anytime_pct": 15.6,
           "exp_shots": 1.4,
           "p_shots_2plus": 40.8,
           "exp_sot": 0.52,
@@ -1128,8 +1138,8 @@
           "team": "Ath Bilbao",
           "player": "I\u00f1aki Williams",
           "position": "FW",
-          "lambda_goals": 0.11088996110341372,
-          "anytime_pct": 10.5,
+          "lambda_goals": 0.109356946516927,
+          "anytime_pct": 10.4,
           "exp_shots": 1.1,
           "p_shots_2plus": 30.2,
           "exp_sot": 0.43,
@@ -1152,7 +1162,7 @@
       "home": "Alaves",
       "away": "Getafe",
       "result": null,
-      "pick": "Alaves",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1163,7 +1173,7 @@
       "home": "Sevilla",
       "away": "Vallecano",
       "result": null,
-      "pick": "Sevilla",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1174,7 +1184,7 @@
       "home": "Racing Santander",
       "away": "Villarreal",
       "result": null,
-      "pick": "Villarreal",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1185,7 +1195,7 @@
       "home": "Espanol",
       "away": "Levante",
       "result": null,
-      "pick": "Espanol",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1196,7 +1206,7 @@
       "home": "Celta",
       "away": "Osasuna",
       "result": null,
-      "pick": "Celta",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1207,7 +1217,7 @@
       "home": "La Coruna",
       "away": "Elche",
       "result": null,
-      "pick": "Elche",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1218,7 +1228,7 @@
       "home": "Ath Madrid",
       "away": "Malaga",
       "result": null,
-      "pick": "Ath Madrid",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1229,7 +1239,7 @@
       "home": "Valencia",
       "away": "Betis",
       "result": null,
-      "pick": "Valencia",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1240,7 +1250,7 @@
       "home": "Real Madrid",
       "away": "Sociedad",
       "result": null,
-      "pick": "Real Madrid",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -1251,7 +1261,7 @@
       "home": "Barcelona",
       "away": "Ath Bilbao",
       "result": null,
-      "pick": "Barcelona",
+      "pick": null,
       "graded": null,
       "void": false
     },
@@ -5329,155 +5339,155 @@
   "table": [
     {
       "team": "Barcelona",
-      "proj_points": 77.3,
-      "title_pct": 60.1,
-      "top4_pct": 96.8,
+      "proj_points": 79.2,
+      "title_pct": 62.8,
+      "top4_pct": 98.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Real Madrid",
-      "proj_points": 72.3,
-      "title_pct": 27.9,
-      "top4_pct": 89.0,
+      "proj_points": 73.9,
+      "title_pct": 28.1,
+      "top4_pct": 91.6,
       "relegation_pct": 0.0
     },
     {
       "team": "Ath Madrid",
-      "proj_points": 63.5,
-      "title_pct": 4.7,
-      "top4_pct": 53.2,
-      "relegation_pct": 0.2
+      "proj_points": 64.3,
+      "title_pct": 3.8,
+      "top4_pct": 55.8,
+      "relegation_pct": 0.1
     },
     {
       "team": "Villarreal",
-      "proj_points": 61.8,
-      "title_pct": 3.4,
-      "top4_pct": 44.1,
-      "relegation_pct": 0.2
+      "proj_points": 62.5,
+      "title_pct": 2.7,
+      "top4_pct": 46.6,
+      "relegation_pct": 0.1
     },
     {
       "team": "Betis",
-      "proj_points": 58.1,
-      "title_pct": 1.4,
-      "top4_pct": 26.2,
-      "relegation_pct": 0.8
+      "proj_points": 58.5,
+      "title_pct": 1.0,
+      "top4_pct": 26.4,
+      "relegation_pct": 0.6
     },
     {
       "team": "Ath Bilbao",
-      "proj_points": 57.1,
-      "title_pct": 1.0,
-      "top4_pct": 22.1,
-      "relegation_pct": 1.1
+      "proj_points": 57.3,
+      "title_pct": 0.7,
+      "top4_pct": 21.8,
+      "relegation_pct": 0.7
     },
     {
       "team": "Vallecano",
       "proj_points": 53.7,
-      "title_pct": 0.2,
-      "top4_pct": 11.7,
-      "relegation_pct": 3.1
+      "title_pct": 0.1,
+      "top4_pct": 10.9,
+      "relegation_pct": 2.8
     },
     {
       "team": "Celta",
-      "proj_points": 53.4,
-      "title_pct": 0.3,
-      "top4_pct": 11.1,
-      "relegation_pct": 3.3
+      "proj_points": 53.3,
+      "title_pct": 0.2,
+      "top4_pct": 9.9,
+      "relegation_pct": 2.8
     },
     {
       "team": "Sociedad",
-      "proj_points": 52.9,
-      "title_pct": 0.3,
-      "top4_pct": 10.0,
-      "relegation_pct": 3.6
+      "proj_points": 52.8,
+      "title_pct": 0.2,
+      "top4_pct": 8.7,
+      "relegation_pct": 3.2
     },
     {
       "team": "Valencia",
-      "proj_points": 51.9,
-      "title_pct": 0.2,
-      "top4_pct": 7.8,
-      "relegation_pct": 4.5
+      "proj_points": 51.7,
+      "title_pct": 0.1,
+      "top4_pct": 7.1,
+      "relegation_pct": 4.4
     },
     {
       "team": "Osasuna",
-      "proj_points": 51.8,
+      "proj_points": 51.6,
       "title_pct": 0.1,
-      "top4_pct": 7.9,
-      "relegation_pct": 5.0
+      "top4_pct": 6.8,
+      "relegation_pct": 4.7
     },
     {
       "team": "Alaves",
-      "proj_points": 51.6,
+      "proj_points": 51.4,
       "title_pct": 0.1,
-      "top4_pct": 7.5,
-      "relegation_pct": 5.3
+      "top4_pct": 6.5,
+      "relegation_pct": 4.7
     },
     {
       "team": "Levante",
-      "proj_points": 50.8,
+      "proj_points": 50.7,
       "title_pct": 0.1,
-      "top4_pct": 6.5,
-      "relegation_pct": 6.5
+      "top4_pct": 5.5,
+      "relegation_pct": 6.1
     },
     {
       "team": "Getafe",
-      "proj_points": 46.0,
+      "proj_points": 45.5,
       "title_pct": 0.0,
-      "top4_pct": 1.6,
-      "relegation_pct": 16.8
+      "top4_pct": 1.2,
+      "relegation_pct": 16.6
     },
     {
       "team": "Espanol",
-      "proj_points": 45.9,
+      "proj_points": 45.3,
       "title_pct": 0.0,
-      "top4_pct": 1.8,
-      "relegation_pct": 17.2
+      "top4_pct": 1.3,
+      "relegation_pct": 17.9
     },
     {
       "team": "Sevilla",
-      "proj_points": 45.4,
+      "proj_points": 44.7,
       "title_pct": 0.0,
-      "top4_pct": 1.4,
-      "relegation_pct": 19.3
+      "top4_pct": 1.0,
+      "relegation_pct": 19.8
     },
     {
       "team": "Elche",
-      "proj_points": 45.0,
+      "proj_points": 44.2,
       "title_pct": 0.0,
-      "top4_pct": 1.4,
-      "relegation_pct": 20.5
+      "top4_pct": 0.8,
+      "relegation_pct": 21.9
     },
     {
       "team": "Racing Santander",
-      "proj_points": 38.3,
+      "proj_points": 37.8,
       "title_pct": 0.0,
       "top4_pct": 0.1,
-      "relegation_pct": 53.6
+      "relegation_pct": 53.7
     },
     {
       "team": "Malaga",
-      "proj_points": 36.2,
+      "proj_points": 35.7,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 65.3
+      "relegation_pct": 65.9
     },
     {
       "team": "La Coruna",
-      "proj_points": 34.5,
+      "proj_points": 34.1,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 73.6
+      "relegation_pct": 74.0
     }
   ],
   "backtest": {
     "xi": 0.0018,
     "xg_weight": 0.75,
     "n": 1137,
-    "accuracy": 0.5338610378188214,
-    "rps": 0.19437057991543596,
-    "brier": 0.576767550679441,
+    "accuracy": 0.5356200527704486,
+    "rps": 0.1935772553504332,
+    "brier": 0.5750170445296299,
     "market_n": 1137,
-    "model_rps_on_market_subset": 0.19437057991543596,
-    "model_accuracy_on_market_subset": 0.5338610378188214,
+    "model_rps_on_market_subset": 0.1935772553504332,
+    "model_accuracy_on_market_subset": 0.5356200527704486,
     "market_accuracy": 0.5523306948109059,
     "market_rps": 0.18884742158319187,
     "market_brier": 0.5653935950355511

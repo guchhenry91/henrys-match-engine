@@ -18,6 +18,11 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "leagues"
 PICKS_DIR = ROOT / "data-raw" / "leagues"
 MATCHWEEKS_AHEAD = 1
+# A pick is only FROZEN once kickoff is near. Locking weeks ahead would freeze a
+# model that cannot yet see late form, injuries or the closing market -- and the
+# frozen pick would then contradict the probabilities shown beside it. Until a
+# fixture enters this window its pick is provisional and recomputed every run.
+LOCK_WINDOW_HOURS = 48
 
 
 def _confidence(p_pick: float) -> int:
@@ -145,9 +150,16 @@ def build(league: str = "PL") -> dict:
         probs = {home: pred["p_home"], "Draw": pred["p_draw"], away: pred["p_away"]}
         pick = max(probs, key=probs.get)
 
-        entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
-                                confidence=_confidence(probs[pick]),
-                                kickoff=m["date"], now=now)
+        # Freeze only inside the lock window; before that the pick stays live.
+        hours_out = (pd.Timestamp(m["date"]) - now).total_seconds() / 3600.0
+        if hours_out <= LOCK_WINDOW_HOURS:
+            entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
+                                    confidence=_confidence(probs[pick]),
+                                    kickoff=m["date"], now=now)
+            provisional = False
+        else:
+            entry = {"pick": pick, "confidence": _confidence(probs[pick])}
+            provisional = True
         # Everything the card shows must describe the FROZEN pick, not the fresh
         # argmax: on a re-run after the model flips, entry["pick"] is still the
         # locked side, so pick_type and the market edge below must be derived from
@@ -192,6 +204,7 @@ def build(league: str = "PL") -> dict:
                 "score": score,
                 "top_scores": spread,
                 "confidence": entry["confidence"],
+                "provisional": provisional,   # True = not yet frozen; will be re-picked
                 "reasons": [
                     f"Model: {home} {pred['p_home']:.0%} / draw {pred['p_draw']:.0%} "
                     f"/ {away} {pred['p_away']:.0%}",
