@@ -90,6 +90,16 @@ def build(league: str = "PL") -> dict:
                   f"weakest-side fallback")
     model = LeagueModel().fit(matches, ref=ref, priors=priors)
 
+    # Squad freshness: during an open transfer window the player-club mapping is
+    # only as current as the last verified pass over transfers.json. Say so on the
+    # page rather than quietly showing a player at a club he has left.
+    stale_days = players.transfers_age_days()
+    if stale_days is not None and stale_days > 7:
+        warnings.append(
+            f"Squad lists were last checked against transfer news {stale_days} days "
+            f"ago and the window is still open, so a player may appear at a club he "
+            f"has since left.")
+
     # Only players who actually appeared last season, with realistic minutes.
     # Otherwise five seasons of departed players share out the team's expected
     # goals and every real striker is crushed to a few percent.

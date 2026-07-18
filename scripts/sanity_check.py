@@ -174,10 +174,15 @@ def check_squad_freshness():
         else:
             try:
                 age = (today - dt.date.fromisoformat(checked)).days
+                # Deliberately a WARNING, not a failure. This runs unattended in CI:
+                # blocking the whole publish would freeze results, tables and picks
+                # too, which is worse than slightly stale rosters. publish.py instead
+                # surfaces the staleness on the page as a data_warning, so readers are
+                # told rather than the site going dark.
                 if age > 7:
-                    fail("transfers",
+                    warn("transfers",
                          f"squads last verified {age} days ago ({checked}) with the "
-                         f"window open -- re-verify before publishing")
+                         f"window open -- re-verify (page shows a notice)")
                 elif age > 3:
                     warn("transfers", f"squads last verified {age} days ago ({checked})")
             except ValueError:

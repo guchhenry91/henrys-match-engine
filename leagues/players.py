@@ -155,6 +155,24 @@ def fetch_player_logs(league: str, apply_transfers: bool = True) -> pd.DataFrame
     return build_player_logs(stats, shots, league, transfers=tr)
 
 
+def transfers_age_days() -> int | None:
+    """Days since squads were last verified against transfer news, or None if the
+    window is shut (outside ~10 Jun - 2 Sep) or no date is recorded."""
+    import datetime as dt
+    from pathlib import Path
+    path = Path(__file__).resolve().parent.parent / "data-raw" / "leagues" / "transfers.json"
+    if not path.exists():
+        return None
+    today = dt.date.today()
+    if not ((6, 10) <= (today.month, today.day) <= (9, 2)):
+        return None                                  # window shut: rosters are stable
+    checked = json.loads(path.read_text(encoding="utf-8")).get("_verified_on")
+    try:
+        return (today - dt.date.fromisoformat(checked)).days
+    except (TypeError, ValueError):
+        return None
+
+
 def load_transfers(league: str) -> dict:
     """Manual current-window transfer overrides for one league: player -> new
     canonical club (or None if he left the league).
