@@ -19,6 +19,13 @@ def main():
         print(f"ABORT: league publish failed ({exc}); nothing deployed", file=sys.stderr)
         return 1
 
+    # Same gate as the weekly job: the numbers must make sense before they ship.
+    from scripts import sanity_check
+    if sanity_check.main() != 0:
+        print("ABORT: published payload failed sanity checks; nothing deployed",
+              file=sys.stderr)
+        return 1
+
     return subprocess.call(
         [sys.executable, str(ROOT / "deploy.py"), "auto update: leagues match-day results"],
         cwd=ROOT,

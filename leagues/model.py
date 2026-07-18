@@ -59,6 +59,29 @@ def outcome_probs(grid: np.ndarray) -> tuple[float, float, float]:
             float(np.triu(grid, 1).sum()))
 
 
+def score_for_outcome(grid: np.ndarray, outcome: str) -> str:
+    """Most likely exact scoreline GIVEN a home win / draw / away win.
+
+    The single most likely scoreline overall is 1-1 in most fixtures (the score
+    distribution is flat and the Dixon-Coles tau lifts level low scores), even when
+    one side is a clear favourite. Pairing that unconditional mode with a 1X2 pick
+    produces cards reading "Pick: Man United ... 1-1", which contradict themselves.
+    Conditioning on the picked outcome keeps the card coherent: it answers "if they
+    win, what is the most likely way?" rather than "what is the likeliest score?".
+    """
+    n = grid.shape[0]
+    rows, cols = np.indices(grid.shape)
+    if outcome == "home":
+        mask = rows > cols
+    elif outcome == "away":
+        mask = rows < cols
+    else:
+        mask = rows == cols
+    masked = np.where(mask, grid, -1.0)          # -1 so an unmatched cell never wins
+    h, a = np.unravel_index(np.argmax(masked), grid.shape)
+    return f"{int(h)}-{int(a)}"
+
+
 def elo_priors(elo: dict[str, float], model: "LeagueModel") -> dict[str, tuple[float, float]]:
     """Convert raw ClubElo ratings onto the model's LOG-STRENGTH scale.
 

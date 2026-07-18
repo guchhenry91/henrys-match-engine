@@ -11,7 +11,7 @@ from pathlib import Path
 import pandas as pd
 
 from leagues import config, dataset, fixtures, odds, picks, players, props, second_tier, sim
-from leagues.model import LeagueModel, promoted_priors
+from leagues.model import LeagueModel, promoted_priors, score_for_outcome
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "leagues"
@@ -144,6 +144,9 @@ def build(league: str = "PL") -> dict:
         frozen = entry["pick"]
         pick_type = ("home" if frozen == home
                      else "away" if frozen == away else "draw")
+        # Scoreline must agree with the pick: the unconditional modal score is 1-1
+        # in most fixtures, which would contradict a home/away pick on the card.
+        score = score_for_outcome(pred["grid"], pick_type)
 
         # a player's shooting opportunity scales with how many shots his OPPONENT
         # concedes relative to the league average
@@ -166,7 +169,7 @@ def build(league: str = "PL") -> dict:
                 "p_away": round(pred["p_away"], 3),
                 "pick": entry["pick"],           # the FROZEN pick, never a fresh one
                 "pick_type": pick_type,
-                "score": pred["score"],
+                "score": score,
                 "confidence": entry["confidence"],
                 "reasons": [
                     f"Model: {home} {pred['p_home']:.0%} / draw {pred['p_draw']:.0%} "

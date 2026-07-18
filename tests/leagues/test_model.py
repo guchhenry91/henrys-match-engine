@@ -69,3 +69,25 @@ def test_calibrator_preserves_discrimination_and_normalizes():
     assert out.shape == p.shape
     assert np.allclose(out.sum(axis=1), 1.0, atol=1e-6)
     assert np.corrcoef(out[:, 0], p[:, 0])[0, 1] > 0.9
+
+
+def test_score_for_outcome_agrees_with_the_picked_result():
+    """The displayed scoreline must not contradict the pick. 1-1 is often the
+    single most likely EXACT score even when one side is clearly favoured, so the
+    card must show the most likely score *within* the picked outcome."""
+    import numpy as np
+    from leagues.model import scoreline_grid, outcome_probs, score_for_outcome
+    # a fixture where the away side is favoured overall
+    grid = scoreline_grid(0.9, 1.8, rho=-0.05)
+    ph, pd_, pa = outcome_probs(grid)
+    assert pa > ph and pa > pd_                      # away win is the pick
+
+    home_s = score_for_outcome(grid, "home")
+    draw_s = score_for_outcome(grid, "draw")
+    away_s = score_for_outcome(grid, "away")
+    hh, ha = (int(x) for x in home_s.split("-"))
+    dh, da = (int(x) for x in draw_s.split("-"))
+    ah, aa = (int(x) for x in away_s.split("-"))
+    assert hh > ha, f"home pick gave {home_s}"       # a home win scoreline
+    assert dh == da, f"draw pick gave {draw_s}"      # a level scoreline
+    assert aa > ah, f"away pick gave {away_s}"       # an away win scoreline

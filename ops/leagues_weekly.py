@@ -18,6 +18,15 @@ def main():
         print(f"ABORT: league publish failed ({exc}); nothing deployed", file=sys.stderr)
         return 1
 
+    # Gate the deploy on the published NUMBERS making sense, not just the code
+    # running. Catches the class of bug unit tests miss: a pick contradicting its
+    # own scoreline, an eliminated team still favoured, a table that doesn't add up.
+    from scripts import sanity_check
+    if sanity_check.main() != 0:
+        print("ABORT: published payload failed sanity checks; nothing deployed",
+              file=sys.stderr)
+        return 1
+
     return subprocess.call(
         [sys.executable, str(ROOT / "deploy.py"), "auto update: leagues weekly refresh"],
         cwd=ROOT,
