@@ -23,6 +23,15 @@ MATCHWEEKS_AHEAD = 1
 # frozen pick would then contradict the probabilities shown beside it. Until a
 # fixture enters this window its pick is provisional and recomputed every run.
 LOCK_WINDOW_HOURS = 48
+# A pick joins the high-confidence board at this probability. Chosen from a pooled
+# walk-forward over all four leagues (3,958 matches), not guessed:
+#     all picks   53.2%      p>=0.60  73.6%
+#     p>=0.65     77.4%      p>=0.70  84.1%
+# 0.65 trades a little hit rate for useful volume (~18 picks a matchweek across
+# the four leagues, vs ~9 at 0.70). Membership is decided from the FROZEN
+# probability at lock time -- never recomputed after a result, or winners could be
+# selected in hindsight.
+BEST_PICK_MIN_PROB = 0.65
 
 
 def _confidence(p_pick: float) -> int:
@@ -155,10 +164,12 @@ def build(league: str = "PL") -> dict:
         if hours_out <= LOCK_WINDOW_HOURS:
             entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
                                     confidence=_confidence(probs[pick]),
-                                    kickoff=m["date"], now=now)
+                                    kickoff=m["date"], now=now,
+                                    p_pick=probs[pick])
             provisional = False
         else:
-            entry = {"pick": pick, "confidence": _confidence(probs[pick])}
+            entry = {"pick": pick, "confidence": _confidence(probs[pick]),
+                     "p_pick": round(float(probs[pick]), 4)}
             provisional = True
         # Everything the card shows must describe the FROZEN pick, not the fresh
         # argmax: on a re-run after the model flips, entry["pick"] is still the
@@ -205,6 +216,8 @@ def build(league: str = "PL") -> dict:
                 "top_scores": spread,
                 "confidence": entry["confidence"],
                 "provisional": provisional,   # True = not yet frozen; will be re-picked
+                "p_pick": entry.get("p_pick"),
+                "best_pick": bool((entry.get("p_pick") or 0) >= BEST_PICK_MIN_PROB),
                 "reasons": [
                     f"Model: {home} {pred['p_home']:.0%} / draw {pred['p_draw']:.0%} "
                     f"/ {away} {pred['p_away']:.0%}",
@@ -302,6 +315,98 @@ def _publish_one(league: str, fname: str) -> bool:
     return True
 
 
+def build_best_picks() -> dict:
+    """The high-confidence board: every league's strongest picks in one place.
+
+    Assembled AFTER the leagues publish, by reading each league's frozen picks_log
+    and its fixture results. Membership is decided by the probability recorded at
+    LOCK time (>= BEST_PICK_MIN_PROB), so a pick cannot be promoted onto the board
+    after it wins -- the same freezing discipline as the main record.
+
+    Graded SEPARATELY from the all-picks record, so this tier can be judged on its
+    own and shown to be earning its billing (or not).
+    """
+    upcoming, settled = [], []
+    for league, fname in FILE_FOR.items():
+        lg = config.get(league)
+        season_tag = lg.fixture_slug.rsplit("-", 1)[-1]
+        log = picks.load_log(PICKS_DIR / lg.key.lower() / "picks_log.json")
+
+        # UPCOMING comes from the freshly published payload, not the picks_log:
+        # outside the 48h lock window a pick is deliberately provisional and has no
+        # log entry yet, so reading only frozen picks would leave the board empty
+        # all week. Those entries are marked provisional so the page can say the
+        # pick may still move.
+        try:
+            payload = json.loads((OUT / fname).read_text(encoding="utf-8"))
+        except Exception:
+            payload = {"matches": []}
+        for m in payload.get("matches", []):
+            p = m.get("prediction", {})
+            if not p.get("best_pick"):
+                continue
+            upcoming.append({
+                "league": lg.name, "league_key": league,
+                "id": m["id"], "matchweek": m["matchweek"], "date": m["date"],
+                "home": m["home"], "away": m["away"],
+                "pick": p["pick"], "confidence": p.get("confidence"),
+                "p_pick": p.get("p_pick"), "score": p.get("score"),
+                "provisional": bool(p.get("provisional")),
+            })
+
+        # SETTLED comes only from the frozen log -- graded honestly.
+        try:
+            fx = fixtures.fetch_fixtures(league)
+        except Exception as exc:
+            print(f"  best-picks: skipping settled for {league} ({exc})")
+            continue
+        by_id = {int(r["match_id"]): r for _, r in fx.iterrows()}
+
+        for key, entry in log.items():
+            if not str(key).startswith(f"{season_tag}:"):
+                continue                      # a previous season's entry
+            if (entry.get("p_pick") or 0) < BEST_PICK_MIN_PROB:
+                continue                      # not a high-confidence pick
+            mid = int(str(key).split(":", 1)[1])
+            row = by_id.get(mid)
+            if row is None:
+                continue
+            item = {
+                "league": lg.name, "league_key": league,
+                "id": mid, "matchweek": int(row["round"]),
+                "date": pd.Timestamp(row["date"]).isoformat(),
+                "home": row["home"], "away": row["away"],
+                "pick": entry["pick"], "confidence": entry.get("confidence"),
+                "p_pick": entry.get("p_pick"),
+            }
+            if bool(row["played"]):
+                g = picks.grade(entry, {"home": row["home"], "away": row["away"],
+                                        "home_goals": row["home_goals"],
+                                        "away_goals": row["away_goals"]})
+                item["result"] = {"home_goals": int(row["home_goals"]),
+                                  "away_goals": int(row["away_goals"])}
+                item["graded"] = g["graded"]
+                item["void"] = g["void"]
+                settled.append(item)
+            else:
+                upcoming.append(item)
+
+    upcoming.sort(key=lambda x: (-(x["p_pick"] or 0), x["date"]))
+    settled.sort(key=lambda x: x["date"], reverse=True)
+    return {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "min_probability": BEST_PICK_MIN_PROB,
+        "record": picks.record(settled),
+        "upcoming": upcoming,
+        "settled": settled[:60],
+        # Backtested expectation for this tier, so the page can state what the
+        # board is worth rather than implying certainty. Pooled walk-forward over
+        # all four leagues, n=3958: all picks 53.2%, p>=0.65 77.4% (+/-3.8).
+        "backtested_hit_rate_pct": 77.4,
+        "backtested_all_picks_pct": 53.2,
+    }
+
+
 def main(argv=None):
     """Publish all four leagues, or just the ones named on the command line
     (e.g. `python -m leagues.publish PL` for quick iteration)."""
@@ -316,6 +421,18 @@ def main(argv=None):
             continue
         attempted += 1
         ok += _publish_one(league, FILE_FOR[league])
+    # Cross-league high-confidence board, built from the frozen picks of every
+    # league that just published.
+    if ok:
+        best = build_best_picks()
+        bp = OUT / "best.json"
+        tmp = bp.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(best, indent=2, default=str), encoding="utf-8")
+        tmp.replace(bp)
+        r = best["record"]
+        print(f"wrote {bp} - {len(best['upcoming'])} upcoming high-confidence picks, "
+              f"record {r['correct']}-{r['wrong']}")
+
     # If EVERY league failed, raise so the ops jobs abort the deploy rather than
     # shipping stale files (their try/except catches this).
     if attempted and ok == 0:

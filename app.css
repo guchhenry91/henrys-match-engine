@@ -168,3 +168,14 @@ tr.ucl td:first-child{box-shadow:inset 3px 0 0 var(--win)}
 .sc.call{color:#1a1206;border-color:transparent;
   background:linear-gradient(120deg,var(--g1),var(--g2))}
 .sc.call b{color:#1a1206}
+
+/* ===== Best Picks board ===== */
+.best-note{padding:14px 18px;border-radius:var(--r-md);font-size:13px;line-height:1.6;
+  color:var(--txt2);background:rgba(255,255,255,.04);border:1px solid var(--stroke-soft);
+  margin:14px 0 4px}
+.best-note b{color:var(--g1)}
+.card.best::before{background:linear-gradient(90deg,var(--g1),var(--g2))}
+.bp-prob{position:relative;margin-top:10px;padding-top:9px;border-top:1px solid var(--stroke-soft);
+  font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums}
+.bp-prob .bar{position:absolute;left:0;bottom:0;height:3px;width:var(--pct);
+  background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:2px}

@@ -22,6 +22,7 @@
 <script>
 // Each competition is described here; the switcher and router are generic.
 const COMPETITIONS = [
+  {key: "best",       label: "★ Best Picks",    data: "data/leagues/best.json",       kind: "best"},
   {key: "wc",         label: "World Cup 2026",  data: "data/predictions.json",        kind: "cup"},
   {key: "pl",         label: "Premier League",  data: "data/leagues/pl.json",         clubs: "data/leagues/clubs.json",            kind: "league"},
   {key: "laliga",     label: "La Liga",         data: "data/leagues/laliga.json",     clubs: "data/leagues/clubs_laliga.json",     kind: "league"},
@@ -218,6 +219,66 @@ function renderWCPerformance(app, rec) {
   app.append(perf);
 }
 
+// ---------------- Best Picks: the high-confidence board ----------------
+function renderBest(app, data) {
+  app.append(el('h1', 'dsp', 'Best Picks <span>all leagues</span>'));
+
+  const rec = data.record || {};
+  const chip = el('div', 'record-chip');
+  chip.innerHTML = rec.total
+    ? `<b>${rec.correct}–${rec.wrong}</b> · ${pct(100 * rec.correct / rec.total)} on ${rec.total} settled best picks`
+    : 'No settled best picks yet — the season starts in August';
+  app.append(chip);
+
+  // State plainly what this tier is worth, from the backtest, so the badge is not
+  // mistaken for certainty.
+  app.append(el('div', 'best-note',
+    `Only picks the model rates at <b>${pct(100 * (data.min_probability || 0))}</b> or higher make this board. ` +
+    `Walk-forward across all four leagues these landed <b>${num(data.backtested_hit_rate_pct)}%</b> of the time, ` +
+    `against <b>${num(data.backtested_all_picks_pct)}%</b> for every pick the model makes. ` +
+    `Graded separately from the main record, so this tier can be judged on its own.`));
+
+  const up = data.upcoming || [];
+  app.append(el('h2', 'dsp', up.length ? 'Next up' : 'Nothing above the bar right now'));
+  if (up.length) {
+    const grid = el('section', 'fixtures');
+    for (const m of up) {
+      const card = el('article', 'card glass best');
+      const when = new Date(m.date).toLocaleDateString('en-GB',
+        { weekday: 'short', day: 'numeric', month: 'short' });
+      card.innerHTML = `
+        <div class="mw">${esc(m.league)} · MW${m.matchweek} · ${when}${m.provisional ? ' · provisional' : ''}</div>
+        <header><span class="team">${esc(m.home)}</span><span class="score">${esc(m.score || '')}</span><span class="team away">${esc(m.away)}</span></header>
+        <div class="pick">Pick: <strong>${esc(m.pick)}</strong> <span class="conf">${'★'.repeat(m.confidence || 0)}</span></div>
+        <div class="bp-prob"><span class="bar" style="--pct:${Math.round(100 * (m.p_pick || 0))}%"></span>
+          <span>${pct(100 * (m.p_pick || 0))} confident</span></div>`;
+      grid.append(card);
+    }
+    app.append(grid);
+  }
+
+  const settled = data.settled || [];
+  if (settled.length) {
+    app.append(el('h2', 'dsp', 'Recently settled'));
+    const wrap = el('div', 'table-wrap glass');
+    wrap.innerHTML = `<table class="league-table">
+      <thead><tr><th></th><th>League</th><th>Match</th><th>Pick</th><th>Conf</th><th>Result</th></tr></thead>
+      <tbody>${settled.map(s => {
+        const mark = s.void ? '<span class="tick void">✓✗*</span>'
+          : s.graded === 'correct' ? '<span class="tick correct">✓</span>'
+          : '<span class="tick wrong">✗</span>';
+        return `<tr>
+          <td>${mark}</td>
+          <td class="num">${esc(s.league)}</td>
+          <td>${esc(s.home)} v ${esc(s.away)}</td>
+          <td>${esc(s.pick)}</td>
+          <td class="num">${pct(100 * (s.p_pick || 0))}</td>
+          <td class="num">${s.result ? `${s.result.home_goals}–${s.result.away_goals}` : ''}</td>
+        </tr>`; }).join('')}</tbody></table>`;
+    app.append(wrap);
+  }
+}
+
 // ---------------- adapter: World Cup (cup) view ----------------
 function renderWC(app, data) {
   app.append(el('h1', 'dsp', 'World Cup <span>2026</span>'));
@@ -324,7 +385,8 @@ async function route() {
   app.innerHTML = '';
   // Render errors are NOT caught here: a code bug should surface in the console,
   // not be silently disguised as a "Could not load" network message.
-  if (comp.kind === 'cup') renderWC(app, data);
+  if (comp.kind === 'best') renderBest(app, data);
+  else if (comp.kind === 'cup') renderWC(app, data);
   else renderLeague(app, data, clubs, comp.label);
 }
 

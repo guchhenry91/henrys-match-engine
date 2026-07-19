@@ -33,7 +33,7 @@ def _utc(ts) -> pd.Timestamp:
 
 
 def lock_pick(log: dict, match_id, pick: str, confidence: int,
-              kickoff, now=None) -> dict:
+              kickoff, now=None, p_pick: float | None = None) -> dict:
     """Record a pick, once. A second call for the same match is a no-op."""
     match_id = str(match_id)
     if match_id in log:
@@ -46,6 +46,11 @@ def lock_pick(log: dict, match_id, pick: str, confidence: int,
     log[match_id] = {
         "pick": pick,
         "confidence": int(confidence),
+        # The probability AT LOCK TIME. Stored so the high-confidence selection is
+        # frozen with the pick: deciding after the result which picks counted as
+        # "best" would let winners be chosen in hindsight, which is exactly the
+        # dishonesty the freezing exists to prevent.
+        "p_pick": None if p_pick is None else round(float(p_pick), 4),
         "locked_at": now.isoformat(),
         "kickoff": kickoff.isoformat(),
         "tainted": bool(late_by > LATE_LOCK_HOURS),

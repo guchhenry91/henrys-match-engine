@@ -170,6 +170,38 @@ def check_league(fn, key, n_teams, releg):
             fail(L, f"mojibake {bad!r} in payload (encoding bug)")
 
 
+def check_best_picks():
+    """The high-confidence board must be honest: every entry above the stated bar,
+    ranked, and its record consistent."""
+    p = ROOT / "data" / "leagues" / "best.json"
+    if not p.exists():
+        warn("best", "best.json not published yet")
+        return
+    d = json.loads(p.read_text(encoding="utf-8"))
+    thr = d.get("min_probability")
+    if not thr:
+        fail("best", "no min_probability stated")
+        return
+    up = d.get("upcoming", [])
+    for x in up:
+        if (x.get("p_pick") or 0) < thr:
+            fail("best", f"{x['home']} v {x['away']} at {x.get('p_pick')} is below the "
+                         f"stated {thr} bar")
+        if x["pick"] not in (x["home"], x["away"], "Draw"):
+            fail("best", f"pick {x['pick']!r} is not a participant in "
+                         f"{x['home']} v {x['away']}")
+    probs = [x.get("p_pick") or 0 for x in up]
+    if probs != sorted(probs, reverse=True):
+        fail("best", "upcoming picks are not ranked by confidence")
+    for x in d.get("settled", []):
+        if (x.get("p_pick") or 0) < thr:
+            fail("best", f"settled entry {x['home']} v {x['away']} below the bar "
+                         f"-- selection must be frozen, not recomputed")
+    rec = d.get("record", {})
+    if rec.get("total") and rec["correct"] + rec["wrong"] != rec["total"]:
+        fail("best", "record correct+wrong != total")
+
+
 def check_squad_freshness():
     """Player-club attribution is only as fresh as data-raw/leagues/transfers.json.
 
@@ -262,6 +294,7 @@ def main():
         except FileNotFoundError:
             warn(key, "payload not published yet")
     check_squad_freshness()
+    check_best_picks()
     check_wc()
 
     for w in warns:
