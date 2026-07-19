@@ -18,11 +18,18 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "leagues"
 PICKS_DIR = ROOT / "data-raw" / "leagues"
 MATCHWEEKS_AHEAD = 1
-# A pick is only FROZEN once kickoff is near. Locking weeks ahead would freeze a
-# model that cannot yet see late form, injuries or the closing market -- and the
-# frozen pick would then contradict the probabilities shown beside it. Until a
-# fixture enters this window its pick is provisional and recomputed every run.
-LOCK_WINDOW_HOURS = 48
+# A pick is only FROZEN once kickoff is near. Locking early would freeze a model
+# that cannot yet see late form, injuries or the closing market, and the frozen
+# pick would then contradict the probabilities shown beside it. Until a fixture
+# enters this window its pick is provisional and recomputed every run.
+#
+# 6h, not 48h. Costs nothing -- provisional picks are already visible days ahead,
+# so the only thing that changes is that the pick we GRADE is the last one made
+# before kickoff rather than one made two days early. It also matches the World Cup
+# app, which refreshes team news for fixtures within ~4h; today the leagues model
+# has no team-news input at all, so this window is mostly future-proofing for when
+# it does (see docs/superpowers/specs -- Best Picks team-news step).
+LOCK_WINDOW_HOURS = 6
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues (3,958 matches), not guessed:
 #     all picks   53.2%      p>=0.60  73.6%
