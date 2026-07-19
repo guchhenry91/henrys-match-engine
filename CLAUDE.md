@@ -105,9 +105,20 @@ unchanged files every week. Both call `publish.main()`, which loops **all four
 leagues** (PL, La Liga, Bundesliga, Ligue 1), aborting per-league on failure, then
 `deploy.py`.
 
-**Register them in mid-August:**
-- `leagues-weekly` — cron `0 6 * * 2` (Tue 06:00, after Monday-night football).
-- `leagues-matchday` — cron `0 23 * * 6,0` (Sat/Sun 23:00, after the day's games).
+**DO NOT REGISTER THEM.** This instruction is superseded and following it would
+cause an incident. `.github/workflows/leagues.yml` already runs the same job on the
+same crons (`0 6 * * 2`, `0 23 * * 6,0`). Registering these locally too means two
+processes publishing, both committing to the same repo, both triggering Render —
+git conflicts and double deploys, on a schedule.
+
+GitHub Actions wins because it does not need the laptop on or the app open, which
+was the whole point of moving there. Keep `ops/leagues_weekly.py` and
+`ops/leagues_matchday.py` as MANUAL commands (`python -m ops.leagues_weekly` for a
+publish-and-deploy on demand) — just never on a schedule.
+
+The one scheduled task that IS correct to have locally is `leagues-matchday-news`
+(Fri/Sat mornings): it needs judgement about confirmed XI vs rumour, which is why
+it cannot live in Actions.
 
 Both abort rather than deploy if a fetch fails — never ship a stale-but-fresh-
 looking file.
