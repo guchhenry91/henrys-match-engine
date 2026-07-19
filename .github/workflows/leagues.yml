@@ -10,10 +10,15 @@ name: Leagues refresh
 
 on:
   schedule:
-    # Tuesday 06:00 UTC -- after Monday-night football has settled.
+    # Tuesday 06:00 UTC -- the weekly refit, after Monday-night football settles.
     - cron: "0 6 * * 2"
-    # Sat + Sun 23:00 UTC -- after the day's fixtures finish.
-    - cron: "0 23 * * 6,0"
+    # MATCHDAYS, every 2 hours. Two jobs at once: it records results as they land,
+    # and -- more importantly -- it is what FREEZES each pick. A pick only locks on
+    # a run that happens inside LOCK_WINDOW_HOURS of kickoff, so the publish cadence
+    # must be at least as tight as that window or a fixture can slip through the gap
+    # unlocked, get locked after kickoff, and be voided out of the record.
+    - cron: "0 9,11,13,15,17,19,21,23 * * 6,0"     # Sat + Sun
+    - cron: "0 17,19,21,23 * * 1,5"                # Fri + Mon evening fixtures
   workflow_dispatch:            # lets you run it by hand from the Actions tab
 
 concurrency:

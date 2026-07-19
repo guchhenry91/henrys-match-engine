@@ -24,13 +24,15 @@ MATCHWEEKS_AHEAD = 1
 # pick would then contradict the probabilities shown beside it. Until a fixture
 # enters this window its pick is provisional and recomputed every run.
 #
-# 6h, not 48h. Costs nothing -- provisional picks are already visible days ahead,
-# so the only thing that changes is that the pick we GRADE is the last one made
-# before kickoff rather than one made two days early. It also matches the World Cup
-# app, which refreshes team news for fixtures within ~4h; today the leagues model
-# has no team-news input at all, so this window is mostly future-proofing for when
-# it does (see docs/superpowers/specs -- Best Picks team-news step).
-LOCK_WINDOW_HOURS = 6
+# 2h. This is TIED TO THE PUBLISH CADENCE and must not be shortened independently:
+# the matchday workflow runs every 2 hours, and a pick can only freeze on a run that
+# lands inside this window. Make the window shorter than the gap between runs and a
+# fixture passes through unlocked, gets locked after kickoff, and is VOIDED out of
+# the record. Two hours with two-hourly runs means every fixture gets exactly one
+# chance to lock -- if GitHub ever skips a scheduled run (it does, under load), that
+# fixture's pick is voided rather than silently backdated, which is the honest
+# failure but still a loss. Widen both together if that starts happening.
+LOCK_WINDOW_HOURS = 2
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues (3,958 matches), not guessed:
 #     all picks   53.2%      p>=0.60  73.6%
