@@ -179,3 +179,24 @@ tr.ucl td:first-child{box-shadow:inset 3px 0 0 var(--win)}
   font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums}
 .bp-prob .bar{position:absolute;left:0;bottom:0;height:3px;width:var(--pct);
   background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:2px}
+
+/* why-this-pick disclosure */
+.why{margin:10px 0 4px;border-top:1px solid var(--line);padding-top:8px}
+.why summary{cursor:pointer;font:600 12px/1.4 Figtree,system-ui;color:var(--txt2);
+  letter-spacing:.02em;text-transform:uppercase}
+.why summary::-webkit-details-marker{color:var(--txt3)}
+.why-rows{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 4px}
+.wy{font:500 12px/1.5 Figtree,system-ui;color:var(--txt2)}
+.wy b{font-variant-numeric:tabular-nums;margin-right:3px}
+.wy b.up{color:var(--win)} .wy b.dn{color:var(--loss)}
+.why-note{font:400 11px/1.5 Figtree,system-ui;color:var(--txt3);margin:2px 0 0}
+
+/* calibration drift chart */
+.drift{width:100%;height:auto;display:block;padding:6px 0}
+.drift .ax{stroke:var(--line);stroke-width:1}
+.drift .ln{fill:none;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.drift .ln.stated{stroke:var(--txt3);stroke-dasharray:5 4}
+.drift .ln.actual{stroke:var(--acc)}
+.drift .lg{font:600 11px Figtree,system-ui;fill:var(--txt2)}
+.drift .k-stated{fill:var(--txt3)} .drift .k-actual{fill:var(--acc)}
+.drift .tk{font:500 10px Figtree,system-ui;fill:var(--txt3)}

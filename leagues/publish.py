@@ -8,6 +8,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from leagues import config, dataset, fixtures, odds, picks, players, props, second_tier, sim
@@ -67,6 +68,40 @@ def _confidence(p_pick: float) -> int:
         if p_pick >= threshold:
             return conf
     return 1
+
+
+def _why(model, home: str, away: str) -> dict | None:
+    """The drivers behind a pick, in plain multipliers.
+
+    The model computes lambda_home = exp(attack[home] + defence[away] + home_adv),
+    so those three terms ARE the reasoning -- they were simply never published. A
+    card showing 78% and nothing else asks to be taken on faith; showing that
+    Arsenal attack +34% and Coventry defend -28% lets a reader check the pick
+    against what they know about the fixture, and spot a wrong one BEFORE the
+    result does.
+
+    Expressed as percentage deviations from the league average, because the raw
+    log-scale coefficients mean nothing to anyone reading a football page. Note the
+    sign convention: `defence` is positive when a side concedes MORE, so it is
+    negated here to read the way people expect (higher = better defence).
+    """
+    try:
+        if home not in model.attack or away not in model.attack:
+            return None
+        att = list(model.attack.values())
+        dfc = list(model.defence.values())
+        a_mean = sum(att) / len(att)
+        d_mean = sum(dfc) / len(dfc)
+        pc = lambda x: round(100.0 * (float(np.exp(x)) - 1.0), 1)
+        return {
+            "home_attack_pct": pc(model.attack[home] - a_mean),
+            "home_defence_pct": pc(-(model.defence[home] - d_mean)),
+            "away_attack_pct": pc(model.attack[away] - a_mean),
+            "away_defence_pct": pc(-(model.defence[away] - d_mean)),
+            "home_advantage_pct": pc(model.home_adv),
+        }
+    except Exception:
+        return None            # explanation is a nicety; never fail a publish for it
 
 
 def _market_block(mkt: dict | None, pred: dict, pick_type: str) -> dict | None:
@@ -308,6 +343,7 @@ def build(league: str = "PL") -> dict:
                 "confidence": entry["confidence"],
                 "provisional": provisional,   # True = not yet frozen; will be re-picked
                 "p_pick": entry.get("p_pick"),
+                "why": _why(model, home, away),
                 "best_pick": bool((entry.get("p_pick") or 0) >= BEST_PICK_MIN_PROB),
                 "reasons": [
                     f"Model: {home} {pred['p_home']:.0%} / draw {pred['p_draw']:.0%} "
@@ -529,6 +565,50 @@ def build_best_picks() -> dict:
     }
 
 
+def append_history(best: dict, players: dict) -> list:
+    """One row per publish: the record so far, so drift becomes visible.
+
+    The Grades tab shows where the record STANDS. It cannot show which way it is
+    moving, and the warning sign that matters is not a bad weekend -- a 65% pick
+    loses one time in three, so three straight losses is normal -- but stated
+    confidence drifting away from observed results over dozens of picks. Without a
+    time series that is unanswerable, which makes "is it still working?" a matter
+    of feel. This makes it a matter of record.
+
+    Append-only, one row per day: re-running on the same day replaces that day's
+    row rather than inflating the series.
+    """
+    path = PICKS_DIR / "record_history.json"
+    try:
+        hist = json.loads(path.read_text(encoding="utf-8")) if path.exists() else []
+    except Exception:
+        hist = []
+
+    today = datetime.now(timezone.utc).date().isoformat()
+    br, pr = best.get("record", {}), players.get("record", {})
+    # Stated vs observed on the SETTLED best picks: the calibration question.
+    settled = best.get("settled", [])
+    graded = [s for s in settled if s.get("graded") in ("correct", "wrong")]
+    stated = (sum(s.get("p_pick") or 0 for s in graded) / len(graded)) if graded else None
+    actual = (sum(s.get("graded") == "correct" for s in graded) / len(graded)) if graded else None
+
+    row = {
+        "date": today,
+        "best": {"correct": br.get("correct", 0), "wrong": br.get("wrong", 0),
+                 "total": br.get("total", 0)},
+        "players": {"correct": pr.get("correct", 0), "wrong": pr.get("wrong", 0),
+                    "total": pr.get("total", 0)},
+        "stated_pct": None if stated is None else round(100 * stated, 1),
+        "actual_pct": None if actual is None else round(100 * actual, 1),
+    }
+    hist = [h for h in hist if h.get("date") != today] + [row]
+    hist.sort(key=lambda h: h["date"])
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(hist, indent=2), encoding="utf-8")
+    tmp.replace(path)
+    return hist
+
+
 def build_player_picks() -> dict:
     """The cross-league player board: goalscorer, shot attempts, shots on target.
 
@@ -684,6 +764,17 @@ def main(argv=None):
                       for mk in picks.PROP_MARKETS}
             print(f"wrote {ppath} - {len(pp['upcoming'])} upcoming player picks "
                   f"{counts}, record {pr['correct']}-{pr['wrong']}")
+
+        # Record history -- only when BOTH boards are complete, or a refused board
+        # would write a row understating the record and permanently distort the
+        # series. A gap in the history is honest; a wrong point is not.
+        if not best["_incomplete"] and not pp["_incomplete"]:
+            hist = append_history(best, pp)
+            hpath = OUT / "record_history.json"
+            tmp = hpath.with_suffix(".json.tmp")
+            tmp.write_text(json.dumps(hist, indent=2), encoding="utf-8")
+            tmp.replace(hpath)
+            print(f"wrote {hpath} - {len(hist)} snapshots")
 
     # If EVERY league failed, raise so the ops jobs abort the deploy rather than
     # shipping stale files (their try/except catches this).

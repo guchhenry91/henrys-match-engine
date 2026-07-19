@@ -96,3 +96,29 @@ jobs:
           code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$HOOK")
           echo "deploy hook responded $code"
           [ "$code" = "200" ] || [ "$code" = "201" ]
+
+      # Nothing above this line reaches a human. The gate correctly refuses to ship
+      # a bad publish and the page correctly warns readers after 72h, but the owner
+      # only finds out via GitHub's failure email -- which is easy to miss for a job
+      # that normally succeeds silently every week. This says it out loud.
+      #
+      # if: failure() so it fires for ANY failed step above (fetch, gate, tests,
+      # deploy), not just the last one. Skipped silently when the secret is absent,
+      # because a missing notifier must never itself fail the run.
+      - name: Alert on failure
+        if: failure()
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$CHAT" ]; then
+            echo "No Telegram secrets set; skipping alert."
+            exit 0
+          fi
+          TEXT="Leagues publish FAILED ($(date -u +%Y-%m-%d\ %H:%M) UTC).
+          Nothing was deployed, so the live site is unchanged but now ageing.
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT}" \
+            --data-urlencode "text=${TEXT}" >/dev/null
+          echo "Alert sent."

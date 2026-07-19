@@ -70,6 +70,27 @@ function propList(props) {
     </li>`).join('');
 }
 
+// Why the model rates a fixture the way it does. Deliberately plain language and
+// signed percentages: the point is that a reader can disagree with it. A card that
+// only shows 78% can only be believed or ignored.
+function whyBlock(w, home, away) {
+  if (!w) return '';
+  const sign = v => `${v >= 0 ? '+' : ''}${num(v, 0)}%`;
+  const row = (label, v) =>
+    `<span class="wy"><b class="${v >= 0 ? 'up' : 'dn'}">${sign(v)}</b> ${esc(label)}</span>`;
+  return `<details class="why"><summary>Why this pick</summary>
+    <div class="why-rows">
+      ${row(`${home} attack`, w.home_attack_pct)}
+      ${row(`${home} defence`, w.home_defence_pct)}
+      ${row(`${away} attack`, w.away_attack_pct)}
+      ${row(`${away} defence`, w.away_defence_pct)}
+      ${row('home advantage', w.home_advantage_pct)}
+    </div>
+    <p class="why-note">Each figure is that side's strength against the league
+    average, after time-decay and shrinkage. Higher defence is better.</p>
+  </details>`;
+}
+
 function renderLeague(app, data, clubs, label) {
   const colour = t => (clubs[t] || {}).primary || '#8891a8';
   app.append(el('h1', 'dsp', `${label} <span>2026-27</span>`));
@@ -108,6 +129,7 @@ function renderLeague(app, data, clubs, label) {
              ${esc(s.score)} <b>${num(s.pct)}%</b></span>`).join('')}
         </div>` : ''}
         ${mkt}
+        ${whyBlock(p.why, m.home, m.away)}
         ${side(m.home, homeProps)}
         ${side(m.away, awayProps)}`;
       grid.append(card);
@@ -381,6 +403,33 @@ function tierRow(label, rec, note) {
     note ? `<br><small>${esc(note)}</small>` : ''}</div>`;
 }
 
+// Stated vs observed over time. A single number cannot show drift, and drift is
+// the thing that actually signals trouble -- a 65% pick losing three in a row is
+// normal, stated confidence pulling away from observed results over dozens of picks
+// is not. Drawn as a plain inline SVG: no library, no external request.
+function driftChart(hist) {
+  const pts = (hist || []).filter(h => h.stated_pct != null && h.actual_pct != null);
+  if (pts.length < 2) return null;
+  const W = 620, H = 170, PAD = 34;
+  const xs = i => PAD + i * (W - 2 * PAD) / Math.max(1, pts.length - 1);
+  const lo = Math.min(40, ...pts.map(p => Math.min(p.stated_pct, p.actual_pct)) ) - 5;
+  const hi = Math.max(90, ...pts.map(p => Math.max(p.stated_pct, p.actual_pct)) ) + 5;
+  const ys = v => H - PAD - (v - lo) * (H - 2 * PAD) / (hi - lo);
+  const path = key => pts.map((p, i) => `${i ? 'L' : 'M'}${xs(i).toFixed(1)},${ys(p[key]).toFixed(1)}`).join(' ');
+  const wrap = el('div', 'table-wrap glass');
+  wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="drift" role="img"
+      aria-label="Stated confidence versus actual hit rate over time">
+    <line x1="${PAD}" y1="${ys(lo)}" x2="${W - PAD}" y2="${ys(lo)}" class="ax"/>
+    <path d="${path('stated_pct')}" class="ln stated"/>
+    <path d="${path('actual_pct')}" class="ln actual"/>
+    <text x="${PAD}" y="14" class="lg"><tspan class="k-stated">■</tspan> stated confidence
+      <tspan class="k-actual" dx="12">■</tspan> actually won</text>
+    <text x="${PAD}" y="${H - 8}" class="tk">${esc(pts[0].date)}</text>
+    <text x="${W - PAD}" y="${H - 8}" class="tk" text-anchor="end">${esc(pts[pts.length - 1].date)}</text>
+  </svg>`;
+  return wrap;
+}
+
 function renderGrades(app, d) {
   const best = d.best || {}, pl = d.players || {};
   app.append(el('h1', 'dsp', 'Grades <span>how every tier is doing</span>'));
@@ -398,6 +447,15 @@ function renderGrades(app, d) {
     ${(d.leagues || []).map(l => tierRow(l.label + ' — every pick', l.record)).join('')}
   </div>`;
   app.append(tiers);
+
+  const chart = driftChart(d.history);
+  if (chart) {
+    app.append(el('h2', 'dsp', 'Is it still calibrated?'));
+    app.append(chart);
+    app.append(el('p', 'sub', 'The two lines should track each other. Stated ' +
+      'confidence drifting persistently above what actually wins is the signal ' +
+      'that the model needs attention — a bad week on its own is not.'));
+  }
 
   const bs = best.settled || [];
   app.append(el('h2', 'dsp', 'Best Picks — settled'));
@@ -504,12 +562,14 @@ const getJSON = url => fetch(url, NO_CACHE).then(r => r.json()).catch(() => ({})
 
 async function gradesData(best) {
   const leagueComps = COMPETITIONS.filter(c => c.kind === 'league');
-  const [players, ...leagues] = await Promise.all([
+  const [players, history, ...leagues] = await Promise.all([
     getJSON('data/leagues/player_picks.json'),
+    getJSON('data/leagues/record_history.json'),
     ...leagueComps.map(c => getJSON(c.data)),
   ]);
   return {
     best, players,
+    history: Array.isArray(history) ? history : [],
     leagues: leagueComps.map((c, i) => ({ label: c.label, record: leagues[i].record })),
   };
 }
