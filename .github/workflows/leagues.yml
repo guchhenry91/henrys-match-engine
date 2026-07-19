@@ -17,8 +17,13 @@ on:
     # a run that happens inside LOCK_WINDOW_HOURS of kickoff, so the publish cadence
     # must be at least as tight as that window or a fixture can slip through the gap
     # unlocked, get locked after kickoff, and be voided out of the record.
-    - cron: "0 9,11,13,15,17,19,21,23 * * 6,0"     # Sat + Sun
-    - cron: "0 17,19,21,23 * * 1,5"                # Fri + Mon evening fixtures
+    # Every 30 minutes through the match window. This is tight because the pick now
+    # locks only 45 minutes before kickoff, so that a confirmed starting XI (published
+    # ~1h before) can still reach the model. The lock can only happen on a run that
+    # lands inside that 45-minute window, so runs must be closer together than the
+    # window is wide.
+    - cron: "0,30 11-22 * * 6,0"                   # Sat + Sun, all day
+    - cron: "0,30 17-22 * * 1,5"                   # Fri + Mon evening fixtures
   workflow_dispatch:            # lets you run it by hand from the Actions tab
 
 concurrency:

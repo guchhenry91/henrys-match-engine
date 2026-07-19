@@ -24,15 +24,20 @@ MATCHWEEKS_AHEAD = 1
 # pick would then contradict the probabilities shown beside it. Until a fixture
 # enters this window its pick is provisional and recomputed every run.
 #
-# 2h. This is TIED TO THE PUBLISH CADENCE and must not be shortened independently:
-# the matchday workflow runs every 2 hours, and a pick can only freeze on a run that
-# lands inside this window. Make the window shorter than the gap between runs and a
-# fixture passes through unlocked, gets locked after kickoff, and is VOIDED out of
-# the record. Two hours with two-hourly runs means every fixture gets exactly one
-# chance to lock -- if GitHub ever skips a scheduled run (it does, under load), that
-# fixture's pick is voided rather than silently backdated, which is the honest
-# failure but still a loss. Widen both together if that starts happening.
-LOCK_WINDOW_HOURS = 2
+# 45 minutes. Deliberately AFTER the confirmed starting XI, which clubs publish about
+# an hour before kickoff -- the whole point is that a late team change reaches the
+# model before the pick is committed.
+#
+# TIED TO THE PUBLISH CADENCE. A pick can only freeze on a run landing inside this
+# window, so the matchday workflow runs every 30 minutes: narrower than the window,
+# giving each fixture roughly two chances to lock.
+#
+# THE COST, stated plainly: GitHub's scheduled runs are routinely delayed under load
+# and are occasionally dropped. Lose both runs in a 45-minute window and the pick
+# locks after kickoff, is marked tainted, and is VOIDED out of the record rather than
+# backdated. That is the honest failure, but it is still a lost pick -- so if voids
+# start appearing in the record, widen this window and the cadence TOGETHER.
+LOCK_WINDOW_HOURS = 0.75
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues (3,958 matches), not guessed:
 #     all picks   53.2%      p>=0.60  73.6%
