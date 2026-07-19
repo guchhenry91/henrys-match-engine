@@ -5,7 +5,19 @@ services:
     staticPublishPath: .
     buildCommand: ""
     headers:
+      # Prediction data must always be revalidated. `no-cache` still allows the
+      # CDN and browser to STORE a copy, it just forbids serving it without
+      # checking with the origin first -- so a fresh publish is picked up
+      # immediately while unchanged files still cost only a 304.
       - path: /data/*
+        name: Cache-Control
+        value: no-cache
+      # The leagues payloads live one level deeper (/data/leagues/pl.json), and
+      # whether `*` crosses a slash is glob-dependent. Stated explicitly rather
+      # than assumed: if the pattern above does not match nested paths, every
+      # league file would be cached with default static-asset headers and a
+      # reader could sit on last week's fixtures indefinitely.
+      - path: /data/leagues/*
         name: Cache-Control
         value: no-cache
     routes:

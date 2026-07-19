@@ -1,0 +1,202 @@
+/* Premier League predictor — same design language as the WC app (index.html).
+   Values are copied, not imported: index.html is live and must not be touched. */
+:root{
+  --bg0:#05060d; --bg1:#090c1a;
+  --glass:rgba(255,255,255,.055);
+  --stroke:rgba(255,255,255,.12);
+  --stroke-soft:rgba(255,255,255,.06);
+  --txt:#f3f5fb; --txt2:rgba(243,245,251,.62); --txt3:rgba(243,245,251,.34);
+  --g1:#ffe08a; --g2:#f7b034;
+  --win:#41e3a0; --draw:#ffce5c; --loss:#ff7184; --cyan:#67e8f9;
+  --r-lg:24px; --r-md:17px; --r-sm:12px;
+  --home:#888; --away:#888;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Figtree',system-ui,sans-serif;color:var(--txt);background:var(--bg0);min-height:100vh;overflow-x:hidden}
+.dsp{font-family:'Clash Display','Sora',system-ui,sans-serif;font-weight:700}
+
+.sky{position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(1100px 720px at 84% -14%, #3a2a12 0%, transparent 56%),
+  radial-gradient(900px 640px at -10% 18%, #123a2f 0%, transparent 52%),
+  radial-gradient(820px 600px at 18% 108%, #2a1140 0%, transparent 58%),
+  linear-gradient(180deg, var(--bg1), var(--bg0) 74%);}
+
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+
+/* competition switcher */
+.switcher{display:flex;gap:8px;margin-bottom:26px;flex-wrap:wrap}
+.switcher a{padding:9px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:14px;
+  color:var(--txt2);border:1px solid var(--stroke-soft);background:rgba(255,255,255,.03);transition:.2s}
+.switcher a:hover{color:var(--txt);border-color:var(--stroke)}
+.switcher a.active{color:#1a1206;background:linear-gradient(120deg,var(--g1),var(--g2));border-color:transparent}
+
+h1{font-size:clamp(28px,5vw,42px);letter-spacing:-.02em;margin-bottom:6px}
+h1 span{background:linear-gradient(120deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--txt2);font-size:15px;margin-bottom:22px}
+h2{font-size:20px;margin:38px 0 14px;letter-spacing:-.01em}
+
+.glass{position:relative;background:var(--glass);
+  backdrop-filter:blur(32px) saturate(185%);-webkit-backdrop-filter:blur(32px) saturate(185%);
+  border:1px solid var(--stroke);border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:0 28px 70px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.17);}
+
+.record-chip{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border-radius:999px;
+  border:1px solid var(--stroke);background:rgba(255,255,255,.04);font-weight:600;font-size:14px;color:var(--txt2)}
+.record-chip b{color:var(--txt)}
+
+/* fixture cards */
+.fixtures{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.card{padding:20px}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--home),var(--away))}
+.card header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.team{font-weight:700;font-size:15px;flex:1}
+.team.away{text-align:right}
+.score{font-family:'Clash Display','Sora',sans-serif;font-weight:700;font-size:20px;
+  background:linear-gradient(120deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mw{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.pick{font-size:14px;color:var(--txt2);margin-bottom:8px}
+.pick strong{color:var(--txt)}
+.conf{color:var(--g2);letter-spacing:2px;font-size:12px}
+.probs{display:flex;justify-content:space-between;font-size:12px;color:var(--txt3);
+  padding:8px 0;border-top:1px solid var(--stroke-soft);border-bottom:1px solid var(--stroke-soft)}
+.probs b{color:var(--txt2)}
+ul.props{list-style:none;margin-top:12px;display:grid;gap:7px}
+ul.props li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:13px;align-items:baseline}
+ul.props li .who{font-weight:600}
+ul.props li .pct{color:var(--win);font-weight:700;font-variant-numeric:tabular-nums}
+ul.props li .shots{grid-column:1/-1;font-size:11px;color:var(--txt3)}
+ul.props li.pen .who::after{content:" (P)";color:var(--g2);font-size:11px}
+.side-label{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-top:12px}
+
+/* projected table */
+table.league-table{width:100%;border-collapse:collapse;font-size:14px}
+.table-wrap{overflow-x:auto}
+.league-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--txt3);padding:10px 12px;border-bottom:1px solid var(--stroke)}
+.league-table td{padding:11px 12px;border-bottom:1px solid var(--stroke-soft);white-space:nowrap}
+.league-table tbody tr:hover{background:rgba(255,255,255,.03)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:9px;vertical-align:middle}
+.num{font-variant-numeric:tabular-nums;color:var(--txt2)}
+.barcell{position:relative;min-width:112px}
+.bar{position:absolute;left:12px;top:50%;transform:translateY(-50%);height:16px;width:var(--pct);
+  border-radius:4px;background:linear-gradient(90deg,var(--g1),var(--g2));opacity:.28}
+.barcell span{position:relative;font-variant-numeric:tabular-nums}
+tr.rel td{color:var(--loss)}
+tr.ucl td:first-child{box-shadow:inset 3px 0 0 var(--win)}
+
+.performance{padding:22px;margin-top:16px;line-height:1.62;color:var(--txt2);font-size:14px}
+.performance b{color:var(--txt)}
+.metrics{display:flex;gap:26px;flex-wrap:wrap;margin-top:14px}
+.metric{font-size:12px;color:var(--txt3)}
+.metric b{display:block;font-size:19px;color:var(--txt);font-family:'Clash Display','Sora',sans-serif}
+.note{margin-top:12px;font-size:12.5px;color:var(--txt3)}
+
+/* honest gaps: never let missing data look like an empty section */
+.missing{font-size:12px;color:var(--txt3);line-height:1.5;margin-top:2px}
+.warn{padding:12px 16px;border-radius:var(--r-md);font-size:13px;line-height:1.55;
+  color:#ffd9a0;background:rgba(247,176,52,.09);border:1px solid rgba(247,176,52,.28);margin-bottom:14px}
+.warn b{color:var(--g1)}
+
+/* ===== unified switcher: multi-competition ===== */
+.switcher{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.switcher::-webkit-scrollbar{display:none}
+.switcher a{white-space:nowrap;cursor:pointer}
+
+/* ===== World Cup view ===== */
+.champ{display:flex;align-items:center;gap:14px;padding:18px 22px;margin-bottom:16px}
+.champ .crown{font-size:30px}
+.champ b{font-size:20px}
+.champ .cs{color:var(--txt2);font-size:14px}
+
+.odds-wrap{overflow-x:auto}
+.odds-table{width:100%;border-collapse:collapse;font-size:14px}
+.odds-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--txt3);padding:9px 12px;border-bottom:1px solid var(--stroke)}
+.odds-table td{padding:10px 12px;border-bottom:1px solid var(--stroke-soft);white-space:nowrap}
+
+/* knockout bracket cards reuse .card; results colouring */
+.card .ko-when{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.res{font-size:13px;margin-top:8px;padding-top:8px;border-top:1px solid var(--stroke-soft)}
+.res.correct{color:var(--win)} .res.wrong{color:var(--loss)}
+.res .tick{font-weight:700;margin-right:6px}
+
+/* group standings: compact grid of mini-tables */
+.groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.group{padding:14px 16px}
+.group h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--g1);margin-bottom:8px}
+.group table{width:100%;border-collapse:collapse;font-size:13px}
+.group td{padding:4px 2px;border-bottom:1px solid var(--stroke-soft)}
+.group td.n{text-align:right;color:var(--txt2);font-variant-numeric:tabular-nums}
+.group tr.adv td:first-child{box-shadow:inset 3px 0 0 var(--win)}
+
+/* ===== whole-season fixtures & results ===== */
+.season{padding:6px 4px}
+.season details{border-bottom:1px solid var(--stroke-soft)}
+.season details:last-child{border-bottom:0}
+.season summary{cursor:pointer;padding:12px 16px;font-weight:600;font-size:13px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--txt2);list-style:none}
+.season summary::-webkit-details-marker{display:none}
+.season summary::before{content:"▸";display:inline-block;width:16px;color:var(--g2);transition:transform .15s}
+.season details[open] summary::before{transform:rotate(90deg)}
+.season summary:hover{color:var(--txt)}
+.fx-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 8px}
+.fx-table td{padding:7px 8px;border-top:1px solid var(--stroke-soft);vertical-align:middle}
+.fx-d{color:var(--txt3);font-size:11.5px;white-space:nowrap;width:52px}
+.fx-t{text-align:right;width:38%}
+.fx-t.away{text-align:left}
+.fx-s{text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums;width:56px}
+.fx-s .tbd{color:var(--txt3)}
+.fx-p{text-align:right;white-space:nowrap;color:var(--txt3);font-size:11.5px}
+/* The pick is the whole point of the app — never hide it, truncate instead. */
+.fx-p .pk{margin-right:6px;display:inline-block;max-width:11ch;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
+.fx-p .tick{font-weight:700}
+.tick.correct{color:var(--win)} .tick.wrong{color:var(--loss)}
+.tick.void{color:var(--txt3)}
+@media (max-width:560px){ .fx-p .pk{max-width:7ch} .fx-t{width:32%} }
+
+/* correct-score spread: the committed call plus the honest alternatives */
+.scores{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:9px;
+  padding-top:9px;border-top:1px solid var(--stroke-soft)}
+.sc-label{font-size:10.5px;color:var(--txt3);text-transform:uppercase;
+  letter-spacing:.08em;margin-right:2px}
+.sc{font-size:12px;color:var(--txt3);padding:3px 8px;border-radius:999px;
+  border:1px solid var(--stroke-soft);font-variant-numeric:tabular-nums}
+.sc b{color:var(--txt2);font-weight:600}
+/* the model's committed call -- the one it says will happen */
+.sc.call{color:#1a1206;border-color:transparent;
+  background:linear-gradient(120deg,var(--g1),var(--g2))}
+.sc.call b{color:#1a1206}
+
+/* ===== Best Picks board ===== */
+.best-note{padding:14px 18px;border-radius:var(--r-md);font-size:13px;line-height:1.6;
+  color:var(--txt2);background:rgba(255,255,255,.04);border:1px solid var(--stroke-soft);
+  margin:14px 0 4px}
+.best-note b{color:var(--g1)}
+.card.best::before{background:linear-gradient(90deg,var(--g1),var(--g2))}
+.bp-prob{position:relative;margin-top:10px;padding-top:9px;border-top:1px solid var(--stroke-soft);
+  font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums}
+.bp-prob .bar{position:absolute;left:0;bottom:0;height:3px;width:var(--pct);
+  background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:2px}
+
+/* why-this-pick disclosure */
+.why{margin:10px 0 4px;border-top:1px solid var(--line);padding-top:8px}
+.why summary{cursor:pointer;font:600 12px/1.4 Figtree,system-ui;color:var(--txt2);
+  letter-spacing:.02em;text-transform:uppercase}
+.why summary::-webkit-details-marker{color:var(--txt3)}
+.why-rows{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 4px}
+.wy{font:500 12px/1.5 Figtree,system-ui;color:var(--txt2)}
+.wy b{font-variant-numeric:tabular-nums;margin-right:3px}
+.wy b.up{color:var(--win)} .wy b.dn{color:var(--loss)}
+.why-note{font:400 11px/1.5 Figtree,system-ui;color:var(--txt3);margin:2px 0 0}
+
+/* calibration drift chart */
+.drift{width:100%;height:auto;display:block;padding:6px 0}
+.drift .ax{stroke:var(--line);stroke-width:1}
+.drift .ln{fill:none;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.drift .ln.stated{stroke:var(--txt3);stroke-dasharray:5 4}
+.drift .ln.actual{stroke:var(--acc)}
+.drift .lg{font:600 11px Figtree,system-ui;fill:var(--txt2)}
+.drift .k-stated{fill:var(--txt3)} .drift .k-actual{fill:var(--acc)}
+.drift .tk{font:500 10px Figtree,system-ui;fill:var(--txt3)}

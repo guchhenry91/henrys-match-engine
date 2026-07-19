@@ -1,0 +1,124 @@
+name: Leagues refresh
+
+# Runs the four-league predictor in GitHub's cloud -- independent of any laptop
+# being on and of Claude running. Everything it does is deterministic Python:
+# fetch data -> fit model -> simulate season -> build props -> sanity-check ->
+# commit -> trigger the Render deploy. No AI judgment in this path.
+#
+# It deliberately touches ONLY data/leagues/** and data-raw/leagues/**. The World
+# Cup engine (predict.py, data/predictions.json) is never run or committed here.
+
+on:
+  schedule:
+    # Tuesday 06:00 UTC -- after Monday-night football has settled.
+    - cron: "0 6 * * 2"
+    # Sat + Sun 23:00 UTC -- after the day's fixtures finish.
+    - cron: "0 23 * * 6,0"
+  workflow_dispatch:            # lets you run it by hand from the Actions tab
+
+concurrency:
+  group: leagues-refresh        # never let two runs race on the same files
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write           # needed to push the regenerated JSON
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      # soccerdata caches scraped pages here; re-using it across runs keeps us
+      # light on Understat/football-data rather than re-downloading every time.
+      - name: Cache soccerdata
+        uses: actions/cache@v4
+        with:
+          path: ~/soccerdata
+          key: soccerdata-${{ github.run_id }}
+          restore-keys: soccerdata-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Publish all four leagues
+        run: python -m leagues.publish
+
+      # The gate: refuses to ship output that contradicts itself (a pick against
+      # its own scoreline, a table that doesn't add up, an eliminated team still
+      # favoured). Non-zero exit fails the job BEFORE anything is committed.
+      - name: Sanity-check the published payloads
+        run: python -m scripts.sanity_check
+
+      - name: Run tests
+        run: python -m pytest tests/ -q
+
+      - name: Commit refreshed league data
+        id: commit
+        run: |
+          git config user.name  "leagues-bot"
+          git config user.email "actions@github.com"
+          # ONLY league files -- never the World Cup app's data.
+          git add data/leagues data-raw/leagues
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No league changes to publish."
+          else
+            git commit -m "auto: leagues refresh $(date -u +%Y-%m-%d)"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Render is connected by public Git URL and does NOT auto-deploy on push,
+      # so the redeploy must be triggered explicitly.
+      - name: Trigger Render deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::RENDER_DEPLOY_HOOK secret is not set -- data was pushed but the site was not redeployed."
+            exit 1
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$HOOK")
+          echo "deploy hook responded $code"
+          [ "$code" = "200" ] || [ "$code" = "201" ]
+
+      # Nothing above this line reaches a human. The gate correctly refuses to ship
+      # a bad publish and the page correctly warns readers after 72h, but the owner
+      # only finds out via GitHub's failure email -- which is easy to miss for a job
+      # that normally succeeds silently every week. This says it out loud.
+      #
+      # if: failure() so it fires for ANY failed step above (fetch, gate, tests,
+      # deploy), not just the last one. Skipped silently when the secret is absent,
+      # because a missing notifier must never itself fail the run.
+      - name: Alert on failure
+        if: failure()
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$CHAT" ]; then
+            echo "No Telegram secrets set; skipping alert."
+            exit 0
+          fi
+          TEXT="Leagues publish FAILED ($(date -u +%Y-%m-%d\ %H:%M) UTC).
+          Nothing was deployed, so the live site is unchanged but now ageing.
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT}" \
+            --data-urlencode "text=${TEXT}" >/dev/null
+          echo "Alert sent."

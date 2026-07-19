@@ -1,0 +1,45 @@
+{
+  "league": "LIGUE1",
+  "n_players": 261,
+  "goals_mae": 1.08,
+  "goals_mae_baseline": 1.578,
+  "shots_mae": 5.444,
+  "shots_mae_baseline": 8.189,
+  "goals_corr": 0.825,
+  "shots_corr": 0.907,
+  "goals_lift": 31.6,
+  "shots_lift": 33.5,
+  "passes": true,
+  "calibration": [
+    {
+      "bucket": "0-1",
+      "n": 110,
+      "predicted": 0.49,
+      "actual": 0.53
+    },
+    {
+      "bucket": "1-3",
+      "n": 87,
+      "predicted": 1.73,
+      "actual": 1.68
+    },
+    {
+      "bucket": "3-6",
+      "n": 37,
+      "predicted": 4.19,
+      "actual": 3.22
+    },
+    {
+      "bucket": "6-10",
+      "n": 20,
+      "predicted": 7.61,
+      "actual": 6.65
+    },
+    {
+      "bucket": "10+",
+      "n": 7,
+      "predicted": 12.11,
+      "actual": 10.14
+    }
+  ]
+}

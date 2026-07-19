@@ -3,7 +3,13 @@
 Static site (index.html + data/predictions.json) deployed on Render, predicting every WC26 group-stage match. Owner: John (guchhenry91).
 
 ## Layout
-- `index.html` — UI, reads `data/predictions.json` only. No build step.
+- `index.html` — the SITE ENTRY POINT: the unified predictor (Best Picks, Player
+  Picks, Grades, and the four leagues). Reads `data/leagues/*.json`. No build step.
+- `worldcup.html` — the completed World Cup 2026 tournament, preserved verbatim:
+  daily picks, group projections, title odds and the full graded knockout bracket.
+  Reads `data/predictions.json` only. Final record **64-26 of 90 (71%)**, champion
+  Spain. Linked from the switcher; it links back. It is an ARCHIVE -- the tournament
+  is over, so this page should not need to change again.
 - `predict.py` — prediction engine (pure stdlib). Run `python predict.py` to regenerate `data/predictions.json` from `data-raw/`.
 - `data-raw/schedule.json` — all 72 group matches (do not change ids).
 - `data-raw/ratings.json` — Elo + FIFA per team (baseline; predict.py applies result-based Elo deltas itself — do not manually edit after tournament start).
@@ -28,3 +34,98 @@ Never run predict.py + git + deploy hook by hand in the tasks. After editing any
 6. Render is connected by public Git URL and does NOT auto-deploy on push — trigger a redeploy by POSTing the deploy hook stored at `C:\Users\John\.claude\worldcup-deploy-hook.txt` (PowerShell: `Invoke-RestMethod -Method Post -Uri "<hook>"`).
 
 Rules: never invent scores or injuries — only verified info. Team names must exactly match the names in schedule.json. Keep reasons concise.
+
+---
+
+# Leagues engine (Premier League — Phase 2a)
+
+A second, independent predictor living in `leagues/`. It shares the repo and
+`deploy.py` with the World Cup app but **touches none of its files**: the WC
+engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
+
+- `index.html` + `app.css` — the unified UI for all four leagues plus the two
+  cross-league boards. (`leagues.html`/`leagues.css` were the old single-league
+  page and were removed when `app.html` became `index.html`.)
+- `python -m leagues.publish` — the one command. Fits the model, sims the season,
+  builds player props, locks picks, writes `data/leagues/pl.json` atomically.
+- `python -m leagues.tune` — the match-model gate (walk-forward vs de-vigged
+  closing odds). `python -m leagues.props_backtest` — the props gate.
+
+## Data sources
+- Results + closing odds: football-data.co.uk. Team xG: Understat.
+- **Players: Understat season stats + shot events** — NOT FBref. soccerdata's
+  FBref player-match reader drives a headless Chrome per match page (~4/min):
+  five seasons of one league is ~8 hours. Understat gives the same signal in
+  seconds.
+- **Penalties are unlabelled**: soccerdata maps Understat's "Penalty" situation
+  to NA. Match on NA, not on the string, or every club silently gets no penalty
+  taker (see the regression test in `tests/leagues/test_players.py`).
+- **Promoted-club priors come from second-tier form**, NOT ClubElo (which was a
+  single third-party point of failure — down for days). Each promoted club's prior
+  is derived from its actual second-division season (football-data.co.uk E1/SP2/D2/F2)
+  via a calibrated linear map: attack carries a mild signal, defence none (promoted
+  clubs concede ~+0.19 above average regardless). See `leagues/second_tier.py` and
+  `scripts/calibrate_level_gap.py`. A club that can't be resolved in the second-tier
+  feed falls back to the weakest-side seed with a `data_warnings` note.
+- **soccerdata shot-events bug**: `read_shot_events` crashes on GER-Bundesliga (a
+  match roster returns as a list, not a dict). Both `fetch_player_logs` and
+  `team_shot_context` guard it and degrade (SOT via league-average ratio, neutral
+  opponent factors) rather than sink the league.
+
+## The three published boards
+- `data/leagues/best.json` — cross-league **match-winner** picks at p>=0.65.
+- `data/leagues/player_picks.json` — cross-league **player** picks in three markets:
+  anytime goalscorer, 2+ shot attempts, 1+ shot on target. Bars are PER MARKET
+  (`PLAYER_PICK_MIN_PROB`): shots/SOT 0.70, goalscorer **0.40**. The goalscorer bar
+  is lower because it must be — a team scores ~1.5 goals and one man takes a share,
+  so the best anytime price in any of these leagues is ~50%. A 0.70 bar there would
+  publish an empty section forever, not a stricter one.
+- Both are graded **separately**, and player picks are also graded per market: a 45%
+  goalscorer and an 80% shots pick are both near their market's ceiling, so pooling
+  them yields a headline number describing neither. The `grades` tab shows all tiers.
+
+**Player picks are graded from shot events**, not from `fetch_player_logs` (which is
+one row per player-SEASON and cannot say whether a man scored in a given fixture).
+`players.match_player_stats()` counts goals/shots/SOT per player per game, INCLUDING
+penalties (an anytime pick wins on a penalty; `np_goals` would grade that a miss) and
+EXCLUDING own goals. A player with no shot row grades **wrong, not void** — the feed
+cannot separate "didn't play" from "played, never shot", so we take the harsher
+reading deliberately: it can only understate the record, never inflate it.
+
+**Bundesliga cannot be graded** (its shot events crash upstream), so its player picks
+publish with `gradeable: false`, are excluded from the record rather than parked as
+permanent "pending", and the SOT market is withheld there entirely — without a shot
+feed the on-target ratio is a league average, i.e. an assumption, not a measurement.
+
+**`MIN_SQUAD_FOR_PROPS = 6`** — a team with fewer players in the rates table gets NO
+props. The sigma-lambda rescale forces a team's players to sum to the match lambda,
+so a near-empty squad hands one man the whole team's goals: promoted Schalke had a
+single player with top-flight history and published as a **72.8% anytime scorer**
+when nothing else in four leagues beat 50.8%. One player is more dangerous than
+none — none is visibly a hole, one looks like the best pick on the board.
+
+## Scheduled jobs — NOT YET REGISTERED
+`ops/leagues_weekly.py` and `ops/leagues_matchday.py` are written and working but
+deliberately unregistered: the 2026-27 seasons start **2026-08-21** (PL MW1: Arsenal
+v Coventry; the other three the same weekend), and before then they would republish
+unchanged files every week. Both call `publish.main()`, which loops **all four
+leagues** (PL, La Liga, Bundesliga, Ligue 1), aborting per-league on failure, then
+`deploy.py`.
+
+**DO NOT REGISTER THEM.** This instruction is superseded and following it would
+cause an incident. `.github/workflows/leagues.yml` already runs the same job on the
+same crons (`0 6 * * 2`, `0 23 * * 6,0`). Registering these locally too means two
+processes publishing, both committing to the same repo, both triggering Render —
+git conflicts and double deploys, on a schedule.
+
+GitHub Actions wins because it does not need the laptop on or the app open, which
+was the whole point of moving there. Keep `ops/leagues_weekly.py` and
+`ops/leagues_matchday.py` as MANUAL commands (`python -m ops.leagues_weekly` for a
+publish-and-deploy on demand) — just never on a schedule.
+
+The one scheduled task that IS correct to have locally is `leagues-matchday-news`
+(Fri/Sat mornings): it needs judgement about confirmed XI vs rumour, which is why
+it cannot live in Actions.
+
+Both abort rather than deploy if a fetch fails — never ship a stale-but-fresh-
+looking file.

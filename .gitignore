@@ -3,6 +3,22 @@
 *.jpeg
 __pycache__/
 .deploy.lock
+
+# secrets -- the Render deploy hook and the Telegram bot token must never be committed
 *key*.txt
 .env
+
+# a second checkout must never be swept in by `git add -A`
 .claude/worktrees/
+
+# local caches, not source
+data-raw/leagues/cache/
+
+# scratch files from audits and experiments
+_repro.py
+_scratch*.py
+_tmp*.py
+_scratch_out/
+_scratch_picks/
+_audit*.py
+*.pkl

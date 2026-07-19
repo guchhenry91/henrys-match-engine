@@ -1,0 +1,143 @@
+import pandas as pd
+import pytest
+
+from leagues.names import UnknownTeam
+from leagues.players import build_player_logs, season_end, understat_position
+
+
+def _season_stats():
+    return pd.DataFrame([
+        # a striker who moved clubs between seasons
+        {"season": "2425", "team": "Brentford", "player": "Mover", "position": "F S",
+         "matches": 30, "minutes": 2400, "np_goals": 12, "np_xg": 10.5, "shots": 70},
+        {"season": "2526", "team": "Man City", "player": "Mover", "position": "F S",
+         "matches": 28, "minutes": 2300, "np_goals": 15, "np_xg": 14.0, "shots": 85},
+        {"season": "2526", "team": "Man City", "player": "Keeper", "position": "GK",
+         "matches": 38, "minutes": 3420, "np_goals": 0, "np_xg": 0.0, "shots": 0},
+    ])
+
+
+def _shots():
+    return pd.DataFrame([
+        {"season": "2526", "team": "Man City", "player": "Mover",
+         "situation": "Open Play", "result": "Goal"},
+        {"season": "2526", "team": "Man City", "player": "Mover",
+         "situation": "Open Play", "result": "Saved Shot"},
+        {"season": "2526", "team": "Man City", "player": "Mover",
+         "situation": "Open Play", "result": "Missed Shot"},
+        # soccerdata maps Understat's "Penalty" situation to NA -- see players.py
+        {"season": "2526", "team": "Man City", "player": "Mover",
+         "situation": None, "result": "Goal"},
+        {"season": "2425", "team": "Brentford", "player": "Mover",
+         "situation": "Open Play", "result": "Blocked Shot"},
+    ])
+
+
+def test_one_row_per_player_season_with_canonical_teams():
+    df = build_player_logs(_season_stats(), _shots(), "PL")
+    assert len(df) == 3
+    assert set(df["team"]) == {"Manchester City"}     # canonical, and see below
+
+
+def test_a_transferred_player_is_attributed_to_his_CURRENT_club():
+    """Both of Mover's seasons must carry his 2526 club, or player_rates would
+    split him into two half-players at two different clubs."""
+    df = build_player_logs(_season_stats(), _shots(), "PL")
+    mover = df[df["player"] == "Mover"]
+    assert len(mover) == 2
+    assert set(mover["team"]) == {"Manchester City"}   # not Brentford
+
+
+def test_shots_on_target_and_penalties_come_from_shot_events():
+    df = build_player_logs(_season_stats(), _shots(), "PL")
+    row = df[(df["player"] == "Mover") & (df["season"] == "2526")].iloc[0]
+    # Goal + Saved Shot + the scored penalty. Penalties count: Understat's `shots`
+    # total includes them, so the on-target ratio must too or sot/shots is skewed.
+    # (Missed and Blocked are not on target.)
+    assert row["sot"] == 3
+    assert row["pens_att"] == 1
+
+
+def test_position_is_mapped_off_understats_first_real_token():
+    assert understat_position("F S") == "FW"
+    assert understat_position("D S") == "DF"
+    assert understat_position("M S") == "MF"
+    assert understat_position("GK") == "GK"
+    assert understat_position("S") == "MF"      # sub-only: fall back to MF
+
+
+def test_season_end_dates_drive_the_decay():
+    assert season_end("2526") == pd.Timestamp("2026-05-31")
+    assert season_end("2122") == pd.Timestamp("2022-05-31")
+
+
+def test_unmapped_team_fails_loudly():
+    stats = _season_stats()
+    stats.loc[0, "team"] = "Wimbledon FC"
+    with pytest.raises(UnknownTeam):
+        build_player_logs(stats, _shots(), "PL")
+
+
+def test_penalty_taker_is_derived_from_na_situation_shots():
+    """Regression guard: soccerdata maps Understat's "Penalty" situation to NA.
+    Matching the string "penalty" finds nothing and every club silently ends up
+    with no penalty taker."""
+    from leagues.players import penalty_takers
+    df = build_player_logs(_season_stats(), _shots(), "PL")
+    assert df[df["player"] == "Mover"]["pens_att"].sum() == 1
+    assert penalty_takers(df)["Manchester City"] == "Mover"
+
+
+def test_expected_minutes_are_per_match_not_per_season():
+    from leagues.players import expected_minutes
+    df = build_player_logs(_season_stats(), _shots(), "PL")
+    em = expected_minutes(df)
+    # Keeper: 3420 minutes over a 38-match season -> a full 90 every week
+    assert em["Keeper"] == 90.0
+    # Mover: 2300 minutes in his latest season -> ~60 per match, NOT 90
+    assert 55 < em["Mover"] < 65
+
+
+def test_current_squad_excludes_players_who_did_not_appear_last_season():
+    """Five seasons of departed players would otherwise share out the team's
+    expected goals and crush the real strikers to a few percent."""
+    from leagues.players import current_squad
+    stats = _season_stats()
+    stats = pd.concat([stats, pd.DataFrame([
+        {"season": "2223", "team": "Man City", "player": "LongGone", "position": "F S",
+         "matches": 20, "minutes": 1500, "np_goals": 8, "np_xg": 7.0, "shots": 40},
+    ])], ignore_index=True)
+    df = build_player_logs(stats, _shots(), "PL")
+    squad = current_squad(df)
+    assert "Mover" in squad and "Keeper" in squad
+    assert "LongGone" not in squad
+
+
+def test_missing_shot_events_degrades_instead_of_crashing():
+    """If shot-level data is unavailable (upstream parser bug on some leagues),
+    logs still build from season stats: SOT falls back to the league-average
+    ratio and penalty attempts are zero, rather than the whole league failing."""
+    stats = _season_stats()
+    df = build_player_logs(stats, None, "PL")          # shots=None
+    assert len(df) == 3
+    row = df[(df["player"] == "Mover") & (df["season"] == "2526")].iloc[0]
+    # 85 shots at the ~0.35 league on-target prior -> ~30, and no penalties known
+    assert row["pens_att"] == 0
+    assert 0 < row["sot"] <= row["shots"]
+
+
+def test_transfer_override_moves_and_removes_players():
+    """Summer-window moves aren't in last season's data, so an override layer
+    re-attributes a moved player to his new club and drops one who left."""
+    stats = _season_stats()   # Mover (Man City), Keeper (Man City)
+    # add a player at Brentford who "left" for another league this window
+    import pandas as pd
+    stats = pd.concat([stats, pd.DataFrame([
+        {"season": "2526", "team": "Brentford", "player": "Leaver", "position": "F S",
+         "matches": 30, "minutes": 2500, "np_goals": 18, "np_xg": 15.0, "shots": 90},
+    ])], ignore_index=True)
+    transfers = {"Mover": "Arsenal", "Leaver": None}   # Mover -> Arsenal; Leaver gone
+    df = build_player_logs(stats, _shots(), "PL", transfers=transfers)
+    assert set(df[df["player"] == "Mover"]["team"]) == {"Arsenal"}   # reattributed
+    assert "Leaver" not in set(df["player"])                          # removed
+    assert "Keeper" in set(df["player"])                             # untouched

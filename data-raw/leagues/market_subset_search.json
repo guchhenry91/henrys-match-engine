@@ -1,0 +1,22 @@
+{
+  "_note": "Is there ANY subset where the 1X2 model adds information the market lacks? Run: python scripts/market_subset_search.py. COMPREHENSIVE NEGATIVE. Eleven subsets (4 leagues, 4 market-confidence bands, 3 season stages), fitted earlier-half and evaluated later-half. Optimal blend weight on our model is 0.00 in ten of eleven. The single non-zero (toss-ups, w=0.13) made held-out RPS WORSE (+0.0001), failing the pre-stated criterion of w>0.10 AND improved RPS -- i.e. it is noise from slicing, not a niche. CONCLUSION: there is no subset of 1X2 where this model beats or usefully supplements the market. The predictive-skill gap is not fixable by tuning, by blending, or by finding a niche. Only an earlier price than the close (team-news timing) or a thinner market (player props) can move it. Do not re-run.",
+  "subsets_tested": 11,
+  "subsets_with_signal": 0,
+  "by_league": {
+    "PL": 0.0,
+    "LALIGA": 0.0,
+    "BUNDESLIGA": 0.0,
+    "LIGUE1": 0.0
+  },
+  "by_market_confidence": {
+    "<40%": 0.13,
+    "40-50%": 0.0,
+    "50-65%": 0.0,
+    ">65%": 0.0
+  },
+  "by_season_stage": {
+    "first_6_weeks": 0.0,
+    "midseason": 0.0,
+    "run_in": 0.0
+  }
+}
