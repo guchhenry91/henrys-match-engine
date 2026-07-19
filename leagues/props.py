@@ -27,6 +27,10 @@ W_REALIZED_HIGH = 0.6     # weight on actual goals for high-minute players
 W_REALIZED_LOW = 0.4      # ...and for low-sample players (trust xG more)
 HIGH_MINUTE_90S = 10.0
 PEN_CONVERSION = 0.76
+# A player flagged doubtful is assumed to play about half a match: he may start
+# and be withdrawn, or come off the bench. Deliberately blunt -- we have a status
+# word, not a minutes forecast, so pretending to more precision would be false.
+DOUBT_MINUTES_FACTOR = 0.5
 
 
 def _prior(pos: str, table: dict, default_key: str = "MF") -> float:
@@ -82,7 +86,9 @@ def match_props(rates: pd.DataFrame, home: str, away: str,
                 minutes: dict | None = None,
                 pen_taker: dict | None = None,
                 opp_shot_factor: dict | None = None,
-                exp_pens: dict | None = None) -> list[dict]:
+                exp_pens: dict | None = None,
+                unavailable: set | None = None,
+                doubtful: set | None = None) -> list[dict]:
     """Per-player props for ONE fixture.
 
     lam_home/lam_away are the match model's fitted team goal expectations
@@ -100,13 +106,26 @@ def match_props(rates: pd.DataFrame, home: str, away: str,
     opp_shot_factor = opp_shot_factor or {}
     exp_pens = exp_pens or {}
 
+    unavailable = unavailable or set()
+    doubtful = doubtful or set()
+
     out = []
     for team, lam_team in ((home, lam_home), (away, lam_away)):
         squad = rates[rates["team"] == team].copy()
+        # Players confirmed OUT are dropped BEFORE the rescale, so their expected
+        # goals are redistributed across the team-mates who are actually playing
+        # rather than vanishing: the team's lambdas still sum to lam_team, which is
+        # the match model's figure and must not change because a striker is injured.
+        if len(unavailable):
+            squad = squad[~squad["player"].isin(unavailable)]
         if squad.empty:
             continue
 
-        squad["exp_min"] = [float(minutes.get(p, 90.0)) for p in squad["player"]]
+        # A doubtful player still features, but at reduced expected minutes -- the
+        # rescale then hands the difference to the rest of the squad.
+        squad["exp_min"] = [
+            float(minutes.get(p, 90.0)) * (DOUBT_MINUTES_FACTOR if p in doubtful else 1.0)
+            for p in squad["player"]]
         squad["raw"] = squad["rate90"] * squad["exp_min"] / 90.0
 
         # Penalties are a TEAM property: take them out of the open-play budget
@@ -147,7 +166,7 @@ def match_props(rates: pd.DataFrame, home: str, away: str,
                 "exp_sot": round(sot, 2),
                 "p_sot_1plus": round(100.0 * (1.0 - np.exp(-sot)), 1),
                 "penalty_taker": is_taker,
-                "doubt": False,
+                "doubt": bool(r["player"] in doubtful),
             })
     return out
 

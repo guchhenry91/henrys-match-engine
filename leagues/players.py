@@ -19,12 +19,13 @@ identical semantics -- the only thing lost is per-match granularity, which the
 props gate works around (see props_backtest.py).
 """
 import json
+from pathlib import Path
 
 import pandas as pd
 import soccerdata as sd
 
 from leagues import config
-from leagues.names import canonical
+from leagues.names import canonical, UnknownTeam
 
 # Understat "result" values that count as on target. A shot against the post is
 # NOT on target, and an own goal is not the shooter's shot at all.
@@ -153,6 +154,59 @@ def fetch_player_logs(league: str, apply_transfers: bool = True) -> pd.DataFrame
 
     tr = load_transfers(league) if apply_transfers else None
     return build_player_logs(stats, shots, league, transfers=tr)
+
+
+def load_news(league: str) -> dict:
+    """Team news for one league: club -> {"out": [...], "doubt": [...], ...}.
+
+    Injuries, suspensions and confirmed-XI omissions, gathered per matchweek for
+    Best Picks fixtures only (see docs/superpowers/specs/2026-07-19-leagues-team-
+    news-design.md). Absent file or league -> {}, and the props are then built from
+    squad history alone exactly as before.
+
+    Club names are canonicalised here so the file can use ordinary spellings.
+    """
+    path = Path(__file__).resolve().parent.parent / "data-raw" / "leagues" / "news.json"
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8")).get(league, {})
+    out = {}
+    for club, entry in raw.items():
+        try:
+            out[canonical(club, league)] = entry
+        except UnknownTeam:
+            print(f"WARNING: news.json has unmapped club {club!r} for {league}")
+    return out
+
+
+def news_unavailable(news: dict, teams) -> tuple[set, set]:
+    """(players ruled out, players doubtful) across the given clubs."""
+    out, doubt = set(), set()
+    for t in teams:
+        e = news.get(t) or {}
+        out.update(e.get("out") or [])
+        doubt.update(e.get("doubt") or [])
+    return out, doubt
+
+
+def news_checked_age_hours(news: dict, teams) -> float | None:
+    """Hours since the OLDEST of these clubs was news-checked; None if any is
+    unchecked. Used to fail loudly rather than publish a stale Best Pick."""
+    import datetime as dt
+    stamps = []
+    for t in teams:
+        c = (news.get(t) or {}).get("checked")
+        if not c:
+            return None
+        try:
+            stamps.append(pd.Timestamp(c).tz_convert("UTC") if pd.Timestamp(c).tzinfo
+                          else pd.Timestamp(c).tz_localize("UTC"))
+        except Exception:
+            return None
+    if not stamps:
+        return None
+    now = pd.Timestamp.now("UTC")
+    return float((now - min(stamps)).total_seconds() / 3600.0)
 
 
 def transfers_age_days() -> int | None:

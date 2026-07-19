@@ -201,6 +201,32 @@ def check_best_picks():
     if rec.get("total") and rec["correct"] + rec["wrong"] != rec["total"]:
         fail("best", "record correct+wrong != total")
 
+    # Team-news freshness: a Best Pick kicking off soon must have had both clubs
+    # news-checked recently. These are the picks carrying the 77.4% billing, so
+    # publishing one featuring a striker confirmed out is the specific failure this
+    # gate exists to prevent.
+    import datetime as dt
+    from leagues import players as _players
+    now = dt.datetime.now(dt.timezone.utc)
+    for x in up:
+        try:
+            ko = dt.datetime.fromisoformat(str(x["date"]))
+            if ko.tzinfo is None:
+                ko = ko.replace(tzinfo=dt.timezone.utc)
+        except Exception:
+            continue
+        hours_out = (ko - now).total_seconds() / 3600.0
+        if not (0 < hours_out <= 24):
+            continue                       # only gate the imminent ones
+        news = _players.load_news(x["league_key"])
+        age = _players.news_checked_age_hours(news, (x["home"], x["away"]))
+        if age is None:
+            fail("best", f"{x['home']} v {x['away']} kicks off in {hours_out:.0f}h "
+                         f"and has NOT been news-checked")
+        elif age > 48:
+            fail("best", f"{x['home']} v {x['away']} kicks off in {hours_out:.0f}h; "
+                         f"team news is {age:.0f}h old")
+
 
 def check_squad_freshness():
     """Player-club attribution is only as fresh as data-raw/leagues/transfers.json.

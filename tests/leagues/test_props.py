@@ -101,3 +101,36 @@ def test_only_the_designated_taker_carries_penalty_lambda():
     assert f["penalty_taker"] is False
     home = [p for p in props if p["team"] == "Manchester City"]
     assert abs(sum(p["lambda_goals"] for p in home) - 2.1) < 1e-6
+
+
+def test_player_ruled_out_is_removed_and_his_goals_redistribute():
+    """A striker confirmed out must vanish from the props -- and his expected goals
+    must go to his team-mates, not disappear: the team's players still have to sum
+    to the match model's team lambda."""
+    props = match_props(_rates(), "Manchester City", "Brentford", 2.1, 0.9,
+                        unavailable={"Haaland"})
+    names = [p["player"] for p in props if p["team"] == "Manchester City"]
+    assert "Haaland" not in names
+    assert "Foden" in names and "Dias" in names
+    home = [p for p in props if p["team"] == "Manchester City"]
+    assert abs(sum(p["lambda_goals"] for p in home) - 2.1) < 1e-6   # invariant holds
+
+
+def test_doubtful_player_is_flagged_and_downweighted():
+    full = match_props(_rates(), "Manchester City", "Brentford", 2.1, 0.9)
+    hurt = match_props(_rates(), "Manchester City", "Brentford", 2.1, 0.9,
+                       doubtful={"Haaland"})
+    h_full = next(p for p in full if p["player"] == "Haaland")
+    h_hurt = next(p for p in hurt if p["player"] == "Haaland")
+    assert h_hurt["doubt"] is True and h_full["doubt"] is False
+    assert h_hurt["anytime_pct"] < h_full["anytime_pct"]     # fewer expected minutes
+    # the team still sums to lambda -- the doubt reallocates, it does not leak
+    home = [p for p in hurt if p["team"] == "Manchester City"]
+    assert abs(sum(p["lambda_goals"] for p in home) - 2.1) < 1e-6
+
+
+def test_removing_every_player_does_not_crash_or_invent_goals():
+    props = match_props(_rates(), "Manchester City", "Brentford", 2.1, 0.9,
+                        unavailable={"Haaland", "Foden", "Dias"})
+    assert [p for p in props if p["team"] == "Manchester City"] == []
+    assert [p for p in props if p["team"] == "Brentford"]        # other side intact

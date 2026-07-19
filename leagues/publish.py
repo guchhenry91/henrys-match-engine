@@ -130,6 +130,7 @@ def build(league: str = "PL") -> dict:
     rates = props.player_rates(logs, ref=ref)
     rates = rates[rates["player"].isin(squad)]
     takers = players.penalty_takers(logs[logs["player"].isin(squad)])
+    news = players.load_news(league)   # injuries/suspensions, Best Picks fixtures
     concede = ctx["concede_factor"]
     pens_rate = ctx["pens_per_team_match"]
 
@@ -201,10 +202,12 @@ def build(league: str = "PL") -> dict:
         # a player's shooting opportunity scales with how many shots his OPPONENT
         # concedes relative to the league average
         opp_factor = {home: concede.get(away, 1.0), away: concede.get(home, 1.0)}
+        unavailable, doubtful = players.news_unavailable(news, (home, away))
         squad_props = props.match_props(
             rates, home, away, pred["lambda_home"], pred["lambda_away"],
             minutes=exp_minutes, pen_taker=takers, opp_shot_factor=opp_factor,
-            exp_pens={home: pens_rate, away: pens_rate})
+            exp_pens={home: pens_rate, away: pens_rate},
+            unavailable=unavailable, doubtful=doubtful)
 
         out_matches.append({
             "id": int(m["match_id"]),

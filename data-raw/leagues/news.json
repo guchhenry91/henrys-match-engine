@@ -1,0 +1,8 @@
+{
+  "_note": "Team news for Best Picks fixtures ONLY (~18 a matchweek, not all ~37). Per club: 'out' = confirmed unavailable (injury, suspension, confirmed omission) -> removed from that fixture's props, his expected goals redistributing to team-mates via the sigma-lambda rescale. 'doubt' = fitness doubt or likely rotation -> stays but at reduced expected minutes and flagged on the card. 'checked' = ISO timestamp of the last verified sweep; sanity_check FAILS the deploy if a Best Pick kicks off within 24h and its clubs are unchecked or checked over 48h ago. Verified information only -- confirmed/predicted XI, official club statements, reputable reporting. Never rumour. Player names must match the Understat spelling (see scripts/apply_transfers.py for the resolver pattern). Maintained by the leagues-matchday-news scheduled task; see docs/superpowers/specs/2026-07-19-leagues-team-news-design.md",
+  "_verified_on": null,
+  "PL": {},
+  "LALIGA": {},
+  "BUNDESLIGA": {},
+  "LIGUE1": {}
+}
