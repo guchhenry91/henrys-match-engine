@@ -32,6 +32,14 @@ const COMPETITIONS = [
   {key: "ligue1",     label: "Ligue 1",         data: "data/leagues/ligue1.json",     clubs: "data/leagues/clubs_ligue1.json",     kind: "league"},
 ];
 
+// Always re-fetch the data files. Render serves these as ordinary static assets,
+// so a returning visitor's browser will happily reuse a cached copy -- meaning the
+// site can be fully up to date on the server while a reader still sees last week's
+// fixtures. Nothing in the publish pipeline or the deploy gate can detect that,
+// because it happens entirely in someone else's browser. The HTML/CSS may still be
+// cached normally; only the data must never be.
+const NO_CACHE = {cache: 'no-store'};
+
 const pct = (n, d = 0) => `${Number(n).toFixed(d)}%`;
 const num = (n, d = 1) => Number(n).toFixed(d);
 // Escape any string interpolated into innerHTML. The data is trusted, but a club
@@ -492,7 +500,7 @@ function renderSwitcher() {
 // The Grades tab is the one view that spans every file: the two boards plus each
 // league's all-picks record. A single missing file must degrade that one tier to
 // "none graded yet" rather than empty the whole page, so each fetch is caught.
-const getJSON = url => fetch(url).then(r => r.json()).catch(() => ({}));
+const getJSON = url => fetch(url, NO_CACHE).then(r => r.json()).catch(() => ({}));
 
 async function gradesData(best) {
   const leagueComps = COMPETITIONS.filter(c => c.kind === 'league');
@@ -506,6 +514,26 @@ async function gradesData(best) {
   };
 }
 
+// How old the data may get before the page says so. Publishing runs Tuesday and
+// after each weekend, so a gap beyond ~3 days means a run failed or a league
+// aborted. The check lives HERE, in the browser, on purpose: the deploy gate can
+// only refuse to ship a stale file, it cannot tell you the site is already showing
+// one. If the whole pipeline dies, this is the only thing left that still knows
+// what day it is -- and it fails towards telling the reader, not reassuring them.
+const STALE_AFTER_HOURS = 72;
+
+function staleBanner(data) {
+  const upd = data && data.updated;
+  if (!upd) return null;
+  const age = (Date.now() - new Date(upd).getTime()) / 36e5;
+  if (!(age > STALE_AFTER_HOURS)) return null;
+  const days = Math.floor(age / 24);
+  return el('div', 'warn',
+    `<b>This data is ${days} day${days === 1 ? '' : 's'} old.</b> ` +
+    `It was last updated ${new Date(upd).toLocaleString('en-GB')}, so results and ` +
+    `team news since then are not reflected. Picks shown may already have been played.`);
+}
+
 async function route() {
   renderSwitcher();
   const comp = COMPETITIONS.find(c => c.key === activeKey());
@@ -513,8 +541,8 @@ async function route() {
   app.innerHTML = '<p class="sub">Loading…</p>';
   let data, clubs;
   try {
-    data = await fetch(comp.data).then(r => r.json());
-    clubs = comp.clubs ? await fetch(comp.clubs).then(r => r.json()) : {};
+    data = await fetch(comp.data, NO_CACHE).then(r => r.json());
+    clubs = comp.clubs ? await fetch(comp.clubs, NO_CACHE).then(r => r.json()) : {};
   } catch (err) {
     if (activeKey() === comp.key) app.innerHTML = `<p class="sub">Could not load ${comp.label}.</p>`;
     return;
@@ -523,6 +551,10 @@ async function route() {
   // a newer route() already owns the page — don't clobber it with stale content.
   if (activeKey() !== comp.key) return;
   app.innerHTML = '';
+  // Staleness is announced BEFORE the content, on every view, so it cannot be
+  // scrolled past or mistaken for current data.
+  const stale = staleBanner(data);
+  if (stale) app.append(stale);
   // Render errors are NOT caught here: a code bug should surface in the console,
   // not be silently disguised as a "Could not load" network message.
   if (comp.kind === 'best') renderBest(app, data);
