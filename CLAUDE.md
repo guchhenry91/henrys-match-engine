@@ -3,7 +3,13 @@
 Static site (index.html + data/predictions.json) deployed on Render, predicting every WC26 group-stage match. Owner: John (guchhenry91).
 
 ## Layout
-- `index.html` — UI, reads `data/predictions.json` only. No build step.
+- `index.html` — the SITE ENTRY POINT: the unified predictor (Best Picks, Player
+  Picks, Grades, and the four leagues). Reads `data/leagues/*.json`. No build step.
+- `worldcup.html` — the completed World Cup 2026 tournament, preserved verbatim:
+  daily picks, group projections, title odds and the full graded knockout bracket.
+  Reads `data/predictions.json` only. Final record **64-26 of 90 (71%)**, champion
+  Spain. Linked from the switcher; it links back. It is an ARCHIVE -- the tournament
+  is over, so this page should not need to change again.
 - `predict.py` — prediction engine (pure stdlib). Run `python predict.py` to regenerate `data/predictions.json` from `data-raw/`.
 - `data-raw/schedule.json` — all 72 group matches (do not change ids).
 - `data-raw/ratings.json` — Elo + FIFA per team (baseline; predict.py applies result-based Elo deltas itself — do not manually edit after tournament start).
@@ -37,8 +43,9 @@ A second, independent predictor living in `leagues/`. It shares the repo and
 `deploy.py` with the World Cup app but **touches none of its files**: the WC
 engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
 
-- `leagues.html` + `leagues.css` — the PL page. Reads `data/leagues/pl.json` and
-  `data/leagues/clubs.json` only. Linked to/from `index.html` by a plain switcher.
+- `index.html` + `app.css` — the unified UI for all four leagues plus the two
+  cross-league boards. (`leagues.html`/`leagues.css` were the old single-league
+  page and were removed when `app.html` became `index.html`.)
 - `python -m leagues.publish` — the one command. Fits the model, sims the season,
   builds player props, locks picks, writes `data/leagues/pl.json` atomically.
 - `python -m leagues.tune` — the match-model gate (walk-forward vs de-vigged
