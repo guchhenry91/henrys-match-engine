@@ -1,0 +1,33 @@
+{
+  "league": "PL",
+  "n": 1106,
+  "logloss": {
+    "A_full": 2.9633,
+    "B_dc": 2.9941,
+    "C_weibull": 2.9985
+  },
+  "B_dc_minus_C_weibull": {
+    "mean": -0.00443,
+    "ci95": [
+      -0.01401,
+      0.00471
+    ],
+    "significant": false
+  },
+  "A_full_minus_C_weibull": {
+    "mean": -0.03521,
+    "ci95": [
+      -0.05598,
+      -0.01663
+    ],
+    "significant": true
+  },
+  "A_full_minus_B_dc": {
+    "mean": -0.03078,
+    "ci95": [
+      -0.04667,
+      -0.01683
+    ],
+    "significant": true
+  }
+}
