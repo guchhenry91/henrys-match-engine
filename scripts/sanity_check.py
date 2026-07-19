@@ -249,10 +249,25 @@ def check_best_picks():
     probs = [x.get("p_pick") or 0 for x in up]
     if probs != sorted(probs, reverse=True):
         fail("best", "upcoming picks are not ranked by confidence")
+    # Settled entries are judged against the bar FROZEN with them, not today's
+    # constant. Comparing to the live constant made this check vacuous in the
+    # direction that matters: raise the bar and past picks silently leave the
+    # record entirely, so there is nothing left for the check to catch.
     for x in d.get("settled", []):
-        if (x.get("p_pick") or 0) < thr:
-            fail("best", f"settled entry {x['home']} v {x['away']} below the bar "
-                         f"-- selection must be frozen, not recomputed")
+        frozen_bar = x.get("bar")
+        if frozen_bar is not None and (x.get("p_pick") or 0) < frozen_bar:
+            fail("best", f"settled entry {x['home']} v {x['away']} is below the bar "
+                         f"that was in force when it was locked ({frozen_bar})")
+        if x.get("board") is False:
+            fail("best", f"settled entry {x['home']} v {x['away']} was NOT frozen "
+                         f"onto the board but appears on it")
+        if "board" not in x:
+            # Every log was empty when membership-freezing shipped, so no real
+            # entry can predate the field. One appearing means something wrote a
+            # log entry outside lock_pick, and that entry would fall back to the
+            # LIVE threshold -- reopening the retroactive-eviction hole.
+            fail("best", f"settled entry {x['home']} v {x['away']} has no frozen "
+                         f"board flag; its membership would follow the live bar")
     rec = d.get("record", {})
     if rec.get("total") and rec["correct"] + rec["wrong"] != rec["total"]:
         fail("best", "record correct+wrong != total")
@@ -341,10 +356,13 @@ def check_player_picks():
                                     f"squad was flagged too thin")
 
     for x in d.get("settled", []):
-        mk = x.get("market")
-        if mk in bars and (x.get("p_pick") or 0) < bars[mk]:
-            fail("players", f"settled entry {x.get('player')} below the bar -- "
-                            f"selection must be frozen, not recomputed")
+        # Against the frozen bar, not the live one -- see the note in
+        # check_best_picks. A settled pick that cleared 0.70 when it was made stays
+        # valid even if the bar later moves.
+        frozen_bar = x.get("bar")
+        if frozen_bar is not None and (x.get("p_pick") or 0) < frozen_bar:
+            fail("players", f"settled entry {x.get('player')} is below the bar that "
+                            f"was in force when it was locked ({frozen_bar})")
     rec = d.get("record", {})
     if rec.get("total") and rec["correct"] + rec["wrong"] != rec["total"]:
         fail("players", "record correct+wrong != total")

@@ -213,7 +213,8 @@ def build(league: str = "PL") -> dict:
             entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
                                     confidence=_confidence(probs[pick]),
                                     kickoff=m["date"], now=now,
-                                    p_pick=probs[pick])
+                                    p_pick=probs[pick],
+                                    board=probs[pick] >= BEST_PICK_MIN_PROB)
             provisional = False
         else:
             entry = {"pick": pick, "confidence": _confidence(probs[pick]),
@@ -268,7 +269,8 @@ def build(league: str = "PL") -> dict:
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=prob, confidence=_confidence(prob),
-                                         kickoff=m["date"], now=now)
+                                         kickoff=m["date"], now=now,
+                                         bar=PLAYER_PICK_MIN_PROB[market])
                     pprov = False
                 else:
                     pe = {"p_pick": round(prob, 4), "confidence": _confidence(prob)}
@@ -473,8 +475,15 @@ def build_best_picks() -> dict:
         for key, entry in log.items():
             if not str(key).startswith(f"{season_tag}:"):
                 continue                      # a previous season's entry
-            if (entry.get("p_pick") or 0) < BEST_PICK_MIN_PROB:
-                continue                      # not a high-confidence pick
+            # Membership was FROZEN at lock time. Only fall back to comparing
+            # against the live constant for legacy entries written before `board`
+            # existed -- never for new ones, or raising the bar would retroactively
+            # delete settled picks from the record.
+            on_board = entry.get("board")
+            if on_board is None:
+                on_board = (entry.get("p_pick") or 0) >= BEST_PICK_MIN_PROB
+            if not on_board:
+                continue
             mid = int(str(key).split(":", 1)[1])
             row = by_id.get(mid)
             if row is None:

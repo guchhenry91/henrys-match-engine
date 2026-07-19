@@ -33,8 +33,17 @@ def _utc(ts) -> pd.Timestamp:
 
 
 def lock_pick(log: dict, match_id, pick: str, confidence: int,
-              kickoff, now=None, p_pick: float | None = None) -> dict:
-    """Record a pick, once. A second call for the same match is a no-op."""
+              kickoff, now=None, p_pick: float | None = None,
+              board: bool | None = None) -> dict:
+    """Record a pick, once. A second call for the same match is a no-op.
+
+    `board` freezes whether this pick belongs to the high-confidence tier. It must
+    be decided HERE, at lock time, and stored -- not recomputed later by comparing
+    the frozen probability against whatever the threshold constant happens to be.
+    Recomputing it means raising the bar from 0.65 to 0.70 silently evicts every
+    past 0.66 pick from the record, winners and losers alike, retroactively
+    rewriting history the tier was already judged on.
+    """
     match_id = str(match_id)
     if match_id in log:
         return log[match_id]
@@ -51,6 +60,8 @@ def lock_pick(log: dict, match_id, pick: str, confidence: int,
         # "best" would let winners be chosen in hindsight, which is exactly the
         # dishonesty the freezing exists to prevent.
         "p_pick": None if p_pick is None else round(float(p_pick), 4),
+        # Tier membership, frozen with the pick. See the docstring.
+        "board": bool(board) if board is not None else None,
         "locked_at": now.isoformat(),
         "kickoff": kickoff.isoformat(),
         "tainted": bool(late_by > LATE_LOCK_HOURS),
@@ -74,7 +85,8 @@ def grade(entry: dict, result: dict) -> dict:
 
 
 def lock_prop(log: dict, key, market: str, player: str, team: str,
-              p_pick: float, confidence: int, kickoff, now=None) -> dict:
+              p_pick: float, confidence: int, kickoff, now=None,
+              bar: float | None = None) -> dict:
     """Freeze one player pick. Same discipline as lock_pick: write once, never
     rewrite, and store the probability AT LOCK TIME so board membership cannot be
     decided in hindsight."""
@@ -90,6 +102,10 @@ def lock_prop(log: dict, key, market: str, player: str, team: str,
         "team": team,
         "p_pick": round(float(p_pick), 4),
         "confidence": int(confidence),
+        # The threshold IN FORCE when this pick was made. Stored so a later change
+        # to PLAYER_PICK_MIN_PROB cannot retroactively evict settled picks from the
+        # record -- the same reason lock_pick freezes `board`.
+        "bar": None if bar is None else round(float(bar), 4),
         "locked_at": now.isoformat(),
         "kickoff": kickoff.isoformat(),
         "tainted": bool((now - kickoff).total_seconds() / 3600.0 > LATE_LOCK_HOURS),
