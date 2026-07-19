@@ -170,6 +170,55 @@ def check_league(fn, key, n_teams, releg):
             fail(L, f"mojibake {bad!r} in payload (encoding bug)")
 
 
+def check_picks_immutable():
+    """The picks logs must be APPEND-ONLY. Nothing may ever change a locked entry.
+
+    This is the one file the whole project rests on, and until now nothing checked
+    it. Write-once is enforced inside picks.lock_pick and only there -- so any other
+    route to that file (a bad merge, a hand-edit, a future bug, a restored backup)
+    could turn a `wrong` into a `correct` and every other check here would still
+    pass green.
+
+    Git already stores the previous version, so the assertion is exact: every key
+    present in HEAD must be byte-identical now. New keys are fine -- that is what
+    locking a new pick looks like. Changed or DELETED keys are not.
+    """
+    import subprocess
+    for lg in ("pl", "laliga", "bundesliga", "ligue1"):
+        for name in ("picks_log.json", "player_picks_log.json"):
+            rel = f"data-raw/leagues/{lg}/{name}"
+            p = ROOT / rel
+            if not p.exists():
+                continue
+            try:
+                prev = subprocess.run(
+                    ["git", "show", f"HEAD:{rel}"], cwd=ROOT,
+                    capture_output=True, text=True, timeout=30)
+            except Exception as exc:
+                warn(f"log:{lg}/{name}", f"could not read the previous version ({exc})")
+                continue
+            if prev.returncode != 0:
+                continue                      # not in HEAD yet: a brand-new log
+            try:
+                old = json.loads(prev.stdout or "{}")
+                new = json.loads(p.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as exc:
+                fail(f"log:{lg}/{name}", f"unparseable JSON ({exc})")
+                continue
+
+            for key, was in old.items():
+                if key not in new:
+                    fail(f"log:{lg}/{name}",
+                         f"pick {key} was DELETED from the log -- the record is "
+                         f"append-only and a settled pick may never be removed")
+                elif new[key] != was:
+                    changed = sorted({k for k in set(was) | set(new[key])
+                                      if was.get(k) != new[key].get(k)})
+                    fail(f"log:{lg}/{name}",
+                         f"pick {key} was MODIFIED after locking (fields: "
+                         f"{', '.join(changed)}) -- a frozen pick is immutable")
+
+
 def check_freshness():
     """Refuse to pass a file that was not actually rewritten by this publish.
 
@@ -465,6 +514,7 @@ def main():
         except FileNotFoundError:
             warn(key, "payload not published yet")
     check_squad_freshness()
+    check_picks_immutable()
     check_freshness()
     check_best_picks()
     check_player_picks()
