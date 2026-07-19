@@ -1,0 +1,19 @@
+{
+  "_note": "Can the 1X2 model close the gap to the market? Run: python scripts/market_gap_experiment.py. Fitted on the earlier half, evaluated on the later half. TWO NEGATIVE RESULTS. (1) Calibration is fine -- best temperature 1.20, worth only -0.0003 RPS against a 0.0045 gap. (2) DECISIVE: the optimal blend weight on our model is 0.00. The market alone is as good as any mixture of the two, meaning our model carries NO information the market lacks. Tuning the same feature set (xi, xg_weight, prior_strength, Dixon-Coles variants) therefore cannot close the gap -- it is not a tuning problem. Do not re-run hoping otherwise. Only genuinely new information, a thinner market, or an earlier price than the closing line can change this.",
+  "n": 3958,
+  "train_n": 1979,
+  "test_n": 1979,
+  "test_rps": {
+    "model": 0.2032,
+    "market": 0.1986,
+    "gap": 0.0045
+  },
+  "calibration": {
+    "best_temperature": 1.2,
+    "test_rps_delta": -0.0003
+  },
+  "blend": {
+    "best_weight_on_model": 0.0,
+    "test_rps_delta_vs_market": 0.0
+  }
+}
