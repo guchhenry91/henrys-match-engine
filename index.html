@@ -43,6 +43,20 @@ const COMPETITIONS = [
 // cached normally; only the data must never be.
 const NO_CACHE = {cache: 'no-store'};
 
+// team -> brand colour, merged across every league. The Best Picks and Player Picks
+// boards are cross-league, so they cannot use a single league's clubs file; without
+// this they render with the default accent and the page looks monotone.
+let CLUBS = null;
+async function allClubs() {
+  if (CLUBS) return CLUBS;
+  const files = COMPETITIONS.filter(c => c.clubs).map(c => c.clubs);
+  const loaded = await Promise.all(files.map(f =>
+    fetch(f, NO_CACHE).then(r => r.json()).catch(() => ({}))));
+  CLUBS = Object.assign({}, ...loaded);
+  return CLUBS;
+}
+const teamColour = t => (CLUBS && CLUBS[t] || {}).primary || '#8891a8';
+
 const pct = (n, d = 0) => `${Number(n).toFixed(d)}%`;
 const num = (n, d = 1) => Number(n).toFixed(d);
 // Escape any string interpolated into innerHTML. The data is trusted, but a club
@@ -120,7 +134,7 @@ function renderLeague(app, data, clubs, label) {
       const side = (team, props) => props.length
         ? `<div class="side-label">${team} — likely scorers</div><ul class="props">${propList(props)}</ul>`
         : `<div class="side-label">${team} — likely scorers</div><p class="missing">No player data: newly promoted, so they have no top-flight record yet.</p>`;
-      card.innerHTML = `
+      card.innerHTML = `<span class="edge"></span>
         <div class="mw">${when} · ${esc(m.venue || '')}</div>
         <header><span class="team">${esc(m.home)}</span><span class="score">${esc(p.score)}</span><span class="team away">${esc(m.away)}</span></header>
         <div class="pick">Pick: <strong>${esc(p.pick)}</strong> <span class="conf">${'★'.repeat(p.confidence)}</span></div>
@@ -260,9 +274,11 @@ function renderBest(app, data) {
     const grid = el('section', 'fixtures');
     for (const m of up) {
       const card = el('article', 'card glass best');
+      card.style.setProperty('--home', teamColour(m.home));
+      card.style.setProperty('--away', teamColour(m.away));
       const when = new Date(m.date).toLocaleDateString('en-GB',
         { weekday: 'short', day: 'numeric', month: 'short' });
-      card.innerHTML = `
+      card.innerHTML = `<span class="edge"></span>
         <div class="mw">${esc(m.league)} · MW${m.matchweek} · ${when}${m.provisional ? ' · provisional' : ''}</div>
         <header><span class="team">${esc(m.home)}</span><span class="score">${esc(m.score || '')}</span><span class="team away">${esc(m.away)}</span></header>
         <div class="pick">Pick: <strong>${esc(m.pick)}</strong> <span class="conf">${'★'.repeat(m.confidence || 0)}</span></div>
@@ -302,6 +318,8 @@ function playerCards(rows) {
   const grid = el('section', 'fixtures');
   for (const p of rows) {
     const card = el('article', 'card glass best');
+    card.style.setProperty('--home', teamColour(p.team));
+    card.style.setProperty('--away', teamColour(p.team === p.home ? p.away : p.home));
     const when = new Date(p.date).toLocaleDateString('en-GB',
       { weekday: 'short', day: 'numeric', month: 'short' });
     const flags = [
@@ -310,7 +328,7 @@ function playerCards(rows) {
       p.penalty_taker ? 'penalties' : '',
       p.gradeable === false ? 'not gradeable' : '',
     ].filter(Boolean).join(' · ');
-    card.innerHTML = `
+    card.innerHTML = `<span class="edge"></span>
       <div class="mw">${esc(p.league)} · ${when}${flags ? ' · ' + esc(flags) : ''}</div>
       <header><span class="team">${esc(p.player)}</span></header>
       <div class="sub">${esc(p.team)} · ${esc(p.home)} v ${esc(p.away)}</div>
@@ -537,6 +555,7 @@ async function route() {
   if (stale) app.append(stale);
   // Render errors are NOT caught here: a code bug should surface in the console,
   // not be silently disguised as a "Could not load" network message.
+  await allClubs();          // team colours for the cross-league boards
   if (comp.kind === 'best') renderBest(app, data);
   else if (comp.kind === 'players') renderPlayers(app, data);
   else if (comp.kind === 'grades') {

@@ -16,9 +16,10 @@ body{font-family:'Figtree',system-ui,sans-serif;color:var(--txt);background:var(
 .dsp{font-family:'Clash Display','Sora',system-ui,sans-serif;font-weight:700}
 
 .sky{position:fixed;inset:0;z-index:-3;background:
-  radial-gradient(1100px 720px at 84% -14%, #3a2a12 0%, transparent 56%),
-  radial-gradient(900px 640px at -10% 18%, #123a2f 0%, transparent 52%),
-  radial-gradient(820px 600px at 18% 108%, #2a1140 0%, transparent 58%),
+  radial-gradient(1100px 720px at 84% -14%, #4a3517 0%, transparent 56%),
+  radial-gradient(900px 640px at -10% 18%, #45134a 0%, transparent 52%),
+  radial-gradient(820px 600px at 18% 108%, #0e4a48 0%, transparent 58%),
+  radial-gradient(760px 560px at 92% 96%, #1b2861 0%, transparent 58%),
   linear-gradient(180deg, var(--bg1), var(--bg0) 74%);}
 
 .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
@@ -47,8 +48,20 @@ h2{font-size:20px;margin:38px 0 14px;letter-spacing:-.01em}
 /* fixture cards */
 .fixtures{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
 .card{padding:20px}
-.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
-  background:linear-gradient(90deg,var(--home),var(--away))}
+.edge{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;padding:1px;z-index:0;
+  background:linear-gradient(150deg, color-mix(in srgb,var(--home) 62%,transparent),
+             transparent 42%, color-mix(in srgb,var(--away) 50%,transparent));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:.62;transition:opacity .4s}
+.glass:hover .edge{opacity:1}
+/* a soft wash of the two team colours across the card body */
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:linear-gradient(155deg, color-mix(in srgb,var(--home) 13%,transparent),
+             transparent 55%, color-mix(in srgb,var(--away) 10%,transparent))}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;z-index:1;
+  background:linear-gradient(90deg,var(--home),var(--away));
+  box-shadow:0 0 18px -2px color-mix(in srgb,var(--home) 55%,transparent)}
 .card header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
 .team{font-weight:700;font-size:15px;flex:1}
 .team.away{text-align:right}
@@ -174,7 +187,9 @@ tr.ucl td:first-child{box-shadow:inset 3px 0 0 var(--win)}
   color:var(--txt2);background:rgba(255,255,255,.04);border:1px solid var(--stroke-soft);
   margin:14px 0 4px}
 .best-note b{color:var(--g1)}
-.card.best::before{background:linear-gradient(90deg,var(--g1),var(--g2))}
+/* Board cards keep their clubs' colours; the gold is kept as the fallback only,
+   for a card whose team we have no brand colour for. */
+.card.best::before{box-shadow:0 0 20px -2px color-mix(in srgb,var(--home) 60%,transparent)}
 .bp-prob{position:relative;margin-top:10px;padding-top:9px;border-top:1px solid var(--stroke-soft);
   font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums}
 .bp-prob .bar{position:absolute;left:0;bottom:0;height:3px;width:var(--pct);
