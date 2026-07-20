@@ -362,7 +362,8 @@ def build(league: str = "PL") -> dict:
                                          player=p["player"], team=p["team"],
                                          p_pick=prob, confidence=_confidence(prob),
                                          kickoff=m["date"], now=now,
-                                         bar=PLAYER_PICK_MIN_PROB[market])
+                                         bar=PLAYER_PICK_MIN_PROB[market],
+                                         lineup_confirmed=lineup_ready)
                     pprov = False
                 else:
                     pe = {"p_pick": round(prob, 4), "confidence": _confidence(prob)}
@@ -772,12 +773,23 @@ def build_player_picks() -> dict:
     settled.sort(key=lambda x: x["date"], reverse=True)
     by_market = {mk: picks.record([s for s in settled if s.get("market") == mk])
                  for mk in picks.PROP_MARKETS}
+    # The split that makes the headline number interpretable. A pick frozen without
+    # knowing the XI is a different product from one frozen with it, and pooling
+    # them means a poor hit rate cannot be attributed to either the model or the
+    # missing team news.
+    by_lineup = {
+        "confirmed": picks.record([s for s in settled
+                                   if s.get("lineup_confirmed") is True]),
+        "unconfirmed": picks.record([s for s in settled
+                                     if s.get("lineup_confirmed") is not True]),
+    }
     return {
         "updated": datetime.now(timezone.utc).isoformat(),
         "min_probability": PLAYER_PICK_MIN_PROB,
         "markets": {k: v[2] for k, v in picks.PROP_MARKETS.items()},
         "record": picks.record(settled),
         "record_by_market": by_market,
+        "record_by_lineup": by_lineup,
         "ungradeable_leagues": sorted(set(ungradeable)),
         "_incomplete": incomplete,     # non-empty -> caller must NOT publish
         "upcoming": upcoming,

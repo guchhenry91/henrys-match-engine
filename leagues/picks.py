@@ -86,7 +86,8 @@ def grade(entry: dict, result: dict) -> dict:
 
 def lock_prop(log: dict, key, market: str, player: str, team: str,
               p_pick: float, confidence: int, kickoff, now=None,
-              bar: float | None = None) -> dict:
+              bar: float | None = None,
+              lineup_confirmed: bool | None = None) -> dict:
     """Freeze one player pick. Same discipline as lock_pick: write once, never
     rewrite, and store the probability AT LOCK TIME so board membership cannot be
     decided in hindsight."""
@@ -106,6 +107,11 @@ def lock_prop(log: dict, key, market: str, player: str, team: str,
         # to PLAYER_PICK_MIN_PROB cannot retroactively evict settled picks from the
         # record -- the same reason lock_pick freezes `board`.
         "bar": None if bar is None else round(float(bar), 4),
+        # Whether both starting XIs were KNOWN when this pick was frozen. Stored
+        # because the record must be able to tell "the model is mediocre at player
+        # props" from "half these picks were made without knowing who was playing".
+        # Those need opposite responses and are indistinguishable once pooled.
+        "lineup_confirmed": None if lineup_confirmed is None else bool(lineup_confirmed),
         "locked_at": now.isoformat(),
         "kickoff": kickoff.isoformat(),
         "tainted": bool((now - kickoff).total_seconds() / 3600.0 > LATE_LOCK_HOURS),

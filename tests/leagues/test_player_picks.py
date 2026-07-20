@@ -162,3 +162,34 @@ def test_unreadable_shot_feed_returns_empty_not_an_exception(monkeypatch):
     out = players.match_player_stats("BUNDESLIGA")
     assert out.empty and list(out.columns) == ["date", "game_id", "team", "player",
                                                "goals", "shots", "sot"]
+
+
+def test_lineup_knowledge_is_frozen_with_the_pick():
+    """The record must remember whether the XI was known when the pick was made.
+
+    Without this the Grades tab pools picks frozen on a confirmed teamsheet with
+    picks frozen on a guess, and a mediocre hit rate cannot be attributed to either
+    the model or the missing team news -- two problems needing opposite responses.
+    A review caught that `lineup_confirmed` was published on the card but never
+    passed into lock_prop, so the graded record never saw it.
+    """
+    ko = pd.Timestamp("2026-08-22T14:00:00Z")
+    log = {}
+    picks.lock_prop(log, "k1", market="goal", player="Known", team="T",
+                    p_pick=0.45, confidence=2, kickoff=ko,
+                    now=ko - pd.Timedelta(minutes=30), lineup_confirmed=True)
+    picks.lock_prop(log, "k2", market="goal", player="Guessed", team="T",
+                    p_pick=0.45, confidence=2, kickoff=ko,
+                    now=ko - pd.Timedelta(minutes=30), lineup_confirmed=False)
+    assert log["k1"]["lineup_confirmed"] is True
+    assert log["k2"]["lineup_confirmed"] is False
+
+    # and the two tiers grade apart: same probability, opposite outcomes
+    got = picks.grade_prop(log["k1"], {"goals": 1})
+    missed = picks.grade_prop(log["k2"], {"goals": 0})
+    confirmed = picks.record([g for g in (got, missed)
+                              if g.get("lineup_confirmed") is True])
+    unconfirmed = picks.record([g for g in (got, missed)
+                                if g.get("lineup_confirmed") is not True])
+    assert confirmed["correct"] == 1 and confirmed["wrong"] == 0
+    assert unconfirmed["correct"] == 0 and unconfirmed["wrong"] == 1

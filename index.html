@@ -446,6 +446,10 @@ function renderGrades(app, d) {
     ${tierRow('Player picks (all markets)', pl.record)}
     ${MARKET_ORDER.map(mk => tierRow(
         (pl.markets || {})[mk] || mk, (pl.record_by_market || {})[mk])).join('')}
+    ${tierRow('Player picks — XI was known', (pl.record_by_lineup || {}).confirmed,
+              'frozen after both starting elevens were published')}
+    ${tierRow('Player picks — XI unknown', (pl.record_by_lineup || {}).unconfirmed,
+              'frozen on expected minutes, not a confirmed teamsheet')}
     ${(d.leagues || []).map(l => tierRow(l.label + ' — every pick', l.record)).join('')}
   </div>`;
   app.append(tiers);
