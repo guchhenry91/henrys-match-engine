@@ -37,6 +37,24 @@ def test_pick_locked_after_kickoff_is_void():
     assert out["graded"] == "void"
 
 
+def test_even_one_second_after_kickoff_is_void():
+    log = {}
+    ko = pd.Timestamp("2026-08-15T14:00:00Z")
+    lock_pick(log, "1", pick="Arsenal", confidence=5, kickoff=ko,
+              now=ko + pd.Timedelta(seconds=1))
+    out = grade(log["1"], RESULT)
+    assert log["1"]["tainted"] is True
+    assert out["void"] is True
+    assert out["graded"] == "void"
+
+
+def test_exactly_at_kickoff_is_not_late():
+    log = {}
+    ko = pd.Timestamp("2026-08-15T14:00:00Z")
+    lock_pick(log, "1", pick="Arsenal", confidence=5, kickoff=ko, now=ko)
+    assert log["1"]["tainted"] is False
+
+
 def test_void_picks_are_excluded_from_the_record():
     entries = [
         {"graded": "correct", "confidence": 5},

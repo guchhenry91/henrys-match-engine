@@ -11,7 +11,11 @@ from pathlib import Path
 
 import pandas as pd
 
-LATE_LOCK_HOURS = 2.5
+# Zero tolerance: the first lock must exist no later than kickoff.  The old
+# 2.5-hour grace period let a prediction created while the match was underway
+# enter the official record as valid. Existing pre-kickoff locks remain immutable;
+# this only taints a key that is first seen after the match has begun.
+LATE_LOCK_HOURS = 0.0
 
 
 def load_log(path: str | Path) -> dict:

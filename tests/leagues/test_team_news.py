@@ -1,6 +1,8 @@
 import datetime as dt
 import json
 
+import pandas as pd
+
 from leagues import team_news
 
 
@@ -111,3 +113,39 @@ def test_partial_feed_failure_does_not_claim_a_fresh_check(tmp_path):
         fetcher=fetcher, now=NOW)
     assert "checked" not in result["PL"]["Alpha"]
     assert result["PL"]["Alpha"]["automation"]["feeds_ok"] == ["google-news"]
+
+
+def test_production_discovers_new_fixture_without_previous_best_board(tmp_path):
+    """A new Best Pick must be researched before it exists in best.json.
+
+    Production discovery therefore comes from the fixture feed and covers every
+    imminent match. The old board is deliberately absent from this test.
+    """
+    news = tmp_path / "news.json"
+    leagues = tmp_path / "leagues"
+    leagues.mkdir()
+    news.write_text(json.dumps({"PL": {}}))
+    (leagues / "pl.json").write_text(json.dumps({"matches": [{
+        "props": [
+            {"team": "Alpha", "player": "Ada Striker"},
+            {"team": "Beta", "player": "Ben Forward"},
+        ]
+    }]}))
+    empty = pd.DataFrame(columns=["date", "home", "away", "played"])
+    imminent = pd.DataFrame([{
+        "date": pd.Timestamp("2026-08-21T19:00:00Z"),
+        "home": "Alpha", "away": "Beta", "played": False,
+    }])
+
+    def fixture_loader(league):
+        return imminent if league == "PL" else empty
+
+    def fetcher(_url):
+        return b"<rss><channel></channel></rss>"
+
+    result = team_news.refresh(
+        news_path=news, league_dir=leagues, fetcher=fetcher,
+        now=NOW, fixture_loader=fixture_loader)
+
+    assert result["PL"]["Alpha"]["checked"] == "2026-08-21T12:00:00Z"
+    assert result["PL"]["Beta"]["checked"] == "2026-08-21T12:00:00Z"

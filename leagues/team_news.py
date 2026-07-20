@@ -17,6 +17,9 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from leagues import fixtures as fixture_feed
+from leagues.config import LEAGUES
+
 
 ROOT = Path(__file__).resolve().parent.parent
 BEST_PATH = ROOT / "data" / "leagues" / "best.json"
@@ -111,6 +114,41 @@ def upcoming_best(path: Path = BEST_PATH, now: dt.datetime | None = None) -> lis
     return result
 
 
+def upcoming_fixtures(now: dt.datetime | None = None,
+                      loader=fixture_feed.fetch_fixtures) -> list[dict]:
+    """Every unplayed league fixture inside the news window.
+
+    Discovery must not read the previous ``best.json``. A model refresh can add a
+    new Best Pick, and researching only the old board creates a loop where the
+    freshness gate rejects the new fixture before it can ever be committed.
+    Reading the canonical fixture feed makes news coverage a superset of any board
+    the subsequent model publish can produce.
+    """
+    now = now or utcnow()
+    result = []
+    for league in LEAGUES:
+        frame = loader(league)
+        for fixture in frame.to_dict("records"):
+            if fixture.get("played"):
+                continue
+            try:
+                kickoff = dt.datetime.fromisoformat(
+                    str(fixture["date"]).replace("Z", "+00:00"))
+                if kickoff.tzinfo is None:
+                    kickoff = kickoff.replace(tzinfo=dt.timezone.utc)
+            except (KeyError, TypeError, ValueError):
+                continue
+            hours = (kickoff - now).total_seconds() / 3600
+            if 0 < hours <= WINDOW_HOURS:
+                result.append({
+                    "league_key": league,
+                    "date": _iso(kickoff),
+                    "home": fixture["home"],
+                    "away": fixture["away"],
+                })
+    return result
+
+
 def player_candidates(league: str, team: str,
                       league_dir: Path = LEAGUE_PATH) -> list[str]:
     path = league_dir / f"{league.lower()}.json"
@@ -189,14 +227,18 @@ def collect_team(team: str, opponent: str, players: list[str], fetcher=fetch_rss
     return evidence, successful
 
 
-def refresh(news_path: Path = NEWS_PATH, best_path: Path = BEST_PATH,
+def refresh(news_path: Path = NEWS_PATH, best_path: Path | None = None,
             league_dir: Path = LEAGUE_PATH, fetcher=fetch_rss,
-            now: dt.datetime | None = None) -> dict:
+            now: dt.datetime | None = None, fixture_loader=None) -> dict:
     now = now or utcnow()
     base = (json.loads(news_path.read_text(encoding="utf-8"))
             if news_path.exists() else {})
-    fixtures = upcoming_best(best_path, now)
-    for fixture in fixtures:
+    # ``best_path`` remains as an explicit test/backfill seam. Production omits it
+    # and researches ALL imminent fixtures, so a newly generated Best Pick can
+    # never be absent merely because it was not on the previous board.
+    imminent = (upcoming_best(best_path, now) if best_path is not None
+                else upcoming_fixtures(now, fixture_loader or fixture_feed.fetch_fixtures))
+    for fixture in imminent:
         league = fixture["league_key"]
         section = base.setdefault(league, {})
         for team, opponent in ((fixture["home"], fixture["away"]),
@@ -232,7 +274,8 @@ def refresh(news_path: Path = NEWS_PATH, best_path: Path = BEST_PATH,
             if len(set(successful)) == len(SEARCH_FEEDS):
                 entry["checked"] = _iso(now)
             section[team] = entry
-    base["_verified_on"] = now.date().isoformat() if fixtures else base.get("_verified_on")
+    base["_verified_on"] = (now.date().isoformat()
+                            if imminent else base.get("_verified_on"))
     return base
 
 
