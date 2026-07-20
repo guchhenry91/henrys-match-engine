@@ -68,6 +68,15 @@ def test_a_pick_first_locked_after_kickoff_is_tainted():
     assert picks.grade_prop(e, {"goals": 2})["graded"] == "void"   # never counted
 
 
+def test_player_pick_one_second_after_kickoff_is_tainted():
+    ko = pd.Timestamp("2026-08-22T14:00:00Z")
+    e = picks.lock_prop(
+        {}, "k", market="goal", player="X", team="T", p_pick=0.5,
+        confidence=3, kickoff=ko, now=ko + pd.Timedelta(seconds=1))
+    assert e["tainted"] is True
+    assert picks.grade_prop(e, {"goals": 2})["graded"] == "void"
+
+
 # -------------------------------------------------------------------- grading
 @pytest.mark.parametrize("market,actual,expected", [
     ("goal",  {"goals": 1}, "correct"),

@@ -26,8 +26,10 @@ on:
     # ~1h before) can still reach the model. The lock can only happen on a run that
     # lands inside that 45-minute window, so runs must be closer together than the
     # window is wide.
-    - cron: "0,30 11-22 * * 6,0"                   # Sat + Sun, all day
-    - cron: "0,30 17-22 * * 1,5"                   # Fri + Mon evening fixtures
+    # Every day, not only the traditional weekend windows. This covers Tuesday-
+    # Thursday matchweeks and rescheduled fixtures; the interval remains narrower
+    # than the 45-minute lock window.
+    - cron: "0,30 11-22 * * *"
   workflow_dispatch:            # lets you run it by hand from the Actions tab
 
 concurrency:
@@ -76,9 +78,10 @@ jobs:
           python -m scripts.sync_rosters
           python -m scripts.roster_integrity_check
 
-      # Two free RSS indexes are searched independently. Explicit player absences
-      # affect the model only after two different publishers corroborate them.
-      # Every article URL, publisher and timestamp is retained in news.json.
+      # Research every fixture inside 72h directly from the fixture feed, not the
+      # previous best.json. This guarantees that a newly generated Best Pick was
+      # checked before the final publish and cannot deadlock the freshness gate.
+      # Explicit absences still require two different original publishers.
       - name: Refresh multi-source team news
         run: python -m scripts.sync_team_news
 
