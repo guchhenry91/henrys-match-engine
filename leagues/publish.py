@@ -13,7 +13,7 @@ import pandas as pd
 
 from leagues import config, dataset, fixtures, odds, picks, players, props, second_tier, sim
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
-                           top_scorelines)
+                           top_scorelines, scoreline_grid, outcome_probs)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "leagues"
@@ -285,6 +285,27 @@ def build(league: str = "PL") -> dict:
     for _, m in upcoming.iterrows():
         home, away = m["home"], m["away"]
         pred = model.predict(home, away)
+
+        # TEAM NEWS REACHES THE MATCH MODEL. Until now a confirmed absence moved
+        # only the player props: the model would still rate a side at full strength
+        # with its main striker ruled out, which is precisely when the opponent
+        # gains an edge. The penalty is measured (see props.ABSENCE_GOAL_COST), and
+        # applied deliberately conservatively.
+        news_out, _news_doubt = players.news_unavailable(news, (home, away))
+        pen_h = props.absence_penalty(rates, home, news_out)
+        pen_a = props.absence_penalty(rates, away, news_out)
+        if pen_h or pen_a:
+            # Floor at a quarter of a goal: a team missing its whole attack is
+            # weakened, not incapable, and letting lambda collapse would produce
+            # absurd scorelines.
+            lh = max(pred["lambda_home"] - pen_h, 0.25)
+            la = max(pred["lambda_away"] - pen_a, 0.25)
+            grid = scoreline_grid(lh, la, model.rho)
+            ph, pdw, pa = outcome_probs(grid)
+            pred = {**pred, "p_home": ph, "p_draw": pdw, "p_away": pa,
+                    "lambda_home": lh, "lambda_away": la, "grid": grid,
+                    "absence_penalty": {"home": round(pen_h, 3),
+                                        "away": round(pen_a, 3)}}
         probs = {home: pred["p_home"], "Draw": pred["p_draw"], away: pred["p_away"]}
         pick = max(probs, key=probs.get)
 

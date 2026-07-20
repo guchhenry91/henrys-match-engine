@@ -1,6 +1,8 @@
+import pytest
 import numpy as np
 import pandas as pd
 
+from leagues import props
 from leagues.props import player_rates, match_props, GOAL_PRIORS, SHOT_PRIORS
 
 
@@ -184,3 +186,40 @@ def test_confirmed_bench_caps_minutes_and_appearance_chance():
     h = next(x for x in bench if x["player"] == "Haaland")
     assert h["appearance_pct"] == 35.0
     assert h["expected_minutes"] <= 8.8
+
+
+# ------------------------------------------------------- absence -> team lambda
+def _abs_rates():
+    return pd.DataFrame(
+        [{"team": "A", "player": f"A{i}", "pos": "FW", "nineties": 10.0,
+          "rate90": 0.5, "shots90": s, "sot_ratio": 0.35}
+         for i, s in enumerate([4.0, 2.0, 1.5, 1.0, 1.0, 0.5])])
+
+
+def test_absence_penalty_scales_with_share_of_the_team_shooting():
+    r = _abs_rates()
+    top = props.absence_penalty(r, "A", {"A0"})     # 4 of 10 shots
+    small = props.absence_penalty(r, "A", {"A5"})   # 0.5 of 10
+    assert top > small > 0
+    assert top == pytest.approx(props.ABSENCE_GOAL_COST * 0.4)
+
+
+def test_absence_penalty_is_conservative_not_catastrophic():
+    """The measured effect is an UPPER bound (the absence proxy still catches some
+    players dropped for form), and the CI is wide, so the shipped constant sits
+    well below the point estimate. Over-reacting would swing a win probability by
+    ten points on one absence and make us worse than the market we already trail."""
+    r = _abs_rates()
+    # even losing the entire attack cannot wipe out a team's expected goals
+    everyone = props.absence_penalty(r, "A", set(r["player"]))
+    assert everyone == pytest.approx(props.ABSENCE_GOAL_COST)
+    assert props.ABSENCE_GOAL_COST < 0.77          # below the measured estimate
+    assert 1.6 - everyone > 1.0                    # a strong side stays strong
+
+
+def test_absence_penalty_returns_zero_when_it_cannot_be_computed():
+    """A data gap must never silently move a published prediction."""
+    r = _abs_rates()
+    assert props.absence_penalty(r, "A", set()) == 0.0
+    assert props.absence_penalty(r, "Unknown Team", {"A0"}) == 0.0
+    assert props.absence_penalty(pd.DataFrame(columns=r.columns), "A", {"A0"}) == 0.0

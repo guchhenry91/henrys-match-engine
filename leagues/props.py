@@ -222,6 +222,44 @@ def match_props(rates: pd.DataFrame, home: str, away: str,
     return out
 
 
+# Goals a team loses per unit of missing SHOT SHARE when a player is genuinely
+# absent. Measured, not guessed: scripts/absence_impact.py regresses the model's
+# goal residual on the share of a team's shooting that was missing, across 2,888
+# Premier League team-matches. Point estimate -0.77 (95% CI -1.33 to -0.22).
+#
+# We deliberately use a value well BELOW the point estimate, for two reasons.
+# First, the confidence interval is wide -- the pessimistic end is six times the
+# optimistic one. Second, the absence proxy is "took no shot", which even after
+# filtering to runs of consecutive misses still catches some players dropped for
+# bad form; that residual confounding inflates the estimate, so 0.77 is an upper
+# bound on the causal effect rather than a central one.
+#
+# Under-reacting costs a little accuracy. Over-reacting would swing a win
+# probability by ten points on one absence and make us worse than the market we
+# already trail. When the direction of the error is asymmetric, take the cautious
+# side.
+ABSENCE_GOAL_COST = 0.45
+
+
+def absence_penalty(rates: pd.DataFrame, team: str, unavailable,
+                    cost: float = ABSENCE_GOAL_COST) -> float:
+    """Goals to subtract from a team's lambda for confirmed absences.
+
+    Scaled by the absent players' share of the team's SHOTS, not by their goals:
+    shot share is the more stable quantity and is what the measurement above was
+    fitted on. Returns 0.0 whenever we cannot compute it, so a data gap never
+    silently moves a published prediction.
+    """
+    if rates.empty or not unavailable:
+        return 0.0
+    squad = rates[rates["team"] == team]
+    total = float(squad["shots90"].sum())
+    if total <= 0:
+        return 0.0
+    missing = float(squad[squad["player"].isin(set(unavailable))]["shots90"].sum())
+    return cost * (missing / total)
+
+
 def thin_squads(rates: pd.DataFrame, teams, min_players: int) -> list:
     """Teams with SOME player data but too little to share out a team's goals.
 
