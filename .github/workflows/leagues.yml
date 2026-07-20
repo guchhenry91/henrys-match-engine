@@ -39,7 +39,24 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # WHY 120, not 30: every run so far has timed out or been cancelled before
+    # completing, which means the soccerdata cache below has NEVER once been
+    # saved -- actions/cache only saves at the end of a successful job, and no
+    # job has ever reached the end. leagues.publish fetches shot events ONE
+    # HTTP REQUEST PER HISTORICAL MATCH (soccerdata's Understat._read_match,
+    # cached to disk permanently since a played match never changes). Cold,
+    # across 5 seasons x 4 leagues, that is ~6,860 individual page fetches --
+    # timed at ~15 minutes for the Premier League alone in the last real run,
+    # so ~60 minutes for all four leagues before publish/sanity/tests/commit
+    # even start. This is a ONE-TIME cost: once a single run is allowed to
+    # finish, the cache is saved, every later run restores it via
+    # restore-keys and only needs to fetch the handful of matches in the
+    # CURRENT season (soccerdata skips its cache for the in-progress season
+    # by design), which is fast. 120 minutes gives that first run room to
+    # actually complete. Tighten this back down once a few warm runs have
+    # been observed finishing quickly -- do not lower it before that,
+    # or the cache never gets the chance to populate at all.
+    timeout-minutes: 120
     permissions:
       contents: write           # needed to push the regenerated JSON
 
