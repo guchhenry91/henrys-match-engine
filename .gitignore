@@ -13,6 +13,9 @@ __pycache__/
 
 # local caches, not source
 data-raw/leagues/cache/
+.cache/
+.test-tmp/
+pytest-cache-files-*/
 
 # scratch files from audits and experiments
 _repro.py

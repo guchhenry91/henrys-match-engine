@@ -10,6 +10,10 @@ name: Leagues refresh
 
 on:
   schedule:
+    # Independent team-news research. The script exits without network calls when
+    # no Best Pick is within 72h, so this can cover midweek fixtures as well as
+    # weekends without needing Claude/ChatGPT to be open.
+    - cron: "15 */3 * * *"
     # Tuesday 06:00 UTC -- the weekly refit, after Monday-night football settles.
     - cron: "0 6 * * 2"
     # MATCHDAYS, every 30 minutes. Two jobs at once: it records results as they land,
@@ -71,6 +75,12 @@ jobs:
         run: |
           python -m scripts.sync_rosters
           python -m scripts.roster_integrity_check
+
+      # Two free RSS indexes are searched independently. Explicit player absences
+      # affect the model only after two different publishers corroborate them.
+      # Every article URL, publisher and timestamp is retained in news.json.
+      - name: Refresh multi-source team news
+        run: python -m scripts.sync_team_news
 
       - name: Publish all four leagues
         run: python -m leagues.publish

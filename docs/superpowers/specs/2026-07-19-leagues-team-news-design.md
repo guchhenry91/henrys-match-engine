@@ -1,7 +1,7 @@
 # Leagues Team News — Design Spec
 
 **Date:** 2026-07-19
-**Status:** scoped, not built
+**Status:** built; automated multi-source collector added 2026-07-20
 **Parent:** `docs/superpowers/specs/2026-07-13-multileague-predictor-design.md` (§14 left the injury feed as an explicit seam)
 
 ---
