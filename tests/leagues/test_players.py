@@ -186,8 +186,14 @@ def test_roster_reconciliation_reassigns_known_players_and_fails_closed(
         monkeypatch):
     rates = pd.DataFrame([
         {"team": "Old Club", "player": "Álex One", "rate90": 0.4},
-        {"team": "Old Club", "player": "Departed", "rate90": 0.3},
+        # attributed to a club whose roster IS complete, but absent from it ->
+        # this is the only situation where we have evidence he has gone.
+        {"team": "New Club", "player": "Departed", "rate90": 0.3},
         {"team": "Thin Club", "player": "Thin Player", "rate90": 0.2},
+        # attributed to a club the snapshot says nothing about at all -> no
+        # evidence either way, so keep him (that club is not in the fixture list,
+        # so an unverifiable entry cannot reach a card).
+        {"team": "Unlisted Club", "player": "Unknowable", "rate90": 0.1},
     ])
     complete = [{"id": str(i), "name": f"Squad {i}"} for i in range(17)]
     complete.append({"id": "99", "name": "Alex One"})
@@ -201,25 +207,41 @@ def test_roster_reconciliation_reassigns_known_players_and_fails_closed(
 
     safe, incomplete, unmatched = reconcile_rates_to_roster(rates, "PL")
 
-    assert safe[["team", "player"]].to_dict("records") == [
-        {"team": "New Club", "player": "Álex One"}]
-    assert incomplete == ["Thin Club"]
-    assert unmatched == ["Old Club/Departed", "Thin Club/Thin Player"]
+    # A COMPLETE roster convicts: "Álex One" is reassigned to his real club, and
+    # "Departed" -- absent from a league whose rosters are complete -- is dropped.
+    recs = {r["player"]: r["team"] for r in safe[["team", "player"]].to_dict("records")}
+    assert recs["Álex One"] == "New Club"
+    assert "Departed" not in recs
+    assert unmatched == ["New Club/Departed"]
+
+    # A THIN roster does NOT convict. "Thin Player" keeps his existing club rather
+    # than being deleted, because absence from incomplete evidence is not evidence
+    # of absence. Deleting on thin rosters removed Real Madrid, Barcelona, PSG and
+    # 14 of 18 Bundesliga clubs -- 70% of two leagues -- from the player model.
+    assert recs["Thin Player"] == "Thin Club"
+    assert recs["Unknowable"] == "Unlisted Club"
+    assert incomplete == ["Thin Club"]      # still reported, so the page can say so
 
 
-def test_missing_roster_snapshot_withholds_all_player_rates(monkeypatch):
+def test_missing_roster_snapshot_keeps_existing_attribution(monkeypatch):
+    """No evidence must not mean no player model.
+
+    Withholding every rate on a missing snapshot means one failed feed silently
+    empties the whole player product, which punishes the reader for our data
+    problem. Keep what we have, and report every club as unverified."""
     rates = pd.DataFrame([
         {"team": "Arsenal", "player": "Player", "rate90": 0.4},
     ])
     monkeypatch.setattr("leagues.players.load_roster_snapshot", lambda league: {})
     monkeypatch.setattr("leagues.players.roster_snapshot_age_hours", lambda: None)
     safe, incomplete, unmatched = reconcile_rates_to_roster(rates, "PL")
-    assert safe.empty
-    assert incomplete == ["Arsenal"]
+    assert list(safe["player"]) == ["Player"]      # kept, not deleted
+    assert incomplete == ["Arsenal"]               # but flagged as unverified
     assert unmatched == []
 
 
-def test_stale_roster_snapshot_withholds_all_player_rates(monkeypatch):
+def test_stale_roster_snapshot_keeps_existing_attribution(monkeypatch):
+    """Same rule for evidence that has gone stale: warn, do not delete."""
     rates = pd.DataFrame([
         {"team": "Arsenal", "player": "Player", "rate90": 0.4},
     ])
@@ -234,5 +256,5 @@ def test_stale_roster_snapshot_withholds_all_player_rates(monkeypatch):
     monkeypatch.setattr("leagues.players.roster_snapshot_age_hours",
                         lambda: 72.01)
     safe, incomplete, _ = reconcile_rates_to_roster(rates, "PL")
-    assert safe.empty
+    assert list(safe["player"]) == ["Player"]
     assert incomplete == ["Arsenal"]

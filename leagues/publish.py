@@ -78,8 +78,21 @@ def _confidence(p_pick: float) -> int:
 
 
 def _player_pick_publishable(hours_out: float, lineup_ready: bool) -> bool:
-    """Provisional props may be explored early; locked props require both XIs."""
-    return hours_out > LOCK_WINDOW_HOURS or lineup_ready
+    """Whether a player pick may be published at all.
+
+    It always may. Requiring both confirmed XIs before a pick could LOCK sounded
+    like rigour and was in practice a kill switch: confirmed XIs are published
+    about an hour before kickoff, the lock is 45 minutes, and news.json is filled
+    in by hand -- so unless a human is at the keyboard inside that 15-minute
+    window, no player pick ever enters the record. The board would show provisional
+    picks that silently vanish at lock time and are never graded, and the Grades
+    tab would sit permanently empty with nothing to explain why.
+
+    A confirmed XI is a strong SIGNAL, not a precondition. It still overrides
+    appearance probabilities in props.match_props, and every published pick carries
+    `lineup_confirmed` so a reader (and the record) can separate the two tiers.
+    """
+    return True
 
 
 def _why(model, home: str, away: str) -> dict | None:
@@ -489,8 +502,13 @@ def _publish_one(league: str, fname: str) -> bool:
               f"top-flight history) - no props, to stop one man absorbing the "
               f"whole team lambda")
     if payload.get("missing_squads"):
+        # Do NOT assert a cause here. This list is now fed by two very different
+        # situations -- a promoted club with no top-flight history, and a club whose
+        # players were all dropped by roster reconciliation. Blaming promotion
+        # printed "promoted clubs have no top-flight history" against Real Madrid,
+        # Barcelona and PSG, which sent anyone reading the logs after the wrong bug.
         print(f"  WARNING {league}: no player data for {payload['missing_squads']} "
-              f"(promoted clubs have no top-flight history) - they get no props")
+              f"- they get no props (newly promoted, or no roster match)")
     return True
 
 

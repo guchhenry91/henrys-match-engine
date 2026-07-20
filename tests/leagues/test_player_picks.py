@@ -91,10 +91,22 @@ def test_a_player_with_no_shot_row_is_graded_wrong_not_void():
     assert g["graded"] == "wrong" and g["void"] is False and g["actual"] is None
 
 
-def test_locked_player_pick_requires_both_confirmed_lineups():
+def test_a_missing_confirmed_lineup_does_not_silently_kill_the_pick():
+    """A confirmed XI is a signal, not a precondition.
+
+    Gating the LOCK on both confirmed XIs read as rigour and worked as a kill
+    switch: XIs land ~60 min before kickoff, the lock is at 45 min, and news.json
+    is filled in by hand -- so unless someone was at the keyboard inside that
+    15-minute window, no player pick could ever enter the record. The board would
+    show provisional picks that vanished at lock time, and the Grades tab would sit
+    permanently empty with nothing explaining why.
+
+    The XI still does real work: it overrides appearance probability inside
+    match_props, and every pick publishes `lineup_confirmed` so the two tiers stay
+    distinguishable in the record."""
     assert _player_pick_publishable(3.0, lineup_ready=False) is True
     assert _player_pick_publishable(0.5, lineup_ready=True) is True
-    assert _player_pick_publishable(0.5, lineup_ready=False) is False
+    assert _player_pick_publishable(0.5, lineup_ready=False) is True
 
 
 # ------------------------------------------------- per-match actuals (grading)

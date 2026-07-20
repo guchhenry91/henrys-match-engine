@@ -74,34 +74,55 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
                               min_players: int = MIN_COMPLETE_ROSTER):
     """Return (safe rates, incomplete clubs, unmatched historical players).
 
-    Clubs with a thin source roster are removed entirely: publishing no player
-    market is safer than treating a partial list as the squad. For complete clubs,
-    only exact normalized roster members survive and their current club assignment
-    comes from the snapshot rather than their last historical Understat season.
+    The snapshot CORROBORATES; it does not by itself convict. Where a club's roster
+    is complete we trust it fully: it reassigns a player's club (catching the
+    January-transfer class our season-attributed source gets wrong) and a player
+    absent from the whole league is treated as departed. Where a club's roster is
+    thin we fall back to the existing attribution and warn, because absence from
+    incomplete evidence is not evidence of absence.
+
+    That distinction is load-bearing. Deleting thin clubs outright removed Real
+    Madrid, Barcelona, Atletico, PSG, Marseille and 14 of 18 Bundesliga sides --
+    70% of La Liga and Ligue 1 players, Mbappe and Raphinha among them -- because
+    the free roster feed happened to list fewer than 18 names for them. Failing
+    closed on the source's completeness rather than on the player's status turned a
+    feed-quality problem into silent deletion of the best players in Europe.
     """
     snapshot = load_roster_snapshot(league)
     age = roster_snapshot_age_hours()
     if not snapshot or age is None or age > MAX_ROSTER_AGE_HOURS:
+        # No usable evidence at all -> keep the existing attribution untouched and
+        # report every club as unverified. Withholding the whole player model on a
+        # missing/stale snapshot punishes the reader for a feed problem.
         teams = sorted(snapshot) if snapshot else (
             sorted(set(rates["team"])) if not rates.empty else [])
-        return rates.iloc[0:0].copy(), teams, []
+        return rates.reset_index(drop=True), teams, []
 
     incomplete = sorted(
         club for club, entry in snapshot.items()
         if len(entry.get("players", [])) < min_players
     )
+    complete_clubs = {c for c in snapshot if c not in incomplete}
     current = {}
     duplicate_keys = set()
+    # relaxed index, used ONLY to rescue a player already attributed to this club:
+    # surname-style key -> {club: full_key}. Never used to move a player between
+    # clubs, so it cannot manufacture a transfer.
+    relaxed = {}
     for club, entry in snapshot.items():
         if club in incomplete:
             continue
         for player in entry.get("players", []):
-            key = _player_key(player.get("name", ""))
+            name = player.get("name", "")
+            key = _player_key(name)
             if not key:
                 continue
             if key in current and current[key] != club:
                 duplicate_keys.add(key)
             current[key] = club
+            tokens = [t for t in str(name).split() if t]
+            if tokens:
+                relaxed.setdefault(_player_key(tokens[-1]), {}).setdefault(club, key)
     for key in duplicate_keys:
         current.pop(key, None)  # ambiguous identity -> withhold, never guess
 
@@ -109,8 +130,21 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
     for _, row in rates.iterrows():
         club = current.get(_player_key(row["player"]))
         if club is None:
-            unmatched.append(f"{row['team']}/{row['player']}")
-            continue
+            # Rescue pass: Understat's spelling often differs from the roster feed's
+            # ("Thiago" vs "Igor Thiago"), which was deleting genuine current
+            # players. Accept a surname match ONLY within the club we already have
+            # him at, and only when it is unambiguous there.
+            tokens = [t for t in str(row["player"]).split() if t]
+            cand = relaxed.get(_player_key(tokens[-1])) if tokens else None
+            if cand and row["team"] in cand:
+                club = row["team"]
+        if club is None:
+            if row["team"] in complete_clubs:
+                # Complete roster for his club and he is nowhere in the league:
+                # genuinely gone. Drop him.
+                unmatched.append(f"{row['team']}/{row['player']}")
+                continue
+            club = row["team"]        # thin evidence -> keep existing attribution
         item = row.copy()
         item["team"] = club
         kept.append(item)
