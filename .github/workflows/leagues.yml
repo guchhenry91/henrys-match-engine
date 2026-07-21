@@ -137,6 +137,14 @@ jobs:
         env:
           HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
+          # Strip ALL whitespace before use. Every real run so far reached this
+          # step and failed with curl exit code 3 ("malformed URL") -- confirmed
+          # by checking the local hook file used for manual deploys all session:
+          # it too ends in a trailing newline byte. Every manual deploy this
+          # session only worked because the PowerShell command doing it called
+          # .Trim() on the file content first; this script never did the
+          # equivalent, so it choked on the exact same secret every single time.
+          HOOK="$(printf '%s' "$HOOK" | tr -d '[:space:]')"
           if [ -z "$HOOK" ]; then
             echo "::error::RENDER_DEPLOY_HOOK secret is not set -- data was pushed but the site was not redeployed."
             exit 1
