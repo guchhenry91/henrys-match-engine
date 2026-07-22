@@ -83,7 +83,7 @@ function propList(props) {
     <li class="${p.penalty_taker ? 'pen' : ''}">
       <span class="who">${esc(p.player)}</span>
       <span class="pct">${num(p.anytime_pct)}%</span>
-      <span class="shots">${num(p.exp_shots)} shot attempts · ${Math.round(p.p_shots_2plus)}% 2+ · ${Math.round(p.p_sot_1plus)}% on target</span>
+      <span class="shots">${num(p.exp_shots)} shot attempts · ${num(p.p_shots_2plus)}% 2+ · ${num(p.exp_sot)} on target</span>
     </li>`).join('');
 }
 
