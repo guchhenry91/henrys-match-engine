@@ -132,6 +132,16 @@
         "verified_by": "agent web search, current reporting as of 2026-07-24",
         "result": "all 6 confirmed still at the club shown; no transfers.json changes required",
         "not_checked": "no fixtures were in the 45min-3h Best Picks window this run, so full STEP 2-5 team-news research was not triggered"
+      },
+      {
+        "date": "2026-07-25",
+        "scope": "matchday-news board check (leagues-matchday-news task)",
+        "clubs": "n/a -- player-by-player check of player_picks.json board only",
+        "players": 6,
+        "method": "web search per distinct player on the live player_picks.json board: Harry Kane, Erling Haaland, Kylian Mbappe-Lottin, Deniz Undav, Serhou Guirassy, Thiago (Igor Thiago)",
+        "verified_by": "agent web search, current reporting as of 2026-07-25",
+        "result": "all 6 confirmed still at the club shown (Kane in Bayern renewal talks, Haaland subject of PSG/Real Madrid transfer speculation but City insist he stays, Guirassy's release clause expired unexercised); no transfers.json changes required",
+        "not_checked": "earliest Best Picks fixture is 2026-08-19, ~25 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
       }
     ],
     "known_gaps": [
