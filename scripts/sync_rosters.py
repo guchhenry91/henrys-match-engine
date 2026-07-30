@@ -107,49 +107,12 @@ def fetch_api_league(client, key):
     return result
 
 
-def main():
-    previous = None
-    if OUT.exists():
-        try:
-            previous = json.loads(OUT.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            pass
-    now = datetime.now(timezone.utc)
-    if os.environ.get("API_FOOTBALL_KEY"):
-        payload = previous or {}
-        payload.setdefault("_league_verified_at", {})
-        # Alternate pairs daily. Each league refreshes every 48 hours, costing
-        # about 42 calls and preserving more than half the free quota for lineups.
-        pairs = (("PL", "BUNDESLIGA"), ("LALIGA", "LIGUE1"))
-        selected = pairs[now.toordinal() % 2]
-        due = [key for key in selected if not _fresh(payload, key, now)]
-        if not due:
-            print("API-Football rosters are fresh; no quota used")
-            return 0
-        client = Client(limit=45)
-        try:
-            for key in due:
-                payload[key] = fetch_api_league(client, key)
-                payload["_league_verified_at"][key] = now.isoformat()
-                print(f"{key}: {len(payload[key])} clubs refreshed from API-Football")
-        except Exception as exc:
-            if previous and all(previous.get(key) for key in LEAGUES):
-                print(f"WARNING: API-Football roster refresh failed ({exc}); "
-                      "retaining the last verified snapshot")
-                return 0
-            raise
-        payload["_verified_at"] = max(payload["_league_verified_at"].values())
-        payload["_source"] = "API-Football current squad feeds"
-        payload["_provisional"] = (
-            "Squads rotate through a quota-aware 48-hour refresh; team news and "
-            "confirmed lineups are checked separately near kickoff.")
-        OUT.parent.mkdir(parents=True, exist_ok=True)
-        tmp = OUT.with_suffix(".json.tmp")
-        tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        tmp.replace(OUT)
-        print(f"wrote {OUT}; {client.used} API-Football requests used")
-        return 0
-
+def _espn_snapshot(previous, now):
+    """Full-league roster snapshot from ESPN's free public feeds. This is the
+    fallback source and needs no key or paid plan, so it is what keeps the audit
+    honest whenever API-Football is unavailable (e.g. the free plan has no access
+    to the current season). Fetches all four leagues fresh -- ESPN is unmetered,
+    so there is no quota-rotation to preserve here."""
     payload = {
         "_verified_at": now.isoformat(),
         "_source": "ESPN 2026-27 league and team roster feeds (fallback)",
@@ -177,6 +140,58 @@ def main():
     tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     tmp.replace(OUT)
     print(f"wrote {OUT}")
+    return 0
+
+
+def main():
+    previous = None
+    if OUT.exists():
+        try:
+            previous = json.loads(OUT.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            pass
+    now = datetime.now(timezone.utc)
+    if os.environ.get("API_FOOTBALL_KEY"):
+        payload = previous or {}
+        payload.setdefault("_league_verified_at", {})
+        # Alternate pairs daily. Each league refreshes every 48 hours, costing
+        # about 42 calls and preserving more than half the free quota for lineups.
+        pairs = (("PL", "BUNDESLIGA"), ("LALIGA", "LIGUE1"))
+        selected = pairs[now.toordinal() % 2]
+        due = [key for key in selected if not _fresh(payload, key, now)]
+        if not due:
+            print("API-Football rosters are fresh; no quota used")
+            return 0
+        client = Client(limit=45)
+        try:
+            for key in due:
+                payload[key] = fetch_api_league(client, key)
+                payload["_league_verified_at"][key] = now.isoformat()
+                print(f"{key}: {len(payload[key])} clubs refreshed from API-Football")
+        except Exception as exc:
+            # API-Football failed. Rather than sit on a possibly-stale snapshot,
+            # fall back to ESPN's free feed -- it needs no paid plan and covers
+            # the current season, which the free API-Football plan does not. This
+            # is the difference between a genuine fallback and an either/or: the
+            # ESPN path used to be reachable ONLY when no key was set, so a broken
+            # key silently froze the roster audit (observed: 9 days stale on the
+            # free plan's "no access to this season" error days before kickoff).
+            print(f"WARNING: API-Football roster refresh failed ({exc}); "
+                  "falling back to the ESPN feed")
+            return _espn_snapshot(previous, now)
+        payload["_verified_at"] = max(payload["_league_verified_at"].values())
+        payload["_source"] = "API-Football current squad feeds"
+        payload["_provisional"] = (
+            "Squads rotate through a quota-aware 48-hour refresh; team news and "
+            "confirmed lineups are checked separately near kickoff.")
+        OUT.parent.mkdir(parents=True, exist_ok=True)
+        tmp = OUT.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        tmp.replace(OUT)
+        print(f"wrote {OUT}; {client.used} API-Football requests used")
+        return 0
+
+    return _espn_snapshot(previous, now)
 
 
 if __name__ == "__main__":
