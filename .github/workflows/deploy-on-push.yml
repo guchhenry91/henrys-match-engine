@@ -8,12 +8,14 @@ name: Deploy on push
 # trigger the existing deploy hook, on every push to main, so neither a human nor
 # an agent ever has to remember to hit it by hand again.
 #
-# Safe to run alongside leagues.yml even when both fire for the same commit (the
-# scheduled pipeline's own "auto: leagues refresh" commits trigger both this AND
-# its own dedicated deploy step) -- Render's static-site "build" is just serving
-# the files as committed, so a redundant redeploy costs a few seconds, not a
-# rebuild, and there is no risk of deploying a half-written state: git pushes are
-# atomic, so main always reflects a fully-formed commit whenever this fires.
+# It deliberately SKIPS leagues-bot's own commits. The scheduled pipeline already
+# fires its own deploy step for every "auto: leagues refresh" it pushes, so letting
+# this fire too meant every scheduled refresh hit Render's deploy hook TWICE. That
+# was tolerable when a redundant redeploy was "a few seconds" -- but Render meters
+# deploys against a monthly spend limit, and at one refresh every 30 minutes through
+# the match window that doubling burns the budget for nothing. Human pushes and the
+# local matchday-news task (authored by a real user, NOT leagues-bot) still deploy
+# here, because leagues.yml never runs for those.
 
 on:
   push:
@@ -21,6 +23,9 @@ on:
 
 jobs:
   deploy:
+    # Skip the scheduled pipeline's own bot commits -- leagues.yml already deploys
+    # those itself. Anything a human (or the local scheduled task) pushes still runs.
+    if: github.event.head_commit.author.name != 'leagues-bot'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
