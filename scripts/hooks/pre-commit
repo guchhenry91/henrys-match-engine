@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Block a commit that would stage malformed data JSON. This is the layer that
+# stops the problem at the source: the local matchday-news task edits
+# data-raw/leagues/*.json by hand and commits, so a stray comma here would
+# otherwise sail into main and abort every league publish (as it did on
+# 2026-08-02). Install with: scripts/hooks/install.sh
+#
+# Only validates the tracked data files that are actually staged, so it stays
+# instant and never blocks an unrelated commit.
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+staged="$(git diff --cached --name-only --diff-filter=ACM \
+          -- 'data-raw/leagues/*.json' || true)"
+
+if [ -z "$staged" ]; then
+  exit 0
+fi
+
+# Pass the staged paths to the shared validator; it prints file:line:column on
+# any parse error and exits nonzero, which aborts the commit.
+cd "$repo_root"
+if ! python -m scripts.validate_data_json $staged; then
+  echo "" >&2
+  echo "Commit blocked: fix the JSON above, then re-stage and commit." >&2
+  exit 1
+fi
