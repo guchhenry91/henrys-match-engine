@@ -1,0 +1,5 @@
+# Shell scripts (including git hooks) must stay LF-only. On Windows a hook with
+# CRLF line endings fails to run with a "bad interpreter" error, which would
+# silently disable the pre-commit JSON guard on the very machine that needs it.
+*.sh text eol=lf
+scripts/hooks/pre-commit text eol=lf
