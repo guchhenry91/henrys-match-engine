@@ -18,7 +18,7 @@ def test_main_writes_one_atomic_file_per_league(tmp_path, monkeypatch):
     written = sorted(p.name for p in tmp_path.glob("*.json"))
     # best.json is the cross-league high-confidence board, written after the leagues
     assert written == ["best.json", "bundesliga.json", "laliga.json",
-                       "ligue1.json", "pl.json", "player_picks.json",
+                       "ligue1.json", "parlays.json", "pl.json", "player_picks.json",
                        "record_history.json"]
     assert not list(tmp_path.glob("*.tmp"))          # no leftover temp files
 

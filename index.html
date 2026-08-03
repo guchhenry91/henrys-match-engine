@@ -1,580 +1,410 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Henry's Match Engine</title>
-<meta name="theme-color" content="#05060d">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⚽</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css">
+<style>
+  :root{
+    --ink:#eaf0ff; --sub:#8a96b8; --line:rgba(255,255,255,.10);
+    --glass:rgba(255,255,255,.055); --glass2:rgba(255,255,255,.09);
+    --cyan:#37e6d8; --lime:#c8ff4d; --violet:#8b7bff; --hot:#ff5c8a; --amber:#ffcf5c;
+    --r:22px; --safe:calc(90px + env(safe-area-inset-bottom));
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif;
+    color:var(--ink);background:#05070f;overflow-x:hidden;min-height:100%}
+  body::before{content:"";position:fixed;inset:-30%;z-index:-2;
+    background:
+      radial-gradient(38% 30% at 20% 6%, rgba(55,230,216,.34) 0%, transparent 60%),
+      radial-gradient(42% 34% at 88% 4%, rgba(139,123,255,.34) 0%, transparent 62%),
+      radial-gradient(46% 40% at 82% 96%, rgba(200,255,77,.20) 0%, transparent 60%),
+      radial-gradient(50% 44% at 8% 90%, rgba(255,92,138,.24) 0%, transparent 60%);
+    filter:blur(20px);animation:aur 24s ease-in-out infinite alternate}
+  @keyframes aur{to{transform:translate3d(0,-4%,0) scale(1.08)}}
+  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:3px 3px}
+  @media (prefers-reduced-motion:reduce){body::before{animation:none}}
+
+  .wrap{max-width:540px;margin:0 auto;padding:16px 15px var(--safe)}
+  header{display:flex;align-items:center;justify-content:space-between;padding:6px 4px 14px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-weight:850;font-size:18px;color:#05070f;
+    background:linear-gradient(150deg,var(--cyan),var(--lime));box-shadow:0 0 24px rgba(55,230,216,.5)}
+  .brand h1{font-size:16.5px;font-weight:800;letter-spacing:-.02em}
+  .brand p{font-size:11px;color:var(--sub);font-weight:600}
+  .live{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);
+    padding:6px 11px;border-radius:20px;border:1px solid rgba(200,255,77,.3);background:rgba(200,255,77,.08)}
+
+  .glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);
+    backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);
+    box-shadow:0 16px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08)}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin:2px 2px 10px}
+  .eyebrow.mt{margin-top:22px}
+  main{animation:in .4s ease both}
+  @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--glass);color:var(--sub);
+    font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:20px;cursor:pointer;transition:.2s;white-space:nowrap;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .chip.on{color:#05070f;background:linear-gradient(150deg,var(--cyan),#5ff0e4);border-color:transparent;box-shadow:0 5px 18px rgba(55,230,216,.4)}
+
+  .hero{position:relative;padding:22px 20px;margin-bottom:14px;overflow:hidden;cursor:pointer}
+  .hero::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;
+    background:radial-gradient(circle,rgba(55,230,216,.4),transparent 70%);filter:blur(6px)}
+  .hero .lg{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+  .hero .mt2{font-size:26px;font-weight:850;letter-spacing:-.03em;margin:8px 0 4px;line-height:1.04;position:relative;z-index:1}
+  .hero .pk{font-size:13.5px;color:var(--sub);font-weight:650;position:relative;z-index:1}
+  .hero .pk b{color:var(--lime)}
+  .hero .num{position:relative;z-index:1;margin-top:16px;display:flex;align-items:baseline;gap:8px}
+  .hero .num b{font-size:50px;font-weight:850;letter-spacing:-.04em;font-variant-numeric:tabular-nums;
+    background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .num span{font-size:13px;color:var(--sub);font-weight:650}
+  .hero .go{position:absolute;right:18px;bottom:18px;z-index:1;font-size:12px;font-weight:750;color:var(--cyan)}
+
+  .tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+  .tile{padding:14px 12px;text-align:center}
+  .tile .k{font-size:24px;font-weight:850;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .tile .k.grad{background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .tile .l{font-size:10.5px;color:var(--sub);font-weight:650;margin-top:3px;letter-spacing:.02em}
+
+  .rowc{padding:6px;margin-bottom:14px}
+  .rw{display:flex;align-items:center;gap:13px;padding:14px 14px;border-radius:16px;position:relative;cursor:pointer;transition:background .15s}
+  .rw+.rw{margin-top:2px}
+  .rw:active{background:var(--glass2)}
+  .rw.static{cursor:default}
+  .lgtag{width:4px;align-self:stretch;border-radius:4px;flex:0 0 auto;min-height:34px}
+  .rw .info{flex:1;min-width:0}
+  .rw .info b{font-size:15.5px;font-weight:750;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+  .rw .info span{font-size:12px;color:var(--sub);font-weight:600}
+  .conf{flex:0 0 auto;text-align:right;min-width:96px}
+  .bar{height:6px;border-radius:6px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:6px}
+  .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--lime));box-shadow:0 0 12px rgba(55,230,216,.6)}
+  .conf b{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+  .conf span{font-size:11px;color:var(--sub);font-weight:600}
+  .chev{color:var(--sub);font-size:18px;flex:0 0 auto;margin-left:-4px}
+  .tier{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:6px;flex:0 0 auto}
+  .t-elite{color:#05070f;background:var(--lime)}
+  .t-strong{color:var(--cyan);background:rgba(55,230,216,.14);border:1px solid rgba(55,230,216,.25)}
+  .t-lean{color:var(--sub);background:rgba(255,255,255,.06)}
+  .res{font-size:11px;font-weight:800;padding:3px 8px;border-radius:7px;flex:0 0 auto}
+  .res.correct{color:#05070f;background:var(--lime)}.res.wrong{color:#fff;background:var(--hot)}.res.void{color:var(--sub);background:rgba(255,255,255,.06)}
+
+  .av{width:44px;height:44px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-weight:800;font-size:15px;color:#05070f}
+  .mk{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:8px;
+    color:var(--cyan);background:rgba(55,230,216,.12);border:1px solid rgba(55,230,216,.22);flex:0 0 auto}
+  .mk.g{color:var(--lime);background:rgba(200,255,77,.12);border-color:rgba(200,255,77,.25)}
+  .mk.a{color:var(--cyan);background:rgba(55,230,216,.12);border-color:rgba(55,230,216,.22)}
+  .mk.o{color:var(--violet);background:rgba(139,123,255,.14);border-color:rgba(139,123,255,.28)}
+  .mk.w{color:var(--amber);background:rgba(255,207,92,.12);border-color:rgba(255,207,92,.28)}
+
+  .tr{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px}
+  .tr.head{padding:8px 14px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);font-weight:800}
+  .tr:nth-child(even):not(.head){background:rgba(255,255,255,.03)}
+  .pos{width:20px;text-align:center;font-weight:800;color:var(--sub);font-variant-numeric:tabular-nums}
+  .pos.top{color:var(--cyan)}.pos.rel{color:var(--hot)}
+  .tr .team{flex:1;font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tr .pts{width:44px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:13.5px;flex:0 0 auto}
+  .badge{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;border-radius:6px;flex:0 0 auto}
+  .b-ucl{color:var(--cyan);border:1px solid rgba(55,230,216,.28)}.b-rel{color:var(--hot);border:1px solid rgba(255,92,138,.3)}
+
+  .back{display:inline-flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--line);
+    color:var(--ink);font-family:inherit;font-size:13px;font-weight:700;padding:9px 14px;border-radius:20px;cursor:pointer;margin-bottom:14px}
+  .dhead{padding:20px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+  .dhead .lg{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+  .dhead .vs{font-size:23px;font-weight:850;letter-spacing:-.03em;margin:8px 0 12px}
+  .score{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:6px}
+  .score b{font-size:42px;font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+  .score span{font-size:12px;color:var(--sub);font-weight:700}
+  .split{display:flex;height:38px;border-radius:12px;overflow:hidden;margin:14px 6px 0;border:1px solid var(--line)}
+  .split div{display:grid;place-items:center;font-size:12px;font-weight:800;color:#05070f;min-width:26px}
+  .sh{background:linear-gradient(180deg,var(--cyan),#2bbfb4)}
+  .sd{background:#39415c;color:var(--ink)}
+  .sa{background:linear-gradient(180deg,var(--hot),#e04d7d)}
+  .dsec{padding:16px 18px;margin-bottom:12px}
+  .dsec h3{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+  .sl{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+  .sl .sc{font-size:13px;font-weight:800;width:40px;font-variant-numeric:tabular-nums}
+  .sl .sb{flex:1;height:8px;border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden}
+  .sl .sb i{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan))}
+  .sl .sp{font-size:12px;font-weight:700;color:var(--sub);width:34px;text-align:right;font-variant-numeric:tabular-nums}
+  .rl{padding:8px 0;font-size:13.5px;font-weight:650;color:var(--ink);line-height:1.4}
+  .rl+.rl{border-top:1px solid var(--line)}
+  .warnbox{padding:13px 16px;margin-bottom:12px;font-size:12.5px;font-weight:600;color:var(--amber);line-height:1.5;
+    border:1px solid rgba(255,207,92,.25);background:rgba(255,207,92,.06)}
+
+  .acca{padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
+  .acca.feat{border:1px solid rgba(200,255,77,.28)}
+  .acca .ah{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .acca .an{font-size:16px;font-weight:850;letter-spacing:-.01em}
+  .acca .an small{display:block;font-size:11px;color:var(--sub);font-weight:650;margin-top:2px}
+  .acca .ac{text-align:right;flex:0 0 auto}
+  .acca .ac b{font-size:30px;font-weight:850;font-variant-numeric:tabular-nums;line-height:1;
+    background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .acca .ac span{display:block;font-size:10px;color:var(--sub);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
+  .legs{margin-top:14px}
+  .leg{display:flex;align-items:center;gap:11px;padding:11px 0}
+  .leg+.leg{border-top:1px solid var(--line)}
+  .leg .stt{width:9px;height:9px;border-radius:50%;background:#59637e;flex:0 0 auto;box-shadow:0 0 0 3px rgba(89,99,126,.15)}
+  .leg .li2{flex:1;min-width:0}
+  .leg .li2 b{font-size:14px;font-weight:750;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+  .leg .li2 span{font-size:11.5px;color:var(--sub);font-weight:600}
+  .leg .lp{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--sub);flex:0 0 auto}
+  .acfoot{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;color:var(--sub)}
+  .acfoot .pend{color:var(--amber)}
+  .secttl{font-size:15px;font-weight:850;letter-spacing:-.01em;margin:4px 2px 2px}
+  .sectsub{font-size:11.5px;color:var(--sub);font-weight:600;margin:0 2px 12px;line-height:1.4}
+  .explain{padding:18px}
+  .explain h3{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+  .estep{display:flex;gap:12px;padding:8px 0;font-size:13px;font-weight:600;line-height:1.45}
+  .estep .en{width:22px;height:22px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;font-size:11px;font-weight:850;color:#05070f;
+    background:linear-gradient(150deg,var(--cyan),var(--lime))}
+  .estep span{color:var(--sub);font-weight:600}
+
+  .stat{padding:26px 20px;margin-bottom:14px;text-align:center}
+  .stat .k{font-size:52px;font-weight:850;letter-spacing:-.04em;
+    background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{font-size:13px;color:var(--sub);font-weight:650;margin-top:4px}
+  .note{font-size:12.5px;color:var(--sub);font-weight:600;text-align:center;padding:10px 24px 0;line-height:1.55}
+  .arch{text-align:center;padding:22px 10px 4px}
+  .arch a{color:var(--sub);font-size:12px;font-weight:650;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+  .loading{text-align:center;padding:60px 0;color:var(--sub);font-weight:650}
+
+  nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom));
+    width:calc(100% - 26px);max-width:512px;z-index:40;display:flex;gap:2px;padding:7px;border-radius:24px;
+    background:rgba(12,16,28,.72);border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(30px) saturate(1.4);-webkit-backdrop-filter:blur(30px) saturate(1.4);
+    box-shadow:0 16px 44px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{flex:0 0 auto;border:0;background:transparent;color:var(--sub);cursor:pointer;font-family:inherit;
+    font-size:12px;font-weight:750;padding:9px 13px;border-radius:18px;white-space:nowrap;transition:.2s}
+  nav button.on{color:#05070f;background:linear-gradient(150deg,var(--cyan),#5ff0e4);box-shadow:0 6px 16px rgba(55,230,216,.4)}
+  nav button:not(.on):active{background:rgba(255,255,255,.07)}
+  nav button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
 </head>
 <body>
-<div class="sky"></div>
 <div class="wrap">
-  <nav class="switcher" id="switcher"></nav>
-  <main id="app"><p class="sub">Loading…</p></main>
+  <header>
+    <div class="brand"><div class="logo">H</div><div><h1>Henry's Match Engine</h1><p id="sub">Today</p></div></div>
+    <span class="live" id="live">● Live</span>
+  </header>
+  <main id="app"><div class="loading">Loading the model…</div></main>
 </div>
+<nav id="nav" aria-label="Sections"></nav>
 
 <script>
-// Each competition is described here; the switcher and router are generic.
-const COMPETITIONS = [
-  {key: "best",       label: "★ Best Picks",    data: "data/leagues/best.json",       kind: "best"},
-  {key: "players",    label: "★ Player Picks",  data: "data/leagues/player_picks.json", kind: "players"},
-  {key: "grades",     label: "Grades",          data: "data/leagues/best.json",       kind: "grades"},
-  // The World Cup is complete and frozen. Its own page carries the full bracket
-  // and the final 64-26 record; re-rendering a thinner version inside this app
-  // would lose the bracket for no benefit, so the tab links out to it instead.
-  {key: "wc",         label: "World Cup 2026",  href: "worldcup.html"},
-  {key: "pl",         label: "Premier League",  data: "data/leagues/pl.json",         clubs: "data/leagues/clubs.json",            kind: "league"},
-  {key: "laliga",     label: "La Liga",         data: "data/leagues/laliga.json",     clubs: "data/leagues/clubs_laliga.json",     kind: "league"},
-  {key: "bundesliga", label: "Bundesliga",      data: "data/leagues/bundesliga.json", clubs: "data/leagues/clubs_bundesliga.json", kind: "league"},
-  {key: "ligue1",     label: "Ligue 1",         data: "data/leagues/ligue1.json",     clubs: "data/leagues/clubs_ligue1.json",     kind: "league"},
-];
+"use strict";
+const FILES={PL:"pl",LALIGA:"laliga",BUNDESLIGA:"bundesliga",LIGUE1:"ligue1"};
+const LG={PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
+const LC={PL:"#ff5c6a",LALIGA:"#f5c518",BUNDESLIGA:"#ff5c8a",LIGUE1:"#37a9e6"};
+const TC={"Bayern Munich":"#37e6d8","Manchester City":"#8b7bff","Stuttgart":"#c8ff4d","Dortmund":"#f5c518",
+  "Ath Madrid":"#ff5c8a","Arsenal":"#37e6d8","Paris SG":"#8b7bff","Real Madrid":"#c8ff4d","Barcelona":"#37e6d8","Liverpool":"#ff5c8a"};
+const tc=n=>TC[n]||"#37e6d8";
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initials=n=>String(n).split(" ").map(w=>w[0]).slice(0,2).join("");
+const pc=p=>Math.round((p||0)*100);
+const MK={goal:{tag:"g",name:"Goal"},shots:{tag:"a",name:"Attempts"},sot:{tag:"o",name:"On target"}};
 
-// Always re-fetch the data files. Render serves these as ordinary static assets,
-// so a returning visitor's browser will happily reuse a cached copy -- meaning the
-// site can be fully up to date on the server while a reader still sees last week's
-// fixtures. Nothing in the publish pipeline or the deploy gate can detect that,
-// because it happens entirely in someone else's browser. The HTML/CSS may still be
-// cached normally; only the data must never be.
-const NO_CACHE = {cache: 'no-store'};
+const DATA={};
+let cur="today", filter="all";
 
-// team -> brand colour, merged across every league. The Best Picks and Player Picks
-// boards are cross-league, so they cannot use a single league's clubs file; without
-// this they render with the default accent and the page looks monotone.
-let CLUBS = null;
-async function allClubs() {
-  if (CLUBS) return CLUBS;
-  const files = COMPETITIONS.filter(c => c.clubs).map(c => c.clubs);
-  const loaded = await Promise.all(files.map(f =>
-    fetch(f, NO_CACHE).then(r => r.json()).catch(() => ({}))));
-  CLUBS = Object.assign({}, ...loaded);
-  return CLUBS;
-}
-const teamColour = t => (CLUBS && CLUBS[t] || {}).primary || '#8891a8';
-
-const pct = (n, d = 0) => `${Number(n).toFixed(d)}%`;
-const num = (n, d = 1) => Number(n).toFixed(d);
-// Escape any string interpolated into innerHTML. The data is trusted, but a club
-// or player name containing & < > ' " would otherwise corrupt the markup.
-const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
-  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-function el(tag, cls, html) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (html !== undefined) e.innerHTML = html;
-  return e;
-}
-function recordChip(rec) {
-  const chip = el('div', 'record-chip');
-  chip.innerHTML = (rec && rec.total)
-    ? `<b>${rec.correct}–${rec.wrong}</b> · ${pct(100 * rec.correct / rec.total)} of ${rec.total} graded picks`
-    : 'No graded picks yet — the season starts in August';
-  return chip;
+async function boot(){
+  const names=["best","player_picks","parlays","pl","laliga","bundesliga","ligue1"];
+  await Promise.all(names.map(async n=>{
+    try{const r=await fetch(`data/leagues/${n}.json`,{cache:"no-cache"});DATA[n]=r.ok?await r.json():null;}
+    catch(e){DATA[n]=null;}
+  }));
+  buildNav(); render("today");
 }
 
-// ---------------- shared: league (and any round-robin) view ----------------
-function propList(props) {
-  return props.map(p => `
-    <li class="${p.penalty_taker ? 'pen' : ''}">
-      <span class="who">${esc(p.player)}</span>
-      <span class="pct">${num(p.anytime_pct)}%</span>
-      <span class="shots">${num(p.exp_shots)} shot attempts · ${num(p.p_shots_2plus)}% 2+ · ${num(p.exp_sot)} on target</span>
-    </li>`).join('');
+const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"parlay",t:"Parlay"},{k:"grades",t:"Grades"},
+  {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"}];
+const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",grades:"Grades",
+  PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
+
+function buildNav(){
+  const nav=document.getElementById("nav");nav.innerHTML="";
+  views.forEach((v,i)=>{const b=document.createElement("button");b.textContent=v.t;b.type="button";
+    if(!i)b.className="on";
+    b.onclick=()=>{[...nav.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");cur=v.k;filter="all";render(v.k);};
+    nav.append(b);});
 }
 
-// Why the model rates a fixture the way it does. Deliberately plain language and
-// signed percentages: the point is that a reader can disagree with it. A card that
-// only shows 78% can only be believed or ignored.
-function whyBlock(w, home, away) {
-  if (!w) return '';
-  const sign = v => `${v >= 0 ? '+' : ''}${num(v, 0)}%`;
-  const row = (label, v) =>
-    `<span class="wy"><b class="${v >= 0 ? 'up' : 'dn'}">${sign(v)}</b> ${esc(label)}</span>`;
-  return `<details class="why"><summary>Why this pick</summary>
-    <div class="why-rows">
-      ${row(`${home} attack`, w.home_attack_pct)}
-      ${row(`${home} defence`, w.home_defence_pct)}
-      ${row(`${away} attack`, w.away_attack_pct)}
-      ${row(`${away} defence`, w.away_defence_pct)}
-      ${row('home advantage', w.home_advantage_pct)}
-    </div>
-    <p class="why-note">Each figure is that side's strength against the league
-    average, after time-decay and shrinkage. Higher defence is better.</p>
-  </details>`;
+function tierOf(p){return p>=.75?`<span class="tier t-elite">Elite</span>`:p>=.68?`<span class="tier t-strong">Strong</span>`:`<span class="tier t-lean">Lean</span>`;}
+
+function bestRow(u){
+  return `<div class="rw" onclick="openMatch('${u.league_key}',${u.id})"><span class="lgtag" style="background:${LC[u.league_key]}"></span>
+    <div class="info"><b>${esc(u.home)} v ${esc(u.away)}</b><span>${esc(LG[u.league_key])} · pick ${esc(u.pick)}</span></div>
+    ${tierOf(u.p_pick)}<div class="conf" style="min-width:74px"><b>${pc(u.p_pick)}%</b><div class="bar"><i style="width:${pc(u.p_pick)}%"></i></div></div>
+    <span class="chev">›</span></div>`;
 }
 
-function renderLeague(app, data, clubs, label) {
-  const colour = t => (clubs[t] || {}).primary || '#8891a8';
-  app.append(el('h1', 'dsp', `${label} <span>2026-27</span>`));
-  app.append(recordChip(data.record));
+function render(k){
+  const app=document.getElementById("app");
+  document.getElementById("sub").textContent=subFor[k]||"Today";
+  let h="";
+  if(k==="today") h=viewToday();
+  else if(k==="best") h=viewBest();
+  else if(k==="players") h=viewPlayers();
+  else if(k==="parlay") h=viewParlay();
+  else if(k==="grades") h=viewGrades();
+  else h=viewLeague(k);
+  app.innerHTML=h;window.scrollTo(0,0);
+}
 
-  if (data.matches && data.matches.length) {
-    app.append(el('h2', 'dsp', `Matchweek ${data.matches[0].matchweek}`));
-    const grid = el('section', 'fixtures');
-    for (const m of data.matches) {
-      const card = el('article', 'card glass');
-      card.style.setProperty('--home', colour(m.home));
-      card.style.setProperty('--away', colour(m.away));
-      const p = m.prediction;
-      const homeProps = m.props.filter(x => x.team === m.home);
-      const awayProps = m.props.filter(x => x.team === m.away);
-      const when = new Date(m.date).toLocaleDateString('en-GB',
-        { weekday: 'short', day: 'numeric', month: 'short' });
-      const mkt = m.market ? `<div class="probs" style="margin-top:6px">
-          <span>market <b>${pct(100 * m.market.p_home)}</b></span>
-          <span><b>${pct(100 * m.market.p_draw)}</b></span>
-          <span><b>${pct(100 * m.market.p_away)}</b></span>
-        </div>
-        <div class="mw" style="margin-top:4px">Model edge on the pick: <b>${m.market.edge >= 0 ? '+' : ''}${pct(100 * m.market.edge, 1)}</b></div>` : '';
-      const side = (team, props) => props.length
-        ? `<div class="side-label">${team} — likely scorers</div><ul class="props">${propList(props)}</ul>`
-        : `<div class="side-label">${team} — likely scorers</div><p class="missing">No player data: newly promoted, so they have no top-flight record yet.</p>`;
-      card.innerHTML = `<span class="edge"></span>
-        <div class="mw">${when} · ${esc(m.venue || '')}</div>
-        <header><span class="team">${esc(m.home)}</span><span class="score">${esc(p.score)}</span><span class="team away">${esc(m.away)}</span></header>
-        <div class="pick">Pick: <strong>${esc(p.pick)}</strong> <span class="conf">${'★'.repeat(p.confidence)}</span></div>
-        <div class="probs"><span><b>${pct(100 * p.p_home)}</b></span><span>draw <b>${pct(100 * p.p_draw)}</b></span><span><b>${pct(100 * p.p_away)}</b></span></div>
-        ${(p.top_scores || []).length ? `<div class="scores">
-          <span class="sc-label">Scoreline</span>
-          ${p.top_scores.map((s, i) => `<span class="sc ${s.score === p.score ? 'call' : ''}"
-             title="${s.agrees_with_pick ? 'agrees with the pick' : 'implies a different result'}">
-             ${esc(s.score)} <b>${num(s.pct)}%</b></span>`).join('')}
-        </div>` : ''}
-        ${mkt}
-        ${whyBlock(p.why, m.home, m.away)}
-        ${side(m.home, homeProps)}
-        ${side(m.away, awayProps)}`;
-      grid.append(card);
-    }
-    app.append(grid);
+function viewToday(){
+  const best=DATA.best||{}, up=best.upcoming||[];
+  if(!up.length) return emptyState();
+  const d=up[0];
+  const players=(DATA.player_picks||{}).upcoming||[];
+  const rec=best.record||{correct:0,wrong:0};
+  const days=daysToKickoff(up);
+  let h=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
+    <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b> · matchweek ${d.matchweek||1}</div>
+    <div class="num"><b>${pc(d.p_pick)}%</b><span>win probability</span></div><div class="go">Tap for full breakdown ›</div></div>`;
+  h+=`<div class="tiles"><div class="glass tile"><div class="k grad">${up.length+players.length}</div><div class="l">Live picks</div></div>
+    <div class="glass tile"><div class="k">${rec.correct}–${rec.wrong}</div><div class="l">Record</div></div>
+    <div class="glass tile"><div class="k">${days==null?"—":days+"d"}</div><div class="l">To kickoff</div></div></div>`;
+  h+=`<div class="eyebrow">Best of the board</div><div class="glass rowc">${up.slice(1,4).map(bestRow).join("")||emptyRow("No more picks yet")}</div>`;
+  if(players.length){h+=`<div class="eyebrow">Top player picks</div><div class="glass rowc">${players.slice(0,3).map(playerRow).join("")}</div>`;}
+  return h+archiveLink();
+}
+
+function viewBest(){
+  const best=DATA.best||{}, up=best.upcoming||[], settled=(best.settled||[]);
+  if(!up.length && !settled.length) return emptyState();
+  let h="";
+  if(up.length){const d=up[0];
+    h+=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
+      <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b></div>
+      <div class="num"><b>${pc(d.p_pick)}%</b><span>model win probability</span></div><div class="go">Tap for breakdown ›</div></div>`;
+    h+=`<div class="eyebrow">The board · p ≥ ${pc(best.min_probability||.65)}%</div><div class="glass rowc">${up.slice(1).map(bestRow).join("")||emptyRow("Just the top pick this week")}</div>`;
   }
-
-  app.append(el('h2', 'dsp', 'Projected final table'));
-  if ((data.data_warnings || []).length) {
-    app.append(el('div', 'warn', `<b>Heads up —</b> ${data.data_warnings.join(' ')}`));
-  }
-  const wrap = el('div', 'table-wrap glass');
-  const rows = data.table.map((t, i) => {
-    const rel = i >= data.table.length - 3 ? 'rel' : '', ucl = i < 4 ? 'ucl' : '';
-    return `<tr class="${rel} ${ucl}">
-      <td class="num">${i + 1}</td>
-      <td><span class="dot" style="background:${esc(colour(t.team))}"></span>${esc(t.team)}</td>
-      <td class="num">${num(t.proj_points)}</td>
-      <td class="barcell"><span class="bar" style="--pct:${Math.min(t.title_pct, 100)}%"></span><span>${num(t.title_pct)}%</span></td>
-      <td class="num">${num(t.top4_pct)}%</td>
-      <td class="num">${num(t.relegation_pct)}%</td>
-    </tr>`;
-  }).join('');
-  wrap.innerHTML = `<table class="league-table">
-    <thead><tr><th>#</th><th>Team</th><th>Proj pts</th><th>Title</th><th>Top 4</th><th>Relegation</th></tr></thead>
-    <tbody>${rows}</tbody></table>`;
-  app.append(wrap);
-
-  renderSeason(app, data);
-  renderPerformance(app, data);
+  if(settled.length){h+=`<div class="eyebrow mt">Settled</div><div class="glass rowc">${settled.slice(0,12).map(s=>`
+    <div class="rw static"><span class="lgtag" style="background:${LC[s.league_key]}"></span>
+      <div class="info"><b>${esc(s.home)} v ${esc(s.away)}</b><span>pick ${esc(s.pick)}${s.result?` · ${s.result.home_goals}-${s.result.away_goals}`:""}</span></div>
+      <span class="res ${s.graded}">${s.graded}</span></div>`).join("")}</div>`;}
+  return h;
 }
 
-// Whole-season fixtures & results, grouped by matchweek. Collapsed to the current
-// matchweek by default — 380 rows open is unusable; you expand what you want.
-function renderSeason(app, data) {
-  const season = data.season || [];
-  if (!season.length) return;
-  app.append(el('h2', 'dsp', 'Fixtures & results'));
-
-  const weeks = [...new Set(season.map(m => m.matchweek))].sort((a, b) => a - b);
-  // default open: the earliest week that still has an unplayed match
-  const current = (season.find(m => !m.result) || season[season.length - 1]).matchweek;
-
-  const wrap = el('div', 'season glass');
-  wrap.innerHTML = weeks.map(w => {
-    const rows = season.filter(m => m.matchweek === w).map(m => {
-      const when = new Date(m.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-      let score = '<span class="tbd">—</span>', mark = '';
-      if (m.result) {
-        score = `<b>${m.result.home_goals}–${m.result.away_goals}</b>`;
-        if (m.void) mark = `<span class="tick void" title="pick locked late — excluded from the record">✓✗*</span>`;
-        else if (m.graded === 'correct') mark = '<span class="tick correct">✓</span>';
-        else if (m.graded === 'wrong') mark = '<span class="tick wrong">✗</span>';
-      }
-      return `<tr>
-        <td class="fx-d">${when}</td>
-        <td class="fx-t">${esc(m.home)}</td>
-        <td class="fx-s">${score}</td>
-        <td class="fx-t away">${esc(m.away)}</td>
-        <td class="fx-p">${m.pick ? `<span class="pk">${esc(m.pick)}</span>` : ''}${mark}</td>
-      </tr>`;
-    }).join('');
-    return `<details ${w === current ? 'open' : ''}>
-      <summary>Matchweek ${w}</summary>
-      <table class="fx-table"><tbody>${rows}</tbody></table>
-    </details>`;
-  }).join('');
-  app.append(wrap);
+function playerRow(p){const m=MK[p.market]||{tag:"a",name:p.market};
+  return `<div class="rw static"><div class="av" style="background:${tc(p.team)}">${esc(initials(p.player))}</div>
+    <div class="info"><b>${esc(p.player)}</b><span>${esc(p.team)} · ${esc(LG[p.league_key]||p.league)}</span></div>
+    <span class="mk ${m.tag}">${esc(m.name)}</span><div class="conf" style="min-width:50px"><b>${pc(p.p_pick)}%</b></div></div>`;
 }
 
-// shared performance panel (league backtest vs market + props gate)
-function renderPerformance(app, data) {
-  const b = data.backtest || {}, pb = data.props_backtest || {};
-  if (!b.rps) return;
-  app.append(el('h2', 'dsp', 'Does this model actually work?'));
-  const perf = el('section', 'performance glass');
-  perf.innerHTML = `
-    <p>Walk-forward tested on <b>${b.n}</b> past matches, always training only on games
-    played before the one predicted. It called <b>${pct(100 * b.accuracy, 1)}</b> correctly,
-    ranked-probability score <b>${num(b.rps, 4)}</b> (lower is better).</p>
-    <p>The betting market's closing odds, stripped of margin, score
-    <b>${pct(100 * b.market_accuracy, 1)}</b> and <b>${num(b.market_rps, 4)}</b> — still
-    slightly better than us, which is the honest expected result.</p>
-    <div class="metrics">
-      <div class="metric"><b>${pct(100 * b.accuracy, 1)}</b>model accuracy</div>
-      <div class="metric"><b>${num(b.rps, 4)}</b>model RPS</div>
-      <div class="metric"><b>${num(b.market_rps, 4)}</b>market RPS</div>
-      ${pb.goals_lift ? `<div class="metric"><b>+${num(pb.goals_lift)}%</b>scorer picks vs baseline</div>` : ''}
-      ${pb.shots_lift ? `<div class="metric"><b>+${num(pb.shots_lift)}%</b>shot-attempt picks vs baseline</div>` : ''}
-    </div>`;
-  app.append(perf);
+function viewPlayers(){
+  const pp=DATA.player_picks||{}, up=pp.upcoming||[];
+  if(!up.length) return emptyState();
+  const chips=[["all","All"],["goal","Anytime"],["shots","Attempts"],["sot","On target"]];
+  const list=up.filter(p=>filter==="all"||p.market===filter);
+  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
+  h+=`<div class="glass rowc">${list.map(playerRow).join("")||emptyRow("No picks in this market yet")}</div>`;
+  if((pp.ungradeable_leagues||[]).length)
+    h+=`<p class="note">${esc(pp.ungradeable_leagues.join(", "))} player picks publish but are not graded — no shot-level feed there.</p>`;
+  return h;
 }
 
-// World Cup has no market-odds backtest (no odds data), so its "performance" is
-// the honest live pick record, broken down by the model's OWN stated confidence —
-// a calibration check: higher-confidence picks should hit more often.
-
-// ---------------- Best Picks: the high-confidence board ----------------
-function renderBest(app, data) {
-  app.append(el('h1', 'dsp', 'Best Picks <span>all leagues</span>'));
-
-  const rec = data.record || {};
-  const chip = el('div', 'record-chip');
-  chip.innerHTML = rec.total
-    ? `<b>${rec.correct}–${rec.wrong}</b> · ${pct(100 * rec.correct / rec.total)} on ${rec.total} settled best picks`
-    : 'No settled best picks yet — the season starts in August';
-  app.append(chip);
-
-  // State plainly what this tier is worth, from the backtest, so the badge is not
-  // mistaken for certainty.
-  app.append(el('div', 'best-note',
-    `The fixtures the model is most sure about — <b>${pct(100 * (data.min_probability || 0))}</b> or higher. ` +
-    `Walk-forward across all four leagues, picks at this level landed ` +
-    `<b>${num(data.backtested_hit_rate_pct)}%</b> of the time, against ` +
-    `<b>${num(data.backtested_all_picks_pct)}%</b> for every pick it makes. ` +
-    // Say what this tier is and is not. Tested against de-vigged closing odds, the
-    // model's pick here is the SAME pick the market makes, every time. The hit rate
-    // is real; the implication that we spotted something others missed would not be.
-    `These are clear favourites, not bets the bookmakers have got wrong — they rate ` +
-    `these matches much as we do. Graded separately so this tier can be judged on its own.`));
-
-  const up = data.upcoming || [];
-  app.append(el('h2', 'dsp', up.length ? 'Next up' : 'Nothing above the bar right now'));
-  if (up.length) {
-    const grid = el('section', 'fixtures');
-    for (const m of up) {
-      const card = el('article', 'card glass best');
-      card.style.setProperty('--home', teamColour(m.home));
-      card.style.setProperty('--away', teamColour(m.away));
-      const when = new Date(m.date).toLocaleDateString('en-GB',
-        { weekday: 'short', day: 'numeric', month: 'short' });
-      card.innerHTML = `<span class="edge"></span>
-        <div class="mw">${esc(m.league)} · MW${m.matchweek} · ${when}${m.provisional ? ' · provisional' : ''}</div>
-        <header><span class="team">${esc(m.home)}</span><span class="score">${esc(m.score || '')}</span><span class="team away">${esc(m.away)}</span></header>
-        <div class="pick">Pick: <strong>${esc(m.pick)}</strong> <span class="conf">${'★'.repeat(m.confidence || 0)}</span></div>
-        <div class="bp-prob"><span class="bar" style="--pct:${Math.round(100 * (m.p_pick || 0))}%"></span>
-          <span>${pct(100 * (m.p_pick || 0))} confident</span></div>`;
-      grid.append(card);
-    }
-    app.append(grid);
-  }
-
-  const settled = data.settled || [];
-  if (settled.length) {
-    app.append(el('h2', 'dsp', 'Recently settled'));
-    const wrap = el('div', 'table-wrap glass');
-    wrap.innerHTML = `<table class="league-table">
-      <thead><tr><th></th><th>League</th><th>Match</th><th>Pick</th><th>Conf</th><th>Result</th></tr></thead>
-      <tbody>${settled.map(s => {
-        const mark = s.void ? '<span class="tick void">✓✗*</span>'
-          : s.graded === 'correct' ? '<span class="tick correct">✓</span>'
-          : '<span class="tick wrong">✗</span>';
-        return `<tr>
-          <td>${mark}</td>
-          <td class="num">${esc(s.league)}</td>
-          <td>${esc(s.home)} v ${esc(s.away)}</td>
-          <td>${esc(s.pick)}</td>
-          <td class="num">${pct(100 * (s.p_pick || 0))}</td>
-          <td class="num">${s.result ? `${s.result.home_goals}–${s.result.away_goals}` : ''}</td>
-        </tr>`; }).join('')}</tbody></table>`;
-    app.append(wrap);
-  }
+function viewParlay(){
+  const par=DATA.parlays||{}, sections=par.sections||[];
+  if(!sections.length) return emptyState();
+  let h=`<div class="eyebrow">Model parlays · combined chance = product of the legs</div>`;
+  sections.forEach((sec,si)=>{
+    h+=`<div class="secttl" style="${si?"margin-top:24px":""}">${esc(sec.title)}</div><div class="sectsub">${esc(sec.sub)}</div>`;
+    (sec.parlays||[]).forEach(pa=>{
+      h+=`<div class="glass acca ${pa.feat?"feat":""}"><div class="ah"><div class="an">${esc(pa.tier)}<small>${pa.legs.length} legs · ${esc(pa.note)}</small></div>
+        <div class="ac"><b>${pc(pa.combined)}%</b><span>chance to hit</span></div></div>
+        <div class="legs">${pa.legs.map(l=>`<div class="leg"><span class="stt"></span>
+          <div class="li2"><b>${esc(l.selection)}</b><span>${esc(l.league)} · ${esc(l.match)}</span></div>
+          <span class="mk ${l.tag}">${esc(({w:"Win",g:"Goal",a:"Attempts",o:"On target"})[l.tag]||"")}</span><span class="lp">${pc(l.p)}%</span></div>`).join("")}</div>
+        <div class="acfoot"><span>Wins only if <b style="color:var(--ink)">all ${pa.legs.length}</b> land</span><span class="pend">● ${pa.legs.length} pending</span></div></div>`;
+    });
+  });
+  h+=`<div class="eyebrow mt">How the model builds these</div><div class="glass explain">
+    <div class="estep"><span class="en">1</span><div>Start from the <b style="font-weight:750">published probability of every pick</b> <span>— match winners and player props the model already grades.</span></div></div>
+    <div class="estep"><span class="en">2</span><div>Take the <b style="font-weight:750">highest-confidence calls</b>, <span>one leg per match so the legs stay independent.</span></div></div>
+    <div class="estep"><span class="en">3</span><div>The <b style="font-weight:750">combined chance is the product</b> <span>of the legs — a real number, not a guess. More legs = bigger return, lower chance.</span></div></div>
+    <div class="estep"><span class="en">4</span><div>Every leg <b style="font-weight:750">locks before kickoff and is graded</b> <span>from the result. The parlay wins only if all legs land.</span></div></div></div>
+    <p class="note">Parlays are tracked as their own record — a fresh honest scoreline once the season starts.</p>`;
+  return h;
 }
 
-// ---------------- shared: player picks ----------------
-const MARKET_ORDER = ['goal', 'shots', 'sot'];
-
-function playerCards(rows) {
-  const grid = el('section', 'fixtures');
-  for (const p of rows) {
-    const card = el('article', 'card glass best');
-    card.style.setProperty('--home', teamColour(p.team));
-    card.style.setProperty('--away', teamColour(p.team === p.home ? p.away : p.home));
-    const when = new Date(p.date).toLocaleDateString('en-GB',
-      { weekday: 'short', day: 'numeric', month: 'short' });
-    const flags = [
-      p.provisional ? 'provisional' : '',
-      p.doubt ? 'fitness doubt' : '',
-      p.penalty_taker ? 'penalties' : '',
-      p.gradeable === false ? 'not gradeable' : '',
-    ].filter(Boolean).join(' · ');
-    card.innerHTML = `<span class="edge"></span>
-      <div class="mw">${esc(p.league)} · ${when}${flags ? ' · ' + esc(flags) : ''}</div>
-      <header><span class="team">${esc(p.player)}</span></header>
-      <div class="sub">${esc(p.team)} · ${esc(p.home)} v ${esc(p.away)}</div>
-      <div class="pick">${esc(p.line)} <span class="conf">${'★'.repeat(p.confidence || 0)}</span></div>
-      <div class="bp-prob"><span class="bar" style="--pct:${Math.round(100 * (p.p_pick || 0))}%"></span>
-        <span>${pct(100 * (p.p_pick || 0))} likely</span></div>`;
-    grid.append(card);
-  }
-  return grid;
+function tierRow(label,sub,rec){const done=(rec&&rec.total)?`${rec.correct}–${rec.wrong}`:"—";
+  return `<div class="rw static"><span class="lgtag" style="background:var(--cyan)"></span>
+    <div class="info"><b>${esc(label)}</b><span>${esc(sub)}</span></div>
+    <div class="conf"><b>${done}</b><span>${rec&&rec.total?Math.round(100*rec.correct/rec.total)+"%":"awaiting"}</span></div></div>`;
+}
+function viewGrades(){
+  const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
+  const br=best.record||{correct:0,wrong:0,total:0};
+  const total=br.total||0;
+  let h=`<div class="eyebrow">Track record</div>
+    <div class="glass stat"><div class="k">${br.correct}–${br.wrong}</div><div class="l">${total?`Best Picks · ${Math.round(100*br.correct/total)}% of ${total} graded`:"Graded picks · season starts 15 Aug"}</div></div>`;
+  const rbm=pp.record_by_market||{};
+  h+=`<div class="glass rowc">${tierRow("Best Picks","Match-winner board",best.record)}
+    ${tierRow("Player · Anytime","Goalscorer market",rbm.goal)}
+    ${tierRow("Player · Attempts","2+ shot attempts",rbm.shots)}
+    ${tierRow("Player · On target","Shots on target",rbm.sot)}
+    ${tierRow("Parlays","All-or-nothing accas",par.record)}</div>`;
+  h+=`<p class="note">Every pick locks before kickoff and is graded against the frozen call — never re-scored with hindsight. Each market, and the parlays, are scored on their own.</p>`;
+  return h+archiveLink();
 }
 
-function renderPlayers(app, data) {
-  app.append(el('h1', 'dsp', 'Player Picks <span>all leagues</span>'));
-
-  const rec = data.record || {};
-  const chip = el('div', 'record-chip');
-  chip.innerHTML = rec.total
-    ? `<b>${rec.correct}–${rec.wrong}</b> · ${pct(100 * rec.correct / rec.total)} on ${rec.total} settled player picks`
-    : 'No settled player picks yet — the season starts in August';
-  app.append(chip);
-
-  const bars = data.min_probability || {};
-  // Say out loud why the goalscorer bar is lower. A reader comparing a 45%
-  // goalscorer pick with a 78% shots pick should know the first is near the
-  // ceiling of its market, not a weaker pick.
-  app.append(el('div', 'best-note',
-    `Shot markets need <b>${pct(100 * (bars.shots || 0))}</b> to make this board. ` +
-    `Anytime goalscorer needs <b>${pct(100 * (bars.goal || 0))}</b> — deliberately lower, because ` +
-    `no player reaches 70% to score: a team scores about 1.5 goals and one man takes a share of them, ` +
-    `so the best goalscorer chance in any of these leagues sits near 50%. ` +
-    `Each card shows its own number, and the three markets are graded separately.` +
-    ((data.ungradeable_leagues || []).length
-      ? ` <b>${esc(data.ungradeable_leagues.join(', '))}</b> has no shot-level feed, so its player picks are shown but cannot be graded.`
-      : '')));
-
-  const up = data.upcoming || [];
-  for (const mk of MARKET_ORDER) {
-    const rows = up.filter(p => p.market === mk);
-    if (!rows.length) continue;
-    app.append(el('h2', 'dsp', esc((data.markets || {})[mk] || mk)));
-    app.append(playerCards(rows));
-  }
-  if (!up.length) app.append(el('h2', 'dsp', 'Nothing above the bar right now'));
+function viewLeague(k){
+  const d=DATA[FILES[k]]; if(!d) return emptyState();
+  const table=d.table||[];
+  let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · projected table</div><div class="glass rowc">
+    <div class="tr head"><span class="pos">#</span><span class="team">Club</span><span class="pts">Pts</span></div>`;
+  table.forEach((t,i)=>{const cls=i<4?"top":(t.relegation_pct>=50?"rel":"");
+    const badge=i<4?`<span class="badge b-ucl">UCL</span>`:(t.relegation_pct>=50?`<span class="badge b-rel">REL</span>`:"");
+    h+=`<div class="tr"><span class="pos ${cls}">${i+1}</span><span class="team">${esc(t.team)}</span>${badge}<span class="pts">${Math.round(t.proj_points)}</span></div>`;});
+  h+=`</div>`;
+  const ms=(d.matches||[]).filter(m=>!m.result);
+  if(ms.length){h+=`<div class="eyebrow mt">Upcoming fixtures</div><div class="glass rowc">${ms.slice(0,12).map(m=>{const p=m.prediction||{};
+    return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
+      <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
+      <div class="conf" style="min-width:74px"><b>${pc(p.p_pick)}%</b><div class="bar"><i style="width:${pc(p.p_pick)}%"></i></div></div><span class="chev">›</span></div>`;}).join("")}</div>`;}
+  return h;
 }
 
-// ---------------- grades: every graded pick, by tier ----------------
-function gradeTable(rows, kind) {
-  const wrap = el('div', 'table-wrap glass');
-  const head = kind === 'player'
-    ? '<th></th><th>League</th><th>Player</th><th>Market</th><th>Conf</th><th>Actual</th>'
-    : '<th></th><th>League</th><th>Match</th><th>Pick</th><th>Conf</th><th>Result</th>';
-  wrap.innerHTML = `<table class="league-table">
-    <thead><tr>${head}</tr></thead>
-    <tbody>${rows.map(s => {
-      const mark = s.void ? '<span class="tick void">✓✗*</span>'
-        : s.graded === 'correct' ? '<span class="tick correct">✓</span>'
-        : '<span class="tick wrong">✗</span>';
-      const last = kind === 'player'
-        ? (s.actual === null || s.actual === undefined ? 'did not shoot' : esc(String(s.actual)))
-        : (s.result ? `${s.result.home_goals}–${s.result.away_goals}` : '');
-      const mid = kind === 'player'
-        ? `<td>${esc(s.player)}</td><td>${esc(s.line)}</td>`
-        : `<td>${esc(s.home)} v ${esc(s.away)}</td><td>${esc(s.pick)}</td>`;
-      return `<tr><td>${mark}</td><td class="num">${esc(s.league)}</td>${mid}
-        <td class="num">${pct(100 * (s.p_pick || 0))}</td>
-        <td class="num">${last}</td></tr>`; }).join('')}</tbody></table>`;
-  return wrap;
+function openMatch(lk,id){
+  const d=DATA[FILES[lk]]; if(!d) return;
+  const m=(d.matches||[]).find(x=>x.id===id); if(!m){render(cur);return;}
+  const p=m.prediction||{};
+  document.getElementById("sub").textContent="Match breakdown";
+  const ph=pc(p.p_home),pd=pc(p.p_draw),pa=pc(p.p_away);
+  const sc=(p.score||"–").split("-");
+  const tops=(p.top_scores||[]).slice(0,3).map(t=>`<div class="sl"><span class="sc">${esc(t.score)}</span>
+    <span class="sb"><i style="width:${Math.min(100,(t.pct||0)*4.5)}%"></i></span><span class="sp">${Math.round(t.pct)}%</span></div>`).join("")||`<div class="rl">No scoreline spread available.</div>`;
+  const reasons=(p.reasons||[]).map(r=>`<div class="rl">${esc(r)}</div>`).join("")||`<div class="rl">${esc(p.why||"")}</div>`;
+  const props=(m.props||[]).slice(0,5).map(pr=>`<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
+    <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${pr.exp_shots} shots</span></div></div>`).join("");
+  const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
+  const app=document.getElementById("app");
+  app.innerHTML=`<button class="back" type="button" onclick="render(cur)">‹ Back</button>
+    <div class="glass dhead"><div class="lg">${esc(LG[lk])} · MW${m.matchweek}</div><div class="vs">${esc(m.home)} v ${esc(m.away)}</div>
+      <div class="score"><b>${esc(sc[0])}</b><span>predicted</span><b>${esc(sc[1]||"")}</b></div>
+      <div class="split"><div class="sh" style="flex:${ph||1}">${ph}%</div><div class="sd" style="flex:${pd||1}">${pd}%</div><div class="sa" style="flex:${pa||1}">${pa}%</div></div>
+      <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:8px">${esc(m.home)} win · draw · ${esc(m.away)} win</div></div>
+    ${uaAll.length?`<div class="glass warnbox">Confirmed defensive/keeper absence not priced by the shot-based model: ${esc(uaAll.join(", "))}. Read the win probability with that in mind.</div>`:""}
+    <div class="glass dsec"><h3>Most likely scorelines</h3>${tops}</div>
+    <div class="glass dsec"><h3>Why this pick</h3>${reasons}</div>
+    ${props?`<div class="glass dsec"><h3>Top players in this match</h3>${props}</div>`:""}`;
+  window.scrollTo(0,0);
 }
 
-function tierRow(label, rec, note) {
-  const hit = rec && rec.total ? pct(100 * rec.correct / rec.total) : '—';
-  return `<div class="metric"><b>${hit}</b>${esc(label)}${
-    rec && rec.total ? ` (${rec.correct}–${rec.wrong})` : ' · none graded yet'}${
-    note ? `<br><small>${esc(note)}</small>` : ''}</div>`;
-}
+function setFilter(f){filter=f;render("players");}
+function daysToKickoff(up){const ds=up.map(u=>new Date(u.date)).filter(d=>!isNaN(d));if(!ds.length)return null;
+  const first=new Date(Math.min(...ds));const diff=Math.ceil((first-new Date())/864e5);return diff>0?diff:0;}
+function emptyRow(t){return `<div class="rw static"><div class="info"><span>${esc(t)}</span></div></div>`;}
+function emptyState(){return `<div class="glass stat"><div class="k">Soon</div><div class="l">The board fills as fixtures approach — season starts 15 August.</div></div>${archiveLink()}`;}
+function archiveLink(){return `<div class="arch"><a href="worldcup.html">World Cup 2026 archive — final record 64-26 (71%), champion Spain →</a></div>`;}
 
-// Stated vs observed over time. A single number cannot show drift, and drift is
-// the thing that actually signals trouble -- a 65% pick losing three in a row is
-// normal, stated confidence pulling away from observed results over dozens of picks
-// is not. Drawn as a plain inline SVG: no library, no external request.
-function driftChart(hist) {
-  const pts = (hist || []).filter(h => h.stated_pct != null && h.actual_pct != null);
-  if (pts.length < 2) return null;
-  const W = 620, H = 170, PAD = 34;
-  const xs = i => PAD + i * (W - 2 * PAD) / Math.max(1, pts.length - 1);
-  const lo = Math.min(40, ...pts.map(p => Math.min(p.stated_pct, p.actual_pct)) ) - 5;
-  const hi = Math.max(90, ...pts.map(p => Math.max(p.stated_pct, p.actual_pct)) ) + 5;
-  const ys = v => H - PAD - (v - lo) * (H - 2 * PAD) / (hi - lo);
-  const path = key => pts.map((p, i) => `${i ? 'L' : 'M'}${xs(i).toFixed(1)},${ys(p[key]).toFixed(1)}`).join(' ');
-  const wrap = el('div', 'table-wrap glass');
-  wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="drift" role="img"
-      aria-label="Stated confidence versus actual hit rate over time">
-    <line x1="${PAD}" y1="${ys(lo)}" x2="${W - PAD}" y2="${ys(lo)}" class="ax"/>
-    <path d="${path('stated_pct')}" class="ln stated"/>
-    <path d="${path('actual_pct')}" class="ln actual"/>
-    <text x="${PAD}" y="14" class="lg"><tspan class="k-stated">■</tspan> stated confidence
-      <tspan class="k-actual" dx="12">■</tspan> actually won</text>
-    <text x="${PAD}" y="${H - 8}" class="tk">${esc(pts[0].date)}</text>
-    <text x="${W - PAD}" y="${H - 8}" class="tk" text-anchor="end">${esc(pts[pts.length - 1].date)}</text>
-  </svg>`;
-  return wrap;
-}
-
-function renderGrades(app, d) {
-  const best = d.best || {}, pl = d.players || {};
-  app.append(el('h1', 'dsp', 'Grades <span>how every tier is doing</span>'));
-  app.append(el('div', 'best-note',
-    `Every pick here was frozen before kickoff and graded against the result — never re-picked ` +
-    `afterwards. The tiers are scored <b>separately</b> on purpose: pooling a high-confidence ` +
-    `board with every routine pick would hide which one is actually earning its billing.`));
-
-  const tiers = el('section', 'performance glass');
-  tiers.innerHTML = `<div class="metrics">
-    ${tierRow('Best Picks (match winner)', best.record)}
-    ${tierRow('Player picks (all markets)', pl.record)}
-    ${MARKET_ORDER.map(mk => tierRow(
-        (pl.markets || {})[mk] || mk, (pl.record_by_market || {})[mk])).join('')}
-    ${tierRow('Player picks — XI was known', (pl.record_by_lineup || {}).confirmed,
-              'frozen after both starting elevens were published')}
-    ${tierRow('Player picks — XI unknown', (pl.record_by_lineup || {}).unconfirmed,
-              'frozen on expected minutes, not a confirmed teamsheet')}
-    ${(d.leagues || []).map(l => tierRow(l.label + ' — every pick', l.record)).join('')}
-  </div>`;
-  app.append(tiers);
-
-  const chart = driftChart(d.history);
-  if (chart) {
-    app.append(el('h2', 'dsp', 'Is it still calibrated?'));
-    app.append(chart);
-    app.append(el('p', 'sub', 'The two lines should track each other. Stated ' +
-      'confidence drifting persistently above what actually wins is the signal ' +
-      'that the model needs attention — a bad week on its own is not.'));
-  }
-
-  const bs = best.settled || [];
-  app.append(el('h2', 'dsp', 'Best Picks — settled'));
-  app.append(bs.length ? gradeTable(bs, 'match')
-    : el('p', 'sub', 'Nothing settled yet — the season starts in August.'));
-
-  const ps = (pl.settled || []).filter(s => s.graded === 'correct' || s.graded === 'wrong' || s.void);
-  app.append(el('h2', 'dsp', 'Player picks — settled'));
-  app.append(ps.length ? gradeTable(ps, 'player')
-    : el('p', 'sub', 'Nothing settled yet — the season starts in August.'));
-}
-
-
-// ---------------- router ----------------
-function activeKey() {
-  const k = location.hash.replace('#', '');
-  return COMPETITIONS.some(c => c.key === k) ? k : COMPETITIONS[0].key;
-}
-
-function renderSwitcher() {
-  const nav = document.getElementById('switcher');
-  nav.innerHTML = '';
-  const active = activeKey();
-  for (const c of COMPETITIONS) {
-    const a = el('a', c.key === active ? 'active' : '', c.label);
-    a.href = c.href || `#${c.key}`;
-    nav.append(a);
-  }
-}
-
-// The Grades tab is the one view that spans every file: the two boards plus each
-// league's all-picks record. A single missing file must degrade that one tier to
-// "none graded yet" rather than empty the whole page, so each fetch is caught.
-const getJSON = url => fetch(url, NO_CACHE).then(r => r.json()).catch(() => ({}));
-
-async function gradesData(best) {
-  const leagueComps = COMPETITIONS.filter(c => c.kind === 'league');
-  const [players, history, ...leagues] = await Promise.all([
-    getJSON('data/leagues/player_picks.json'),
-    getJSON('data/leagues/record_history.json'),
-    ...leagueComps.map(c => getJSON(c.data)),
-  ]);
-  return {
-    best, players,
-    history: Array.isArray(history) ? history : [],
-    leagues: leagueComps.map((c, i) => ({ label: c.label, record: leagues[i].record })),
-  };
-}
-
-// How old the data may get before the page says so. Publishing runs Tuesday and
-// after each weekend, so a gap beyond ~3 days means a run failed or a league
-// aborted. The check lives HERE, in the browser, on purpose: the deploy gate can
-// only refuse to ship a stale file, it cannot tell you the site is already showing
-// one. If the whole pipeline dies, this is the only thing left that still knows
-// what day it is -- and it fails towards telling the reader, not reassuring them.
-const STALE_AFTER_HOURS = 72;
-
-function staleBanner(data) {
-  const upd = data && data.updated;
-  if (!upd) return null;
-  const age = (Date.now() - new Date(upd).getTime()) / 36e5;
-  if (!(age > STALE_AFTER_HOURS)) return null;
-  const days = Math.floor(age / 24);
-  return el('div', 'warn',
-    `<b>This data is ${days} day${days === 1 ? '' : 's'} old.</b> ` +
-    `It was last updated ${new Date(upd).toLocaleString('en-GB')}, so results and ` +
-    `team news since then are not reflected. Picks shown may already have been played.`);
-}
-
-async function route() {
-  renderSwitcher();
-  let comp = COMPETITIONS.find(c => c.key === activeKey());
-  // A link-only entry (the World Cup) has no data to render here. If the hash
-  // still names one -- an old bookmark -- fall back to the default view rather
-  // than throwing on comp.data.
-  if (comp && comp.href) { location.replace(comp.href); return; }
-  if (!comp) comp = COMPETITIONS[0];
-  const app = document.getElementById('app');
-  app.innerHTML = '<p class="sub">Loading…</p>';
-  let data, clubs;
-  try {
-    data = await fetch(comp.data, NO_CACHE).then(r => r.json());
-    clubs = comp.clubs ? await fetch(comp.clubs, NO_CACHE).then(r => r.json()) : {};
-  } catch (err) {
-    if (activeKey() === comp.key) app.innerHTML = `<p class="sub">Could not load ${comp.label}.</p>`;
-    return;
-  }
-  // The user may have switched competitions while this fetch was in flight; if so,
-  // a newer route() already owns the page — don't clobber it with stale content.
-  if (activeKey() !== comp.key) return;
-  app.innerHTML = '';
-  // Staleness is announced BEFORE the content, on every view, so it cannot be
-  // scrolled past or mistaken for current data.
-  const stale = staleBanner(data);
-  if (stale) app.append(stale);
-  // Render errors are NOT caught here: a code bug should surface in the console,
-  // not be silently disguised as a "Could not load" network message.
-  await allClubs();          // team colours for the cross-league boards
-  if (comp.kind === 'best') renderBest(app, data);
-  else if (comp.kind === 'players') renderPlayers(app, data);
-  else if (comp.kind === 'grades') {
-    // gradesData awaits four more fetches. The guard above already fired, so it
-    // must be re-checked here or a slow Grades load lands on top of whatever view
-    // the user switched to meanwhile. This is the only branch that awaits twice.
-    const g = await gradesData(data);
-    if (activeKey() !== comp.key) return;
-    renderGrades(app, g);
-  }
-  else renderLeague(app, data, clubs, comp.label);
-}
-
-window.addEventListener('hashchange', route);
-route();
+boot();
 </script>
 </body>
 </html>

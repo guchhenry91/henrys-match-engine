@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from leagues import config, dataset, fixtures, odds, picks, players, props, second_tier, sim
+from leagues import config, dataset, fixtures, odds, parlays, picks, players, props, second_tier, sim
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs)
 
@@ -932,6 +932,21 @@ def main(argv=None):
                       for mk in picks.PROP_MARKETS}
             print(f"wrote {ppath} - {len(pp['upcoming'])} upcoming player picks "
                   f"{counts}, record {pr['correct']}-{pr['wrong']}")
+
+        # Model parlays -- built from the two boards just published, frozen and
+        # graded with the same discipline. Only when BOTH boards are complete, so
+        # a parlay can never stack a leg from a league whose record we could not
+        # grade this run.
+        if not best["_incomplete"] and not pp["_incomplete"]:
+            par = parlays.build_parlays(best, pp, PICKS_DIR / "parlays_log.json")
+            parpath = OUT / "parlays.json"
+            tmp = parpath.with_suffix(".json.tmp")
+            tmp.write_text(json.dumps(par, indent=2, default=str), encoding="utf-8")
+            tmp.replace(parpath)
+            pr2 = par["record"]
+            n_par = sum(len(s["parlays"]) for s in par["sections"])
+            print(f"wrote {parpath} - {n_par} model parlays, record "
+                  f"{pr2['correct']}-{pr2['wrong']}")
 
         # Record history -- only when BOTH boards are complete, or a refused board
         # would write a row understating the record and permanently distort the
