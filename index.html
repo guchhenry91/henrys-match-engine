@@ -109,6 +109,8 @@
   .tr .team{flex:1;font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .tr .pts{width:40px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:13.5px;flex:0 0 auto}
   .stnum{width:30px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--sub);flex:0 0 auto}
+  .psc{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--cyan);flex:0 0 auto;min-width:40px;text-align:center;letter-spacing:.03em}
+  .psc small{display:block;font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-top:1px}
   .badge{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;border-radius:6px;flex:0 0 auto}
   .b-ucl{color:var(--cyan);border:1px solid rgba(55,230,216,.28)}.b-rel{color:var(--hot);border:1px solid rgba(255,92,138,.3)}
 
@@ -391,8 +393,9 @@ function viewLeague(k){
   let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,16).map(m=>{const p=m.prediction||{};
     return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
       <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
-      <div class="conf" style="min-width:74px"><b>${pc(p.p_pick)}%</b><div class="bar"><i style="width:${pc(p.p_pick)}%"></i></div></div><span class="chev">›</span></div>`;}).join("")}</div>
-    <p class="note">Full standings are in the Tables tab.</p>`;
+      <span class="psc">${esc(p.score||"–")}<small>score</small></span>
+      <div class="conf" style="min-width:48px"><b>${pc(p.p_pick)}%</b></div><span class="chev">›</span></div>`;}).join("")}</div>
+    <p class="note">Predicted scoreline and win %. Full standings are in the Tables tab.</p>`;
   return h;
 }
 
