@@ -107,7 +107,8 @@
   .pos{width:20px;text-align:center;font-weight:800;color:var(--sub);font-variant-numeric:tabular-nums}
   .pos.top{color:var(--cyan)}.pos.rel{color:var(--hot)}
   .tr .team{flex:1;font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .tr .pts{width:44px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:13.5px;flex:0 0 auto}
+  .tr .pts{width:40px;text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:13.5px;flex:0 0 auto}
+  .stnum{width:30px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--sub);flex:0 0 auto}
   .badge{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;border-radius:6px;flex:0 0 auto}
   .b-ucl{color:var(--cyan);border:1px solid rgba(55,230,216,.28)}.b-rel{color:var(--hot);border:1px solid rgba(255,92,138,.3)}
 
@@ -364,35 +365,35 @@ function viewGrades(){
   return h+archiveLink();
 }
 
-function tableBlock(k){
-  const d=DATA[FILES[k]]; const table=(d&&d.table)||[];
-  if(!table.length) return "";
-  let h=`<div class="glass rowc"><div class="tr head"><span class="pos">#</span><span class="team">Club</span><span class="pts">Pts</span></div>`;
-  table.forEach((t,i)=>{const cls=i<4?"top":(t.relegation_pct>=50?"rel":"");
-    const badge=i<4?`<span class="badge b-ucl">UCL</span>`:(t.relegation_pct>=50?`<span class="badge b-rel">REL</span>`:"");
-    h+=`<div class="tr"><span class="pos ${cls}">${i+1}</span><span class="team">${esc(t.team)}</span>${badge}<span class="pts">${Math.round(t.proj_points)}</span></div>`;});
+function standingsBlock(k){
+  const d=DATA[FILES[k]]; const st=(d&&d.standings)||[];
+  if(!st.length) return "";
+  const started=st.some(t=>t.played>0);
+  let h=`<div class="glass rowc"><div class="tr head"><span class="pos">#</span><span class="team">Club</span><span class="stnum">Pl</span><span class="stnum">GD</span><span class="pts">Pts</span></div>`;
+  st.forEach((t,i)=>{const cls=started?(i<4?"top":(i>=st.length-3?"rel":"")):"";
+    const badge=started?(i<4?`<span class="badge b-ucl">UCL</span>`:(i>=st.length-3?`<span class="badge b-rel">REL</span>`:"")):"";
+    h+=`<div class="tr"><span class="pos ${cls}">${i+1}</span><span class="team">${esc(t.team)}</span>${badge}<span class="stnum">${t.played}</span><span class="stnum">${t.gd>0?"+":""}${t.gd}</span><span class="pts">${t.points}</span></div>`;});
   return h+`</div>`;
 }
 function viewTables(){
-  const any=Object.keys(FILES).some(k=>DATA[FILES[k]]&&(DATA[FILES[k]].table||[]).length);
+  const any=Object.keys(FILES).some(k=>((DATA[FILES[k]]||{}).standings||[]).length);
   if(!any) return emptyState();
-  let h=`<div class="sectsub" style="margin:0 2px 14px">Projected final standings — points from the season simulation. UCL = top four, REL = relegation.</div>`;
-  Object.keys(FILES).forEach(k=>{
-    h+=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])}</div>${tableBlock(k)}`;
-  });
+  const started=Object.keys(FILES).some(k=>((DATA[FILES[k]]||{}).standings||[]).some(t=>t.played>0));
+  let h=`<div class="sectsub" style="margin:0 2px 14px">${started?"Live league tables — actual points from results so far.":"The season table — fills in from real results once matches kick off (15 Aug)."} UCL = top four, REL = relegation.</div>`;
+  Object.keys(FILES).forEach(k=>{h+=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])}</div>${standingsBlock(k)}`;});
   return h;
 }
 function viewLeague(k){
   const d=DATA[FILES[k]]; if(!d) return emptyState();
-  let h="";
   const ms=(d.matches||[]).filter(m=>!m.result);
-  if(ms.length){h+=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,12).map(m=>{const p=m.prediction||{};
+  if(!ms.length) return emptyState();
+  // Fixtures only -- the full standings live in the Tables tab, not repeated here.
+  let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,16).map(m=>{const p=m.prediction||{};
     return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
       <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
-      <div class="conf" style="min-width:74px"><b>${pc(p.p_pick)}%</b><div class="bar"><i style="width:${pc(p.p_pick)}%"></i></div></div><span class="chev">›</span></div>`;}).join("")}</div>`;}
-  // Projected table moved BELOW the fixtures (the actionable content leads).
-  if(tableBlock(k)) h+=`<div class="eyebrow mt">Projected table</div>${tableBlock(k)}`;
-  return h||emptyState();
+      <div class="conf" style="min-width:74px"><b>${pc(p.p_pick)}%</b><div class="bar"><i style="width:${pc(p.p_pick)}%"></i></div></div><span class="chev">›</span></div>`;}).join("")}</div>
+    <p class="note">Full standings are in the Tables tab.</p>`;
+  return h;
 }
 
 function openMatch(lk,id){

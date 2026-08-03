@@ -143,6 +143,36 @@ def _market_block(mkt: dict | None, pred: dict, pick_type: str) -> dict | None:
     return {**mkt, "edge": round(model_p - mkt[f"p_{pick_type}"], 3)}
 
 
+def actual_standings(played, all_teams) -> list[dict]:
+    """The REAL league table from matches played SO FAR: points, played, W/D/L,
+    goals for/against, goal difference. Distinct from the projected `table` (a
+    season simulation) -- this is only what has actually happened. Pre-season it
+    is every club on zero, ordered alphabetically; once results land it sorts by
+    points, then goal difference, then goals scored, then name."""
+    rows = {t: {"team": t, "played": 0, "won": 0, "drawn": 0, "lost": 0,
+                "gf": 0, "ga": 0, "gd": 0, "points": 0} for t in all_teams}
+    for _, m in played.iterrows():
+        h, a = m["home"], m["away"]
+        if h not in rows or a not in rows:
+            continue
+        hg, ag = int(m["home_goals"]), int(m["away_goals"])
+        for t, gf, ga in ((h, hg, ag), (a, ag, hg)):
+            r = rows[t]
+            r["played"] += 1
+            r["gf"] += gf
+            r["ga"] += ga
+            r["gd"] = r["gf"] - r["ga"]
+        if hg > ag:
+            rows[h]["won"] += 1; rows[h]["points"] += 3; rows[a]["lost"] += 1
+        elif ag > hg:
+            rows[a]["won"] += 1; rows[a]["points"] += 3; rows[h]["lost"] += 1
+        else:
+            rows[h]["drawn"] += 1; rows[a]["drawn"] += 1
+            rows[h]["points"] += 1; rows[a]["points"] += 1
+    return sorted(rows.values(),
+                  key=lambda r: (-r["points"], -r["gd"], -r["gf"], r["team"]))
+
+
 def build(league: str = "PL") -> dict:
     lg = config.get(league)
     matches = dataset.build_matches(league)
@@ -550,6 +580,9 @@ def build(league: str = "PL") -> dict:
         "matches": out_matches,
         "season": season,
         "table": table.to_dict(orient="records"),
+        # The ACTUAL table from results so far (see actual_standings). The Tables
+        # tab shows this; `table` above stays the projected finish.
+        "standings": actual_standings(played, [r["team"] for r in table.to_dict(orient="records")]),
         "backtest": _read("backtest_report.json").get(league, {}),
         "props_backtest": _read(props_file),
         "missing_squads": missing_squads,
