@@ -23,9 +23,13 @@ on:
 
 jobs:
   deploy:
-    # Skip the scheduled pipeline's own bot commits -- leagues.yml already deploys
-    # those itself. Anything a human (or the local scheduled task) pushes still runs.
-    if: github.event.head_commit.author.name != 'leagues-bot'
+    # Skip commits that already triggered their own Render deploy, so the hook
+    # never fires twice for one push: leagues.yml's bot commits (its pipeline has
+    # its own deploy step) and deploy.py's commits (it POSTs the hook itself,
+    # tagged [auto-deployed]). Any other human push still deploys here.
+    if: >-
+      github.event.head_commit.author.name != 'leagues-bot' &&
+      !contains(github.event.head_commit.message, '[auto-deployed]')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

@@ -57,3 +57,23 @@ def test_single_league_arg_writes_only_that_file(tmp_path, monkeypatch):
     monkeypatch.setattr(publish, "build_player_picks", lambda: _EMPTY_PLAYERS)
     publish.main(["PL"])                    # quick-iteration path
     assert sorted(p.name for p in tmp_path.glob("*.json")) == ["pl.json"]
+
+
+def test_actual_standings_points_order_and_preseason():
+    import pandas as pd
+    from leagues import publish
+    played = pd.DataFrame([
+        {"home": "A", "away": "B", "home_goals": 2, "away_goals": 0},   # A win
+        {"home": "C", "away": "A", "home_goals": 1, "away_goals": 1},   # draw
+    ])
+    st = publish.actual_standings(played, ["A", "B", "C", "D"])
+    by = {r["team"]: r for r in st}
+    assert by["A"]["points"] == 4 and by["A"]["played"] == 2 and by["A"]["gd"] == 2
+    assert by["C"]["points"] == 1 and by["B"]["points"] == 0
+    assert by["D"]["played"] == 0 and by["D"]["points"] == 0        # never played
+    assert st[0]["team"] == "A"                                     # most points first
+    # pre-season: everyone zero -> alphabetical, no crash on empty played
+    empty = pd.DataFrame(columns=["home", "away", "home_goals", "away_goals"])
+    st0 = publish.actual_standings(empty, ["Z", "A", "M"])
+    assert [r["team"] for r in st0] == ["A", "M", "Z"]
+    assert all(r["points"] == 0 and r["played"] == 0 for r in st0)

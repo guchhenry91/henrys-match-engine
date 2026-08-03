@@ -130,16 +130,27 @@ def _build_sections(team_legs: list[dict], prop_legs: list[dict]) -> list[dict]:
     all_parlays.append(_tier("Banker", "Two safest calls, two leagues", banker))
     four = _one_per_league(team_legs, prop_legs)
     all_parlays.append(_tier("Balanced four-fold", "One leg from every league", four, feat=True))
-    # Props treble preferring three DIFFERENT markets across different matches.
+    # Props treble: three DIFFERENT markets across different matches, so it
+    # actually earns its "attempt / on target / goal" billing instead of stacking
+    # two of the same market. Prefer distinct markets first; only if fewer than
+    # three markets are available do we fill with the next-best distinct-match leg.
     treble, used, seen_mkt = [], set(), set()
     for leg in sorted(prop_legs, key=lambda x: -x["p"]):
         key = (leg["league_key"], leg["mid"])
-        if key in used:
+        if key in used or leg["tag"] in seen_mkt:
             continue
         treble.append(leg); used.add(key); seen_mkt.add(leg["tag"])
         if len(treble) == 3:
             break
-    all_parlays.append(_tier("Props treble", "Attempt · on target · goal player markets", treble))
+    if len(treble) < 3:
+        for leg in sorted(prop_legs, key=lambda x: -x["p"]):
+            key = (leg["league_key"], leg["mid"])
+            if key in used:
+                continue
+            treble.append(leg); used.add(key)
+            if len(treble) == 3:
+                break
+    all_parlays.append(_tier("Props treble", "Three player-prop legs, distinct markets where the board allows", treble))
     sections.append({"title": "All four leagues",
                      "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
                      "parlays": [p for p in all_parlays if p]})
@@ -218,7 +229,15 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
     """Assemble, freeze and grade the model's parlays. `best`/`pp` are the freshly
     built cross-league board dicts (build_best_picks / build_player_picks)."""
     team_legs = [_match_leg(u) for u in best.get("upcoming", []) if u.get("p_pick")]
-    prop_legs = [_prop_leg(u) for u in pp.get("upcoming", []) if u.get("p_pick")]
+    # ONLY gradeable prop legs. Bundesliga player picks publish with
+    # gradeable=false (no shot feed -- see build_player_picks), so they never
+    # appear in player_picks.json's `settled` list and their leg-id would never
+    # resolve in _outcome_lookup. Stacking one into a parlay would leave that
+    # parlay stuck "pending" forever, silently dropped from the record. Match-
+    # winner legs for the same league are fine -- results are always gradeable --
+    # so this filter is on props only.
+    prop_legs = [_prop_leg(u) for u in pp.get("upcoming", [])
+                 if u.get("p_pick") and u.get("gradeable") is not False]
     sections = _build_sections(team_legs, prop_legs)
 
     log = picks.load_log(log_path)

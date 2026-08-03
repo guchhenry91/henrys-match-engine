@@ -73,7 +73,11 @@ def main():
             paths = ["data", "data-raw"]
         git("add", *paths)
         if git("diff", "--cached", "--quiet", fatal=False).returncode != 0:
-            git("commit", "-m", msg)
+            # Mark the commit so .github/workflows/deploy-on-push.yml does NOT
+            # fire a second Render deploy: this script already POSTs the hook
+            # itself below, and on Render's metered plan the redundant deploy
+            # burns budget for nothing.
+            git("commit", "-m", msg + "\n\n[auto-deployed]")
             git("push", "origin", "HEAD")
             print("Pushed:", msg)
         else:

@@ -328,13 +328,13 @@ function viewParlay(){
   let h=`<div class="eyebrow">Model parlays · combined chance = product of the legs</div>`;
   sections.forEach((sec,si)=>{
     h+=`<div class="secttl" style="${si?"margin-top:24px":""}">${esc(sec.title)}</div><div class="sectsub">${esc(sec.sub)}</div>`;
-    (sec.parlays||[]).forEach(pa=>{
-      h+=`<div class="glass acca ${pa.feat?"feat":""}"><div class="ah"><div class="an">${esc(pa.tier)}<small>${pa.legs.length} legs · ${esc(pa.note)}</small></div>
+    (sec.parlays||[]).forEach(pa=>{const legs=pa.legs||[];
+      h+=`<div class="glass acca ${pa.feat?"feat":""}"><div class="ah"><div class="an">${esc(pa.tier)}<small>${legs.length} legs · ${esc(pa.note)}</small></div>
         <div class="ac"><b>${pc(pa.combined)}%</b><span>chance to hit</span></div></div>
-        <div class="legs">${pa.legs.map(l=>`<div class="leg"><span class="stt"></span>
+        <div class="legs">${legs.map(l=>`<div class="leg"><span class="stt"></span>
           <div class="li2"><b>${esc(l.selection)}</b><span>${esc(l.league)} · ${esc(l.match)}</span></div>
           <span class="mk ${l.tag}">${esc(({w:"Win",g:"Goal",a:"Attempts",o:"On target"})[l.tag]||"")}</span><span class="lp">${pc(l.p)}%</span></div>`).join("")}</div>
-        <div class="acfoot"><span>Wins only if <b style="color:var(--ink)">all ${pa.legs.length}</b> land</span><span class="pend">● ${pa.legs.length} pending</span></div></div>`;
+        <div class="acfoot"><span>Wins only if <b style="color:var(--ink)">all ${legs.length}</b> land</span><span class="pend">● ${legs.length} pending</span></div></div>`;
     });
   });
   h+=`<div class="eyebrow mt">How the model builds these</div><div class="glass explain">
@@ -407,7 +407,7 @@ function openMatch(lk,id){
   const ph=pc(p.p_home),pd=pc(p.p_draw),pa=pc(p.p_away);
   const sc=(p.score||"–").split("-");
   const tops=(p.top_scores||[]).slice(0,3).map(t=>`<div class="sl"><span class="sc">${esc(t.score)}</span>
-    <span class="sb"><i style="width:${Math.min(100,(t.pct||0)*4.5)}%"></i></span><span class="sp">${Math.round(t.pct)}%</span></div>`).join("")||`<div class="rl">No scoreline spread available.</div>`;
+    <span class="sb"><i style="width:${Math.min(100,(t.pct||0)*4.5)}%"></i></span><span class="sp">${Math.round(t.pct||0)}%</span></div>`).join("")||`<div class="rl">No scoreline spread available.</div>`;
   const reasons=(p.reasons||[]).map(r=>`<div class="rl">${esc(r)}</div>`).join("")||`<div class="rl">${esc(p.why||"")}</div>`;
   const props=(m.props||[]).slice(0,5).map(pr=>`<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
     <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${num(pr.exp_shots)} attempts · ${num(pr.exp_sot)} on tgt</span></div></div>`).join("");

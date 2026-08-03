@@ -100,6 +100,35 @@ def test_grade_is_all_or_nothing():
     assert parlays.grade_parlay(entry, {"a": "correct", "b": "void", "c": "correct"}) == "void"
 
 
+def test_ungradeable_prop_legs_are_never_stacked(tmp_path):
+    """Bundesliga player picks publish gradeable=false (no shot feed) and never
+    enter the settled board, so a parlay leg from one could never grade -- it
+    would sit pending forever. Such legs must be excluded from every parlay."""
+    best = _best([_m("PL", 1, "A", "B", "A", 0.77), _m("LALIGA", 2, "C", "D", "C", 0.73),
+                  _m("LIGUE1", 3, "E", "F", "E", 0.69)])
+    pp = _pp([
+        {**_pr("BUNDESLIGA", 4, "G", "H", "Kane", "shots", "2+ shot attempts", 0.90), "gradeable": False},
+        {**_pr("PL", 5, "I", "J", "Haaland", "shots", "2+ shot attempts", 0.77), "gradeable": True}])
+    out = parlays.build_parlays(best, pp, tmp_path / "log.json",
+                                now=pd.Timestamp("2099-01-01T00:00:00+00:00"))
+    sels = [l["selection"] for s in out["sections"] for pa in s["parlays"] for l in pa["legs"]]
+    assert not any("Kane" in x for x in sels)        # ungradeable BL prop excluded
+    assert any("Haaland" in x for x in sels)         # gradeable PL prop kept
+
+
+def test_props_treble_prefers_three_distinct_markets(tmp_path):
+    best = _best([])
+    pp = _pp([{**_pr("PL", 1, "A", "B", "P1", "shots", "2+ shot attempts", 0.80), "gradeable": True},
+              {**_pr("PL", 2, "C", "D", "P2", "shots", "2+ shot attempts", 0.79), "gradeable": True},
+              {**_pr("LALIGA", 3, "E", "F", "P3", "sot", "1+ shot on target", 0.75), "gradeable": True},
+              {**_pr("LIGUE1", 4, "G", "H", "P4", "goal", "Anytime", 0.55), "gradeable": True}])
+    out = parlays.build_parlays(best, pp, tmp_path / "log.json",
+                                now=pd.Timestamp("2099-01-01T00:00:00+00:00"))
+    treble = next(pa for s in out["sections"] for pa in s["parlays"] if pa["tier"] == "Props treble")
+    tags = [l["tag"] for l in treble["legs"]]
+    assert sorted(tags) == ["a", "g", "o"]           # attempt, goal, on-target -- all distinct
+
+
 def test_settled_legs_grade_the_parlay_end_to_end():
     # A locked parlay whose both legs settled correct -> the parlay is correct.
     best = _best(

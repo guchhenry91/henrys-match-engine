@@ -5,11 +5,14 @@
 # otherwise sail into main and abort every league publish (as it did on
 # 2026-08-02). Install with: scripts/hooks/install.sh
 #
-# Only validates the tracked data files that are actually staged, so it stays
-# instant and never blocks an unrelated commit.
+# Validates the STAGED blob of each changed data file -- i.e. exactly what the
+# commit will contain -- not the working-tree copy. Those differ if a file is
+# staged and then edited without re-staging; validating the working tree would
+# then either block a good commit or, worse, wave through a broken staged blob.
 set -euo pipefail
 
 repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
 staged="$(git diff --cached --name-only --diff-filter=ACM \
           -- 'data-raw/leagues/*.json' || true)"
 
@@ -17,11 +20,22 @@ if [ -z "$staged" ]; then
   exit 0
 fi
 
-# Pass the staged paths to the shared validator; it prints file:line:column on
-# any parse error and exits nonzero, which aborts the commit.
-cd "$repo_root"
-if ! python -m scripts.validate_data_json $staged; then
+fail=0
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  # `git show :path` is the staged blob. Feed it to Python on stdin so we check
+  # committed content, and surface the exact line/column on a parse error.
+  if err="$(git show ":$f" | python -c 'import json,sys; json.load(sys.stdin)' 2>&1)"; then
+    :
+  else
+    echo "Invalid staged JSON in $f:" >&2
+    echo "  ${err##*: }" >&2
+    fail=1
+  fi
+done <<< "$staged"
+
+if [ "$fail" -ne 0 ]; then
   echo "" >&2
-  echo "Commit blocked: fix the JSON above, then re-stage and commit." >&2
+  echo "Commit blocked: fix the JSON above, re-stage (git add), then commit." >&2
   exit 1
 fi
