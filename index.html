@@ -207,7 +207,16 @@ const tc=n=>TC[n]||"#37e6d8";
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initials=n=>String(n).split(" ").map(w=>w[0]).slice(0,2).join("");
 const pc=p=>Math.round((p||0)*100);
+const num=n=>(n==null?"":Number(n).toFixed(1));
 const MK={goal:{tag:"g",name:"Goal"},shots:{tag:"a",name:"Attempts"},sot:{tag:"o",name:"On target"}};
+// The expected COUNT behind each market, shown under the pick probability so a
+// card reads "0.6 on target", not just a percentage.
+function figFor(p){
+  if(p.market==="sot"&&p.exp_sot!=null) return `${num(p.exp_sot)} on tgt`;
+  if(p.market==="shots"&&p.exp_shots!=null) return `${num(p.exp_shots)} attempts`;
+  if(p.market==="goal") return "anytime";
+  return "";
+}
 
 const DATA={};
 let cur="today", filter="all";
@@ -221,9 +230,9 @@ async function boot(){
   buildNav(); render("today");
 }
 
-const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"parlay",t:"Parlay"},{k:"grades",t:"Grades"},
+const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},
   {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"}];
-const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",grades:"Grades",
+const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",tables:"Projected tables",grades:"Grades",
   PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
 
 function buildNav(){
@@ -251,6 +260,7 @@ function render(k){
   else if(k==="best") h=viewBest();
   else if(k==="players") h=viewPlayers();
   else if(k==="parlay") h=viewParlay();
+  else if(k==="tables") h=viewTables();
   else if(k==="grades") h=viewGrades();
   else h=viewLeague(k);
   app.innerHTML=h;window.scrollTo(0,0);
@@ -294,7 +304,7 @@ function viewBest(){
 function playerRow(p){const m=MK[p.market]||{tag:"a",name:p.market};
   return `<div class="rw static"><div class="av" style="background:${tc(p.team)}">${esc(initials(p.player))}</div>
     <div class="info"><b>${esc(p.player)}</b><span>${esc(p.team)} · ${esc(LG[p.league_key]||p.league)}</span></div>
-    <span class="mk ${m.tag}">${esc(m.name)}</span><div class="conf" style="min-width:50px"><b>${pc(p.p_pick)}%</b></div></div>`;
+    <span class="mk ${m.tag}">${esc(m.name)}</span><div class="conf" style="min-width:70px"><b>${pc(p.p_pick)}%</b><span>${figFor(p)}</span></div></div>`;
 }
 
 function viewPlayers(){
@@ -354,21 +364,35 @@ function viewGrades(){
   return h+archiveLink();
 }
 
-function viewLeague(k){
-  const d=DATA[FILES[k]]; if(!d) return emptyState();
-  const table=d.table||[];
-  let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · projected table</div><div class="glass rowc">
-    <div class="tr head"><span class="pos">#</span><span class="team">Club</span><span class="pts">Pts</span></div>`;
+function tableBlock(k){
+  const d=DATA[FILES[k]]; const table=(d&&d.table)||[];
+  if(!table.length) return "";
+  let h=`<div class="glass rowc"><div class="tr head"><span class="pos">#</span><span class="team">Club</span><span class="pts">Pts</span></div>`;
   table.forEach((t,i)=>{const cls=i<4?"top":(t.relegation_pct>=50?"rel":"");
     const badge=i<4?`<span class="badge b-ucl">UCL</span>`:(t.relegation_pct>=50?`<span class="badge b-rel">REL</span>`:"");
     h+=`<div class="tr"><span class="pos ${cls}">${i+1}</span><span class="team">${esc(t.team)}</span>${badge}<span class="pts">${Math.round(t.proj_points)}</span></div>`;});
-  h+=`</div>`;
+  return h+`</div>`;
+}
+function viewTables(){
+  const any=Object.keys(FILES).some(k=>DATA[FILES[k]]&&(DATA[FILES[k]].table||[]).length);
+  if(!any) return emptyState();
+  let h=`<div class="sectsub" style="margin:0 2px 14px">Projected final standings — points from the season simulation. UCL = top four, REL = relegation.</div>`;
+  Object.keys(FILES).forEach(k=>{
+    h+=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])}</div>${tableBlock(k)}`;
+  });
+  return h;
+}
+function viewLeague(k){
+  const d=DATA[FILES[k]]; if(!d) return emptyState();
+  let h="";
   const ms=(d.matches||[]).filter(m=>!m.result);
-  if(ms.length){h+=`<div class="eyebrow mt">Upcoming fixtures</div><div class="glass rowc">${ms.slice(0,12).map(m=>{const p=m.prediction||{};
+  if(ms.length){h+=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,12).map(m=>{const p=m.prediction||{};
     return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
       <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
       <div class="conf" style="min-width:74px"><b>${pc(p.p_pick)}%</b><div class="bar"><i style="width:${pc(p.p_pick)}%"></i></div></div><span class="chev">›</span></div>`;}).join("")}</div>`;}
-  return h;
+  // Projected table moved BELOW the fixtures (the actionable content leads).
+  if(tableBlock(k)) h+=`<div class="eyebrow mt">Projected table</div>${tableBlock(k)}`;
+  return h||emptyState();
 }
 
 function openMatch(lk,id){
@@ -382,7 +406,7 @@ function openMatch(lk,id){
     <span class="sb"><i style="width:${Math.min(100,(t.pct||0)*4.5)}%"></i></span><span class="sp">${Math.round(t.pct)}%</span></div>`).join("")||`<div class="rl">No scoreline spread available.</div>`;
   const reasons=(p.reasons||[]).map(r=>`<div class="rl">${esc(r)}</div>`).join("")||`<div class="rl">${esc(p.why||"")}</div>`;
   const props=(m.props||[]).slice(0,5).map(pr=>`<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
-    <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${pr.exp_shots} shots</span></div></div>`).join("");
+    <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${num(pr.exp_shots)} attempts · ${num(pr.exp_sot)} on tgt</span></div></div>`).join("");
   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
   const app=document.getElementById("app");
   app.innerHTML=`<button class="back" type="button" onclick="render(cur)">‹ Back</button>

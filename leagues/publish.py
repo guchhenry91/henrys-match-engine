@@ -445,6 +445,12 @@ def build(league: str = "PL") -> dict:
                     "penalty_taker": p.get("penalty_taker", False),
                     "appearance_pct": p.get("appearance_pct"),
                     "expected_minutes": p.get("expected_minutes"),
+                    # Expected COUNTS behind each market, so the card can show
+                    # "0.6 on target" not just a probability: anytime goal chance,
+                    # expected shot attempts, expected shots on target.
+                    "anytime_pct": p.get("anytime_pct"),
+                    "exp_shots": p.get("exp_shots"),
+                    "exp_sot": p.get("exp_sot"),
                     "lineup_confirmed": lineup_ready,
                     "gradeable": shots_ok,
                 })
