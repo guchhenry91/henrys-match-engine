@@ -24,7 +24,8 @@
     "Reiss Nelson": "Arsenal",
     "Marc Guehi": "Manchester City",
     "Adama Traoré": "West Ham",
-    "Hamed Junior Traore": null
+    "Hamed Junior Traore": null,
+    "Morgan Rogers": "Chelsea"
   },
   "LALIGA": {
     "Robert Lewandowski": null,
@@ -101,7 +102,8 @@
     "Ibrahim Salah": null,
     "Bertug Yildirim": null,
     "Kendry Páez": null,
-    "Himad Abdelli": "Marseille"
+    "Himad Abdelli": "Marseille",
+    "Matthis Abline": "Monaco"
   },
   "_coverage": {
     "_why": "A single _verified_on date claims a completeness no sweep has ever achieved. It said 2026-07-18 on the day Mason Greenwood was published at Marseille four days after he signed for Fenerbahce -- the file was fresh and wrong. Coverage is per-sweep and partial; record it that way so the next reader knows what was NOT checked.",
@@ -242,6 +244,15 @@
         "verified_by": "agent web search, current reporting as of 2026-08-03",
         "result": "all 8 confirmed still at the club shown; no transfers.json changes required. Kane: Bayern extension talks ongoing (through 2029), player 'very keen', no exit -- still Bayern Munich. Haaland: still linked with Real Madrid/PSG/Barcelona speculation but City insist he stays this summer, contracted through 2034 -- still Manchester City. Undav: extended at Stuttgart to 2029 (unchanged) -- still Stuttgart. Guirassy: release clause (~EUR35-50m for seven top clubs) expired unexercised, no club activated it before the deadline, Dortmund fans expect him to stay for 2026-27 -- still Dortmund. Sorloth: personal terms reportedly agreed with Juventus but no club-to-club fee accepted (Atletico asking EUR35-40m) -- still Ath Madrid, unconfirmed rumour only, not actioned. El Mala: Koln-Dortmund fee standoff continues (Koln demanding EUR50m+), no deal -- still FC Koln. Schick: no new transfer activity, contracted to 2030 -- still Leverkusen. Watkins: Fenerbahce interest continues but no signing/medical confirmed, contracted to 2028 -- still Aston Villa.",
         "not_checked": "earliest Best Picks fixture is 2026-08-19, ~16 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
+      },
+      {
+        "date": "2026-08-03 (pre-season data-readiness sweep)",
+        "scope": "targeted pass for major CONFIRMED within-league attacker moves completed AFTER the 2026-07-20 full sweep, ahead of the season openers (La Liga 15 Aug, PL/Ligue 1 21 Aug, Bundesliga 28 Aug)",
+        "clubs": "not club-by-club -- searched each league's confirmed 'done deals' for established attackers with top-flight Understat history whose move would otherwise land their shot rates at the wrong club",
+        "method": "web search per league; only within-league moves of players with real Understat history were actioned (cross-league arrivals have no history in the new league's feed and are invisible to props either way, so they are not overrides)",
+        "verified_by": "two independent sources or an official club announcement, per this file's standard",
+        "result": "TWO corrections applied. PL: Morgan Rogers Aston Villa -> Chelsea (record GBP117m, 22 Jul; ESPN + Sky + Chelsea official). LIGUE1: Matthis Abline Nantes -> Monaco (EUR25-30m, signed 30 Jul; Yahoo + Eurosport + official). Both are established scorers with Understat history, so without the override their rates would have shown at the old club. Spot-confirmed the live board's 8 players unchanged (see 2026-08-03T07:07Z sweep). Mason Greenwood (Marseille->Fenerbahce) already null; Emanuel Emegha (Strasbourg->Chelsea) already null.",
+        "not_checked": "NOT an exhaustive 76-club sweep. Squad players outside each club's top attackers, defenders/midfielders (negligible props impact), and cross-league arrivals were not individually re-verified. The window is open to ~1 Sep, so this is point-in-time; the daily ESPN roster sync still governs club membership, and the matchday-news task re-checks the live board each run."
       }
     ],
     "known_gaps": [
