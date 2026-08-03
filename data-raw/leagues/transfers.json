@@ -103,7 +103,8 @@
     "Bertug Yildirim": null,
     "Kendry Páez": null,
     "Himad Abdelli": "Marseille",
-    "Matthis Abline": "Monaco"
+    "Matthis Abline": "Monaco",
+    "Lassine Sinayoko": "Paris FC"
   },
   "_coverage": {
     "_why": "A single _verified_on date claims a completeness no sweep has ever achieved. It said 2026-07-18 on the day Mason Greenwood was published at Marseille four days after he signed for Fenerbahce -- the file was fresh and wrong. Coverage is per-sweep and partial; record it that way so the next reader knows what was NOT checked.",
@@ -246,13 +247,13 @@
         "not_checked": "earliest Best Picks fixture is 2026-08-19, ~16 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
       },
       {
-        "date": "2026-08-03 (pre-season data-readiness sweep)",
-        "scope": "targeted pass for major CONFIRMED within-league attacker moves completed AFTER the 2026-07-20 full sweep, ahead of the season openers (La Liga 15 Aug, PL/Ligue 1 21 Aug, Bundesliga 28 Aug)",
-        "clubs": "not club-by-club -- searched each league's confirmed 'done deals' for established attackers with top-flight Understat history whose move would otherwise land their shot rates at the wrong club",
-        "method": "web search per league; only within-league moves of players with real Understat history were actioned (cross-league arrivals have no history in the new league's feed and are invisible to props either way, so they are not overrides)",
+        "date": "2026-08-03 (pre-season data-readiness sweep, all four leagues)",
+        "scope": "confirmed ATTACKER moves completed AFTER the 2026-07-20 full sweep, ahead of the openers (La Liga 15 Aug, PL/Ligue 1 21 Aug, Bundesliga 28 Aug). Cross-checked each league's full transfer list against the CURRENT published data and the underlying player attribution.",
+        "clubs": "all four leagues reviewed via their comprehensive transfer lists (Wikipedia + targeted searches), then verified against actual data. KEY: the daily ESPN roster sync already drops every departed player cleanly (Griezmann, Bernardo Silva, Hojlund, Adeyemi all confirmed ABSENT from current data), so departures need no manual null. The residual risk is only WITHIN-LEAGUE attacker moves to clubs whose roster is INCOMPLETE (Ligue1: Lens/Lille/Monaco/Nice/Paris FC; LaLiga: Ath Bilbao/Celta/La Coruna/Racing Santander), where the sync cannot auto-reassign -- those need an override here.",
+        "method": "per-league transfer lists -> filter to attackers with real Understat history -> check current attribution in fetch_player_logs -> action only genuine within-league moves the roster sync could not fix. Cross-league arrivals (e.g. Gordon Newcastle->Barcelona, Adeyemi Dortmund->Barcelona) have no history in the destination league's feed and are invisible to props by design -- not overrides.",
         "verified_by": "two independent sources or an official club announcement, per this file's standard",
-        "result": "TWO corrections applied. PL: Morgan Rogers Aston Villa -> Chelsea (record GBP117m, 22 Jul; ESPN + Sky + Chelsea official). LIGUE1: Matthis Abline Nantes -> Monaco (EUR25-30m, signed 30 Jul; Yahoo + Eurosport + official). Both are established scorers with Understat history, so without the override their rates would have shown at the old club. Spot-confirmed the live board's 8 players unchanged (see 2026-08-03T07:07Z sweep). Mason Greenwood (Marseille->Fenerbahce) already null; Emanuel Emegha (Strasbourg->Chelsea) already null.",
-        "not_checked": "NOT an exhaustive 76-club sweep. Squad players outside each club's top attackers, defenders/midfielders (negligible props impact), and cross-league arrivals were not individually re-verified. The window is open to ~1 Sep, so this is point-in-time; the daily ESPN roster sync still governs club membership, and the matchday-news task re-checks the live board each run."
+        "result": "THREE corrections applied, all established scorers who would otherwise have shown at their old club. PL: Morgan Rogers Aston Villa -> Chelsea (GBP117m, 22 Jul; ESPN+Sky+official). LIGUE1: Matthis Abline Nantes -> Monaco (EUR25-30m, 30 Jul; Yahoo+Eurosport+official) and Lassine Sinayoko Auxerre -> Paris FC (EUR8m, 21 Jul; Yahoo+GFFN+WashPost official). Verified-correct-already: Issa Soumare->Rennes, Pablo Pagis->Paris FC, Junior Adamu->Schalke. Verified-handled-by-roster-sync: all major departures. Skipped as negligible: Kail Boudache Nice->Lyon (6 nineties of history, below any props bar; Lyon roster complete so the sync covers it anyway).",
+        "not_checked": "Squad depth players below top-attacker level, defenders/DMs/GKs (negligible props impact), and cross-league arrivals (invisible to props by design) were not individually actioned. The window is open to ~1 Sep, so this is point-in-time; the daily ESPN roster sync governs club membership and the matchday-news task re-checks the live board each run."
       }
     ],
     "known_gaps": [
