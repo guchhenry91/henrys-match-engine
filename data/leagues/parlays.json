@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-03T20:39:53.120482+00:00",
+  "updated": "2026-08-03T21:10:18.410983+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -39,7 +39,7 @@
           "tier": "Balanced four-fold",
           "note": "One leg from every league",
           "feat": true,
-          "combined": 0.3043,
+          "combined": 0.2694,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -62,14 +62,14 @@
               "date": "2026-08-19T09:00:00+00:00"
             },
             {
-              "selection": "Harry Kane 2+ shot attempts",
-              "match": "Bayern Munich v Stuttgart",
+              "selection": "Dortmund to win",
+              "match": "Dortmund v Hamburg",
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.779,
-              "id": "BUNDESLIGA#1#shots#Harry Kane",
-              "date": "2026-08-28T18:30:00+00:00"
+              "tag": "w",
+              "p": 0.6897,
+              "id": "BUNDESLIGA#9#w",
+              "date": "2026-08-29T16:30:00+00:00"
             },
             {
               "selection": "Paris SG to win",
@@ -86,20 +86,10 @@
         },
         {
           "tier": "Props treble",
-          "note": "Attempt \u00b7 on target \u00b7 goal player markets",
+          "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.3171,
+          "combined": 0.1334,
           "legs": [
-            {
-              "selection": "Harry Kane 2+ shot attempts",
-              "match": "Bayern Munich v Stuttgart",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.779,
-              "id": "BUNDESLIGA#1#shots#Harry Kane",
-              "date": "2026-08-28T18:30:00+00:00"
-            },
             {
               "selection": "Erling Haaland 2+ shot attempts",
               "match": "Manchester City v Bournemouth",
@@ -111,14 +101,24 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
-              "selection": "Serhou Guirassy to score",
-              "match": "Dortmund v Hamburg",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
+              "selection": "Alexander S\u00f8rloth to score",
+              "match": "Ath Madrid v Malaga",
+              "league": "La Liga",
+              "league_key": "LALIGA",
               "tag": "g",
-              "p": 0.53,
-              "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
-              "date": "2026-08-29T16:30:00+00:00"
+              "p": 0.433,
+              "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+              "date": "2026-08-19T09:00:00+00:00"
+            },
+            {
+              "selection": "Ollie Watkins to score",
+              "match": "Brighton v Aston Villa",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "g",
+              "p": 0.401,
+              "id": "PL#7#goal#Ollie Watkins",
+              "date": "2026-08-23T13:00:00+00:00"
             }
           ],
           "provisional": true
