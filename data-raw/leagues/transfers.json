@@ -232,6 +232,16 @@
         "verified_by": "agent web search, current reporting as of 2026-08-02 20:35 UTC",
         "result": "all 8 confirmed still at the club shown; no transfers.json changes required. Same unresolved sagas as the earlier 2026-08-02 sweeps, no material change: Sorloth-Juventus and Watkins-Fenerbahce both have personal terms agreed but no accepted club fee (still Atletico/Villa respectively); Guirassy-Dortmund fee gap unresolved; El Mala-Koln/Dortmund fee gap unresolved; Kane in Bayern extension talks; Haaland/Undav/Schick unchanged.",
         "not_checked": "earliest Best Picks fixture is 2026-08-19, ~17 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
+      },
+      {
+        "date": "2026-08-03T07:07Z",
+        "scope": "matchday-news board check (leagues-matchday-news task)",
+        "clubs": "n/a -- player-by-player check of player_picks.json board only",
+        "players": 8,
+        "method": "web search per distinct player on the live player_picks.json board: Harry Kane, Erling Haaland, Deniz Undav, Serhou Guirassy, Alexander Sorloth, Said El Mala, Patrik Schick, Ollie Watkins",
+        "verified_by": "agent web search, current reporting as of 2026-08-03",
+        "result": "all 8 confirmed still at the club shown; no transfers.json changes required. Kane: Bayern extension talks ongoing (through 2029), player 'very keen', no exit -- still Bayern Munich. Haaland: still linked with Real Madrid/PSG/Barcelona speculation but City insist he stays this summer, contracted through 2034 -- still Manchester City. Undav: extended at Stuttgart to 2029 (unchanged) -- still Stuttgart. Guirassy: release clause (~EUR35-50m for seven top clubs) expired unexercised, no club activated it before the deadline, Dortmund fans expect him to stay for 2026-27 -- still Dortmund. Sorloth: personal terms reportedly agreed with Juventus but no club-to-club fee accepted (Atletico asking EUR35-40m) -- still Ath Madrid, unconfirmed rumour only, not actioned. El Mala: Koln-Dortmund fee standoff continues (Koln demanding EUR50m+), no deal -- still FC Koln. Schick: no new transfer activity, contracted to 2030 -- still Leverkusen. Watkins: Fenerbahce interest continues but no signing/medical confirmed, contracted to 2028 -- still Aston Villa.",
+        "not_checked": "earliest Best Picks fixture is 2026-08-19, ~16 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
       }
     ],
     "known_gaps": [
