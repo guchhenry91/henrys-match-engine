@@ -172,6 +172,21 @@
     background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat .l{font-size:13px;color:var(--sub);font-weight:650;margin-top:4px}
   .note{font-size:12.5px;color:var(--sub);font-weight:600;text-align:center;padding:10px 24px 0;line-height:1.55}
+
+  /* calibration / reliability chart */
+  .cal{padding:8px 6px 4px;margin-bottom:8px}
+  .calrow{display:flex;align-items:center;gap:12px;padding:12px 14px}
+  .calrow+.calrow{border-top:1px solid var(--line)}
+  .calband{width:64px;flex:0 0 auto;font-size:13px;font-weight:750;color:var(--ink)}
+  .caln{font-size:10.5px;color:var(--sub);font-weight:650;display:block;margin-top:1px}
+  .caltrack{flex:1;position:relative;height:22px}
+  .caltrack .rail{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:4px;background:rgba(255,255,255,.08)}
+  .caltrack .expect{position:absolute;top:2px;bottom:2px;width:2px;background:var(--sub);border-radius:2px}
+  .caltrack .actual{position:absolute;top:0;height:22px;width:22px;margin-left:-11px;border-radius:50%;
+    background:linear-gradient(150deg,var(--cyan),var(--lime));box-shadow:0 0 10px rgba(55,230,216,.5);
+    display:grid;place-items:center;font-size:9px;font-weight:850;color:#05070f}
+  .callegend{display:flex;gap:16px;justify-content:center;padding:10px 4px 2px;font-size:11px;color:var(--sub);font-weight:650}
+  .callegend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
   .arch{text-align:center;padding:22px 10px 4px}
   .arch a{color:var(--sub);font-size:12px;font-weight:650;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
   .loading{text-align:center;padding:60px 0;color:var(--sub);font-weight:650}
@@ -379,6 +394,51 @@ function tierRow(label,sub,rec){const done=(rec&&rec.total)?`${rec.correct}–${
     <div class="info"><b>${esc(label)}</b><span>${esc(sub)}</span></div>
     <div class="conf"><b>${done}</b><span>${rec&&rec.total?Math.round(100*rec.correct/rec.total)+"%":"awaiting"}</span></div></div>`;
 }
+
+// Reliability / calibration: does a stated confidence actually match its real
+// hit rate? Confidence tiers (1-5) already map to fixed probability bands via
+// publish.py's _confidence(), and by_confidence already tracks correct/total
+// per tier on BOTH boards -- this is a pure display of data that already
+// exists, not a new measurement. Tiers are pooled across match-winner AND
+// player-prop picks: the question ("does the model's 70%+ actually land 70%+
+// of the time") is the same regardless of which board the pick came from.
+const CAL_BANDS=[
+  {tier:"1",label:"<40%",lo:33,hi:40},
+  {tier:"2",label:"40–50%",lo:40,hi:50},
+  {tier:"3",label:"50–60%",lo:50,hi:60},
+  {tier:"4",label:"60–70%",lo:60,hi:70},
+  {tier:"5",label:"70%+",lo:70,hi:95}];
+const calScale=v=>Math.max(0,Math.min(100,(v-30)/70*100));
+function combinedByConfidence(){
+  const out={};
+  [(DATA.best||{}).record, (DATA.player_picks||{}).record].forEach(rec=>{
+    const bc=(rec||{}).by_confidence||{};
+    Object.keys(bc).forEach(t=>{
+      const cur=out[t]||{correct:0,total:0};
+      out[t]={correct:cur.correct+(bc[t].correct||0), total:cur.total+(bc[t].total||0)};
+    });
+  });
+  return out;
+}
+function calibrationBlock(){
+  const bc=combinedByConfidence();
+  const rows=CAL_BANDS.map(b=>({...b, ...(bc[b.tier]||{correct:0,total:0})})).filter(r=>r.total>0);
+  if(!rows.length){
+    return `<div class="eyebrow mt">Calibration</div><div class="glass stat"><div class="k">—</div>
+      <div class="l">Fills in once picks settle: does a stated confidence actually land that often?</div></div>`;
+  }
+  const body=rows.map(r=>{const actual=100*r.correct/r.total, expect=(r.lo+r.hi)/2;
+    return `<div class="calrow"><div class="calband">${r.label}<span class="caln">n=${r.total}</span></div>
+      <div class="caltrack"><div class="rail"></div>
+        <div class="expect" style="left:${calScale(expect)}%"></div>
+        <div class="actual" style="left:${calScale(actual)}%" title="${Math.round(actual)}% actual">${Math.round(actual)}</div>
+      </div></div>`;}).join("");
+  return `<div class="eyebrow mt">Calibration · stated confidence vs. actual hit rate</div>
+    <div class="glass cal">${body}</div>
+    <div class="callegend"><span><i class="dot" style="background:var(--sub)"></i>model's stated confidence</span>
+      <span><i class="dot" style="background:linear-gradient(150deg,var(--cyan),var(--lime))"></i>actual result</span></div>
+    <p class="note">If the dot sits near the grey tick, a stated confidence means what it says. Off to the right = the model is underselling itself; off to the left = overconfident.</p>`;
+}
 function viewGrades(){
   const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
   const br=best.record||{correct:0,wrong:0,total:0};
@@ -392,6 +452,7 @@ function viewGrades(){
     ${tierRow("Player · On target","Shots on target",rbm.sot)}
     ${tierRow("Parlays","All-or-nothing accas",par.record)}</div>`;
   h+=`<p class="note">Every pick locks before kickoff and is graded against the frozen call — never re-scored with hindsight. Each market, and the parlays, are scored on their own.</p>`;
+  h+=calibrationBlock();
   return h+archiveLink();
 }
 
