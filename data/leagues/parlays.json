@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-04T09:10:22.753056+00:00",
+  "updated": "2026-08-04T09:31:46.404348+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -39,17 +39,17 @@
           "tier": "Balanced four-fold",
           "note": "One leg from every league",
           "feat": true,
-          "combined": 0.2693,
+          "combined": 0.2759,
           "legs": [
             {
-              "selection": "Arsenal to win",
-              "match": "Arsenal v Coventry",
+              "selection": "Erling Haaland 2+ shot attempts",
+              "match": "Manchester City v Bournemouth",
               "league": "Premier League",
               "league_key": "PL",
-              "tag": "w",
-              "p": 0.7741,
-              "id": "PL#1#w",
-              "date": "2026-08-21T19:00:00+00:00"
+              "tag": "a",
+              "p": 0.793,
+              "id": "PL#8#shots#Erling Haaland",
+              "date": "2026-08-23T13:00:00+00:00"
             },
             {
               "selection": "Ath Madrid to win",
@@ -88,7 +88,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1334,
+          "combined": 0.2489,
           "legs": [
             {
               "selection": "Erling Haaland 2+ shot attempts",
@@ -96,7 +96,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "a",
-              "p": 0.768,
+              "p": 0.793,
               "id": "PL#8#shots#Erling Haaland",
               "date": "2026-08-23T13:00:00+00:00"
             },
@@ -111,14 +111,14 @@
               "date": "2026-08-19T09:00:00+00:00"
             },
             {
-              "selection": "Ollie Watkins to score",
-              "match": "Brighton v Aston Villa",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "g",
-              "p": 0.401,
-              "id": "PL#7#goal#Ollie Watkins",
-              "date": "2026-08-23T13:00:00+00:00"
+              "selection": "Vin\u00edcius J\u00fanior 2+ shot attempts",
+              "match": "Real Madrid v Sociedad",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.725,
+              "id": "LALIGA#8#shots#Vin\u00edcius J\u00fanior",
+              "date": "2026-08-26T09:00:00+00:00"
             }
           ],
           "provisional": true
@@ -133,8 +133,18 @@
           "tier": "PL Banker",
           "note": "Two safest Premier League calls",
           "feat": false,
-          "combined": 0.5945,
+          "combined": 0.6139,
           "legs": [
+            {
+              "selection": "Erling Haaland 2+ shot attempts",
+              "match": "Manchester City v Bournemouth",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "a",
+              "p": 0.793,
+              "id": "PL#8#shots#Erling Haaland",
+              "date": "2026-08-23T13:00:00+00:00"
+            },
             {
               "selection": "Arsenal to win",
               "match": "Arsenal v Coventry",
@@ -144,16 +154,6 @@
               "p": 0.7741,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
-            },
-            {
-              "selection": "Erling Haaland 2+ shot attempts",
-              "match": "Manchester City v Bournemouth",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.768,
-              "id": "PL#8#shots#Erling Haaland",
-              "date": "2026-08-23T13:00:00+00:00"
             }
           ],
           "provisional": true
@@ -162,8 +162,18 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.2384,
+          "combined": 0.2462,
           "legs": [
+            {
+              "selection": "Erling Haaland 2+ shot attempts",
+              "match": "Manchester City v Bournemouth",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "a",
+              "p": 0.793,
+              "id": "PL#8#shots#Erling Haaland",
+              "date": "2026-08-23T13:00:00+00:00"
+            },
             {
               "selection": "Arsenal to win",
               "match": "Arsenal v Coventry",
@@ -173,16 +183,6 @@
               "p": 0.7741,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
-            },
-            {
-              "selection": "Erling Haaland 2+ shot attempts",
-              "match": "Manchester City v Bournemouth",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.768,
-              "id": "PL#8#shots#Erling Haaland",
-              "date": "2026-08-23T13:00:00+00:00"
             },
             {
               "selection": "Ollie Watkins to score",
