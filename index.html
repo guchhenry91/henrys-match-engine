@@ -223,6 +223,33 @@ function figFor(p){
 
 const DATA={};
 let cur="today", filter="all";
+let FRESH={stale:false, text:""};
+
+const relAge=h=>h<1?"moments ago":h<24?Math.round(h)+"h ago":Math.round(h/24)+"d ago";
+function computeFreshness(){
+  const stamps=[];
+  ["best","player_picks","parlays","pl","laliga","bundesliga","ligue1"].forEach(n=>{
+    const u=(DATA[n]||{}).updated; if(u){const t=new Date(u); if(!isNaN(t)) stamps.push(+t);}});
+  if(!stamps.length) return {stale:false, text:""};
+  const ageH=(Date.now()-Math.max(...stamps))/36e5;
+  // soonest upcoming fixture across leagues -> is this an active window?
+  let soonest=Infinity;
+  ["pl","laliga","bundesliga","ligue1"].forEach(k=>((DATA[k]||{}).matches||[]).forEach(m=>{
+    if(!m.result){const d=new Date(m.date); if(!isNaN(d)) soonest=Math.min(soonest,(+d-Date.now())/36e5);}}));
+  // When a fixture is within 3 days the pipeline refreshes often, so data should
+  // be fresh (warn at 14h). In a quiet stretch it legitimately doesn't republish,
+  // so only warn once genuinely abandoned (5 days).
+  const limit = soonest<=72 ? 14 : 120;
+  return {stale: ageH>limit, text: relAge(ageH), ageH};
+}
+function updateLivePill(){
+  const el=document.getElementById("live"); if(!el) return;
+  if(FRESH.stale){el.textContent="⚠ "+FRESH.text;
+    el.style.color="var(--amber)"; el.style.borderColor="rgba(255,207,92,.4)"; el.style.background="rgba(255,207,92,.1)";}
+  else {el.textContent="● Live"; el.style.color=""; el.style.borderColor=""; el.style.background="";}
+}
+function staleBanner(){return FRESH.stale
+  ? `<div class="glass warnbox">Predictions last updated ${FRESH.text}. The live feed may be catching up — treat these as provisional until it refreshes.</div>` : "";}
 
 async function boot(){
   const names=["best","player_picks","parlays","pl","laliga","bundesliga","ligue1"];
@@ -230,6 +257,7 @@ async function boot(){
     try{const r=await fetch(`data/leagues/${n}.json`,{cache:"no-cache"});DATA[n]=r.ok?await r.json():null;}
     catch(e){DATA[n]=null;}
   }));
+  FRESH=computeFreshness(); updateLivePill();
   buildNav(); render("today");
 }
 
@@ -266,7 +294,7 @@ function render(k){
   else if(k==="tables") h=viewTables();
   else if(k==="grades") h=viewGrades();
   else h=viewLeague(k);
-  app.innerHTML=h;window.scrollTo(0,0);
+  app.innerHTML=staleBanner()+h;window.scrollTo(0,0);
 }
 
 function viewToday(){

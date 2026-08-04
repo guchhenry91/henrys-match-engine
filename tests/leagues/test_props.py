@@ -266,3 +266,25 @@ def test_unmodeled_absentee_positions_flags_defenders_and_keepers_only():
     both = props.unmodeled_absentee_positions(r, "A", {"CenterBack", "Keeper", "Striker"})
     assert both == ["CenterBack", "Keeper"]
     assert props.unmodeled_absentee_positions(r, "A", set()) == []
+
+
+def test_shot_props_are_venue_aware():
+    """Home sides shoot more. Two identical strikers, one home one away, in the
+    same balanced fixture must get DIFFERENT shot/SOT projections (home higher),
+    while the goalscorer market -- which flows through the venue-aware lambda --
+    is unaffected by this multiplier."""
+    r = pd.DataFrame([
+        {"team": "H", "player": "Hstriker", "pos": "FW", "nineties": 10.0,
+         "rate90": 0.5, "shots90": 3.0, "sot_ratio": 0.35},
+        {"team": "A", "player": "Astriker", "pos": "FW", "nineties": 10.0,
+         "rate90": 0.5, "shots90": 3.0, "sot_ratio": 0.35}])
+    out = props.match_props(r, "H", "A", 1.5, 1.5)   # symmetric lambdas, no opp factor
+    h = next(p for p in out if p["player"] == "Hstriker")
+    a = next(p for p in out if p["player"] == "Astriker")
+    assert h["exp_shots"] > a["exp_shots"]           # home shoots more
+    assert h["exp_sot"] > a["exp_sot"]
+    # ratio matches the symmetric factor (home x / away /x); loose tolerance
+    # because the published figures are rounded to 2 dp.
+    assert h["exp_shots"] / a["exp_shots"] == pytest.approx(props.HOME_SHOT_FACTOR ** 2, rel=0.02)
+    # goalscorer market untouched by the shot venue multiplier (same lambda both)
+    assert h["anytime_pct"] == pytest.approx(a["anytime_pct"], abs=0.1)

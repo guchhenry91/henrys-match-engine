@@ -20,6 +20,15 @@ GOAL_PRIORS = {"FW": 0.45, "AM": 0.20, "MF": 0.10, "DF": 0.05, "GK": 0.001}
 SHOT_PRIORS = {"FW": 2.5, "AM": 1.4, "MF": 0.9, "DF": 0.4, "GK": 0.02}
 SOT_RATIO_PRIOR = 0.35
 SOT_PRIOR_SHOTS = 10.0    # shrinkage strength for the on-target ratio, in shots
+# Home sides take on the order of ~10-15% more shots than away sides across the
+# top leagues. Applied SYMMETRICALLY to a player's shot budget (home x, away 1/x)
+# so a fixture's total shot volume barely moves but home/away players stop being
+# projected identically. Deliberately conservative (below the observed range) for
+# the same asymmetric-risk reason as ABSENCE_GOAL_COST: over-reacting on a market
+# published at a 0.70 bar is worse than under-reacting. Provisional -- worth
+# measuring from the shot feed later; today's value removes a directional bias,
+# it doesn't claim to be exact.
+HOME_SHOT_FACTOR = 1.08
 
 SEASON_DECAY = 0.7        # alpha ^ (seasons ago)
 K_NINETIES = 7.0          # empirical-Bayes strength, in 90s
@@ -185,7 +194,17 @@ def match_props(rates: pd.DataFrame, home: str, away: str,
         # total_raw > 0 whenever any player has minutes (rate90 is shrunk toward a
         # strictly positive prior), but guard the division regardless.
         scale = (lam_open / total_raw) if total_raw > 0 else 0.0
-        factor = float(opp_shot_factor.get(team, 1.0))
+        # Home sides take meaningfully more shots than away sides in the same
+        # matchup. The goalscorer market inherits that venue effect through the
+        # match lambda (which IS venue-aware), but the shot / shot-on-target
+        # markets are built from season shot rates and only saw opp_shot_factor --
+        # an opponent AGGREGATE, not venue-split -- so without this they were
+        # identical home or away, systematically understating home players and
+        # overstating away ones. Fold a modest, symmetric venue multiplier into
+        # the shot budget so the two shot markets are venue-aware too. Conservative
+        # and provisional (see HOME_SHOT_FACTOR); goals are untouched.
+        venue = HOME_SHOT_FACTOR if team == home else 1.0 / HOME_SHOT_FACTOR
+        factor = float(opp_shot_factor.get(team, 1.0)) * venue
 
         for _, r in squad.iterrows():
             lam_goals = float(r["raw"]) * scale
