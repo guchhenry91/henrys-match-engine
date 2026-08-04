@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-04T09:31:46.404348+00:00",
+  "updated": "2026-08-04T09:41:59.711167+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -88,7 +88,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.2489,
+          "combined": 0.2294,
           "legs": [
             {
               "selection": "Erling Haaland 2+ shot attempts",
@@ -101,6 +101,16 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
+              "selection": "Thiago 1+ shot on target",
+              "match": "Brentford v Tottenham",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.668,
+              "id": "PL#6#sot#Thiago",
+              "date": "2026-08-22T16:30:00+00:00"
+            },
+            {
               "selection": "Alexander S\u00f8rloth to score",
               "match": "Ath Madrid v Malaga",
               "league": "La Liga",
@@ -109,16 +119,6 @@
               "p": 0.433,
               "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
               "date": "2026-08-19T09:00:00+00:00"
-            },
-            {
-              "selection": "Vin\u00edcius J\u00fanior 2+ shot attempts",
-              "match": "Real Madrid v Sociedad",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "a",
-              "p": 0.725,
-              "id": "LALIGA#8#shots#Vin\u00edcius J\u00fanior",
-              "date": "2026-08-26T09:00:00+00:00"
             }
           ],
           "provisional": true
@@ -162,7 +162,7 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.2462,
+          "combined": 0.4101,
           "legs": [
             {
               "selection": "Erling Haaland 2+ shot attempts",
@@ -185,14 +185,14 @@
               "date": "2026-08-21T19:00:00+00:00"
             },
             {
-              "selection": "Ollie Watkins to score",
-              "match": "Brighton v Aston Villa",
+              "selection": "Thiago 1+ shot on target",
+              "match": "Brentford v Tottenham",
               "league": "Premier League",
               "league_key": "PL",
-              "tag": "g",
-              "p": 0.401,
-              "id": "PL#7#goal#Ollie Watkins",
-              "date": "2026-08-23T13:00:00+00:00"
+              "tag": "o",
+              "p": 0.668,
+              "id": "PL#6#sot#Thiago",
+              "date": "2026-08-22T16:30:00+00:00"
             }
           ],
           "provisional": true
