@@ -59,14 +59,21 @@ BEST_PICK_MIN_PROB = 0.65
 MIN_SQUAD_FOR_PROPS = 6
 # The bar for the cross-league player board, PER MARKET -- the markets have very
 # different ceilings and a single number cannot serve all three.
-#   shots/sot at 0.70 is the requested bar and is comfortably reachable.
-#   goal CANNOT be: anytime scorer tops out around 50% for an elite striker in a
-#   great matchup (the best in all four leagues today is 50.8%), because a team
+#   shots (2+ shot attempts) at 0.70 is reachable by a good slice of forwards.
+#   sot (1+ shot on target) is a HARDER market than 2+ shots: clearing 70% needs
+#     ~1.2 expected shots on target, which basically only an elite-volume shooter
+#     reaches, so a 0.70 bar published a one-name board (just Haaland) while genuine
+#     candidates -- Vinicius, Thiago, Semenyo -- sat in the high 60s. That is the
+#     same "bar sits at the market ceiling -> near-empty section" failure the
+#     goalscorer bar was lowered to avoid, so sot is set to 0.62 to select a
+#     comparable top slice instead of a single outlier.
+#   goal CANNOT be 0.70: anytime scorer tops out around 50% for an elite striker in
+#   a great matchup (the best in all four leagues today is 50.8%), because a team
 #   only scores ~1.5 goals and one man takes a fraction of them. A 0.70 bar would
 #   leave the goalscorer section permanently EMPTY, so it is set at the level that
 #   selects a comparable top slice. Every card publishes its own probability, so
 #   nothing here is presented as more certain than it is.
-PLAYER_PICK_MIN_PROB = {"goal": 0.40, "shots": 0.70, "sot": 0.70}
+PLAYER_PICK_MIN_PROB = {"goal": 0.40, "shots": 0.70, "sot": 0.62}
 PROP_FIELD = {"goal": "anytime_pct", "shots": "p_shots_2plus", "sot": "p_sot_1plus"}
 
 
