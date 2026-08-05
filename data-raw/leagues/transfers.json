@@ -254,6 +254,16 @@
         "verified_by": "two independent sources or an official club announcement, per this file's standard",
         "result": "THREE corrections applied, all established scorers who would otherwise have shown at their old club. PL: Morgan Rogers Aston Villa -> Chelsea (GBP117m, 22 Jul; ESPN+Sky+official). LIGUE1: Matthis Abline Nantes -> Monaco (EUR25-30m, 30 Jul; Yahoo+Eurosport+official) and Lassine Sinayoko Auxerre -> Paris FC (EUR8m, 21 Jul; Yahoo+GFFN+WashPost official). Verified-correct-already: Issa Soumare->Rennes, Pablo Pagis->Paris FC, Junior Adamu->Schalke. Verified-handled-by-roster-sync: all major departures. Skipped as negligible: Kail Boudache Nice->Lyon (6 nineties of history, below any props bar; Lyon roster complete so the sync covers it anyway).",
         "not_checked": "Squad depth players below top-attacker level, defenders/DMs/GKs (negligible props impact), and cross-league arrivals (invisible to props by design) were not individually actioned. The window is open to ~1 Sep, so this is point-in-time; the daily ESPN roster sync governs club membership and the matchday-news task re-checks the live board each run."
+      },
+      {
+        "date": "2026-08-05T10:17Z",
+        "scope": "matchday-news board check (leagues-matchday-news task)",
+        "clubs": "n/a -- player-by-player check of player_picks.json board only",
+        "players": 12,
+        "method": "web search per distinct player on the live player_picks.json board: Harry Kane, Erling Haaland, Antoine Semenyo, Vinicius Junior, Deniz Undav, Michael Olise, Serhou Guirassy, Igor Thiago, Alexander Sorloth, Said El Mala, Patrik Schick, Ollie Watkins",
+        "verified_by": "agent web search, current reporting as of 2026-08-05",
+        "result": "all 12 confirmed still at the club shown; no transfers.json changes required. First check of Michael Olise (Bayern CEO publicly denied Real Madrid contact, no offers received, 3 years left on contract) and re-check of Antoine Semenyo (confirmed his Bournemouth->Man City move completed back in January 2026 for ~GBP62.5-65m -- the existing PL override is correct and long-settled, not a live rumour). Unresolved sagas unchanged from prior sweeps, none completed: Guirassy-Fenerbahce fee gap (Fenerbahce ~EUR35m vs Dortmund wanting more) still Dortmund; Sorloth-Juventus personal terms agreed but fee unresolved (Atletico EUR35-40m ask vs Juventus EUR30m) still Ath Madrid; El Mala-Dortmund fee standoff (Koln EUR50m+ vs Dortmund ~EUR40m package), Dortmund reportedly backing off, still FC Koln; Watkins-Fenerbahce fee gap (EUR35m ask vs EUR25m offer), Watkins' agent says no talks until after World Cup, still Aston Villa; Vinicius Jr given a Real Madrid ultimatum (sign extension or be sold, Arsenal interested at EUR150-170m) but no transfer agreed, still Real Madrid. Kane (Bayern extension talks resuming after Aug 8 Asia tour return), Haaland (City firm he stays, contracted to 2034), Undav (extended to 2029, settled), Igor Thiago (extended to 2031, Man Utd interest persists), Schick (extended to 2030, Besiktas renewed interest) all unchanged.",
+        "not_checked": "earliest Best Picks fixture is 2026-08-19, ~14 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
       }
     ],
     "known_gaps": [
