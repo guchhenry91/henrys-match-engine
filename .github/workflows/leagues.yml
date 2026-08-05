@@ -133,6 +133,20 @@ jobs:
       - name: Run tests
         run: python -m pytest tests/ -q
 
+      # Sends each pick to Telegram exactly ONCE, the run it first locks (see
+      # scripts/telegram_picks.py) -- not fresh spam every 30-minute republish.
+      # Runs BEFORE the commit step deliberately: it writes which picks it sent
+      # to data-raw/leagues/telegram_sent.json, and that file must be swept into
+      # THIS run's commit below or the dedup memory never reaches the repo --
+      # the next scheduled run starts from a fresh checkout and would resend
+      # everything already sent. Never fails the job (see the script itself);
+      # a Telegram outage must not block publishing.
+      - name: Send newly-locked picks to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python -m scripts.telegram_picks
+
       - name: Commit refreshed league data
         id: commit
         run: |
