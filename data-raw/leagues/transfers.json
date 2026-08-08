@@ -25,7 +25,12 @@
     "Marc Guehi": "Manchester City",
     "Adama Traoré": "West Ham",
     "Hamed Junior Traore": null,
-    "Morgan Rogers": "Chelsea"
+    "Morgan Rogers": "Chelsea",
+    "Odsonne Edouard": null,
+    "Idrissa Gueye": null,
+    "Naif Aguerd": null,
+    "Guido Rodríguez": null,
+    "Angel Gomes": null
   },
   "LALIGA": {
     "Robert Lewandowski": null,
@@ -37,7 +42,10 @@
     "Morales": null,
     "Adnan Januzaj": null,
     "Víctor Muñoz": null,
-    "Yan Diomande": null
+    "Yan Diomande": null,
+    "Sheraldo Becker": null,
+    "Conor Gallagher": null,
+    "Yeremi Pino": null
   },
   "BUNDESLIGA": {
     "Samuel Essende": null,
@@ -61,7 +69,11 @@
     "Victor Boniface": "Leverkusen",
     "Julian Brandt": null,
     "Johan Manzambi": null,
-    "Oscar Fraulo": null
+    "Oscar Fraulo": null,
+    "Piero Hincapié": null,
+    "Xavi Simons": null,
+    "Pascal Groß": null,
+    "Arnaud Nordin": null
   },
   "LIGUE1": {
     "Sidiki Chérif": null,
@@ -107,7 +119,14 @@
     "Kendry Páez": null,
     "Himad Abdelli": "Marseille",
     "Matthis Abline": "Monaco",
-    "Lassine Sinayoko": "Paris FC"
+    "Lassine Sinayoko": "Paris FC",
+    "Ethan Nwaneri": null,
+    "Idrissa Gueye": null,
+    "Matt O'Riley": null,
+    "Marshall Munetsi": null,
+    "Ben Seghir": null,
+    "Fabian Rieder": null,
+    "Badredine Bouanani": null
   },
   "_coverage": {
     "_why": "A single _verified_on date claims a completeness no sweep has ever achieved. It said 2026-07-18 on the day Mason Greenwood was published at Marseille four days after he signed for Fenerbahce -- the file was fresh and wrong. Coverage is per-sweep and partial; record it that way so the next reader knows what was NOT checked.",
@@ -285,6 +304,14 @@
         "verified_by": "two independent sources or official club announcement, per this file standard",
         "result": "Vinicius Jr independently re-confirmed still Real Madrid (new contract to 2032, ESPN/Sky/Yahoo). ONE correction found and applied: Nathaniel Brown, Eintracht Frankfurt -> Bayern Munich (EUR55m, officially confirmed 29 Jul; Get German Football News + Bundesliga.com + FC Bayern official), still misattributed to Frankfurt in Understat-derived data (defender, low props relevance but corrected for roster accuracy). All other board players (Kane, Haaland, Semenyo, Undav, Olise, Guirassy, Thiago, Mbappe) confirmed current, matching the automated sweeps two and five days prior.",
         "not_checked": "not an exhaustive 76-club sweep; focused on the live board plus one general done-deals scan. Window is open to 1 Sep."
+      },
+      {
+        "date": "2026-08-08 (systematic cross-league duplicate scan, all four leagues)",
+        "scope": "programmatic scan for every player showing a CURRENT (most recent season) attribution in 2+ leagues simultaneously -- the exact class of bug a user manually caught (Yan Diomande, Leganes+RB Leipzig at once). Not a per-club sweep; a structural check across all ~5,200 tracked player-season rows.",
+        "method": "compared each league fetch_player_logs latest-season attribution across all four; 39 players showed a same-season conflict. Verified 19 by two independent sources or official announcement per this file standard; applied a null override on the STALE side (confirmed by transfer date/permanence) for each, so shot-share history stops surfacing at the wrong club.",
+        "verified_by": "two independent sources or official club announcement, per this file standard",
+        "result": "19 confirmed and corrected. Notable: Idrissa Gueye was appearing current in BOTH PL and LIGUE1 but has actually left for Al-Diriyah (Saudi Pro League), outside all four tracked leagues -- nulled from both. Several were loan-then-returned cases (Nwaneri, O'Riley, Munetsi) where the loan spell's data was stale after the loan ended/was terminated. Explicitly NOT resolved: Claudio Echeverri (LALIGA:Girona vs BUNDESLIGA:Leverkusen) -- a loan-of-a-loan (Man City parent club) with no confirmed 2026-27 destination found; left as-is rather than guess.",
+        "not_checked": "20 of the 39 flagged conflicts remain individually unverified (Aaron Anselmino, Arthur Masuaku, Christantus Uche, Diego Coppola, Dro Fernandez, Fernando Lopez, Jaydee Canvot, Jenson Seelt, Jonah Kusi-Asare, Justin-Noel Kalumba, Ladislav Krejci, Luca Koleosho, Luca Netz, Mamadou Sarr, Merlin Rohl, Sael Kumbedi, Stanis Idumbo Muzambo, Ugo Raghouber, Adam Aznou, Aaron Ramsey, Abdou Diallo, Abduqodir Khusanov, Abner, Adama Traore, Ademola Lookman, Adrien Truffert, Ainsley Maitland-Niles, Aissa Mandi, Akor Adams, Albert Gronbak, Albert Sambi Lokonga, Aleix Garcia, Alejo Veliz, Alex Kral, Alex Telles, Alexander Isak, Alexander Nubel, Alexander Sorloth). Most are lower-profile squad players; the scan is reproducible (leagues/players.py fetch_player_logs, compare latest-season team per league) for a future pass."
       }
     ],
     "known_gaps": [
