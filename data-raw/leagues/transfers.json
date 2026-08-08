@@ -51,6 +51,7 @@
     "Haris Tabakovic": null,
     "Nelson Weiper": null,
     "Armindo Sieb": "Bayern Munich",
+    "Nathaniel Brown": "Bayern Munich",
     "Loïs Openda": null,
     "Timo Werner": null,
     "Nick Woltemade": null,
@@ -274,6 +275,14 @@
         "verified_by": "agent web search, current reporting as of 2026-08-08",
         "result": "all 9 confirmed still at the club shown; no transfers.json changes required. Kane: Bayern formally opened extension talks in early August, both sides expecting a deal through 2029, no exit -- still Bayern Munich. Haaland: still linked with Real Madrid speculation but City firm he is not for sale this summer, focused on the World Cup -- still Manchester City. Mbappe: no credible exit reports, long-term Inter Miami speculation only, contracted to 2029 -- still Real Madrid. Semenyo: Jan 2026 Man City move long-settled, no new activity -- still Manchester City. Vinicius Jr: has now agreed a new Real Madrid contract to 2032, ending the Arsenal-linked uncertainty from prior sweeps -- still Real Madrid, saga resolved in the club's favor. Undav: extended at Stuttgart to 2029 (unchanged, finalized in May) -- still Stuttgart. Olise: Bayern CEO again denied Real Madrid contact, no transfer request from the player, contracted to 2029 -- still Bayern Munich. Guirassy: wants to leave and has interest from Fenerbahce/Man City/Liverpool/Arsenal/Barcelona, but no fee agreed and Dortmund says 'not our plan to let him go' -- still Dortmund, unconfirmed rumour only, not actioned. Igor Thiago: Man Utd and Chelsea have made informal contact but Brentford has no intention of selling and the player wants to stay -- still Brentford, unconfirmed rumour only, not actioned.",
         "not_checked": "earliest Best Picks fixture is 2026-08-19, ~11 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
+      },
+      {
+        "date": "2026-08-08 (full transfer verification sweep, all four leagues)",
+        "scope": "independent re-verification of the live board (12 players) plus a broader done-deals check for major moves not yet on the board",
+        "method": "web search per board player, cross-checked against the local matchday-news sweeps from 08-05 and 08-08 (agreement found); plus a general done-deals search for confirmed transfers across all four leagues this week",
+        "verified_by": "two independent sources or official club announcement, per this file standard",
+        "result": "Vinicius Jr independently re-confirmed still Real Madrid (new contract to 2032, ESPN/Sky/Yahoo). ONE correction found and applied: Nathaniel Brown, Eintracht Frankfurt -> Bayern Munich (EUR55m, officially confirmed 29 Jul; Get German Football News + Bundesliga.com + FC Bayern official), still misattributed to Frankfurt in Understat-derived data (defender, low props relevance but corrected for roster accuracy). All other board players (Kane, Haaland, Semenyo, Undav, Olise, Guirassy, Thiago, Mbappe) confirmed current, matching the automated sweeps two and five days prior.",
+        "not_checked": "not an exhaustive 76-club sweep; focused on the live board plus one general done-deals scan. Window is open to 1 Sep."
       }
     ],
     "known_gaps": [
