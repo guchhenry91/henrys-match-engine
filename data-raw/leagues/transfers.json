@@ -30,7 +30,9 @@
     "Idrissa Gueye": null,
     "Naif Aguerd": null,
     "Guido Rodríguez": null,
-    "Angel Gomes": null
+    "Angel Gomes": null,
+    "Christantus Uche": null,
+    "Diego Coppola": null
   },
   "LALIGA": {
     "Robert Lewandowski": null,
@@ -45,7 +47,13 @@
     "Yan Diomande": null,
     "Sheraldo Becker": null,
     "Conor Gallagher": null,
-    "Yeremi Pino": null
+    "Yeremi Pino": null,
+    "Dro Fernández": null,
+    "Fernando López": null,
+    "Luca Koleosho": null,
+    "Stanis Idumbo Muzambo": null,
+    "Ugo Raghouber": null,
+    "Ladislav Krejcí": null
   },
   "BUNDESLIGA": {
     "Samuel Essende": null,
@@ -73,7 +81,12 @@
     "Piero Hincapié": null,
     "Xavi Simons": null,
     "Pascal Groß": null,
-    "Arnaud Nordin": null
+    "Arnaud Nordin": null,
+    "Aaron Anselmino": null,
+    "Jenson Seelt": null,
+    "Jonah Kusi-Asare": null,
+    "Luca Netz": null,
+    "Merlin Röhl": null
   },
   "LIGUE1": {
     "Sidiki Chérif": null,
@@ -126,7 +139,16 @@
     "Marshall Munetsi": null,
     "Ben Seghir": null,
     "Fabian Rieder": null,
-    "Badredine Bouanani": null
+    "Badredine Bouanani": null,
+    "Aaron Anselmino": null,
+    "Arthur Masuaku": null,
+    "Dilane Bakwa": null,
+    "Jaydee Canvot": null,
+    "Justin-Noel Kalumba": null,
+    "Mamadou Sarr": null,
+    "Sael Kumbedi": null,
+    "Simon Adingra": null,
+    "Ugo Raghouber": null
   },
   "_coverage": {
     "_why": "A single _verified_on date claims a completeness no sweep has ever achieved. It said 2026-07-18 on the day Mason Greenwood was published at Marseille four days after he signed for Fenerbahce -- the file was fresh and wrong. Coverage is per-sweep and partial; record it that way so the next reader knows what was NOT checked.",
@@ -312,6 +334,14 @@
         "verified_by": "two independent sources or official club announcement, per this file standard",
         "result": "19 confirmed and corrected. Notable: Idrissa Gueye was appearing current in BOTH PL and LIGUE1 but has actually left for Al-Diriyah (Saudi Pro League), outside all four tracked leagues -- nulled from both. Several were loan-then-returned cases (Nwaneri, O'Riley, Munetsi) where the loan spell's data was stale after the loan ended/was terminated. Explicitly NOT resolved: Claudio Echeverri (LALIGA:Girona vs BUNDESLIGA:Leverkusen) -- a loan-of-a-loan (Man City parent club) with no confirmed 2026-27 destination found; left as-is rather than guess.",
         "not_checked": "20 of the 39 flagged conflicts remain individually unverified (Aaron Anselmino, Arthur Masuaku, Christantus Uche, Diego Coppola, Dro Fernandez, Fernando Lopez, Jaydee Canvot, Jenson Seelt, Jonah Kusi-Asare, Justin-Noel Kalumba, Ladislav Krejci, Luca Koleosho, Luca Netz, Mamadou Sarr, Merlin Rohl, Sael Kumbedi, Stanis Idumbo Muzambo, Ugo Raghouber, Adam Aznou, Aaron Ramsey, Abdou Diallo, Abduqodir Khusanov, Abner, Adama Traore, Ademola Lookman, Adrien Truffert, Ainsley Maitland-Niles, Aissa Mandi, Akor Adams, Albert Gronbak, Albert Sambi Lokonga, Aleix Garcia, Alejo Veliz, Alex Kral, Alex Telles, Alexander Isak, Alexander Nubel, Alexander Sorloth). Most are lower-profile squad players; the scan is reproducible (leagues/players.py fetch_player_logs, compare latest-season team per league) for a future pass."
+      },
+      {
+        "date": "2026-08-08 (round 2: agent + self split of remaining 19 conflicts)",
+        "scope": "parallel verification of the 21 same-season cross-league conflicts still open after the first correction pass -- one general-purpose agent took 10, I took 9 (plus one previously-verified fix that was missed: Dilane Bakwa).",
+        "method": "two independent sources or official club announcement per player, per this file standard",
+        "verified_by": "agent web search + direct web search, two independent sources or official announcement",
+        "result": "19 confirmed and corrected. Two more Diomande-pattern cases found (neither existing attribution correct): Aaron Anselmino has actually returned to parent club Chelsea (outside all four tracked leagues, no new destination confirmed as of 8 Aug) -- nulled from both Dortmund and Strasbourg. Ugo Raghouber was sold by Lille to Burnley (PL) on 28 Jul, untrackable cross-league since his history is all LALIGA/LIGUE1 -- nulled from both Levante and Lille. Several were loan-option-not-triggered cases where the player simply returned to his PL parent club (Uche, Lopez, Seelt, Masuaku, Adingra) rather than the option being exercised.",
+        "not_checked": "Claudio Echeverri remains explicitly unresolved (see prior sweep entry) -- no confirmed 2026-27 destination found."
       }
     ],
     "known_gaps": [
