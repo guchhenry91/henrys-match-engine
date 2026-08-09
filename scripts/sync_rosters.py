@@ -171,25 +171,40 @@ def main():
         if not due:
             print("API-Football rosters are fresh; no quota used")
             return 0
+        # Per-league, not one try/except around the whole loop: one club's name
+        # unmapped in ONE league used to raise mid-loop and discard every league
+        # already fetched successfully in the same run (observed: PL fetched fine,
+        # Bundesliga then raised on an unmapped club, and the handler fell back to
+        # ESPN for all four -- throwing away the good PL fetch too). Each league's
+        # failure now falls back to ESPN for THAT league alone, and a league that
+        # fails both sources simply keeps its previous data untouched.
         client = Client(limit=45)
-        try:
-            for key in due:
+        failed = []
+        for key in due:
+            try:
                 payload[key] = fetch_api_league(client, key)
                 payload["_league_verified_at"][key] = now.isoformat()
                 print(f"{key}: {len(payload[key])} clubs refreshed from API-Football")
-        except Exception as exc:
-            # API-Football failed. Rather than sit on a possibly-stale snapshot,
-            # fall back to ESPN's free feed -- it needs no paid plan and covers
-            # the current season, which the free API-Football plan does not. This
-            # is the difference between a genuine fallback and an either/or: the
-            # ESPN path used to be reachable ONLY when no key was set, so a broken
-            # key silently froze the roster audit (observed: 9 days stale on the
-            # free plan's "no access to this season" error days before kickoff).
-            print(f"WARNING: API-Football roster refresh failed ({exc}); "
-                  "falling back to the ESPN feed")
-            return _espn_snapshot(previous, now)
-        payload["_verified_at"] = max(payload["_league_verified_at"].values())
-        payload["_source"] = "API-Football current squad feeds"
+            except Exception as exc:
+                print(f"WARNING: API-Football roster refresh failed for {key} "
+                      f"({exc}); falling back to the ESPN feed for {key}")
+                failed.append(key)
+        for key in failed:
+            try:
+                payload[key] = fetch_league(key, LEAGUES[key])
+                print(f"{key}: {len(payload[key])} clubs refreshed from ESPN (fallback)")
+                # Deliberately NOT stamping _league_verified_at here -- this is ESPN
+                # data, not a genuine API-Football verification, so the next time
+                # this league comes up in the rotation it should retry API-Football
+                # rather than being considered fresh on the strength of a fallback.
+            except Exception as exc:
+                print(f"WARNING: ESPN fallback also failed for {key} ({exc}); "
+                      "retaining the last verified snapshot for it")
+        if payload.get("_league_verified_at"):
+            payload["_verified_at"] = max(payload["_league_verified_at"].values())
+        payload["_source"] = ("API-Football current squad feeds" if not failed
+                              else "API-Football current squad feeds "
+                                   "(ESPN fallback for: " + ", ".join(failed) + ")")
         payload["_provisional"] = (
             "Squads rotate through a quota-aware 48-hour refresh; team news and "
             "confirmed lineups are checked separately near kickoff.")

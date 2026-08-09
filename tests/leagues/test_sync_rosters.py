@@ -77,3 +77,37 @@ def test_force_roster_leagues_catches_up_a_league_outside_its_rotation_slot(
     assert written["_source"] == "API-Football current squad feeds"
     assert "PL" in written["_league_verified_at"]
     assert "BUNDESLIGA" in written["_league_verified_at"]
+
+
+def test_one_leagues_api_football_failure_does_not_discard_a_sibling_success(
+        tmp_path, monkeypatch):
+    """Observed in production: PL fetched fine, then Bundesliga raised on an
+    unmapped club name mid-loop, and the single try/except around the whole
+    batch fell back to ESPN for ALL leagues -- discarding the already-good PL
+    fetch too. Each league must succeed or fail independently."""
+    out = tmp_path / "rosters.json"
+    monkeypatch.setattr(sync_rosters, "OUT", out)
+    monkeypatch.setenv("API_FOOTBALL_KEY", "test-key")
+    monkeypatch.setenv("FORCE_ROSTER_LEAGUES", "pl,bundesliga")
+
+    def fake_fetch(_client, key):
+        if key == "BUNDESLIGA":
+            raise ValueError("'FSV Mainz 05' is not mapped")
+        return {"Arsenal": {"source": "api-football:team:1", "players": []}}
+
+    espn_calls = []
+    monkeypatch.setattr(sync_rosters, "fetch_api_league", fake_fetch)
+    monkeypatch.setattr(sync_rosters, "fetch_league",
+                        lambda key, slug: espn_calls.append(key) or
+                        {"SomeClub": {"source": "espn", "players": []}})
+    monkeypatch.setattr(sync_rosters, "Client",
+                        lambda **_kw: type("FakeClient", (), {"used": 0})())
+
+    assert sync_rosters.main() == 0
+    written = json.loads(out.read_text(encoding="utf-8"))
+    assert written["PL"] == {"Arsenal": {"source": "api-football:team:1", "players": []}}
+    assert "PL" in written["_league_verified_at"]
+    assert espn_calls == ["BUNDESLIGA"]
+    assert written["BUNDESLIGA"] == {"SomeClub": {"source": "espn", "players": []}}
+    assert "BUNDESLIGA" not in written["_league_verified_at"]
+    assert "ESPN fallback for: BUNDESLIGA" in written["_source"]
