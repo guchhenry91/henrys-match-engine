@@ -1,3590 +1,3405 @@
 {
-  "_verified_at": "2026-08-09T19:28:13.151826+00:00",
-  "_source": "API-Football current squad feeds",
+  "_verified_at": "2026-08-09T20:03:01.520641+00:00",
+  "_source": "API-Football current squad feeds (ESPN fallback for: BUNDESLIGA)",
   "_provisional": "Squads rotate through a quota-aware 48-hour refresh; team news and confirmed lineups are checked separately near kickoff.",
   "PL": {
-    "Bournemouth": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/349/roster",
-      "players": [
-        {
-          "id": "122268",
-          "name": "Adam Smith",
-          "position": "D"
-        },
-        {
-          "id": "305684",
-          "name": "Adrien Truffert",
-          "position": "D"
-        },
-        {
-          "id": "314790",
-          "name": "Alex Scott",
-          "position": "M"
-        },
-        {
-          "id": "360149",
-          "name": "Alex Tóth",
-          "position": "M"
-        },
-        {
-          "id": "291613",
-          "name": "Amine Adli",
-          "position": "F"
-        },
-        {
-          "id": "346588",
-          "name": "António Silva",
-          "position": "D"
-        },
-        {
-          "id": "282675",
-          "name": "Bafodé Diakité",
-          "position": "D"
-        },
-        {
-          "id": "332948",
-          "name": "Ben Gannon-Doak",
-          "position": "F"
-        },
-        {
-          "id": "397213",
-          "name": "Ben Winterburn",
-          "position": "M"
-        },
-        {
-          "id": "312182",
-          "name": "Daniel Jebbison",
-          "position": "F"
-        },
-        {
-          "id": "72487",
-          "name": "David Brooks",
-          "position": "M"
-        },
-        {
-          "id": "289824",
-          "name": "Djordje Petrovic",
-          "position": "D"
-        },
-        {
-          "id": "218122",
-          "name": "Enes Ünal",
-          "position": "F"
-        },
-        {
-          "id": "102368",
-          "name": "Evanilson",
-          "position": "F"
-        },
-        {
-          "id": "93193",
-          "name": "Fraser Forster",
-          "position": "G"
-        },
-        {
-          "id": "279155",
-          "name": "James Hill",
-          "position": "D"
-        },
-        {
-          "id": "339797",
-          "name": "Julio Soler",
-          "position": "D"
-        },
-        {
-          "id": "280764",
-          "name": "Julián Araujo",
-          "position": "D"
-        },
-        {
-          "id": "361809",
-          "name": "Junior Kroupi",
-          "position": "F"
-        },
-        {
-          "id": "245916",
-          "name": "Justin Kluivert",
-          "position": "F"
-        },
-        {
-          "id": "223452",
-          "name": "Lewis Cook",
-          "position": "M"
-        },
-        {
-          "id": "243364",
-          "name": "Marcus Tavernier",
-          "position": "M"
-        },
-        {
-          "id": "337023",
-          "name": "Matai Akinmboni",
-          "position": "D"
-        },
-        {
-          "id": "243725",
-          "name": "Max Aarons",
-          "position": "D"
-        },
-        {
-          "id": "357719",
-          "name": "Rayan",
-          "position": "F"
-        },
-        {
-          "id": "398123",
-          "name": "Remy Rees-Dottin",
-          "position": "F"
-        },
-        {
-          "id": "93435",
-          "name": "Ryan Christie",
-          "position": "M"
-        },
-        {
-          "id": "222776",
-          "name": "Tyler Adams",
-          "position": "M"
-        },
-        {
-          "id": "377736",
-          "name": "Veljko Milosavljevic",
-          "position": "D"
-        },
-        {
-          "id": "291269",
-          "name": "William Dennis",
-          "position": "G"
-        },
-        {
-          "id": "353151",
-          "name": "Álvaro Rodríguez",
-          "position": "F"
-        }
-      ]
-    },
-    "Arsenal": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/359/roster",
-      "players": [
-        {
-          "id": "390975",
-          "name": "Andre Annous",
-          "position": "F"
-        },
-        {
-          "id": "241077",
-          "name": "Ben White",
-          "position": "D"
-        },
-        {
-          "id": "392659",
-          "name": "Brayden Clarke",
-          "position": "D"
-        },
-        {
-          "id": "280555",
-          "name": "Bukayo Saka",
-          "position": "F"
-        },
-        {
-          "id": "381341",
-          "name": "Ceadach O’Neill",
-          "position": "F"
-        },
-        {
-          "id": "178077",
-          "name": "Christian Nørgaard",
-          "position": "M"
-        },
-        {
-          "id": "303793",
-          "name": "Christos Tzolis",
-          "position": "F"
-        },
-        {
-          "id": "328497",
-          "name": "Cristhian Mosquera",
-          "position": "D"
-        },
-        {
-          "id": "196176",
-          "name": "David Raya",
-          "position": "G"
-        },
-        {
-          "id": "238262",
-          "name": "Declan Rice",
-          "position": "M"
-        },
-        {
-          "id": "409158",
-          "name": "Demiane Agustien",
-          "position": "M"
-        },
-        {
-          "id": "251400",
-          "name": "Eberechi Eze",
-          "position": "M"
-        },
-        {
-          "id": "349733",
-          "name": "Ethan Nwaneri",
-          "position": "M"
-        },
-        {
-          "id": "88865",
-          "name": "Fabio Vieira",
-          "position": "M"
-        },
-        {
-          "id": "217289",
-          "name": "Gabriel Jesus",
-          "position": "F"
-        },
-        {
-          "id": "236322",
-          "name": "Gabriel Magalhães",
-          "position": "D"
-        },
-        {
-          "id": "269844",
-          "name": "Gabriel Martinelli",
-          "position": "F"
-        },
-        {
-          "id": "399894",
-          "name": "Ife Ibrahim",
-          "position": "M"
-        },
-        {
-          "id": "265921",
-          "name": "Illan Meslier",
-          "position": "G"
-        },
-        {
-          "id": "378457",
-          "name": "Ismeal Kabia",
-          "position": "F"
-        },
-        {
-          "id": "400750",
-          "name": "Josh Ogunnaike",
-          "position": "D"
-        },
-        {
-          "id": "282716",
-          "name": "Jurriën Timber",
-          "position": "D"
-        },
-        {
-          "id": "231182",
-          "name": "Kai Havertz",
-          "position": "F"
-        },
-        {
-          "id": "169532",
-          "name": "Kepa Arrizabalaga",
-          "position": "G"
-        },
-        {
-          "id": "386202",
-          "name": "Khari Ranson",
-          "position": "G"
-        },
-        {
-          "id": "376265",
-          "name": "Louie Copley",
-          "position": "M"
-        },
-        {
-          "id": "400284",
-          "name": "Marli Salmon",
-          "position": "D"
-        },
-        {
-          "id": "203669",
-          "name": "Martin Ødegaard",
-          "position": "M"
-        },
-        {
-          "id": "287266",
-          "name": "Martín Zubimendi",
-          "position": "M"
-        },
-        {
-          "id": "397263",
-          "name": "Max Dowman",
-          "position": "M"
-        },
-        {
-          "id": "209581",
-          "name": "Mikel Merino",
-          "position": "M"
-        },
-        {
-          "id": "352758",
-          "name": "Myles Lewis-Skelly",
-          "position": "D"
-        },
-        {
-          "id": "293236",
-          "name": "Noni Madueke",
-          "position": "F"
-        },
-        {
-          "id": "292062",
-          "name": "Piero Hincapié",
-          "position": "D"
-        },
-        {
-          "id": "227794",
-          "name": "Reiss Nelson",
-          "position": "F"
-        },
-        {
-          "id": "298329",
-          "name": "Riccardo Calafiori",
-          "position": "D"
-        },
-        {
-          "id": "393424",
-          "name": "Theo Julienne",
-          "position": "M"
-        },
-        {
-          "id": "343573",
-          "name": "Tommy Setford",
-          "position": "G"
-        },
-        {
-          "id": "258906",
-          "name": "Viktor Gyökeres",
-          "position": "F"
-        },
-        {
-          "id": "277385",
-          "name": "William Saliba",
-          "position": "D"
-        }
-      ]
-    },
-    "Aston Villa": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/362/roster",
-      "players": [
-        {
-          "id": "325555",
-          "name": "Alejandro Garnacho",
-          "position": "F"
-        },
-        {
-          "id": "382839",
-          "name": "Alysson",
-          "position": "F"
-        },
-        {
-          "id": "304799",
-          "name": "Amadou Onana",
-          "position": "M"
-        },
-        {
-          "id": "250936",
-          "name": "Boubacar Kamara",
-          "position": "M"
-        },
-        {
-          "id": "401451",
-          "name": "Brian Madjo",
-          "position": "F"
-        },
-        {
-          "id": "214375",
-          "name": "Emiliano Buendía",
-          "position": "M"
-        },
-        {
-          "id": "158626",
-          "name": "Emiliano Martínez",
-          "position": "G"
-        },
-        {
-          "id": "288924",
-          "name": "Evann Guessand",
-          "position": "F"
-        },
-        {
-          "id": "231859",
-          "name": "Ezri Konsa",
-          "position": "D"
-        },
-        {
-          "id": "281125",
-          "name": "Ian Maatsen",
-          "position": "D"
-        },
-        {
-          "id": "386992",
-          "name": "Johan Manzambi",
-          "position": "M"
-        },
-        {
-          "id": "162843",
-          "name": "John McGinn",
-          "position": "M"
-        },
-        {
-          "id": "301524",
-          "name": "João Gomes",
-          "position": "M"
-        },
-        {
-          "id": "365367",
-          "name": "Kosta Nedeljkovic",
-          "position": "D"
-        },
-        {
-          "id": "310607",
-          "name": "Lamare Bogarde",
-          "position": "M"
-        },
-        {
-          "id": "224809",
-          "name": "Leon Bailey",
-          "position": "F"
-        },
-        {
-          "id": "160115",
-          "name": "Lucas Digne",
-          "position": "D"
-        },
-        {
-          "id": "132233",
-          "name": "Marco Bizot",
-          "position": "G"
-        },
-        {
-          "id": "234698",
-          "name": "Matty Cash",
-          "position": "D"
-        },
-        {
-          "id": "392682",
-          "name": "Modou Cissé",
-          "position": "M"
-        },
-        {
-          "id": "198825",
-          "name": "Ollie Watkins",
-          "position": "F"
-        },
-        {
-          "id": "251100",
-          "name": "Pau Torres",
-          "position": "D"
-        },
-        {
-          "id": "152469",
-          "name": "Ross Barkley",
-          "position": "M"
-        },
-        {
-          "id": "341273",
-          "name": "Samuel Iling-Junior",
-          "position": "F"
-        },
-        {
-          "id": "236209",
-          "name": "Tammy Abraham",
-          "position": "F"
-        },
-        {
-          "id": "181312",
-          "name": "Tyrone Mings",
-          "position": "D"
-        },
-        {
-          "id": "204679",
-          "name": "Victor Lindelöf",
-          "position": "D"
-        }
-      ]
-    },
-    "Brentford": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/337/roster",
-      "players": [
-        {
-          "id": "283940",
-          "name": "Aaron Hickey",
-          "position": "D"
-        },
-        {
-          "id": "321081",
-          "name": "Antoni Milambo",
-          "position": "M"
-        },
-        {
-          "id": "367447",
-          "name": "Benjamin Arthur",
-          "position": "D"
-        },
-        {
-          "id": "362266",
-          "name": "Benjamin Fredrick",
-          "position": "D"
-        },
-        {
-          "id": "138924",
-          "name": "Callum Wilson",
-          "position": "F"
-        },
-        {
-          "id": "275599",
-          "name": "Caoimhín Kelleher",
-          "position": "G"
-        },
-        {
-          "id": "315530",
-          "name": "Dango Ouattara",
-          "position": "F"
-        },
-        {
-          "id": "249527",
-          "name": "Ellery Balcombe",
-          "position": "G"
-        },
-        {
-          "id": "241093",
-          "name": "Ethan Pinnock",
-          "position": "D"
-        },
-        {
-          "id": "231049",
-          "name": "Fábio Carvalho",
-          "position": "M"
-        },
-        {
-          "id": "366004",
-          "name": "Gustavo Nunes",
-          "position": "F"
-        },
-        {
-          "id": "311527",
-          "name": "Hákon Valdimarsson",
-          "position": "G"
-        },
-        {
-          "id": "301894",
-          "name": "Igor Thiago",
-          "position": "F"
-        },
-        {
-          "id": "307657",
-          "name": "Jaidon Anthony",
-          "position": "F"
-        },
-        {
-          "id": "376683",
-          "name": "Jannik Schuster",
-          "position": "D"
-        },
-        {
-          "id": "352820",
-          "name": "Jayden Meghoma",
-          "position": "D"
-        },
-        {
-          "id": "246309",
-          "name": "Josh Dasilva",
-          "position": "M"
-        },
-        {
-          "id": "408469",
-          "name": "Joshua Stephenson",
-          "position": "D"
-        },
-        {
-          "id": "368826",
-          "name": "Julian Eyestone",
-          "position": "G"
-        },
-        {
-          "id": "394418",
-          "name": "Kaye Furo",
-          "position": "F"
-        },
-        {
-          "id": "284490",
-          "name": "Keane Lewis-Potter",
-          "position": "F"
-        },
-        {
-          "id": "310958",
-          "name": "Kevin Schade",
-          "position": "M"
-        },
-        {
-          "id": "362203",
-          "name": "Kim Ji-Soo",
-          "position": "D"
-        },
-        {
-          "id": "206173",
-          "name": "Kristoffer Ajer",
-          "position": "D"
-        },
-        {
-          "id": "418500",
-          "name": "Luka Bentt",
-          "position": "M"
-        },
-        {
-          "id": "228547",
-          "name": "Mamadou Sangare",
-          "position": "M"
-        },
-        {
-          "id": "227472",
-          "name": "Mathias Jensen",
-          "position": "M"
-        },
-        {
-          "id": "356640",
-          "name": "Michael Kayode",
-          "position": "D"
-        },
-        {
-          "id": "308932",
-          "name": "Mikkel Damsgaard",
-          "position": "M"
-        },
-        {
-          "id": "279780",
-          "name": "Nathan Collins",
-          "position": "D"
-        },
-        {
-          "id": "419118",
-          "name": "Ollie Shield",
-          "position": "D"
-        },
-        {
-          "id": "206761",
-          "name": "Rico Henry",
-          "position": "D"
-        },
-        {
-          "id": "270507",
-          "name": "Sepp van den Berg",
-          "position": "D"
-        },
-        {
-          "id": "225564",
-          "name": "Vitaly Janelt",
-          "position": "M"
-        },
-        {
-          "id": "342029",
-          "name": "Yehor Yarmoliuk",
-          "position": "M"
-        },
-        {
-          "id": "366990",
-          "name": "Yunus Konak",
-          "position": "M"
-        }
-      ]
-    },
-    "Brighton": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/331/roster",
-      "players": [
-        {
-          "id": "327170",
-          "name": "Amario Cozier-Duberry",
-          "position": "M"
-        },
-        {
-          "id": "291609",
-          "name": "Bart Verbruggen",
-          "position": "G"
-        },
-        {
-          "id": "307069",
-          "name": "Carl Rushworth",
-          "position": "G"
-        },
-        {
-          "id": "338814",
-          "name": "Carlos Baleba",
-          "position": "M"
-        },
-        {
-          "id": "387655",
-          "name": "Charalambos Kostoulas",
-          "position": "F"
-        },
-        {
-          "id": "274285",
-          "name": "Costinha",
-          "position": "D"
-        },
-        {
-          "id": "192278",
-          "name": "Diego Gómez",
-          "position": "M"
-        },
-        {
-          "id": "318359",
-          "name": "Eiran Cashin",
-          "position": "D"
-        },
-        {
-          "id": "289645",
-          "name": "Evan Ferguson",
-          "position": "F"
-        },
-        {
-          "id": "318284",
-          "name": "Facundo Buonanotte",
-          "position": "M"
-        },
-        {
-          "id": "238318",
-          "name": "Ferdi Kadioglu",
-          "position": "D"
-        },
-        {
-          "id": "278061",
-          "name": "Georginio Rutter",
-          "position": "F"
-        },
-        {
-          "id": "359400",
-          "name": "Ibrahim Osman",
-          "position": "F"
-        },
-        {
-          "id": "234143",
-          "name": "Igor Julio",
-          "position": "D"
-        },
-        {
-          "id": "328011",
-          "name": "Jack Hinshelwood",
-          "position": "M"
-        },
-        {
-          "id": "111114",
-          "name": "Jason Steele",
-          "position": "G"
-        },
-        {
-          "id": "274278",
-          "name": "Kaoru Mitoma",
-          "position": "M"
-        },
-        {
-          "id": "147106",
-          "name": "Lewis Dunk",
-          "position": "D"
-        },
-        {
-          "id": "364962",
-          "name": "Luka Vuskovic",
-          "position": "D"
-        },
-        {
-          "id": "359097",
-          "name": "Malick Yalcouyé",
-          "position": "M"
-        },
-        {
-          "id": "358407",
-          "name": "Mark O’Mahony",
-          "position": "F"
-        },
-        {
-          "id": "282186",
-          "name": "Mats Wieffer",
-          "position": "M"
-        },
-        {
-          "id": "261087",
-          "name": "Matt O'Riley",
-          "position": "M"
-        },
-        {
-          "id": "301327",
-          "name": "Maxim De Cuyper",
-          "position": "D"
-        },
-        {
-          "id": "289942",
-          "name": "Michael Svoboda",
-          "position": "D"
-        },
-        {
-          "id": "216017",
-          "name": "Olivier Boscagli",
-          "position": "D"
-        },
-        {
-          "id": "132659",
-          "name": "Pascal Gross",
-          "position": "M"
-        },
-        {
-          "id": "246771",
-          "name": "Pascal Struijk",
-          "position": "D"
-        },
-        {
-          "id": "357165",
-          "name": "Stefanos Tzimas",
-          "position": "F"
-        },
-        {
-          "id": "248761",
-          "name": "Tom McGill",
-          "position": "G"
-        },
-        {
-          "id": "348787",
-          "name": "Yankuba Minteh",
-          "position": "F"
-        },
-        {
-          "id": "304242",
-          "name": "Yasin Ayari",
-          "position": "M"
-        },
-        {
-          "id": "407059",
-          "name": "Zadok Yohanna",
-          "position": "F"
-        }
-      ]
-    },
-    "Chelsea": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/363/roster",
-      "players": [
-        {
-          "id": "363218",
-          "name": "Aaron Anselmino",
-          "position": "D"
-        },
-        {
-          "id": "231718",
-          "name": "Axel Disasi",
-          "position": "D"
-        },
-        {
-          "id": "282585",
-          "name": "Benoît Badiashile",
-          "position": "D"
-        },
-        {
-          "id": "399896",
-          "name": "Calvin Diakite",
-          "position": "D"
-        },
-        {
-          "id": "296395",
-          "name": "Cole Palmer",
-          "position": "M"
-        },
-        {
-          "id": "115271",
-          "name": "Danny Welbeck",
-          "position": "F"
-        },
-        {
-          "id": "402242",
-          "name": "Dastan Satpaev",
-          "position": "F"
-        },
-        {
-          "id": "301047",
-          "name": "David Datro Fofana",
-          "position": "F"
-        },
-        {
-          "id": "316560",
-          "name": "Dário Essugo",
-          "position": "M"
-        },
-        {
-          "id": "304871",
-          "name": "Emmanuel Emegha",
-          "position": "F"
-        },
-        {
-          "id": "285450",
-          "name": "Enzo Fernández",
-          "position": "M"
-        },
-        {
-          "id": "376481",
-          "name": "Estêvão",
-          "position": "F"
-        },
-        {
-          "id": "304256",
-          "name": "Filip Jørgensen",
-          "position": "G"
-        },
-        {
-          "id": "286774",
-          "name": "Gaga Slonina",
-          "position": "G"
-        },
-        {
-          "id": "376274",
-          "name": "Geovany Quenda",
-          "position": "M"
-        },
-        {
-          "id": "339879",
-          "name": "Jamie Gittens",
-          "position": "F"
-        },
-        {
-          "id": "127262",
-          "name": "Jordan Henderson",
-          "position": "M"
-        },
-        {
-          "id": "353951",
-          "name": "Jorrel Hato",
-          "position": "D"
-        },
-        {
-          "id": "368317",
-          "name": "Josh Acheampong",
-          "position": "D"
-        },
-        {
-          "id": "284960",
-          "name": "João Pedro",
-          "position": "F"
-        },
-        {
-          "id": "379702",
-          "name": "Landon Emenalo",
-          "position": "D"
-        },
-        {
-          "id": "296410",
-          "name": "Levi Colwill",
-          "position": "D"
-        },
-        {
-          "id": "307114",
-          "name": "Liam Delap",
-          "position": "F"
-        },
-        {
-          "id": "399562",
-          "name": "Mahdi Nicoll-Jazuli",
-          "position": "M"
-        },
-        {
-          "id": "308947",
-          "name": "Malo Gusto",
-          "position": "D"
-        },
-        {
-          "id": "355433",
-          "name": "Mamadou Sarr",
-          "position": "D"
-        },
-        {
-          "id": "363038",
-          "name": "Marc Guiu",
-          "position": "F"
-        },
-        {
-          "id": "362486",
-          "name": "Marco Palestra",
-          "position": "D"
-        },
-        {
-          "id": "265918",
-          "name": "Maxence Lacroix",
-          "position": "D"
-        },
-        {
-          "id": "332343",
-          "name": "Mike Penders",
-          "position": "G"
-        },
-        {
-          "id": "289877",
-          "name": "Moisés Caicedo",
-          "position": "M"
-        },
-        {
-          "id": "265653",
-          "name": "Morgan Rogers",
-          "position": "M"
-        },
-        {
-          "id": "299911",
-          "name": "Mykhailo Mudryk",
-          "position": "M"
-        },
-        {
-          "id": "308524",
-          "name": "Nicolas Jackson",
-          "position": "F"
-        },
-        {
-          "id": "408508",
-          "name": "Olutayo Subuloye",
-          "position": "D"
-        },
-        {
-          "id": "331082",
-          "name": "Omari Kellyman",
-          "position": "M"
-        },
-        {
-          "id": "256115",
-          "name": "Pedro Neto",
-          "position": "F"
-        },
-        {
-          "id": "189007",
-          "name": "Reece James",
-          "position": "D"
-        },
-        {
-          "id": "400749",
-          "name": "Reggie Walsh",
-          "position": "M"
-        },
-        {
-          "id": "399564",
-          "name": "Reggie Watson",
-          "position": "M"
-        },
-        {
-          "id": "108662",
-          "name": "Robert Sánchez",
-          "position": "G"
-        },
-        {
-          "id": "308217",
-          "name": "Romeo Lavia",
-          "position": "M"
-        },
-        {
-          "id": "399895",
-          "name": "Ryan Kavuma-Mcqueen",
-          "position": "F"
-        },
-        {
-          "id": "349214",
-          "name": "Ted Curd",
-          "position": "G"
-        },
-        {
-          "id": "300049",
-          "name": "Teddy Sharman-Lowe",
-          "position": "G"
-        },
-        {
-          "id": "231198",
-          "name": "Tosin Adarabioyo",
-          "position": "D"
-        },
-        {
-          "id": "227784",
-          "name": "Trevoh Chalobah",
-          "position": "D"
-        },
-        {
-          "id": "320760",
-          "name": "Valentín Barco",
-          "position": "M"
-        },
-        {
-          "id": "270190",
-          "name": "Wesley Fofana",
-          "position": "D"
-        }
-      ]
-    },
-    "Coventry": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/388/roster",
-      "players": [
-        {
-          "id": "384110",
-          "name": "Aidan Dausch",
-          "position": "F"
-        },
-        {
-          "id": "319404",
-          "name": "Aurèle Amenda",
-          "position": "D"
-        },
-        {
-          "id": "169619",
-          "name": "Ben Wilson",
-          "position": "F"
-        },
-        {
-          "id": "303931",
-          "name": "Bobby Thomas",
-          "position": "D"
-        },
-        {
-          "id": "240495",
-          "name": "Brandon Thomas-Asante",
-          "position": "F"
-        },
-        {
-          "id": "282647",
-          "name": "Ellis Simms",
-          "position": "F"
-        },
-        {
-          "id": "246954",
-          "name": "Ephron Mason-Clark",
-          "position": "F"
-        },
-        {
-          "id": "258491",
-          "name": "Frank Onyeka",
-          "position": "M"
-        },
-        {
-          "id": "220474",
-          "name": "Haji Wright",
-          "position": "F"
-        },
-        {
-          "id": "392340",
-          "name": "Harvey Broad",
-          "position": "D"
-        },
-        {
-          "id": "286967",
-          "name": "Jack Rudoni",
-          "position": "M"
-        },
-        {
-          "id": "328043",
-          "name": "Jahnoah Markelo",
-          "position": "F"
-        },
-        {
-          "id": "143533",
-          "name": "Jake Bidwell",
-          "position": "D"
-        },
-        {
-          "id": "206172",
-          "name": "Jay Da Silva",
-          "position": "D"
-        },
-        {
-          "id": "260168",
-          "name": "Joel Latibeaudiere",
-          "position": "D"
-        },
-        {
-          "id": "277614",
-          "name": "Josh Eccles",
-          "position": "M"
-        },
-        {
-          "id": "367694",
-          "name": "Kai Andrews",
-          "position": "M"
-        },
-        {
-          "id": "294308",
-          "name": "Kaine Kesler Hayden",
-          "position": "D"
-        },
-        {
-          "id": "269341",
-          "name": "Liam Kitching",
-          "position": "D"
-        },
-        {
-          "id": "324541",
-          "name": "Loum Tchaouna",
-          "position": "F"
-        },
-        {
-          "id": "261083",
-          "name": "Luke Woolfenden",
-          "position": "D"
-        },
-        {
-          "id": "191337",
-          "name": "Matt Grimes",
-          "position": "M"
-        },
-        {
-          "id": "340205",
-          "name": "Miguel Ángel Brau",
-          "position": "D"
-        },
-        {
-          "id": "281139",
-          "name": "Milan van Ewijk",
-          "position": "D"
-        },
-        {
-          "id": "291945",
-          "name": "Oliver Dovin",
-          "position": "G"
-        },
-        {
-          "id": "295544",
-          "name": "Raphael Borges Rodrigues",
-          "position": "F"
-        },
-        {
-          "id": "302002",
-          "name": "Tatsuhiro Sakamoto",
-          "position": "M"
-        },
-        {
-          "id": "256015",
-          "name": "Victor Torp",
-          "position": "M"
-        }
-      ]
-    },
-    "Crystal Palace": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/384/roster",
-      "players": [
-        {
-          "id": "333419",
-          "name": "Adam Wharton",
-          "position": "M"
-        },
-        {
-          "id": "228319",
-          "name": "Borna Sosa",
-          "position": "D"
-        },
-        {
-          "id": "291307",
-          "name": "Brennan Johnson",
-          "position": "F"
-        },
-        {
-          "id": "307870",
-          "name": "Chadi Riad",
-          "position": "D"
-        },
-        {
-          "id": "409810",
-          "name": "Charlie Walker-Smith",
-          "position": "D"
-        },
-        {
-          "id": "266628",
-          "name": "Cheick Doucouré",
-          "position": "M"
-        },
-        {
-          "id": "272585",
-          "name": "Chris Richards",
-          "position": "D"
-        },
-        {
-          "id": "219362",
-          "name": "Daichi Kamada",
-          "position": "M"
-        },
-        {
-          "id": "146679",
-          "name": "Daniel Muñoz",
-          "position": "D"
-        },
-        {
-          "id": "345407",
-          "name": "David Ozoh",
-          "position": "M"
-        },
-        {
-          "id": "403867",
-          "name": "Dean Benamar",
-          "position": "D"
-        },
-        {
-          "id": "234172",
-          "name": "Dean Henderson",
-          "position": "G"
-        },
-        {
-          "id": "259486",
-          "name": "Eddie Nketiah",
-          "position": "F"
-        },
-        {
-          "id": "400110",
-          "name": "George King",
-          "position": "D"
-        },
-        {
-          "id": "241012",
-          "name": "Ismaïla Sarr",
-          "position": "F"
-        },
-        {
-          "id": "386252",
-          "name": "Jaydee Canvot",
-          "position": "D"
-        },
-        {
-          "id": "241187",
-          "name": "Jean-Philippe Mateta",
-          "position": "F"
-        },
-        {
-          "id": "197399",
-          "name": "Jefferson Lerma",
-          "position": "M"
-        },
-        {
-          "id": "317718",
-          "name": "Jesurun Rak-Sakyi",
-          "position": "F"
-        },
-        {
-          "id": "326249",
-          "name": "Joseph Whitworth",
-          "position": "G"
-        },
-        {
-          "id": "408511",
-          "name": "Joél Drakes-Thomas",
-          "position": "F"
-        },
-        {
-          "id": "291468",
-          "name": "Justin Devenny",
-          "position": "M"
-        },
-        {
-          "id": "252747",
-          "name": "Jørgen Strand Larsen",
-          "position": "F"
-        },
-        {
-          "id": "3114844",
-          "name": "Lucca Benetton",
-          "position": "G"
-        },
-        {
-          "id": "318087",
-          "name": "Matheus França",
-          "position": "F"
-        },
-        {
-          "id": "366068",
-          "name": "Mofe Jemide",
-          "position": "D"
-        },
-        {
-          "id": "205981",
-          "name": "Remi Matthews",
-          "position": "G"
-        },
-        {
-          "id": "363444",
-          "name": "Rio Cardines",
-          "position": "M"
-        },
-        {
-          "id": "356208",
-          "name": "Romain Esse",
-          "position": "M"
-        },
-        {
-          "id": "330230",
-          "name": "Tayo Adaramola",
-          "position": "D"
-        },
-        {
-          "id": "300853",
-          "name": "Tyrick Mitchell",
-          "position": "D"
-        },
-        {
-          "id": "195738",
-          "name": "Walter Benítez",
-          "position": "G"
-        },
-        {
-          "id": "168421",
-          "name": "Will Hughes",
-          "position": "M"
-        },
-        {
-          "id": "297370",
-          "name": "Yéremy Pino",
-          "position": "M"
-        },
-        {
-          "id": "276546",
-          "name": "Óscar Mingueza",
-          "position": "D"
-        }
-      ]
-    },
-    "Everton": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/368/roster",
-      "players": [
-        {
-          "id": "379032",
-          "name": "Adam Aznou",
-          "position": "D"
-        },
-        {
-          "id": "289511",
-          "name": "Beto",
-          "position": "F"
-        },
-        {
-          "id": "302162",
-          "name": "Carlos Alcaraz",
-          "position": "M"
-        },
-        {
-          "id": "273495",
-          "name": "Dwight McNeil",
-          "position": "F"
-        },
-        {
-          "id": "378458",
-          "name": "Harrison Armstrong",
-          "position": "M"
-        },
-        {
-          "id": "282978",
-          "name": "Hayden Hackney",
-          "position": "M"
-        },
-        {
-          "id": "144517",
-          "name": "Idrissa Gueye",
-          "position": "M"
-        },
-        {
-          "id": "268641",
-          "name": "Iliman Ndiaye",
-          "position": "F"
-        },
-        {
-          "id": "283586",
-          "name": "Jake O'Brien",
-          "position": "D"
-        },
-        {
-          "id": "276220",
-          "name": "James Garner",
-          "position": "M"
-        },
-        {
-          "id": "155226",
-          "name": "James Tarkowski",
-          "position": "D"
-        },
-        {
-          "id": "286965",
-          "name": "Jarrad Branthwaite",
-          "position": "D"
-        },
-        {
-          "id": "159443",
-          "name": "Jordan Pickford",
-          "position": "G"
-        },
-        {
-          "id": "252389",
-          "name": "Kiernan Dewsbury-Hall",
-          "position": "M"
-        },
-        {
-          "id": "7441",
-          "name": "Mark Travers",
-          "position": "G"
-        },
-        {
-          "id": "311963",
-          "name": "Merlin Röhl",
-          "position": "M"
-        },
-        {
-          "id": "4946",
-          "name": "Michael Keane",
-          "position": "D"
-        },
-        {
-          "id": "271191",
-          "name": "Nathan Patterson",
-          "position": "D"
-        },
-        {
-          "id": "301166",
-          "name": "Thierno Barry",
-          "position": "F"
-        },
-        {
-          "id": "310599",
-          "name": "Tim Iroegbunam",
-          "position": "M"
-        },
-        {
-          "id": "148515",
-          "name": "Tom King",
-          "position": "G"
-        },
-        {
-          "id": "340640",
-          "name": "Tyler Dibling",
-          "position": "M"
-        },
-        {
-          "id": "368864",
-          "name": "Tyrique George",
-          "position": "F"
-        },
-        {
-          "id": "262594",
-          "name": "Vitaliy Mykolenko",
-          "position": "D"
-        }
-      ]
-    },
-    "Fulham": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/370/roster",
-      "players": [
-        {
-          "id": "175063",
-          "name": "Alex Iwobi",
-          "position": "F"
-        },
-        {
-          "id": "222396",
-          "name": "Antonee Robinson",
-          "position": "D"
-        },
-        {
-          "id": "149517",
-          "name": "Benjamin Lecomte",
-          "position": "G"
-        },
-        {
-          "id": "153765",
-          "name": "Bernd Leno",
-          "position": "G"
-        },
-        {
-          "id": "263110",
-          "name": "Calvin Bassey",
-          "position": "D"
-        },
-        {
-          "id": "12172",
-          "name": "César Palacios",
-          "position": "M"
-        },
-        {
-          "id": "266697",
-          "name": "Emile Smith Rowe",
-          "position": "M"
-        },
-        {
-          "id": "87297",
-          "name": "Gonzalo García",
-          "position": "F"
-        },
-        {
-          "id": "193246",
-          "name": "Harrison Reed",
-          "position": "M"
-        },
-        {
-          "id": "196081",
-          "name": "Joachim Andersen",
-          "position": "D"
-        },
-        {
-          "id": "369363",
-          "name": "Jonah Kusi-Asare",
-          "position": "F"
-        },
-        {
-          "id": "252031",
-          "name": "Jorge Cuenca",
-          "position": "D"
-        },
-        {
-          "id": "409541",
-          "name": "Josh King",
-          "position": "M"
-        },
-        {
-          "id": "190974",
-          "name": "Kenny Tete",
-          "position": "D"
-        },
-        {
-          "id": "330764",
-          "name": "Kevin",
-          "position": "F"
-        },
-        {
-          "id": "307111",
-          "name": "Oscar Bobb",
-          "position": "M"
-        },
-        {
-          "id": "301525",
-          "name": "Rodrigo Muniz",
-          "position": "F"
-        },
-        {
-          "id": "241328",
-          "name": "Ryan Sessegnon",
-          "position": "M"
-        },
-        {
-          "id": "218998",
-          "name": "Sander Berge",
-          "position": "M"
-        },
-        {
-          "id": "222300",
-          "name": "Sasa Lukic",
-          "position": "M"
-        },
-        {
-          "id": "197163",
-          "name": "Timothy Castagne",
-          "position": "D"
-        },
-        {
-          "id": "140033",
-          "name": "Tom Cairney",
-          "position": "M"
-        }
-      ]
-    },
-    "Hull": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/306/roster",
-      "players": [
-        {
-          "id": "239750",
-          "name": "Abdülkadir Ömür",
-          "position": "M"
-        },
-        {
-          "id": "275674",
-          "name": "Abu Kamara",
-          "position": "F"
-        },
-        {
-          "id": "222608",
-          "name": "Babajide David",
-          "position": "F"
-        },
-        {
-          "id": "326187",
-          "name": "Charlie Hughes",
-          "position": "D"
-        },
-        {
-          "id": "279786",
-          "name": "Cody Drameh",
-          "position": "D"
-        },
-        {
-          "id": "308216",
-          "name": "Darko Gyabi",
-          "position": "M"
-        },
-        {
-          "id": "191603",
-          "name": "Dillon Phillips",
-          "position": "G"
-        },
-        {
-          "id": "306055",
-          "name": "Eliot Matazo",
-          "position": "M"
-        },
-        {
-          "id": "317076",
-          "name": "Enis Destan",
-          "position": "F"
-        },
-        {
-          "id": "270752",
-          "name": "Hidemasa Morita",
-          "position": "M"
-        },
-        {
-          "id": "157933",
-          "name": "Jack Butland",
-          "position": "G"
-        },
-        {
-          "id": "168424",
-          "name": "John Egan",
-          "position": "D"
-        },
-        {
-          "id": "194114",
-          "name": "Kieran Dowell",
-          "position": "M"
-        },
-        {
-          "id": "231826",
-          "name": "Lewie Coyle",
-          "position": "D"
-        },
-        {
-          "id": "271879",
-          "name": "Liam Millar",
-          "position": "F"
-        },
-        {
-          "id": "153613",
-          "name": "Matt Crooks",
-          "position": "M"
-        },
-        {
-          "id": "192929",
-          "name": "Matt Targett",
-          "position": "D"
-        },
-        {
-          "id": "291172",
-          "name": "Matty Jacob",
-          "position": "D"
-        },
-        {
-          "id": "320417",
-          "name": "Mohamed Belloumi",
-          "position": "F"
-        },
-        {
-          "id": "193010",
-          "name": "Oliver McBurnie",
-          "position": "F"
-        },
-        {
-          "id": "210139",
-          "name": "Paddy McNair",
-          "position": "D"
-        },
-        {
-          "id": "249851",
-          "name": "Regan Slater",
-          "position": "M"
-        },
-        {
-          "id": "243576",
-          "name": "Ryan Giles",
-          "position": "D"
-        },
-        {
-          "id": "178051",
-          "name": "Semi Ajayi",
-          "position": "D"
-        },
-        {
-          "id": "328465",
-          "name": "Thimothee Lo-Tutala",
-          "position": "G"
-        },
-        {
-          "id": "328740",
-          "name": "Óscar Zambrano",
-          "position": "M"
-        }
-      ]
-    },
-    "Ipswich": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/373/roster",
-      "players": [
-        {
-          "id": "219390",
-          "name": "Alex Palmer",
-          "position": "G"
-        },
-        {
-          "id": "330579",
-          "name": "Ali Al-Hamadi",
-          "position": "F"
-        },
-        {
-          "id": "308891",
-          "name": "Anis Mehmeti",
-          "position": "M"
-        },
-        {
-          "id": "246825",
-          "name": "Azor Matusiwa",
-          "position": "M"
-        },
-        {
-          "id": "9426",
-          "name": "Ben Johnson",
-          "position": "D"
-        },
-        {
-          "id": "183326",
-          "name": "Cameron Humphreys",
-          "position": "M"
-        },
-        {
-          "id": "243648",
-          "name": "Cedric Kipre",
-          "position": "D"
-        },
-        {
-          "id": "238192",
-          "name": "Chiedozie Ogbene",
-          "position": "F"
-        },
-        {
-          "id": "168746",
-          "name": "Christian Walton",
-          "position": "G"
-        },
-        {
-          "id": "181092",
-          "name": "Chuba Akpom",
-          "position": "F"
-        },
-        {
-          "id": "286347",
-          "name": "Daizen Maeda",
-          "position": "F"
-        },
-        {
-          "id": "243440",
-          "name": "Dara O'Shea",
-          "position": "D"
-        },
-        {
-          "id": "215075",
-          "name": "Darnell Furlong",
-          "position": "D"
-        },
-        {
-          "id": "111337",
-          "name": "David Button",
-          "position": "G"
-        },
-        {
-          "id": "322654",
-          "name": "Emersonn",
-          "position": "F"
-        },
-        {
-          "id": "318680",
-          "name": "Fatawu Issahaku",
-          "position": "F"
-        },
-        {
-          "id": "241325",
-          "name": "George Hirst",
-          "position": "F"
-        },
-        {
-          "id": "293337",
-          "name": "Harrison Clarke",
-          "position": "D"
-        },
-        {
-          "id": "230963",
-          "name": "Issa Diop",
-          "position": "D"
-        },
-        {
-          "id": "269343",
-          "name": "Jack Clarke",
-          "position": "F"
-        },
-        {
-          "id": "139744",
-          "name": "Jack Taylor",
-          "position": "M"
-        },
-        {
-          "id": "291174",
-          "name": "Jacob Greaves",
-          "position": "D"
-        },
-        {
-          "id": "295370",
-          "name": "Jaden Philogene",
-          "position": "F"
-        },
-        {
-          "id": "307073",
-          "name": "Kasey McAteer",
-          "position": "M"
-        },
-        {
-          "id": "324582",
-          "name": "Kayne Van Oevelen",
-          "position": "G"
-        },
-        {
-          "id": "246244",
-          "name": "Kjell Scherpen",
-          "position": "G"
-        },
-        {
-          "id": "283086",
-          "name": "Leif Davis",
-          "position": "D"
-        },
-        {
-          "id": "301554",
-          "name": "Marcelino Núñez",
-          "position": "M"
-        },
-        {
-          "id": "330045",
-          "name": "Sindre Walle Egeli",
-          "position": "F"
-        },
-        {
-          "id": "181516",
-          "name": "Wes Burns",
-          "position": "F"
-        }
-      ]
-    },
-    "Leeds": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/357/roster",
-      "players": [
-        {
-          "id": "164148",
-          "name": "Alex Cairns",
-          "position": "G"
-        },
-        {
-          "id": "408489",
-          "name": "Alfie Cresswell",
-          "position": "M"
-        },
-        {
-          "id": "304802",
-          "name": "Anton Stach",
-          "position": "M"
-        },
-        {
-          "id": "253173",
-          "name": "Ao Tanaka",
-          "position": "M"
-        },
-        {
-          "id": "259653",
-          "name": "Brenden Aaronson",
-          "position": "M"
-        },
-        {
-          "id": "409924",
-          "name": "Callum Mills",
-          "position": "M"
-        },
-        {
-          "id": "354206",
-          "name": "Charlie Crew",
-          "position": "M"
-        },
-        {
-          "id": "203072",
-          "name": "Daniel James",
-          "position": "F"
-        },
-        {
-          "id": "346913",
-          "name": "Darryl Ombang",
-          "position": "G"
-        },
-        {
-          "id": "197717",
-          "name": "Dominic Calvert-Lewin",
-          "position": "F"
-        },
-        {
-          "id": "241317",
-          "name": "Ethan Ampadu",
-          "position": "M"
-        },
-        {
-          "id": "408495",
-          "name": "Freddie Lane",
-          "position": "M"
-        },
-        {
-          "id": "250166",
-          "name": "Gabriel Gudmundsson",
-          "position": "D"
-        },
-        {
-          "id": "194801",
-          "name": "Harry Wilson",
-          "position": "F"
-        },
-        {
-          "id": "30116",
-          "name": "Ilia Gruev",
-          "position": "M"
-        },
-        {
-          "id": "274649",
-          "name": "Jaka Bijol",
-          "position": "D"
-        },
-        {
-          "id": "231863",
-          "name": "James Justin",
-          "position": "D"
-        },
-        {
-          "id": "243408",
-          "name": "Jayden Bogle",
-          "position": "D"
-        },
-        {
-          "id": "408959",
-          "name": "Jayden Lienou",
-          "position": "D"
-        },
-        {
-          "id": "277531",
-          "name": "Joe Gelhardt",
-          "position": "F"
-        },
-        {
-          "id": "232325",
-          "name": "Joe Rodon",
-          "position": "D"
-        },
-        {
-          "id": "245562",
-          "name": "Joël Piroe",
-          "position": "F"
-        },
-        {
-          "id": "291435",
-          "name": "Largie Ramazani",
-          "position": "F"
-        },
-        {
-          "id": "252406",
-          "name": "Lucas Perri",
-          "position": "G"
-        },
-        {
-          "id": "258956",
-          "name": "Lukas Nmecha",
-          "position": "F"
-        },
-        {
-          "id": "346709",
-          "name": "Mateo Joseph",
-          "position": "F"
-        },
-        {
-          "id": "270641",
-          "name": "Noah Okafor",
-          "position": "F"
-        },
-        {
-          "id": "408500",
-          "name": "Ollie Pickles",
-          "position": "M"
-        },
-        {
-          "id": "407584",
-          "name": "Rhys Chadwick",
-          "position": "M"
-        },
-        {
-          "id": "407583",
-          "name": "Rory Mahady",
-          "position": "G"
-        },
-        {
-          "id": "223454",
-          "name": "Sam Byram",
-          "position": "D"
-        },
-        {
-          "id": "390040",
-          "name": "Sam Chambers",
-          "position": "M"
-        },
-        {
-          "id": "251658",
-          "name": "Sean Longstaff",
-          "position": "M"
-        },
-        {
-          "id": "271130",
-          "name": "Sebastiaan Bornauw",
-          "position": "D"
-        },
-        {
-          "id": "318390",
-          "name": "Tarik Muharemovic",
-          "position": "D"
-        },
-        {
-          "id": "297784",
-          "name": "Wilfried Gnonto",
-          "position": "F"
-        }
-      ]
-    },
-    "Liverpool": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/364/roster",
-      "players": [
-        {
-          "id": "235662",
-          "name": "Alexander Isak",
-          "position": "F"
-        },
-        {
-          "id": "249299",
-          "name": "Alexis Mac Allister",
-          "position": "M"
-        },
-        {
-          "id": "196876",
-          "name": "Alisson Becker",
-          "position": "G"
-        },
-        {
-          "id": "359218",
-          "name": "Calum Scanlon",
-          "position": "D"
-        },
-        {
-          "id": "291353",
-          "name": "Calvin Ramsay",
-          "position": "D"
-        },
-        {
-          "id": "249524",
-          "name": "Cody Gakpo",
-          "position": "F"
-        },
-        {
-          "id": "250183",
-          "name": "Conor Bradley",
-          "position": "D"
-        },
-        {
-          "id": "190257",
-          "name": "Curtis Jones",
-          "position": "M"
-        },
-        {
-          "id": "257206",
-          "name": "Dominik Szoboszlai",
-          "position": "M"
-        },
-        {
-          "id": "234306",
-          "name": "Federico Chiesa",
-          "position": "F"
-        },
-        {
-          "id": "303748",
-          "name": "Florian Wirtz",
-          "position": "M"
-        },
-        {
-          "id": "194121",
-          "name": "Freddie Woodman",
-          "position": "G"
-        },
-        {
-          "id": "274742",
-          "name": "Giorgi Mamardashvili",
-          "position": "G"
-        },
-        {
-          "id": "380082",
-          "name": "Giovanni Leoni",
-          "position": "D"
-        },
-        {
-          "id": "315879",
-          "name": "Harvey Davies",
-          "position": "G"
-        },
-        {
-          "id": "280806",
-          "name": "Harvey Elliott",
-          "position": "M"
-        },
-        {
-          "id": "304901",
-          "name": "Hugo Ekitike",
-          "position": "F"
-        },
-        {
-          "id": "407397",
-          "name": "Ifeanyi Ndukwe",
-          "position": "D"
-        },
-        {
-          "id": "326230",
-          "name": "James McConnell",
-          "position": "M"
-        },
-        {
-          "id": "281119",
-          "name": "Jeremie Frimpong",
-          "position": "D"
-        },
-        {
-          "id": "102053",
-          "name": "Joe Gomez",
-          "position": "D"
-        },
-        {
-          "id": "3111014",
-          "name": "Joshua Abe",
-          "position": "F"
-        },
-        {
-          "id": "395890",
-          "name": "Joshua Lambie",
-          "position": "F"
-        },
-        {
-          "id": "355980",
-          "name": "Jérémy Jacquet",
-          "position": "D"
-        },
-        {
-          "id": "357162",
-          "name": "Kieran Morrison",
-          "position": "M"
-        },
-        {
-          "id": "226177",
-          "name": "Kostas Tsimikas",
-          "position": "D"
-        },
-        {
-          "id": "350661",
-          "name": "Lewis Koumas",
-          "position": "F"
-        },
-        {
-          "id": "32572",
-          "name": "Luke Chambers",
-          "position": "D"
-        },
-        {
-          "id": "323110",
-          "name": "Milos Kerkez",
-          "position": "D"
-        },
-        {
-          "id": "379588",
-          "name": "Rio Ngumoha",
-          "position": "F"
-        },
-        {
-          "id": "274632",
-          "name": "Ryan Gravenberch",
-          "position": "M"
-        },
-        {
-          "id": "330605",
-          "name": "Stefan Bajcetic",
-          "position": "M"
-        },
-        {
-          "id": "414255",
-          "name": "Talla Ndiaye",
-          "position": "D"
-        },
-        {
-          "id": "356075",
-          "name": "Trey Nyoni",
-          "position": "M"
-        },
-        {
-          "id": "157892",
-          "name": "Virgil van Dijk",
-          "position": "D"
-        },
-        {
-          "id": "289840",
-          "name": "Vitezslav Jaros",
-          "position": "G"
-        },
-        {
-          "id": "397545",
-          "name": "Víctor Muñoz",
-          "position": "F"
-        },
-        {
-          "id": "152479",
-          "name": "Wataru Endo",
-          "position": "M"
-        },
-        {
-          "id": "395778",
-          "name": "Will Wright",
-          "position": "F"
-        }
-      ]
-    },
-    "Manchester City": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/382/roster",
-      "players": [
-        {
-          "id": "362211",
-          "name": "Abdukodir Khusanov",
-          "position": "D"
-        },
-        {
-          "id": "273292",
-          "name": "Antoine Semenyo",
-          "position": "F"
-        },
-        {
-          "id": "361355",
-          "name": "Claudio Echeverri",
-          "position": "M"
-        },
-        {
-          "id": "346910",
-          "name": "Divin Mubama",
-          "position": "F"
-        },
-        {
-          "id": "358577",
-          "name": "Divine Mukasa",
-          "position": "M"
-        },
-        {
-          "id": "238472",
-          "name": "Elliot Anderson",
-          "position": "M"
-        },
-        {
-          "id": "253989",
-          "name": "Erling Haaland",
-          "position": "F"
-        },
-        {
-          "id": "298519",
-          "name": "Finley Burns",
-          "position": "D"
-        },
-        {
-          "id": "410320",
-          "name": "Floyd Samba",
-          "position": "M"
-        },
-        {
-          "id": "217092",
-          "name": "Gianluigi Donnarumma",
-          "position": "G"
-        },
-        {
-          "id": "294427",
-          "name": "Issa Kaboré",
-          "position": "D"
-        },
-        {
-          "id": "172850",
-          "name": "Jack Grealish",
-          "position": "M"
-        },
-        {
-          "id": "379583",
-          "name": "Jack Wint",
-          "position": "G"
-        },
-        {
-          "id": "354137",
-          "name": "Jaden Heskey",
-          "position": "F"
-        },
-        {
-          "id": "307118",
-          "name": "James Trafford",
-          "position": "G"
-        },
-        {
-          "id": "389329",
-          "name": "Jeremy Monga",
-          "position": "F"
-        },
-        {
-          "id": "307117",
-          "name": "Josh Wilson-Esbrand",
-          "position": "D"
-        },
-        {
-          "id": "299910",
-          "name": "Josko Gvardiol",
-          "position": "D"
-        },
-        {
-          "id": "370703",
-          "name": "Juma Bah",
-          "position": "D"
-        },
-        {
-          "id": "283672",
-          "name": "Jérémy Doku",
-          "position": "F"
-        },
-        {
-          "id": "390094",
-          "name": "Kaden Braithwaite",
-          "position": "D"
-        },
-        {
-          "id": "223453",
-          "name": "Kalvin Phillips",
-          "position": "M"
-        },
-        {
-          "id": "409584",
-          "name": "Mahamadou Sangaré",
-          "position": "F"
-        },
-        {
-          "id": "265907",
-          "name": "Marc Guéhi",
-          "position": "D"
-        },
-        {
-          "id": "177545",
-          "name": "Marcus Bettinelli",
-          "position": "G"
-        },
-        {
-          "id": "154595",
-          "name": "Mateo Kovacic",
-          "position": "M"
-        },
-        {
-          "id": "303785",
-          "name": "Matheus Nunes",
-          "position": "M"
-        },
-        {
-          "id": "375737",
-          "name": "Matthew Henderson-Hall",
-          "position": "D"
-        },
-        {
-          "id": "347046",
-          "name": "Max Alleyne",
-          "position": "D"
-        },
-        {
-          "id": "323986",
-          "name": "Nico González",
-          "position": "M"
-        },
-        {
-          "id": "328464",
-          "name": "Nico O'Reilly",
-          "position": "D"
-        },
-        {
-          "id": "303745",
-          "name": "Omar Marmoush",
-          "position": "F"
-        },
-        {
-          "id": "250787",
-          "name": "Phil Foden",
-          "position": "M"
-        },
-        {
-          "id": "272512",
-          "name": "Rayan Aït-Nouri",
-          "position": "D"
-        },
-        {
-          "id": "298008",
-          "name": "Rayan Cherki",
-          "position": "M"
-        },
-        {
-          "id": "325564",
-          "name": "Rico Lewis",
-          "position": "D"
-        },
-        {
-          "id": "231828",
-          "name": "Rodri",
-          "position": "M"
-        },
-        {
-          "id": "395463",
-          "name": "Ryan McAidoo",
-          "position": "F"
-        },
-        {
-          "id": "234878",
-          "name": "Rúben Dias",
-          "position": "D"
-        },
-        {
-          "id": "304470",
-          "name": "Savinho",
-          "position": "F"
-        },
-        {
-          "id": "374220",
-          "name": "Stephen Mfuni",
-          "position": "D"
-        },
-        {
-          "id": "261328",
-          "name": "Tijjani Reijnders",
-          "position": "M"
-        },
-        {
-          "id": "310695",
-          "name": "Trialist",
-          "position": "G"
-        },
-        {
-          "id": "361434",
-          "name": "Vitor Reis",
-          "position": "D"
-        },
-        {
-          "id": "3118131",
-          "name": "Xavier Tau Parker",
-          "position": "M"
-        }
-      ]
-    },
     "Manchester United": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/360/roster",
+      "source": "api-football:team:33",
       "players": [
         {
-          "id": "274272",
-          "name": "Altay Bayindir",
-          "position": "G"
+          "id": "50132",
+          "name": "A. Bayındır",
+          "position": "Goalkeeper"
         },
         {
-          "id": "291630",
-          "name": "Amad Diallo",
-          "position": "F"
+          "id": "157997",
+          "name": "A. Diallo",
+          "position": "Attacker"
         },
         {
-          "id": "314858",
+          "id": "402329",
+          "name": "A. Heaven",
+          "position": "Defender"
+        },
+        {
+          "id": "305834",
           "name": "Andrey Santos",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "356044",
-          "name": "Ayden Heaven",
-          "position": "D"
+          "id": "20589",
+          "name": "B. Mbeumo",
+          "position": "Attacker"
         },
         {
-          "id": "289155",
-          "name": "Benjamin Sesko",
-          "position": "F"
+          "id": "115589",
+          "name": "B. Šeško",
+          "position": "Attacker"
         },
         {
-          "id": "124091",
+          "id": "1485",
           "name": "Bruno Fernandes",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "271170",
-          "name": "Bryan Mbeumo",
-          "position": "F"
+          "id": "546704",
+          "name": "D. Armer",
+          "position": "Defender"
         },
         {
-          "id": "381055",
-          "name": "Daniel Armer",
-          "position": "D"
-        },
-        {
-          "id": "347049",
+          "id": "303010",
           "name": "Daniel Gore",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "325550",
-          "name": "Dermot Mee",
-          "position": "G"
+          "id": "284382",
+          "name": "Dermot William Mee",
+          "position": "Goalkeeper"
         },
         {
-          "id": "387634",
-          "name": "Diego León",
-          "position": "D"
-        },
-        {
-          "id": "238902",
+          "id": "886",
           "name": "Diogo Dalot",
-          "position": "D"
+          "position": "Defender"
         },
         {
-          "id": "398006",
-          "name": "Enzo Kana-Biyik",
-          "position": "F"
+          "id": "362270",
+          "name": "E. Wheatley",
+          "position": "Attacker"
         },
         {
-          "id": "368547",
-          "name": "Ethan Wheatley",
-          "position": "F"
-        },
-        {
-          "id": "360077",
+          "id": "365664",
           "name": "Ethan Williams",
-          "position": "F"
+          "position": "Attacker"
         },
         {
-          "id": "356940",
-          "name": "Harry Amass",
-          "position": "D"
+          "id": "440159",
+          "name": "G. Kukonki",
+          "position": "Defender"
         },
         {
-          "id": "157073",
-          "name": "Harry Maguire",
-          "position": "D"
+          "id": "403064",
+          "name": "H. Amass",
+          "position": "Defender"
         },
         {
-          "id": "3108507",
-          "name": "JJ Gabriel",
-          "position": "F"
+          "id": "2935",
+          "name": "H. Maguire",
+          "position": "Defender"
         },
         {
-          "id": "205081",
-          "name": "Jack Fletcher",
-          "position": "M"
+          "id": "408896",
+          "name": "J. Devaney",
+          "position": "Midfielder"
         },
         {
-          "id": "384068",
-          "name": "Jacob Devaney",
-          "position": "M"
+          "id": "383770",
+          "name": "J. Fletcher",
+          "position": "Midfielder"
         },
         {
-          "id": "386199",
-          "name": "Jaydan Kamason",
-          "position": "D"
+          "id": "402330",
+          "name": "J. Kamason",
+          "position": "Defender"
         },
         {
-          "id": "381057",
-          "name": "Jim Thwaites",
-          "position": "M"
+          "id": "344229",
+          "name": "J. Moorhouse",
+          "position": "Midfielder"
         },
         {
-          "id": "276327",
-          "name": "Joshua Zirkzee",
-          "position": "F"
+          "id": "70100",
+          "name": "J. Zirkzee",
+          "position": "Attacker"
         },
         {
-          "id": "130877",
-          "name": "Karl Darlow",
-          "position": "G"
+          "id": "588436",
+          "name": "Joseph Gabriel",
+          "position": "Attacker"
         },
         {
-          "id": "328466",
-          "name": "Kobbie Mainoo",
-          "position": "M"
+          "id": "18885",
+          "name": "K. Darlow",
+          "position": "Goalkeeper"
         },
         {
-          "id": "340206",
-          "name": "Leny Yoro",
-          "position": "D"
+          "id": "284322",
+          "name": "K. Mainoo",
+          "position": "Midfielder"
         },
         {
-          "id": "233937",
+          "id": "891",
+          "name": "L. Shaw",
+          "position": "Defender"
+        },
+        {
+          "id": "342970",
+          "name": "L. Yoro",
+          "position": "Defender"
+        },
+        {
+          "id": "2467",
           "name": "Lisandro Martínez",
-          "position": "D"
+          "position": "Defender"
         },
         {
-          "id": "167127",
-          "name": "Luke Shaw",
-          "position": "D"
+          "id": "19220",
+          "name": "M. Mount",
+          "position": "Midfielder"
         },
         {
-          "id": "241468",
-          "name": "Manuel Ugarte",
-          "position": "M"
+          "id": "51494",
+          "name": "M. Ugarte",
+          "position": "Midfielder"
         },
         {
-          "id": "230945",
-          "name": "Marcus Rashford",
-          "position": "F"
-        },
-        {
-          "id": "231167",
-          "name": "Mason Mount",
-          "position": "M"
-        },
-        {
-          "id": "259902",
+          "id": "1165",
           "name": "Matheus Cunha",
-          "position": "F"
+          "position": "Attacker"
         },
         {
-          "id": "239349",
-          "name": "Matthijs de Ligt",
-          "position": "D"
+          "id": "545",
+          "name": "N. Mazraoui",
+          "position": "Defender"
         },
         {
-          "id": "239350",
-          "name": "Noussair Mazraoui",
-          "position": "D"
+          "id": "389309",
+          "name": "O. Martin",
+          "position": "Attacker"
         },
         {
-          "id": "366781",
-          "name": "Patrick Dorgu",
-          "position": "D"
+          "id": "382452",
+          "name": "P. Dorgu",
+          "position": "Defender"
         },
         {
-          "id": "325556",
-          "name": "Radek Vítek",
-          "position": "G"
+          "id": "284361",
+          "name": "R. Vítek",
+          "position": "Goalkeeper"
         },
         {
-          "id": "301425",
-          "name": "Senne Lammens",
-          "position": "G"
+          "id": "557462",
+          "name": "S. Lacey",
+          "position": "Attacker"
         },
         {
-          "id": "358180",
-          "name": "Shea Lacey",
-          "position": "F"
+          "id": "162511",
+          "name": "S. Lammens",
+          "position": "Goalkeeper"
         },
         {
-          "id": "308778",
-          "name": "Toby Collyer",
-          "position": "M"
+          "id": "557460",
+          "name": "T. Fletcher",
+          "position": "Midfielder"
         },
         {
-          "id": "42250",
-          "name": "Tom Heaton",
-          "position": "G"
+          "id": "2931",
+          "name": "T. Heaton",
+          "position": "Goalkeeper"
         },
         {
-          "id": "393138",
-          "name": "Tyler Fletcher",
-          "position": "M"
+          "id": "284400",
+          "name": "Tobias Christopher Collyer",
+          "position": "Midfielder"
         },
         {
-          "id": "193297",
-          "name": "Youri Tielemans",
-          "position": "M"
+          "id": "2926",
+          "name": "Y. Tielemans",
+          "position": "Midfielder"
         }
       ]
     },
     "Newcastle United": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/361/roster",
+      "source": "api-football:team:34",
       "players": [
         {
-          "id": "353304",
+          "id": "453792",
+          "name": "A. Bamba",
+          "position": "Midfielder"
+        },
+        {
+          "id": "153430",
+          "name": "A. Elanga",
+          "position": "Attacker"
+        },
+        {
+          "id": "382344",
+          "name": "A. Munda",
+          "position": "Midfielder"
+        },
+        {
+          "id": "318056",
+          "name": "A. Murphy",
+          "position": "Defender"
+        },
+        {
+          "id": "365988",
           "name": "Aidan Harris",
-          "position": "G"
+          "position": "Goalkeeper"
         },
         {
-          "id": "396630",
-          "name": "Aladji Bamba",
-          "position": "M"
+          "id": "387643",
+          "name": "B. Touré",
+          "position": "Midfielder"
         },
         {
-          "id": "346874",
-          "name": "Alex Murphy",
-          "position": "D"
-        },
-        {
-          "id": "296622",
-          "name": "Anthony Elanga",
-          "position": "F"
-        },
-        {
-          "id": "379858",
-          "name": "Anthony Munda",
-          "position": "M"
-        },
-        {
-          "id": "359108",
-          "name": "Bazoumana Touré",
-          "position": "F"
-        },
-        {
-          "id": "218522",
+          "id": "10135",
           "name": "Bruno Guimarães",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "198138",
-          "name": "Dan Burn",
-          "position": "D"
+          "id": "18961",
+          "name": "D. Burn",
+          "position": "Defender"
         },
         {
-          "id": "371334",
-          "name": "Dylan Charlton",
-          "position": "D"
+          "id": "329640",
+          "name": "E. Jaouen",
+          "position": "Goalkeeper"
         },
         {
-          "id": "347523",
-          "name": "Ewen Jaouen",
-          "position": "G"
+          "id": "2806",
+          "name": "F. Schär",
+          "position": "Defender"
         },
         {
-          "id": "179233",
-          "name": "Fabian Schär",
-          "position": "D"
+          "id": "18778",
+          "name": "H. Barnes",
+          "position": "Attacker"
         },
         {
-          "id": "243386",
-          "name": "Harvey Barnes",
-          "position": "M"
+          "id": "19163",
+          "name": "J. Murphy",
+          "position": "Midfielder"
         },
         {
-          "id": "172836",
-          "name": "Jacob Murphy",
-          "position": "M"
+          "id": "19192",
+          "name": "J. Ramsey",
+          "position": "Midfielder"
         },
         {
-          "id": "286090",
-          "name": "Jacob Ramsey",
-          "position": "M"
+          "id": "1463",
+          "name": "J. Willock",
+          "position": "Midfielder"
         },
         {
-          "id": "259517",
-          "name": "Joe Willock",
-          "position": "M"
-        },
-        {
-          "id": "202232",
+          "id": "723",
           "name": "Joelinton",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "374219",
-          "name": "Leo Shahar",
-          "position": "D"
+          "id": "284492",
+          "name": "L. Hall",
+          "position": "Defender"
         },
         {
-          "id": "106139",
-          "name": "Lewis Hall",
-          "position": "D"
+          "id": "269349",
+          "name": "L. Horníček",
+          "position": "Goalkeeper"
         },
         {
-          "id": "349078",
-          "name": "Lewis Miley",
-          "position": "M"
+          "id": "328105",
+          "name": "L. Miley",
+          "position": "Midfielder"
         },
         {
-          "id": "319267",
-          "name": "Lukás Hornícek",
-          "position": "G"
+          "id": "337934",
+          "name": "L. Shahar",
+          "position": "Defender"
         },
         {
-          "id": "303444",
-          "name": "Malick Thiaw",
-          "position": "D"
+          "id": "44912",
+          "name": "M. Gillespie",
+          "position": "Goalkeeper"
         },
         {
-          "id": "141705",
-          "name": "Mark Gillespie",
-          "position": "G"
+          "id": "163189",
+          "name": "M. Thiaw",
+          "position": "Defender"
         },
         {
-          "id": "416448",
-          "name": "Mason Miley",
-          "position": "M"
+          "id": "18911",
+          "name": "N. Pope",
+          "position": "Goalkeeper"
         },
         {
-          "id": "399404",
-          "name": "Matheos Ferreira",
-          "position": "F"
+          "id": "158054",
+          "name": "N. Woltemade",
+          "position": "Attacker"
         },
         {
-          "id": "346776",
-          "name": "Miodrag Pivas",
-          "position": "D"
-        },
-        {
-          "id": "161715",
-          "name": "Nick Pope",
-          "position": "G"
-        },
-        {
-          "id": "298349",
-          "name": "Nick Woltemade",
-          "position": "F"
-        },
-        {
-          "id": "371584",
+          "id": "423714",
           "name": "Park Seung-Soo",
-          "position": "F"
+          "position": "Midfielder"
         },
         {
-          "id": "377956",
-          "name": "Rory Finneran",
-          "position": "M"
+          "id": "38734",
+          "name": "S. Botman",
+          "position": "Defender"
         },
         {
-          "id": "358245",
-          "name": "Sean Neave",
-          "position": "F"
+          "id": "394165",
+          "name": "S. Neave",
+          "position": "Midfielder"
         },
         {
-          "id": "384372",
+          "id": "469321",
           "name": "Sean Steur",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "274633",
-          "name": "Sven Botman",
-          "position": "D"
+          "id": "158694",
+          "name": "T. Livramento",
+          "position": "Defender"
         },
         {
-          "id": "299641",
-          "name": "Tino Livramento",
-          "position": "D"
+          "id": "401389",
+          "name": "T. Sanusi",
+          "position": "Attacker"
         },
         {
-          "id": "362517",
-          "name": "Trevan Sanusi",
-          "position": "F"
+          "id": "560496",
+          "name": "V. Salia",
+          "position": "Attacker"
         },
         {
-          "id": "319431",
-          "name": "William Osula",
-          "position": "F"
+          "id": "315237",
+          "name": "W. Osula",
+          "position": "Attacker"
         },
         {
-          "id": "224077",
-          "name": "Yoane Wissa",
-          "position": "F"
+          "id": "20649",
+          "name": "Y. Wissa",
+          "position": "Attacker"
         }
       ]
     },
-    "Nottingham Forest": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/393/roster",
+    "Bournemouth": {
+      "source": "api-football:team:35",
       "players": [
         {
-          "id": "296321",
-          "name": "Arnaud Kalimuendo",
-          "position": "F"
+          "id": "129682",
+          "name": "A. Adli",
+          "position": "Midfielder"
         },
         {
-          "id": "261419",
-          "name": "Callum Hudson-Odoi",
-          "position": "F"
+          "id": "304853",
+          "name": "A. Scott",
+          "position": "Midfielder"
         },
         {
-          "id": "134190",
-          "name": "Chris Wood",
-          "position": "F"
+          "id": "18869",
+          "name": "A. Smith",
+          "position": "Defender"
         },
         {
-          "id": "275842",
-          "name": "Dan Ndoye",
-          "position": "F"
+          "id": "162267",
+          "name": "A. Truffert",
+          "position": "Defender"
         },
         {
-          "id": "297157",
-          "name": "Dilane Bakwa",
-          "position": "F"
+          "id": "361485",
+          "name": "A. Tóth",
+          "position": "Midfielder"
         },
         {
-          "id": "372025",
-          "name": "Eric Da Silva Moreira",
-          "position": "F"
+          "id": "331832",
+          "name": "António Silva",
+          "position": "Defender"
         },
         {
-          "id": "213718",
-          "name": "Ibrahim Sangaré",
-          "position": "M"
+          "id": "22136",
+          "name": "B. Diakité",
+          "position": "Defender"
         },
         {
-          "id": "287869",
-          "name": "Igor Jesus",
-          "position": "F"
+          "id": "343576",
+          "name": "B. Doak",
+          "position": "Attacker"
         },
         {
-          "id": "338876",
-          "name": "Jair Paula",
-          "position": "D"
+          "id": "573755",
+          "name": "C. Stevens",
+          "position": "Midfielder"
         },
         {
-          "id": "298518",
-          "name": "James McAtee",
-          "position": "M"
+          "id": "18870",
+          "name": "D. Brooks",
+          "position": "Attacker"
         },
         {
-          "id": "233241",
-          "name": "John Victor",
-          "position": "G"
+          "id": "296458",
+          "name": "D. Jebbison",
+          "position": "Attacker"
         },
         {
-          "id": "303765",
-          "name": "Luca Netz",
-          "position": "D"
+          "id": "368030",
+          "name": "E. Kroupi",
+          "position": "Attacker"
         },
         {
-          "id": "179497",
-          "name": "Matz Sels",
-          "position": "G"
+          "id": "47499",
+          "name": "E. Ünal",
+          "position": "Attacker"
         },
         {
-          "id": "201304",
-          "name": "Morato",
-          "position": "D"
+          "id": "152856",
+          "name": "Evanilson",
+          "position": "Attacker"
         },
         {
-          "id": "243396",
-          "name": "Morgan Gibbs-White",
-          "position": "M"
+          "id": "18932",
+          "name": "F. Forster",
+          "position": "Goalkeeper"
         },
         {
-          "id": "338894",
-          "name": "Murillo",
-          "position": "D"
+          "id": "51051",
+          "name": "J. Araujo",
+          "position": "Defender"
         },
         {
-          "id": "291638",
-          "name": "Neco Williams",
-          "position": "D"
+          "id": "20093",
+          "name": "J. Hill",
+          "position": "Defender"
         },
         {
-          "id": "254118",
-          "name": "Nicolás Domínguez",
-          "position": "M"
+          "id": "792",
+          "name": "J. Kluivert",
+          "position": "Attacker"
         },
         {
-          "id": "388024",
-          "name": "Nicolò Savona",
-          "position": "D"
+          "id": "363333",
+          "name": "J. Soler",
+          "position": "Defender"
         },
         {
-          "id": "238990",
-          "name": "Nikola Milenkovic",
-          "position": "D"
+          "id": "407034",
+          "name": "K. Crampton",
+          "position": "Goalkeeper"
         },
         {
-          "id": "206227",
-          "name": "Ola Aina",
-          "position": "D"
+          "id": "18872",
+          "name": "L. Cook",
+          "position": "Midfielder"
         },
         {
-          "id": "243754",
-          "name": "Omar Richards",
-          "position": "D"
+          "id": "19070",
+          "name": "M. Aarons",
+          "position": "Defender"
         },
         {
-          "id": "322771",
-          "name": "Omari Hutchinson",
-          "position": "F"
+          "id": "19245",
+          "name": "M. Tavernier",
+          "position": "Midfielder"
         },
         {
-          "id": "241253",
-          "name": "Ryan Yates",
-          "position": "M"
+          "id": "626383",
+          "name": "Malcom Dacosta",
+          "position": "Midfielder"
         },
         {
-          "id": "194686",
-          "name": "Taiwo Awoniyi",
-          "position": "F"
+          "id": "1125",
+          "name": "R. Christie",
+          "position": "Midfielder"
         },
         {
-          "id": "367427",
-          "name": "Tyler Bindon",
-          "position": "D"
+          "id": "407806",
+          "name": "Rayan",
+          "position": "Attacker"
         },
         {
-          "id": "238886",
-          "name": "Xaver Schlager",
-          "position": "M"
+          "id": "402434",
+          "name": "Remy Rees-Dottin",
+          "position": "Attacker"
         },
         {
-          "id": "348303",
-          "name": "Zach Abbott",
-          "position": "D"
+          "id": "1150",
+          "name": "T. Adams",
+          "position": "Midfielder"
+        },
+        {
+          "id": "412719",
+          "name": "Veljko Milosavljević",
+          "position": "Defender"
+        },
+        {
+          "id": "151756",
+          "name": "W. Dennis",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "343202",
+          "name": "Á. Rodríguez",
+          "position": "Attacker"
+        },
+        {
+          "id": "118307",
+          "name": "Đ. Petrović",
+          "position": "Goalkeeper"
         }
       ]
     },
-    "Sunderland": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/366/roster",
+    "Fulham": {
+      "source": "api-football:team:36",
       "players": [
         {
-          "id": "56820",
-          "name": "Abdoullah Ba",
-          "position": "M"
+          "id": "1455",
+          "name": "A. Iwobi",
+          "position": "Midfielder"
         },
         {
-          "id": "359150",
-          "name": "Ahmed Abdullahi",
-          "position": "F"
+          "id": "19549",
+          "name": "A. Robinson",
+          "position": "Defender"
         },
         {
-          "id": "243545",
-          "name": "Ajibola Alese",
-          "position": "D"
+          "id": "21566",
+          "name": "B. Lecomte",
+          "position": "Goalkeeper"
         },
         {
-          "id": "197627",
-          "name": "Alan Browne",
-          "position": "M"
+          "id": "1438",
+          "name": "B. Leno",
+          "position": "Goalkeeper"
         },
         {
-          "id": "281705",
-          "name": "Anthony Patterson",
-          "position": "G"
+          "id": "152967",
+          "name": "C. Bassey",
+          "position": "Defender"
         },
         {
-          "id": "3111011",
-          "name": "Archie Lightfoot",
-          "position": "D"
+          "id": "349684",
+          "name": "C. Nwoko",
+          "position": "Midfielder"
         },
         {
-          "id": "165892",
-          "name": "Arthur Masuaku",
-          "position": "D"
+          "id": "1161",
+          "name": "E. Smith Rowe",
+          "position": "Midfielder"
         },
         {
-          "id": "3111012",
-          "name": "Ben Kindon",
-          "position": "D"
+          "id": "19480",
+          "name": "H. Reed",
+          "position": "Midfielder"
         },
         {
-          "id": "282229",
-          "name": "Brian Brobbey",
-          "position": "F"
+          "id": "284558",
+          "name": "Harvey Araujo",
+          "position": "Defender"
         },
         {
-          "id": "3111013",
-          "name": "Charles Richard Dinsdale",
-          "position": "M"
+          "id": "2729",
+          "name": "J. Andersen",
+          "position": "Defender"
         },
         {
-          "id": "360062",
-          "name": "Chemsdine Talbi",
-          "position": "F"
+          "id": "436443",
+          "name": "J. Kusi-Asare",
+          "position": "Attacker"
         },
         {
-          "id": "356295",
-          "name": "Chris Rigg",
-          "position": "M"
+          "id": "131",
+          "name": "Jorge Cuenca",
+          "position": "Defender"
         },
         {
-          "id": "282645",
-          "name": "Danny Ballard",
-          "position": "D"
+          "id": "389315",
+          "name": "Joshua King",
+          "position": "Midfielder"
         },
         {
-          "id": "288340",
-          "name": "Enzo Le Fée",
-          "position": "M"
+          "id": "657",
+          "name": "K. Tete",
+          "position": "Defender"
         },
         {
-          "id": "3111009",
-          "name": "Felix Scott",
-          "position": "F"
+          "id": "237819",
+          "name": "Kevin",
+          "position": "Attacker"
         },
         {
-          "id": "414669",
-          "name": "Finn Geragusyan",
-          "position": "F"
+          "id": "284475",
+          "name": "L. Harris",
+          "position": "Midfielder"
         },
         {
-          "id": "149981",
-          "name": "Granit Xhaka",
-          "position": "M"
+          "id": "557473",
+          "name": "M. Zepa",
+          "position": "Attacker"
         },
         {
-          "id": "324991",
-          "name": "Habib Diarra",
-          "position": "M"
+          "id": "278133",
+          "name": "Oscar Bobb",
+          "position": "Midfielder"
         },
         {
-          "id": "236211",
-          "name": "Jack Whittaker",
-          "position": "M"
+          "id": "19032",
+          "name": "R. Sessegnon",
+          "position": "Midfielder"
         },
         {
-          "id": "409743",
-          "name": "Jayden Jones",
-          "position": "M"
+          "id": "195106",
+          "name": "Rodrigo Muniz",
+          "position": "Attacker"
         },
         {
-          "id": "243578",
-          "name": "Jenson Arron Jones",
-          "position": "D"
+          "id": "384981",
+          "name": "S. Amissah",
+          "position": "Defender"
         },
         {
-          "id": "310132",
-          "name": "Jenson Seelt",
-          "position": "D"
+          "id": "1934",
+          "name": "S. Berge",
+          "position": "Midfielder"
         },
         {
-          "id": "417825",
-          "name": "Jocelin Ta Bi",
-          "position": "F"
+          "id": "2823",
+          "name": "S. Lukić",
+          "position": "Midfielder"
         },
         {
-          "id": "312592",
-          "name": "Leo Hjelde",
-          "position": "D"
+          "id": "19025",
+          "name": "T. Cairney",
+          "position": "Midfielder"
         },
         {
-          "id": "191574",
-          "name": "Luke O'Nien",
-          "position": "M"
+          "id": "2920",
+          "name": "T. Castagne",
+          "position": "Defender"
+        }
+      ]
+    },
+    "Liverpool": {
+      "source": "api-football:team:40",
+      "players": [
+        {
+          "id": "2864",
+          "name": "A. Isak",
+          "position": "Attacker"
         },
         {
-          "id": "364591",
-          "name": "Luís Semedo",
-          "position": "F"
+          "id": "6716",
+          "name": "A. Mac Allister",
+          "position": "Midfielder"
         },
         {
-          "id": "307800",
-          "name": "Melker Ellborg",
-          "position": "G"
+          "id": "280",
+          "name": "Alisson Becker",
+          "position": "Goalkeeper"
         },
         {
-          "id": "318090",
-          "name": "Nilson Angulo",
-          "position": "F"
+          "id": "247",
+          "name": "C. Gakpo",
+          "position": "Attacker"
         },
         {
-          "id": "340240",
-          "name": "Noah Sadiki",
-          "position": "M"
+          "id": "293",
+          "name": "C. Jones",
+          "position": "Midfielder"
         },
         {
-          "id": "214188",
-          "name": "Nordi Mukiele",
-          "position": "D"
+          "id": "135525",
+          "name": "C. Ramsay",
+          "position": "Defender"
         },
         {
-          "id": "215401",
-          "name": "Omar Alderete",
-          "position": "D"
+          "id": "310186",
+          "name": "C. Scanlon",
+          "position": "Defender"
         },
         {
-          "id": "230081",
-          "name": "Reinildo Mandava",
-          "position": "D"
+          "id": "1096",
+          "name": "D. Szoboszlai",
+          "position": "Midfielder"
         },
         {
-          "id": "301449",
-          "name": "Robin Roefs",
-          "position": "G"
+          "id": "30410",
+          "name": "F. Chiesa",
+          "position": "Attacker"
         },
         {
-          "id": "323084",
-          "name": "Romaine Mundle",
-          "position": "F"
+          "id": "203224",
+          "name": "F. Wirtz",
+          "position": "Midfielder"
         },
         {
-          "id": "317404",
-          "name": "Simon Adingra",
-          "position": "F"
+          "id": "18889",
+          "name": "F. Woodman",
+          "position": "Goalkeeper"
         },
         {
-          "id": "138481",
-          "name": "Simon Moore",
-          "position": "G"
+          "id": "24760",
+          "name": "G. Mamardashvili",
+          "position": "Goalkeeper"
         },
         {
-          "id": "166473",
-          "name": "Thomas Meunier",
-          "position": "D"
+          "id": "180316",
+          "name": "H. Davies",
+          "position": "Goalkeeper"
         },
         {
-          "id": "3111010",
-          "name": "Tom Proctor",
-          "position": "M"
+          "id": "174565",
+          "name": "H. Ekitike",
+          "position": "Attacker"
         },
         {
-          "id": "290207",
-          "name": "Trai Hume",
-          "position": "D"
+          "id": "19035",
+          "name": "H. Elliott",
+          "position": "Midfielder"
         },
         {
-          "id": "392107",
-          "name": "Trey Ogunsuyi",
-          "position": "F"
+          "id": "511971",
+          "name": "IfeanyiIfeanyi Ndukwe",
+          "position": "Defender"
         },
         {
-          "id": "387460",
-          "name": "Tymur Tutierov",
-          "position": "M"
+          "id": "152654",
+          "name": "J. Frimpong",
+          "position": "Midfielder"
         },
         {
-          "id": "265915",
-          "name": "Wilson Isidor",
-          "position": "F"
+          "id": "284",
+          "name": "J. Gomez",
+          "position": "Defender"
+        },
+        {
+          "id": "367636",
+          "name": "J. Jacquet",
+          "position": "Defender"
+        },
+        {
+          "id": "437561",
+          "name": "J. Lambie",
+          "position": "Attacker"
+        },
+        {
+          "id": "287109",
+          "name": "J. McConnell",
+          "position": "Midfielder"
+        },
+        {
+          "id": "588501",
+          "name": "Joshua Abe",
+          "position": "Attacker"
+        },
+        {
+          "id": "415992",
+          "name": "K. Miściur",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "389032",
+          "name": "K. Morrison",
+          "position": "Midfielder"
+        },
+        {
+          "id": "1600",
+          "name": "K. Tsimikas",
+          "position": "Defender"
+        },
+        {
+          "id": "284366",
+          "name": "L. Chambers",
+          "position": "Defender"
+        },
+        {
+          "id": "328107",
+          "name": "L. Koumas",
+          "position": "Attacker"
+        },
+        {
+          "id": "206254",
+          "name": "M. Kerkez",
+          "position": "Defender"
+        },
+        {
+          "id": "542",
+          "name": "R. Gravenberch",
+          "position": "Midfielder"
+        },
+        {
+          "id": "452685",
+          "name": "R. Ngumoha",
+          "position": "Attacker"
+        },
+        {
+          "id": "606814",
+          "name": "T. Ndiaye",
+          "position": "Defender"
+        },
+        {
+          "id": "397997",
+          "name": "T. Nyoni",
+          "position": "Midfielder"
+        },
+        {
+          "id": "290",
+          "name": "V. van Dijk",
+          "position": "Defender"
+        },
+        {
+          "id": "338751",
+          "name": "Víctor Muñoz",
+          "position": "Attacker"
+        },
+        {
+          "id": "8500",
+          "name": "W. Endo",
+          "position": "Midfielder"
+        },
+        {
+          "id": "498377",
+          "name": "W. Wright",
+          "position": "Attacker"
+        }
+      ]
+    },
+    "Arsenal": {
+      "source": "api-football:team:42",
+      "players": [
+        {
+          "id": "457731",
+          "name": "A. Annous",
+          "position": "Attacker"
+        },
+        {
+          "id": "348818",
+          "name": "B. Clarke",
+          "position": "Defender"
+        },
+        {
+          "id": "1460",
+          "name": "B. Saka",
+          "position": "Attacker"
+        },
+        {
+          "id": "19959",
+          "name": "B. White",
+          "position": "Defender"
+        },
+        {
+          "id": "30407",
+          "name": "C. Nørgaard",
+          "position": "Midfielder"
+        },
+        {
+          "id": "161800",
+          "name": "C. Tzolis",
+          "position": "Attacker"
+        },
+        {
+          "id": "333682",
+          "name": "Cristhian Mosquera",
+          "position": "Defender"
+        },
+        {
+          "id": "2937",
+          "name": "D. Rice",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19465",
+          "name": "David Raya",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "19586",
+          "name": "E. Eze",
+          "position": "Midfielder"
+        },
+        {
+          "id": "313236",
+          "name": "E. Nwaneri",
+          "position": "Midfielder"
+        },
+        {
+          "id": "41725",
+          "name": "Fábio Vieira",
+          "position": "Midfielder"
+        },
+        {
+          "id": "643",
+          "name": "Gabriel Jesus",
+          "position": "Attacker"
+        },
+        {
+          "id": "22224",
+          "name": "Gabriel Magalhães",
+          "position": "Defender"
+        },
+        {
+          "id": "127769",
+          "name": "Gabriel Martinelli",
+          "position": "Attacker"
+        },
+        {
+          "id": "553530",
+          "name": "I. Ibrahim",
+          "position": "Midfielder"
+        },
+        {
+          "id": "20619",
+          "name": "I. Meslier",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "407033",
+          "name": "Ismeal Kabia",
+          "position": "Attacker"
+        },
+        {
+          "id": "38746",
+          "name": "J. Timber",
+          "position": "Defender"
+        },
+        {
+          "id": "418403",
+          "name": "Jaden Dixon",
+          "position": "Defender"
+        },
+        {
+          "id": "978",
+          "name": "K. Havertz",
+          "position": "Attacker"
+        },
+        {
+          "id": "403221",
+          "name": "K. Ranson",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "2273",
+          "name": "Kepa",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "409798",
+          "name": "Louie George Copley",
+          "position": "Midfielder"
+        },
+        {
+          "id": "442044",
+          "name": "M. Dowman",
+          "position": "Midfielder"
+        },
+        {
+          "id": "313245",
+          "name": "M. Lewis-Skelly",
+          "position": "Defender"
+        },
+        {
+          "id": "482903",
+          "name": "M. Salmon",
+          "position": "Defender"
+        },
+        {
+          "id": "37127",
+          "name": "M. Ødegaard",
+          "position": "Midfielder"
+        },
+        {
+          "id": "47315",
+          "name": "Martín Zubimendi",
+          "position": "Midfielder"
+        },
+        {
+          "id": "47311",
+          "name": "Mikel Merino",
+          "position": "Midfielder"
+        },
+        {
+          "id": "136723",
+          "name": "N. Madueke",
+          "position": "Attacker"
+        },
+        {
+          "id": "127817",
+          "name": "P. Hincapié",
+          "position": "Defender"
+        },
+        {
+          "id": "157052",
+          "name": "R. Calafiori",
+          "position": "Defender"
+        },
+        {
+          "id": "727",
+          "name": "R. Nelson",
+          "position": "Attacker"
+        },
+        {
+          "id": "342243",
+          "name": "T. Setford",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "18979",
+          "name": "V. Gyökeres",
+          "position": "Attacker"
+        },
+        {
+          "id": "22090",
+          "name": "W. Saliba",
+          "position": "Defender"
+        }
+      ]
+    },
+    "Everton": {
+      "source": "api-football:team:45",
+      "players": [
+        {
+          "id": "431921",
+          "name": "Adam Aznou Ben Cheikh",
+          "position": "Defender"
+        },
+        {
+          "id": "413034",
+          "name": "B. Graham",
+          "position": "Attacker"
+        },
+        {
+          "id": "125743",
+          "name": "Beto",
+          "position": "Attacker"
+        },
+        {
+          "id": "195993",
+          "name": "C. Alcaraz",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18929",
+          "name": "D. McNeil",
+          "position": "Midfielder"
+        },
+        {
+          "id": "284385",
+          "name": "Elijah Xavier Campbell",
+          "position": "Defender"
+        },
+        {
+          "id": "410421",
+          "name": "G. Finney",
+          "position": "Defender"
+        },
+        {
+          "id": "405360",
+          "name": "H. Armstrong",
+          "position": "Midfielder"
+        },
+        {
+          "id": "410423",
+          "name": "H. Foster",
+          "position": "Midfielder"
+        },
+        {
+          "id": "179685",
+          "name": "H. Hackney",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18592",
+          "name": "I. Ndiaye",
+          "position": "Attacker"
+        },
+        {
+          "id": "17661",
+          "name": "J. Branthwaite",
+          "position": "Defender"
+        },
+        {
+          "id": "895",
+          "name": "J. Garner",
+          "position": "Midfielder"
+        },
+        {
+          "id": "270139",
+          "name": "J. O&apos;Brien",
+          "position": "Defender"
+        },
+        {
+          "id": "2932",
+          "name": "J. Pickford",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "2936",
+          "name": "J. Tarkowski",
+          "position": "Defender"
+        },
+        {
+          "id": "148099",
+          "name": "K. Dewsbury-Hall",
+          "position": "Midfielder"
+        },
+        {
+          "id": "202854",
+          "name": "M. Röhl",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18860",
+          "name": "M. Travers",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "588468",
+          "name": "Malik Olayiwola",
+          "position": "Midfielder"
+        },
+        {
+          "id": "138417",
+          "name": "N. Patterson",
+          "position": "Defender"
+        },
+        {
+          "id": "343684",
+          "name": "T. Barry",
+          "position": "Attacker"
+        },
+        {
+          "id": "304317",
+          "name": "T. Dibling",
+          "position": "Attacker"
+        },
+        {
+          "id": "284500",
+          "name": "T. Iroegbunam",
+          "position": "Midfielder"
+        },
+        {
+          "id": "82855",
+          "name": "T. King",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "334037",
+          "name": "Tyrique George",
+          "position": "Attacker"
+        },
+        {
+          "id": "2165",
+          "name": "V. Mykolenko",
+          "position": "Defender"
+        },
+        {
+          "id": "557410",
+          "name": "W. Tamen",
+          "position": "Defender"
         }
       ]
     },
     "Tottenham": {
-      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/teams/367/roster",
+      "source": "api-football:team:47",
       "players": [
         {
-          "id": "104943",
-          "name": "Andy Robertson",
-          "position": "D"
+          "id": "328089",
+          "name": "A. Gray",
+          "position": "Defender"
         },
         {
-          "id": "324393",
-          "name": "Antonín Kinsky",
-          "position": "G"
+          "id": "265826",
+          "name": "A. Kinský",
+          "position": "Goalkeeper"
         },
         {
-          "id": "328050",
-          "name": "Archie Gray",
-          "position": "M"
+          "id": "289",
+          "name": "A. Robertson",
+          "position": "Defender"
         },
         {
-          "id": "273628",
-          "name": "Ashley Phillips",
-          "position": "D"
+          "id": "156428",
+          "name": "B. Austin",
+          "position": "Goalkeeper"
         },
         {
-          "id": "6327",
-          "name": "Ben Davies",
-          "position": "D"
+          "id": "164",
+          "name": "B. Davies",
+          "position": "Defender"
         },
         {
-          "id": "259942",
-          "name": "Brandon Austin",
-          "position": "G"
+          "id": "67972",
+          "name": "C. Gallagher",
+          "position": "Midfielder"
         },
         {
-          "id": "266696",
-          "name": "Conor Gallagher",
-          "position": "M"
+          "id": "380689",
+          "name": "C. Olusesi",
+          "position": "Midfielder"
         },
         {
-          "id": "96970",
-          "name": "Cristian Romero",
-          "position": "D"
+          "id": "30776",
+          "name": "C. Romero",
+          "position": "Defender"
         },
         {
-          "id": "350674",
-          "name": "Damola Ajayi",
-          "position": "F"
+          "id": "361734",
+          "name": "D. Ajayi",
+          "position": "Attacker"
         },
         {
-          "id": "306012",
-          "name": "Dane Scarlett",
-          "position": "F"
+          "id": "162552",
+          "name": "D. Scarlett",
+          "position": "Attacker"
         },
         {
-          "id": "272695",
-          "name": "Dejan Kulusevski",
-          "position": "M"
+          "id": "18883",
+          "name": "D. Solanke",
+          "position": "Attacker"
         },
         {
-          "id": "290076",
-          "name": "Destiny Udogie",
-          "position": "D"
+          "id": "19235",
+          "name": "D. Spence",
+          "position": "Defender"
         },
         {
-          "id": "267711",
-          "name": "Djed Spence",
-          "position": "D"
+          "id": "204039",
+          "name": "D. Udogie",
+          "position": "Defender"
         },
         {
-          "id": "194115",
-          "name": "Dominic Solanke",
-          "position": "F"
+          "id": "31354",
+          "name": "G. Vicario",
+          "position": "Goalkeeper"
         },
         {
-          "id": "3109635",
-          "name": "Dylan Thompson",
-          "position": "G"
+          "id": "467839",
+          "name": "J. Byfield",
+          "position": "Defender"
         },
         {
-          "id": "204082",
-          "name": "Guglielmo Vicario",
-          "position": "G"
+          "id": "293163",
+          "name": "J. Donley",
+          "position": "Midfielder"
         },
         {
-          "id": "397880",
-          "name": "Harry Byrne",
-          "position": "M"
+          "id": "18784",
+          "name": "J. Maddison",
+          "position": "Midfielder"
         },
         {
-          "id": "194450",
-          "name": "James Maddison",
-          "position": "M"
+          "id": "38695",
+          "name": "J. van Hecke",
+          "position": "Defender"
         },
         {
-          "id": "347313",
-          "name": "Jamie Donley",
-          "position": "M"
+          "id": "361735",
+          "name": "James Rowswell",
+          "position": "Defender"
         },
         {
-          "id": "282583",
-          "name": "Jan Paul van Hecke",
-          "position": "D"
+          "id": "25287",
+          "name": "K. Danso",
+          "position": "Defender"
         },
         {
-          "id": "250543",
-          "name": "Kevin Danso",
-          "position": "D"
+          "id": "337593",
+          "name": "K. Takai",
+          "position": "Defender"
         },
         {
-          "id": "328492",
-          "name": "Kota Takai",
-          "position": "D"
+          "id": "347316",
+          "name": "L. Bergvall",
+          "position": "Midfielder"
         },
         {
-          "id": "395939",
-          "name": "Luca Williams-Barnett",
-          "position": "M"
+          "id": "465310",
+          "name": "L. Williams-Barnett",
+          "position": "Attacker"
         },
         {
-          "id": "356379",
-          "name": "Lucas Bergvall",
-          "position": "M"
+          "id": "18886",
+          "name": "M. Dúbravka",
+          "position": "Goalkeeper"
         },
         {
-          "id": "396748",
-          "name": "Malachi Hardy",
-          "position": "D"
+          "id": "459203",
+          "name": "M. Hardy",
+          "position": "Defender"
         },
         {
-          "id": "257256",
-          "name": "Manor Solomon",
-          "position": "F"
+          "id": "394935",
+          "name": "M. Melia",
+          "position": "Attacker"
         },
         {
-          "id": "233945",
-          "name": "Marcos Senesi",
-          "position": "D"
+          "id": "380690",
+          "name": "M. Moore",
+          "position": "Attacker"
         },
         {
-          "id": "126703",
-          "name": "Martin Dúbravka",
-          "position": "G"
+          "id": "6610",
+          "name": "M. Senesi",
+          "position": "Defender"
         },
         {
-          "id": "364001",
-          "name": "Mason Melia",
-          "position": "F"
+          "id": "697",
+          "name": "M. Solomon",
+          "position": "Attacker"
         },
         {
-          "id": "346820",
+          "id": "270510",
+          "name": "M. Tel",
+          "position": "Attacker"
+        },
+        {
+          "id": "152849",
+          "name": "M. van de Ven",
+          "position": "Defender"
+        },
+        {
+          "id": "336585",
           "name": "Mateus Fernandes",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "325042",
-          "name": "Mathys Tel",
-          "position": "F"
+          "id": "237129",
+          "name": "P. Sarr",
+          "position": "Midfielder"
         },
         {
-          "id": "296512",
-          "name": "Micky van de Ven",
-          "position": "D"
-        },
-        {
-          "id": "365332",
-          "name": "Mikey Moore",
-          "position": "F"
-        },
-        {
-          "id": "266599",
-          "name": "Mohammed Kudus",
-          "position": "M"
-        },
-        {
-          "id": "297337",
-          "name": "Pape Matar Sarr",
-          "position": "M"
-        },
-        {
-          "id": "268533",
+          "id": "47519",
           "name": "Pedro Porro",
-          "position": "D"
+          "position": "Defender"
         },
         {
-          "id": "372596",
-          "name": "Reiss-Alexander Russell-Denny",
-          "position": "M"
+          "id": "863",
+          "name": "R. Bentancur",
+          "position": "Midfielder"
         },
         {
-          "id": "156799",
+          "id": "2413",
           "name": "Richarlison",
-          "position": "F"
+          "position": "Attacker"
         },
         {
-          "id": "367520",
+          "id": "310531",
           "name": "Rio Kyerematen",
-          "position": "M"
+          "position": "Midfielder"
         },
         {
-          "id": "215772",
-          "name": "Rodrigo Bentancur",
-          "position": "M"
+          "id": "31146",
+          "name": "S. Tonali",
+          "position": "Midfielder"
         },
         {
-          "id": "261047",
-          "name": "Sandro Tonali",
-          "position": "M"
-        },
-        {
-          "id": "371532",
+          "id": "414455",
           "name": "Souza",
-          "position": "D"
+          "position": "Defender"
         },
         {
-          "id": "397474",
-          "name": "Tye Hall",
-          "position": "M"
+          "id": "584077",
+          "name": "T. Hall",
+          "position": "Midfielder"
         },
         {
-          "id": "3109634",
-          "name": "Tyler Tingey",
-          "position": "D"
+          "id": "349384",
+          "name": "T. Hall",
+          "position": "Midfielder"
         },
         {
-          "id": "374109",
-          "name": "Tyrese Hall",
-          "position": "M"
+          "id": "336564",
+          "name": "W. Odobert",
+          "position": "Attacker"
         },
         {
-          "id": "345687",
-          "name": "Wilson Odobert",
-          "position": "F"
+          "id": "162016",
+          "name": "X. Simons",
+          "position": "Midfielder"
         },
         {
-          "id": "332962",
-          "name": "Xavi Simons",
-          "position": "M"
-        },
-        {
-          "id": "371578",
+          "id": "423708",
           "name": "Yang Min-Hyeok",
-          "position": "F"
+          "position": "Attacker"
+        }
+      ]
+    },
+    "Chelsea": {
+      "source": "api-football:team:49",
+      "players": [
+        {
+          "id": "422780",
+          "name": "A. Anselmino",
+          "position": "Defender"
+        },
+        {
+          "id": "95",
+          "name": "B. Badiashile",
+          "position": "Defender"
+        },
+        {
+          "id": "610563",
+          "name": "C. Holland",
+          "position": "Midfielder"
+        },
+        {
+          "id": "152982",
+          "name": "C. Palmer",
+          "position": "Midfielder"
+        },
+        {
+          "id": "1469",
+          "name": "D. Welbeck",
+          "position": "Attacker"
+        },
+        {
+          "id": "609590",
+          "name": "Denner",
+          "position": "Defender"
+        },
+        {
+          "id": "308678",
+          "name": "Dário Essugo",
+          "position": "Midfielder"
+        },
+        {
+          "id": "203762",
+          "name": "E. Emegha",
+          "position": "Attacker"
+        },
+        {
+          "id": "5996",
+          "name": "E. Fernández",
+          "position": "Midfielder"
+        },
+        {
+          "id": "425733",
+          "name": "Estêvão",
+          "position": "Midfielder"
+        },
+        {
+          "id": "286616",
+          "name": "F. Jörgensen",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "64167",
+          "name": "G. Słonina",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "419582",
+          "name": "Geovany Tcherno Quenda",
+          "position": "Attacker"
+        },
+        {
+          "id": "568950",
+          "name": "Harrison Bettoni",
+          "position": "Midfielder"
+        },
+        {
+          "id": "286894",
+          "name": "J. Bynoe-Gittens",
+          "position": "Midfielder"
+        },
+        {
+          "id": "341642",
+          "name": "J. Hato",
+          "position": "Defender"
+        },
+        {
+          "id": "366735",
+          "name": "Joshua Kofi Acheampong",
+          "position": "Defender"
+        },
+        {
+          "id": "10329",
+          "name": "João Pedro",
+          "position": "Attacker"
+        },
+        {
+          "id": "152953",
+          "name": "L. Colwill",
+          "position": "Defender"
+        },
+        {
+          "id": "161948",
+          "name": "L. Delap",
+          "position": "Attacker"
+        },
+        {
+          "id": "454935",
+          "name": "L. Emenalo",
+          "position": "Defender"
+        },
+        {
+          "id": "116117",
+          "name": "M. Caicedo",
+          "position": "Midfielder"
+        },
+        {
+          "id": "568066",
+          "name": "M. Eboue",
+          "position": "Midfielder"
+        },
+        {
+          "id": "161907",
+          "name": "M. Gusto",
+          "position": "Defender"
+        },
+        {
+          "id": "20995",
+          "name": "M. Lacroix",
+          "position": "Defender"
+        },
+        {
+          "id": "383018",
+          "name": "M. Palestra",
+          "position": "Defender"
+        },
+        {
+          "id": "19170",
+          "name": "M. Rogers",
+          "position": "Midfielder"
+        },
+        {
+          "id": "276184",
+          "name": "M. Sarr",
+          "position": "Defender"
+        },
+        {
+          "id": "392270",
+          "name": "Marc Guiu",
+          "position": "Attacker"
+        },
+        {
+          "id": "287868",
+          "name": "Max Merrick",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "329347",
+          "name": "O. Kellyman",
+          "position": "Midfielder"
+        },
+        {
+          "id": "1864",
+          "name": "Pedro Neto",
+          "position": "Attacker"
+        },
+        {
+          "id": "19545",
+          "name": "R. James",
+          "position": "Defender"
+        },
+        {
+          "id": "557379",
+          "name": "R. Kavuma McQueen",
+          "position": "Midfielder"
+        },
+        {
+          "id": "282125",
+          "name": "R. Lavia",
+          "position": "Midfielder"
+        },
+        {
+          "id": "482888",
+          "name": "R. Walsh",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18959",
+          "name": "Robert Sánchez",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "359117",
+          "name": "Shumaira Mheuka",
+          "position": "Attacker"
+        },
+        {
+          "id": "19145",
+          "name": "T. Adarabioyo",
+          "position": "Defender"
+        },
+        {
+          "id": "19720",
+          "name": "T. Chalobah",
+          "position": "Defender"
+        },
+        {
+          "id": "180940",
+          "name": "T. Sharman-Lowe",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "298061",
+          "name": "Ted Curd",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "319572",
+          "name": "V. Barco",
+          "position": "Midfielder"
+        },
+        {
+          "id": "22094",
+          "name": "W. Fofana",
+          "position": "Defender"
+        }
+      ]
+    },
+    "Manchester City": {
+      "source": "api-football:team:50",
+      "players": [
+        {
+          "id": "360114",
+          "name": "A. Khusanov",
+          "position": "Defender"
+        },
+        {
+          "id": "19281",
+          "name": "A. Semenyo",
+          "position": "Midfielder"
+        },
+        {
+          "id": "414385",
+          "name": "C. Echeverri",
+          "position": "Midfielder"
+        },
+        {
+          "id": "284409",
+          "name": "D. Mubama",
+          "position": "Attacker"
+        },
+        {
+          "id": "380681",
+          "name": "D. Mukasa",
+          "position": "Midfielder"
+        },
+        {
+          "id": "138908",
+          "name": "E. Anderson",
+          "position": "Midfielder"
+        },
+        {
+          "id": "1100",
+          "name": "E. Haaland",
+          "position": "Attacker"
+        },
+        {
+          "id": "1622",
+          "name": "G. Donnarumma",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "1422",
+          "name": "J. Doku",
+          "position": "Attacker"
+        },
+        {
+          "id": "129033",
+          "name": "J. Gvardiol",
+          "position": "Defender"
+        },
+        {
+          "id": "460853",
+          "name": "J. Monga",
+          "position": "Attacker"
+        },
+        {
+          "id": "162489",
+          "name": "J. Trafford",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "347305",
+          "name": "Jaden Heskey",
+          "position": "Attacker"
+        },
+        {
+          "id": "19012",
+          "name": "M. Bettinelli",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "67971",
+          "name": "M. Guéhi",
+          "position": "Defender"
+        },
+        {
+          "id": "2291",
+          "name": "M. Kovačić",
+          "position": "Midfielder"
+        },
+        {
+          "id": "41621",
+          "name": "Matheus Nunes",
+          "position": "Midfielder"
+        },
+        {
+          "id": "293168",
+          "name": "Max Alleyne",
+          "position": "Defender"
+        },
+        {
+          "id": "307123",
+          "name": "N. O&apos;Reilly",
+          "position": "Midfielder"
+        },
+        {
+          "id": "161933",
+          "name": "Nico González",
+          "position": "Midfielder"
+        },
+        {
+          "id": "81573",
+          "name": "Omar Marmoush",
+          "position": "Attacker"
+        },
+        {
+          "id": "631",
+          "name": "P. Foden",
+          "position": "Midfielder"
+        },
+        {
+          "id": "21138",
+          "name": "R. Aït-Nouri",
+          "position": "Defender"
+        },
+        {
+          "id": "156477",
+          "name": "R. Cherki",
+          "position": "Midfielder"
+        },
+        {
+          "id": "284230",
+          "name": "R. Lewis",
+          "position": "Defender"
+        },
+        {
+          "id": "442048",
+          "name": "R. McAidoo",
+          "position": "Midfielder"
+        },
+        {
+          "id": "44",
+          "name": "Rodri",
+          "position": "Midfielder"
+        },
+        {
+          "id": "567",
+          "name": "Rúben Dias",
+          "position": "Defender"
+        },
+        {
+          "id": "382358",
+          "name": "S. Mfuni",
+          "position": "Defender"
+        },
+        {
+          "id": "266657",
+          "name": "Sávio",
+          "position": "Midfielder"
+        },
+        {
+          "id": "36902",
+          "name": "T. Reijnders",
+          "position": "Midfielder"
+        },
+        {
+          "id": "414359",
+          "name": "Vitor Nunes",
+          "position": "Defender"
+        }
+      ]
+    },
+    "Brighton": {
+      "source": "api-football:team:51",
+      "players": [
+        {
+          "id": "129058",
+          "name": "B. Verbruggen",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "356041",
+          "name": "C. Baleba",
+          "position": "Midfielder"
+        },
+        {
+          "id": "392482",
+          "name": "C. Kostoulas",
+          "position": "Attacker"
+        },
+        {
+          "id": "204037",
+          "name": "Costinha",
+          "position": "Defender"
+        },
+        {
+          "id": "278370",
+          "name": "D. Gómez",
+          "position": "Midfielder"
+        },
+        {
+          "id": "161663",
+          "name": "E. Cashin",
+          "position": "Defender"
+        },
+        {
+          "id": "1361",
+          "name": "F. Kadıoğlu",
+          "position": "Defender"
+        },
+        {
+          "id": "90590",
+          "name": "G. Rutter",
+          "position": "Attacker"
+        },
+        {
+          "id": "392610",
+          "name": "H. Howell",
+          "position": "Midfielder"
+        },
+        {
+          "id": "293643",
+          "name": "I. Osman",
+          "position": "Attacker"
+        },
+        {
+          "id": "7600",
+          "name": "Igor",
+          "position": "Defender"
+        },
+        {
+          "id": "305730",
+          "name": "J. Hinshelwood",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18960",
+          "name": "J. Steele",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "106835",
+          "name": "K. Mitoma",
+          "position": "Attacker"
+        },
+        {
+          "id": "387521",
+          "name": "L. Vušković",
+          "position": "Defender"
+        },
+        {
+          "id": "162007",
+          "name": "M. De Cuyper",
+          "position": "Defender"
+        },
+        {
+          "id": "19030",
+          "name": "M. O&apos;Riley",
+          "position": "Midfielder"
+        },
+        {
+          "id": "7090",
+          "name": "M. Svoboda",
+          "position": "Defender"
+        },
+        {
+          "id": "92993",
+          "name": "M. Wieffer",
+          "position": "Midfielder"
+        },
+        {
+          "id": "22160",
+          "name": "O. Boscagli",
+          "position": "Defender"
+        },
+        {
+          "id": "18970",
+          "name": "P. Groß",
+          "position": "Midfielder"
+        },
+        {
+          "id": "64003",
+          "name": "P. Struijk",
+          "position": "Defender"
+        },
+        {
+          "id": "265820",
+          "name": "Y. Ayari",
+          "position": "Midfielder"
+        },
+        {
+          "id": "383685",
+          "name": "Y. Minteh",
+          "position": "Attacker"
+        },
+        {
+          "id": "524411",
+          "name": "Z. Yohanna",
+          "position": "Attacker"
+        }
+      ]
+    },
+    "Crystal Palace": {
+      "source": "api-football:team:52",
+      "players": [
+        {
+          "id": "288102",
+          "name": "A. Wharton",
+          "position": "Midfielder"
+        },
+        {
+          "id": "129711",
+          "name": "B. Johnson",
+          "position": "Attacker"
+        },
+        {
+          "id": "26303",
+          "name": "B. Sosa",
+          "position": "Defender"
+        },
+        {
+          "id": "3339",
+          "name": "C. Doucouré",
+          "position": "Midfielder"
+        },
+        {
+          "id": "278898",
+          "name": "C. Riad",
+          "position": "Defender"
+        },
+        {
+          "id": "126949",
+          "name": "C. Richards",
+          "position": "Defender"
+        },
+        {
+          "id": "557414",
+          "name": "D. Benamar",
+          "position": "Defender"
+        },
+        {
+          "id": "19088",
+          "name": "D. Henderson",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "2601",
+          "name": "D. Kamada",
+          "position": "Midfielder"
+        },
+        {
+          "id": "13736",
+          "name": "D. Muñoz",
+          "position": "Defender"
+        },
+        {
+          "id": "304320",
+          "name": "D. Ozoh",
+          "position": "Midfielder"
+        },
+        {
+          "id": "1468",
+          "name": "E. Nketiah",
+          "position": "Attacker"
+        },
+        {
+          "id": "557584",
+          "name": "G. King",
+          "position": "Defender"
+        },
+        {
+          "id": "2218",
+          "name": "I. Sarr",
+          "position": "Attacker"
+        },
+        {
+          "id": "412759",
+          "name": "J. Canvot",
+          "position": "Defender"
+        },
+        {
+          "id": "286458",
+          "name": "J. Devenny",
+          "position": "Midfielder"
+        },
+        {
+          "id": "557413",
+          "name": "J. Drakes-Thomas",
+          "position": "Midfielder"
+        },
+        {
+          "id": "2490",
+          "name": "J. Lerma",
+          "position": "Midfielder"
+        },
+        {
+          "id": "25927",
+          "name": "J. Mateta",
+          "position": "Attacker"
+        },
+        {
+          "id": "284449",
+          "name": "J. Rak-Sakyi",
+          "position": "Midfielder"
+        },
+        {
+          "id": "2032",
+          "name": "J. Strand Larsen",
+          "position": "Attacker"
+        },
+        {
+          "id": "284549",
+          "name": "J. Whitworth",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "380702",
+          "name": "M. Jemide",
+          "position": "Defender"
+        },
+        {
+          "id": "311157",
+          "name": "Matheus França",
+          "position": "Midfielder"
+        },
+        {
+          "id": "402640",
+          "name": "R. Esse",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19684",
+          "name": "R. Matthews",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "380703",
+          "name": "Rio Cardines",
+          "position": "Defender"
+        },
+        {
+          "id": "284493",
+          "name": "T. Adaramola",
+          "position": "Defender"
+        },
+        {
+          "id": "182201",
+          "name": "T. Mitchell",
+          "position": "Defender"
+        },
+        {
+          "id": "22157",
+          "name": "W. Benítez",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "18806",
+          "name": "W. Hughes",
+          "position": "Midfielder"
+        },
+        {
+          "id": "184226",
+          "name": "Yeremy Pino",
+          "position": "Attacker"
+        },
+        {
+          "id": "162712",
+          "name": "Óscar Mingueza",
+          "position": "Defender"
+        }
+      ]
+    },
+    "Brentford": {
+      "source": "api-football:team:55",
+      "players": [
+        {
+          "id": "44871",
+          "name": "A. Hickey",
+          "position": "Defender"
+        },
+        {
+          "id": "363998",
+          "name": "A. Stokes",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "281",
+          "name": "C. Kelleher",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "2939",
+          "name": "C. Wilson",
+          "position": "Attacker"
+        },
+        {
+          "id": "284797",
+          "name": "D. Ouattara",
+          "position": "Attacker"
+        },
+        {
+          "id": "19340",
+          "name": "E. Balcombe",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "19789",
+          "name": "E. Pinnock",
+          "position": "Defender"
+        },
+        {
+          "id": "61742",
+          "name": "H. Valdimarsson",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "196855",
+          "name": "J. Anthony",
+          "position": "Attacker"
+        },
+        {
+          "id": "19362",
+          "name": "J. Dasilva",
+          "position": "Midfielder"
+        },
+        {
+          "id": "577002",
+          "name": "J. Stephenson",
+          "position": "Defender"
+        },
+        {
+          "id": "441271",
+          "name": "Jannik Schuster",
+          "position": "Midfielder"
+        },
+        {
+          "id": "1119",
+          "name": "K. Ajer",
+          "position": "Defender"
+        },
+        {
+          "id": "106725",
+          "name": "K. Lewis-Potter",
+          "position": "Midfielder"
+        },
+        {
+          "id": "178077",
+          "name": "K. Schade",
+          "position": "Midfielder"
+        },
+        {
+          "id": "393193",
+          "name": "Kaye Iyowuna Furo",
+          "position": "Attacker"
+        },
+        {
+          "id": "513316",
+          "name": "Luka Bentt",
+          "position": "Midfielder"
+        },
+        {
+          "id": "15908",
+          "name": "M. Damsgaard",
+          "position": "Midfielder"
+        },
+        {
+          "id": "47438",
+          "name": "M. Jensen",
+          "position": "Midfielder"
+        },
+        {
+          "id": "342022",
+          "name": "M. Kayode",
+          "position": "Defender"
+        },
+        {
+          "id": "277306",
+          "name": "M. Sangaré",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19495",
+          "name": "N. Collins",
+          "position": "Defender"
+        },
+        {
+          "id": "624708",
+          "name": "O. Shield",
+          "position": "Attacker"
+        },
+        {
+          "id": "19346",
+          "name": "R. Henry",
+          "position": "Defender"
+        },
+        {
+          "id": "327726",
+          "name": "R. Owen",
+          "position": "Midfielder"
+        },
+        {
+          "id": "36922",
+          "name": "S. van den Berg",
+          "position": "Defender"
+        },
+        {
+          "id": "196156",
+          "name": "Thiago",
+          "position": "Attacker"
+        },
+        {
+          "id": "25073",
+          "name": "V. Janelt",
+          "position": "Midfielder"
+        },
+        {
+          "id": "263538",
+          "name": "Y. Yarmolyuk",
+          "position": "Midfielder"
+        }
+      ]
+    },
+    "Ipswich": {
+      "source": "api-football:team:57",
+      "players": [
+        {
+          "id": "303467",
+          "name": "A. Fatawu",
+          "position": "Attacker"
+        },
+        {
+          "id": "37236",
+          "name": "A. Matusiwa",
+          "position": "Midfielder"
+        },
+        {
+          "id": "286349",
+          "name": "A. Mehmeti",
+          "position": "Attacker"
+        },
+        {
+          "id": "82097",
+          "name": "A. Palmer",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "18823",
+          "name": "B. Johnson",
+          "position": "Defender"
+        },
+        {
+          "id": "2380",
+          "name": "C. Akpom",
+          "position": "Attacker"
+        },
+        {
+          "id": "326763",
+          "name": "C. Humphreys",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19546",
+          "name": "C. Kipré",
+          "position": "Defender"
+        },
+        {
+          "id": "19365",
+          "name": "C. Ogbene",
+          "position": "Attacker"
+        },
+        {
+          "id": "19541",
+          "name": "C. Walton",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "18958",
+          "name": "D. Button",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "19577",
+          "name": "D. Furlong",
+          "position": "Defender"
+        },
+        {
+          "id": "33224",
+          "name": "D. Maeda",
+          "position": "Attacker"
+        },
+        {
+          "id": "17597",
+          "name": "D. O&apos;Shea",
+          "position": "Defender"
+        },
+        {
+          "id": "321648",
+          "name": "Emersonn",
+          "position": "Attacker"
+        },
+        {
+          "id": "441035",
+          "name": "Finley Frank Barbrook",
+          "position": "Midfielder"
+        },
+        {
+          "id": "8794",
+          "name": "G. Hirst",
+          "position": "Attacker"
+        },
+        {
+          "id": "138836",
+          "name": "H. Clarke",
+          "position": "Defender"
+        },
+        {
+          "id": "18814",
+          "name": "I. Diop",
+          "position": "Defender"
+        },
+        {
+          "id": "19136",
+          "name": "J. Clarke",
+          "position": "Attacker"
+        },
+        {
+          "id": "127579",
+          "name": "J. Greaves",
+          "position": "Defender"
+        },
+        {
+          "id": "138931",
+          "name": "J. Philogene",
+          "position": "Attacker"
+        },
+        {
+          "id": "18397",
+          "name": "J. Taylor",
+          "position": "Midfielder"
+        },
+        {
+          "id": "283290",
+          "name": "K. McAteer",
+          "position": "Attacker"
+        },
+        {
+          "id": "37276",
+          "name": "K. Scherpen",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "328669",
+          "name": "K. van Oevelen",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "19119",
+          "name": "L. Davis",
+          "position": "Defender"
+        },
+        {
+          "id": "195121",
+          "name": "M. Núñez",
+          "position": "Midfielder"
+        },
+        {
+          "id": "342654",
+          "name": "S. Egeli",
+          "position": "Attacker"
+        },
+        {
+          "id": "20089",
+          "name": "W. Burns",
+          "position": "Midfielder"
+        }
+      ]
+    },
+    "Leeds": {
+      "source": "api-football:team:63",
+      "players": [
+        {
+          "id": "20068",
+          "name": "A. Cairns",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "557342",
+          "name": "A. Cresswell",
+          "position": "Defender"
+        },
+        {
+          "id": "177665",
+          "name": "A. Stach",
+          "position": "Midfielder"
+        },
+        {
+          "id": "32966",
+          "name": "A. Tanaka",
+          "position": "Midfielder"
+        },
+        {
+          "id": "50739",
+          "name": "B. Aaronson",
+          "position": "Midfielder"
+        },
+        {
+          "id": "345435",
+          "name": "C. Crew",
+          "position": "Midfielder"
+        },
+        {
+          "id": "579147",
+          "name": "C. Mills",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18766",
+          "name": "D. Calvert-Lewin",
+          "position": "Attacker"
+        },
+        {
+          "id": "19329",
+          "name": "D. James",
+          "position": "Midfielder"
+        },
+        {
+          "id": "328116",
+          "name": "Darryl Merveil Ombang",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "2279",
+          "name": "E. Ampadu",
+          "position": "Defender"
+        },
+        {
+          "id": "634809",
+          "name": "F. Lane",
+          "position": "Midfielder"
+        },
+        {
+          "id": "47969",
+          "name": "G. Gudmundsson",
+          "position": "Defender"
+        },
+        {
+          "id": "19221",
+          "name": "H. Wilson",
+          "position": "Midfielder"
+        },
+        {
+          "id": "129142",
+          "name": "I. Gruev",
+          "position": "Midfielder"
+        },
+        {
+          "id": "833",
+          "name": "J. Bijol",
+          "position": "Defender"
+        },
+        {
+          "id": "19201",
+          "name": "J. Bogle",
+          "position": "Defender"
+        },
+        {
+          "id": "19760",
+          "name": "J. Justin",
+          "position": "Defender"
+        },
+        {
+          "id": "545996",
+          "name": "J. Lienou",
+          "position": "Defender"
+        },
+        {
+          "id": "250",
+          "name": "J. Piroe",
+          "position": "Attacker"
+        },
+        {
+          "id": "19321",
+          "name": "J. Rodon",
+          "position": "Defender"
+        },
+        {
+          "id": "19461",
+          "name": "L. Nmecha",
+          "position": "Attacker"
+        },
+        {
+          "id": "80296",
+          "name": "Lucas Perri",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "48389",
+          "name": "N. Okafor",
+          "position": "Attacker"
+        },
+        {
+          "id": "557507",
+          "name": "O. Pickles",
+          "position": "Midfielder"
+        },
+        {
+          "id": "557343",
+          "name": "R. Chadwick-Chaplin",
+          "position": "Midfielder"
+        },
+        {
+          "id": "538541",
+          "name": "R. Mahady",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "1408",
+          "name": "S. Bornauw",
+          "position": "Defender"
+        },
+        {
+          "id": "19287",
+          "name": "S. Byram",
+          "position": "Defender"
+        },
+        {
+          "id": "18901",
+          "name": "S. Longstaff",
+          "position": "Midfielder"
+        },
+        {
+          "id": "271350",
+          "name": "T. Muharemović",
+          "position": "Defender"
+        },
+        {
+          "id": "162128",
+          "name": "W. Gnonto",
+          "position": "Attacker"
+        }
+      ]
+    },
+    "Hull": {
+      "source": "api-football:team:64",
+      "players": [
+        {
+          "id": "284441",
+          "name": "A. Kamara",
+          "position": "Attacker"
+        },
+        {
+          "id": "49883",
+          "name": "A. Ömür",
+          "position": "Midfielder"
+        },
+        {
+          "id": "615629",
+          "name": "Archie Howard",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "153411",
+          "name": "C. Drameh",
+          "position": "Defender"
+        },
+        {
+          "id": "331551",
+          "name": "C. Hughes",
+          "position": "Defender"
+        },
+        {
+          "id": "467176",
+          "name": "C. McCarthy",
+          "position": "Defender"
+        },
+        {
+          "id": "581989",
+          "name": "C. Okike",
+          "position": "Defender"
+        },
+        {
+          "id": "1186",
+          "name": "D. Akintola",
+          "position": "Attacker"
+        },
+        {
+          "id": "282124",
+          "name": "D. Gyabi",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19811",
+          "name": "D. Phillips",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "182422",
+          "name": "E. Destan",
+          "position": "Attacker"
+        },
+        {
+          "id": "162991",
+          "name": "E. Matazo",
+          "position": "Midfielder"
+        },
+        {
+          "id": "32960",
+          "name": "H. Morita",
+          "position": "Midfielder"
+        },
+        {
+          "id": "2930",
+          "name": "J. Butland",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "19093",
+          "name": "J. Egan",
+          "position": "Defender"
+        },
+        {
+          "id": "19100",
+          "name": "K. Dowell",
+          "position": "Midfielder"
+        },
+        {
+          "id": "20073",
+          "name": "L. Coyle",
+          "position": "Defender"
+        },
+        {
+          "id": "44798",
+          "name": "L. Millar",
+          "position": "Attacker"
+        },
+        {
+          "id": "299923",
+          "name": "M. Belloumi",
+          "position": "Attacker"
+        },
+        {
+          "id": "19666",
+          "name": "M. Crooks",
+          "position": "Midfielder"
+        },
+        {
+          "id": "129713",
+          "name": "M. Jacob",
+          "position": "Defender"
+        },
+        {
+          "id": "18941",
+          "name": "M. Targett",
+          "position": "Defender"
+        },
+        {
+          "id": "19337",
+          "name": "O. McBurnie",
+          "position": "Attacker"
+        },
+        {
+          "id": "19242",
+          "name": "P. McNair",
+          "position": "Defender"
+        },
+        {
+          "id": "18747",
+          "name": "R. Giles",
+          "position": "Defender"
+        },
+        {
+          "id": "17670",
+          "name": "R. Slater",
+          "position": "Midfielder"
+        },
+        {
+          "id": "2769",
+          "name": "S. Ajayi",
+          "position": "Defender"
+        },
+        {
+          "id": "338046",
+          "name": "Óscar Steven Zambrano Preciado",
+          "position": "Midfielder"
+        }
+      ]
+    },
+    "Nottingham Forest": {
+      "source": "api-football:team:65",
+      "players": [
+        {
+          "id": "147831",
+          "name": "A. Kalimuendo",
+          "position": "Attacker"
+        },
+        {
+          "id": "353968",
+          "name": "A. Whitehall",
+          "position": "Midfielder"
+        },
+        {
+          "id": "329358",
+          "name": "Aaron Bott",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "2298",
+          "name": "C. Hudson-Odoi",
+          "position": "Midfielder"
+        },
+        {
+          "id": "18931",
+          "name": "C. Wood",
+          "position": "Attacker"
+        },
+        {
+          "id": "129695",
+          "name": "D. Bakwa",
+          "position": "Attacker"
+        },
+        {
+          "id": "48648",
+          "name": "D. Ndoye",
+          "position": "Attacker"
+        },
+        {
+          "id": "380492",
+          "name": "Eric Emanuel da Silva Moreira",
+          "position": "Midfielder"
+        },
+        {
+          "id": "551288",
+          "name": "G. McDonnell",
+          "position": "Midfielder"
+        },
+        {
+          "id": "22149",
+          "name": "I. Sangaré",
+          "position": "Midfielder"
+        },
+        {
+          "id": "9366",
+          "name": "Igor Jesus",
+          "position": "Attacker"
+        },
+        {
+          "id": "158697",
+          "name": "J. McAtee",
+          "position": "Midfielder"
+        },
+        {
+          "id": "380663",
+          "name": "J. Sinclair",
+          "position": "Defender"
+        },
+        {
+          "id": "329345",
+          "name": "Jack Ethan Thompson",
+          "position": "Defender"
+        },
+        {
+          "id": "362711",
+          "name": "Jair",
+          "position": "Defender"
+        },
+        {
+          "id": "70366",
+          "name": "John",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "334369",
+          "name": "Justin Thomas Hanks",
+          "position": "Defender"
+        },
+        {
+          "id": "357238",
+          "name": "Keehan Willows",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "163069",
+          "name": "L. Netz",
+          "position": "Defender"
+        },
+        {
+          "id": "498864",
+          "name": "L. Sillah",
+          "position": "Attacker"
+        },
+        {
+          "id": "18746",
+          "name": "M. Gibbs-White",
+          "position": "Midfielder"
+        },
+        {
+          "id": "2919",
+          "name": "M. Sels",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "67943",
+          "name": "Morato",
+          "position": "Defender"
+        },
+        {
+          "id": "363695",
+          "name": "Murillo",
+          "position": "Defender"
+        },
+        {
+          "id": "6056",
+          "name": "N. Domínguez",
+          "position": "Midfielder"
+        },
+        {
+          "id": "2817",
+          "name": "N. Milenković",
+          "position": "Defender"
+        },
+        {
+          "id": "138780",
+          "name": "N. Williams",
+          "position": "Defender"
+        },
+        {
+          "id": "2771",
+          "name": "O. Aina",
+          "position": "Defender"
+        },
+        {
+          "id": "284428",
+          "name": "O. Hutchinson",
+          "position": "Attacker"
+        },
+        {
+          "id": "19610",
+          "name": "O. Richards",
+          "position": "Defender"
+        },
+        {
+          "id": "19305",
+          "name": "R. Yates",
+          "position": "Midfielder"
+        },
+        {
+          "id": "8598",
+          "name": "T. Awoniyi",
+          "position": "Attacker"
+        },
+        {
+          "id": "430835",
+          "name": "Tyler Bindon",
+          "position": "Defender"
+        },
+        {
+          "id": "1095",
+          "name": "X. Schlager",
+          "position": "Midfielder"
+        },
+        {
+          "id": "329357",
+          "name": "Z. Abbott",
+          "position": "Defender"
+        },
+        {
+          "id": "383771",
+          "name": "Z. Blake",
+          "position": "Attacker"
+        }
+      ]
+    },
+    "Aston Villa": {
+      "source": "api-football:team:66",
+      "players": [
+        {
+          "id": "284324",
+          "name": "A. Garnacho",
+          "position": "Attacker"
+        },
+        {
+          "id": "162714",
+          "name": "A. Onana",
+          "position": "Midfielder"
+        },
+        {
+          "id": "434180",
+          "name": "Aidan Borland",
+          "position": "Midfielder"
+        },
+        {
+          "id": "464004",
+          "name": "Alysson Edward",
+          "position": "Attacker"
+        },
+        {
+          "id": "380715",
+          "name": "B. Broggio",
+          "position": "Midfielder"
+        },
+        {
+          "id": "453101",
+          "name": "B. Burrows",
+          "position": "Midfielder"
+        },
+        {
+          "id": "514519",
+          "name": "Brian Madjo",
+          "position": "Attacker"
+        },
+        {
+          "id": "19071",
+          "name": "E. Buendía",
+          "position": "Midfielder"
+        },
+        {
+          "id": "137303",
+          "name": "E. Guessand",
+          "position": "Attacker"
+        },
+        {
+          "id": "19354",
+          "name": "E. Konsa",
+          "position": "Defender"
+        },
+        {
+          "id": "19599",
+          "name": "E. Martínez",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "364566",
+          "name": "George Hemmings",
+          "position": "Midfielder"
+        },
+        {
+          "id": "138816",
+          "name": "I. Maatsen",
+          "position": "Defender"
+        },
+        {
+          "id": "19191",
+          "name": "J.  McGinn",
+          "position": "Midfielder"
+        },
+        {
+          "id": "360268",
+          "name": "J. Jimoh",
+          "position": "Midfielder"
+        },
+        {
+          "id": "406244",
+          "name": "J. Manzambi",
+          "position": "Midfielder"
+        },
+        {
+          "id": "284390",
+          "name": "J. Wright",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "195103",
+          "name": "João Gomes",
+          "position": "Midfielder"
+        },
+        {
+          "id": "342320",
+          "name": "K. Nedeljković",
+          "position": "Defender"
+        },
+        {
+          "id": "983",
+          "name": "L. Bailey",
+          "position": "Attacker"
+        },
+        {
+          "id": "284457",
+          "name": "L. Bogarde",
+          "position": "Defender"
+        },
+        {
+          "id": "2724",
+          "name": "L. Digne",
+          "position": "Defender"
+        },
+        {
+          "id": "36878",
+          "name": "M. Bizot",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "19298",
+          "name": "M. Cash",
+          "position": "Defender"
+        },
+        {
+          "id": "478441",
+          "name": "M. Cissé",
+          "position": "Defender"
+        },
+        {
+          "id": "19366",
+          "name": "O. Watkins",
+          "position": "Attacker"
+        },
+        {
+          "id": "46815",
+          "name": "Pau Torres",
+          "position": "Defender"
+        },
+        {
+          "id": "2287",
+          "name": "R. Barkley",
+          "position": "Midfielder"
+        },
+        {
+          "id": "412084",
+          "name": "R. Fortes",
+          "position": "Midfielder"
+        },
+        {
+          "id": "162173",
+          "name": "S. Iling-Junior",
+          "position": "Attacker"
+        },
+        {
+          "id": "19194",
+          "name": "T. Abraham",
+          "position": "Attacker"
+        },
+        {
+          "id": "416250",
+          "name": "T. Carroll",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19179",
+          "name": "T. Mings",
+          "position": "Defender"
+        },
+        {
+          "id": "553848",
+          "name": "T. Mulley",
+          "position": "Attacker"
+        },
+        {
+          "id": "546703",
+          "name": "T. Rowe",
+          "position": "Defender"
+        },
+        {
+          "id": "889",
+          "name": "V. Lindelöf",
+          "position": "Defender"
+        }
+      ]
+    },
+    "Sunderland": {
+      "source": "api-football:team:746",
+      "players": [
+        {
+          "id": "388461",
+          "name": "A. Abdullahi",
+          "position": "Attacker"
+        },
+        {
+          "id": "141133",
+          "name": "A. Alese",
+          "position": "Defender"
+        },
+        {
+          "id": "19446",
+          "name": "A. Browne",
+          "position": "Midfielder"
+        },
+        {
+          "id": "553846",
+          "name": "A. Lightfoot",
+          "position": "Midfielder"
+        },
+        {
+          "id": "19881",
+          "name": "A. Patterson",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "38750",
+          "name": "B. Brobbey",
+          "position": "Attacker"
+        },
+        {
+          "id": "557538",
+          "name": "B. Kindon",
+          "position": "Defender"
+        },
+        {
+          "id": "557389",
+          "name": "C. Dinsdale",
+          "position": "Midfielder"
+        },
+        {
+          "id": "339201",
+          "name": "C. Rigg",
+          "position": "Midfielder"
+        },
+        {
+          "id": "336659",
+          "name": "C. Talbi",
+          "position": "Attacker"
+        },
+        {
+          "id": "55904",
+          "name": "D. Ballard",
+          "position": "Defender"
+        },
+        {
+          "id": "20638",
+          "name": "E. Le Fée",
+          "position": "Midfielder"
+        },
+        {
+          "id": "553701",
+          "name": "F. Geragusian",
+          "position": "Attacker"
+        },
+        {
+          "id": "553730",
+          "name": "F. Scott",
+          "position": "Attacker"
+        },
+        {
+          "id": "1464",
+          "name": "G. Xhaka",
+          "position": "Midfielder"
+        },
+        {
+          "id": "327631",
+          "name": "H. Diarra",
+          "position": "Midfielder"
+        },
+        {
+          "id": "557488",
+          "name": "J. Jones",
+          "position": "Defender"
+        },
+        {
+          "id": "290545",
+          "name": "J. Seelt",
+          "position": "Defender"
+        },
+        {
+          "id": "554280",
+          "name": "J. T. Bi",
+          "position": "Midfielder"
+        },
+        {
+          "id": "362766",
+          "name": "J. Whittaker",
+          "position": "Midfielder"
+        },
+        {
+          "id": "381014",
+          "name": "Jenson Jones",
+          "position": "Midfielder"
+        },
+        {
+          "id": "297187",
+          "name": "L. Hjelde",
+          "position": "Defender"
+        },
+        {
+          "id": "19911",
+          "name": "L. O&apos;Nien",
+          "position": "Defender"
+        },
+        {
+          "id": "278454",
+          "name": "M. Ellborg",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "311543",
+          "name": "N. Angulo",
+          "position": "Attacker"
+        },
+        {
+          "id": "1146",
+          "name": "N. Mukiele",
+          "position": "Defender"
+        },
+        {
+          "id": "365331",
+          "name": "N. Sadiki",
+          "position": "Midfielder"
+        },
+        {
+          "id": "6168",
+          "name": "O. Alderete",
+          "position": "Defender"
+        },
+        {
+          "id": "284414",
+          "name": "R. Mundle",
+          "position": "Attacker"
+        },
+        {
+          "id": "194536",
+          "name": "R. Roefs",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "22225",
+          "name": "Reinildo",
+          "position": "Defender"
+        },
+        {
+          "id": "301771",
+          "name": "S. Adingra",
+          "position": "Attacker"
+        },
+        {
+          "id": "19089",
+          "name": "S. Moore",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "119121",
+          "name": "T. Hume",
+          "position": "Defender"
+        },
+        {
+          "id": "264",
+          "name": "T. Meunier",
+          "position": "Defender"
+        },
+        {
+          "id": "400739",
+          "name": "T. Ogunsuyi",
+          "position": "Attacker"
+        },
+        {
+          "id": "553665",
+          "name": "T. Tuterov",
+          "position": "Attacker"
+        },
+        {
+          "id": "84087",
+          "name": "W. Isidor",
+          "position": "Attacker"
+        }
+      ]
+    },
+    "Coventry": {
+      "source": "api-football:team:1346",
+      "players": [
+        {
+          "id": "162414",
+          "name": "A. Amenda",
+          "position": "Defender"
+        },
+        {
+          "id": "264437",
+          "name": "B. Thomas",
+          "position": "Defender"
+        },
+        {
+          "id": "82090",
+          "name": "B. Thomas-Asante",
+          "position": "Attacker"
+        },
+        {
+          "id": "20484",
+          "name": "B. Wilson",
+          "position": "Goalkeeper"
+        },
+        {
+          "id": "18404",
+          "name": "E. Mason-Clark",
+          "position": "Attacker"
+        },
+        {
+          "id": "138786",
+          "name": "E. Simms",
+          "position": "Midfielder"
+        },
+        {
+          "id": "15799",
+          "name": "F. Onyeka",
+          "position": "Midfielder"
+        },
+        {
+          "id": "427",
+          "name": "H. Wright",
+          "position": "Attacker"
+        },
+        {
+          "id": "19574",
+          "name": "J. Bidwell",
+          "position": "Defender"
+        },
+        {
+          "id": "19260",
+          "name": "J. Dasilva",
+          "position": "Defender"
+        },
+        {
+          "id": "19984",
+          "name": "J. Eccles",
+          "position": "Midfielder"
+        },
+        {
+          "id": "145538",
+          "name": "J. Latibeaudiere",
+          "position": "Midfielder"
+        },
+        {
+          "id": "335185",
+          "name": "J. Markelo",
+          "position": "Attacker"
+        },
+        {
+          "id": "20372",
+          "name": "J. Rudoni",
+          "position": "Midfielder"
+        },
+        {
+          "id": "298128",
+          "name": "K. Kesler-Hayden",
+          "position": "Defender"
+        },
+        {
+          "id": "18202",
+          "name": "L. Kitching",
+          "position": "Defender"
+        },
+        {
+          "id": "161621",
+          "name": "L. Tchaouna",
+          "position": "Attacker"
+        },
+        {
+          "id": "17714",
+          "name": "L. Woolfenden",
+          "position": "Defender"
+        },
+        {
+          "id": "19328",
+          "name": "M. Grimes",
+          "position": "Midfielder"
+        },
+        {
+          "id": "37961",
+          "name": "M. van Ewijk",
+          "position": "Defender"
+        },
+        {
+          "id": "291147",
+          "name": "Miguel Brau",
+          "position": "Defender"
+        },
+        {
+          "id": "33462",
+          "name": "T. Sakamoto",
+          "position": "Midfielder"
+        },
+        {
+          "id": "16046",
+          "name": "V. Torp",
+          "position": "Midfielder"
         }
       ]
     }
@@ -12472,6 +12287,7 @@
   },
   "_league_verified_at": {
     "LALIGA": "2026-08-09T19:28:13.151826+00:00",
-    "LIGUE1": "2026-08-09T19:28:13.151826+00:00"
+    "LIGUE1": "2026-08-09T19:28:13.151826+00:00",
+    "PL": "2026-08-09T20:03:01.520641+00:00"
   }
 }
