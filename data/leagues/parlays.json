@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-09T19:34:35.969483+00:00",
+  "updated": "2026-08-09T19:46:28.475801+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -39,7 +39,7 @@
           "tier": "Balanced four-fold",
           "note": "One leg from every league",
           "feat": true,
-          "combined": 0.3019,
+          "combined": 0.2811,
           "legs": [
             {
               "selection": "Erling Haaland 2+ shot attempts",
@@ -67,19 +67,19 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6892,
+              "p": 0.6893,
               "id": "BUNDESLIGA#9#w",
               "date": "2026-08-29T16:30:00+00:00"
             },
             {
-              "selection": "Igor Paix\u00e3o to score",
-              "match": "Marseille v Strasbourg",
+              "selection": "Paris SG to win",
+              "match": "Paris SG v Rennes",
               "league": "Ligue 1",
               "league_key": "LIGUE1",
-              "tag": "g",
-              "p": 0.744,
-              "id": "LIGUE1#5#goal#Igor Paix\u00e3o",
-              "date": "2026-08-21T18:45:00+00:00"
+              "tag": "w",
+              "p": 0.6926,
+              "id": "LIGUE1#7#w",
+              "date": "2026-08-23T18:45:00+00:00"
             }
           ],
           "provisional": true
@@ -88,7 +88,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.4035,
+          "combined": 0.2413,
           "legs": [
             {
               "selection": "Erling Haaland 2+ shot attempts",
@@ -101,16 +101,6 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
-              "selection": "Igor Paix\u00e3o to score",
-              "match": "Marseille v Strasbourg",
-              "league": "Ligue 1",
-              "league_key": "LIGUE1",
-              "tag": "g",
-              "p": 0.744,
-              "id": "LIGUE1#5#goal#Igor Paix\u00e3o",
-              "date": "2026-08-21T18:45:00+00:00"
-            },
-            {
               "selection": "Thiago 1+ shot on target",
               "match": "Brentford v Tottenham",
               "league": "Premier League",
@@ -119,6 +109,16 @@
               "p": 0.677,
               "id": "PL#6#sot#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
+            },
+            {
+              "selection": "Alexander S\u00f8rloth to score",
+              "match": "Ath Madrid v Malaga",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "g",
+              "p": 0.445,
+              "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+              "date": "2026-08-19T09:00:00+00:00"
             }
           ],
           "provisional": true

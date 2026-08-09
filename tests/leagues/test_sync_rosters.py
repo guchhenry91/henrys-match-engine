@@ -40,3 +40,40 @@ def test_failed_refresh_retains_complete_verified_snapshot(tmp_path, monkeypatch
 
     assert sync_rosters.main() == 0
     assert json.loads(out.read_text(encoding="utf-8")) == old
+
+
+def test_force_roster_leagues_catches_up_a_league_outside_its_rotation_slot(
+        tmp_path, monkeypatch):
+    """The daily pair rotation only refreshes two of four leagues at a time, so
+    right after enabling a new API-Football key two leagues are stuck on the old
+    ESPN fallback for up to 48h. FORCE_ROSTER_LEAGUES exists to catch those up
+    immediately on a manual workflow_dispatch run, without waiting on the clock
+    or touching the leagues the rotation already picked."""
+    # Seed every league as already fresh so only the forced pair is due --
+    # otherwise whichever pair the real day's date naturally rotates to would
+    # also be fetched, making the test's outcome depend on today's date.
+    out = tmp_path / "rosters.json"
+    now_iso = sync_rosters.datetime.now(sync_rosters.timezone.utc).isoformat()
+    out.write_text(json.dumps({
+        "_league_verified_at": {key: now_iso for key in sync_rosters.LEAGUES},
+    }), encoding="utf-8")
+    monkeypatch.setattr(sync_rosters, "OUT", out)
+    monkeypatch.setenv("API_FOOTBALL_KEY", "test-key")
+    monkeypatch.setenv("FORCE_ROSTER_LEAGUES", "pl,bundesliga")
+
+    fetched = []
+
+    def fake_fetch(_client, key):
+        fetched.append(key)
+        return {"Club": {"source": "api-football:team:1", "players": []}}
+
+    monkeypatch.setattr(sync_rosters, "fetch_api_league", fake_fetch)
+    monkeypatch.setattr(sync_rosters, "Client",
+                        lambda **_kw: type("FakeClient", (), {"used": 0})())
+
+    assert sync_rosters.main() == 0
+    assert set(fetched) == {"PL", "BUNDESLIGA"}
+    written = json.loads(out.read_text(encoding="utf-8"))
+    assert written["_source"] == "API-Football current squad feeds"
+    assert "PL" in written["_league_verified_at"]
+    assert "BUNDESLIGA" in written["_league_verified_at"]

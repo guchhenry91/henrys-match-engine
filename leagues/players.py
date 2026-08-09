@@ -191,8 +191,17 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
                 ours = {_player_key(t) for t in tokens[:-1]}
                 theirs = {_player_key(t) for t in str(cand[0]).split()[:-1]}
                 # accept when either side gives no forename to compare (initials,
-                # mononyms), or when the forenames actually overlap
-                if not ours or not theirs or (ours & theirs):
+                # mononyms), when the forenames actually overlap, or when one side
+                # is a single-letter initial matching the other's forename -- some
+                # API-Football squad rows are abbreviated ("C. Tolisso" for
+                # "Corentin Tolisso"), which a strict full-forename comparison
+                # rejects outright even though it is the same, unique surname
+                # match at the same club. Still bounded by the same guards above:
+                # only when the surname is unique at that club.
+                initials_match = any(
+                    (len(o) == 1 and t.startswith(o)) or (len(t) == 1 and o.startswith(t))
+                    for o in ours for t in theirs)
+                if not ours or not theirs or (ours & theirs) or initials_match:
                     club = row["team"]
         if club is None:
             if row["team"] in complete_clubs:

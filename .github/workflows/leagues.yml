@@ -31,6 +31,15 @@ on:
     # than the 45-minute lock window.
     - cron: "0,30 11-22 * * *"
   workflow_dispatch:            # lets you run it by hand from the Actions tab
+    inputs:
+      force_rosters:
+        description: >-
+          Comma-separated league keys (PL,LALIGA,BUNDESLIGA,LIGUE1) to
+          force-refresh from API-Football regardless of the 48h rotation --
+          e.g. to catch up leagues left on the ESPN fallback. Leave blank for
+          the normal quota-aware rotation.
+        required: false
+        default: ""
 
 concurrency:
   group: leagues-refresh        # never let two runs race on the same files
@@ -101,6 +110,7 @@ jobs:
       - name: Refresh and audit current rosters
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          FORCE_ROSTER_LEAGUES: ${{ inputs.force_rosters }}
         run: |
           python -m scripts.sync_rosters
           python -m scripts.roster_integrity_check

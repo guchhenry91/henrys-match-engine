@@ -302,6 +302,33 @@ def test_surname_rescue_accepts_a_genuine_variant(monkeypatch):
     assert unmatched == []
 
 
+def test_surname_rescue_accepts_an_abbreviated_forename(monkeypatch):
+    """API-Football's squad feed abbreviates some first names ("C. Tolisso" for
+    "Corentin Tolisso"), which a strict full-forename comparison rejected
+    outright even though the surname is unique at the club -- this silently
+    dropped real current players (Real Madrid 35->14, and 15 of 18 Ligue 1
+    clubs falling below MIN_SQUAD_FOR_PROPS) the day this format first showed
+    up in a fresh sync. An initial is still a forename match, not a stranger."""
+    rates = pd.DataFrame([{"team": "Lyon", "player": "Corentin Tolisso", "rate90": 0.4}])
+    _snap(monkeypatch, {"Lyon": {"players": _pad() + [
+        {"id": "t", "name": "C. Tolisso"}]}})
+    safe, _, unmatched, _ = reconcile_rates_to_roster(rates, "LIGUE1")
+    assert list(safe["player"]) == ["Corentin Tolisso"]
+    assert unmatched == []
+
+
+def test_surname_rescue_still_refuses_a_wrong_initial(monkeypatch):
+    """An initial must actually match -- "R. Neves" should not rescue a rate row
+    for "Joao Neves"; that is exactly the wrong-teammate case the forename
+    check exists to catch, just spelled as an initial instead of a full name."""
+    rates = pd.DataFrame([{"team": "Wolves", "player": "Joao Neves", "rate90": 0.4}])
+    _snap(monkeypatch, {"Wolves": {"players": _pad() + [
+        {"id": "r", "name": "R. Neves"}]}})
+    safe, _, unmatched, _ = reconcile_rates_to_roster(rates, "PL")
+    assert list(safe["player"]) == []
+    assert unmatched == ["Wolves/Joao Neves"]
+
+
 # ------------------------------------------------- roster status classification
 def test_roster_status_distinguishes_missing_stale_and_ok(monkeypatch):
     """Before this split, a missing snapshot, a stale one, and a specific club

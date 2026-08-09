@@ -159,6 +159,15 @@ def main():
         pairs = (("PL", "BUNDESLIGA"), ("LALIGA", "LIGUE1"))
         selected = pairs[now.toordinal() % 2]
         due = [key for key in selected if not _fresh(payload, key, now)]
+        # Manual override (FORCE_ROSTER_LEAGUES=PL,BUNDESLIGA) for catching a pair
+        # up outside its normal 48h slot -- e.g. right after a key change, when a
+        # league has been sitting on the ESPN fallback and shouldn't wait out the
+        # rotation. Never used by the scheduled runs, only workflow_dispatch.
+        forced = [k.strip().upper() for k in
+                  os.environ.get("FORCE_ROSTER_LEAGUES", "").split(",") if k.strip()]
+        for key in forced:
+            if key in LEAGUES and key not in due:
+                due.append(key)
         if not due:
             print("API-Football rosters are fresh; no quota used")
             return 0
