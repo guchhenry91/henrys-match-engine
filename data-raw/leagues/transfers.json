@@ -372,6 +372,16 @@
         "verified_by": "agent web search, current reporting as of 2026-08-09",
         "result": "all 9 confirmed still at the club shown; no transfers.json changes required. Same picture as the two earlier sweeps today (13:06Z, 18:06Z): Kane in Bayern extension talks, no exit -- still Bayern Munich. Haaland linked with Real Madrid speculation but City not selling, contracted to 2034 -- still Manchester City. Mbappe: Real Madrid has ruled out a summer sale -- still Real Madrid. Semenyo: Jan 2026 Man City move long-settled -- still Manchester City. Vinicius Jr: new Real Madrid contract to 2032 signed 6 Aug -- still Real Madrid. Undav: extended at Stuttgart to 2029 -- still Stuttgart. Olise: Bayern says not for sale -- still Bayern Munich. Guirassy: wants to leave, release clause expired unexercised, Dortmund insists no intention to sell -- still Dortmund, unconfirmed rumour only, not actioned. Igor Thiago: Brentford unwilling to sell despite Man Utd/Chelsea interest -- still Brentford, unconfirmed rumour only, not actioned.",
         "not_checked": "earliest Best Picks fixture is 2026-08-19, 9.5 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
+      },
+      {
+        "date": "2026-08-09 (later check)",
+        "scope": "matchday-news board check (leagues-matchday-news task)",
+        "clubs": "n/a -- player-by-player check of player_picks.json board only",
+        "players": 9,
+        "method": "web search per distinct player on the live player_picks.json board: Harry Kane, Erling Haaland, Kylian Mbappe-Lottin, Antoine Semenyo, Vinicius Junior, Deniz Undav, Michael Olise, Serhou Guirassy, Thiago (Igor Thiago)",
+        "verified_by": "agent web search, current reporting as of 2026-08-09",
+        "result": "all 9 confirmed still at the club shown; no transfers.json changes required. Vinicius Jr's 2032 Real Madrid extension independently re-confirmed via the club's own official announcement (realmadrid.com) plus ESPN/Yahoo/Fox Sports/Goal -- a batch of older speculative 'Bayern approach Vinicius' / 'Real Madrid explore Haaland-Vinicius swap' rumour-column results surfaced in one search but are stale/uncorroborated single-source pieces predating the confirmed deal and were NOT acted on. Kane: Bayern extension expected, Bild reports Hoenes confident of a deal, no exit -- still Bayern Munich. Guirassy: Dortmund coverage was match-preview content (Klassiker analysis), not transfer news -- still Dortmund. Igor Thiago: Bayern/Man City/Chelsea interest reported but no bid accepted, Brentford still unwilling to sell -- still Brentford, unconfirmed rumour only, not actioned. Semenyo, Haaland, Mbappe, Undav, Olise unchanged from the two earlier sweeps today.",
+        "not_checked": "earliest Best Picks fixture is 2026-08-19, 9.5 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered"
       }
     ],
     "known_gaps": [
