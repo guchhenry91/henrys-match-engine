@@ -1,9 +1,9 @@
 # Henry's Match Engine
 
 Static site deployed on Render. The live product (index.html) is a four-league
-football predictor -- Premier League, La Liga, Bundesliga, Ligue 1 -- plus two
-cross-league boards (Best Picks, Player Picks) and a Grades tab. Owner: John
-(guchhenry91).
+football predictor -- Premier League, La Liga, Bundesliga, Ligue 1. Six tabs:
+Today (overview), Best Picks, Player Picks, Parlay, Tables, Grades, plus each
+individual league's own fixtures/table view. Owner: John (guchhenry91).
 
 Repo also holds `worldcup.html`, the completed World Cup 2026 tournament
 (daily picks, group projections, title odds, full graded knockout bracket).
@@ -11,13 +11,19 @@ It is an ARCHIVE, kept exactly as it finished -- final record 64-26 of 90
 (71%), champion Spain -- and should not need to change again.
 
 ## Layout
-- `index.html` — the SITE ENTRY POINT: the unified predictor (Best Picks, Player
-  Picks, Grades, and the four leagues). Reads `data/leagues/*.json`. No build step.
+- `index.html` — the SITE ENTRY POINT: the unified predictor (Today, Best Picks,
+  Player Picks, Parlay, Tables, Grades, and each league's own view). Reads
+  `data/leagues/*.json`. Single self-contained file -- no build step, no external
+  stylesheet (the whole "Midnight" glass UI is inline `<style>`; `app.css` is a
+  leftover from the pre-redesign UI and is no longer referenced by anything live).
+  World Cup is intentionally NOT a nav tab -- reachable only via a quiet footer
+  link, since the tournament is over and shouldn't compete for attention with the
+  live product.
 - `worldcup.html` — the completed World Cup 2026 tournament, preserved verbatim:
   daily picks, group projections, title odds and the full graded knockout bracket.
   Reads `data/predictions.json` only. Final record **64-26 of 90 (71%)**, champion
-  Spain. Linked from the switcher; it links back. It is an ARCHIVE -- the tournament
-  is over, so this page should not need to change again.
+  Spain. Links back to `index.html` via a fixed footer anchor. It is an ARCHIVE --
+  the tournament is over, so this page should not need to change again.
 - `predict.py` — prediction engine (pure stdlib). Run `python predict.py` to regenerate `data/predictions.json` from `data-raw/`.
 - `data-raw/schedule.json` — all 72 group matches (do not change ids).
 - `data-raw/ratings.json` — Elo + FIFA per team (baseline; predict.py applies result-based Elo deltas itself — do not manually edit after tournament start).
@@ -51,13 +57,16 @@ The predictor living in `leagues/`. It shares the repo and `deploy.py` with
 the archived World Cup app but **touches none of its files**: the WC
 engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
 
-- `index.html` + `app.css` — the unified UI for all four leagues plus the two
-  cross-league boards. (`leagues.html`/`leagues.css` were the old single-league
-  page and were removed when `app.html` became `index.html`.)
+- `index.html` — the unified UI (see Layout above; self-contained, no `app.css`).
 - `python -m leagues.publish` — the one command. Fits the model, sims the season,
-  builds player props, locks picks, writes `data/leagues/pl.json` atomically.
+  builds player props, locks picks, builds the parlays, writes `data/leagues/*.json`
+  atomically.
 - `python -m leagues.tune` — the match-model gate (walk-forward vs de-vigged
-  closing odds). `python -m leagues.props_backtest` — the props gate.
+  closing odds). `python -m leagues.props_backtest` — the props gate (tests the
+  per-90 RATE estimation only -- it does not exercise `match_props`'s rescale or
+  `HOME_SHOT_FACTOR`, which live downstream of what this gate covers; see
+  props_backtest.py's own tuning note on why that's an accepted gap, not an
+  oversight).
 
 ## Data sources
 - Results + closing odds: football-data.co.uk. Team xG: Understat.
@@ -79,18 +88,49 @@ engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
   match roster returns as a list, not a dict). Both `fetch_player_logs` and
   `team_shot_context` guard it and degrade (SOT via league-average ratio, neutral
   opponent factors) rather than sink the league.
+- **`HOME_SHOT_FACTOR` (leagues/props.py)** -- home sides shoot ~23% more than away
+  sides (measured, not guessed: `scripts/calibrate_home_shot_factor.py`, 7,007
+  matches across 5 seasons and all four leagues, using the HS/AS columns already
+  present in the football-data.co.uk CSVs `leagues/history.py` fetches). Applied
+  symmetrically to a player's shot budget for the shots/SOT props markets, which
+  are NOT covered by the goals-side rescale (see props.py's own docstring) and so
+  needed their own venue-awareness channel.
 
-## The three published boards
+## The published boards
 - `data/leagues/best.json` — cross-league **match-winner** picks at p>=0.65.
 - `data/leagues/player_picks.json` — cross-league **player** picks in three markets:
   anytime goalscorer, 2+ shot attempts, 1+ shot on target. Bars are PER MARKET
-  (`PLAYER_PICK_MIN_PROB`): shots/SOT 0.70, goalscorer **0.40**. The goalscorer bar
-  is lower because it must be — a team scores ~1.5 goals and one man takes a share,
-  so the best anytime price in any of these leagues is ~50%. A 0.70 bar there would
-  publish an empty section forever, not a stricter one.
-- Both are graded **separately**, and player picks are also graded per market: a 45%
-  goalscorer and an 80% shots pick are both near their market's ceiling, so pooling
-  them yields a headline number describing neither. The `grades` tab shows all tiers.
+  (`PLAYER_PICK_MIN_PROB` in publish.py): goalscorer **0.40**, shots **0.70**, SOT
+  **0.62**. Goalscorer is lower because a team scores ~1.5 goals and one man takes
+  a share, so the best anytime price in any of these leagues is ~50% -- a 0.70 bar
+  there would publish an empty section forever. SOT was lowered from 0.70 to 0.62
+  for the same reason discovered later: "1+ shot on target" needs ~1.2 expected
+  SOT to clear 70%, which only an elite-volume shooter reaches, so 0.70 published a
+  one-name board. If a market bar keeps publishing near-empty, that is a sign the
+  bar sits at the market's real ceiling, not that the model is being appropriately
+  strict -- check the actual probability distribution before assuming the bar is
+  right.
+- `data/leagues/parlays.json` (`leagues/parlays.py`) — model-built accumulators
+  from the Best Picks + Player Picks boards' OWN already-published probabilities,
+  never a fresh guess. Two sections: all-four-leagues and Premier-League-only.
+  ONE LEG PER MATCH so the combined probability is a genuine product of
+  independent legs. Ungradeable legs (Bundesliga player props -- see below) are
+  excluded from every parlay, since a leg that can never settle would leave the
+  whole parlay stuck "pending" forever. Frozen and graded all-or-nothing with the
+  same discipline as every other pick (see `lock_parlay`/`grade_parlay`).
+- **Tables tab** -- the REAL league standings from results played so far
+  (`actual_standings()` in publish.py: points, GD, W/D/L), distinct from the
+  Monte Carlo-projected `table` field used elsewhere. Pre-season this is every
+  club on zero, alphabetical; UCL/relegation shading only appears once games have
+  actually been played, so a zero-point alphabetical list never misleadingly
+  implies real standings.
+- Best Picks and Player Picks are graded **separately**, and player picks are also
+  graded per market: a 45% goalscorer and an 80% shots pick are both near their
+  market's ceiling, so pooling them yields a headline number describing neither.
+  Parlays carry their own separate record too. The Grades tab shows all tiers, plus
+  a calibration chart (pools `by_confidence` across both boards) comparing stated
+  confidence to actual hit rate -- a trust/transparency feature, not a model-
+  accuracy one; it doesn't change how any pick is made.
 
 **Player picks are graded from shot events**, not from `fetch_player_logs` (which is
 one row per player-SEASON and cannot say whether a man scored in a given fixture).
@@ -133,6 +173,39 @@ happened to list fewer than 18 names for them. A surname rescue also runs, but o
 within the club a player is ALREADY at, so it can never invent a transfer; without
 it Understat's "Thiago" vs the feed's "Igor Thiago" deleted a real Brentford player
 over a spelling difference. The match model is unaffected either way.
+
+## Data JSON validation
+`scripts/validate_data_json.py` parses every hand/agent-edited data file
+(`data-raw/leagues/transfers.json`, `news.json`, etc. -- NOT `data/leagues/*.json`,
+which is machine-written by `json.dump` and can't be malformed this way) and
+reports the exact file/line/column on a parse error. Runs FIRST in
+`leagues.yml`, before the slow model fetch, so a bad file fails in seconds
+instead of after an hour. `scripts/hooks/pre-commit` (install via
+`scripts/hooks/install.sh`) runs the same check on the STAGED blob before a
+local commit, so the class of bug that froze the pipeline for a full day on
+2026-08-02 (one missing comma in transfers.json) can't happen again -- caught
+at commit time, not discovered by a failed run hours later.
+
+## Telegram notifications
+Two separate channels, both gated on `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID`
+being set (silently skip otherwise -- a missing notifier must never fail the
+run): failure alerts (`leagues.yml`'s own "Alert on failure" step, fires on
+ANY failed step) and `scripts/telegram_picks.py`, which sends each Best Pick
+and Player Pick to Telegram exactly ONCE, the run it first locks (never
+early, while the number could still move; never repeated). Runs BEFORE
+"Commit refreshed league data" deliberately -- its dedup memory
+(`data-raw/leagues/telegram_sent.json`) has to be written before that step's
+`git add` or it never persists across scheduled runs. A send failure is
+caught and logged, never marked sent, so it just retries next run.
+
+## Deploy dedup
+Two deploy paths exist and both hit the same Render hook, so a guard exists
+to stop them double-firing on one push: `.github/workflows/deploy-on-push.yml`
+skips commits authored by `leagues-bot` (leagues.yml already deploys those
+itself) AND commits whose message contains `[auto-deployed]` (which
+`deploy.py` appends automatically, since it POSTs the hook itself after
+pushing). Render's plan meters deploys, so a redundant one isn't free -- this
+was a real, recurring issue before the guard existed.
 
 ## Scheduled jobs
 `ops/leagues_weekly.py` and `ops/leagues_matchday.py` are manual wrappers around

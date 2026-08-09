@@ -3,10 +3,12 @@
 Pipeline: rates -> shrinkage -> expected minutes -> penalties -> RESCALE to the
 match model's team lambda -> Poisson props.
 
-The rescale (match_props) is load-bearing: it is the ONLY channel by which
-opponent strength and home advantage reach the player numbers. Without it a
-striker's number is identical against Brentford and Liverpool -- a season-long
-rate table wearing a costume.
+The rescale (match_props) is load-bearing: it is the channel by which opponent
+strength and home advantage reach the GOALSCORER number -- without it a striker's
+number is identical against Brentford and Liverpool, a season-long rate table
+wearing a costume. Shots and shots-on-target are NOT rescaled the same way (they
+are not bounded by any team-lambda target), so their venue-awareness comes from a
+second, separate channel: HOME_SHOT_FACTOR below.
 
 All constants below are PROVISIONAL: they come from the design spec's research,
 not from our own data. props_backtest.py is what tunes them.
@@ -20,15 +22,18 @@ GOAL_PRIORS = {"FW": 0.45, "AM": 0.20, "MF": 0.10, "DF": 0.05, "GK": 0.001}
 SHOT_PRIORS = {"FW": 2.5, "AM": 1.4, "MF": 0.9, "DF": 0.4, "GK": 0.02}
 SOT_RATIO_PRIOR = 0.35
 SOT_PRIOR_SHOTS = 10.0    # shrinkage strength for the on-target ratio, in shots
-# Home sides take on the order of ~10-15% more shots than away sides across the
-# top leagues. Applied SYMMETRICALLY to a player's shot budget (home x, away 1/x)
-# so a fixture's total shot volume barely moves but home/away players stop being
-# projected identically. Deliberately conservative (below the observed range) for
-# the same asymmetric-risk reason as ABSENCE_GOAL_COST: over-reacting on a market
-# published at a 0.70 bar is worse than under-reacting. Provisional -- worth
-# measuring from the shot feed later; today's value removes a directional bias,
-# it doesn't claim to be exact.
-HOME_SHOT_FACTOR = 1.08
+# MEASURED (scripts/calibrate_home_shot_factor.py), not guessed. Home sides
+# average 13.888 shots per match vs 11.309 away across 7,007 matches -- 5 seasons,
+# all four leagues, from the same football-data.co.uk source leagues/history.py
+# already fetches (HS/AS columns, previously unused). That is a ratio of 1.228;
+# applied SYMMETRICALLY to a player's shot budget (home x, away 1/x) so a
+# fixture's total shot volume barely moves but home/away players stop being
+# projected identically, the symmetric factor is sqrt(1.228) = 1.108. Per-league
+# figures (1.09-1.13, see data-raw/leagues/home_shot_factor_calibration.json) are
+# close enough to pool into one constant, the same call already made for
+# ABSENCE_GOAL_COST. An earlier version of this shipped as a plausible-sounding
+# 1.08 before this was measured -- close, but a guess is still a guess.
+HOME_SHOT_FACTOR = 1.108
 
 SEASON_DECAY = 0.7        # alpha ^ (seasons ago)
 K_NINETIES = 7.0          # empirical-Bayes strength, in 90s
