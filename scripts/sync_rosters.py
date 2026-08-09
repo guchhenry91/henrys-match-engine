@@ -15,7 +15,7 @@ import random
 import time
 import urllib.request
 
-from leagues.names import canonical
+from leagues.names import canonical, UnknownTeam
 from leagues.api_football import Client
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -90,10 +90,25 @@ def _fresh(payload, league, now, hours=36):
 
 def fetch_api_league(client, key):
     teams = client.get("teams", league=API_LEAGUES[key], season=API_SEASON)
-    result = {}
+    # Resolve every team's canonical name FIRST, before spending any
+    # players/squads calls -- one unmapped name used to abort mid-league after
+    # already burning quota on the teams fetched before it, and only reported
+    # that one name, so fixing the alias file took one CI round-trip per name
+    # instead of one round-trip for the whole league.
+    unmapped = []
+    resolved = []
     for item in teams:
         team = item["team"]
-        club = canonical(team["name"], key)
+        try:
+            resolved.append((team, canonical(team["name"], key)))
+        except UnknownTeam:
+            unmapped.append(team["name"])
+    if unmapped:
+        raise UnknownTeam(
+            f"{len(unmapped)} team(s) not mapped for league {key}: "
+            f"{sorted(unmapped)}. Add them to leagues/names.py ALIASES.")
+    result = {}
+    for team, club in resolved:
         squad_rows = client.get("players/squads", team=team["id"])
         players = (squad_rows[0].get("players") or []) if squad_rows else []
         result[club] = {

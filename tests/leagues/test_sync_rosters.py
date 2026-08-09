@@ -111,3 +111,43 @@ def test_one_leagues_api_football_failure_does_not_discard_a_sibling_success(
     assert written["BUNDESLIGA"] == {"SomeClub": {"source": "espn", "players": []}}
     assert "BUNDESLIGA" not in written["_league_verified_at"]
     assert "ESPN fallback for: BUNDESLIGA" in written["_source"]
+
+
+class _FakeApiClient:
+    """Records calls so a test can assert players/squads is never hit for a
+    league that turns out to have an unmapped team."""
+
+    def __init__(self, teams, squads):
+        self._teams = teams
+        self._squads = squads
+        self.calls = []
+
+    def get(self, endpoint, **kwargs):
+        self.calls.append((endpoint, kwargs))
+        if endpoint == "teams":
+            return self._teams
+        if endpoint == "players/squads":
+            return self._squads[kwargs["team"]]
+        raise AssertionError(f"unexpected endpoint {endpoint}")
+
+
+def test_fetch_api_league_reports_every_unmapped_name_in_one_pass():
+    """Previously this raised on the FIRST unmapped team, so fixing the alias
+    file and re-running in CI only ever surfaced one missing name at a time --
+    observed twice in a row (Mainz, then Hoffenheim) burning a CI round-trip
+    and API quota each time. All unmapped names should surface together, and
+    players/squads (the expensive per-team call) should never run once any
+    name in the league can't be resolved."""
+    teams = [
+        {"team": {"id": 1, "name": "Bayern Munich"}},
+        {"team": {"id": 2, "name": "Some Unmapped FC"}},
+        {"team": {"id": 3, "name": "Another Unknown SV"}},
+    ]
+    client = _FakeApiClient(teams, squads={})
+    try:
+        sync_rosters.fetch_api_league(client, "BUNDESLIGA")
+        assert False, "expected UnknownTeam"
+    except sync_rosters.UnknownTeam as exc:
+        assert "Some Unmapped FC" in str(exc)
+        assert "Another Unknown SV" in str(exc)
+    assert all(call[0] != "players/squads" for call in client.calls)
