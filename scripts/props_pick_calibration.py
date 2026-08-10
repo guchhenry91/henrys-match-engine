@@ -40,6 +40,9 @@ ROOT = Path(__file__).resolve().parents[1]
 LEAGUES = ["PL", "LALIGA", "BUNDESLIGA", "LIGUE1"]
 TRAIN_THROUGH = "2425"
 TEST_SEASON = "2526"
+# Below this many DISTINCT players a market cannot be judged: a handful of
+# repeatedly-picked names is not a sample, it is a few anecdotes.
+MIN_PLAYERS_TO_JUDGE = 6
 
 
 def run_league(league: str, want_rows: bool = False) -> dict:
@@ -152,14 +155,25 @@ def run_league(league: str, want_rows: bool = False) -> dict:
         # observed 0% the observed-rate SE collapses to ~0 and reports a
         # meaningless 26,000-sigma gap.
         se = float(np.sqrt(max(stated * (1 - stated), 1e-9) / n))
+        # EFFECTIVE sample size. The same player is picked week after week, so
+        # picks are not independent: PL's goal column is 22 picks but only FOUR
+        # players, two of whom (Isak, Wissa) never featured -- that alone, not any
+        # calibration error, produced the league's apparent collapse to 4.5%.
+        # Reporting picks without distinct players invites exactly that misreading,
+        # and the overconfidence flag is suppressed below MIN_PLAYERS_TO_JUDGE
+        # rather than asserting a conclusion the sample cannot support.
+        distinct = int(sub["player"].nunique())
+        judgeable = distinct >= MIN_PLAYERS_TO_JUDGE
         out["by_market"][market] = {
             "n": n,
+            "distinct_players": distinct,
+            "verdict_supported_by_sample": judgeable,
             "bar": PLAYER_PICK_MIN_PROB[market],
             "mean_stated_pct": round(100 * stated, 1),
             "actual_hit_pct": round(100 * actual_rate, 1),
             "gap_pp": round(100 * (actual_rate - stated), 1),
             "gap_in_standard_errors": round((actual_rate - stated) / se, 2) if se > 0 else None,
-            "overconfident": bool(actual_rate < stated - 1.96 * se),
+            "overconfident": bool(judgeable and actual_rate < stated - 1.96 * se),
         }
     return out
 
@@ -189,14 +203,28 @@ def fit_exponents(save=True):
     for lg in ["PL", "LALIGA"]:                      # 0% departed-player contamination
         r = run_league(lg, want_rows=True)
         per[lg] = r["rows"]
-    out = {"per_league": {}, "cross_validation": {}, "recommended": {}}
+    out = {"per_league": {}, "cross_validation": {}, "recommended": {},
+           "effective_sample": {}}
     for market in ["goal", "shots", "sot"]:
         ks = {}
         for lg, rows in per.items():
             sub = [x for x in rows if x["market"] == market]
             if len(sub) < 30:
                 continue
-            p = np.array([x["p"] for x in sub]); hit = np.mean([x["win"] for x in sub])
+            # CLUSTER BY PLAYER. The same man is picked every week, so picks are
+            # NOT independent draws: PL's 22 goal picks are four players, and two
+            # of them (Isak, Wissa) never featured, which alone produced the
+            # league's apparent collapse. Weighting each pick equally lets one
+            # unavailable player speak 7 times. Each PLAYER now carries equal
+            # weight, so the fit describes the model's typical error rather than
+            # whoever happened to be picked most.
+            byp = {}
+            for x in sub:
+                byp.setdefault(x["player"], []).append(x)
+            p = np.array([np.mean([y["p"] for y in v]) for v in byp.values()])
+            hit = float(np.mean([np.mean([y["win"] for y in v]) for v in byp.values()]))
+            out["effective_sample"].setdefault(market, {})[lg] = {
+                "picks": len(sub), "distinct_players": len(byp)}
             f = lambda k: float(np.mean(p ** k)) - hit
             try:
                 ks[lg] = round(float(brentq(f, 0.2, 12.0)), 3)
