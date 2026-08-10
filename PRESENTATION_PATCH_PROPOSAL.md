@@ -1,152 +1,104 @@
-# Presentation-only patch — proposed, NOT applied (revised)
+# Presentation-only patch — proposed, NOT applied (v3, final scope)
 
-**The previous version of this document was wrong and has been replaced.** It was
-drafted against `openMatch()` (the single-match detail modal) using local variables
-(`sc`, `bestPct`, `condDiffers`) and a `.dhead` container that belong to that function's
-scope. The user correctly flagged this doesn't match where fixtures are actually
-rendered. There is no function named `renderLeague()` in the current working tree —
-the real one is **`viewLeague(k)`** (`index.html`, current lines 477–495), which builds
-the per-fixture row list. This patch targets that function instead, verified against
-the actual current working-tree code (re-read immediately before drafting this).
+**Target confirmed**: `C:\Users\John\worldcup`, remote `henrys-match-engine.git`, branch
+`main`, HEAD `d8c541904c24c47c300c968be07c066fc1d95108`. Codex was examining a different
+repository entirely (`worldcup.git`, branch `codex/fix-audit-and-rosters`) — resolved,
+not relevant to this repo.
+
+**v2 (expanded `viewLeague()` rows) was rejected**: 162px desktop / 239px mobile row
+height created too much scrolling. This version keeps `viewLeague()` rows compact and
+moves all the new content into `openMatch()` (the match-detail view) instead, per
+explicit instruction.
 
 ## What this does NOT do
 
 No probability, lambda, rho, or grid value changes — display only. Does not manipulate
-or suppress 1-1 or any other score. `.psc`'s microcopy already correctly identifies the
-headline number as "the largest individual cell" territory; the new per-card sentence
-below makes that explicit in words too, rather than leaving it implicit.
+or suppress 1-1 or any other score.
 
-## Verified-real symbols only (per instruction — checked against the current file, not memory)
+## Scope
 
-- `esc()` — global helper, line 225: `const esc=s=>String(s==null?"":s).replace(...)`
-- `pc()` — global helper, line 227: `const pc=p=>Math.round((p||0)*100)`. **Takes a raw
-  0–1 probability and returns a rounded percentage. The correct call is `pc(p.p_pick)`,
-  not `pct(100 * p.p_pick)`** — there is no function named `pct` anywhere in this file,
-  and even substituting `pc`, multiplying by 100 first would double-scale the result
-  (`pc(0.65)` → `65`, correct; `pc(100*0.65)` → `pc(65)` → `6500`, wrong). This is
-  flagged rather than followed literally because implementing it as specified would be
-  a real bug. Every existing call site (`viewToday()` line 324, `viewBest()` line 340,
-  `viewLeague()` line 492) already uses the bare `pc(p.p_pick)` form.
-- `p.pick`, `p.p_pick`, `p.score`, `p.top_scores` — all real fields, confirmed against
-  live `data/leagues/pl.json` output (checked directly, not assumed):
-  `{"score": "2-0", "top_scores": [{"score":"2-0","pct":13.9,...}, ...3 entries total], "pick": "Arsenal", "p_pick": 0.7741}`
+**`viewLeague()`** (fixture list) — one-word label change only. No new elements, no new
+CSS, no height change (confirmed: 70px per row, identical before/after).
 
-## The four required elements, mapped to `viewLeague()`'s actual per-row scope
+**`openMatch()`** (match detail) — Match Pick line added, "best guess" renamed to
+"Highest-Probability Exact Score," the pick-conditional score always shown (previously
+hidden when it agreed with the raw mode) under the fixed label "Projected Score If Pick
+Lands" (no team-name grammar problem for draws), the top-3 section renamed to "Top
+Exact Scores," one explanation sentence added. Unused `condDiffers` variable removed
+(dead code once its only use is gone).
 
-1. **Match Pick and p_pick** — already displayed today: `pick ${esc(p.pick)}` in `.info`,
-   and `${pc(p.p_pick)}%` in `.conf`. No change needed; not touched by this diff.
-2. **Highest-Probability Exact Score (`p.top_scores[0]`)** — already displayed via the
-   existing `.psc` chip (`best.score` + percentage). Only its `<small>` label text
-   changes, from "guess" to "top score" — a one-word correction, not a rebuild.
-3. **Projected Score If Pick Lands (`p.score`)** — new. "Lands" instead of "Wins," a
-   fixed label with no team name folded into a conjugated verb, so it reads correctly
-   whether the pick is a team or a draw (no "If Draw wins" problem).
-4. **Top Exact Scores (the complete `top_scores` list)** — new. Currently 3 entries per
-   fixture (`top_scorelines(grid, n=3)` in `leagues/model.py`); rendered as a compact
-   inline list, not a repeat of the headline chip. Named "Top Exact Scores," not "Other
-   Plausible Scores," because the headline score is NOT excluded from this list (per
-   instruction #7's own rule).
-
-Per-card short text (instruction #5, exact wording): *"The highest-probability exact
-score can differ from the most likely match result."* The longer explanation lives in
-ONE `<details>` guide above the fixture list, not repeated per card (instruction #6).
-
-## Exact minimal diff (verified by rendering — see below, not applied to `index.html`)
+## Exact diff (verified by rendering, not applied to `index.html`)
 
 ```diff
- function viewLeague(k){
-   const d=DATA[FILES[k]]; if(!d) return emptyState();
-   const ms=(d.matches||[]).filter(m=>!m.result);
-   if(!ms.length) return emptyState();
-   // Fixtures only -- the full standings live in the Tables tab, not repeated here.
--  let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,16).map(m=>{const p=m.prediction||{};
-+  let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div>
-+    <details class="scoreguide"><summary>What do these scores mean?</summary>
-+      <p>Match Pick is which result (win / draw / win) the model rates most likely, with its probability.
-+      Highest-Probability Exact Score is the single most likely FINAL SCORE among every possible scoreline --
-+      a different, narrower question. Projected Score If Pick Lands is the most likely exact score GIVEN that
-+      the Match Pick comes true. These can genuinely disagree: in a close match many similarly-likely low
-+      scores compete for the top spot, so the match-result favourite and the single most likely scoreline
-+      often aren't the same score. Top Exact Scores lists the leading alternatives and their own chances, so
-+      you can see how thin the favourite really is.</p></details>
-+    <div class="glass rowc">${ms.slice(0,16).map(m=>{const p=m.prediction||{};
-     // The BEST single exact-score guess is top_scores[0] -- the true highest-
-     // probability scoreline, unconditional. p.score is a DIFFERENT number (the
-     // most likely score GIVEN the win/draw/loss pick) and is deliberately not
-     // shown here, since the two can disagree and only one is the model's actual
-     // best guess at the final score.
+--- index.html
++++ index.html (proposed)
+@@ -488,7 +488,7 @@
      const best=(p.top_scores||[])[0];
-+    const topScores=(p.top_scores||[]).map(t=>`${esc(t.score)} ${Math.round(t.pct||0)}%`).join(" · ");
      return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
--      <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
+       <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
 -      <span class="psc">${esc(best?best.score:"–")}<small>${best?Math.round(best.pct)+"% guess":"score"}</small></span>
-+      <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span>
-+        <div class="scoredetail">
-+          <span>Projected Score If Pick Lands: <b>${esc(p.score||"–")}</b></span>
-+          ${topScores?`<span>Top Exact Scores: ${topScores}</span>`:""}
-+        </div>
-+        <p class="cardnote">The highest-probability exact score can differ from the most likely match result.</p></div>
 +      <span class="psc">${esc(best?best.score:"–")}<small>${best?Math.round(best.pct)+"% top score":"score"}</small></span>
        <div class="conf" style="min-width:48px"><b>${pc(p.p_pick)}%</b></div><span class="chev">›</span></div>`;}).join("")}</div>
      <p class="note">Best single-score guess and its own chance, plus the win %. No single score is likely -- see each match for the full spread. Full standings are in the Tables tab.</p>`;
    return h;
- }
+@@ -517,17 +517,19 @@
+   const props=(m.props||[]).slice(0,5).map(pr=>`<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
+     <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${num(pr.exp_shots)} attempts · ${num(pr.exp_sot)} on tgt</span></div></div>`).join("");
+   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
+-  const condDiffers = p.score && best && p.score !== best.score;
+   const app=document.getElementById("app");
+   app.innerHTML=`<button class="back" type="button" onclick="render(cur)">‹ Back</button>
+     <div class="glass dhead"><div class="lg">${esc(LG[lk])} · MW${m.matchweek}</div><div class="vs">${esc(m.home)} v ${esc(m.away)}</div>
+-      <div class="score"><b>${esc(sc[0])}</b><span>best guess${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
++      <div style="font-size:12px;font-weight:700;color:var(--sub)">Match Pick</div>
++      <div style="font-size:15px;font-weight:800">${esc(p.pick||"–")} <span style="color:var(--sub);font-weight:600">(${pc(p.p_pick)}%)</span></div>
++      <div class="score"><b>${esc(sc[0])}</b><span>Highest-Probability Exact Score${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
+       <div class="split"><div class="sh" style="flex:${ph||1}">${ph}%</div><div class="sd" style="flex:${pd||1}">${pd}%</div><div class="sa" style="flex:${pa||1}">${pa}%</div></div>
+       <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:8px">${esc(m.home)} win · draw · ${esc(m.away)} win</div>
+-      ${condDiffers?`<div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">If ${esc(p.pick)} win${p.pick===m.home||p.pick===m.away?"s":""}, most likely: ${esc(p.score)}</div>`:""}</div>
++      <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">Projected Score If Pick Lands: ${esc(p.score||"–")}</div>
++      <p style="font-size:10.5px;color:var(--sub);font-weight:550;margin-top:6px;line-height:1.4">The highest-probability exact score is one individual scoreline. It can differ from the most likely match result because each result contains many possible scores.</p></div>
+     ${uaAll.length?`<div class="glass warnbox">Confirmed defensive/keeper absence not priced by the shot-based model: ${esc(uaAll.join(", "))}. Read the win probability with that in mind.</div>`:""}
+-    <div class="glass dsec"><h3>Most likely scorelines</h3>${tops}
+-      <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the best guess above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
++    <div class="glass dsec"><h3>Top Exact Scores</h3>${tops}
++      <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the highest-probability score above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
+     <div class="glass dsec"><h3>Why this pick</h3>${reasons}</div>
+     ${props?`<div class="glass dsec"><h3>Top players in this match</h3>${props}</div>`:""}`;
+   window.scrollTo(0,0);
 ```
 
-Plus new CSS (inserted after the existing `.note{...}` rule, no existing rule changed):
+One extra, unrequested-but-consistency-preserving tweak included: the existing note
+paragraph under "Top Exact Scores" said "even the best guess above" — updated to "even
+the highest-probability score above" so it doesn't reference a label that no longer
+exists on the page. Flagged explicitly, not silently folded in.
 
-```diff
-   .note{font-size:12.5px;color:var(--sub);font-weight:600;text-align:center;padding:10px 24px 0;line-height:1.55}
-+  .scoreguide{margin:0 0 8px;font-size:12px;color:var(--sub)}
-+  .scoreguide summary{cursor:pointer;font-weight:700;color:var(--cyan);list-style:none;padding:2px 0}
-+  .scoreguide summary::-webkit-details-marker{display:none}
-+  .scoreguide summary::before{content:"▸ ";display:inline-block;transition:transform .15s}
-+  .scoreguide[open] summary::before{transform:rotate(90deg)}
-+  .scoreguide p{margin-top:6px;line-height:1.5}
-+  .scoredetail{display:flex;flex-direction:column;gap:2px;margin-top:4px;font-size:11px;color:var(--sub);font-weight:600}
-+  .cardnote{font-size:10.5px;color:var(--sub);font-weight:550;margin-top:4px;line-height:1.4;opacity:.8}
-```
+## Safety checklist
 
-## Rendered verification
+- `pc(p.p_pick)` used exactly as-is — no `pct()`, no pre-multiplication. `pc` already
+  handles a missing/undefined `p_pick` safely (`Math.round((p||0)*100)` → `0`).
+- `p.score` guarded: `esc(p.score||"–")`.
+- `p.pick` guarded: `esc(p.pick||"–")`.
+- `p.top_scores` already guarded pre-existing (`(p.top_scores||[])`) — untouched.
+- Every dynamic value passed through `esc()`.
+- No model, lambda, rho, or probability computation touched — grep confirms zero
+  changes outside `viewLeague()`'s one label and `openMatch()`'s render block.
 
-Applied to a throwaway, untracked local copy (`index_preview.html`, never committed,
-deleted after verification — `git status` confirms zero changes to the tracked
-`index.html` throughout). Served over a local static file server so the real
-`data/leagues/*.json` loaded normally, then exercised via `render('PL')`.
+## Verification (rendered on a throwaway, untracked copy — `git status` confirms zero
+changes to the real `index.html` before, during, or after)
 
-**Pixel screenshots were not obtainable** — the Browser pane was not displayed on the
-user's side during this session, and screenshot/click actions time out without a
-composited frame. Verified instead via the actual rendered DOM and extracted text at
-both target widths, plus explicit overflow checks:
-
-| Width | Content order/completeness | Horizontal overflow | Row height |
-|---|---|---|---|
-| 1280×900 (desktop) | Correct — all 10 PL fixtures, all 4 new fields present in spec order | None (`scrollWidth` 1265 < 1280) | 162px |
-| 375×812 (mobile) | Correct — identical content and order | None (`scrollWidth` 375 = viewport) | 239px |
-
-Sample of one rendered card (extracted `get_page_text`, both widths identical in
-content):
-```
-Arsenal v Coventry
-MW1 · pick Arsenal
-Projected Score If Pick Lands: 2-0
-Top Exact Scores: 2-0 14% · 3-0 12% · 1-0 11%
-The highest-probability exact score can differ from the most likely match result.
-2-0
-14% TOP SCORE
-77%
-```
-
-**Honest tradeoff, not hidden**: row height roughly 1.5× taller than today at both
-widths (desktop 162px vs. an unmeasured but visibly shorter current row; mobile
-239px). Ten fixtures now means noticeably more scrolling than before. This is a
-direct consequence of fitting four data points instead of two into each card — if
-that height cost isn't acceptable, the alternative is moving items 3–4 behind a
-per-card expand/collapse instead of always-visible, which would need a different,
-larger diff. Flagged for a decision, not resolved unilaterally here.
+| Check | Result |
+|---|---|
+| 1280×900, fixture list | 10 rows, 70px each (unchanged), label reads "N% top score" |
+| 375×812, fixture list | 10 rows, 70px each, no horizontal overflow |
+| 1280×900, differing fixture (Hull v Man Utd: `p.score`="0-2", `top_scores[0]`="1-1") | Match Pick: Manchester United (57%) · Highest-Probability Exact Score: 1-1 · 12% · Projected Score If Pick Lands: 0-2 — both numbers shown, correctly different |
+| 375×812, same fixture | Identical content; "Highest-Probability Exact Score · 12%" label fits on **one line** (verified: span `scrollWidth` 304 = `clientWidth` 304, no internal overflow) — the wrapping risk flagged in the prior round did not materialize |
+| Agreeing fixture (Arsenal v Coventry: both "2-0") | Both lines correctly show 2-0; explanation sentence still shown (not hidden just because they agree, per "always display") |
+| Draw pick (none exists in current real data — synthetic fixture injected into in-memory `DATA` only, popped immediately after reading, never written to any file) | Match Pick: **Draw (31%)** · Projected Score If Pick Lands: 1-1 — reads correctly, no "If Draw wins" grammar problem |
+| Body-level and `.score`-level overflow, both widths | None anywhere |
 
 ## Status
 
-Prepared for review. Not applied to `index.html`. `git status` on the real repo shows
-zero changes from this exercise. Will not be deployed without explicit approval, and is
-independent of the market-blend research track.
+Prepared for review. Not applied to `index.html`. Repository confirmed as
+`C:\Users\John\worldcup` @ `d8c541904c24c47c300c968be07c066fc1d95108` throughout this
+verification. Waiting for approval before touching production.
