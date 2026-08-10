@@ -1,6 +1,6 @@
 {
   "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves (and late 2025-26 ones) are invisible without this file. Keys are EXACT Understat spellings, resolved by scripts/apply_transfers.py. Value = new canonical club, or null if the player left this league. Verified by per-league agents requiring two independent sources or an official announcement; rumours excluded.",
-  "_verified_on": "2026-07-20",
+  "_verified_on": "2026-08-10",
   "_held_back": {
     "LIGUE1": {
       "Sekou Mara": "Strasbourg (Transfermarkt only -- two pages, one source)"
@@ -32,7 +32,13 @@
     "Guido Rodríguez": null,
     "Angel Gomes": null,
     "Christantus Uche": null,
-    "Diego Coppola": null
+    "Diego Coppola": null,
+    "Danny Welbeck": "Chelsea",
+    "Alejandro Garnacho": "Aston Villa",
+    "Youri Tielemans": "Manchester United",
+    "Sandro Tonali": "Tottenham",
+    "Marcos Senesi": "Tottenham",
+    "Harvey Elliott": "Liverpool"
   },
   "LALIGA": {
     "Robert Lewandowski": null,
@@ -86,7 +92,8 @@
     "Jenson Seelt": null,
     "Jonah Kusi-Asare": null,
     "Luca Netz": null,
-    "Merlin Röhl": null
+    "Merlin Röhl": null,
+    "Ransford Königsdörffer": "Mainz"
   },
   "LIGUE1": {
     "Sidiki Chérif": null,
@@ -148,7 +155,8 @@
     "Mamadou Sarr": null,
     "Sael Kumbedi": null,
     "Simon Adingra": null,
-    "Ugo Raghouber": null
+    "Ugo Raghouber": null,
+    "Adrien Thomasson": "Rennes"
   },
   "_coverage": {
     "_why": "A single _verified_on date claims a completeness no sweep has ever achieved. It said 2026-07-18 on the day Mason Greenwood was published at Marseille four days after he signed for Fenerbahce -- the file was fresh and wrong. Coverage is per-sweep and partial; record it that way so the next reader knows what was NOT checked.",
@@ -417,7 +425,8 @@
     "known_gaps": [
       "Promoted clubs have no Understat history, so no player markets regardless of roster verification. Not a coverage gap that verification can close.",
       "Squad players below the top 6 by goal rate are unverified. They cannot clear a 40% goalscorer bar, so the exposure is to props display rather than to a published pick."
-    ]
+    ],
+    "2026-08-10": "Targeted sweep, NOT a full re-check of every existing override. Scope: the players the roster reconciliation DROPPED whose name also appears at a different club, i.e. the only gap the fresh API-Football rosters cannot close by themselves (they remove departures automatically but never reassign across clubs on a fuzzy name). 97 such candidates were generated mechanically; the roster feed alone CANNOT distinguish a transfer from a namesake -- it proposed Álvaro García and Álvaro Fernández, both of which the pipeline already flags as two different players at two clubs -- so each entry below was confirmed against real reporting, two independent outlets or an official club announcement, before being written. Unverified candidates were deliberately NOT written."
   },
   "_verified_on_note": "Date of the most recent sweep, NOT proof every override was re-checked. See _coverage for what each sweep actually covered."
 }
