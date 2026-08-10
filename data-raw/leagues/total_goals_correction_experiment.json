@@ -1,0 +1,202 @@
+{
+  "PL": {
+    "existing": {
+      "n": 1136,
+      "grid_logloss_nats": 2.9686,
+      "top1_pct": 11.97,
+      "top3_pct": 30.19,
+      "mean_predicted_total": 2.922,
+      "mean_actual_total": 2.989,
+      "predicted_pct_4plus_goals": 33.56,
+      "actual_pct_4plus_goals": 35.48,
+      "rps_1x2": 0.199
+    },
+    "total_scale_correction": {
+      "n": 1136,
+      "grid_logloss_nats": 2.9669,
+      "top1_pct": 11.44,
+      "top3_pct": 30.72,
+      "mean_predicted_total": 2.965,
+      "mean_actual_total": 2.989,
+      "predicted_pct_4plus_goals": 34.5,
+      "actual_pct_4plus_goals": 35.48,
+      "rps_1x2": 0.1988,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0043,
+        0.0077
+      ],
+      "significantly_better": false
+    },
+    "home_away_scale_correction": {
+      "n": 1136,
+      "grid_logloss_nats": 2.9724,
+      "top1_pct": 11.44,
+      "top3_pct": 30.9,
+      "mean_predicted_total": 2.965,
+      "mean_actual_total": 2.989,
+      "predicted_pct_4plus_goals": 34.5,
+      "actual_pct_4plus_goals": 35.48,
+      "rps_1x2": 0.2003,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0113,
+        0.0034
+      ],
+      "significantly_better": false
+    },
+    "mean_scale_factors": {
+      "s_total": 1.014,
+      "sh": 1.004,
+      "sa": 1.026
+    }
+  },
+  "LALIGA": {
+    "existing": {
+      "n": 1137,
+      "grid_logloss_nats": 2.7986,
+      "top1_pct": 15.3,
+      "top3_pct": 39.4,
+      "mean_predicted_total": 2.511,
+      "mean_actual_total": 2.654,
+      "predicted_pct_4plus_goals": 24.73,
+      "actual_pct_4plus_goals": 25.59,
+      "rps_1x2": 0.194
+    },
+    "total_scale_correction": {
+      "n": 1137,
+      "grid_logloss_nats": 2.7964,
+      "top1_pct": 14.86,
+      "top3_pct": 39.58,
+      "mean_predicted_total": 2.64,
+      "mean_actual_total": 2.654,
+      "predicted_pct_4plus_goals": 27.48,
+      "actual_pct_4plus_goals": 25.59,
+      "rps_1x2": 0.1937,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0041,
+        0.0085
+      ],
+      "significantly_better": false
+    },
+    "home_away_scale_correction": {
+      "n": 1137,
+      "grid_logloss_nats": 2.7991,
+      "top1_pct": 15.66,
+      "top3_pct": 39.4,
+      "mean_predicted_total": 2.64,
+      "mean_actual_total": 2.654,
+      "predicted_pct_4plus_goals": 27.47,
+      "actual_pct_4plus_goals": 25.59,
+      "rps_1x2": 0.1942,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0069,
+        0.0061
+      ],
+      "significantly_better": false
+    },
+    "mean_scale_factors": {
+      "s_total": 1.052,
+      "sh": 1.052,
+      "sa": 1.052
+    }
+  },
+  "BUNDESLIGA": {
+    "existing": {
+      "n": 769,
+      "grid_logloss_nats": 3.0734,
+      "top1_pct": 11.18,
+      "top3_pct": 27.96,
+      "mean_predicted_total": 3.069,
+      "mean_actual_total": 3.174,
+      "predicted_pct_4plus_goals": 36.78,
+      "actual_pct_4plus_goals": 42.0,
+      "rps_1x2": 0.2005
+    },
+    "total_scale_correction": {
+      "n": 769,
+      "grid_logloss_nats": 3.0769,
+      "top1_pct": 11.96,
+      "top3_pct": 26.92,
+      "mean_predicted_total": 3.142,
+      "mean_actual_total": 3.174,
+      "predicted_pct_4plus_goals": 38.37,
+      "actual_pct_4plus_goals": 42.0,
+      "rps_1x2": 0.2002,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0117,
+        0.0051
+      ],
+      "significantly_better": false
+    },
+    "home_away_scale_correction": {
+      "n": 769,
+      "grid_logloss_nats": 3.0825,
+      "top1_pct": 11.05,
+      "top3_pct": 27.05,
+      "mean_predicted_total": 3.141,
+      "mean_actual_total": 3.174,
+      "predicted_pct_4plus_goals": 38.35,
+      "actual_pct_4plus_goals": 42.0,
+      "rps_1x2": 0.2019,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0187,
+        0.0006
+      ],
+      "significantly_better": false
+    },
+    "mean_scale_factors": {
+      "s_total": 1.024,
+      "sh": 1.01,
+      "sa": 1.041
+    }
+  },
+  "LIGUE1": {
+    "existing": {
+      "n": 916,
+      "grid_logloss_nats": 2.9788,
+      "top1_pct": 11.24,
+      "top3_pct": 27.73,
+      "mean_predicted_total": 2.825,
+      "mean_actual_total": 2.833,
+      "predicted_pct_4plus_goals": 31.41,
+      "actual_pct_4plus_goals": 32.21,
+      "rps_1x2": 0.2088
+    },
+    "total_scale_correction": {
+      "n": 916,
+      "grid_logloss_nats": 2.9837,
+      "top1_pct": 10.92,
+      "top3_pct": 30.24,
+      "mean_predicted_total": 2.818,
+      "mean_actual_total": 2.833,
+      "predicted_pct_4plus_goals": 31.29,
+      "actual_pct_4plus_goals": 32.21,
+      "rps_1x2": 0.2087,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0109,
+        0.0009
+      ],
+      "significantly_better": false
+    },
+    "home_away_scale_correction": {
+      "n": 916,
+      "grid_logloss_nats": 2.9851,
+      "top1_pct": 10.81,
+      "top3_pct": 29.15,
+      "mean_predicted_total": 2.818,
+      "mean_actual_total": 2.833,
+      "predicted_pct_4plus_goals": 31.28,
+      "actual_pct_4plus_goals": 32.21,
+      "rps_1x2": 0.2087,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0163,
+        0.0027
+      ],
+      "significantly_better": false
+    },
+    "mean_scale_factors": {
+      "s_total": 0.997,
+      "sh": 1.015,
+      "sa": 0.974
+    }
+  }
+}
