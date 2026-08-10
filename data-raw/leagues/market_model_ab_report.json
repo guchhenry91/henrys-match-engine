@@ -1,0 +1,138 @@
+{
+  "provenance": {
+    "odds_columns_used": "AvgCH/CD/CA + Avg>2.5/<2.5 (fallback: B365CH/CD/CA, then B365H/D/A; fallback: B365>2.5/<2.5, Max>2.5/<2.5) -- see leagues/history.py",
+    "odds_timing": "CLOSING (or near-closing) lines from football-data.co.uk's historical archive, NOT odds available at this pipeline's actual publish timestamp (MATCHWEEKS_AHEAD=1 means picks can be generated days before kickoff). This is a valid test of whether market info helps AT ALL, not a simulation of the live publish cadence -- see this file's module docstring.",
+    "correct_score_market_available": false,
+    "correct_score_market_note": "API-Football's own pre-match odds (including its 'Exact Score' market) returned empty for every fixture tested -- past, upcoming, and a Champions League final -- despite being listed in the dashboard's package features; only in-play/live odds actually returned data. See .github/workflows/odds-diagnostic.yml and this session's diagnostic runs. No correct-score market comparison is possible with currently-available data."
+  },
+  "leagues": {
+    "PL": {
+      "n_total": 1136,
+      "n_with_odds": 1136,
+      "test_n": 568,
+      "coverage_pct": 100.0,
+      "A_independent_henry_logloss": 2.8955,
+      "B_market_calibrated_logloss": 2.8871,
+      "logloss_delta_henry_minus_market_95ci": [
+        -0.0078,
+        0.0236
+      ],
+      "market_significantly_better": false,
+      "fixed_weight_tradeoff_curve": {
+        "0pct_henry_100pct_market": 2.8871,
+        "10pct_henry_90pct_market": 2.886,
+        "20pct_henry_80pct_market": 2.8854,
+        "30pct_henry_70pct_market": 2.8851,
+        "40pct_henry_60pct_market": 2.8853,
+        "50pct_henry_50pct_market": 2.886,
+        "100pct_henry_0pct_market": 2.8955
+      },
+      "bookmaker_stability_avg_vs_bet365": {
+        "n": 568,
+        "avg_consensus_logloss": 2.8871,
+        "bet365_only_logloss": 2.8878,
+        "logloss_delta_avg_minus_b365_95ci": [
+          -0.0023,
+          0.0008
+        ],
+        "materially_different": false
+      }
+    },
+    "LALIGA": {
+      "n_total": 1137,
+      "n_with_odds": 1137,
+      "test_n": 569,
+      "coverage_pct": 100.0,
+      "A_independent_henry_logloss": 2.7805,
+      "B_market_calibrated_logloss": 2.7604,
+      "logloss_delta_henry_minus_market_95ci": [
+        0.0063,
+        0.0347
+      ],
+      "market_significantly_better": true,
+      "fixed_weight_tradeoff_curve": {
+        "0pct_henry_100pct_market": 2.7604,
+        "10pct_henry_90pct_market": 2.7606,
+        "20pct_henry_80pct_market": 2.7612,
+        "30pct_henry_70pct_market": 2.7622,
+        "40pct_henry_60pct_market": 2.7635,
+        "50pct_henry_50pct_market": 2.7653,
+        "100pct_henry_0pct_market": 2.7805
+      },
+      "bookmaker_stability_avg_vs_bet365": {
+        "n": 569,
+        "avg_consensus_logloss": 2.7604,
+        "bet365_only_logloss": 2.7611,
+        "logloss_delta_avg_minus_b365_95ci": [
+          -0.0024,
+          0.0008
+        ],
+        "materially_different": false
+      }
+    },
+    "BUNDESLIGA": {
+      "n_total": 769,
+      "n_with_odds": 769,
+      "test_n": 385,
+      "coverage_pct": 100.0,
+      "A_independent_henry_logloss": 3.0728,
+      "B_market_calibrated_logloss": 3.0459,
+      "logloss_delta_henry_minus_market_95ci": [
+        0.0069,
+        0.0462
+      ],
+      "market_significantly_better": true,
+      "fixed_weight_tradeoff_curve": {
+        "0pct_henry_100pct_market": 3.0459,
+        "10pct_henry_90pct_market": 3.0464,
+        "20pct_henry_80pct_market": 3.0474,
+        "30pct_henry_70pct_market": 3.0489,
+        "40pct_henry_60pct_market": 3.0508,
+        "50pct_henry_50pct_market": 3.0532,
+        "100pct_henry_0pct_market": 3.0728
+      },
+      "bookmaker_stability_avg_vs_bet365": {
+        "n": 385,
+        "avg_consensus_logloss": 3.0459,
+        "bet365_only_logloss": 3.0472,
+        "logloss_delta_avg_minus_b365_95ci": [
+          -0.0032,
+          0.0006
+        ],
+        "materially_different": false
+      }
+    },
+    "LIGUE1": {
+      "n_total": 916,
+      "n_with_odds": 916,
+      "test_n": 458,
+      "coverage_pct": 100.0,
+      "A_independent_henry_logloss": 3.0324,
+      "B_market_calibrated_logloss": 3.0041,
+      "logloss_delta_henry_minus_market_95ci": [
+        0.0095,
+        0.0479
+      ],
+      "market_significantly_better": true,
+      "fixed_weight_tradeoff_curve": {
+        "0pct_henry_100pct_market": 3.0041,
+        "10pct_henry_90pct_market": 3.0048,
+        "20pct_henry_80pct_market": 3.006,
+        "30pct_henry_70pct_market": 3.0077,
+        "40pct_henry_60pct_market": 3.0098,
+        "50pct_henry_50pct_market": 3.0124,
+        "100pct_henry_0pct_market": 3.0324
+      },
+      "bookmaker_stability_avg_vs_bet365": {
+        "n": 458,
+        "avg_consensus_logloss": 3.0041,
+        "bet365_only_logloss": 3.0032,
+        "logloss_delta_avg_minus_b365_95ci": [
+          -0.0009,
+          0.0026
+        ],
+        "materially_different": false
+      }
+    }
+  }
+}

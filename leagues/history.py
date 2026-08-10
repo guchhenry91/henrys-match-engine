@@ -44,6 +44,20 @@ def parse_history(buf, league: str, season: str) -> pd.DataFrame:
             break
     else:
         out["odds_over25"] = out["odds_under25"] = pd.NA
+    # Always Bet365 specifically (never the Avg-across-bookmakers fallback
+    # odds_h/d/a above prefers) -- lets a bookmaker-stability check compare
+    # a single named book against the multi-book consensus on the SAME
+    # matches; see scripts/market_model_ab_report.py.
+    if "B365CH" in df.columns:
+        out["odds_b365_h"] = pd.to_numeric(df["B365CH"], errors="coerce").values
+        out["odds_b365_d"] = pd.to_numeric(df["B365CD"], errors="coerce").values
+        out["odds_b365_a"] = pd.to_numeric(df["B365CA"], errors="coerce").values
+    elif "B365H" in df.columns:
+        out["odds_b365_h"] = pd.to_numeric(df["B365H"], errors="coerce").values
+        out["odds_b365_d"] = pd.to_numeric(df["B365D"], errors="coerce").values
+        out["odds_b365_a"] = pd.to_numeric(df["B365A"], errors="coerce").values
+    else:
+        out["odds_b365_h"] = out["odds_b365_d"] = out["odds_b365_a"] = pd.NA
     return out.dropna(subset=["date"]).reset_index(drop=True)
 
 
