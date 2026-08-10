@@ -1,0 +1,106 @@
+{
+  "PL": {
+    "train_losses_by_xi": {
+      "0.0015": 3.0498,
+      "0.002": 3.0463,
+      "0.003": 3.0417,
+      "0.005": 3.0395,
+      "0.008": 3.0443,
+      "0.012": 3.0559
+    },
+    "selected_xi": 0.005,
+    "test_n": 568,
+    "test_grid_logloss": {
+      "default_xi_0.003": 2.8955,
+      "selected_xi_0.005": 2.9045
+    },
+    "logloss_delta_default_minus_selected_95ci": [
+      -0.0156,
+      -0.0028
+    ],
+    "selected_significantly_better": false,
+    "mean_total_goals": {
+      "actual": 2.799,
+      "default_xi_predicted": 2.882,
+      "selected_xi_predicted": 2.87
+    }
+  },
+  "LALIGA": {
+    "train_losses_by_xi": {
+      "0.0015": 2.8137,
+      "0.002": 2.8143,
+      "0.003": 2.8168,
+      "0.005": 2.8241,
+      "0.008": 2.8378,
+      "0.012": 2.8574
+    },
+    "selected_xi": 0.0015,
+    "test_n": 569,
+    "test_grid_logloss": {
+      "default_xi_0.003": 2.7805,
+      "selected_xi_0.0015": 2.7823
+    },
+    "logloss_delta_default_minus_selected_95ci": [
+      -0.0066,
+      0.0028
+    ],
+    "selected_significantly_better": false,
+    "mean_total_goals": {
+      "actual": 2.678,
+      "default_xi_predicted": 2.544,
+      "selected_xi_predicted": 2.543
+    }
+  },
+  "BUNDESLIGA": {
+    "train_losses_by_xi": {
+      "0.0015": 3.0755,
+      "0.002": 3.0742,
+      "0.003": 3.074,
+      "0.005": 3.0791,
+      "0.008": 3.0878,
+      "0.012": 3.1073
+    },
+    "selected_xi": 0.003,
+    "test_n": 385,
+    "test_grid_logloss": {
+      "default_xi_0.003": 3.0728,
+      "selected_xi_0.003": 3.0728
+    },
+    "logloss_delta_default_minus_selected_95ci": [
+      0.0,
+      0.0
+    ],
+    "selected_significantly_better": false,
+    "mean_total_goals": {
+      "actual": 3.234,
+      "default_xi_predicted": 3.036,
+      "selected_xi_predicted": 3.036
+    }
+  },
+  "LIGUE1": {
+    "train_losses_by_xi": {
+      "0.0015": 2.9193,
+      "0.002": 2.921,
+      "0.003": 2.9251,
+      "0.005": 2.9344,
+      "0.008": 2.9486,
+      "0.012": 2.9657
+    },
+    "selected_xi": 0.0015,
+    "test_n": 458,
+    "test_grid_logloss": {
+      "default_xi_0.003": 3.0324,
+      "selected_xi_0.0015": 3.0314
+    },
+    "logloss_delta_default_minus_selected_95ci": [
+      -0.0064,
+      0.0083
+    ],
+    "selected_significantly_better": false,
+    "mean_total_goals": {
+      "actual": 2.882,
+      "default_xi_predicted": 2.895,
+      "selected_xi_predicted": 2.892
+    }
+  }
+}
