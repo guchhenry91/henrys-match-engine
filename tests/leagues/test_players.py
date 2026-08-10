@@ -324,6 +324,10 @@ def test_surname_rescue_accepts_a_genuine_variant(monkeypatch):
     ("Crystal Palace", "Yeremi Pino", "Yeremy Pino", "one-character spelling variant"),
     # HTML-escaped feed names are unescaped at ingest; verify the apostrophe form.
     ("Manchester City", "Nico O'Reilly", "N. O'Reilly", "apostrophe survives"),
+    # A shared surname is NOT automatically ambiguous. Inaki and Nico Williams
+    # are brothers at the same club; the initial distinguishes them, so refusing
+    # both (the old behaviour) simply deleted an Athletic Club regular.
+    ("Ath Bilbao", "Inaki Williams", "I. Williams", "brother's surname, initial resolves it"),
 ])
 def test_rescue_recovers_real_players_the_feeds_spell_differently(
         monkeypatch, club, understat, roster_name, why):
@@ -348,9 +352,11 @@ def test_rescue_recovers_real_players_the_feeds_spell_differently(
     # Genuinely different people who happen to share a surname.
     ("Sevilla", "Isaac Romero", ["Rafael Romero"], "same surname, different man"),
     ("Alaves", "Antonio Martinez", ["Toni Martinez"], "unproven nickname, stays out"),
-    # Two team-mates share the surname -> cannot tell which, so withhold.
-    ("Ath Bilbao", "Inaki Williams", ["I. Williams", "Nico Williams"],
-     "ambiguous surname at one club"),
+    # Two team-mates share the surname AND both are forename-compatible with the
+    # rate row -> genuinely cannot tell which, so withhold. (Contrast the Williams
+    # brothers above, where the initial DOES separate them.)
+    ("Ath Bilbao", "I. Williams", ["Inaki Williams", "Ivan Williams"],
+     "two compatible surname matches at one club"),
 ])
 def test_rescue_still_refuses_weak_or_ambiguous_evidence(
         monkeypatch, club, understat, roster_names, why):

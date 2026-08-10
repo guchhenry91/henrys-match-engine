@@ -61,6 +61,14 @@ def _player_key(name: str) -> str:
     return "".join(c for c in text if c.isalnum())
 
 
+# Nobility/patronymic particles. They are >=3 characters so they survive the
+# length filter, but they identify nobody -- "van" is shared by van Hecke and
+# van de Ven at the same club, which made BOTH look like candidates and tripped
+# the "exactly one match" guard, silently refusing to rescue either.
+_PARTICLES = {"van", "von", "der", "den", "des", "del", "dos", "das", "della",
+              "van't", "ten", "ter", "abu", "bin", "ibn", "mac", "the"}
+
+
 def _name_tokens(name: str) -> list[str]:
     """Normalized name parts. Hyphens split as well as spaces: the roster feed
     abbreviates "Gian-Luca Waldschmidt" to "L. Waldschmidt", so the initial to
@@ -260,23 +268,27 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
             #     ambiguous keys withheld above, or an identity we already decided
             #     we cannot trust would be let straight back in here.
             ours_all = _name_tokens(row["player"])
-            strong = {t for t in ours_all if len(t) >= 3}
+            strong = {t for t in ours_all if len(t) >= 3 and t not in _PARTICLES}
             cands = []
             for rname in by_club.get(row["team"], ()):
                 theirs_all = _name_tokens(rname)
-                shared = strong & {t for t in theirs_all if len(t) >= 3}
+                shared = strong & {t for t in theirs_all
+                                   if len(t) >= 3 and t not in _PARTICLES}
                 if not shared:
                     continue
                 forename_only = (len(ours_all) >= 2 and len(theirs_all) >= 2
                                  and shared == {ours_all[0]} == {theirs_all[0]})
                 if forename_only:
                     continue
-                cands.append((rname, theirs_all, shared))
-            if len(cands) == 1 and _player_key(cands[0][0]) not in duplicate_keys:
-                rname, theirs_all, shared = cands[0]
-                if _forenames_compatible(set(ours_all) - shared,
-                                         set(theirs_all) - shared):
-                    club = row["team"]
+                # Compatibility is part of BEING a candidate, not a test applied
+                # after picking one. Filtering afterwards let an incompatible
+                # near-miss inflate the count and veto a genuine unique match.
+                if not _forenames_compatible(set(ours_all) - shared,
+                                             set(theirs_all) - shared):
+                    continue
+                cands.append(rname)
+            if len(cands) == 1 and _player_key(cands[0]) not in duplicate_keys:
+                club = row["team"]
         if club is None:
             if row["team"] in complete_clubs:
                 # Complete roster for his club and he is nowhere in the league:

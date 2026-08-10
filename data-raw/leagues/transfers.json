@@ -38,7 +38,12 @@
     "Youri Tielemans": "Manchester United",
     "Sandro Tonali": "Tottenham",
     "Marcos Senesi": "Tottenham",
-    "Harvey Elliott": "Liverpool"
+    "Harvey Elliott": "Liverpool",
+    "Elliot Anderson": "Manchester City",
+    "Jan Paul van Hecke": "Tottenham",
+    "Andrew Robertson": "Tottenham",
+    "Maxence Lacroix": "Chelsea",
+    "Pascal Struijk": "Brighton"
   },
   "LALIGA": {
     "Robert Lewandowski": null,
@@ -93,13 +98,16 @@
     "Jonah Kusi-Asare": null,
     "Luca Netz": null,
     "Merlin Röhl": null,
-    "Ransford Königsdörffer": "Mainz"
+    "Ransford Königsdörffer": "Mainz",
+    "Grischa Prömel": "Stuttgart",
+    "Rocco Reitz": "RB Leipzig",
+    "Eric Martel": "Mainz"
   },
   "LIGUE1": {
     "Sidiki Chérif": null,
     "Goduine Koyalipou": null,
     "Ibrahim Osman": null,
-    "Remy Labeau Lascary": "Lens",
+    "Remy Labeau Lascary": "Auxerre",
     "Eric Junior Dina Ebimbe": null,
     "Kenny Quetant": null,
     "Wesley Said": null,
@@ -156,7 +164,9 @@
     "Sael Kumbedi": null,
     "Simon Adingra": null,
     "Ugo Raghouber": null,
-    "Adrien Thomasson": "Rennes"
+    "Adrien Thomasson": "Rennes",
+    "Pierre Lees-Melou": "Paris FC",
+    "Laurent Abergel": "Nice"
   },
   "_coverage": {
     "_why": "A single _verified_on date claims a completeness no sweep has ever achieved. It said 2026-07-18 on the day Mason Greenwood was published at Marseille four days after he signed for Fenerbahce -- the file was fresh and wrong. Coverage is per-sweep and partial; record it that way so the next reader knows what was NOT checked.",
@@ -426,7 +436,7 @@
       "Promoted clubs have no Understat history, so no player markets regardless of roster verification. Not a coverage gap that verification can close.",
       "Squad players below the top 6 by goal rate are unverified. They cannot clear a 40% goalscorer bar, so the exposure is to props display rather than to a published pick."
     ],
-    "2026-08-10": "Targeted sweep, NOT a full re-check of every existing override. Scope: the players the roster reconciliation DROPPED whose name also appears at a different club, i.e. the only gap the fresh API-Football rosters cannot close by themselves (they remove departures automatically but never reassign across clubs on a fuzzy name). 97 such candidates were generated mechanically; the roster feed alone CANNOT distinguish a transfer from a namesake -- it proposed Álvaro García and Álvaro Fernández, both of which the pipeline already flags as two different players at two clubs -- so each entry below was confirmed against real reporting, two independent outlets or an official club announcement, before being written. Unverified candidates were deliberately NOT written."
+    "2026-08-10": "Targeted sweep, NOT a full re-check of every existing override. Scope: the players the roster reconciliation DROPPED whose name also appears at a different club, i.e. the only gap the fresh API-Football rosters cannot close by themselves (they remove departures automatically but never reassign across clubs on a fuzzy name). 97 such candidates were generated mechanically; the roster feed alone CANNOT distinguish a transfer from a namesake -- it proposed Álvaro García and Álvaro Fernández, both of which the pipeline already flags as two different players at two clubs -- so each entry below was confirmed against real reporting, two independent outlets or an official club announcement, before being written. Unverified candidates were deliberately NOT written. SECOND PASS same day: extended to the top 20 within-league candidates by model impact. 19 moves confirmed and written. Three were CHECKED AND REJECTED rather than written: Brennan Johnson (Crystal Palace) -- only rumour, an Everton swap 'reportedly agreed' and Ipswich merely 'interested', no completed deal; Álvaro García -- reporting has him still at Rayo Vallecano under contract to 2028, confirming the Alaves 'Álvaro García' is a DIFFERENT player and vindicating the pipeline's own ambiguity flag; Manu Sánchez -- Celta own him but have LOANED him to Levante for 2026/27, so the roster feed lists his parent club while he actually plays elsewhere, a loan/parent-club case this file's simple destination mapping cannot express safely. ~15 low-impact candidates (reserve keepers, sub-10-appearance squad players) were left unverified as immaterial to any published pick."
   },
   "_verified_on_note": "Date of the most recent sweep, NOT proof every override was re-checked. See _coverage for what each sweep actually covered."
 }
