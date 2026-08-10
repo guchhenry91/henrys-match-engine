@@ -172,6 +172,13 @@
     background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
   .stat .l{font-size:13px;color:var(--sub);font-weight:650;margin-top:4px}
   .note{font-size:12.5px;color:var(--sub);font-weight:600;text-align:center;padding:10px 24px 0;line-height:1.55}
+  .mktrow{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:750;margin-top:6px}
+  .mktrow span{flex:1;text-align:left;color:var(--sub);font-weight:650}
+  .mktrow b{width:48px;flex:0 0 auto;text-align:center;font-variant-numeric:tabular-nums;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mktrow span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mkthead b{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--sub)}
+  .mktedge{font-size:12.5px;font-weight:800;margin-top:10px}
 
   /* calibration / reliability chart */
   .cal{padding:8px 6px 4px;margin-bottom:8px}
@@ -522,6 +529,34 @@ function openMatch(lk,id){
     <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${num(pr.exp_shots)} attempts · ${num(pr.exp_sot)} on tgt</span></div></div>`).join("");
   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
   const pickPct=Number.isFinite(Number(p.p_pick))?`${pc(p.p_pick)}%`:"–";
+  // Model vs bookmakers. p.market is the de-vigged 1X2 line plus `edge` (model
+  // probability MINUS market probability on the picked side). It is display-only:
+  // no odds reach leagues/model.py, so nothing here changes a single prediction.
+  // A gap is a DISAGREEMENT, not an edge in the betting sense -- the market may
+  // simply be pricing team news the model cannot see -- and the copy says so
+  // rather than letting a green number read as free money.
+  const mk=p.market;
+  // Number(null) is 0, which IS finite -- a bare Number.isFinite guard let a
+  // null price through and rendered "Bookmakers 0% 0% 0%" while claiming the
+  // model agreed with it. Reject null/undefined/"" explicitly.
+  const priced=v=>v!=null&&v!==""&&Number.isFinite(Number(v));
+  let marketSec="";
+  if(mk && priced(mk.p_home) && priced(mk.p_draw) && priced(mk.p_away)){
+    const e=priced(mk.edge)?Number(mk.edge):NaN, pts=Number.isFinite(e)?Math.round(Math.abs(e)*1000)/10:null;
+    const agrees=Number.isFinite(e)&&Math.abs(e)<0.02;
+    const edgeLine=pts==null?"":`<div class="mktedge" style="color:${agrees?"var(--sub)":(e>0?"var(--lime)":"var(--hot)")}">${
+      agrees?`The model and the bookmakers broadly agree on ${esc(p.pick||"this pick")}.`
+            :`The model rates ${esc(p.pick||"the pick")} ${pts} points ${e>0?"higher":"lower"} than the bookmakers.`}</div>`;
+    marketSec=`<div class="glass dsec"><h3>Model vs bookmakers</h3>
+      <div class="mktrow mkthead"><span></span><b>Home</b><b>Draw</b><b>Away</b></div>
+      <div class="mktrow"><span>Model</span><b>${ph}%</b><b>${pd}%</b><b>${pa}%</b></div>
+      <div class="mktrow"><span>Bookmakers</span><b>${pc(mk.p_home)}%</b><b>${pc(mk.p_draw)}%</b><b>${pc(mk.p_away)}%</b></div>
+      ${edgeLine}
+      <p class="note" style="padding-top:8px">Bookmaker prices with their margin removed, shown for comparison only -- they do not feed the model. A gap means the two disagree, not that there is money in it: the market is usually pricing late team news the model has not seen.</p></div>`;
+  } else {
+    marketSec=`<div class="glass dsec"><h3>Model vs bookmakers</h3>
+      <p class="note" style="padding-top:0">No bookmaker line is posted for this fixture yet. The odds feed only carries about a week ahead, so lines appear a few days before kickoff.</p></div>`;
+  }
   const app=document.getElementById("app");
   app.innerHTML=`<button class="back" type="button" onclick="render(cur)">‹ Back</button>
     <div class="glass dhead"><div class="lg">${esc(LG[lk])} · MW${m.matchweek}</div><div class="vs">${esc(m.home)} v ${esc(m.away)}</div>
@@ -535,6 +570,7 @@ function openMatch(lk,id){
     ${uaAll.length?`<div class="glass warnbox">Confirmed defensive/keeper absence not priced by the shot-based model: ${esc(uaAll.join(", "))}. Read the win probability with that in mind.</div>`:""}
     <div class="glass dsec"><h3>Top Exact Scores</h3>${tops}
       <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the highest-probability score above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
+    ${marketSec}
     <div class="glass dsec"><h3>Why this pick</h3>${reasons}</div>
     ${props?`<div class="glass dsec"><h3>Top players in this match</h3>${props}</div>`:""}`;
   window.scrollTo(0,0);
