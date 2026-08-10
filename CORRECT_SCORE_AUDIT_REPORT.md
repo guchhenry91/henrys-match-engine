@@ -1,12 +1,38 @@
 # Correct-Score Engine Audit — Final Report
 
-**Status: research complete, nothing applied to production.** Every script referenced
+**Status: no model or presentation change deployed. `leagues/history.py` WAS edited —
+see amendment below; this is not a "nothing touched" report.** Every script referenced
 here lives under `scripts/`, writes only to `data-raw/leagues/*.json`, and has been run
 against real historical data with the same walk-forward, causal, paired-bootstrap
-discipline used elsewhere in this codebase. `leagues/`, `index.html`, and `data/leagues/`
-are unchanged except for two additive, backward-compatible column captures in
-`leagues/history.py` (Over/Under 2.5 odds, Bet365-specific odds) that nothing in
-production reads yet.
+discipline used elsewhere in this codebase. `index.html` and `data/leagues/*.json` are
+completely unchanged by this investigation. `leagues/history.py` is not.
+
+## Amendments (added after review)
+
+1. **CMP was not tested.** Not attempted, not partially attempted — zero code written.
+   Judged impractical up front (no closed-form normalizing constant, would need
+   per-match numerical approximation inside a walk-forward MLE loop across 4 leagues)
+   and skipped entirely, consistent with the "only if practical" instruction.
+2. **Full Bayesian dynamic strengths were not tested.** What §4 calls "dynamic
+   strength" is a sweep of the existing exponential recency-decay half-life (`xi`),
+   selected on an earlier data split and evaluated on a later one — NOT a genuine
+   Bayesian state-space / continuously-updating strength model (e.g. a Kalman filter or
+   TrueSkill-style online rating). That is a materially different, larger undertaking
+   and was not built or tested in this investigation.
+3. **`leagues/history.py` was edited — twice, both still in place.** This is a
+   production file under `leagues/`, not a research script. See the exact diffs below.
+   Both changes are additive (new optional columns, nothing existing modified) and
+   nothing in `leagues/publish.py`, `leagues/model.py`, or any other production code
+   path reads the new columns — so no production *behavior* changed — but the file
+   itself did change, and that should have been stated plainly rather than folded into
+   "nothing applied to production." Not reverted per instruction (no changes without
+   approval); available to revert on request.
+4. **Closing-odds results are research evidence, not production validation.** Every
+   market-blend number in §5 uses football-data.co.uk's historical closing-line
+   archive. This proves market information *can* help; it does not prove the blend
+   would help at this pipeline's actual publish timestamp, which sees earlier, thinner
+   odds. Treat every log-loss/RPS number in §5 as "what a closing line would have
+   given us," not as evidence a live deployment would reproduce it.
 
 ---
 
@@ -243,11 +269,17 @@ n≈150–230/bucket — unlike the total-goals finding, which was clean and con
 
 ---
 
-## 8. Proposed patch (NOT applied — for review only)
+## 8. Proposed patch (NOT applied — status: disabled research feature flag, not implemented)
 
-### If the market-calibrated blend is approved for La Liga/Bundesliga/Ligue 1:
+**Current decision, per explicit instruction: the market-calibrated blend is NOT to be
+implemented or deployed yet, for any league, including La Liga/Bundesliga/Ligue 1.**
+Premier League stays on the independent model regardless of any future evidence from
+the other three leagues — that is a standing decision, not contingent on this patch.
+What follows is the design that WOULD be built, gated behind a disabled flag, once
+timestamped early-odds validation (§ new odds-collection plan, separate deliverable)
+confirms the effect survives outside the closing-line backtest.
 
-**Files that would change:**
+**Files that would change, when/if approved:**
 - `leagues/history.py` — already additive/merged (Over/Under + Bet365 columns
   captured; nothing reads them in production yet). No further change needed here.
 - `leagues/model.py` — add a new function (not a `LeagueModel` method, since it needs
@@ -256,50 +288,33 @@ n≈150–230/bucket — unlike the total-goals finding, which was clean and con
   `market_calibrated_lambdas(model, home, away, odds_h, odds_d, odds_a, odds_over25, odds_under25, henry_weight=0.2)`.
 - `leagues/publish.py` — in `build()`, after computing `pred = model.predict(home, away)`,
   conditionally call the new blend function IF live odds are available at publish time
-  for that league (gate on `league in {"LALIGA", "BUNDESLIGA", "LIGUE1"}` per the
-  per-league recommendation above), replacing `pred["lambda_home"]/["lambda_away"]`
-  and rebuilding the grid before the rest of `build()`'s pipeline runs. Must add a new
-  `data_warnings` entry when odds are unavailable for a fixture (fall back to the
-  independent model silently degrading, never erroring).
-- **NEW dependency**: a live odds source at publish time. This is the actual blocker —
-  football-data.co.uk does not provide a real-time feed, only historical archives.
-  Would need either (a) API-Football's odds endpoint once pre-match odds coverage is
-  confirmed working (currently returns empty — see §5), or (b) a different odds
-  provider. **Do not implement the publish.py wiring until a live odds source is
-  confirmed working end-to-end.**
+  for that league, gated behind an explicit flag that **defaults to disabled**
+  (e.g. `MARKET_BLEND_ENABLED_LEAGUES: set[str] = set()` — empty by default, PL never
+  added regardless of flag state) — replacing `pred["lambda_home"]/["lambda_away"]`
+  and rebuilding the grid before the rest of `build()`'s pipeline runs.
+- **Fallback must self-identify, never silently reuse stale odds.** If live odds are
+  unavailable, missing a required field, or stale beyond a freshness threshold at
+  publish time, the pipeline must fall back to the independent model AND write a
+  `data_warnings` / prediction-level field stating plainly that this fixture used the
+  independent model, not the blend (e.g. `"model_source": "independent"` vs.
+  `"model_source": "market_blend"` on every prediction, always present, never inferred).
+  No fixture may show a market-blend-style output built from odds that weren't
+  genuinely fresh at publish time.
+- **NEW dependency**: a live, correctly-timestamped odds source at publish time. This is
+  the actual blocker — football-data.co.uk does not provide a real-time feed, only
+  historical archives. Would need either (a) API-Football's odds endpoint once
+  pre-match odds coverage is confirmed working (currently returns empty — see §5), or
+  (b) a different odds provider. **Do not implement the publish.py wiring until a live
+  odds source is confirmed working end-to-end AND the timestamped-odds validation in
+  the separate collection-plan deliverable confirms the effect survives.**
 
-### Presentation change (prepared, not deployed — Phase 5's exact spec)
+### Presentation change (prepared, not deployed)
 
-Current `index.html` (`openMatch()`, lines 497–534) already implements ~80% of the
-requested structure post this session's earlier `09e48fc` fix: the true grid-mode score
-is the headline ("best guess"), the pick-conditional score shows as a note **only when
-it differs** from the grid mode, and a top-3 "Most likely scorelines" section exists.
-
-Gap vs. the exact 4-part spec requested:
-1. No explicit "Match Pick: Team (P%)" label currently rendered in the detail view
-   (only the H/D/A split bar, without a text pick line).
-2. "Projected Score If Pick Wins" is currently conditional (`condDiffers`) — shown only
-   when it disagrees with the raw mode. The spec wants it always shown, labeled plainly.
-3. Headline label "best guess" → rename to "Most Likely Raw Score" per spec, with the
-   existing honest caveat text kept.
-
-Proposed diff (reference only, not applied to `index.html`):
-
-```diff
-@@ index.html openMatch(), inside the .dhead block @@
-     <div class="glass dhead"><div class="lg">${esc(LG[lk])} · MW${m.matchweek}</div><div class="vs">${esc(m.home)} v ${esc(m.away)}</div>
-+      <div style="font-size:12px;font-weight:700;color:var(--sub)">Match Pick</div>
-+      <div style="font-size:15px;font-weight:800">${esc(p.pick)} <span style="color:var(--sub);font-weight:600">(${pc(p.p_pick)}%)</span></div>
--      <div class="score"><b>${esc(sc[0])}</b><span>best guess${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
-+      <div class="score"><b>${esc(sc[0])}</b><span>Most Likely Raw Score${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
-       <div class="split"><div class="sh" style="flex:${ph||1}">${ph}%</div><div class="sd" style="flex:${pd||1}">${pd}%</div><div class="sa" style="flex:${pa||1}">${pa}%</div></div>
-       <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:8px">${esc(m.home)} win · draw · ${esc(m.away)} win</div>
--      ${condDiffers?`<div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">If ${esc(p.pick)} win${p.pick===m.home||p.pick===m.away?"s":""}, most likely: ${esc(p.score)}</div>`:""}</div>
-+      <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">Projected Score If Pick Wins: ${esc(p.score)}${condDiffers?" (differs from the raw mode above)":""}</div></div>
-```
-
-(`tops` section, already labeled "Most likely scorelines", already matches "Other
-Plausible Scores" in substance — cosmetic rename only if desired, not required.)
+Moved to its own standalone document, prepared separately from this model patch per
+instruction: **`PRESENTATION_PATCH_PROPOSAL.md`**. Not applied to `index.html`. Explicitly
+does not manipulate or suppress 1-1 or any other score — labeling only, with microcopy
+stating plainly that the raw-mode score is "the largest individual cell," not a claim
+about the most likely 1X2 result.
 
 ---
 
