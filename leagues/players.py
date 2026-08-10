@@ -240,8 +240,23 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
         "/".join(sorted(key_names[key])) + ": " + next(iter(key_names[key].values()))
         for key in duplicate_keys)
 
+    # MANUAL OVERRIDES OUTRANK THE FEED. transfers.json exists precisely for the
+    # window the roster feed cannot cover: a move announced hours ago, where the
+    # feed still lists the old club, Understat agrees with it, and nothing looks
+    # inconsistent to any automated check. Before this, the reconciliation below
+    # saw an exact name match at the old club and reassigned the player straight
+    # back, silently undoing the override -- Bruno Guimaraes was moved to Arsenal
+    # in transfers.json and still published at Newcastle. A human who has checked
+    # two sources beats a feed that is up to a day behind, so an overridden player
+    # keeps the club the override gives him.
+    overridden = {_player_key(p) for p, club in (load_transfers(league) or {}).items()
+                  if club}
+
     kept, unmatched = [], []
     for _, row in rates.iterrows():
+        if _player_key(row["player"]) in overridden:
+            kept.append(row.copy())          # already at the overridden club
+            continue
         club = current.get(_player_key(row["player"]))
         if club is None:
             # Rescue pass: Understat's spelling routinely differs from the roster

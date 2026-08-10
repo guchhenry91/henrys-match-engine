@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-10T13:10:05.252194+00:00",
+  "updated": "2026-08-10T13:35:40.490038+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -275,18 +275,8 @@
           "tier": "PL Goals double",
           "note": "Two Premier League scorers",
           "feat": false,
-          "combined": 0.0995,
+          "combined": 0.0955,
           "legs": [
-            {
-              "selection": "Erling Haaland to score",
-              "match": "Manchester City v Bournemouth",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "g",
-              "p": 0.321,
-              "id": "PL#8#goal#Erling Haaland",
-              "date": "2026-08-23T13:00:00+00:00"
-            },
             {
               "selection": "Thiago to score",
               "match": "Brentford v Tottenham",
@@ -296,6 +286,16 @@
               "p": 0.31,
               "id": "PL#6#goal#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
+            },
+            {
+              "selection": "Erling Haaland to score",
+              "match": "Manchester City v Bournemouth",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "g",
+              "p": 0.308,
+              "id": "PL#8#goal#Erling Haaland",
+              "date": "2026-08-23T13:00:00+00:00"
             }
           ],
           "provisional": true

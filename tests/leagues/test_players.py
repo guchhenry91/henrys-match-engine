@@ -371,6 +371,29 @@ def test_rescue_still_refuses_weak_or_ambiguous_evidence(
     assert unmatched == [f"{club}/{understat}"]
 
 
+def test_manual_transfer_override_is_not_undone_by_a_lagging_roster_feed(monkeypatch):
+    """The override list exists for the one window the feed cannot cover: a move
+    announced hours ago, where the roster still lists the OLD club, Understat
+    agrees, and nothing looks inconsistent to any automated check.
+
+    Before this guard the reconciliation saw an exact name match at the old club
+    and reassigned the player straight back, silently undoing the override --
+    Bruno Guimaraes was set to Arsenal in transfers.json and still published at
+    Newcastle. A human who checked two sources beats a feed a day behind."""
+    monkeypatch.setattr("leagues.players.load_transfers",
+                        lambda league: {"Bruno Guimaraes": "Arsenal"})
+    # The feed still has him at his OLD club, with a complete squad, so without
+    # the guard it would win.
+    _snap(monkeypatch, {
+        "Newcastle United": {"players": _pad() + [{"id": "b", "name": "Bruno Guimaraes"}]},
+        "Arsenal": {"players": _pad(prefix="Gunner")},
+    })
+    rates = pd.DataFrame([{"team": "Arsenal", "player": "Bruno Guimaraes", "rate90": 0.2}])
+    safe, _, unmatched, _ = reconcile_rates_to_roster(rates, "PL")
+    assert list(safe["team"]) == ["Arsenal"], "the lagging feed must not win"
+    assert unmatched == []
+
+
 def test_surname_rescue_accepts_an_abbreviated_forename(monkeypatch):
     """API-Football's squad feed abbreviates some first names ("C. Tolisso" for
     "Corentin Tolisso"), which a strict full-forename comparison rejected
