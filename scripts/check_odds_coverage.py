@@ -26,23 +26,31 @@ def main():
     print(" ", ", ".join(names))
     print(f"  bet365 present: {any('bet365' in n.lower() for n in names)}")
 
-    fixtures = client.get("fixtures", league=39, season=2026, next=1)
-    if fixtures:
+    def sample_odds(fixtures, label):
+        if not fixtures:
+            print(f"\nno {label} PL fixture found to sample odds for")
+            return
         fid = fixtures[0]["fixture"]["id"]
         home = fixtures[0]["teams"]["home"]["name"]
         away = fixtures[0]["teams"]["away"]["name"]
-        print(f"\n=== odds for next PL fixture: {home} v {away} (fixture {fid}) ===")
+        date = fixtures[0]["fixture"]["date"]
+        print(f"\n=== odds for {label} PL fixture: {home} v {away} "
+              f"({date}, fixture {fid}) ===")
         odds = client.get("odds", fixture=fid)
         if not odds:
-            print("  no odds returned for this fixture (may be too far out)")
-        else:
-            for bookmaker in odds[0].get("bookmakers", []):
-                print(f"  -- {bookmaker['name']} --")
-                for bet in bookmaker.get("bets", []):
-                    print(f"     {bet['name']}: "
-                          f"{[(v['value'], v['odd']) for v in bet['values'][:5]]}")
-    else:
-        print("\nno upcoming PL fixture found to sample odds for")
+            print(f"  no odds returned for this fixture")
+            return
+        for bookmaker in odds[0].get("bookmakers", []):
+            print(f"  -- {bookmaker['name']} --")
+            for bet in bookmaker.get("bets", []):
+                print(f"     {bet['name']}: "
+                      f"{[(v['value'], v['odd']) for v in bet['values'][:5]]}")
+
+    sample_odds(client.get("fixtures", league=39, season=2026, next=1), "next")
+    # A fixture already played, from a past season -- tests whether CLOSING
+    # odds are archived at all, since a backtest needs historical odds, not
+    # just whatever is live right now for upcoming matches.
+    sample_odds(client.get("fixtures", league=39, season=2025, last=1), "a PAST (2025 season)")
 
     print(f"\n{client.used} API-Football requests used")
 
