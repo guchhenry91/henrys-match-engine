@@ -28,17 +28,18 @@ def main():
 
     def sample_odds(fixtures, label):
         if not fixtures:
-            print(f"\nno {label} PL fixture found to sample odds for")
+            print(f"\nno {label} fixture found to sample odds for")
             return
         fid = fixtures[0]["fixture"]["id"]
         home = fixtures[0]["teams"]["home"]["name"]
         away = fixtures[0]["teams"]["away"]["name"]
         date = fixtures[0]["fixture"]["date"]
-        print(f"\n=== odds for {label} PL fixture: {home} v {away} "
-              f"({date}, fixture {fid}) ===")
+        status = fixtures[0]["fixture"]["status"]["short"]
+        print(f"\n=== odds for {label}: {home} v {away} "
+              f"({date}, status={status}, fixture {fid}) ===")
         odds = client.get("odds", fixture=fid)
+        print(f"  raw response length: {len(odds)}")
         if not odds:
-            print(f"  no odds returned for this fixture")
             return
         for bookmaker in odds[0].get("bookmakers", []):
             print(f"  -- {bookmaker['name']} --")
@@ -46,11 +47,27 @@ def main():
                 print(f"     {bet['name']}: "
                       f"{[(v['value'], v['odd']) for v in bet['values'][:5]]}")
 
-    sample_odds(client.get("fixtures", league=39, season=2026, next=1), "next")
-    # A fixture already played, from a past season -- tests whether CLOSING
-    # odds are archived at all, since a backtest needs historical odds, not
-    # just whatever is live right now for upcoming matches.
-    sample_odds(client.get("fixtures", league=39, season=2025, last=1), "a PAST (2025 season)")
+    # The dashboard's package list includes both Pre-match and In-play Odds, so
+    # empty results below need real cause-finding, not just "not covered" --
+    # try several angles: our tracked league far out, a marquee league/fixture
+    # recently finished (heavy bookmaker coverage), and today's live matches.
+    sample_odds(client.get("fixtures", league=39, season=2026, next=1), "next PL")
+    sample_odds(client.get("fixtures", league=39, season=2025, last=1), "past PL (2025-26 season)")
+    # Champions League final -- about as heavily covered by bookmakers as any
+    # fixture gets, so if odds exist ANYWHERE in the archive, this is where.
+    sample_odds(client.get("fixtures", league=2, season=2025, last=1), "past Champions League")
+    # Today's live matches, if any -- tests /odds specifically for in-play
+    # coverage rather than pre-match.
+    live = client.get("fixtures", live="all")
+    print(f"\n{len(live)} live fixtures right now")
+    if live:
+        sample_odds(live, "a LIVE fixture right now")
+
+    # Last resort: what does /odds return with NO fixture filter at all --
+    # does the endpoint have anything queryable today, for any match?
+    any_odds = client.get("odds", league=39, season=2026)
+    print(f"\n/odds with no fixture filter (league=39, season=2026): "
+          f"{len(any_odds)} results")
 
     print(f"\n{client.used} API-Football requests used")
 
