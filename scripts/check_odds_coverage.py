@@ -22,9 +22,9 @@ def main():
 
     books = client.get("odds/bookmakers")
     print(f"\n=== odds/bookmakers: {len(books)} bookmakers ===")
-    names = [b["name"] for b in books]
+    names = [b["name"] for b in books if b.get("name")]
     print(" ", ", ".join(names))
-    print(f"  bet365 present: {'Bet365' in names}")
+    print(f"  bet365 present: {any('bet365' in n.lower() for n in names)}")
 
     fixtures = client.get("fixtures", league=39, season=2026, next=1)
     if fixtures:
