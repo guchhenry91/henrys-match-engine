@@ -155,6 +155,44 @@ def _build_sections(team_legs: list[dict], prop_legs: list[dict]) -> list[dict]:
                      "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
                      "parlays": [p for p in all_parlays if p]})
 
+    # ---- Shots & on target only -------------------------------------------
+    # Shot-VOLUME markets pooled on their own. These are the two best-calibrated
+    # markets the board has (scripts/props_pick_calibration.py: shots and sot both
+    # land within a few points of their stated rate on the leagues with a
+    # judgeable sample, while the goalscorer market has too few distinct players
+    # to judge), so an accumulator built only from them rests on firmer ground
+    # than one that mixes in scorer legs.
+    #
+    # ONE LEG PER MATCH still applies and it bites hard here: Haaland and Semenyo
+    # are the same fixture, as are Mbappe and Vinicius, and Bundesliga props are
+    # ungradeable and already excluded upstream -- so nine published picks collapse
+    # to three usable legs today. That shrinks as the fixture window widens; it is
+    # the honest count, not a cap.
+    shot_legs = [l for l in prop_legs if l["market"] in ("shots", "sot")]
+    so_parlays = []
+    pair = _independent(shot_legs, 2)
+    so_parlays.append(_tier("Shots double",
+                            "The two safest shot-volume calls", pair))
+    full = _independent(shot_legs, 99)
+    # Only worth showing when it actually adds legs over the double -- otherwise
+    # it is the same bet under a second name.
+    if len(full) > len(pair):
+        # Deliberately NOT forced to alternate markets. Within one fixture a
+        # player's "2+ attempts" and "1+ on target" are the same bet twice, so
+        # only the stronger of the two can be used; taking the best available leg
+        # per match is what maximises the combined number. Today that resolves to
+        # on-target every time, which is a result rather than a restriction.
+        so_parlays.append(_tier(
+            "Shots accumulator",
+            "Best shot-volume leg from every available match, drawn from both "
+            "2+ attempts and 1+ on target", full, feat=True))
+    so_parlays = [p for p in so_parlays if p]
+    if so_parlays:
+        sections.append({
+            "title": "Shots & on target",
+            "sub": "2+ attempts and 1+ on target only -- no scorer or match-winner legs",
+            "parlays": so_parlays})
+
     # ---- Premier League only ---------------------------------------------
     pl_team = [l for l in team_legs if l["league_key"] == "PL"]
     pl_prop = [l for l in prop_legs if l["league_key"] == "PL"]
