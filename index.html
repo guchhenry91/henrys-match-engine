@@ -480,17 +480,18 @@ function viewLeague(k){
   if(!ms.length) return emptyState();
   // Fixtures only -- the full standings live in the Tables tab, not repeated here.
   let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,16).map(m=>{const p=m.prediction||{};
-    // The BEST single exact-score guess is top_scores[0] -- the true highest-
-    // probability scoreline, unconditional. p.score is a DIFFERENT number (the
-    // most likely score GIVEN the win/draw/loss pick) and is deliberately not
-    // shown here, since the two can disagree and only one is the model's actual
-    // best guess at the final score.
-    const best=(p.top_scores||[])[0];
+    // The row shows p.score: the most likely scoreline GIVEN the pick, so the
+    // card never reads "pick Manchester United ... 1-1". top_scores[0] is a
+    // DIFFERENT number -- the highest-probability score across ALL results,
+    // ignoring who wins -- and is measurably the better exact-score bet
+    // (12.60% vs 10.69% over 3,958 walk-forward matches). It is deliberately
+    // NOT the headline here, but it is one tap away in the match view, where
+    // correct-score betting needs it.
     return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
       <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
-      <span class="psc">${esc(best?best.score:"–")}<small>${best?Math.round(best.pct)+"% top score":"score"}</small></span>
+      <span class="psc">${esc(p.score||"–")}<small>if pick lands</small></span>
       <div class="conf" style="min-width:48px"><b>${pc(p.p_pick)}%</b></div><span class="chev">›</span></div>`;}).join("")}</div>
-    <p class="note">Best single-score guess and its own chance, plus the match-pick %. No single score is likely -- see each match for the full spread. Full standings are in the Tables tab.</p>`;
+    <p class="note">The score shown is the most likely one if the pick lands, so it always agrees with the pick. Tap a match for the highest-probability score across every result -- the better number for correct-score betting. Full standings are in the Tables tab.</p>`;
   return h;
 }
 
@@ -500,16 +501,19 @@ function openMatch(lk,id){
   const p=m.prediction||{};
   document.getElementById("sub").textContent="Match breakdown";
   const ph=pc(p.p_home),pd=pc(p.p_draw),pa=pc(p.p_away);
-  // The headline score is the model's BEST SINGLE GUESS at the exact final score
-  // -- top_scores[0], the true highest-probability cell in the full scoreline
-  // grid. This is deliberately NOT p.score (a different, conditional number: the
-  // most likely score GIVEN the win/draw/loss pick, which exists to keep the pick
-  // card self-consistent and can genuinely disagree with the real best guess).
-  // Conflating the two would be a real problem for exact-score use -- shown
-  // separately below instead.
+  // The headline score is p.score: the most likely scoreline GIVEN the pick, so
+  // the card reads as one coherent call rather than "Pick: Man City ... 1-1".
+  //
+  // top_scores[0] is a DIFFERENT number -- the highest-probability score across
+  // every result, which is measurably the better exact-score bet (12.60% vs
+  // 10.69% top-1 accuracy over 3,958 walk-forward matches; on a six-fold
+  // correct-score parlay that is ~1-in-249k vs ~1-in-671k). It is deliberately
+  // NOT the headline -- coherence was chosen over that accuracy -- but it must
+  // stay visible and labelled directly underneath, because correct-score
+  // betting needs it and it is the stronger number for that job.
   const topsArr=(p.top_scores||[]);
   const best=topsArr[0];
-  const sc=(best?best.score:"–").split("-");
+  const sc=(p.score||"–").split("-");
   const bestPct=best?Math.round(best.pct||0):null;
   const tops=topsArr.slice(0,3).map(t=>`<div class="sl"><span class="sc">${esc(t.score)}</span>
     <span class="sb"><i style="width:${Math.min(100,(t.pct||0)*4.5)}%"></i></span><span class="sp">${Math.round(t.pct||0)}%</span></div>`).join("")||`<div class="rl">No scoreline spread available.</div>`;
@@ -523,11 +527,11 @@ function openMatch(lk,id){
     <div class="glass dhead"><div class="lg">${esc(LG[lk])} · MW${m.matchweek}</div><div class="vs">${esc(m.home)} v ${esc(m.away)}</div>
       <div style="font-size:12px;font-weight:700;color:var(--sub)">Match Pick</div>
       <div style="font-size:15px;font-weight:800">${esc(p.pick||"–")} <span style="color:var(--sub);font-weight:600">(${pickPct})</span></div>
-      <div class="score"><b>${esc(sc[0])}</b><span>Highest-Probability Exact Score${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
+      <div class="score"><b>${esc(sc[0])}</b><span>Projected Score If Pick Lands</span><b>${esc(sc[1]||"")}</b></div>
       <div class="split"><div class="sh" style="flex:${ph||1}">${ph}%</div><div class="sd" style="flex:${pd||1}">${pd}%</div><div class="sa" style="flex:${pa||1}">${pa}%</div></div>
       <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:8px">${esc(m.home)} win · draw · ${esc(m.away)} win</div>
-      <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">Projected Score If Pick Lands: ${esc(p.score||"–")}</div>
-      <p style="font-size:10.5px;color:var(--sub);font-weight:550;margin-top:6px;line-height:1.4">The highest-probability exact score is one individual scoreline. It can differ from the most likely match result because each result contains many possible scores.</p></div>
+      <div style="font-size:11px;color:var(--cyan);font-weight:700;margin-top:6px">Highest-Probability Exact Score: ${esc(best?best.score:"–")}${bestPct!=null?" · "+bestPct+"%":""}</div>
+      <p style="font-size:10.5px;color:var(--sub);font-weight:550;margin-top:6px;line-height:1.4">The score above the bar is the most likely one if the pick lands, so it always agrees with the pick. The highest-probability score is the single likeliest final score whoever wins -- the two differ when a draw is the biggest individual scoreline even though the pick is more likely to win overall. For correct-score betting, use the highest-probability score.</p></div>
     ${uaAll.length?`<div class="glass warnbox">Confirmed defensive/keeper absence not priced by the shot-based model: ${esc(uaAll.join(", "))}. Read the win probability with that in mind.</div>`:""}
     <div class="glass dsec"><h3>Top Exact Scores</h3>${tops}
       <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the highest-probability score above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
