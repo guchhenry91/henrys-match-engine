@@ -1,9 +1,18 @@
 name: API-Football odds diagnostic
 
-# One-off, manual-only check of what our API-Football plan actually returns
-# from /odds -- bet types (does it cover player props, not just match-level
-# markets?), bookmaker coverage, and one live fixture's sample payload. Not
-# part of the scheduled pipeline; touches no data files, commits nothing.
+# Manual-only check of what our API-Football plan actually returns from /odds:
+# bet types (Exact Score id=10, Anytime Goal Scorer id=92, player shots/SOT
+# ids 240-243 all exist), bookmaker coverage (33 books incl. Bet365), and a
+# sample payload for an upcoming, a past and a live fixture.
+#
+# KEPT DELIBERATELY, not leftover scaffolding. Last run found pre-match odds
+# returning EMPTY for every non-live fixture while in-play odds worked, which
+# contradicts the account's listed features. This job is how that gets
+# re-tested on a real matchday before any decision about the market-calibrated
+# model (see TIMESTAMPED_ODDS_COLLECTION_PLAN.md, which is blocked on it).
+#
+# Costs nothing idle: workflow_dispatch only, no schedule. Touches no data
+# files, commits nothing, spends ~6 API requests per run.
 
 on:
   workflow_dispatch:

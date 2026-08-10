@@ -230,15 +230,34 @@ def build(league: str = "PL") -> dict:
                   f"weakest-side fallback")
     model = LeagueModel().fit(matches, ref=ref, priors=priors)
 
-    # Squad freshness: during an open transfer window the player-club mapping is
-    # only as current as the last verified pass over transfers.json. Say so on the
-    # page rather than quietly showing a player at a club he has left.
+    # Squad freshness during an open transfer window. TWO independent things
+    # decide how much a stale transfers.json actually matters, so the warning
+    # states both rather than only the scarier one:
+    #   * transfers.json is the MANUAL override list, aged by _verified_on;
+    #   * the roster snapshot is the AUTOMATIC check, and where a club's list is
+    #     complete and fresh a departed player is dropped without needing any
+    #     manual entry at all (that path removed 435 departed players on the run
+    #     this wording was written for).
+    # Saying only "last checked N days ago" overstated the risk once the roster
+    # feed became complete and current; saying only "rosters are fresh" would
+    # understate it, because a player the feed spells unrecognisably is neither
+    # matched nor dropped by name. Report both facts and let the reader judge.
+    roster_status, roster_age = players.roster_snapshot_status(league)
     stale_days = players.transfers_age_days()
     if stale_days is not None and stale_days > 7:
-        warnings.append(
-            f"Squad lists were last checked against transfer news {stale_days} days "
-            f"ago and the window is still open, so a player may appear at a club he "
-            f"has since left.")
+        if roster_status == "ok":
+            warnings.append(
+                f"The manual transfer list was last re-checked {stale_days} days ago "
+                f"and the window is still open. Current squads are verified "
+                f"automatically against a roster feed refreshed "
+                f"{round(roster_age)}h ago, which is what actually removes departed "
+                f"players, so the residual risk is limited to players that feed "
+                f"spells too differently to match.")
+        else:
+            warnings.append(
+                f"Squad lists were last checked against transfer news {stale_days} days "
+                f"ago and the window is still open, and the roster feed is "
+                f"{roster_status}, so a player may appear at a club he has since left.")
 
     # Only players who actually appeared last season, with realistic minutes.
     # Otherwise five seasons of departed players share out the team's expected
@@ -251,7 +270,8 @@ def build(league: str = "PL") -> dict:
     rates = rates[rates["player"].isin(squad)]
     rates, roster_incomplete, roster_unmatched, roster_ambiguous = \
         players.reconcile_rates_to_roster(rates, league)
-    roster_status, roster_age = players.roster_snapshot_status(league)
+    # roster_status/roster_age already resolved above, where the transfer-list
+    # staleness warning needs them.
     # Three DIFFERENT conditions, worded differently on purpose. Before this split
     # the page said "the roster source lists fewer than 18 players for these clubs"
     # for every one of them -- even when the real cause was that no snapshot file

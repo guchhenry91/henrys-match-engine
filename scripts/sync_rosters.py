@@ -7,6 +7,7 @@ source of performance statistics: Understat remains the rate source.
 Run during an open transfer window and before each publish:
     python -m scripts.sync_rosters
 """
+import html
 import json
 import os
 from datetime import datetime, timezone
@@ -63,7 +64,7 @@ def fetch_league(key, slug):
             position = athlete.get("position") or {}
             players.append({
                 "id": str(athlete["id"]),
-                "name": athlete["displayName"],
+                "name": html.unescape(athlete["displayName"] or ""),
                 "position": position.get("abbreviation") or position.get("name") or "",
             })
         result[club] = {
@@ -113,9 +114,13 @@ def fetch_api_league(client, key):
         players = (squad_rows[0].get("players") or []) if squad_rows else []
         result[club] = {
             "source": f"api-football:team:{team['id']}",
+            # API-Football returns names HTML-escaped ("N. O&apos;Reilly"), which
+            # never matches Understat's "Nico O'Reilly" and silently drops the
+            # player as departed. Decode at ingest so the stored snapshot holds
+            # the real name.
             "players": sorted([{
                 "id": str(player["id"]),
-                "name": player["name"],
+                "name": html.unescape(player["name"] or ""),
                 "position": player.get("position") or "",
             } for player in players], key=lambda player: player["name"]),
         }

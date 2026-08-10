@@ -302,6 +302,69 @@ def test_surname_rescue_accepts_a_genuine_variant(monkeypatch):
     assert unmatched == []
 
 
+@pytest.mark.parametrize("club,understat,roster_name,why", [
+    # Understat gives a mononym, the feed gives the full name.
+    ("Liverpool", "Alisson", "Alisson Becker", "mononym vs full name"),
+    # The surname sits in the MIDDLE, so a last-token-only rescue never saw it.
+    ("Aston Villa", "Ezri Konsa Ngoyo", "E. Konsa", "surname is not the last token"),
+    ("Chelsea", "Benoit Badiashile Mukinayi", "B. Badiashile", "surname mid-name"),
+    ("Manchester United", "Amad Diallo Traore", "A. Diallo", "surname mid-name"),
+    # NFKD leaves these letters alone, so the keys never matched before the fold.
+    ("Bournemouth", "Djordje Petrovic", "Đ. Petrović", "D-stroke folds to d"),
+    ("Nice", "Jorgen Odegaard", "J. Ødegaard", "O-slash folds to o"),
+    # Korean feeds disagree about name order.
+    ("Union Berlin", "Woo-Yeong Jeong", "Jeong Woo-Yeong", "name order reversed"),
+    ("Mainz", "Jae-Sung Lee", "Lee Jae-Sung", "name order reversed"),
+    # Hyphenated forename abbreviated on its SECOND half.
+    ("FC Koln", "Gian-Luca Waldschmidt", "L. Waldschmidt", "initial from 2nd half"),
+    # Short forms and spelling variants of the same forename.
+    ("Valencia", "Javier Guerra", "Javi Guerra", "nickname prefix"),
+    ("Chelsea", "Josh Acheampong", "Joshua Kofi Acheampong", "nickname prefix"),
+    ("Monaco", "Anssumane Fati", "Ansu Fati", "short form, doubled letter dropped"),
+    ("Crystal Palace", "Yeremi Pino", "Yeremy Pino", "one-character spelling variant"),
+    # HTML-escaped feed names are unescaped at ingest; verify the apostrophe form.
+    ("Manchester City", "Nico O'Reilly", "N. O'Reilly", "apostrophe survives"),
+])
+def test_rescue_recovers_real_players_the_feeds_spell_differently(
+        monkeypatch, club, understat, roster_name, why):
+    """Every one of these is a CURRENT first-team player who was being dropped as
+    departed purely because Understat and API-Football spell him differently.
+    Measured on live data: 486 players were dropped across the four leagues, ~50
+    of them wrongly, including Alisson, Ezri Konsa and Ansu Fati (0.596 goals/90,
+    the highest rate of any false drop)."""
+    rates = pd.DataFrame([{"team": club, "player": understat, "rate90": 0.4}])
+    _snap(monkeypatch, {club: {"players": _pad() + [{"id": "x", "name": roster_name}]}})
+    safe, _, unmatched, _ = reconcile_rates_to_roster(rates, "PL")
+    assert list(safe["player"]) == [understat], f"should have been rescued: {why}"
+    assert unmatched == []
+
+
+@pytest.mark.parametrize("club,understat,roster_names,why", [
+    # The forename-collision guard: sharing only a FIRST name is not identity.
+    ("Chelsea", "Marc Cucurella", ["Marc Guiu"], "shared forename only"),
+    ("Arsenal", "Martin Odegaard", ["Martín Zubimendi"], "shared forename only"),
+    ("Manchester City", "Nico O'Reilly", ["Nico González"], "shared forename only"),
+    ("Villarreal", "Daniel Parejo", ["Daniel Budesca"], "shared forename only"),
+    # Genuinely different people who happen to share a surname.
+    ("Sevilla", "Isaac Romero", ["Rafael Romero"], "same surname, different man"),
+    ("Alaves", "Antonio Martinez", ["Toni Martinez"], "unproven nickname, stays out"),
+    # Two team-mates share the surname -> cannot tell which, so withhold.
+    ("Ath Bilbao", "Inaki Williams", ["I. Williams", "Nico Williams"],
+     "ambiguous surname at one club"),
+])
+def test_rescue_still_refuses_weak_or_ambiguous_evidence(
+        monkeypatch, club, understat, roster_names, why):
+    """The widened rescue must not become a fuzzy matcher. Each of these would
+    resurrect a departed player or merge two different people if the guards
+    slipped."""
+    rates = pd.DataFrame([{"team": club, "player": understat, "rate90": 0.4}])
+    _snap(monkeypatch, {club: {"players": _pad() + [
+        {"id": str(i), "name": n} for i, n in enumerate(roster_names)]}})
+    safe, _, unmatched, _ = reconcile_rates_to_roster(rates, "PL")
+    assert list(safe["player"]) == [], f"must NOT be rescued: {why}"
+    assert unmatched == [f"{club}/{understat}"]
+
+
 def test_surname_rescue_accepts_an_abbreviated_forename(monkeypatch):
     """API-Football's squad feed abbreviates some first names ("C. Tolisso" for
     "Corentin Tolisso"), which a strict full-forename comparison rejected

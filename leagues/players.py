@@ -36,15 +36,92 @@ MIN_COMPLETE_ROSTER = 18
 MAX_ROSTER_AGE_HOURS = 72
 
 
+# Letters NFKD does NOT decompose: they are distinct code points, not
+# base+combining pairs, so the strip-combining-marks pass below leaves them
+# unchanged. Without these, "Djordje Petrovic" (Understat) and "Đ. Petrović"
+# (API-Football) key to different strings and a current player is dropped as
+# departed. Same class of failure for Nordic o-slash and Polish l-stroke.
+_FOLD = str.maketrans({
+    "đ": "d", "Đ": "d", "ð": "d", "Ð": "d",
+    "ø": "o", "Ø": "o", "ł": "l", "Ł": "l",
+    "ı": "i", "İ": "i", "ŧ": "t", "Ŧ": "t",
+    "æ": "ae", "Æ": "ae", "œ": "oe", "Œ": "oe",
+    "ß": "ss", "ẞ": "ss", "þ": "th", "Þ": "th",
+})
+
+
 def _player_key(name: str) -> str:
     """Accent/case/punctuation-insensitive player identity key.
 
     This is deliberately stricter than fuzzy matching: a false match can assign a
     departed player to the wrong club and produce a confident-looking prop.
     """
-    text = unicodedata.normalize("NFKD", str(name))
+    text = unicodedata.normalize("NFKD", str(name)).translate(_FOLD)
     text = "".join(c for c in text if not unicodedata.combining(c)).casefold()
     return "".join(c for c in text if c.isalnum())
+
+
+def _name_tokens(name: str) -> list[str]:
+    """Normalized name parts. Hyphens split as well as spaces: the roster feed
+    abbreviates "Gian-Luca Waldschmidt" to "L. Waldschmidt", so the initial to
+    compare against is the SECOND half of the hyphenated forename."""
+    parts = str(name).replace("-", " ").split()
+    return [k for k in (_player_key(p) for p in parts) if k]
+
+
+def _forenames_compatible(ours: set[str], theirs: set[str]) -> bool:
+    """Do two sets of non-surname name parts plausibly describe one person?
+
+    Accepts: either side empty (mononym, or every part was the shared surname);
+    a shared part; an initial matching the start of a full part; one part being
+    a prefix of the other ("Josh"/"Joshua", "Ansu"/"Anssumane"); or a
+    single-character typo ("Yeremi"/"Yeremy").
+
+    Rejects two unrelated full forenames -- that is the guard which stops a
+    DEPARTED player being kept alive by a namesake team-mate ("Joao Neves" must
+    not match "Ruben Neves"), so it must stay strict enough to fail that.
+    """
+    if not ours or not theirs or (ours & theirs):
+        return True
+    for o in ours:
+        for t in theirs:
+            if len(o) == 1 or len(t) == 1:          # initial vs full name
+                if t.startswith(o) or o.startswith(t):
+                    return True
+                continue
+            if o.startswith(t) or t.startswith(o):   # nickname / short form
+                return True
+            # Same check with doubled letters collapsed: the short form drops a
+            # doubling the formal name keeps ("Anssumane" -> "Ansu"), which a raw
+            # prefix test misses on the second 's'.
+            od, td = _dedouble(o), _dedouble(t)
+            if od.startswith(td) or td.startswith(od):
+                return True
+            if abs(len(o) - len(t)) <= 1 and _within_one_edit(o, t):
+                return True
+    return False
+
+
+def _dedouble(text: str) -> str:
+    """Collapse runs of the same letter: "anssumane" -> "ansumane"."""
+    out = []
+    for ch in text:
+        if not out or out[-1] != ch:
+            out.append(ch)
+    return "".join(out)
+
+
+def _within_one_edit(a: str, b: str) -> bool:
+    """True when a and b differ by at most one substitution/insertion/deletion."""
+    if a == b:
+        return True
+    if len(a) == len(b):
+        return sum(x != y for x, y in zip(a, b)) == 1
+    short, long = (a, b) if len(a) < len(b) else (b, a)
+    for i in range(len(long)):
+        if short == long[:i] + long[i + 1:]:
+            return True
+    return False
 
 
 def load_roster_snapshot(league: str) -> dict:
@@ -129,12 +206,10 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
     current = {}
     key_names = {}         # key -> {club: name}, used to report WHICH clubs collided
     duplicate_keys = set()
-    # relaxed index, used ONLY to rescue a player already attributed to this club:
-    # surname key -> club -> [full names sharing that surname]. Never used to move a
-    # player between clubs, so it cannot manufacture a transfer. The LIST matters:
-    # two team-mates can share a surname, and a rescue on an ambiguous surname would
-    # keep a departed player alive on the strength of a namesake still at the club.
-    relaxed = {}
+    # Roster names per COMPLETE club, used only to rescue a player already
+    # attributed to that club. Never used to move a player between clubs, so it
+    # cannot manufacture a transfer.
+    by_club = {}
     for club, entry in snapshot.items():
         if club in incomplete:
             continue
@@ -147,10 +222,7 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
             if key in current and current[key] != club:
                 duplicate_keys.add(key)
             current[key] = club
-            tokens = [t for t in str(name).split() if t]
-            if tokens:
-                (relaxed.setdefault(_player_key(tokens[-1]), {})
-                        .setdefault(club, []).append(name))
+            by_club.setdefault(club, []).append(name)
     for key in duplicate_keys:
         current.pop(key, None)  # ambiguous identity -> withhold, never guess
     # Reported so an ambiguity is visible rather than silently discarded, e.g.
@@ -164,44 +236,46 @@ def reconcile_rates_to_roster(rates: pd.DataFrame, league: str,
     for _, row in rates.iterrows():
         club = current.get(_player_key(row["player"]))
         if club is None:
-            # Rescue pass: Understat's spelling often differs from the roster feed's
-            # ("Thiago" vs "Igor Thiago"), which was deleting genuine current
-            # players. Accept a surname match ONLY within the club we already have
-            # him at, and only when it is genuinely unambiguous.
+            # Rescue pass: Understat's spelling routinely differs from the roster
+            # feed's, and treating every difference as a departure deleted real
+            # first-team players (Alisson, Ezri Konsa, Ansu Fati, Amad Diallo...).
+            # Match on any SHARED NAME PART, not just the last token, because the
+            # two feeds disagree about which part is the surname:
+            #   "Ezri Konsa Ngoyo"  vs "E. Konsa"        (surname in the middle)
+            #   "Alisson"           vs "Alisson Becker"  (mononym vs full name)
+            #   "Woo-Yeong Jeong"   vs "Jeong Woo-Yeong" (name order reversed)
             #
-            # Two guards, because a surname alone is weak evidence:
-            #  1. exactly ONE player at that club may carry the surname -- otherwise
-            #     we cannot tell which team-mate we matched;
-            #  2. if the rate row has a forename, it must be consistent with the
-            #     roster name. Without this, our departed "Joao Neves" would be kept
-            #     alive by a different "Ruben Neves" still at the club -- a surname
-            #     match that is unique and still wrong.
-            #  3. the candidate's OWN full-name key must not itself be one of the
-            #     globally ambiguous keys just withheld above. Without this guard,
-            #     an exact full-name collision between two clubs ("Alex Garcia" at
-            #     both Real Madrid and Ath Bilbao) would be correctly withheld by
-            #     the primary lookup and then let straight back in here, because the
-            #     rescue only checks the surname within ONE club and an exact match
-            #     always satisfies that. The rescue is for spelling VARIANTS, not
-            #     for re-admitting an identity we already decided we cannot trust.
-            tokens = [t for t in str(row["player"]).split() if t]
-            cand = ((relaxed.get(_player_key(tokens[-1])) or {}).get(row["team"])
-                    if tokens else None)
-            if cand and len(cand) == 1 and _player_key(cand[0]) not in duplicate_keys:
-                ours = {_player_key(t) for t in tokens[:-1]}
-                theirs = {_player_key(t) for t in str(cand[0]).split()[:-1]}
-                # accept when either side gives no forename to compare (initials,
-                # mononyms), when the forenames actually overlap, or when one side
-                # is a single-letter initial matching the other's forename -- some
-                # API-Football squad rows are abbreviated ("C. Tolisso" for
-                # "Corentin Tolisso"), which a strict full-forename comparison
-                # rejects outright even though it is the same, unique surname
-                # match at the same club. Still bounded by the same guards above:
-                # only when the surname is unique at that club.
-                initials_match = any(
-                    (len(o) == 1 and t.startswith(o)) or (len(t) == 1 and o.startswith(t))
-                    for o in ours for t in theirs)
-                if not ours or not theirs or (ours & theirs) or initials_match:
+            # Guards, because a shared name part alone is weak evidence:
+            #  1. only within the club we already have him at -- cannot invent a
+            #     transfer;
+            #  2. exactly ONE roster name at that club may share a part, otherwise
+            #     we cannot tell which team-mate we matched (Inaki vs Nico Williams);
+            #  3. the remaining name parts must be compatible (_forenames_compatible),
+            #     so a departed "Joao Neves" is not kept alive by "Ruben Neves";
+            #  4. a shared part that is only BOTH names' first part is a forename
+            #     collision, not identity evidence ("Marc Cucurella" must not match
+            #     team-mate "Marc Guiu"). A mononym is exempt: its single part is
+            #     the whole name, so "Alisson" matching "Alisson Becker" is real;
+            #  5. the candidate's OWN full-name key must not be one of the globally
+            #     ambiguous keys withheld above, or an identity we already decided
+            #     we cannot trust would be let straight back in here.
+            ours_all = _name_tokens(row["player"])
+            strong = {t for t in ours_all if len(t) >= 3}
+            cands = []
+            for rname in by_club.get(row["team"], ()):
+                theirs_all = _name_tokens(rname)
+                shared = strong & {t for t in theirs_all if len(t) >= 3}
+                if not shared:
+                    continue
+                forename_only = (len(ours_all) >= 2 and len(theirs_all) >= 2
+                                 and shared == {ours_all[0]} == {theirs_all[0]})
+                if forename_only:
+                    continue
+                cands.append((rname, theirs_all, shared))
+            if len(cands) == 1 and _player_key(cands[0][0]) not in duplicate_keys:
+                rname, theirs_all, shared = cands[0]
+                if _forenames_compatible(set(ours_all) - shared,
+                                         set(theirs_all) - shared):
                     club = row["team"]
         if club is None:
             if row["team"] in complete_clubs:
