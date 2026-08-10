@@ -488,9 +488,9 @@ function viewLeague(k){
     const best=(p.top_scores||[])[0];
     return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
       <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
-      <span class="psc">${esc(best?best.score:"–")}<small>${best?Math.round(best.pct)+"% guess":"score"}</small></span>
+      <span class="psc">${esc(best?best.score:"–")}<small>${best?Math.round(best.pct)+"% top score":"score"}</small></span>
       <div class="conf" style="min-width:48px"><b>${pc(p.p_pick)}%</b></div><span class="chev">›</span></div>`;}).join("")}</div>
-    <p class="note">Best single-score guess and its own chance, plus the win %. No single score is likely -- see each match for the full spread. Full standings are in the Tables tab.</p>`;
+    <p class="note">Best single-score guess and its own chance, plus the match-pick %. No single score is likely -- see each match for the full spread. Full standings are in the Tables tab.</p>`;
   return h;
 }
 
@@ -517,17 +517,20 @@ function openMatch(lk,id){
   const props=(m.props||[]).slice(0,5).map(pr=>`<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
     <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${num(pr.exp_shots)} attempts · ${num(pr.exp_sot)} on tgt</span></div></div>`).join("");
   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
-  const condDiffers = p.score && best && p.score !== best.score;
+  const pickPct=Number.isFinite(Number(p.p_pick))?`${pc(p.p_pick)}%`:"–";
   const app=document.getElementById("app");
   app.innerHTML=`<button class="back" type="button" onclick="render(cur)">‹ Back</button>
     <div class="glass dhead"><div class="lg">${esc(LG[lk])} · MW${m.matchweek}</div><div class="vs">${esc(m.home)} v ${esc(m.away)}</div>
-      <div class="score"><b>${esc(sc[0])}</b><span>best guess${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
+      <div style="font-size:12px;font-weight:700;color:var(--sub)">Match Pick</div>
+      <div style="font-size:15px;font-weight:800">${esc(p.pick||"–")} <span style="color:var(--sub);font-weight:600">(${pickPct})</span></div>
+      <div class="score"><b>${esc(sc[0])}</b><span>Highest-Probability Exact Score${bestPct!=null?" · "+bestPct+"%":""}</span><b>${esc(sc[1]||"")}</b></div>
       <div class="split"><div class="sh" style="flex:${ph||1}">${ph}%</div><div class="sd" style="flex:${pd||1}">${pd}%</div><div class="sa" style="flex:${pa||1}">${pa}%</div></div>
       <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:8px">${esc(m.home)} win · draw · ${esc(m.away)} win</div>
-      ${condDiffers?`<div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">If ${esc(p.pick)} win${p.pick===m.home||p.pick===m.away?"s":""}, most likely: ${esc(p.score)}</div>`:""}</div>
+      <div style="font-size:11px;color:var(--sub);font-weight:650;margin-top:4px">Projected Score If Pick Lands: ${esc(p.score||"–")}</div>
+      <p style="font-size:10.5px;color:var(--sub);font-weight:550;margin-top:6px;line-height:1.4">The highest-probability exact score is one individual scoreline. It can differ from the most likely match result because each result contains many possible scores.</p></div>
     ${uaAll.length?`<div class="glass warnbox">Confirmed defensive/keeper absence not priced by the shot-based model: ${esc(uaAll.join(", "))}. Read the win probability with that in mind.</div>`:""}
-    <div class="glass dsec"><h3>Most likely scorelines</h3>${tops}
-      <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the best guess above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
+    <div class="glass dsec"><h3>Top Exact Scores</h3>${tops}
+      <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the highest-probability score above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
     <div class="glass dsec"><h3>Why this pick</h3>${reasons}</div>
     ${props?`<div class="glass dsec"><h3>Top players in this match</h3>${props}</div>`:""}`;
   window.scrollTo(0,0);
