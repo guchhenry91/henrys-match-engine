@@ -48,6 +48,44 @@ DOUBT_MINUTES_FACTOR = 0.5
 CONFIRMED_BENCH_APPEARANCE = 0.35
 CONFIRMED_BENCH_MINUTES = 25.0
 
+# MEASURED OVERCONFIDENCE CORRECTION, p -> p**k.
+#
+# scripts/props_pick_calibration.py asked the question the rate gate never did:
+# of the picks the board actually PUBLISHED, what fraction won? Trained through
+# 2024-25, scored on 2025-26, graded by the same harsh rule production uses live
+# (no shot row = wrong). Every published probability already multiplies by the
+# appearance probability, so a player who did not feature is priced in and the
+# harsh grading is consistent with the claim -- the shortfall is real, not an
+# artefact. In the two leagues with clean data (0% of picks on players who had
+# left) every market came in short:
+#     PL      goal 42.1 -> 15.6   shots 75.0 -> 50.0   sot 66.8 -> 55.6
+#     LALIGA  goal 42.8 -> 29.5   shots 77.0 -> 60.2   sot 69.8 -> 61.1
+#
+# A power transform is used because it is monotone (it can never reorder the
+# board), fixes 0 and 1, and has one parameter -- with ~100-150 picks per market
+# anything richer fits noise. Each k was fitted on one league and tested on the
+# other; the value kept here is the SMALLER (weakest) of the two, which is
+# strictly better than no correction in BOTH leagues while being unable to
+# over-deflate the league it was not fitted on.
+#
+# Confidence differs by market and is not hidden: sot cross-validates tightly
+# (residual +/-1.8pp), shots is directionally solid but its two estimates
+# disagree (1.95 vs 2.44), and goal does NOT generalise (2.15 vs 1.44, residual
+# +/-13pp) -- so goal gets the most conservative treatment of the three and its
+# number should be re-fitted once the live record has real volume.
+#
+# This corrects the PUBLISHED PROBABILITY only. lambda_goals still sums to the
+# match model's team lambda (that invariant is untouched), and exp_shots/exp_sot
+# remain the raw expected counts, so a calibrated probability and its expected
+# count are deliberately not forced into agreement.
+PROP_CALIBRATION = {"goal": 1.437, "shots": 1.954, "sot": 1.376}
+
+
+def _calibrated(p: float, market: str) -> float:
+    """Apply the measured overconfidence correction to a 0-1 probability."""
+    k = PROP_CALIBRATION.get(market, 1.0)
+    return float(np.clip(p, 0.0, 1.0)) ** k
+
 
 def _prior(pos: str, table: dict, default_key: str = "MF") -> float:
     return table.get(pos, table[default_key])
@@ -227,6 +265,11 @@ def match_props(rates: pd.DataFrame, home: str, away: str,
             exp_sot = p_app * sot_if_playing
             p_shots = p_app * (1.0 - np.exp(-s_if_playing) * (1.0 + s_if_playing))
             p_sot = p_app * (1.0 - np.exp(-sot_if_playing))
+            # Measured correction, applied last so it acts on the finished
+            # probability rather than distorting any upstream expectation.
+            anytime = _calibrated(anytime, "goal")
+            p_shots = _calibrated(p_shots, "shots")
+            p_sot = _calibrated(p_sot, "sot")
 
             out.append({
                 "team": team,

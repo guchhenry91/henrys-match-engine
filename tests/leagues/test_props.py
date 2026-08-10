@@ -77,11 +77,34 @@ def test_lambda_sum_equals_team_lambda():
     assert abs(sum(p["lambda_goals"] for p in away) - 0.9) < 1e-6
 
 
-def test_anytime_is_poisson_of_lambda():
+def test_anytime_is_the_CALIBRATED_poisson_of_lambda():
+    """anytime_pct is the Poisson probability with the measured overconfidence
+    correction applied (props.PROP_CALIBRATION). The raw Poisson identity no
+    longer holds and must not be re-asserted: published picks were measured
+    short of their stated probability in every market and both clean leagues
+    (see scripts/props_pick_calibration.py), so the raw number was the wrong
+    one to publish. lambda_goals is deliberately NOT corrected -- it still sums
+    to the team lambda, which the test above pins."""
+    from leagues.props import PROP_CALIBRATION
     props = match_props(_rates(), "Manchester City", "Brentford", 2.1, 0.9,
                         {}, {}, {})
     h = next(p for p in props if p["player"] == "Haaland")
-    assert abs(h["anytime_pct"] - 100 * (1 - np.exp(-h["lambda_goals"]))) < 0.06
+    raw = 1 - np.exp(-h["lambda_goals"])
+    assert abs(h["anytime_pct"] - 100 * raw ** PROP_CALIBRATION["goal"]) < 0.06
+    assert h["anytime_pct"] < 100 * raw            # correction only ever lowers
+
+
+def test_calibration_lowers_every_market_and_keeps_the_order():
+    """The correction must be monotone -- it may make the board more honest but
+    it must never reorder it, or the 'best pick' could change identity."""
+    from leagues.props import PROP_CALIBRATION, _calibrated
+    for market, k in PROP_CALIBRATION.items():
+        assert k >= 1.0, f"{market}: an exponent below 1 would INFLATE picks"
+        probs = [0.05, 0.2, 0.45, 0.62, 0.7, 0.85, 0.99]
+        cal = [_calibrated(p, market) for p in probs]
+        assert all(c <= p + 1e-12 for c, p in zip(cal, probs))
+        assert cal == sorted(cal), "calibration must preserve ranking"
+    assert _calibrated(0.0, "goal") == 0.0 and _calibrated(1.0, "goal") == 1.0
 
 
 def test_opponent_matters():

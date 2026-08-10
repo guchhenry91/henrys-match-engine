@@ -43,7 +43,12 @@ def test_one_man_squad_would_absorb_the_whole_team_lambda():
     solo = [p for p in out if p["team"] == "Solo"]
     assert len(solo) == 1
     assert solo[0]["lambda_goals"] == pytest.approx(1.3)
-    assert solo[0]["anytime_pct"] > 70          # absurd, hence MIN_SQUAD_FOR_PROPS
+    # The real demonstration is the line above: one man is handed the team's
+    # ENTIRE goal expectation. The probability threshold moved from 70 to 60
+    # only because published probabilities now carry the measured
+    # overconfidence correction (props.PROP_CALIBRATION), which lowers every
+    # number; 63% for a lone player is still absurd, hence MIN_SQUAD_FOR_PROPS.
+    assert solo[0]["anytime_pct"] > 60
 
 
 # ------------------------------------------------------------------- freezing

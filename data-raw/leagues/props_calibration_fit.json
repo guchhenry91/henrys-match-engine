@@ -1,0 +1,77 @@
+{
+  "per_league": {
+    "goal": {
+      "PL": 2.146,
+      "LALIGA": 1.437
+    },
+    "shots": {
+      "PL": 2.436,
+      "LALIGA": 1.954
+    },
+    "sot": {
+      "PL": 1.456,
+      "LALIGA": 1.376
+    }
+  },
+  "cross_validation": {
+    "goal": {
+      "fit_PL_test_LALIGA": {
+        "k": 2.146,
+        "n": 44,
+        "stated_before_pct": 42.8,
+        "stated_after_pct": 16.2,
+        "actual_pct": 29.5,
+        "residual_pp": -13.3
+      },
+      "fit_LALIGA_test_PL": {
+        "k": 1.437,
+        "n": 32,
+        "stated_before_pct": 42.1,
+        "stated_after_pct": 28.8,
+        "actual_pct": 15.6,
+        "residual_pp": 13.2
+      }
+    },
+    "shots": {
+      "fit_PL_test_LALIGA": {
+        "k": 2.436,
+        "n": 108,
+        "stated_before_pct": 77.0,
+        "stated_after_pct": 53.2,
+        "actual_pct": 60.2,
+        "residual_pp": -7.0
+      },
+      "fit_LALIGA_test_PL": {
+        "k": 1.954,
+        "n": 144,
+        "stated_before_pct": 75.0,
+        "stated_after_pct": 57.2,
+        "actual_pct": 50.0,
+        "residual_pp": 7.2
+      }
+    },
+    "sot": {
+      "fit_PL_test_LALIGA": {
+        "k": 1.456,
+        "n": 90,
+        "stated_before_pct": 69.8,
+        "stated_after_pct": 59.4,
+        "actual_pct": 61.1,
+        "residual_pp": -1.7
+      },
+      "fit_LALIGA_test_PL": {
+        "k": 1.376,
+        "n": 144,
+        "stated_before_pct": 66.8,
+        "stated_after_pct": 57.4,
+        "actual_pct": 55.6,
+        "residual_pp": 1.8
+      }
+    }
+  },
+  "recommended": {
+    "goal": 1.437,
+    "shots": 1.954,
+    "sot": 1.376
+  }
+}

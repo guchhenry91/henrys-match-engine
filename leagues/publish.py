@@ -73,7 +73,22 @@ MIN_SQUAD_FOR_PROPS = 6
 #   leave the goalscorer section permanently EMPTY, so it is set at the level that
 #   selects a comparable top slice. Every card publishes its own probability, so
 #   nothing here is presented as more certain than it is.
-PLAYER_PICK_MIN_PROB = {"goal": 0.40, "shots": 0.70, "sot": 0.62}
+#
+# RE-BASED ONTO THE CALIBRATED SCALE (2026-08-10). Published probabilities now
+# carry the measured overconfidence correction (props.PROP_CALIBRATION), which
+# lowers every number, so the old bars -- chosen against inflated ones -- became
+# far stricter than intended: on the backtest they cut the published board from
+# 144 picks to 18 and emptied the goalscorer section completely, the exact
+# "bar sits at the market ceiling" failure described above.
+#
+# Each bar is therefore the OLD bar mapped through the SAME transform
+# (new = old ** k), so the board selects EXACTLY the players it selected before
+# while the probability shown against them is now the honest one:
+#     goal  0.40 ** 1.437 = 0.276      shots 0.70 ** 1.954 = 0.497
+#     sot   0.62 ** 1.376 = 0.511
+# Selectivity is unchanged; only the labelling got truthful. A 28% anytime
+# scorer reads weaker than the old 40% for the SAME player -- that is the point.
+PLAYER_PICK_MIN_PROB = {"goal": 0.276, "shots": 0.497, "sot": 0.511}
 PROP_FIELD = {"goal": "anytime_pct", "shots": "p_shots_2plus", "sot": "p_sot_1plus"}
 
 

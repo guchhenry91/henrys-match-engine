@@ -42,7 +42,7 @@ TRAIN_THROUGH = "2425"
 TEST_SEASON = "2526"
 
 
-def run_league(league: str) -> dict:
+def run_league(league: str, want_rows: bool = False) -> dict:
     lg = config.get(league)
     train_seasons = [s for s in lg.history_seasons if s <= TRAIN_THROUGH]
 
@@ -126,6 +126,8 @@ def run_league(league: str) -> dict:
     if not rows:
         return {"league": league, "error": "no published-bar picks generated in test season"}
     df = pd.DataFrame(rows)
+    if want_rows:
+        return {"league": league, "rows": [r for r in rows if r["active"]]}
 
     out = {"league": league, "n_picks": int(len(df)),
            "pct_picks_on_players_absent_all_season":
@@ -174,6 +176,58 @@ def main():
     path = ROOT / "data-raw" / "leagues" / "props_pick_calibration.json"
     path.write_text(json.dumps(rep, indent=2), encoding="utf-8")
     print(f"\nwrote {path}")
+
+
+def fit_exponents(save=True):
+    """Fit p -> p**k per market on the CLEAN leagues, and cross-validate by
+    fitting on one and scoring the other. A power transform is used because it
+    is monotone (it can never reorder picks), fixes at 0 and 1, and has a single
+    parameter -- with only ~100-150 picks per market anything richer would fit
+    noise."""
+    from scipy.optimize import brentq
+    per = {}
+    for lg in ["PL", "LALIGA"]:                      # 0% departed-player contamination
+        r = run_league(lg, want_rows=True)
+        per[lg] = r["rows"]
+    out = {"per_league": {}, "cross_validation": {}, "recommended": {}}
+    for market in ["goal", "shots", "sot"]:
+        ks = {}
+        for lg, rows in per.items():
+            sub = [x for x in rows if x["market"] == market]
+            if len(sub) < 30:
+                continue
+            p = np.array([x["p"] for x in sub]); hit = np.mean([x["win"] for x in sub])
+            f = lambda k: float(np.mean(p ** k)) - hit
+            try:
+                ks[lg] = round(float(brentq(f, 0.2, 12.0)), 3)
+            except ValueError:
+                ks[lg] = None
+        out["per_league"][market] = ks
+        # cross-validate: k fitted on one league, applied to the other
+        cv = {}
+        for fit_lg, test_lg in [("PL", "LALIGA"), ("LALIGA", "PL")]:
+            k = ks.get(fit_lg)
+            sub = [x for x in per.get(test_lg, []) if x["market"] == market]
+            if k is None or len(sub) < 30:
+                continue
+            p = np.array([x["p"] for x in sub]); hit = float(np.mean([x["win"] for x in sub]))
+            cv[f"fit_{fit_lg}_test_{test_lg}"] = {
+                "k": k, "n": len(sub),
+                "stated_before_pct": round(100 * float(p.mean()), 1),
+                "stated_after_pct": round(100 * float((p ** k).mean()), 1),
+                "actual_pct": round(100 * hit, 1),
+                "residual_pp": round(100 * (float((p ** k).mean()) - hit), 1)}
+        out["cross_validation"][market] = cv
+        vals = [v for v in ks.values() if v]
+        # CONSERVATIVE: take the SMALLEST exponent (weakest correction) so a
+        # measurement that still carries downward bias cannot over-deflate.
+        out["recommended"][market] = round(min(vals), 3) if vals else 1.0
+    print(json.dumps(out, indent=2))
+    if save:
+        p = ROOT / "data-raw" / "leagues" / "props_calibration_fit.json"
+        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+        print(f"wrote {p}")
+    return out
 
 
 if __name__ == "__main__":
