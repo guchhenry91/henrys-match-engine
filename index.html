@@ -149,6 +149,9 @@
     background:linear-gradient(150deg,var(--cyan),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
   .acca .ac span{display:block;font-size:10px;color:var(--sub);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
   .legs{margin-top:14px}
+  .ptm{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);
+       padding:12px 0 2px;border-top:1px solid var(--line)}
+  .ptm:first-of-type{border-top:none;padding-top:4px}
   .leg{display:flex;align-items:center;gap:11px;padding:11px 0}
   .leg+.leg{border-top:1px solid var(--line)}
   .leg .stt{width:9px;height:9px;border-radius:50%;background:#59637e;flex:0 0 auto;box-shadow:0 0 0 3px rgba(89,99,126,.15)}
@@ -525,8 +528,28 @@ function openMatch(lk,id){
   const tops=topsArr.slice(0,3).map(t=>`<div class="sl"><span class="sc">${esc(t.score)}</span>
     <span class="sb"><i style="width:${Math.min(100,(t.pct||0)*4.5)}%"></i></span><span class="sp">${Math.round(t.pct||0)}%</span></div>`).join("")||`<div class="rl">No scoreline spread available.</div>`;
   const reasons=(p.reasons||[]).map(r=>`<div class="rl">${esc(r)}</div>`).join("")||`<div class="rl">${esc(p.why||"")}</div>`;
-  const props=(m.props||[]).slice(0,5).map(pr=>`<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
-    <div class="li2"><b>${esc(pr.player)}</b><span>${pr.anytime_pct}% anytime · ${num(pr.exp_shots)} attempts · ${num(pr.exp_sot)} on tgt</span></div></div>`).join("");
+  // Grouped BY TEAM. Previously this was a flat slice(0,5) over a 6-entry list
+  // (top 3 per side), which always dropped the away team's third player and left
+  // an unexplained 3-v-2 split. Nothing named the team either: tc() gives 66 of
+  // the 76 clubs the same default colour, so the avatar identified nobody.
+  // Probabilities only, all three from the same calibrated scale -- pairing a
+  // calibrated "32% anytime" with a raw "3.4 attempts" invited reading the two
+  // as if they agreed.
+  const pct1=v=>v==null?"–":`${Math.round(Number(v))}%`;
+  const propTeams=[m.home,m.away].map(t=>{
+    const list=(m.props||[]).filter(pr=>pr.team===t)
+      .sort((a,b)=>(b.anytime_pct||0)-(a.anytime_pct||0));
+    // Name the team even when it has NO players, rather than quietly rendering a
+    // one-sided list. A promoted side with no top-flight history gets no props by
+    // design (MIN_SQUAD_FOR_PROPS); showing only the opponent makes that look
+    // like a bug or, worse, like the club has nobody worth listing.
+    if(!list.length) return `<div class="ptm">${esc(t)}</div>`+
+      `<div class="rl">No player markets -- not enough top-flight history for this squad.</div>`;
+    return `<div class="ptm">${esc(t)}</div>` + list.map(pr=>
+      `<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
+    <div class="li2"><b>${esc(pr.player)}</b><span>${pct1(pr.anytime_pct)} goal · ${pct1(pr.p_shots_2plus)} 2+ shots · ${pct1(pr.p_sot_1plus)} 1+ on target</span></div></div>`).join("");
+  }).join("");
+  const props=propTeams;
   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
   const pickPct=Number.isFinite(Number(p.p_pick))?`${pc(p.p_pick)}%`:"–";
   // Model vs bookmakers. p.market is the de-vigged 1X2 line plus `edge` (model
