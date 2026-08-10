@@ -1,0 +1,25 @@
+{
+  "league": "PL",
+  "n_total": 1136,
+  "n_with_ou_odds": 1136,
+  "ou_coverage_pct": 100.0,
+  "train_n": 568,
+  "test_n": 568,
+  "best_weight_on_model": 0.0,
+  "test_grid_logloss": {
+    "model_only": 2.8919,
+    "market_total_only": 2.8899,
+    "blend": 2.8899
+  },
+  "test_top1_pct": {
+    "model_only": 11.44,
+    "market_total_only": 11.27,
+    "blend": 11.27
+  },
+  "blend_vs_model_logloss_delta_95ci": [
+    -0.0056,
+    0.0105
+  ],
+  "edge_is_significant": false,
+  "verdict": "point estimate favors the market total, but the 95% CI crosses zero -- not distinguishable from noise on this sample; do not ship on this alone"
+}

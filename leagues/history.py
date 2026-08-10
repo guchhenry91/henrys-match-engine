@@ -11,6 +11,11 @@ URL = "https://www.football-data.co.uk/mmz4281/{season}/{div}.csv"
 # Average closing odds; fall back to Bet365 closing, then Bet365 pre-match.
 ODDS_SETS = [("AvgCH", "AvgCD", "AvgCA"), ("B365CH", "B365CD", "B365CA"),
              ("B365H", "B365D", "B365A")]
+# Over/Under 2.5 goals closing odds, same fallback discipline as ODDS_SETS.
+# Unused by the match model today -- captured so a total-goals market signal
+# (distinct from the 1X2 market already tested and found to carry no edge) can
+# be evaluated without a second network dependency; see scripts/ou_market_experiment.py.
+OU_ODDS_SETS = [("Avg>2.5", "Avg<2.5"), ("B365>2.5", "B365<2.5"), ("Max>2.5", "Max<2.5")]
 
 
 def parse_history(buf, league: str, season: str) -> pd.DataFrame:
@@ -32,6 +37,13 @@ def parse_history(buf, league: str, season: str) -> pd.DataFrame:
             break
     else:
         out["odds_h"] = out["odds_d"] = out["odds_a"] = pd.NA
+    for over, under in OU_ODDS_SETS:
+        if over in df.columns:
+            out["odds_over25"] = pd.to_numeric(df[over], errors="coerce").values
+            out["odds_under25"] = pd.to_numeric(df[under], errors="coerce").values
+            break
+    else:
+        out["odds_over25"] = out["odds_under25"] = pd.NA
     return out.dropna(subset=["date"]).reset_index(drop=True)
 
 
