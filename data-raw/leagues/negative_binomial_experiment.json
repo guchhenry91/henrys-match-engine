@@ -1,0 +1,176 @@
+{
+  "per_league": {
+    "PL": {
+      "league": "PL",
+      "n": 1136,
+      "alpha_fitted": {
+        "mean": 0.00025,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.02066,
+        "n_windows": 106,
+        "n_windows_near_poisson_floor": 103
+      },
+      "grid_logloss_nats": {
+        "production_dc": 2.9686,
+        "negative_binomial": 2.9689
+      },
+      "logloss_delta_prod_minus_cand": -0.0003,
+      "logloss_delta_95ci": [
+        -0.0028,
+        0.0022
+      ],
+      "candidate_significantly_better": false,
+      "candidate_significantly_worse": false,
+      "top1_pct": {
+        "production_dc": 11.97,
+        "negative_binomial": 12.24
+      },
+      "top3_pct": {
+        "production_dc": 30.19,
+        "negative_binomial": 30.02
+      },
+      "p_1_1": {
+        "actual_frequency_pct": 11.44,
+        "mean_predicted_production_pct": 10.85,
+        "mean_predicted_nb_pct": 10.66
+      }
+    },
+    "LALIGA": {
+      "league": "LALIGA",
+      "n": 1137,
+      "alpha_fitted": {
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "n_windows": 110,
+        "n_windows_near_poisson_floor": 110
+      },
+      "grid_logloss_nats": {
+        "production_dc": 2.7986,
+        "negative_binomial": 2.7975
+      },
+      "logloss_delta_prod_minus_cand": 0.0011,
+      "logloss_delta_95ci": [
+        -0.0004,
+        0.0025
+      ],
+      "candidate_significantly_better": false,
+      "candidate_significantly_worse": false,
+      "top1_pct": {
+        "production_dc": 15.3,
+        "negative_binomial": 15.92
+      },
+      "top3_pct": {
+        "production_dc": 39.4,
+        "negative_binomial": 39.4
+      },
+      "p_1_1": {
+        "actual_frequency_pct": 14.42,
+        "mean_predicted_production_pct": 11.92,
+        "mean_predicted_nb_pct": 11.75
+      }
+    },
+    "BUNDESLIGA": {
+      "league": "BUNDESLIGA",
+      "n": 769,
+      "alpha_fitted": {
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "n_windows": 95,
+        "n_windows_near_poisson_floor": 95
+      },
+      "grid_logloss_nats": {
+        "production_dc": 3.0734,
+        "negative_binomial": 3.0737
+      },
+      "logloss_delta_prod_minus_cand": -0.0003,
+      "logloss_delta_95ci": [
+        -0.0074,
+        0.0071
+      ],
+      "candidate_significantly_better": false,
+      "candidate_significantly_worse": false,
+      "top1_pct": {
+        "production_dc": 11.18,
+        "negative_binomial": 9.49
+      },
+      "top3_pct": {
+        "production_dc": 27.96,
+        "negative_binomial": 28.09
+      },
+      "p_1_1": {
+        "actual_frequency_pct": 11.18,
+        "mean_predicted_production_pct": 11.48,
+        "mean_predicted_nb_pct": 10.2
+      }
+    },
+    "LIGUE1": {
+      "league": "LIGUE1",
+      "n": 916,
+      "alpha_fitted": {
+        "mean": 0.00094,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.01352,
+        "n_windows": 100,
+        "n_windows_near_poisson_floor": 87
+      },
+      "grid_logloss_nats": {
+        "production_dc": 2.9788,
+        "negative_binomial": 2.9783
+      },
+      "logloss_delta_prod_minus_cand": 0.0004,
+      "logloss_delta_95ci": [
+        -0.0038,
+        0.0048
+      ],
+      "candidate_significantly_better": false,
+      "candidate_significantly_worse": false,
+      "top1_pct": {
+        "production_dc": 11.24,
+        "negative_binomial": 10.92
+      },
+      "top3_pct": {
+        "production_dc": 27.73,
+        "negative_binomial": 27.84
+      },
+      "p_1_1": {
+        "actual_frequency_pct": 10.26,
+        "mean_predicted_production_pct": 11.71,
+        "mean_predicted_nb_pct": 11.06
+      }
+    }
+  },
+  "combined": {
+    "n": 3958,
+    "grid_logloss_nats": {
+      "production_dc": 2.9425,
+      "negative_binomial": 2.9422
+    },
+    "logloss_delta_prod_minus_cand": 0.0003,
+    "logloss_delta_95ci": [
+      -0.0017,
+      0.0022
+    ],
+    "candidate_significantly_better": false,
+    "candidate_significantly_worse": false,
+    "top1_pct": {
+      "production_dc": 12.61,
+      "negative_binomial": 12.46
+    },
+    "top3_pct": {
+      "production_dc": 31.83,
+      "negative_binomial": 31.83
+    },
+    "p_1_1": {
+      "actual_frequency_pct": 11.98,
+      "mean_predicted_production_pct": 11.48,
+      "mean_predicted_nb_pct": 10.97
+    },
+    "verdict": "point estimate is inconclusive either way -- the 95% CI crosses zero; not distinguishable from noise on this sample, do not ship on this alone"
+  }
+}
