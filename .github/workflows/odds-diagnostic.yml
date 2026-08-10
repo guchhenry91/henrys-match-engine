@@ -1,0 +1,30 @@
+name: API-Football odds diagnostic
+
+# One-off, manual-only check of what our API-Football plan actually returns
+# from /odds -- bet types (does it cover player props, not just match-level
+# markets?), bookmaker coverage, and one live fixture's sample payload. Not
+# part of the scheduled pipeline; touches no data files, commits nothing.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check odds coverage
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.check_odds_coverage
