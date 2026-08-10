@@ -1,0 +1,427 @@
+{
+  "PL": {
+    "existing": {
+      "n": 1136,
+      "grid_logloss_nats": 2.9686,
+      "top1_pct": 11.97,
+      "top3_pct": 30.19,
+      "pred_1_1_pct": 63.56,
+      "actual_1_1_pct": 11.44
+    },
+    "no_rho_indep_poisson": {
+      "n": 1136,
+      "grid_logloss_nats": 2.9689,
+      "top1_pct": 12.24,
+      "top3_pct": 30.02,
+      "pred_1_1_pct": 64.44,
+      "actual_1_1_pct": 11.44,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0028,
+        0.0021
+      ],
+      "existing_beats_candidate_significantly": false,
+      "candidate_beats_existing_significantly": false
+    },
+    "always_1_1": {
+      "n": 1136,
+      "grid_logloss_nats": 24.469,
+      "top1_pct": 11.44,
+      "top3_pct": 21.57,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 11.44,
+      "logloss_delta_vs_existing_95ci": [
+        -21.9885,
+        -21.0012
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "most_common": {
+      "n": 1136,
+      "grid_logloss_nats": 24.5906,
+      "top1_pct": 11.0,
+      "top3_pct": 21.13,
+      "pred_1_1_pct": 88.73,
+      "actual_1_1_pct": 11.44,
+      "logloss_delta_vs_existing_95ci": [
+        -22.1104,
+        -21.14
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "_calibration_existing": {
+      "0-0": {
+        "mean_predicted_pct": 5.86,
+        "actual_pct": 4.75
+      },
+      "1-0": {
+        "mean_predicted_pct": 8.36,
+        "actual_pct": 6.43
+      },
+      "0-1": {
+        "mean_predicted_pct": 7.23,
+        "actual_pct": 6.69
+      },
+      "1-1": {
+        "mean_predicted_pct": 10.85,
+        "actual_pct": 11.44
+      },
+      "2-1": {
+        "mean_predicted_pct": 8.22,
+        "actual_pct": 8.89
+      },
+      "1-2": {
+        "mean_predicted_pct": 7.13,
+        "actual_pct": 7.04
+      }
+    },
+    "_totals": {
+      "mean_actual_total_goals": 2.989,
+      "mean_predicted_total_goals": 2.922,
+      "actual_pct_4plus_goals": 35.48,
+      "predicted_pct_4plus_goals": 33.56
+    },
+    "_rps_1x2_existing": 0.199
+  },
+  "LALIGA": {
+    "existing": {
+      "n": 1137,
+      "grid_logloss_nats": 2.7986,
+      "top1_pct": 15.3,
+      "top3_pct": 39.4,
+      "pred_1_1_pct": 44.77,
+      "actual_1_1_pct": 14.42
+    },
+    "no_rho_indep_poisson": {
+      "n": 1137,
+      "grid_logloss_nats": 2.7975,
+      "top1_pct": 15.92,
+      "top3_pct": 39.4,
+      "pred_1_1_pct": 40.9,
+      "actual_1_1_pct": 14.42,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0004,
+        0.0025
+      ],
+      "existing_beats_candidate_significantly": false,
+      "candidate_beats_existing_significantly": false
+    },
+    "always_1_1": {
+      "n": 1137,
+      "grid_logloss_nats": 23.6455,
+      "top1_pct": 14.42,
+      "top3_pct": 25.24,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 14.42,
+      "logloss_delta_vs_existing_95ci": [
+        -21.3837,
+        -20.2974
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "most_common": {
+      "n": 1137,
+      "grid_logloss_nats": 24.083,
+      "top1_pct": 12.84,
+      "top3_pct": 23.66,
+      "pred_1_1_pct": 50.66,
+      "actual_1_1_pct": 14.42,
+      "logloss_delta_vs_existing_95ci": [
+        -21.8029,
+        -20.7448
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "_calibration_existing": {
+      "0-0": {
+        "mean_predicted_pct": 8.84,
+        "actual_pct": 5.89
+      },
+      "1-0": {
+        "mean_predicted_pct": 11.37,
+        "actual_pct": 12.75
+      },
+      "0-1": {
+        "mean_predicted_pct": 8.97,
+        "actual_pct": 7.39
+      },
+      "1-1": {
+        "mean_predicted_pct": 11.92,
+        "actual_pct": 14.42
+      },
+      "2-1": {
+        "mean_predicted_pct": 8.08,
+        "actual_pct": 8.71
+      },
+      "1-2": {
+        "mean_predicted_pct": 6.42,
+        "actual_pct": 7.56
+      }
+    },
+    "_totals": {
+      "mean_actual_total_goals": 2.654,
+      "mean_predicted_total_goals": 2.511,
+      "actual_pct_4plus_goals": 25.59,
+      "predicted_pct_4plus_goals": 24.73
+    },
+    "_rps_1x2_existing": 0.194
+  },
+  "BUNDESLIGA": {
+    "existing": {
+      "n": 769,
+      "grid_logloss_nats": 3.0734,
+      "top1_pct": 11.18,
+      "top3_pct": 27.96,
+      "pred_1_1_pct": 81.53,
+      "actual_1_1_pct": 11.18
+    },
+    "no_rho_indep_poisson": {
+      "n": 769,
+      "grid_logloss_nats": 3.0737,
+      "top1_pct": 9.49,
+      "top3_pct": 28.09,
+      "pred_1_1_pct": 64.11,
+      "actual_1_1_pct": 11.18,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0073,
+        0.0072
+      ],
+      "existing_beats_candidate_significantly": false,
+      "candidate_beats_existing_significantly": false
+    },
+    "always_1_1": {
+      "n": 769,
+      "grid_logloss_nats": 24.5409,
+      "top1_pct": 11.18,
+      "top3_pct": 20.68,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 11.18,
+      "logloss_delta_vs_existing_95ci": [
+        -22.0266,
+        -20.8939
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "most_common": {
+      "n": 769,
+      "grid_logloss_nats": 24.5409,
+      "top1_pct": 11.18,
+      "top3_pct": 20.68,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 11.18,
+      "logloss_delta_vs_existing_95ci": [
+        -22.0266,
+        -20.8939
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "_calibration_existing": {
+      "0-0": {
+        "mean_predicted_pct": 6.24,
+        "actual_pct": 5.33
+      },
+      "1-0": {
+        "mean_predicted_pct": 6.62,
+        "actual_pct": 5.98
+      },
+      "0-1": {
+        "mean_predicted_pct": 5.4,
+        "actual_pct": 6.11
+      },
+      "1-1": {
+        "mean_predicted_pct": 11.48,
+        "actual_pct": 11.18
+      },
+      "2-1": {
+        "mean_predicted_pct": 8.3,
+        "actual_pct": 6.89
+      },
+      "1-2": {
+        "mean_predicted_pct": 7.05,
+        "actual_pct": 6.76
+      }
+    },
+    "_totals": {
+      "mean_actual_total_goals": 3.174,
+      "mean_predicted_total_goals": 3.069,
+      "actual_pct_4plus_goals": 42.0,
+      "predicted_pct_4plus_goals": 36.78
+    },
+    "_rps_1x2_existing": 0.2005
+  },
+  "LIGUE1": {
+    "existing": {
+      "n": 916,
+      "grid_logloss_nats": 2.9788,
+      "top1_pct": 11.24,
+      "top3_pct": 27.73,
+      "pred_1_1_pct": 75.22,
+      "actual_1_1_pct": 10.26
+    },
+    "no_rho_indep_poisson": {
+      "n": 916,
+      "grid_logloss_nats": 2.9782,
+      "top1_pct": 10.7,
+      "top3_pct": 27.84,
+      "pred_1_1_pct": 66.38,
+      "actual_1_1_pct": 10.26,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0038,
+        0.0048
+      ],
+      "existing_beats_candidate_significantly": false,
+      "candidate_beats_existing_significantly": false
+    },
+    "always_1_1": {
+      "n": 916,
+      "grid_logloss_nats": 24.7955,
+      "top1_pct": 10.26,
+      "top3_pct": 22.6,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 10.26,
+      "logloss_delta_vs_existing_95ci": [
+        -22.3105,
+        -21.2984
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "most_common": {
+      "n": 916,
+      "grid_logloss_nats": 24.7955,
+      "top1_pct": 10.26,
+      "top3_pct": 22.6,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 10.26,
+      "logloss_delta_vs_existing_95ci": [
+        -22.3105,
+        -21.2984
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "_calibration_existing": {
+      "0-0": {
+        "mean_predicted_pct": 6.86,
+        "actual_pct": 7.1
+      },
+      "1-0": {
+        "mean_predicted_pct": 8.51,
+        "actual_pct": 9.5
+      },
+      "0-1": {
+        "mean_predicted_pct": 7.17,
+        "actual_pct": 6.55
+      },
+      "1-1": {
+        "mean_predicted_pct": 11.71,
+        "actual_pct": 10.26
+      },
+      "2-1": {
+        "mean_predicted_pct": 8.31,
+        "actual_pct": 7.75
+      },
+      "1-2": {
+        "mean_predicted_pct": 7.12,
+        "actual_pct": 7.21
+      }
+    },
+    "_totals": {
+      "mean_actual_total_goals": 2.833,
+      "mean_predicted_total_goals": 2.825,
+      "actual_pct_4plus_goals": 32.21,
+      "predicted_pct_4plus_goals": 31.41
+    },
+    "_rps_1x2_existing": 0.2088
+  },
+  "COMBINED": {
+    "existing": {
+      "n": 3958,
+      "grid_logloss_nats": 2.9425,
+      "top1_pct": 12.61,
+      "top3_pct": 31.83,
+      "pred_1_1_pct": 64.35,
+      "actual_1_1_pct": 11.98
+    },
+    "no_rho_indep_poisson": {
+      "n": 3958,
+      "grid_logloss_nats": 2.9422,
+      "top1_pct": 12.41,
+      "top3_pct": 31.83,
+      "pred_1_1_pct": 58.06,
+      "actual_1_1_pct": 11.98,
+      "logloss_delta_vs_existing_95ci": [
+        -0.0017,
+        0.0022
+      ],
+      "existing_beats_candidate_significantly": false,
+      "candidate_beats_existing_significantly": false
+    },
+    "always_1_1": {
+      "n": 3958,
+      "grid_logloss_nats": 24.322,
+      "top1_pct": 11.98,
+      "top3_pct": 22.69,
+      "pred_1_1_pct": 100.0,
+      "actual_1_1_pct": 11.98,
+      "logloss_delta_vs_existing_95ci": [
+        -21.6615,
+        -21.1108
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "most_common": {
+      "n": 3958,
+      "grid_logloss_nats": 24.4826,
+      "top1_pct": 11.39,
+      "top3_pct": 22.11,
+      "pred_1_1_pct": 82.59,
+      "actual_1_1_pct": 11.98,
+      "logloss_delta_vs_existing_95ci": [
+        -21.8002,
+        -21.2665
+      ],
+      "existing_beats_candidate_significantly": true,
+      "candidate_beats_existing_significantly": false
+    },
+    "_calibration_existing": {
+      "0-0": {
+        "mean_predicted_pct": 7.02,
+        "actual_pct": 5.74
+      },
+      "1-0": {
+        "mean_predicted_pct": 8.92,
+        "actual_pct": 8.87
+      },
+      "0-1": {
+        "mean_predicted_pct": 7.36,
+        "actual_pct": 6.75
+      },
+      "1-1": {
+        "mean_predicted_pct": 11.48,
+        "actual_pct": 11.98
+      },
+      "2-1": {
+        "mean_predicted_pct": 8.22,
+        "actual_pct": 8.19
+      },
+      "1-2": {
+        "mean_predicted_pct": 6.91,
+        "actual_pct": 7.18
+      }
+    },
+    "_totals": {
+      "mean_actual_total_goals": 2.893,
+      "mean_predicted_total_goals": 2.81,
+      "actual_pct_4plus_goals": 33.15,
+      "predicted_pct_4plus_goals": 31.15
+    },
+    "_rps_1x2_existing": 0.2001
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "PL": {
+    "n_total": 1136,
+    "n_with_odds": 1136,
+    "train_n": 568,
+    "test_n": 568,
+    "best_weight_on_model": 0.0,
+    "test_grid_logloss": {
+      "model_only": 2.8955,
+      "combined_market_blend": 2.8871
+    },
+    "logloss_delta_model_minus_blend_95ci": [
+      -0.0078,
+      0.0236
+    ],
+    "blend_significantly_better": false
+  },
+  "LALIGA": {
+    "n_total": 1137,
+    "n_with_odds": 1137,
+    "train_n": 568,
+    "test_n": 569,
+    "best_weight_on_model": 0.0,
+    "test_grid_logloss": {
+      "model_only": 2.7805,
+      "combined_market_blend": 2.7604
+    },
+    "logloss_delta_model_minus_blend_95ci": [
+      0.0063,
+      0.0347
+    ],
+    "blend_significantly_better": true
+  },
+  "BUNDESLIGA": {
+    "n_total": 769,
+    "n_with_odds": 769,
+    "train_n": 384,
+    "test_n": 385,
+    "best_weight_on_model": 0.0,
+    "test_grid_logloss": {
+      "model_only": 3.0728,
+      "combined_market_blend": 3.0459
+    },
+    "logloss_delta_model_minus_blend_95ci": [
+      0.0069,
+      0.0462
+    ],
+    "blend_significantly_better": true
+  },
+  "LIGUE1": {
+    "n_total": 916,
+    "n_with_odds": 916,
+    "train_n": 458,
+    "test_n": 458,
+    "best_weight_on_model": 0.0,
+    "test_grid_logloss": {
+      "model_only": 3.0324,
+      "combined_market_blend": 3.0041
+    },
+    "logloss_delta_model_minus_blend_95ci": [
+      0.0095,
+      0.0479
+    ],
+    "blend_significantly_better": true
+  }
+}

@@ -1,0 +1,1793 @@
+{
+  "leagues": {
+    "PL": {
+      "compression_diagnostics": {
+        "n_teams": 20,
+        "attack_std": 0.1846,
+        "attack_range": [
+          0.712,
+          1.389
+        ],
+        "defence_std": 0.1544,
+        "min_effective_matches": 0.0,
+        "median_effective_matches": 30.5,
+        "teams_below_10_effective_matches": [
+          "Coventry",
+          "Hull",
+          "Ipswich"
+        ],
+        "prior_strength": 3.0,
+        "n_second_tier_priors": 2,
+        "n_weakest_fallback_priors": 0,
+        "fallback_teams": []
+      },
+      "near_term_window": {
+        "n_fixtures": 10,
+        "n_grid_mode_is_1_1": 9,
+        "pct_grid_mode_is_1_1": 90.0,
+        "n_1x2_pick_is_draw": 0
+      },
+      "full_remaining_season": {
+        "n_fixtures": 380,
+        "n_grid_mode_is_1_1": 330,
+        "pct_grid_mode_is_1_1": 86.8,
+        "n_1x2_pick_is_draw": 0
+      },
+      "fixtures": [
+        {
+          "home": "Arsenal",
+          "away": "Coventry",
+          "lambda_home": 2.475,
+          "lambda_away": 0.617,
+          "rho": -0.1052,
+          "p_1_1": 7.7,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 13.9
+            },
+            {
+              "score": "3-0",
+              "pct": 11.5
+            },
+            {
+              "score": "1-0",
+              "pct": 10.5
+            },
+            {
+              "score": "2-1",
+              "pct": 8.6
+            },
+            {
+              "score": "1-1",
+              "pct": 7.7
+            },
+            {
+              "score": "4-0",
+              "pct": 7.1
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.4,
+          "p_home": 0.7741,
+          "p_draw": 0.1607,
+          "p_away": 0.0652,
+          "selected_1x2_pick": "Arsenal",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "PL"
+        },
+        {
+          "home": "Hull",
+          "away": "Manchester United",
+          "lambda_home": 0.967,
+          "lambda_away": 1.834,
+          "rho": -0.1052,
+          "p_1_1": 11.9,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 11.9
+            },
+            {
+              "score": "0-2",
+              "pct": 10.2
+            },
+            {
+              "score": "0-1",
+              "pct": 10.0
+            },
+            {
+              "score": "1-2",
+              "pct": 9.9
+            },
+            {
+              "score": "0-0",
+              "pct": 7.2
+            },
+            {
+              "score": "0-3",
+              "pct": 6.2
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.7,
+          "p_home": 0.1846,
+          "p_draw": 0.2495,
+          "p_away": 0.5659,
+          "selected_1x2_pick": "Manchester United",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "0-2",
+          "league": "PL"
+        },
+        {
+          "home": "Everton",
+          "away": "Crystal Palace",
+          "lambda_home": 1.34,
+          "lambda_away": 1.252,
+          "rho": -0.1052,
+          "p_1_1": 13.9,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.9
+            },
+            {
+              "score": "0-0",
+              "pct": 8.8
+            },
+            {
+              "score": "1-0",
+              "pct": 8.7
+            },
+            {
+              "score": "2-1",
+              "pct": 8.4
+            },
+            {
+              "score": "0-1",
+              "pct": 8.0
+            },
+            {
+              "score": "1-2",
+              "pct": 7.9
+            }
+          ],
+          "gap_top1_vs_top2_pp": 5.1,
+          "p_home": 0.3756,
+          "p_draw": 0.2905,
+          "p_away": 0.3339,
+          "selected_1x2_pick": "Everton",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-0",
+          "league": "PL"
+        },
+        {
+          "home": "Ipswich",
+          "away": "Sunderland",
+          "lambda_home": 1.137,
+          "lambda_away": 1.322,
+          "rho": -0.1052,
+          "p_1_1": 14.2,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 14.2
+            },
+            {
+              "score": "0-1",
+              "pct": 10.0
+            },
+            {
+              "score": "0-0",
+              "pct": 9.9
+            },
+            {
+              "score": "1-2",
+              "pct": 8.5
+            },
+            {
+              "score": "1-0",
+              "pct": 8.4
+            },
+            {
+              "score": "0-2",
+              "pct": 7.5
+            }
+          ],
+          "gap_top1_vs_top2_pp": 4.2,
+          "p_home": 0.3064,
+          "p_draw": 0.2983,
+          "p_away": 0.3953,
+          "selected_1x2_pick": "Sunderland",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "0-1",
+          "league": "PL"
+        },
+        {
+          "home": "Nottingham Forest",
+          "away": "Leeds",
+          "lambda_home": 1.371,
+          "lambda_away": 1.314,
+          "rho": -0.1052,
+          "p_1_1": 13.6,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.6
+            },
+            {
+              "score": "2-1",
+              "pct": 8.4
+            },
+            {
+              "score": "0-0",
+              "pct": 8.1
+            },
+            {
+              "score": "1-2",
+              "pct": 8.1
+            },
+            {
+              "score": "1-0",
+              "pct": 8.1
+            },
+            {
+              "score": "0-1",
+              "pct": 7.7
+            }
+          ],
+          "gap_top1_vs_top2_pp": 5.2,
+          "p_home": 0.3708,
+          "p_draw": 0.2847,
+          "p_away": 0.3445,
+          "selected_1x2_pick": "Nottingham Forest",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "PL"
+        },
+        {
+          "home": "Brentford",
+          "away": "Tottenham",
+          "lambda_home": 1.741,
+          "lambda_away": 1.205,
+          "rho": -0.1052,
+          "p_1_1": 12.2,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.2
+            },
+            {
+              "score": "2-1",
+              "pct": 9.6
+            },
+            {
+              "score": "1-0",
+              "pct": 8.0
+            },
+            {
+              "score": "2-0",
+              "pct": 8.0
+            },
+            {
+              "score": "1-2",
+              "pct": 6.6
+            },
+            {
+              "score": "0-0",
+              "pct": 6.4
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.6,
+          "p_home": 0.4878,
+          "p_draw": 0.2592,
+          "p_away": 0.253,
+          "selected_1x2_pick": "Brentford",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "PL"
+        },
+        {
+          "home": "Brighton",
+          "away": "Aston Villa",
+          "lambda_home": 1.522,
+          "lambda_away": 1.245,
+          "rho": -0.1052,
+          "p_1_1": 13.2,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.2
+            },
+            {
+              "score": "2-1",
+              "pct": 9.1
+            },
+            {
+              "score": "1-0",
+              "pct": 8.3
+            },
+            {
+              "score": "0-0",
+              "pct": 7.5
+            },
+            {
+              "score": "1-2",
+              "pct": 7.4
+            },
+            {
+              "score": "2-0",
+              "pct": 7.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 4.1,
+          "p_home": 0.4246,
+          "p_draw": 0.2768,
+          "p_away": 0.2986,
+          "selected_1x2_pick": "Brighton",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "PL"
+        },
+        {
+          "home": "Manchester City",
+          "away": "Bournemouth",
+          "lambda_home": 1.983,
+          "lambda_away": 1.121,
+          "rho": -0.1052,
+          "p_1_1": 11.0,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 11.0
+            },
+            {
+              "score": "2-1",
+              "pct": 9.9
+            },
+            {
+              "score": "2-0",
+              "pct": 8.8
+            },
+            {
+              "score": "1-0",
+              "pct": 7.9
+            },
+            {
+              "score": "3-1",
+              "pct": 6.5
+            },
+            {
+              "score": "3-0",
+              "pct": 5.8
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.1,
+          "p_home": 0.5632,
+          "p_draw": 0.2368,
+          "p_away": 0.2,
+          "selected_1x2_pick": "Manchester City",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "PL"
+        },
+        {
+          "home": "Newcastle United",
+          "away": "Liverpool",
+          "lambda_home": 1.536,
+          "lambda_away": 1.607,
+          "rho": -0.1052,
+          "p_1_1": 11.8,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 11.8
+            },
+            {
+              "score": "1-2",
+              "pct": 8.6
+            },
+            {
+              "score": "2-1",
+              "pct": 8.2
+            },
+            {
+              "score": "2-2",
+              "pct": 6.6
+            },
+            {
+              "score": "0-1",
+              "pct": 5.8
+            },
+            {
+              "score": "0-2",
+              "pct": 5.6
+            }
+          ],
+          "gap_top1_vs_top2_pp": 3.2,
+          "p_home": 0.3553,
+          "p_draw": 0.2589,
+          "p_away": 0.3858,
+          "selected_1x2_pick": "Liverpool",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-2",
+          "league": "PL"
+        },
+        {
+          "home": "Fulham",
+          "away": "Chelsea",
+          "lambda_home": 1.351,
+          "lambda_away": 1.471,
+          "rho": -0.1052,
+          "p_1_1": 13.1,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.1
+            },
+            {
+              "score": "1-2",
+              "pct": 8.7
+            },
+            {
+              "score": "2-1",
+              "pct": 8.0
+            },
+            {
+              "score": "0-1",
+              "pct": 7.5
+            },
+            {
+              "score": "0-0",
+              "pct": 7.2
+            },
+            {
+              "score": "1-0",
+              "pct": 6.8
+            }
+          ],
+          "gap_top1_vs_top2_pp": 4.4,
+          "p_home": 0.3349,
+          "p_draw": 0.276,
+          "p_away": 0.3891,
+          "selected_1x2_pick": "Chelsea",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-2",
+          "league": "PL"
+        }
+      ]
+    },
+    "LALIGA": {
+      "compression_diagnostics": {
+        "n_teams": 20,
+        "attack_std": 0.2243,
+        "attack_range": [
+          0.69,
+          1.576
+        ],
+        "defence_std": 0.1291,
+        "min_effective_matches": 0.0,
+        "median_effective_matches": 30.9,
+        "teams_below_10_effective_matches": [
+          "La Coruna",
+          "Malaga",
+          "Racing Santander"
+        ],
+        "prior_strength": 3.0,
+        "n_second_tier_priors": 3,
+        "n_weakest_fallback_priors": 0,
+        "fallback_teams": []
+      },
+      "near_term_window": {
+        "n_fixtures": 10,
+        "n_grid_mode_is_1_1": 5,
+        "pct_grid_mode_is_1_1": 50.0,
+        "n_1x2_pick_is_draw": 0
+      },
+      "full_remaining_season": {
+        "n_fixtures": 380,
+        "n_grid_mode_is_1_1": 165,
+        "pct_grid_mode_is_1_1": 43.4,
+        "n_1x2_pick_is_draw": 0
+      },
+      "fixtures": [
+        {
+          "home": "Alaves",
+          "away": "Getafe",
+          "lambda_home": 1.206,
+          "lambda_away": 0.741,
+          "rho": 0.0194,
+          "p_1_1": 12.5,
+          "top6_scores": [
+            {
+              "score": "1-0",
+              "pct": 17.4
+            },
+            {
+              "score": "0-0",
+              "pct": 14.0
+            },
+            {
+              "score": "1-1",
+              "pct": 12.5
+            },
+            {
+              "score": "0-1",
+              "pct": 10.8
+            },
+            {
+              "score": "2-0",
+              "pct": 10.4
+            },
+            {
+              "score": "2-1",
+              "pct": 7.7
+            }
+          ],
+          "gap_top1_vs_top2_pp": 3.4,
+          "p_home": 0.4733,
+          "p_draw": 0.2968,
+          "p_away": 0.23,
+          "selected_1x2_pick": "Alaves",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-0",
+          "score_conditional_on_pick": "1-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Sevilla",
+          "away": "Vallecano",
+          "lambda_home": 1.163,
+          "lambda_away": 1.112,
+          "rho": 0.0194,
+          "p_1_1": 13.0,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.0
+            },
+            {
+              "score": "1-0",
+              "pct": 12.2
+            },
+            {
+              "score": "0-1",
+              "pct": 11.7
+            },
+            {
+              "score": "0-0",
+              "pct": 10.0
+            },
+            {
+              "score": "2-1",
+              "pct": 7.7
+            },
+            {
+              "score": "1-2",
+              "pct": 7.4
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.8,
+          "p_home": 0.3724,
+          "p_draw": 0.2803,
+          "p_away": 0.3472,
+          "selected_1x2_pick": "Sevilla",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Racing Santander",
+          "away": "Villarreal",
+          "lambda_home": 1.144,
+          "lambda_away": 1.712,
+          "rho": 0.0194,
+          "p_1_1": 11.0,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 11.0
+            },
+            {
+              "score": "0-1",
+              "pct": 10.1
+            },
+            {
+              "score": "1-2",
+              "pct": 9.6
+            },
+            {
+              "score": "0-2",
+              "pct": 8.4
+            },
+            {
+              "score": "1-0",
+              "pct": 6.8
+            },
+            {
+              "score": "2-1",
+              "pct": 6.4
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.9,
+          "p_home": 0.2568,
+          "p_draw": 0.2345,
+          "p_away": 0.5087,
+          "selected_1x2_pick": "Villarreal",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "0-1",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Espanol",
+          "away": "Levante",
+          "lambda_home": 1.47,
+          "lambda_away": 1.262,
+          "rho": 0.0194,
+          "p_1_1": 11.8,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 11.8
+            },
+            {
+              "score": "1-0",
+              "pct": 9.8
+            },
+            {
+              "score": "2-1",
+              "pct": 8.9
+            },
+            {
+              "score": "0-1",
+              "pct": 8.5
+            },
+            {
+              "score": "1-2",
+              "pct": 7.6
+            },
+            {
+              "score": "2-0",
+              "pct": 7.0
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.0,
+          "p_home": 0.4224,
+          "p_draw": 0.2502,
+          "p_away": 0.3274,
+          "selected_1x2_pick": "Espanol",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Celta",
+          "away": "Osasuna",
+          "lambda_home": 1.454,
+          "lambda_away": 1.023,
+          "rho": 0.0194,
+          "p_1_1": 12.3,
+          "top6_scores": [
+            {
+              "score": "1-0",
+              "pct": 12.5
+            },
+            {
+              "score": "1-1",
+              "pct": 12.3
+            },
+            {
+              "score": "2-1",
+              "pct": 9.1
+            },
+            {
+              "score": "2-0",
+              "pct": 8.9
+            },
+            {
+              "score": "0-1",
+              "pct": 8.8
+            },
+            {
+              "score": "0-0",
+              "pct": 8.2
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.2,
+          "p_home": 0.4729,
+          "p_draw": 0.259,
+          "p_away": 0.2681,
+          "selected_1x2_pick": "Celta",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-0",
+          "score_conditional_on_pick": "1-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "La Coruna",
+          "away": "Elche",
+          "lambda_home": 1.212,
+          "lambda_away": 1.236,
+          "rho": 0.0194,
+          "p_1_1": 12.7,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.7
+            },
+            {
+              "score": "0-1",
+              "pct": 10.9
+            },
+            {
+              "score": "1-0",
+              "pct": 10.7
+            },
+            {
+              "score": "0-0",
+              "pct": 8.4
+            },
+            {
+              "score": "1-2",
+              "pct": 8.0
+            },
+            {
+              "score": "2-1",
+              "pct": 7.9
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.8,
+          "p_home": 0.3602,
+          "p_draw": 0.2684,
+          "p_away": 0.3714,
+          "selected_1x2_pick": "Elche",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "0-1",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Ath Madrid",
+          "away": "Malaga",
+          "lambda_home": 2.277,
+          "lambda_away": 0.72,
+          "rho": 0.0194,
+          "p_1_1": 8.0,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 12.9
+            },
+            {
+              "score": "1-0",
+              "pct": 11.5
+            },
+            {
+              "score": "3-0",
+              "pct": 9.8
+            },
+            {
+              "score": "2-1",
+              "pct": 9.3
+            },
+            {
+              "score": "1-1",
+              "pct": 8.0
+            },
+            {
+              "score": "3-1",
+              "pct": 7.1
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.4,
+          "p_home": 0.7277,
+          "p_draw": 0.169,
+          "p_away": 0.1034,
+          "selected_1x2_pick": "Ath Madrid",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Valencia",
+          "away": "Betis",
+          "lambda_home": 1.341,
+          "lambda_away": 1.183,
+          "rho": 0.0194,
+          "p_1_1": 12.5,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.5
+            },
+            {
+              "score": "1-0",
+              "pct": 11.0
+            },
+            {
+              "score": "0-1",
+              "pct": 9.7
+            },
+            {
+              "score": "2-1",
+              "pct": 8.5
+            },
+            {
+              "score": "0-0",
+              "pct": 7.8
+            },
+            {
+              "score": "1-2",
+              "pct": 7.5
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.5,
+          "p_home": 0.4062,
+          "p_draw": 0.2626,
+          "p_away": 0.3312,
+          "selected_1x2_pick": "Valencia",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Real Madrid",
+          "away": "Sociedad",
+          "lambda_home": 2.231,
+          "lambda_away": 0.907,
+          "rho": 0.0194,
+          "p_1_1": 8.6,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 10.8
+            },
+            {
+              "score": "1-0",
+              "pct": 9.8
+            },
+            {
+              "score": "2-1",
+              "pct": 9.8
+            },
+            {
+              "score": "1-1",
+              "pct": 8.6
+            },
+            {
+              "score": "3-0",
+              "pct": 8.0
+            },
+            {
+              "score": "3-1",
+              "pct": 7.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.0,
+          "p_home": 0.6755,
+          "p_draw": 0.1835,
+          "p_away": 0.141,
+          "selected_1x2_pick": "Real Madrid",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "LALIGA"
+        },
+        {
+          "home": "Barcelona",
+          "away": "Ath Bilbao",
+          "lambda_home": 2.182,
+          "lambda_away": 0.914,
+          "rho": 0.0194,
+          "p_1_1": 8.8,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 10.8
+            },
+            {
+              "score": "1-0",
+              "pct": 10.0
+            },
+            {
+              "score": "2-1",
+              "pct": 9.8
+            },
+            {
+              "score": "1-1",
+              "pct": 8.8
+            },
+            {
+              "score": "3-0",
+              "pct": 7.8
+            },
+            {
+              "score": "3-1",
+              "pct": 7.2
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.8,
+          "p_home": 0.6647,
+          "p_draw": 0.1882,
+          "p_away": 0.1471,
+          "selected_1x2_pick": "Barcelona",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "LALIGA"
+        }
+      ]
+    },
+    "BUNDESLIGA": {
+      "compression_diagnostics": {
+        "n_teams": 18,
+        "attack_std": 0.2289,
+        "attack_range": [
+          0.736,
+          1.673
+        ],
+        "defence_std": 0.1234,
+        "min_effective_matches": 0.0,
+        "median_effective_matches": 27.6,
+        "teams_below_10_effective_matches": [
+          "Elversberg",
+          "Paderborn",
+          "Schalke 04"
+        ],
+        "prior_strength": 3.0,
+        "n_second_tier_priors": 2,
+        "n_weakest_fallback_priors": 0,
+        "fallback_teams": []
+      },
+      "near_term_window": {
+        "n_fixtures": 9,
+        "n_grid_mode_is_1_1": 5,
+        "pct_grid_mode_is_1_1": 55.6,
+        "n_1x2_pick_is_draw": 0
+      },
+      "full_remaining_season": {
+        "n_fixtures": 306,
+        "n_grid_mode_is_1_1": 224,
+        "pct_grid_mode_is_1_1": 73.2,
+        "n_1x2_pick_is_draw": 0
+      },
+      "fixtures": [
+        {
+          "home": "Bayern Munich",
+          "away": "Stuttgart",
+          "lambda_home": 2.776,
+          "lambda_away": 1.352,
+          "rho": -0.0567,
+          "p_1_1": 6.4,
+          "top6_scores": [
+            {
+              "score": "2-1",
+              "pct": 8.4
+            },
+            {
+              "score": "3-1",
+              "pct": 7.8
+            },
+            {
+              "score": "1-1",
+              "pct": 6.4
+            },
+            {
+              "score": "2-0",
+              "pct": 6.2
+            },
+            {
+              "score": "3-0",
+              "pct": 5.7
+            },
+            {
+              "score": "2-2",
+              "pct": 5.7
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.6,
+          "p_home": 0.6689,
+          "p_draw": 0.1704,
+          "p_away": 0.1607,
+          "selected_1x2_pick": "Bayern Munich",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "Elversberg",
+          "away": "Leverkusen",
+          "lambda_home": 1.031,
+          "lambda_away": 2.209,
+          "rho": -0.0567,
+          "p_1_1": 9.4,
+          "top6_scores": [
+            {
+              "score": "1-2",
+              "pct": 9.9
+            },
+            {
+              "score": "0-2",
+              "pct": 9.6
+            },
+            {
+              "score": "1-1",
+              "pct": 9.4
+            },
+            {
+              "score": "0-1",
+              "pct": 8.1
+            },
+            {
+              "score": "1-3",
+              "pct": 7.3
+            },
+            {
+              "score": "0-3",
+              "pct": 7.0
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.3,
+          "p_home": 0.1601,
+          "p_draw": 0.2041,
+          "p_away": 0.6358,
+          "selected_1x2_pick": "Leverkusen",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-2",
+          "score_conditional_on_pick": "1-2",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "FC Koln",
+          "away": "Hoffenheim",
+          "lambda_home": 1.617,
+          "lambda_away": 1.634,
+          "rho": -0.0567,
+          "p_1_1": 10.8,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 10.8
+            },
+            {
+              "score": "1-2",
+              "pct": 8.4
+            },
+            {
+              "score": "2-1",
+              "pct": 8.3
+            },
+            {
+              "score": "2-2",
+              "pct": 6.8
+            },
+            {
+              "score": "0-1",
+              "pct": 5.7
+            },
+            {
+              "score": "1-0",
+              "pct": 5.7
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.4,
+          "p_home": 0.3746,
+          "p_draw": 0.2438,
+          "p_away": 0.3816,
+          "selected_1x2_pick": "Hoffenheim",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-2",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "Union Berlin",
+          "away": "Ein Frankfurt",
+          "lambda_home": 1.405,
+          "lambda_away": 1.413,
+          "rho": -0.0567,
+          "p_1_1": 12.5,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.5
+            },
+            {
+              "score": "1-2",
+              "pct": 8.4
+            },
+            {
+              "score": "2-1",
+              "pct": 8.3
+            },
+            {
+              "score": "0-1",
+              "pct": 7.8
+            },
+            {
+              "score": "1-0",
+              "pct": 7.7
+            },
+            {
+              "score": "0-0",
+              "pct": 6.6
+            }
+          ],
+          "gap_top1_vs_top2_pp": 4.1,
+          "p_home": 0.3655,
+          "p_draw": 0.2653,
+          "p_away": 0.3691,
+          "selected_1x2_pick": "Ein Frankfurt",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-2",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "Mainz",
+          "away": "Paderborn",
+          "lambda_home": 2.215,
+          "lambda_away": 0.958,
+          "rho": -0.0567,
+          "p_1_1": 9.4,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 10.3
+            },
+            {
+              "score": "2-1",
+              "pct": 9.8
+            },
+            {
+              "score": "1-1",
+              "pct": 9.4
+            },
+            {
+              "score": "1-0",
+              "pct": 8.8
+            },
+            {
+              "score": "3-0",
+              "pct": 7.6
+            },
+            {
+              "score": "3-1",
+              "pct": 7.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.5,
+          "p_home": 0.6537,
+          "p_draw": 0.2007,
+          "p_away": 0.1456,
+          "selected_1x2_pick": "Mainz",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "RB Leipzig",
+          "away": "M'gladbach",
+          "lambda_home": 2.104,
+          "lambda_away": 1.182,
+          "rho": -0.0567,
+          "p_1_1": 9.8,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 9.8
+            },
+            {
+              "score": "2-1",
+              "pct": 9.8
+            },
+            {
+              "score": "2-0",
+              "pct": 8.3
+            },
+            {
+              "score": "1-0",
+              "pct": 7.3
+            },
+            {
+              "score": "3-1",
+              "pct": 6.9
+            },
+            {
+              "score": "3-0",
+              "pct": 5.8
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.0,
+          "p_home": 0.5798,
+          "p_draw": 0.2175,
+          "p_away": 0.2027,
+          "selected_1x2_pick": "RB Leipzig",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "Dortmund",
+          "away": "Hamburg",
+          "lambda_home": 2.338,
+          "lambda_away": 0.904,
+          "rho": -0.0567,
+          "p_1_1": 8.7,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 10.7
+            },
+            {
+              "score": "2-1",
+              "pct": 9.7
+            },
+            {
+              "score": "1-1",
+              "pct": 8.7
+            },
+            {
+              "score": "1-0",
+              "pct": 8.7
+            },
+            {
+              "score": "3-0",
+              "pct": 8.3
+            },
+            {
+              "score": "3-1",
+              "pct": 7.5
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.0,
+          "p_home": 0.6893,
+          "p_draw": 0.1864,
+          "p_away": 0.1243,
+          "selected_1x2_pick": "Dortmund",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "Freiburg",
+          "away": "Werder Bremen",
+          "lambda_home": 1.628,
+          "lambda_away": 1.113,
+          "rho": -0.0567,
+          "p_1_1": 12.3,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.3
+            },
+            {
+              "score": "1-0",
+              "pct": 9.8
+            },
+            {
+              "score": "2-1",
+              "pct": 9.5
+            },
+            {
+              "score": "2-0",
+              "pct": 8.5
+            },
+            {
+              "score": "0-0",
+              "pct": 7.1
+            },
+            {
+              "score": "0-1",
+              "pct": 6.5
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.5,
+          "p_home": 0.487,
+          "p_draw": 0.2595,
+          "p_away": 0.2535,
+          "selected_1x2_pick": "Freiburg",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-0",
+          "league": "BUNDESLIGA"
+        },
+        {
+          "home": "Augsburg",
+          "away": "Schalke 04",
+          "lambda_home": 1.58,
+          "lambda_away": 1.303,
+          "rho": -0.0567,
+          "p_1_1": 12.2,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.2
+            },
+            {
+              "score": "2-1",
+              "pct": 9.1
+            },
+            {
+              "score": "1-0",
+              "pct": 8.2
+            },
+            {
+              "score": "1-2",
+              "pct": 7.5
+            },
+            {
+              "score": "2-0",
+              "pct": 7.0
+            },
+            {
+              "score": "0-1",
+              "pct": 6.6
+            }
+          ],
+          "gap_top1_vs_top2_pp": 3.1,
+          "p_home": 0.4325,
+          "p_draw": 0.259,
+          "p_away": 0.3085,
+          "selected_1x2_pick": "Augsburg",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "BUNDESLIGA"
+        }
+      ]
+    },
+    "LIGUE1": {
+      "compression_diagnostics": {
+        "n_teams": 18,
+        "attack_std": 0.2111,
+        "attack_range": [
+          0.705,
+          1.514
+        ],
+        "defence_std": 0.1352,
+        "min_effective_matches": 0.0,
+        "median_effective_matches": 27.3,
+        "teams_below_10_effective_matches": [
+          "Le Mans",
+          "Troyes"
+        ],
+        "prior_strength": 3.0,
+        "n_second_tier_priors": 1,
+        "n_weakest_fallback_priors": 0,
+        "fallback_teams": []
+      },
+      "near_term_window": {
+        "n_fixtures": 9,
+        "n_grid_mode_is_1_1": 6,
+        "pct_grid_mode_is_1_1": 66.7,
+        "n_1x2_pick_is_draw": 0
+      },
+      "full_remaining_season": {
+        "n_fixtures": 306,
+        "n_grid_mode_is_1_1": 252,
+        "pct_grid_mode_is_1_1": 82.4,
+        "n_1x2_pick_is_draw": 0
+      },
+      "fixtures": [
+        {
+          "home": "Marseille",
+          "away": "Strasbourg",
+          "lambda_home": 1.957,
+          "lambda_away": 1.32,
+          "rho": -0.0583,
+          "p_1_1": 10.3,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 10.3
+            },
+            {
+              "score": "2-1",
+              "pct": 9.5
+            },
+            {
+              "score": "2-0",
+              "pct": 7.2
+            },
+            {
+              "score": "1-0",
+              "pct": 6.8
+            },
+            {
+              "score": "1-2",
+              "pct": 6.4
+            },
+            {
+              "score": "2-2",
+              "pct": 6.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.8,
+          "p_home": 0.5174,
+          "p_draw": 0.2309,
+          "p_away": 0.2518,
+          "selected_1x2_pick": "Marseille",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Lens",
+          "away": "Auxerre",
+          "lambda_home": 1.953,
+          "lambda_away": 0.873,
+          "rho": -0.0583,
+          "p_1_1": 10.7,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 11.3
+            },
+            {
+              "score": "1-0",
+              "pct": 11.0
+            },
+            {
+              "score": "1-1",
+              "pct": 10.7
+            },
+            {
+              "score": "2-1",
+              "pct": 9.9
+            },
+            {
+              "score": "3-0",
+              "pct": 7.4
+            },
+            {
+              "score": "0-0",
+              "pct": 6.5
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.3,
+          "p_home": 0.6207,
+          "p_draw": 0.2242,
+          "p_away": 0.1551,
+          "selected_1x2_pick": "Lens",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Le Mans",
+          "away": "Brest",
+          "lambda_home": 1.135,
+          "lambda_away": 1.471,
+          "rho": -0.0583,
+          "p_1_1": 13.0,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.0
+            },
+            {
+              "score": "0-1",
+              "pct": 10.1
+            },
+            {
+              "score": "1-2",
+              "pct": 9.1
+            },
+            {
+              "score": "0-0",
+              "pct": 8.1
+            },
+            {
+              "score": "0-2",
+              "pct": 8.0
+            },
+            {
+              "score": "1-0",
+              "pct": 7.7
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.9,
+          "p_home": 0.285,
+          "p_draw": 0.2735,
+          "p_away": 0.4415,
+          "selected_1x2_pick": "Brest",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "0-1",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Nice",
+          "away": "Lorient",
+          "lambda_home": 1.552,
+          "lambda_away": 1.257,
+          "rho": -0.0583,
+          "p_1_1": 12.4,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.4
+            },
+            {
+              "score": "2-1",
+              "pct": 9.1
+            },
+            {
+              "score": "1-0",
+              "pct": 8.7
+            },
+            {
+              "score": "1-2",
+              "pct": 7.4
+            },
+            {
+              "score": "2-0",
+              "pct": 7.3
+            },
+            {
+              "score": "0-1",
+              "pct": 6.9
+            }
+          ],
+          "gap_top1_vs_top2_pp": 3.3,
+          "p_home": 0.435,
+          "p_draw": 0.263,
+          "p_away": 0.302,
+          "selected_1x2_pick": "Nice",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "2-1",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Toulouse",
+          "away": "Lyon",
+          "lambda_home": 1.394,
+          "lambda_away": 1.267,
+          "rho": -0.0583,
+          "p_1_1": 13.1,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 13.1
+            },
+            {
+              "score": "1-0",
+              "pct": 9.0
+            },
+            {
+              "score": "2-1",
+              "pct": 8.6
+            },
+            {
+              "score": "0-1",
+              "pct": 8.1
+            },
+            {
+              "score": "1-2",
+              "pct": 7.8
+            },
+            {
+              "score": "0-0",
+              "pct": 7.7
+            }
+          ],
+          "gap_top1_vs_top2_pp": 4.1,
+          "p_home": 0.3924,
+          "p_draw": 0.2742,
+          "p_away": 0.3334,
+          "selected_1x2_pick": "Toulouse",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-0",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Troyes",
+          "away": "Paris FC",
+          "lambda_home": 1.316,
+          "lambda_away": 1.407,
+          "rho": -0.0583,
+          "p_1_1": 12.9,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 12.9
+            },
+            {
+              "score": "1-2",
+              "pct": 8.6
+            },
+            {
+              "score": "0-1",
+              "pct": 8.5
+            },
+            {
+              "score": "2-1",
+              "pct": 8.0
+            },
+            {
+              "score": "1-0",
+              "pct": 7.9
+            },
+            {
+              "score": "0-0",
+              "pct": 7.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 4.3,
+          "p_home": 0.3438,
+          "p_draw": 0.2708,
+          "p_away": 0.3854,
+          "selected_1x2_pick": "Paris FC",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-2",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Angers",
+          "away": "Lille",
+          "lambda_home": 0.805,
+          "lambda_away": 1.529,
+          "rho": -0.0583,
+          "p_1_1": 12.6,
+          "top6_scores": [
+            {
+              "score": "0-1",
+              "pct": 14.1
+            },
+            {
+              "score": "1-1",
+              "pct": 12.6
+            },
+            {
+              "score": "0-2",
+              "pct": 11.3
+            },
+            {
+              "score": "0-0",
+              "pct": 10.4
+            },
+            {
+              "score": "1-2",
+              "pct": 9.1
+            },
+            {
+              "score": "1-0",
+              "pct": 7.1
+            }
+          ],
+          "gap_top1_vs_top2_pp": 1.5,
+          "p_home": 0.1904,
+          "p_draw": 0.2722,
+          "p_away": 0.5374,
+          "selected_1x2_pick": "Lille",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "0-1",
+          "score_conditional_on_pick": "0-1",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Le Havre",
+          "away": "Monaco",
+          "lambda_home": 1.165,
+          "lambda_away": 1.716,
+          "rho": -0.0583,
+          "p_1_1": 11.9,
+          "top6_scores": [
+            {
+              "score": "1-1",
+              "pct": 11.9
+            },
+            {
+              "score": "1-2",
+              "pct": 9.6
+            },
+            {
+              "score": "0-1",
+              "pct": 9.0
+            },
+            {
+              "score": "0-2",
+              "pct": 8.3
+            },
+            {
+              "score": "2-1",
+              "pct": 6.5
+            },
+            {
+              "score": "0-0",
+              "pct": 6.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 2.3,
+          "p_home": 0.2525,
+          "p_draw": 0.2514,
+          "p_away": 0.4961,
+          "selected_1x2_pick": "Monaco",
+          "selected_1x2_pick_type": "away",
+          "grid_mode": "1-1",
+          "score_conditional_on_pick": "1-2",
+          "league": "LIGUE1"
+        },
+        {
+          "home": "Paris SG",
+          "away": "Rennes",
+          "lambda_home": 2.474,
+          "lambda_away": 0.996,
+          "rho": -0.0583,
+          "p_1_1": 8.1,
+          "top6_scores": [
+            {
+              "score": "2-0",
+              "pct": 9.5
+            },
+            {
+              "score": "2-1",
+              "pct": 9.5
+            },
+            {
+              "score": "1-1",
+              "pct": 8.1
+            },
+            {
+              "score": "3-0",
+              "pct": 7.9
+            },
+            {
+              "score": "3-1",
+              "pct": 7.8
+            },
+            {
+              "score": "1-0",
+              "pct": 7.3
+            }
+          ],
+          "gap_top1_vs_top2_pp": 0.0,
+          "p_home": 0.6926,
+          "p_draw": 0.1791,
+          "p_away": 0.1283,
+          "selected_1x2_pick": "Paris SG",
+          "selected_1x2_pick_type": "home",
+          "grid_mode": "2-0",
+          "score_conditional_on_pick": "2-0",
+          "league": "LIGUE1"
+        }
+      ]
+    }
+  },
+  "combined_near_term": {
+    "n_fixtures": 38,
+    "n_grid_mode_is_1_1": 25,
+    "pct_grid_mode_is_1_1": 65.8,
+    "n_1x2_pick_is_draw": 0
+  },
+  "combined_full_season": {
+    "n_fixtures": 1372,
+    "n_grid_mode_is_1_1": 971,
+    "pct_grid_mode_is_1_1": 70.8,
+    "n_1x2_pick_is_draw": 0
+  }
+}
