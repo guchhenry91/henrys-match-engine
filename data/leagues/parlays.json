@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-11T22:07:21.546061+00:00",
+  "updated": "2026-08-12T16:00:52.803575+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -39,7 +39,7 @@
           "tier": "Balanced four-fold",
           "note": "One leg from every league",
           "feat": true,
-          "combined": 0.2687,
+          "combined": 0.2686,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -67,7 +67,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6891,
+              "p": 0.689,
               "id": "BUNDESLIGA#9#w",
               "date": "2026-08-29T16:30:00+00:00"
             },
@@ -88,7 +88,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1234,
+          "combined": 0.1218,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -111,14 +111,14 @@
               "date": "2026-08-26T09:00:00+00:00"
             },
             {
-              "selection": "Thiago to score",
-              "match": "Brentford v Tottenham",
-              "league": "Premier League",
-              "league_key": "PL",
+              "selection": "Alexander S\u00f8rloth to score",
+              "match": "Ath Madrid v Malaga",
+              "league": "La Liga",
+              "league_key": "LALIGA",
               "tag": "g",
-              "p": 0.31,
-              "id": "PL#6#goal#Thiago",
-              "date": "2026-08-22T16:30:00+00:00"
+              "p": 0.306,
+              "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+              "date": "2026-08-19T09:00:00+00:00"
             }
           ],
           "provisional": true
@@ -275,18 +275,8 @@
           "tier": "PL Goals double",
           "note": "Two Premier League scorers",
           "feat": false,
-          "combined": 0.0955,
+          "combined": 0.0942,
           "legs": [
-            {
-              "selection": "Thiago to score",
-              "match": "Brentford v Tottenham",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "g",
-              "p": 0.31,
-              "id": "PL#6#goal#Thiago",
-              "date": "2026-08-22T16:30:00+00:00"
-            },
             {
               "selection": "Erling Haaland to score",
               "match": "Manchester City v Bournemouth",
@@ -296,6 +286,16 @@
               "p": 0.308,
               "id": "PL#8#goal#Erling Haaland",
               "date": "2026-08-23T13:00:00+00:00"
+            },
+            {
+              "selection": "Thiago to score",
+              "match": "Brentford v Tottenham",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "g",
+              "p": 0.306,
+              "id": "PL#6#goal#Thiago",
+              "date": "2026-08-22T16:30:00+00:00"
             }
           ],
           "provisional": true
