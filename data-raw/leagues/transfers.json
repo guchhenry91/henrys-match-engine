@@ -489,6 +489,16 @@
     "verified_by": "agent web search, current reporting as of 2026-08-14",
     "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: reportedly made a firm decision to leave, Fenerbahce/AC Milan/Aston Villa/PL clubs linked, release clause valid for top European clubs only (~EUR35-50m depending on timing), but Dortmund's sporting management states 'no intention of letting him go' -- still Dortmund, unconfirmed rumour only, not actioned. Sorloth: formally transfer-listed by Atletico (EUR40m asking price), Juventus has personal terms agreed, Besiktas/Fenerbahce also monitoring, but conflicting reports also say Atletico may keep him absent an 'irresistible offer' -- no fee agreed/deal completed either way, still Ath Madrid, unconfirmed, not actioned. Semenyo: Jan 2026 Man City move long-settled and re-confirmed (ESPN/NBC/Yahoo) -- still Manchester City. General done-deals scan for the window found Danny Welbeck to Chelsea (already correctly in this file) and Osimhen-Arsenal speculation (not a board player) -- no other board-relevant moves found. Kane, Mbappe, Vinicius Jr, Undav, Olise, Igor Thiago, Edouard, Thauvin unchanged from the 2026-08-12 sweep.",
     "not_checked": "earliest Best Picks fixture is 2026-08-19, ~5 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research (news.json update, republish, deploy) was not triggered"
+   },
+   {
+    "date": "2026-08-14T21:52Z",
+    "scope": "matchday-news board check (leagues-matchday-news task) -- second run today, independent re-check",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 12,
+    "method": "web search per distinct player on the live player_picks.json board: Erling Haaland, Harry Kane, Kylian Mbappe-Lottin, Thiago (Igor Thiago), Vinicius Junior, Antoine Semenyo, Michael Olise, Serhou Guirassy, Deniz Undav, Alexander Sorloth, Odsonne Edouard, Florian Thauvin",
+    "verified_by": "direct web search, current reporting as of 2026-08-14",
+    "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Independently reproduces the 18:51Z sweep from earlier today: Guirassy wants out of Dortmund (Fenerbahce/AC Milan/Aston Villa links) but Dortmund is still refusing to sell, no deal; Sorloth remains transfer-listed by Atletico (EUR40m ask, Juventus personal terms agreed) with no fee accepted; Kane in advanced Bayern extension talks (through 2029), no exit; Mbappe, Vinicius Jr (2032 extension), Undav (2029 extension), Olise, Igor Thiago, Semenyo (Jan 2026 move long-settled), Edouard, Thauvin all unchanged and stable at their listed clubs.",
+    "not_checked": "earliest Best Picks fixture is 2026-08-19, ~5 days out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research (news.json update, republish, deploy) was not triggered"
    }
   ],
   "known_gaps": [
