@@ -40,13 +40,15 @@ MATCHWEEKS_AHEAD = 1
 # start appearing in the record, widen this window and the cadence TOGETHER.
 LOCK_WINDOW_HOURS = 0.75
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
-# walk-forward over all four leagues (3,958 matches), not guessed:
-#     all picks   53.2%      p>=0.60  73.6%
-#     p>=0.65     77.4%      p>=0.70  84.1%
-# 0.65 trades a little hit rate for useful volume (~18 picks a matchweek across
-# the four leagues, vs ~9 at 0.70). Membership is decided from the FROZEN
-# probability at lock time -- never recomputed after a result, or winners could be
-# selected in hindsight.
+# walk-forward over all four leagues, not guessed. The tier hit rates that justify
+# it are no longer copied here: `leagues.tune` computes them at each of these
+# thresholds and writes them to backtest_report.json's `_pooled` block, which
+# `_backtested_tier_stats` reads. A number pasted into a comment cannot be wrong
+# loudly -- it just quietly stops matching the model after the next refit.
+# 0.65 trades a little hit rate for useful volume (roughly twice as many picks a
+# matchweek as 0.70). Membership is decided from the FROZEN probability at lock
+# time -- never recomputed after a result, or winners could be selected in
+# hindsight.
 BEST_PICK_MIN_PROB = 0.65
 # A team needs at least this many players in the rates table before it gets props
 # at all. The sigma-lambda rescale makes a team's players sum to the match model's
@@ -57,6 +59,56 @@ BEST_PICK_MIN_PROB = 0.65
 # none is visibly a hole and one looks like a great pick. Teams below this get no
 # props, exactly like teams with no data at all.
 MIN_SQUAD_FOR_PROPS = 6
+
+
+def _read_raw(name: str) -> dict:
+    p = PICKS_DIR / name
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def _backtested_tier_stats(min_prob: float) -> dict:
+    """Pooled hit rate for the board's tier, plus the per-league spread.
+
+    One pooled number oversells its own stability: the same p>=0.65 tier has run
+    from ~71% (Ligue 1) to ~86% (La Liga). The spread ships alongside it so a
+    reader can see the range the headline is averaging over.
+
+    Returns {} when the gate has not been run, so the page omits the claim
+    entirely rather than showing a stale or invented one.
+    """
+    tiers = _read_raw("backtest_report.json").get("_pooled", {}).get("tiers", [])
+    by_prob = {t["min_prob"]: t for t in tiers}
+    tier, allp = by_prob.get(min_prob), by_prob.get(0.0)
+    out = {}
+    if tier and tier.get("hit_rate_pct") is not None:
+        out["backtested_hit_rate_pct"] = tier["hit_rate_pct"]
+        out["backtested_n"] = tier["n"]
+        out["backtested_league_range_pct"] = [tier["league_min_pct"],
+                                              tier["league_max_pct"]]
+    if allp and allp.get("hit_rate_pct") is not None:
+        out["backtested_all_picks_pct"] = allp["hit_rate_pct"]
+    return out
+
+
+def model_params(league: str) -> dict:
+    """The league's xi/xg_weight, from the gate's generated release policy.
+
+    These were hardcoded -- or rather, they were not set at all: every league ran
+    `LeagueModel()` defaults while the backtest report named a different winner for
+    three of the four. The gate now writes release_policy.json and this reads it,
+    so the parameters that ship and the evidence for them come from one run.
+
+    An absent or unreadable policy falls back to the model's own defaults, which
+    is exactly the previous behaviour -- a missing gate artefact must not stop a
+    publish, it just means nothing was promoted.
+    """
+    pol = _read_raw("release_policy.json").get("leagues", {}).get(league, {})
+    out = {}
+    if isinstance(pol.get("xi"), (int, float)):
+        out["xi"] = float(pol["xi"])
+    if isinstance(pol.get("xg_weight"), (int, float)):
+        out["xg_weight"] = float(pol["xg_weight"])
+    return out
 # The bar for the cross-league player board, PER MARKET -- the markets have very
 # different ceilings and a single number cannot serve all three.
 #   shots (2+ shot attempts) at 0.70 is reachable by a good slice of forwards.
@@ -220,7 +272,8 @@ def build(league: str = "PL") -> dict:
     # their actual second-tier season (calibrated), NOT from ClubElo: ClubElo is a
     # single third-party point of failure, and the second-tier feed is the same
     # source as everything else here.
-    base = LeagueModel().fit(matches, ref=ref)
+    params = model_params(league)
+    base = LeagueModel(**params).fit(matches, ref=ref)
     warnings = []
     no_history = [t for t in squad_teams if t not in base.attack]
     priors = {}
@@ -243,7 +296,7 @@ def build(league: str = "PL") -> dict:
                 f"own form. Their projected finish is a rough placeholder.")
             print(f"WARNING: {league}: no second-tier prior for {still_missing}; "
                   f"weakest-side fallback")
-    model = LeagueModel().fit(matches, ref=ref, priors=priors)
+    model = LeagueModel(**params).fit(matches, ref=ref, priors=priors)
 
     # Squad freshness during an open transfer window. TWO independent things
     # decide how much a stale transfers.json actually matters, so the warning
@@ -778,10 +831,11 @@ def build_best_picks() -> dict:
         "upcoming": upcoming,
         "settled": settled[:60],
         # Backtested expectation for this tier, so the page can state what the
-        # board is worth rather than implying certainty. Pooled walk-forward over
-        # all four leagues, n=3958: all picks 53.2%, p>=0.65 77.4% (+/-3.8).
-        "backtested_hit_rate_pct": 77.4,
-        "backtested_all_picks_pct": 53.2,
+        # board is worth rather than implying certainty. READ from the gate's
+        # pooled walk-forward, not pasted: these were the literals 77.4 and 53.2,
+        # which verified when written and had nothing keeping them true across a
+        # refit.
+        **_backtested_tier_stats(BEST_PICK_MIN_PROB),
     }
 
 

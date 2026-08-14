@@ -15,7 +15,7 @@ P = json.load(open('data-raw/leagues/backtest_report.json'))
 rows = []
 for lg in ("PL","LALIGA","BUNDESLIGA","LIGUE1"):
     p = P[lg]
-    r = backtest.walk_forward(dataset.build_matches(lg), xi=p["xi"], xg_weight=p["xg_weight"])
+    r = backtest.walk_forward(dataset.build_matches(lg), lg, xi=p["xi"], xg_weight=p["xg_weight"])
     if "m_home" not in r.columns: continue
     r = r[r["m_home"].notna()].copy(); r["league"] = lg
     rows.append(r)

@@ -1,0 +1,34 @@
+{
+  "_generated_by": "python -m leagues.tune",
+  "_note": "DO NOT EDIT BY HAND. Regenerate with the gate; publish.py reads this file to pick each league's xi/xg_weight.",
+  "leagues": {
+    "PL": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "selection": "incumbent retained",
+      "holdout_rps": 0.20725561526460734,
+      "holdout_n": 380
+    },
+    "LALIGA": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "selection": "incumbent retained",
+      "holdout_rps": 0.2001863284948409,
+      "holdout_n": 380
+    },
+    "BUNDESLIGA": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "selection": "incumbent retained",
+      "holdout_rps": 0.19716004289978026,
+      "holdout_n": 306
+    },
+    "LIGUE1": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "selection": "incumbent retained",
+      "holdout_rps": 0.2038960965805987,
+      "holdout_n": 306
+    }
+  }
+}

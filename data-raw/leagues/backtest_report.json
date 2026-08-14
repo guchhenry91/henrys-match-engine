@@ -2,57 +2,865 @@
   "PL": {
     "xi": 0.003,
     "xg_weight": 0.75,
-    "n": 1136,
-    "accuracy": 0.5369718309859155,
-    "rps": 0.19897205071304375,
-    "brier": 0.5815982913326876,
-    "market_n": 1136,
-    "model_rps_on_market_subset": 0.19897205071304375,
-    "model_accuracy_on_market_subset": 0.5369718309859155,
-    "market_accuracy": 0.5492957746478874,
-    "market_rps": 0.1939353157284316,
-    "market_brier": 0.5706009909174188
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 380,
+      "accuracy": 0.4868421052631579,
+      "rps": 0.20725561526460734,
+      "brier": 0.6134512190353194,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20725561526460734,
+      "model_accuracy_on_market_subset": 0.4868421052631579,
+      "market_accuracy": 0.49473684210526314,
+      "market_rps": 0.20449146861486855,
+      "market_brier": 0.6077370146246498
+    },
+    "sweep_winner": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 760,
+      "accuracy": 0.5631578947368421,
+      "rps": 0.19466941636097054,
+      "brier": 0.5646477797866633,
+      "n_seeded": 3,
+      "market_n": 760,
+      "model_rps_on_market_subset": 0.19466941636097054,
+      "model_accuracy_on_market_subset": 0.5631578947368421,
+      "market_accuracy": 0.5776315789473684,
+      "market_rps": 0.18845041128644052,
+      "market_brier": 0.5509667910353023
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 380,
+      "accuracy": 0.4868421052631579,
+      "rps": 0.20725561526460734,
+      "brier": 0.6134512190353194,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20725561526460734,
+      "model_accuracy_on_market_subset": 0.4868421052631579,
+      "market_accuracy": 0.49473684210526314,
+      "market_rps": 0.20449146861486855,
+      "market_brier": 0.6077370146246498
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 380
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19477,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.1949,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19497,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19502,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19526,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.19529,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19533,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19561,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.1961,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.1964,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19658,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 1140,
+        "hit_rate_pct": 53.8
+      },
+      {
+        "min_prob": 0.6,
+        "n": 267,
+        "hit_rate_pct": 69.7
+      },
+      {
+        "min_prob": 0.65,
+        "n": 150,
+        "hit_rate_pct": 74.7
+      },
+      {
+        "min_prob": 0.7,
+        "n": 83,
+        "hit_rate_pct": 81.9
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 380,
+        "hit_rate_pct": 48.7
+      },
+      {
+        "min_prob": 0.6,
+        "n": 55,
+        "hit_rate_pct": 69.1
+      },
+      {
+        "min_prob": 0.65,
+        "n": 22,
+        "hit_rate_pct": 72.7
+      },
+      {
+        "min_prob": 0.7,
+        "n": 12,
+        "hit_rate_pct": 83.3
+      }
+    ],
+    "n": 1140,
+    "accuracy": 0.537719298245614,
+    "rps": 0.19886481599551614,
+    "brier": 0.5809155928695487,
+    "n_seeded": 4,
+    "market_n": 1140,
+    "model_rps_on_market_subset": 0.19886481599551614,
+    "model_accuracy_on_market_subset": 0.537719298245614,
+    "market_accuracy": 0.55,
+    "market_rps": 0.19379743039591651,
+    "market_brier": 0.5698901988984182
   },
   "LALIGA": {
-    "xi": 0.0018,
+    "xi": 0.003,
     "xg_weight": 0.75,
-    "n": 1137,
-    "accuracy": 0.5356200527704486,
-    "rps": 0.1935772553504332,
-    "brier": 0.5750170445296299,
-    "market_n": 1137,
-    "model_rps_on_market_subset": 0.1935772553504332,
-    "model_accuracy_on_market_subset": 0.5356200527704486,
-    "market_accuracy": 0.5523306948109059,
-    "market_rps": 0.18884742158319187,
-    "market_brier": 0.5653935950355511
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 380,
+      "accuracy": 0.5394736842105263,
+      "rps": 0.20044522800883696,
+      "brier": 0.5815858668068407,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20044522800883696,
+      "model_accuracy_on_market_subset": 0.5394736842105263,
+      "market_accuracy": 0.5447368421052632,
+      "market_rps": 0.1957786058701988,
+      "market_brier": 0.5716509492588124
+    },
+    "sweep_winner": {
+      "xi": 0.0018,
+      "xg_weight": 0.75,
+      "n": 760,
+      "accuracy": 0.5394736842105263,
+      "rps": 0.18994242102042933,
+      "brier": 0.5721218429189583,
+      "n_seeded": 2,
+      "market_n": 760,
+      "model_rps_on_market_subset": 0.18994242102042933,
+      "model_accuracy_on_market_subset": 0.5394736842105263,
+      "market_accuracy": 0.5552631578947368,
+      "market_rps": 0.1850583732818206,
+      "market_brier": 0.5621738568526428
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 380,
+      "accuracy": 0.5263157894736842,
+      "rps": 0.2001863284948409,
+      "brier": 0.5807740411506747,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.2001863284948409,
+      "model_accuracy_on_market_subset": 0.5263157894736842,
+      "market_accuracy": 0.5447368421052632,
+      "market_rps": 0.1957786058701988,
+      "market_brier": 0.5716509492588124
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": -0.0002588995139960561,
+      "lo": -0.0014961645403582763,
+      "hi": 0.0009681476953257015,
+      "n": 380
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.18994,
+        "sweep_n": 760,
+        "reason": "won the sweep but the paired holdout CI was not entirely below zero"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19006,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19022,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19064,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19065,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.19122,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19144,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19153,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19189,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19238,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19337,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 1140,
+        "hit_rate_pct": 54.3
+      },
+      {
+        "min_prob": 0.6,
+        "n": 200,
+        "hit_rate_pct": 81.0
+      },
+      {
+        "min_prob": 0.65,
+        "n": 136,
+        "hit_rate_pct": 85.3
+      },
+      {
+        "min_prob": 0.7,
+        "n": 59,
+        "hit_rate_pct": 91.5
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 380,
+        "hit_rate_pct": 53.9
+      },
+      {
+        "min_prob": 0.6,
+        "n": 61,
+        "hit_rate_pct": 85.2
+      },
+      {
+        "min_prob": 0.65,
+        "n": 41,
+        "hit_rate_pct": 90.2
+      },
+      {
+        "min_prob": 0.7,
+        "n": 22,
+        "hit_rate_pct": 95.5
+      }
+    ],
+    "n": 1140,
+    "accuracy": 0.5429824561403509,
+    "rps": 0.19376309368077052,
+    "brier": 0.576048171457656,
+    "n_seeded": 3,
+    "market_n": 1140,
+    "model_rps_on_market_subset": 0.19376309368077052,
+    "model_accuracy_on_market_subset": 0.5429824561403509,
+    "market_accuracy": 0.5517543859649123,
+    "market_rps": 0.18863178414461335,
+    "market_brier": 0.5653328876546994
   },
   "BUNDESLIGA": {
     "xi": 0.003,
-    "xg_weight": 1.0,
-    "n": 769,
-    "accuracy": 0.5214564369310793,
-    "rps": 0.20012849496525656,
-    "brier": 0.5899583277205491,
-    "market_n": 769,
-    "model_rps_on_market_subset": 0.20012849496525656,
-    "model_accuracy_on_market_subset": 0.5214564369310793,
-    "market_accuracy": 0.5474642392717816,
-    "market_rps": 0.19443591446955835,
-    "market_brier": 0.5767779053386846
+    "xg_weight": 0.75,
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 306,
+      "accuracy": 0.5490196078431373,
+      "rps": 0.1963590050199756,
+      "brier": 0.5766684482291178,
+      "n_seeded": 2,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.1963590050199756,
+      "model_accuracy_on_market_subset": 0.5490196078431373,
+      "market_accuracy": 0.565359477124183,
+      "market_rps": 0.19005719163177381,
+      "market_brier": 0.5618184045532181
+    },
+    "sweep_winner": {
+      "xi": 0.0045,
+      "xg_weight": 1.0,
+      "n": 468,
+      "accuracy": 0.5064102564102564,
+      "rps": 0.20206156932933558,
+      "brier": 0.5982193105795346,
+      "n_seeded": 3,
+      "market_n": 468,
+      "model_rps_on_market_subset": 0.20206156932933558,
+      "model_accuracy_on_market_subset": 0.5064102564102564,
+      "market_accuracy": 0.5341880341880342,
+      "market_rps": 0.1976182430900259,
+      "market_brier": 0.5870172306567075
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 306,
+      "accuracy": 0.5392156862745098,
+      "rps": 0.19716004289978026,
+      "brier": 0.5782993656500791,
+      "n_seeded": 2,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.19716004289978026,
+      "model_accuracy_on_market_subset": 0.5392156862745098,
+      "market_accuracy": 0.565359477124183,
+      "market_rps": 0.19005719163177381,
+      "market_brier": 0.5618184045532181
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.0008010378798046543,
+      "lo": -0.0009364117209968678,
+      "hi": 0.002542104251055267,
+      "n": 306
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.20206,
+        "sweep_n": 468,
+        "reason": "won the sweep but the paired holdout CI was not entirely below zero"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.20244,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.20255,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.2035,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.20366,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.20369,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.20394,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.20452,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.20633,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.20657,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.20673,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 774,
+        "hit_rate_pct": 52.5
+      },
+      {
+        "min_prob": 0.6,
+        "n": 164,
+        "hit_rate_pct": 75.0
+      },
+      {
+        "min_prob": 0.65,
+        "n": 109,
+        "hit_rate_pct": 75.2
+      },
+      {
+        "min_prob": 0.7,
+        "n": 69,
+        "hit_rate_pct": 84.1
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 306,
+        "hit_rate_pct": 54.9
+      },
+      {
+        "min_prob": 0.6,
+        "n": 55,
+        "hit_rate_pct": 81.8
+      },
+      {
+        "min_prob": 0.65,
+        "n": 36,
+        "hit_rate_pct": 80.6
+      },
+      {
+        "min_prob": 0.7,
+        "n": 25,
+        "hit_rate_pct": 80.0
+      }
+    ],
+    "n": 774,
+    "accuracy": 0.524547803617571,
+    "rps": 0.20028662232369018,
+    "brier": 0.590403840802622,
+    "n_seeded": 5,
+    "market_n": 774,
+    "model_rps_on_market_subset": 0.20028662232369018,
+    "model_accuracy_on_market_subset": 0.524547803617571,
+    "market_accuracy": 0.5465116279069767,
+    "market_rps": 0.1946289901879262,
+    "market_brier": 0.5770549040576536
   },
   "LIGUE1": {
-    "xi": 0.0018,
+    "xi": 0.003,
     "xg_weight": 0.75,
-    "n": 916,
-    "accuracy": 0.5262008733624454,
-    "rps": 0.20829264454338456,
-    "brier": 0.597116750910982,
-    "market_n": 916,
-    "model_rps_on_market_subset": 0.20829264454338456,
-    "model_accuracy_on_market_subset": 0.5262008733624454,
-    "market_accuracy": 0.5338427947598253,
-    "market_rps": 0.20259621850176687,
-    "market_brier": 0.5851164291423305
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 306,
+      "accuracy": 0.5098039215686274,
+      "rps": 0.20358533409306098,
+      "brier": 0.5906738978122322,
+      "n_seeded": 1,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.20358533409306098,
+      "model_accuracy_on_market_subset": 0.5098039215686274,
+      "market_accuracy": 0.5359477124183006,
+      "market_rps": 0.20034041931326046,
+      "market_brier": 0.5820444303123221
+    },
+    "sweep_winner": {
+      "xi": 0.0018,
+      "xg_weight": 0.5,
+      "n": 612,
+      "accuracy": 0.5343137254901961,
+      "rps": 0.21047199749493295,
+      "brier": 0.6005806560698068,
+      "n_seeded": 1,
+      "market_n": 612,
+      "model_rps_on_market_subset": 0.21047199749493295,
+      "model_accuracy_on_market_subset": 0.5343137254901961,
+      "market_accuracy": 0.5310457516339869,
+      "market_rps": 0.20386142260881313,
+      "market_brier": 0.5873706899398342
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 306,
+      "accuracy": 0.5261437908496732,
+      "rps": 0.2038960965805987,
+      "brier": 0.5914301295072292,
+      "n_seeded": 1,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.2038960965805987,
+      "model_accuracy_on_market_subset": 0.5261437908496732,
+      "market_accuracy": 0.5359477124183006,
+      "market_rps": 0.20034041931326046,
+      "market_brier": 0.5820444303123221
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.00031076248753774874,
+      "lo": -0.0013070839622106557,
+      "hi": 0.001927097493895871,
+      "n": 306
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.21047,
+        "sweep_n": 612,
+        "reason": "won the sweep but the paired holdout CI was not entirely below zero"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.2107,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.21093,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.21104,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.21129,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.21139,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.21165,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.21211,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.21211,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.21227,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.2131,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 918,
+        "hit_rate_pct": 52.0
+      },
+      {
+        "min_prob": 0.6,
+        "n": 158,
+        "hit_rate_pct": 70.3
+      },
+      {
+        "min_prob": 0.65,
+        "n": 78,
+        "hit_rate_pct": 73.1
+      },
+      {
+        "min_prob": 0.7,
+        "n": 36,
+        "hit_rate_pct": 77.8
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 306,
+        "hit_rate_pct": 51.0
+      },
+      {
+        "min_prob": 0.6,
+        "n": 63,
+        "hit_rate_pct": 71.4
+      },
+      {
+        "min_prob": 0.65,
+        "n": 35,
+        "hit_rate_pct": 80.0
+      },
+      {
+        "min_prob": 0.7,
+        "n": 18,
+        "hit_rate_pct": 83.3
+      }
+    ],
+    "n": 918,
+    "accuracy": 0.5196078431372549,
+    "rps": 0.20873053368618213,
+    "brier": 0.5984744168236423,
+    "n_seeded": 2,
+    "market_n": 918,
+    "model_rps_on_market_subset": 0.20873053368618213,
+    "model_accuracy_on_market_subset": 0.5196078431372549,
+    "market_accuracy": 0.5326797385620915,
+    "market_rps": 0.20268775484362891,
+    "market_brier": 0.5855952700639969
+  },
+  "_pooled": {
+    "tiers": [
+      {
+        "min_prob": 0.0,
+        "n": 3972,
+        "hit_rate_pct": 53.3,
+        "league_min_pct": 52.0,
+        "league_max_pct": 54.3,
+        "by_league": {
+          "PL": {
+            "n": 1140,
+            "hit_rate_pct": 53.8
+          },
+          "LALIGA": {
+            "n": 1140,
+            "hit_rate_pct": 54.3
+          },
+          "BUNDESLIGA": {
+            "n": 774,
+            "hit_rate_pct": 52.5
+          },
+          "LIGUE1": {
+            "n": 918,
+            "hit_rate_pct": 52.0
+          }
+        }
+      },
+      {
+        "min_prob": 0.6,
+        "n": 789,
+        "hit_rate_pct": 73.8,
+        "league_min_pct": 69.7,
+        "league_max_pct": 81.0,
+        "by_league": {
+          "PL": {
+            "n": 267,
+            "hit_rate_pct": 69.7
+          },
+          "LALIGA": {
+            "n": 200,
+            "hit_rate_pct": 81.0
+          },
+          "BUNDESLIGA": {
+            "n": 164,
+            "hit_rate_pct": 75.0
+          },
+          "LIGUE1": {
+            "n": 158,
+            "hit_rate_pct": 70.3
+          }
+        }
+      },
+      {
+        "min_prob": 0.65,
+        "n": 473,
+        "hit_rate_pct": 77.6,
+        "league_min_pct": 73.1,
+        "league_max_pct": 85.3,
+        "by_league": {
+          "PL": {
+            "n": 150,
+            "hit_rate_pct": 74.7
+          },
+          "LALIGA": {
+            "n": 136,
+            "hit_rate_pct": 85.3
+          },
+          "BUNDESLIGA": {
+            "n": 109,
+            "hit_rate_pct": 75.2
+          },
+          "LIGUE1": {
+            "n": 78,
+            "hit_rate_pct": 73.1
+          }
+        }
+      },
+      {
+        "min_prob": 0.7,
+        "n": 247,
+        "hit_rate_pct": 84.2,
+        "league_min_pct": 77.8,
+        "league_max_pct": 91.5,
+        "by_league": {
+          "PL": {
+            "n": 83,
+            "hit_rate_pct": 81.9
+          },
+          "LALIGA": {
+            "n": 59,
+            "hit_rate_pct": 91.5
+          },
+          "BUNDESLIGA": {
+            "n": 69,
+            "hit_rate_pct": 84.1
+          },
+          "LIGUE1": {
+            "n": 36,
+            "hit_rate_pct": 77.8
+          }
+        }
+      }
+    ]
   }
 }

@@ -28,7 +28,7 @@ for lg in ("PL","LALIGA","BUNDESLIGA","LIGUE1"):
     ms["rest_h"], ms["rest_a"] = rest_h, rest_a
 
     p = P[lg]
-    res = backtest.walk_forward(m, xi=p["xi"], xg_weight=p["xg_weight"])
+    res = backtest.walk_forward(m, lg, xi=p["xi"], xg_weight=p["xg_weight"])
     res = res.merge(ms[["date","home","away","rest_h","rest_a"]],
                     on=["date","home","away"], how="left")
     out.append(res)

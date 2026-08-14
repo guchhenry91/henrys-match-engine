@@ -22,6 +22,7 @@ This is strictly more honest than a single "gap" damping factor (which ignored t
 level shift and produced nonsense), and than the weakest-club fallback (which ignored
 the club's form entirely).
 """
+import functools
 import io
 import urllib.request
 
@@ -72,10 +73,47 @@ def promoted_deviations(strengths: dict, teams: list) -> dict:
     return out
 
 
-def fetch_strengths(league: str, season: str = "2526") -> dict:
-    """Download one league's second-tier table, keyed by CANONICAL club name.
-    Unmapped second-tier spellings are dropped (the caller warns on a promoted
-    club that fails to resolve)."""
+def season_code(start_year: int) -> str:
+    """1995 -> '9596', 2025 -> '2526'. football-data.co.uk's season directory."""
+    return f"{start_year % 100:02d}{(start_year + 1) % 100:02d}"
+
+
+def season_code_start_year(code: str) -> int:
+    """'2526' -> 2025. Inverse of season_code for the 2000s; football-data has
+    used two-digit codes since 1993, so a pre-2000 code would need a century
+    rule. This repo's history_seasons never reach back that far."""
+    return 2000 + int(str(code)[:2])
+
+
+def season_start_year(date) -> int:
+    """The year a European season starting in `date`'s campaign began. July is the
+    boundary: 2026-08-15 and 2027-05-01 both belong to the season starting 2026."""
+    d = pd.Timestamp(date)
+    return d.year if d.month >= 7 else d.year - 1
+
+
+def feeder_season(date) -> str:
+    """Second-tier season that fed the clubs promoted INTO the top-flight season
+    containing `date`. A club playing its first top-flight game in August 2026 was
+    in the second tier during 2025-26, so the feeder season is one behind."""
+    return season_code(season_start_year(date) - 1)
+
+
+def promotion_season(league: str) -> str:
+    """The second-tier season feeding the CURRENT top-flight campaign.
+
+    Derived from the league's last completed history season rather than hardcoded.
+    A literal (it was "2526") is right for exactly one year and then silently seeds
+    promoted clubs from a two-year-old table -- nothing fails, the priors are just
+    quietly wrong. `history_seasons` has to be rolled forward each summer for the
+    model to fit on current results at all, so tying the two together means the
+    promotion season can no longer be forgotten on its own.
+    """
+    return config.get(league).history_seasons[-1]
+
+
+@functools.lru_cache(maxsize=None)
+def _fetch_strengths_cached(league: str, season: str) -> tuple:
     code = config.get(league).fd_code2
     req = urllib.request.Request(FEED.format(season=season, code=code),
                                  headers={"User-Agent": "Mozilla/5.0"})
@@ -87,17 +125,39 @@ def fetch_strengths(league: str, season: str = "2526") -> dict:
             out[canonical(team, league)] = s
         except UnknownTeam:
             continue
-    return out
+    # Cached as an immutable tuple of pairs so a caller cannot mutate the shared
+    # entry; fetch_strengths rebuilds a fresh dict per call.
+    return tuple((t, tuple(sorted(s.items()))) for t, s in out.items())
+
+
+def fetch_strengths(league: str, season: str = None) -> dict:
+    """Download one league's second-tier table, keyed by CANONICAL club name.
+    Unmapped second-tier spellings are dropped (the caller warns on a promoted
+    club that fails to resolve).
+
+    MEMOIZED per (league, season). The walk-forward backtest asks for priors at
+    every weekly cutoff -- hundreds per league per config -- but there are only a
+    handful of distinct seasons, so without the cache the gate would spend its
+    entire runtime re-downloading the same five CSVs.
+    """
+    season = season or promotion_season(league)
+    return {t: dict(s) for t, s in _fetch_strengths_cached(league, season)}
 
 
 def second_tier_priors(base_model, league: str, teams: list,
-                       season: str = "2526") -> dict:
+                       season: str = None) -> dict:
     """team -> (attack, defence) prior on the fitted model's strength scale.
 
     The fitted map gives DEVIATIONS from the top-flight average; `base_model`
     supplies that average (mean of its fitted strengths), matching how elo_priors
     and promoted_priors place a prior on the same scale. Returns only the teams it
-    could resolve in the second-tier feed; the caller falls back for the rest."""
+    could resolve in the second-tier feed; the caller falls back for the rest.
+
+    `season` defaults to the league's CURRENT promotion season (see
+    promotion_season). The backtest passes an explicit season instead, so a
+    2022 cutoff is seeded from the 2021-22 second tier rather than from a table
+    that had not been played yet.
+    """
     if not teams or not base_model.attack:
         return {}
     a_mean = float(np.mean(list(base_model.attack.values())))

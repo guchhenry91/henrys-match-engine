@@ -62,11 +62,31 @@ engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
   builds player props, locks picks, builds the parlays, writes `data/leagues/*.json`
   atomically.
 - `python -m leagues.tune` — the match-model gate (walk-forward vs de-vigged
-  closing odds). `python -m leagues.props_backtest` — the props gate (tests the
-  per-90 RATE estimation only -- it does not exercise `match_props`'s rescale or
-  `HOME_SHOT_FACTOR`, which live downstream of what this gate covers; see
-  props_backtest.py's own tuning note on why that's an accepted gap, not an
-  oversight).
+  closing odds). It SWEEPS xi/xg_weight on the earlier seasons, then re-scores the
+  winner on a held-out final season, and promotes a challenger over the shipped
+  config only if a paired 95% bootstrap CI of holdout RPS lies entirely below
+  zero. Rejected candidates are written to the report. It emits TWO files:
+  `backtest_report.json` (per-league scores + a `_pooled` block of tier hit rates)
+  and `release_policy.json` (the per-league xi/xg_weight publish.py actually
+  runs). Both are generated -- never hand-edit either, and note that a
+  single-league invocation deliberately leaves release_policy.json alone so it
+  cannot drop the other three leagues.
+- The walk-forward backtest **runs the model that ships**, second-tier promoted
+  priors included, with the prior season derived from each cutoff
+  (`second_tier.feeder_season`) so it stays strictly causal. It previously fitted
+  without priors, so promoted clubs raised KeyError and their fixtures were
+  silently dropped -- excluding the hardest games in the league and measuring a
+  model publish.py never used. The reported RPS got WORSE when this was fixed;
+  that is the fix working.
+- `python -m leagues.props_backtest` — the props gate. **It validates the per-90
+  RATE estimation only, NOT the probabilities the board publishes.** It is handed
+  each player's actual minutes, so it is blind to minutes-projection error (a
+  dominant driver of live prop accuracy), and it does not exercise `match_props`'s
+  rescale or `HOME_SHOT_FACTOR`. Its bar is `mae < baseline_mae` on two metrics --
+  no minimum sample, no calibration check, no significance test. The live record is
+  the first real test of the published numbers. Accepted gap, not an oversight:
+  Understat cannot support an honest per-match anytime-scorer curve, and a gate
+  that looks rigorous without being so would be worse than a stated limitation.
 
 ## Data sources
 - Results + closing odds: football-data.co.uk. Team xG: Understat.

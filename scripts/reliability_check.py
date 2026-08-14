@@ -11,7 +11,7 @@ P = json.load(open('data-raw/leagues/backtest_report.json'))
 rows = []
 for lg in ("PL","LALIGA","BUNDESLIGA","LIGUE1"):
     p = P[lg]
-    r = backtest.walk_forward(dataset.build_matches(lg), xi=p["xi"], xg_weight=p["xg_weight"])
+    r = backtest.walk_forward(dataset.build_matches(lg), lg, xi=p["xi"], xg_weight=p["xg_weight"])
     rows.append(r)
 d = pd.concat(rows, ignore_index=True)
 M = d[["p_home","p_draw","p_away"]].to_numpy()
