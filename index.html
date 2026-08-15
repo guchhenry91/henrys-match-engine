@@ -462,8 +462,49 @@ function viewGrades(){
     ${tierRow("Player · On target","Shots on target",rbm.sot)}
     ${tierRow("Parlays","All-or-nothing accas",par.record)}</div>`;
   h+=`<p class="note">Every pick locks before kickoff and is graded against the frozen call — never re-scored with hindsight. Each market, and the parlays, are scored on their own.</p>`;
+  h+=allPicksBlock();
   h+=calibrationBlock();
   return h+archiveLink();
+}
+
+// EVERY match pick, not just the ones that cleared the Best Picks bar.
+// The board above only counts picks at p>=0.65, so a graded 47% call was
+// invisible here: on 15 Aug the model went 2-0 on La Liga's openers and the
+// Grades tab still read 0-0, because neither pick was confident enough to
+// join the headline board. That understates the record AND hides the honest
+// half of it -- the low-confidence calls are exactly the ones a reader should
+// be able to judge.
+function allPicksBlock(){
+  const rows=[]; let c=0,w=0,v=0;
+  Object.keys(FILES).forEach(k=>{
+    const d=DATA[FILES[k]]||{}; const r=d.record||{};
+    if(r.total) rows.push({k,r});
+    c+=r.correct||0; w+=r.wrong||0; v+=r.void||0;
+  });
+  const tot=c+w;
+  if(!tot) return "";
+  // Most recent settled matches across all four leagues, newest first.
+  const settled=[];
+  Object.keys(FILES).forEach(k=>{
+    ((DATA[FILES[k]]||{}).season||[]).forEach(m=>{
+      if(m.result&&m.graded) settled.push({k,m});
+    });
+  });
+  settled.sort((a,b)=>new Date(b.m.date)-new Date(a.m.date));
+  let h=`<div class="eyebrow" style="margin-top:22px">Every match pick</div>
+    <div class="glass stat"><div class="k">${c}–${w}</div>
+    <div class="l">All leagues · ${Math.round(100*c/tot)}% of ${tot} graded${v?` · ${v} void`:""}</div></div>`;
+  h+=`<div class="glass rowc">${rows.map(({k,r})=>
+      tierRow(LG[k],`Match-winner picks`,r)).join("")}</div>`;
+  h+=`<div class="glass rowc">${settled.slice(0,12).map(({k,m})=>
+    `<div class="rw static"><span class="lgtag" style="background:${LC[k]}"></span>
+      <div class="info"><b>${esc(m.home)} ${m.result.home_goals}–${m.result.away_goals} ${esc(m.away)}</b>
+      <span>Pick: ${esc(m.pick||"—")}</span></div>
+      <span class="res ${esc(m.graded)}">${m.graded==="correct"?"WON":(m.graded==="void"?"VOID":"LOST")}</span></div>`
+  ).join("")}</div>`;
+  const bar=Math.round(100*(((DATA.best||{}).min_probability)||0.65));
+  h+=`<p class="note">The board above counts only picks at ${bar}% or higher. This counts every match the model called, at any confidence — the fuller and less flattering number.</p>`;
+  return h;
 }
 
 function standingsBlock(k){
