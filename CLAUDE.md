@@ -244,8 +244,19 @@ was the whole point of moving there. Keep `ops/leagues_weekly.py` and
 publish-and-deploy on demand) — just never on a schedule.
 
 The one scheduled task that IS correct to have locally is `leagues-matchday-news`
-(Fri/Sat mornings): it needs judgement about confirmed XI vs rumour, which is why
-it cannot live in Actions.
+(cron `0,30 8-22 * * *` — every 30 minutes, 08:00-22:59, ALL SEVEN DAYS since
+2026-08-14, when La Liga and the PL began scheduling midweek fixtures): it needs
+judgement about confirmed XI vs rumour, which is why it cannot live in Actions.
+The 30-minute cadence is deliberate and must stay narrower than the 45-minute pick
+lock window.
+
+**It ABORTS on a dirty working tree** (SKILL.md STEP 0.5) and must never be
+"fixed" by stashing. It once improvised `git stash` to get a blocked
+`git pull --ff-only` through and silently swallowed two hours of uncommitted
+engine work. Worse, it runs `leagues.publish` and `deploy.py`, so on a dirty tree
+it would ship someone's half-finished model to the live site. If you are working
+in this checkout with uncommitted changes, expect the sweep to skip and say so --
+that is the guard doing its job, not a failure.
 
 Both abort rather than deploy if a fetch fails — never ship a stale-but-fresh-
 looking file.
