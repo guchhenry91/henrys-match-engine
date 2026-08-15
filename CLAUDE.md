@@ -244,11 +244,18 @@ was the whole point of moving there. Keep `ops/leagues_weekly.py` and
 publish-and-deploy on demand) — just never on a schedule.
 
 The one scheduled task that IS correct to have locally is `leagues-matchday-news`
-(cron `0,30 8-22 * * *` — every 30 minutes, 08:00-22:59, ALL SEVEN DAYS since
-2026-08-14, when La Liga and the PL began scheduling midweek fixtures): it needs
-judgement about confirmed XI vs rumour, which is why it cannot live in Actions.
-The 30-minute cadence is deliberate and must stay narrower than the 45-minute pick
-lock window.
+(cron `0 8-22 * * *` — HOURLY, 08:00-22:59, all seven days since 2026-08-14, when
+La Liga and the PL began scheduling midweek fixtures): it needs judgement about
+confirmed XI vs rumour, which is why it cannot live in Actions.
+
+**Its cadence is NOT what protects the pick lock.** Freezing a pick is
+`leagues.yml`'s `0,30 11-22 * * *` cron in GitHub Actions, which is every 30
+minutes precisely because it must be narrower than the 45-minute lock window.
+This local task has its own, much wider gate — fixtures 45 minutes to 3 hours
+out, a 2h15m window — so hourly still gives every fixture about two chances to
+be researched before it locks. Do not "restore" this to 30 minutes on the belief
+that the lock depends on it; if voids ever appear in the record, the cadence to
+tighten is the Actions one.
 
 **It ABORTS on a dirty working tree** (SKILL.md STEP 0.5) and must never be
 "fixed" by stashing. It once improvised `git stash` to get a blocked
