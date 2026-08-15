@@ -1,0 +1,42 @@
+{
+  "_note": "Manual kickoff-time overrides. fixturedownload.com is the ONLY fixture source and its DateUtc is wrong for some fixtures: on 2026-08-15 every La Liga matchday-1 kickoff was exactly 10 hours early, because the feed published the LOCAL time on a 12-hour clock with the PM dropped and then labelled it 'Z' (19:30 CEST -> '07:30Z'; true UTC 17:30). A wrong kickoff freezes the pick hours early -- before any confirmed XI exists -- and hides the fixture from every board once the fake time passes. Keys are 'Home|Away' in CANONICAL club names, unique within a season. Values are the true kickoff in UTC. VERIFIED ONLY: two independent sources or an official club announcement, same bar as transfers.json. Never extrapolate the +10h pattern onto an unverified fixture -- the plausibility guard in fixtures.py already stops an unverified bad time from locking a pick, so a missing entry is safe and a guessed one is not.",
+  "_verified_on": "2026-08-15",
+  "LALIGA": {
+    "Alaves|Getafe": {
+      "utc": "2026-08-15T17:30:00Z",
+      "feed_said": "2026-08-15T07:30:00Z",
+      "local": "19:30 CEST",
+      "sources": [
+        "365scores match preview: 6:30pm UK",
+        "LaLiga matchday-1 schedule: 19:30 CEST"
+      ]
+    },
+    "Sevilla|Vallecano": {
+      "utc": "2026-08-15T19:30:00Z",
+      "feed_said": "2026-08-15T09:30:00Z",
+      "local": "21:30 CEST",
+      "sources": [
+        "365scores match preview: 8:30pm UK",
+        "LaLiga matchday-1 schedule: 21:30 CEST"
+      ]
+    },
+    "Racing Santander|Villarreal": {
+      "utc": "2026-08-16T15:00:00Z",
+      "feed_said": "2026-08-16T05:00:00Z",
+      "local": "17:00 CEST",
+      "sources": [
+        "realracingclub.es official: domingo 16 de agosto a las 17:00",
+        "mightytips/Yahoo preview: 16:00 UK / 17:00 CEST"
+      ]
+    },
+    "Espanol|Levante": {
+      "utc": "2026-08-16T17:00:00Z",
+      "feed_said": "2026-08-16T07:00:00Z",
+      "local": "19:00 CEST",
+      "sources": [
+        "rcdespanyol.com official ticket page: domingo 16 de agosto de 2026 - 19:00",
+        "Levante UD official X account: Domingo 16 de agosto, 19:00 horas, RCDE Stadium"
+      ]
+    }
+  }
+}

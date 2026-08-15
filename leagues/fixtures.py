@@ -11,27 +11,67 @@ from leagues.names import canonical
 
 FEED = "https://fixturedownload.com/feed/json/{slug}"
 
+OVERRIDES = (Path(__file__).resolve().parent.parent / "data-raw" / "leagues"
+             / "fixture_times.json")
+
+# A domestic European fixture kicks off between these UTC hours. Deliberately
+# WIDE -- it is a nonsense detector, not a schedule. The real 2026-27 spread is
+# 11:00Z (a 12:30 BST Saturday) to 20:00Z (a 21:00 BST Monday), so this leaves
+# room either side and still catches what the feed actually gets wrong:
+# La Liga times published 10 hours early (04:00-09:00Z), Bundesliga rounds with
+# a 00:00Z placeholder, and Ligue 1 rounds at 22:00-23:00Z.
+KICKOFF_UTC_EARLIEST = 10
+KICKOFF_UTC_LATEST = 21
+
+
+def _time_overrides(league: str) -> dict:
+    """'Home|Away' -> true kickoff UTC, from the hand-verified override file."""
+    if not OVERRIDES.exists():
+        return {}
+    try:
+        raw = json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    except Exception as exc:               # never let a bad override file stop a publish
+        print(f"WARNING: could not read {OVERRIDES.name} ({exc}); no time overrides")
+        return {}
+    return {k: v["utc"] for k, v in (raw.get(league) or {}).items()
+            if isinstance(v, dict) and v.get("utc")}
+
 
 def parse_fixtures(raw: list[dict], league: str) -> pd.DataFrame:
-    """Pure parser — takes the decoded JSON list, returns a clean DataFrame."""
+    """Pure parser — takes the decoded JSON list, returns a clean DataFrame.
+
+    Applies the verified kickoff-time overrides and flags any REMAINING time that
+    is not a plausible kickoff hour. The feed's DateUtc cannot be trusted on its
+    own: see fixture_times.json for the 10-hour La Liga error that shipped on
+    2026-08-15.
+    """
+    over = _time_overrides(league)
     rows = []
     for r in raw:
         hg, ag = r.get("HomeTeamScore"), r.get("AwayTeamScore")
         played = hg is not None and ag is not None
+        home = canonical(r["HomeTeam"], league)
+        away = canonical(r["AwayTeam"], league)
+        fixed = over.get(f"{home}|{away}")
+        date = pd.to_datetime(fixed or r["DateUtc"], utc=True)
         rows.append({
             "match_id": r["MatchNumber"],
             "round": r["RoundNumber"],
-            "date": pd.to_datetime(r["DateUtc"], utc=True),
+            "date": date,
             "venue": r.get("Location") or "",
-            "home": canonical(r["HomeTeam"], league),
-            "away": canonical(r["AwayTeam"], league),
+            "home": home,
+            "away": away,
             "home_goals": int(hg) if played else pd.NA,
             "away_goals": int(ag) if played else pd.NA,
             "played": played,
+            # An override is verified, so it is never suspect. Anything else
+            # outside the plausible window is a time we do not believe.
+            "time_suspect": bool(fixed is None and not
+                                 KICKOFF_UTC_EARLIEST <= date.hour <= KICKOFF_UTC_LATEST),
         })
     return pd.DataFrame(rows, columns=["match_id", "round", "date", "venue",
                                        "home", "away", "home_goals", "away_goals",
-                                       "played"])
+                                       "played", "time_suspect"])
 
 
 SNAPSHOT_DIR = Path(__file__).resolve().parent.parent / "data-raw" / "leagues" / "_snapshots"

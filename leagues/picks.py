@@ -17,6 +17,10 @@ import pandas as pd
 # this only taints a key that is first seen after the match has begun.
 LATE_LOCK_HOURS = 0.0
 
+# Where released locks are archived inside the log. Underscore-prefixed so it can
+# never collide with a match key, and so every consumer of the log can skip it.
+RELEASED_KEY = "_released"
+
 
 def load_log(path: str | Path) -> dict:
     p = Path(path)
@@ -34,6 +38,56 @@ def save_log(log: dict, path: str | Path) -> None:
 def _utc(ts) -> pd.Timestamp:
     ts = pd.Timestamp(ts)
     return ts.tz_localize("UTC") if ts.tzinfo is None else ts.tz_convert("UTC")
+
+
+def release_moved_lock(log: dict, match_id, kickoff, now=None) -> bool:
+    """Drop a lock made against a kickoff time the fixture no longer has.
+
+    Rule 1 says a locked pick is never changed. This does not break that rule, it
+    scopes it: the pick was locked against a DIFFERENT fixture-time, so it was
+    never a pick for the match now being played. Two cases, same shape:
+
+      * a corrected kickoff -- on 2026-08-15 the feed had La Liga 10 hours early,
+        so Alaves froze 10.5h before the real kickoff (no team news could reach
+        it) and Sevilla froze 13 minutes after a kickoff that had not happened,
+        which marked it tainted and would have VOIDED a perfectly good pick out
+        of the record;
+      * a genuine postponement, which has exactly the same failure.
+
+    THE SAFETY CONDITIONS ARE THE POINT. Releasing a lock is only honest while no
+    result can be known, so this refuses unless the new kickoff is still in the
+    FUTURE. Never call it for a played match: that would let a pick be re-made
+    with the result visible, which is the precise dishonesty locking exists to
+    prevent. Returns True if a lock was released.
+    """
+    match_id = str(match_id)
+    entry = log.get(match_id)
+    if not entry or entry.get("graded") is not None:
+        return False                      # nothing to release, or already judged
+    now = _utc(now if now is not None else pd.Timestamp.now("UTC"))
+    kickoff = _utc(kickoff)
+    if kickoff <= now:
+        return False                      # match started: re-locking is hindsight
+    was = entry.get("kickoff")
+    if was and _utc(was) == kickoff:
+        return False                      # same fixture-time; the lock stands
+
+    # AUDIT, not deletion. The log is append-only and sanity_check enforces that
+    # against git HEAD -- correctly, since a silent removal is how a `wrong`
+    # becomes a `correct`. So the released pick is MOVED into `_released`, with
+    # the old kickoff, the new one, and the entry verbatim. Nothing disappears;
+    # the released entry stays readable forever, and the slot is free to re-lock.
+    released = log.setdefault(RELEASED_KEY, {})
+    released.setdefault(match_id, []).append({
+        "released_at": now.isoformat(),
+        "was_kickoff": _utc(was).isoformat() if was else None,
+        "now_kickoff": kickoff.isoformat(),
+        "reason": "kickoff moved after this pick locked; re-locked against the "
+                  "real time (match unplayed and still in the future)",
+        "entry": entry,
+    })
+    del log[match_id]
+    return True
 
 
 def lock_pick(log: dict, match_id, pick: str, confidence: int,

@@ -14,7 +14,11 @@ def test_parse_fixtures_normalizes_names_and_types():
     df = parse_fixtures(RAW, "PL")
     assert len(df) == 2
     assert list(df.columns) == ["match_id", "round", "date", "venue",
-                                "home", "away", "home_goals", "away_goals", "played"]
+                                "home", "away", "home_goals", "away_goals", "played",
+                                # time_suspect: the feed's kickoff time is not
+                                # believable, so publish must not freeze the pick
+                                # on it (see test_fixture_times.py).
+                                "time_suspect"]
     assert df.loc[0, "home"] == "Arsenal"
     assert df.loc[1, "away"] == "Manchester City"
 

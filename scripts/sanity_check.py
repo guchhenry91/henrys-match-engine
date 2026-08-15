@@ -206,11 +206,25 @@ def check_picks_immutable():
                 fail(f"log:{lg}/{name}", f"unparseable JSON ({exc})")
                 continue
 
+            released = new.get("_released", {})
             for key, was in old.items():
+                if key.startswith("_"):
+                    continue                  # bookkeeping, not a pick
                 if key not in new:
+                    # ONE legitimate removal: picks.release_moved_lock frees a pick
+                    # whose kickoff moved (a corrected feed time or a postponement)
+                    # while the match is still unplayed and in the future. It must
+                    # leave the entry verbatim under `_released`, so the record is
+                    # still complete and the removal is explained. An unexplained
+                    # disappearance is exactly the tampering this check exists for.
+                    archived = released.get(key) or []
+                    if archived and archived[-1].get("entry") == was:
+                        continue
                     fail(f"log:{lg}/{name}",
                          f"pick {key} was DELETED from the log -- the record is "
-                         f"append-only and a settled pick may never be removed")
+                         f"append-only and a settled pick may never be removed"
+                         + (" (a _released archive exists but does not match the "
+                            "original entry)" if archived else ""))
                 elif new[key] != was:
                     changed = sorted({k for k in set(was) | set(new[key])
                                       if was.get(k) != new[key].get(k)})

@@ -1,20 +1,38 @@
 {
-  "2026:1": {
-    "board": false,
-    "confidence": 2,
-    "kickoff": "2026-08-15T07:30:00+00:00",
-    "locked_at": "2026-08-15T06:59:13.578617+00:00",
-    "p_pick": 0.4732,
-    "pick": "Alaves",
-    "tainted": false
-  },
-  "2026:9": {
-    "board": false,
-    "confidence": 1,
-    "kickoff": "2026-08-15T09:30:00+00:00",
-    "locked_at": "2026-08-15T09:43:25.764388+00:00",
-    "p_pick": 0.3725,
-    "pick": "Sevilla",
-    "tainted": true
+  "_released": {
+    "2026:1": [
+      {
+        "entry": {
+          "board": false,
+          "confidence": 2,
+          "kickoff": "2026-08-15T07:30:00+00:00",
+          "locked_at": "2026-08-15T06:59:13.578617+00:00",
+          "p_pick": 0.4732,
+          "pick": "Alaves",
+          "tainted": false
+        },
+        "now_kickoff": "2026-08-15T17:30:00+00:00",
+        "reason": "kickoff moved after this pick locked; re-locked against the real time (match unplayed and still in the future)",
+        "released_at": "2026-08-15T10:46:51.820065+00:00",
+        "was_kickoff": "2026-08-15T07:30:00+00:00"
+      }
+    ],
+    "2026:9": [
+      {
+        "entry": {
+          "board": false,
+          "confidence": 1,
+          "kickoff": "2026-08-15T09:30:00+00:00",
+          "locked_at": "2026-08-15T09:43:25.764388+00:00",
+          "p_pick": 0.3725,
+          "pick": "Sevilla",
+          "tainted": true
+        },
+        "now_kickoff": "2026-08-15T19:30:00+00:00",
+        "reason": "kickoff moved after this pick locked; re-locked against the real time (match unplayed and still in the future)",
+        "released_at": "2026-08-15T10:46:51.820065+00:00",
+        "was_kickoff": "2026-08-15T09:30:00+00:00"
+      }
+    ]
   }
 }

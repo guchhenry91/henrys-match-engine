@@ -430,6 +430,8 @@ def build(league: str = "PL") -> dict:
                              if rates[rates["team"] == t].empty})
 
     out_matches = []
+    suspect_times = []          # fixtures whose kickoff the feed got wrong
+    released_locks = []         # picks freed because their kickoff moved
     for _, m in upcoming.iterrows():
         home, away = m["home"], m["away"]
         pred = model.predict(home, away)
@@ -470,8 +472,25 @@ def build(league: str = "PL") -> dict:
         pick = max(probs, key=probs.get)
 
         # Freeze only inside the lock window; before that the pick stays live.
+        #
+        # A fixture whose kickoff time we do not believe NEVER freezes. The lock
+        # window is measured from the kickoff, so a wrong time freezes the pick at
+        # the wrong moment -- on 2026-08-15 the feed had La Liga 10 hours early and
+        # both openers locked before dawn, hours before any confirmed XI existed,
+        # which is precisely what the 45-minute window is designed to prevent.
+        # Staying provisional is the safe failure: the pick keeps updating, and it
+        # will freeze correctly once the time is verified into fixture_times.json.
         hours_out = (pd.Timestamp(m["date"]) - now).total_seconds() / 3600.0
-        if hours_out <= LOCK_WINDOW_HOURS:
+        if bool(m.get("time_suspect")):
+            suspect_times.append(f"{m['home']} v {m['away']}")
+        # If this fixture's kickoff has MOVED since its pick was locked -- a
+        # corrected feed time or a postponement -- that lock was made against a
+        # different fixture-time and is released so it can be re-made properly.
+        # Only ever while the new kickoff is still in the future (see the
+        # docstring); a played match is never re-locked.
+        if picks.release_moved_lock(log, log_key(m["match_id"]), m["date"], now=now):
+            released_locks.append(f"{m['home']} v {m['away']}")
+        if hours_out <= LOCK_WINDOW_HOURS and not bool(m.get("time_suspect")):
             entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
                                     confidence=_confidence(probs[pick]),
                                     kickoff=m["date"], now=now,
@@ -657,6 +676,19 @@ def build(league: str = "PL") -> dict:
             "graded": entry.get("graded"),
             "void": bool(entry.get("void", False)),
         })
+
+    if released_locks:
+        print(f"NOTE: {league}: kickoff moved since lock; pick released to be "
+              f"re-made at the real time: {released_locks}")
+    if suspect_times:
+        names = ", ".join(suspect_times[:4]) + (
+            f" and {len(suspect_times) - 4} more" if len(suspect_times) > 4 else "")
+        warnings.append(
+            f"The fixture feed gives an implausible kickoff time for {names}, so the "
+            f"time shown may be wrong and those picks stay provisional rather than "
+            f"freezing at the wrong moment. Verified times go in fixture_times.json.")
+        print(f"WARNING: {league}: implausible kickoff time, pick NOT locked, for "
+              f"{len(suspect_times)} fixture(s): {suspect_times[:6]}")
 
     def _read(path):
         p = PICKS_DIR / path
