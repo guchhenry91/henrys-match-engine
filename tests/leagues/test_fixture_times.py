@@ -128,3 +128,57 @@ def test_shipped_overrides_are_all_plausible_and_documented():
             # Same evidence bar as transfers.json: two sources or an official one.
             assert len(v.get("sources", [])) >= 2, f"{key} needs two sources"
     assert n >= 4
+
+
+# --- verified result overrides ------------------------------------------------
+# Added 2026-08-15: the feed had 0 of 380 scores three hours after the season's
+# first match ended, so nothing could grade.
+
+def _res(tmp_path, monkeypatch, payload):
+    p = tmp_path / "results_override.json"
+    p.write_text(json.dumps(payload), encoding="utf-8")
+    monkeypatch.setattr(fixtures, "RESULTS", p)
+
+
+def test_verified_result_fills_in_a_score_the_feed_lacks(tmp_path, monkeypatch,
+                                                         no_overrides):
+    _res(tmp_path, monkeypatch, {"LALIGA": {"Alaves|Getafe": {
+        "home_goals": 3, "away_goals": 0, "status": "FT"}}})
+    fx = fixtures.parse_fixtures(_raw("2026-08-15 17:30:00Z"), "LALIGA")
+    assert bool(fx.loc[0, "played"]) is True
+    assert (fx.loc[0, "home_goals"], fx.loc[0, "away_goals"]) == (3, 0)
+
+
+def test_feed_wins_when_it_has_its_own_score(tmp_path, monkeypatch, no_overrides):
+    """The override is a latency stopgap, never a way to overrule the source."""
+    _res(tmp_path, monkeypatch, {"LALIGA": {"Alaves|Getafe": {
+        "home_goals": 3, "away_goals": 0, "status": "FT"}}})
+    fx = fixtures.parse_fixtures(_raw("2026-08-15 17:30:00Z", score=1), "LALIGA")
+    assert (fx.loc[0, "home_goals"], fx.loc[0, "away_goals"]) == (1, 1)
+
+
+def test_non_full_time_result_is_refused(tmp_path, monkeypatch, no_overrides):
+    """A live or half-time score must never enter the record as final."""
+    _res(tmp_path, monkeypatch, {"LALIGA": {"Alaves|Getafe": {
+        "home_goals": 1, "away_goals": 0, "status": "HT"}}})
+    fx = fixtures.parse_fixtures(_raw("2026-08-15 17:30:00Z"), "LALIGA")
+    assert bool(fx.loc[0, "played"]) is False
+
+
+def test_partial_or_non_integer_result_is_refused(tmp_path, monkeypatch, no_overrides):
+    _res(tmp_path, monkeypatch, {"LALIGA": {"Alaves|Getafe": {
+        "home_goals": 3, "away_goals": None, "status": "FT"}}})
+    fx = fixtures.parse_fixtures(_raw("2026-08-15 17:30:00Z"), "LALIGA")
+    assert bool(fx.loc[0, "played"]) is False
+
+
+def test_shipped_result_overrides_are_full_time_and_sourced():
+    raw = json.loads(fixtures.RESULTS.read_text(encoding="utf-8"))
+    for league, entries in raw.items():
+        if league.startswith("_"):
+            continue
+        for key, v in entries.items():
+            assert "|" in key
+            assert v["status"] == "FT", f"{key} is not full time"
+            assert isinstance(v["home_goals"], int) and isinstance(v["away_goals"], int)
+            assert len(v.get("sources", [])) >= 2, f"{key} needs two sources"

@@ -13,6 +13,8 @@ FEED = "https://fixturedownload.com/feed/json/{slug}"
 
 OVERRIDES = (Path(__file__).resolve().parent.parent / "data-raw" / "leagues"
              / "fixture_times.json")
+RESULTS = (Path(__file__).resolve().parent.parent / "data-raw" / "leagues"
+           / "results_override.json")
 
 # A domestic European fixture kicks off between these UTC hours. Deliberately
 # WIDE -- it is a nonsense detector, not a schedule. The real 2026-27 spread is
@@ -37,6 +39,32 @@ def _time_overrides(league: str) -> dict:
             if isinstance(v, dict) and v.get("utc")}
 
 
+def _result_overrides(league: str) -> dict:
+    """'Home|Away' -> verified final result, for fixtures the feed has not scored.
+
+    The feed is the authority and this never overrules it -- see the caller: an
+    override is used only where the feed's score is MISSING, and a disagreement
+    once the feed catches up is reported rather than hidden.
+    """
+    if not RESULTS.exists():
+        return {}
+    try:
+        raw = json.loads(RESULTS.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"WARNING: could not read {RESULTS.name} ({exc}); no result overrides")
+        return {}
+    out = {}
+    for k, v in (raw.get(league) or {}).items():
+        if not isinstance(v, dict):
+            continue
+        hg, ag = v.get("home_goals"), v.get("away_goals")
+        # Only a FULL-TIME result may grade a pick. A live or half-time score
+        # would silently enter the record as final.
+        if isinstance(hg, int) and isinstance(ag, int) and v.get("status") == "FT":
+            out[k] = (hg, ag)
+    return out
+
+
 def parse_fixtures(raw: list[dict], league: str) -> pd.DataFrame:
     """Pure parser — takes the decoded JSON list, returns a clean DataFrame.
 
@@ -46,12 +74,28 @@ def parse_fixtures(raw: list[dict], league: str) -> pd.DataFrame:
     2026-08-15.
     """
     over = _time_overrides(league)
+    results = _result_overrides(league)
     rows = []
     for r in raw:
         hg, ag = r.get("HomeTeamScore"), r.get("AwayTeamScore")
         played = hg is not None and ag is not None
         home = canonical(r["HomeTeam"], league)
         away = canonical(r["AwayTeam"], league)
+        verified = results.get(f"{home}|{away}")
+        if verified:
+            if not played:
+                # The feed has not scored this fixture yet. Fill in the verified
+                # full-time result so the pick can grade on schedule instead of
+                # waiting on the feed.
+                hg, ag = verified
+                played = True
+            elif (hg, ag) != verified:
+                # The feed caught up and disagrees. The FEED WINS -- it is the
+                # source of record and self-corrects -- but a silent divergence
+                # would hide either a bad override or a bad feed, so say so.
+                print(f"WARNING: {league}: {home} v {away}: verified override "
+                      f"{verified[0]}-{verified[1]} disagrees with the feed's "
+                      f"{hg}-{ag}; using the FEED. Re-check results_override.json.")
         fixed = over.get(f"{home}|{away}")
         date = pd.to_datetime(fixed or r["DateUtc"], utc=True)
         rows.append({
