@@ -228,6 +228,17 @@ def check_picks_immutable():
                 elif new[key] != was:
                     changed = sorted({k for k in set(was) | set(new[key])
                                       if was.get(k) != new[key].get(k)})
+                    # GRADING IS NOT TAMPERING. Settling a pick writes `graded`
+                    # and `void` onto the frozen entry -- that is the normal flow,
+                    # and everything else about the pick stays byte-identical.
+                    # This check flagged it as a modification and would have failed
+                    # every matchday deploy from the first settled pick onward; it
+                    # only went unnoticed because the leagues record was 0-0 until
+                    # 2026-08-15. Allowed strictly one way: an ungraded entry may
+                    # GAIN a verdict, never change or lose one, so a `wrong` can
+                    # still never become a `correct`.
+                    if set(changed) <= {"graded", "void"} and was.get("graded") is None:
+                        continue
                     fail(f"log:{lg}/{name}",
                          f"pick {key} was MODIFIED after locking (fields: "
                          f"{', '.join(changed)}) -- a frozen pick is immutable")
