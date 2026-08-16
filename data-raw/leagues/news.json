@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-08-15",
+  "_verified_on": "2026-08-16",
   "PL": {},
   "LALIGA": {
     "Alaves": {
@@ -83,7 +83,7 @@
       "out": [],
       "doubt": [],
       "automation": {
-        "checked_at": "2026-08-15T21:46:54.884442Z",
+        "checked_at": "2026-08-16T01:58:54.167011Z",
         "feeds_ok": [
           "google-news",
           "bing-news",
@@ -94,13 +94,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-08-15T21:46:54.884442Z"
+      "checked": "2026-08-16T01:58:54.167011Z"
     },
     "Villarreal": {
       "out": [],
       "doubt": [],
       "automation": {
-        "checked_at": "2026-08-15T21:46:54.884442Z",
+        "checked_at": "2026-08-16T01:58:54.167011Z",
         "feeds_ok": [
           "google-news",
           "bing-news",
@@ -111,29 +111,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-08-15T21:46:54.884442Z"
+      "checked": "2026-08-16T01:58:54.167011Z"
     },
     "Espanol": {
       "out": [],
       "doubt": [],
       "automation": {
-        "checked_at": "2026-08-15T21:46:54.884442Z",
-        "feeds_ok": [
-          "google-news",
-          "bbc-sport"
-        ],
-        "evidence": [],
-        "out": [],
-        "doubt": [],
-        "policy": "two-independent-publishers"
-      },
-      "checked": "2026-08-15T21:36:21.289983Z"
-    },
-    "Levante": {
-      "out": [],
-      "doubt": [],
-      "automation": {
-        "checked_at": "2026-08-15T21:46:54.884442Z",
+        "checked_at": "2026-08-16T01:58:54.167011Z",
         "feeds_ok": [
           "google-news",
           "bing-news",
@@ -144,7 +128,24 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-08-15T21:46:54.884442Z"
+      "checked": "2026-08-16T01:58:54.167011Z"
+    },
+    "Levante": {
+      "out": [],
+      "doubt": [],
+      "automation": {
+        "checked_at": "2026-08-16T01:58:54.167011Z",
+        "feeds_ok": [
+          "google-news",
+          "bing-news",
+          "bbc-sport"
+        ],
+        "evidence": [],
+        "out": [],
+        "doubt": [],
+        "policy": "two-independent-publishers"
+      },
+      "checked": "2026-08-16T01:58:54.167011Z"
     },
     "Celta": {
       "out": [],
@@ -184,23 +185,7 @@
       "out": [],
       "doubt": [],
       "automation": {
-        "checked_at": "2026-08-15T21:46:54.884442Z",
-        "feeds_ok": [
-          "google-news",
-          "bbc-sport"
-        ],
-        "evidence": [],
-        "out": [],
-        "doubt": [],
-        "policy": "two-independent-publishers"
-      },
-      "checked": "2026-08-15T21:36:21.289983Z"
-    },
-    "Elche": {
-      "out": [],
-      "doubt": [],
-      "automation": {
-        "checked_at": "2026-08-15T21:46:54.884442Z",
+        "checked_at": "2026-08-16T01:58:54.167011Z",
         "feeds_ok": [
           "google-news",
           "bing-news",
@@ -211,7 +196,24 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-08-15T21:46:54.884442Z"
+      "checked": "2026-08-16T01:58:54.167011Z"
+    },
+    "Elche": {
+      "out": [],
+      "doubt": [],
+      "automation": {
+        "checked_at": "2026-08-16T01:58:54.167011Z",
+        "feeds_ok": [
+          "google-news",
+          "bing-news",
+          "bbc-sport"
+        ],
+        "evidence": [],
+        "out": [],
+        "doubt": [],
+        "policy": "two-independent-publishers"
+      },
+      "checked": "2026-08-16T01:58:54.167011Z"
     }
   },
   "BUNDESLIGA": {},
