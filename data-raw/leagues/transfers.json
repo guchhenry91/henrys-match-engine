@@ -24,12 +24,15 @@
   "Bruno Guimarães": "Arsenal",
   "Christantus Uche": null,
   "Christian Nørgaard": "Everton",
+  "Cristian Romero": null,
   "Danny Welbeck": "Chelsea",
   "Diego Coppola": null,
+  "Djed Spence": null,
   "Donyell Malen": null,
   "Dwight McNeil": "Crystal Palace",
   "Eliezer Mayenda": null,
   "Elliot Anderson": "Manchester City",
+  "Evann Guessand": "Crystal Palace",
   "Frank Onyeka": "Coventry",
   "Guido Rodríguez": null,
   "Hamed Junior Traore": null,
@@ -38,8 +41,10 @@
   "Idrissa Gueye": null,
   "Issa Diop": "Ipswich",
   "Jack Grealish": "Manchester City",
+  "James Trafford": "Leeds",
   "Jan Paul van Hecke": "Tottenham",
   "Jordan Henderson": "Chelsea",
+  "Karl Darlow": "Manchester United",
   "Leandro Trossard": null,
   "Lorenzo Lucca": null,
   "Marc Guehi": "Manchester City",
@@ -54,6 +59,7 @@
   "Reiss Nelson": "Arsenal",
   "Samuel Chukwueze": null,
   "Sandro Tonali": "Tottenham",
+  "Sasa Lukic": "Ipswich",
   "Tyrique George": "Everton",
   "Youri Tielemans": "Manchester United"
  },
@@ -539,6 +545,24 @@
     "verified_by": "direct web search, current reporting as of 2026-08-17T19:06Z",
     "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: still wants to leave (a Turkish club reportedly pushing hard, Dortmund reportedly scouting a replacement) but no fee agreed or deal signed -- still Dortmund, unconfirmed rumour only, not actioned. Sorloth: still formally transfer-listed (EUR40m ask, Juventus personal terms pre-dating the World Cup) but a fresh report says Atletico now consider him NOT for sale absent an 'irresistible offer' -- consistent with the 08:52Z sweep's social-media version of the same claim, still no deal either way, still Ath Madrid, unconfirmed, not actioned. General done-deals scan (FootballTransfers) found ZERO official transfers completed in the top five leagues today. Haaland, Kane, Mbappe, Igor Thiago, Vinicius Jr, Semenyo, Olise, Undav, Edouard, Thauvin unchanged from the 08:52Z sweep, no new reports surfaced.",
     "not_checked": "earliest Best Picks fixture is 2026-08-19T19:00Z, ~48 hours out -- no fixtures were within the 45min-3h window this run, so full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist yet either -- the season has not started."
+   },
+   {
+    "date": "2026-08-17",
+    "scope": "pre-season audit before the Premier League opener (21 Aug)",
+    "clubs": "all 4 leagues",
+    "players": 2076,
+    "method": "scripts/transfer_audit.py data scan (17 same-league candidates) plus a news pass over the 15-17 Aug done-deal lists",
+    "verified_by": "web search, two independent sources or an official club announcement",
+    "result": "6 written. THE NEWS PASS FOUND WHAT THE SCAN COULD NOT: Cristian Romero and Djed Spence were both still LIVE on the board at Tottenham having left for Atletico Madrid and Inter on 15 Aug. The roster feed had not updated, so Understat and the feed agreed and neither player was ever dropped -- no discrepancy existed for the scan to see.",
+    "rejected": [
+     "Alvaro Garcia (namesake)",
+     "Alvaro Fernandez (namesake)",
+     "Manuel Sanchez (parent club)",
+     "Andre Gomes (went to MLS)",
+     "Josh Dasilva (no report)",
+     "Mio Backhaus / Daniel Batz (unverified GKs)"
+    ],
+    "not_checked": "same-league candidates under ~4 x90 (Julio Diaz, Bernardeau, Campbell, Bermont, Lozano, Serigne Diop); all 48 cross-league candidates, which are already correctly dropped"
    }
   ],
   "known_gaps": [

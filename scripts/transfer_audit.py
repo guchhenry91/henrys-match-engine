@@ -20,6 +20,7 @@ flags as two different players at two clubs. Every write needs two independent
 sources or an official club announcement.
 """
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -108,6 +109,14 @@ def run() -> dict:
 
 
 def main():
+    # Player names are full of accents; a Windows console defaults to cp1252 and
+    # raises on the first one it cannot encode. That killed a whole audit run
+    # after the scan had finished but BEFORE the report was written, losing the
+    # work to a printing detail.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
     rep = run()
     print(f"scanned {rep['checked']} player-rows\n")
     print(f"=== SAME-LEAGUE candidates ({len(rep['same_league'])}) -- an override would reassign these ===")
