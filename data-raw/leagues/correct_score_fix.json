@@ -1,0 +1,54 @@
+[
+  {
+    "league": "PL",
+    "n": 380,
+    "model_mode_pct": 11.84,
+    "empirical_lookup_pct": 12.37,
+    "always_1_1_pct": 12.37,
+    "lookup_lift_vs_baseline_pp": 0.0,
+    "lookup_lift_vs_model_pp": 0.53,
+    "n_model_picks_non_1_1": 70,
+    "acc_when_model_avoids_1_1_pct": 11.43,
+    "acc_when_model_says_1_1_pct": 11.94,
+    "distinct_lookup_scores": 7
+  },
+  {
+    "league": "LALIGA",
+    "n": 380,
+    "model_mode_pct": 18.42,
+    "empirical_lookup_pct": 14.21,
+    "always_1_1_pct": 15.26,
+    "lookup_lift_vs_baseline_pp": -1.05,
+    "lookup_lift_vs_model_pp": -4.21,
+    "n_model_picks_non_1_1": 210,
+    "acc_when_model_avoids_1_1_pct": 16.67,
+    "acc_when_model_says_1_1_pct": 20.59,
+    "distinct_lookup_scores": 4
+  },
+  {
+    "league": "BUNDESLIGA",
+    "n": 306,
+    "model_mode_pct": 10.78,
+    "empirical_lookup_pct": 9.8,
+    "always_1_1_pct": 11.11,
+    "lookup_lift_vs_baseline_pp": -1.31,
+    "lookup_lift_vs_model_pp": -0.98,
+    "n_model_picks_non_1_1": 52,
+    "acc_when_model_avoids_1_1_pct": 3.85,
+    "acc_when_model_says_1_1_pct": 12.2,
+    "distinct_lookup_scores": 4
+  },
+  {
+    "league": "LIGUE1",
+    "n": 306,
+    "model_mode_pct": 11.44,
+    "empirical_lookup_pct": 9.15,
+    "always_1_1_pct": 9.48,
+    "lookup_lift_vs_baseline_pp": -0.33,
+    "lookup_lift_vs_model_pp": -2.29,
+    "n_model_picks_non_1_1": 130,
+    "acc_when_model_avoids_1_1_pct": 12.31,
+    "acc_when_model_says_1_1_pct": 10.8,
+    "distinct_lookup_scores": 9
+  }
+]
