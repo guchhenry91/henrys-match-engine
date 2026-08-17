@@ -302,8 +302,13 @@ function buildNav(){
 function tierOf(p){return p>=.75?`<span class="tier t-elite">Elite</span>`:p>=.68?`<span class="tier t-strong">Strong</span>`:`<span class="tier t-lean">Lean</span>`;}
 
 function bestRow(u){
+  // The bookmaker's price on the picked side, when the fixture is priced. Odds
+  // only appear about a week out, so this is absent more often than not and the
+  // row must read fine without it.
+  const price=(u.odds!=null&&Number.isFinite(Number(u.odds)))
+    ? ` · ${esc(u.book||"bookmaker")} ${Number(u.odds).toFixed(2)}` : "";
   return `<div class="rw" onclick="openMatch('${u.league_key}',${u.id})"><span class="lgtag" style="background:${LC[u.league_key]}"></span>
-    <div class="info"><b>${esc(u.home)} v ${esc(u.away)}</b><span>${esc(LG[u.league_key])} · pick ${esc(u.pick)}</span></div>
+    <div class="info"><b>${esc(u.home)} v ${esc(u.away)}</b><span>${esc(LG[u.league_key])} · pick ${esc(u.pick)}${price}</span></div>
     ${tierOf(u.p_pick)}<div class="conf" style="min-width:74px"><b>${pc(u.p_pick)}%</b><div class="bar"><i style="width:${pc(u.p_pick)}%"></i></div></div>
     <span class="chev">›</span></div>`;
 }
@@ -599,7 +604,13 @@ function openMatch(lk,id){
   // A gap is a DISAGREEMENT, not an edge in the betting sense -- the market may
   // simply be pricing team news the model cannot see -- and the copy says so
   // rather than letting a green number read as free money.
-  const mk=p.market;
+  // m.market, NOT p.market. `p` is m.prediction, and the market line is a
+  // SIBLING of it on the match object. Reading it off the prediction gave
+  // undefined every time, so this whole section silently rendered its "no line
+  // posted" fallback even for fixtures that were priced -- which is why it never
+  // looked broken. Caught only when a bet365 price was added and still did not
+  // appear.
+  const mk=m.market;
   // Number(null) is 0, which IS finite -- a bare Number.isFinite guard let a
   // null price through and rendered "Bookmakers 0% 0% 0%" while claiming the
   // model agreed with it. Reject null/undefined/"" explicitly.
@@ -611,12 +622,29 @@ function openMatch(lk,id){
     const edgeLine=pts==null?"":`<div class="mktedge" style="color:${agrees?"var(--sub)":(e>0?"var(--lime)":"var(--hot)")}">${
       agrees?`The model and the bookmakers broadly agree on ${esc(p.pick||"this pick")}.`
             :`The model rates ${esc(p.pick||"the pick")} ${pts} points ${e>0?"higher":"lower"} than the bookmakers.`}</div>`;
+    // The PRICE as offered, undevigged, on its own row. The two rows above are
+    // probabilities with the margin stripped out; this one is the number you
+    // would actually be quoted, so it must never be "corrected".
+    const o=mk.odds||{};
+    const oddsRow=(priced(o.home)&&priced(o.draw)&&priced(o.away))
+      ? `<div class="mktrow"><span>${esc(mk.book||"bookmaker")}</span>
+           <b>${Number(o.home).toFixed(2)}</b><b>${Number(o.draw).toFixed(2)}</b><b>${Number(o.away).toFixed(2)}</b></div>`
+      : "";
+    // Expected value at that price, straight from the model's own probability.
+    // Deliberately understated: the model does NOT beat the closing line (see
+    // Honest limitations), so a positive number here is the model disagreeing
+    // with bet365, not a detected profit. Presenting it as the latter would be
+    // the one dishonest thing on this page.
+    const evLine=priced(mk.ev)&&priced(mk.pick_odds)
+      ? `<div class="mktedge" style="color:var(--sub)">At ${Number(mk.pick_odds).toFixed(2)} on ${esc(p.pick||"the pick")}, the model's ${Math.round((p.p_pick||0)*100)}% implies ${Number(mk.ev)>0?"+":""}${Math.round(Number(mk.ev)*100)}% expected value — the model's own arithmetic, not a profit forecast.</div>`
+      : "";
     marketSec=`<div class="glass dsec"><h3>Model vs bookmakers</h3>
       <div class="mktrow mkthead"><span></span><b>Home</b><b>Draw</b><b>Away</b></div>
       <div class="mktrow"><span>Model</span><b>${ph}%</b><b>${pd}%</b><b>${pa}%</b></div>
       <div class="mktrow"><span>Bookmakers</span><b>${pc(mk.p_home)}%</b><b>${pc(mk.p_draw)}%</b><b>${pc(mk.p_away)}%</b></div>
-      ${edgeLine}
-      <p class="note" style="padding-top:8px">Bookmaker prices with their margin removed, shown for comparison only -- they do not feed the model. A gap means the two disagree, not that there is money in it: the market is usually pricing late team news the model has not seen.</p></div>`;
+      ${oddsRow}
+      ${edgeLine}${evLine}
+      <p class="note" style="padding-top:8px">The percentage rows are bookmaker prices with the margin removed, for comparison only -- no odds feed the model. The ${esc(mk.book||"bookmaker")} row is the decimal price as offered. A gap means the two disagree, not that there is money in it: the market is usually pricing late team news the model has not seen, and the model does not beat the closing line.</p></div>`;
   } else {
     marketSec=`<div class="glass dsec"><h3>Model vs bookmakers</h3>
       <p class="note" style="padding-top:0">No bookmaker line is posted for this fixture yet. The odds feed only carries about a week ahead, so lines appear a few days before kickoff.</p></div>`;

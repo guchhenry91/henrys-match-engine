@@ -1,1 +1,71 @@
-{}
+{
+  "BUNDESLIGA#9#w|LALIGA#2#w|LIGUE1#7#w|PL#1#w": {
+    "combined": 0.271,
+    "earliest_kickoff": "2026-08-19T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#1#w",
+        "p": 0.7735,
+        "selection": "Arsenal to win"
+      },
+      {
+        "id": "LALIGA#2#w",
+        "p": 0.7353,
+        "selection": "Ath Madrid to win"
+      },
+      {
+        "id": "BUNDESLIGA#9#w",
+        "p": 0.6886,
+        "selection": "Dortmund to win"
+      },
+      {
+        "id": "LIGUE1#7#w",
+        "p": 0.692,
+        "selection": "Paris SG to win"
+      }
+    ],
+    "locked_at": "2026-08-17T19:11:38.384283+00:00",
+    "tainted": false
+  },
+  "LALIGA#2#goal#Alexander S\u00f8rloth|LALIGA#8#shots#Kylian Mbappe-Lottin|PL#8#sot#Erling Haaland": {
+    "combined": 0.125,
+    "earliest_kickoff": "2026-08-19T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#8#sot#Erling Haaland",
+        "p": 0.676,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#8#shots#Kylian Mbappe-Lottin",
+        "p": 0.589,
+        "selection": "Kylian Mbappe-Lottin 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+        "p": 0.314,
+        "selection": "Alexander S\u00f8rloth to score"
+      }
+    ],
+    "locked_at": "2026-08-17T19:11:38.384283+00:00",
+    "tainted": false
+  },
+  "LALIGA#2#w|PL#1#w": {
+    "combined": 0.5688,
+    "earliest_kickoff": "2026-08-19T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#1#w",
+        "p": 0.7735,
+        "selection": "Arsenal to win"
+      },
+      {
+        "id": "LALIGA#2#w",
+        "p": 0.7353,
+        "selection": "Ath Madrid to win"
+      }
+    ],
+    "locked_at": "2026-08-17T19:11:38.384283+00:00",
+    "tainted": false
+  }
+}

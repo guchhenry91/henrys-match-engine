@@ -214,7 +214,19 @@ def _market_block(mkt: dict | None, pred: dict, pick_type: str) -> dict | None:
     if not mkt:
         return None
     model_p = pred[f"p_{pick_type}"] if pick_type != "draw" else pred["p_draw"]
-    return {**mkt, "edge": round(model_p - mkt[f"p_{pick_type}"], 3)}
+    out = {**mkt, "edge": round(model_p - mkt[f"p_{pick_type}"], 3)}
+    price = (mkt.get("odds") or {}).get(pick_type)
+    if price:
+        # The price on the PICKED side, and what the model's probability implies
+        # at it. `ev` is expected return per 1 staked: 0.10 means the model rates
+        # this a 10% edge AT THIS PRICE. It follows directly from the published
+        # probability, so it is exactly as reliable as that probability and no
+        # more -- and the model does not currently beat the closing line, which
+        # is stated on the page. Presented as the model's own arithmetic, not
+        # advice.
+        out["pick_odds"] = price
+        out["ev"] = round(model_p * price - 1.0, 3)
+    return out
 
 
 def actual_standings(played, all_teams) -> list[dict]:
@@ -794,6 +806,12 @@ def build_best_picks() -> dict:
                 "pick": p["pick"], "confidence": p.get("confidence"),
                 "p_pick": p.get("p_pick"), "score": p.get("score"),
                 "provisional": bool(p.get("provisional")),
+                # The price on the picked side, carried onto the board so a
+                # reader does not have to open each match to see it. Absent
+                # (None) whenever the fixture is not priced yet -- the odds feed
+                # only reaches about a week ahead.
+                "odds": (m.get("market") or {}).get("pick_odds"),
+                "book": (m.get("market") or {}).get("book"),
             })
 
         # SETTLED comes only from the frozen log -- graded honestly.

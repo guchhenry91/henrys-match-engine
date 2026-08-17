@@ -54,7 +54,11 @@ ALIASES = {
         "Levante": {"Levante UD"},
         "Malaga": {"Málaga CF", "Malaga CF"},
         "Racing Santander": {"R. Racing Club", "Racing de Santander", "Real Racing Club", "Santander"},
-        "La Coruna": {"RC Deportivo", "Deportivo La Coruna", "Deportivo", "Depor"},
+        # "Dep. A Coruna" is football-data.co.uk's odds-feed spelling. Without it
+        # the club's fixtures resolve everywhere else and silently lose their
+        # market line -- today's Depor v Elche published with no odds at all.
+        "La Coruna": {"RC Deportivo", "Deportivo La Coruna", "Deportivo", "Depor",
+                      "Dep. A Coruna", "Dep. La Coruna", "Deportivo A Coruna"},
         "Vallecano": {"Rayo Vallecano"},
         "Almeria": {"UD Almeria", "UD Almería"},
         "Cadiz": {"Cadiz CF", "Cádiz CF", "Cádiz"},
