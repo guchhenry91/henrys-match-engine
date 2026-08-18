@@ -148,3 +148,57 @@ def test_settled_legs_grade_the_parlay_end_to_end():
     os.remove(path)
     assert out["record"]["correct"] == 1
     assert out["record"]["total"] == 1
+
+
+# --- leg window --------------------------------------------------------------
+# Added after the board built a four-fold running 19 to 29 August: not placeable,
+# and it froze "Dortmund to win" eleven days before kickoff because a parlay locks
+# on its EARLIEST leg.
+
+def _leg(lid, date, p=0.7):
+    return {"id": lid, "selection": f"{lid} to win", "match": lid, "league": "PL",
+            "league_key": "PL", "tag": "w", "p": p, "date": date}
+
+
+def test_legs_beyond_the_window_are_dropped():
+    now = pd.Timestamp("2026-08-18T04:00:00Z")
+    team = [_leg("a", "2026-08-19T19:00:00Z"), _leg("b", "2026-08-21T19:00:00Z"),
+            _leg("c", "2026-08-29T16:30:00Z")]      # 10 days after the anchor
+    kept, _ = parlays._within_window(team, [], now)
+    assert [l["id"] for l in kept] == ["a", "b"]
+
+
+def test_window_is_anchored_on_the_next_fixture_not_a_past_one():
+    """A fixture that has already kicked off must not anchor the window, or the
+    board trails a round behind."""
+    now = pd.Timestamp("2026-08-22T12:00:00Z")
+    team = [_leg("old", "2026-08-19T19:00:00Z"),     # already played
+            _leg("new", "2026-08-23T13:00:00Z"),
+            _leg("far", "2026-08-29T16:30:00Z")]
+    kept, _ = parlays._within_window(team, [], now)
+    assert [l["id"] for l in kept] == ["old", "new"]   # anchor is 'new', not 'old'
+
+
+def test_props_and_match_legs_share_one_anchor():
+    """Both lists are filtered against the SAME cutoff, so a mixed parlay cannot
+    straddle two rounds."""
+    now = pd.Timestamp("2026-08-18T04:00:00Z")
+    team = [_leg("t1", "2026-08-19T19:00:00Z")]
+    prop = [_leg("p1", "2026-08-20T19:00:00Z"), _leg("p2", "2026-08-26T19:00:00Z")]
+    kept_t, kept_p = parlays._within_window(team, prop, now)
+    assert [l["id"] for l in kept_t] == ["t1"]
+    assert [l["id"] for l in kept_p] == ["p1"]
+
+
+def test_window_covers_a_normal_weekend_round():
+    """Friday night to Monday night must survive intact -- the constraint exists
+    to stop nine-day accas, not to break ordinary ones."""
+    now = pd.Timestamp("2026-08-20T12:00:00Z")
+    team = [_leg("fri", "2026-08-21T19:00:00Z"), _leg("sat", "2026-08-22T14:00:00Z"),
+            _leg("sun", "2026-08-23T15:30:00Z"), _leg("mon", "2026-08-24T19:00:00Z")]
+    kept, _ = parlays._within_window(team, [], now)
+    assert len(kept) == 4
+
+
+def test_empty_input_is_safe():
+    assert parlays._within_window([], [], pd.Timestamp("2026-08-18T04:00:00Z")) == ([], [])

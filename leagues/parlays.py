@@ -35,6 +35,26 @@ PROP_TAG = {"shots": "a", "sot": "o", "goal": "g"}   # a=attempts, o=on target, 
 TAG_NAME = {"w": "Win", "g": "Goal", "a": "Attempts", "o": "On target"}
 LEAGUES_ORDER = ["PL", "LALIGA", "BUNDESLIGA", "LIGUE1"]
 
+# A parlay's legs must all fall inside this window, measured from the EARLIEST
+# one. Four days covers a Friday-to-Monday round or a Tuesday-to-Thursday midweek
+# -- the shape an accumulator actually takes.
+#
+# TWO REASONS, and the second is the serious one.
+#
+# PLACEABILITY: an acca spanning nine days is not a bet anyone places. The board
+# built a four-fold running from 19 to 29 August, across two matchweeks, that
+# could not settle for eleven days.
+#
+# STALENESS: a parlay freezes when its EARLIEST leg is 48h out, because that is
+# the last moment the whole thing could have been placed -- correct, but it means
+# every later leg freezes at the same instant. That four-fold committed "Dortmund
+# to win" ELEVEN DAYS before kickoff, and a props treble committed Mbappe's shot
+# line eight days out. The rest of this app locks a pick 45 minutes before kickoff
+# precisely so team news reaches it; those legs were frozen before a single
+# lineup, injury or transfer could be known, with the window still open until
+# 1 September. Capping the span bounds how stale the freshest-frozen leg can be.
+MAX_LEG_SPAN_HOURS = 96.0
+
 
 def _leg_id(lk: str, mid, mkt: str, player: str | None) -> str:
     """Stable identity for a leg, used to freeze it and to look up its result.
@@ -129,7 +149,16 @@ def _build_sections(team_legs: list[dict], prop_legs: list[dict]) -> list[dict]:
     banker = _independent(team_legs, 2, per_league=True)
     all_parlays.append(_tier("Banker", "Two safest calls, two leagues", banker))
     four = _one_per_league(team_legs, prop_legs)
-    all_parlays.append(_tier("Balanced four-fold", "One leg from every league", four, feat=True))
+    # NAME IT AFTER WHAT IT IS. "_one_per_league" returns one leg per league that
+    # HAS a qualifying leg in the window, so it is not always four -- and once the
+    # span cap started dropping out-of-round legs, a three-leg parlay was still
+    # being labelled "Balanced four-fold". A label that contradicts the legs
+    # printed underneath it is the kind of small dishonesty that makes a reader
+    # doubt the rest of the board.
+    FOLD = {2: "double", 3: "treble", 4: "four-fold", 5: "five-fold", 6: "six-fold"}
+    all_parlays.append(_tier(f"Balanced {FOLD.get(len(four), f'{len(four)}-fold')}",
+                             "One leg from every league with a pick this round",
+                             four, feat=True))
     # Props treble: three DIFFERENT markets across different matches, so it
     # actually earns its "attempt / on target / goal" billing instead of stacking
     # two of the same market. Prefer distinct markets first; only if fewer than
@@ -263,9 +292,27 @@ def _outcome_lookup(best: dict, pp: dict) -> dict:
     return out
 
 
+def _within_window(team_legs: list[dict], prop_legs: list[dict], now) -> tuple:
+    """Keep only legs inside MAX_LEG_SPAN_HOURS of the earliest UPCOMING fixture.
+
+    Anchored on the earliest leg still ahead of `now`, so the board follows the
+    next round rather than trailing a fixture that has already kicked off. Returns
+    both lists filtered against the SAME anchor, so a parlay mixing a match winner
+    and a prop cannot straddle two rounds.
+    """
+    all_legs = team_legs + prop_legs
+    ahead = [picks._utc(l["date"]) for l in all_legs if picks._utc(l["date"]) > now]
+    if not ahead:
+        return team_legs, prop_legs
+    cutoff = min(ahead) + pd.Timedelta(hours=MAX_LEG_SPAN_HOURS)
+    keep = lambda ls: [l for l in ls if picks._utc(l["date"]) <= cutoff]
+    return keep(team_legs), keep(prop_legs)
+
+
 def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
     """Assemble, freeze and grade the model's parlays. `best`/`pp` are the freshly
     built cross-league board dicts (build_best_picks / build_player_picks)."""
+    now = picks._utc(now if now is not None else pd.Timestamp.now("UTC"))
     team_legs = [_match_leg(u) for u in best.get("upcoming", []) if u.get("p_pick")]
     # ONLY gradeable prop legs. Bundesliga player picks publish with
     # gradeable=false (no shot feed -- see build_player_picks), so they never
@@ -276,10 +323,10 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
     # so this filter is on props only.
     prop_legs = [_prop_leg(u) for u in pp.get("upcoming", [])
                  if u.get("p_pick") and u.get("gradeable") is not False]
+    team_legs, prop_legs = _within_window(team_legs, prop_legs, now)
     sections = _build_sections(team_legs, prop_legs)
 
     log = picks.load_log(log_path)
-    now = picks._utc(now if now is not None else pd.Timestamp.now("UTC"))
     LOCK_H = 48.0    # lock a parlay once its earliest leg is inside this window
 
     # Freeze any upcoming parlay whose earliest leg is within the lock window.
