@@ -9,6 +9,12 @@ and scripts/correct_score_fix.py for why better selection cannot rescue it). So
 this board publishes its own expected hit rate next to the picks. It exists to be
 measured, not to imply a jackpot.
 
+THE CARD SHOWS TWO SCORES, not one. The model's own top score carries only
+10-14% in the Premier League, so printing it alone reads as a confident call
+when the model is saying the opposite: with lambdas around 1.3 goals a side, one
+goal each is simply the least unlikely of forty-odd outcomes. Showing the top two
+together makes the flatness visible instead of hiding it behind a single number.
+
 The scoreline is GRID MODE -- the likeliest score across all outcomes -- not the
 pick-conditional one. Grid mode is measurably better at actually hitting the
 score (11.84% vs 9.74% in PL), which is the only thing that scores in this game.
@@ -52,9 +58,12 @@ def _entry(m: dict) -> dict | None:
         "id": m["id"], "date": m["date"], "home": m["home"], "away": m["away"],
         "score": best["score"],
         "score_pct": best["pct"],
-        # The next two most likely, so a reader can see how thin the favourite is
-        # -- the top three together cover about 32% in the Premier League.
-        "alternatives": [{"score": t["score"], "pct": t["pct"]} for t in tops[1:3]],
+        # The SECOND likeliest score, shown next to the first rather than hidden.
+        # A single scoreline implies a confidence the model never claimed: its top
+        # score sits at 10-14%, so the honest reading is "these two are the least
+        # unlikely", not "this is the result". Two, not three -- enough to show the
+        # field is flat without turning the card into a table.
+        "alternatives": [{"score": t["score"], "pct": t["pct"]} for t in tops[1:2]],
         "match_pick": pred.get("pick"),
         # Grid mode answers "what is the likeliest score", the match pick answers
         # "who wins". They disagree often and legitimately; flag it rather than

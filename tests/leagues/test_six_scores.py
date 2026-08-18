@@ -60,13 +60,15 @@ def test_a_fixture_not_in_this_matchweek_is_reported_not_silently_dropped(sel):
     assert out["missing_fixtures"] == ["Chelsea|Fulham"]
 
 
-def test_scoreline_is_grid_mode_with_its_alternatives(sel):
+def test_card_carries_exactly_two_scores(sel):
+    """One score would overstate a 12% call. Two shows the field is flat; three
+    turns the card into a table."""
     sel(["Arsenal|Coventry"])
     out = six_scores.build({"matches": [_match(1, "Arsenal", "Coventry",
                                                score="2-0", pct=13.9)]}, {}, NOW)
     p = out["picks"][0]
     assert p["score"] == "2-0" and p["score_pct"] == 13.9
-    assert [a["score"] for a in p["alternatives"]] == ["2-1", "1-0"]
+    assert [a["score"] for a in p["alternatives"]] == ["2-1"]     # the second, only
 
 
 def test_disagreement_with_the_match_pick_is_flagged(sel):
