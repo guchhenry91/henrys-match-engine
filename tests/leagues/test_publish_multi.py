@@ -19,7 +19,8 @@ def test_main_writes_one_atomic_file_per_league(tmp_path, monkeypatch):
     # best.json is the cross-league high-confidence board, written after the leagues
     assert written == ["best.json", "bundesliga.json", "laliga.json",
                        "ligue1.json", "parlays.json", "pl.json", "player_picks.json",
-                       "record_history.json"]
+                       # the bet365 6 Scores board, written from the PL payload
+                       "record_history.json", "six_scores.json"]
     assert not list(tmp_path.glob("*.tmp"))          # no leftover temp files
 
 

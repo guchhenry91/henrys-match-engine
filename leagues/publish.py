@@ -12,7 +12,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from leagues import config, dataset, fixtures, odds, parlays, picks, players, props, second_tier, sim
+from leagues import (config, dataset, fixtures, odds, parlays, picks, players,
+                     props, second_tier, sim, six_scores)
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs)
 
@@ -1132,6 +1133,30 @@ def main(argv=None):
             n_par = sum(len(s["parlays"]) for s in par["sections"])
             print(f"wrote {parpath} - {n_par} model parlays, record "
                   f"{pr2['correct']}-{pr2['wrong']}")
+
+        # bet365 6 Scores Challenge -- the model's six Premier League scorelines,
+        # frozen and graded like everything else. Independent of the two boards
+        # above: it reads the PL payload directly, so a thin player-props run can
+        # never suppress it. Publishes an empty board (with a reason) when the
+        # week's six have not been announced, rather than inventing a selection.
+        try:
+            pl_payload = json.loads((OUT / "pl.json").read_text(encoding="utf-8"))
+            six_log_path = PICKS_DIR / "pl" / "six_scores_log.json"
+            six_log = picks.load_log(six_log_path)
+            six = six_scores.build(pl_payload, six_log,
+                                   pd.Timestamp.now("UTC"))
+            picks.save_log(six_log, six_log_path)
+            spath = OUT / "six_scores.json"
+            tmp = spath.with_suffix(".json.tmp")
+            tmp.write_text(json.dumps(six, indent=2, default=str), encoding="utf-8")
+            tmp.replace(spath)
+            rec = six["record"]
+            print(f"wrote {spath} - {len(six['picks'])} scorelines, record "
+                  f"{rec['correct']}/{rec['total']}"
+                  + (f", MISSING {six['missing_fixtures']}" if six["missing_fixtures"] else ""))
+        except Exception as exc:
+            # Never let a supplementary board take down a publish.
+            print(f"WARNING: 6 Scores board not written ({exc})")
 
         # Record history -- only when BOTH boards are complete, or a refused board
         # would write a row understating the record and permanently distort the

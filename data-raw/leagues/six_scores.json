@@ -1,0 +1,7 @@
+{
+  "_note": "bet365's 6 Scores Challenge selection. bet365 PRE-SELECT the six Premier League fixtures each week -- you cannot choose them -- and there is no feed for them, so this file is filled in from their published list. Keys are 'Home|Away' in CANONICAL club names as they appear in data/leagues/pl.json. Leave `fixtures` empty when the week's six are not published yet: the board then says so rather than inventing a selection.",
+  "_expectation": "MEASURED, not hoped for. On the held-out season the model's correct-score accuracy in the Premier League is 11.84% per fixture, against 12.37% for simply writing 1-1 on every line (scripts/correct_score_check.py). Expect ~0.7 correct out of 6, with 3+ correct in roughly 3% of weeks. This board is published as an honest test of that, not as a tip sheet.",
+  "_verified_on": null,
+  "matchweek": null,
+  "fixtures": []
+}
