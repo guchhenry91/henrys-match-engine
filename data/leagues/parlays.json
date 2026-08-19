@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-19T16:59:40.023543+00:00",
+  "updated": "2026-08-19T18:55:33.904047+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5552,
+          "combined": 0.5548,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -18,7 +18,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7731,
+              "p": 0.7726,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
             },
@@ -28,7 +28,7 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "w",
-              "p": 0.7182,
+              "p": 0.7181,
               "id": "LALIGA#2#w",
               "date": "2026-08-19T19:00:00+00:00"
             }
@@ -40,7 +40,7 @@
           "tier": "Balanced treble",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.3842,
+          "combined": 0.3839,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -48,7 +48,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7731,
+              "p": 0.7726,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
             },
@@ -58,7 +58,7 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "w",
-              "p": 0.7182,
+              "p": 0.7181,
               "id": "LALIGA#2#w",
               "date": "2026-08-19T19:00:00+00:00"
             },
@@ -80,7 +80,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.0575,
+          "combined": 0.1496,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -93,27 +93,28 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
-              "selection": "Thiago to score",
+              "selection": "Ademola Lookman to score",
+              "match": "Ath Madrid v Malaga",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "g",
+              "p": 0.379,
+              "id": "LALIGA#2#goal#Ademola Lookman",
+              "date": "2026-08-19T19:00:00+00:00"
+            },
+            {
+              "selection": "Thiago 1+ shot on target",
               "match": "Brentford v Tottenham",
               "league": "Premier League",
               "league_key": "PL",
-              "tag": "g",
-              "p": 0.306,
-              "id": "PL#6#goal#Thiago",
+              "tag": "o",
+              "p": 0.584,
+              "id": "PL#6#sot#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
-            },
-            {
-              "selection": "Odsonne Edouard to score",
-              "match": "Lens v Auxerre",
-              "league": "Ligue 1",
-              "league_key": "LIGUE1",
-              "tag": "g",
-              "p": 0.278,
-              "id": "LIGUE1#4#goal#Odsonne Edouard",
-              "date": "2026-08-22T15:15:00+00:00"
             }
           ],
-          "provisional": true
+          "provisional": false,
+          "locked_at": "2026-08-19T18:55:33.904047+00:00"
         }
       ]
     },
@@ -160,7 +161,7 @@
           "tier": "PL Banker",
           "note": "Two safest Premier League calls",
           "feat": false,
-          "combined": 0.5226,
+          "combined": 0.5223,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -168,7 +169,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7731,
+              "p": 0.7726,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
             },
@@ -189,7 +190,7 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.3052,
+          "combined": 0.305,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -197,7 +198,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7731,
+              "p": 0.7726,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
             },
@@ -228,7 +229,7 @@
           "tier": "PL Goals double",
           "note": "Two Premier League scorers",
           "feat": false,
-          "combined": 0.0939,
+          "combined": 0.0933,
           "legs": [
             {
               "selection": "Erling Haaland to score",
@@ -236,7 +237,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "g",
-              "p": 0.307,
+              "p": 0.306,
               "id": "PL#8#goal#Erling Haaland",
               "date": "2026-08-23T13:00:00+00:00"
             },
@@ -246,7 +247,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "g",
-              "p": 0.306,
+              "p": 0.305,
               "id": "PL#6#goal#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
             }
@@ -261,7 +262,7 @@
     "wrong": 0,
     "void": 0,
     "total": 0,
-    "pending": 5
+    "pending": 6
   },
   "settled": []
 }
