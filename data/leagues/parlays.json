@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-19T16:33:32.825773+00:00",
+  "updated": "2026-08-19T16:59:40.023543+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5654,
+          "combined": 0.5552,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -28,7 +28,7 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "w",
-              "p": 0.7314,
+              "p": 0.7182,
               "id": "LALIGA#2#w",
               "date": "2026-08-19T19:00:00+00:00"
             }
@@ -40,7 +40,7 @@
           "tier": "Balanced treble",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.3912,
+          "combined": 0.3842,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -58,7 +58,7 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "w",
-              "p": 0.7314,
+              "p": 0.7182,
               "id": "LALIGA#2#w",
               "date": "2026-08-19T19:00:00+00:00"
             },
@@ -80,7 +80,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1362,
+          "combined": 0.0575,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -93,28 +93,27 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
-              "selection": "Alexander S\u00f8rloth to score",
-              "match": "Ath Madrid v Malaga",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "g",
-              "p": 0.345,
-              "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
-              "date": "2026-08-19T19:00:00+00:00"
-            },
-            {
-              "selection": "Thiago 1+ shot on target",
+              "selection": "Thiago to score",
               "match": "Brentford v Tottenham",
               "league": "Premier League",
               "league_key": "PL",
-              "tag": "o",
-              "p": 0.584,
-              "id": "PL#6#sot#Thiago",
+              "tag": "g",
+              "p": 0.306,
+              "id": "PL#6#goal#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
+            },
+            {
+              "selection": "Odsonne Edouard to score",
+              "match": "Lens v Auxerre",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "g",
+              "p": 0.278,
+              "id": "LIGUE1#4#goal#Odsonne Edouard",
+              "date": "2026-08-22T15:15:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-08-18T04:32:50.902064+00:00"
+          "provisional": true
         }
       ]
     },

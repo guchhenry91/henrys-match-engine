@@ -583,6 +583,16 @@
     "verified_by": "agent web search, current reporting as of 2026-08-19T15:06Z",
     "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: still reportedly wants to leave Dortmund (Man City/Liverpool/Arsenal/Barcelona among clubs that could trigger his ~EUR35m selective release clause) but Dortmund's Ricken has repeated 'no offer, no intention of letting him go' -- still Dortmund, unconfirmed rumour only, not actioned. Sorloth: Fenerbahce reported to lead a EUR40m race for him with Atletico reportedly eyeing Vlahovic as a replacement, but no fee agreed or deal completed -- still Ath Madrid, unconfirmed, not actioned. General done-deals scan for 19 Aug (FootballTransfers Done Deals) surfaced Man Utd (Tielemans, Darlow), Man City (Elliot Anderson, Detourbet, Monga, Rulli) and Chelsea (Morgan Rogers, Lacroix, Welbeck, Henderson, others) signings -- all either not board players or already correctly attributed in this file. No board-relevant moves found.",
     "not_checked": "earliest Best Picks fixture in the 45min-3h window still does not exist this run (Ath Madrid v Malaga at 2026-08-19T19:00Z is ~3h54m out at check time, still before the window opens) -- full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist either -- confirmed via a script check of all four league files' \"matches\" arrays, none more than 2h15m past kickoff with a null result."
+   },
+   {
+    "date": "2026-08-19T16:05Z",
+    "scope": "matchday-news board check (leagues-matchday-news task) -- third run today, Ath Madrid v Malaga now inside the 45min-3h window (~2h55m out)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 12,
+    "method": "board composition unchanged (Erling Haaland, Harry Kane, Kylian Mbappe-Lottin, Thiago (Igor Thiago), Vinicius Junior, Antoine Semenyo, Michael Olise, Serhou Guirassy, Deniz Undav, Alexander Sorloth, Odsonne Edouard, Florian Thauvin). Fresh web search per player.",
+    "verified_by": "agent web search, current reporting as of 2026-08-19T16:05Z",
+    "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy (Dortmund, Fenerbahce/Milan/Saudi links unresolved), Sorloth (Ath Madrid, Juventus links unresolved) unchanged from the 15:06Z sweep -- both still unconfirmed rumours, not actioned. Vinicius Jr's new Real Madrid contract to 2032 (signed 6 Aug) re-confirmed. Olise: Bayern CEO reconfirmed no offers received. All others unchanged.",
+    "not_checked": "full STEP 2-5 team-news research now triggered for Ath Madrid v Malaga (La Liga, 2026-08-19T19:00Z) -- see news.json for the result."
    }
   ],
   "known_gaps": [
