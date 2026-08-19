@@ -1,0 +1,81 @@
+[
+  {
+    "league": "PL",
+    "n": 1140,
+    "always_1_1_pct": 11.4,
+    "models": {
+      "dixon_coles": {
+        "top1_pct": 11.05,
+        "vs_baseline_pp": -0.35,
+        "ci95_pp": [
+          -2.11,
+          1.4
+        ],
+        "beats_baseline": false,
+        "grid_logloss": 3.0,
+        "distinct_scores": 12,
+        "most_predicted": "1-1 on 53.2%"
+      },
+      "bivariate_poisson": {
+        "top1_pct": 10.79,
+        "vs_baseline_pp": -0.61,
+        "ci95_pp": [
+          -2.46,
+          1.23
+        ],
+        "beats_baseline": false,
+        "grid_logloss": 3.0001,
+        "distinct_scores": 12,
+        "most_predicted": "1-1 on 50.4%"
+      },
+      "negative_binomial": {
+        "top1_pct": 11.14,
+        "vs_baseline_pp": -0.26,
+        "ci95_pp": [
+          -2.11,
+          1.49
+        ],
+        "beats_baseline": false,
+        "grid_logloss": 2.9986,
+        "distinct_scores": 12,
+        "most_predicted": "1-1 on 51.1%"
+      },
+      "zero_inflated_poisson": {
+        "top1_pct": 11.14,
+        "vs_baseline_pp": -0.26,
+        "ci95_pp": [
+          -2.11,
+          1.49
+        ],
+        "beats_baseline": false,
+        "grid_logloss": 3.0019,
+        "distinct_scores": 12,
+        "most_predicted": "1-1 on 50.9%"
+      },
+      "weibull_copula": {
+        "top1_pct": 11.67,
+        "vs_baseline_pp": 0.26,
+        "ci95_pp": [
+          -1.58,
+          2.11
+        ],
+        "beats_baseline": false,
+        "grid_logloss": 3.0073,
+        "distinct_scores": 13,
+        "most_predicted": "1-1 on 52.4%"
+      },
+      "production_xg": {
+        "top1_pct": 12.11,
+        "vs_baseline_pp": 0.7,
+        "ci95_pp": [
+          -0.88,
+          2.37
+        ],
+        "beats_baseline": false,
+        "grid_logloss": 2.9683,
+        "distinct_scores": 8,
+        "most_predicted": "1-1 on 63.4%"
+      }
+    }
+  }
+]

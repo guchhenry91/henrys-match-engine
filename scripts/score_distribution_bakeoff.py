@@ -50,16 +50,22 @@ def _grid(model, home, away):
     return g / s if s > 0 else g
 
 
-def run(league="PL", step_days=7):
+def run(league="PL", step_days=7, full=False):
     matches = (dataset.build_matches(league)
                .dropna(subset=["home_goals", "away_goals"])
                .sort_values("date").reset_index(drop=True))
-    boundary = tune.holdout_start(league)
     params = publish.model_params(league)
     rows = []
     failures = collections.Counter()
-    cutoffs = pd.date_range(boundary, matches["date"].max(), freq=f"{step_days}D")
-    print(f"{league}: {len(cutoffs)} weekly cutoffs across the holdout")
+    # `full` walks the whole fitted history (~3x the sample) instead of the
+    # holdout alone. The holdout matters when a PARAMETER was chosen on the
+    # earlier seasons; here nothing is tuned -- the candidates have no free
+    # settings and production retained its incumbent config in every league --
+    # so the wider walk buys statistical power without buying selection bias.
+    start = (matches.loc[760, "date"] if full else tune.holdout_start(league))
+    cutoffs = pd.date_range(start, matches["date"].max(), freq=f"{step_days}D")
+    print(f"{league}: {len(cutoffs)} weekly cutoffs "
+          f"({'full walk' if full else 'holdout only'})")
 
     for n, cutoff in enumerate(cutoffs, 1):
         train = matches[matches["date"] < cutoff]
@@ -167,14 +173,17 @@ def report(res: pd.DataFrame, league: str) -> dict:
 
 
 def main():
-    leagues = sys.argv[1:] or ["PL"]
+    args = [a for a in sys.argv[1:] if a != "--full"]
+    full = "--full" in sys.argv
+    leagues = args or ["PL"]
     out = []
     for lg in leagues:
         t = time.time()
-        res = run(lg)
+        res = run(lg, full=full)
         print(f"  walk took {(time.time()-t)/60:.1f} min")
         out.append(report(res, lg))
-    path = "data-raw/leagues/score_distribution_bakeoff.json"
+    path = ("data-raw/leagues/score_distribution_bakeoff_full.json" if full
+            else "data-raw/leagues/score_distribution_bakeoff.json")
     with open(path, "w") as f:
         json.dump(out, f, indent=2, default=float)
     print(f"\nwrote {path}")
