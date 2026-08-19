@@ -1,6 +1,6 @@
 {
  "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves (and late 2025-26 ones) are invisible without this file. Keys are EXACT Understat spellings, resolved by scripts/apply_transfers.py. Value = new canonical club, or null if the player left this league. Verified by per-league agents requiring two independent sources or an official announcement; rumours excluded.",
- "_verified_on": "2026-08-17",
+ "_verified_on": "2026-08-19",
  "_held_back": {
   "LIGUE1": {
    "Sekou Mara": "Strasbourg (Transfermarkt only -- two pages, one source)",
@@ -563,6 +563,16 @@
      "Mio Backhaus / Daniel Batz (unverified GKs)"
     ],
     "not_checked": "same-league candidates under ~4 x90 (Julio Diaz, Bernardeau, Campbell, Bermont, Lozano, Serigne Diop); all 48 cross-league candidates, which are already correctly dropped"
+   },
+   {
+    "date": "2026-08-19T14:10Z",
+    "scope": "matchday-news board check (leagues-matchday-news task)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 12,
+    "method": "web search per distinct player on the live player_picks.json board: Erling Haaland, Harry Kane, Kylian Mbappe-Lottin, Thiago (Igor Thiago), Vinicius Junior, Antoine Semenyo, Michael Olise, Serhou Guirassy, Deniz Undav, Alexander Sorloth, Odsonne Edouard, Florian Thauvin. Plus a general done-deals scan for 18-19 Aug.",
+    "verified_by": "agent web search, current reporting as of 2026-08-19",
+    "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: still wants to leave Dortmund (Fenerbahce/Milan/Saudi interest) but Ricken has publicly denied any imminent exit, no fee agreed -- still Dortmund, unconfirmed rumour only, not actioned. Sorloth: has formally requested a sale (Juventus links) but no club-to-club agreement or official confirmation -- still Ath Madrid, unconfirmed, not actioned. Olise: Bayern CEO Dreesen stated no offers received, Real Madrid interest reportedly cooled after signing Yan Diomande instead -- still Bayern Munich. Semenyo's Jan 2026 Man City move re-confirmed as already-settled (mancity.com). Undav re-confirmed with 2029 extension. General scan found no top-five-league moves affecting these 12 names on 18-19 Aug. Haaland, Kane, Mbappe, Igor Thiago, Vinicius Jr, Edouard, Thauvin unchanged from the 2026-08-17T19:06Z sweep.",
+    "not_checked": "earliest Best Picks fixture in the 45min-3h window did not exist this run (Ath Madrid v Malaga at 2026-08-19T19:00Z was ~4h50m out at check time, before the window opens) -- full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist either -- no fixture in any of the four league files has kicked off yet as of this run."
    }
   ],
   "known_gaps": [
