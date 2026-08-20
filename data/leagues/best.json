@@ -1,14 +1,19 @@
 {
-  "updated": "2026-08-19T22:53:25.120724+00:00",
+  "updated": "2026-08-20T04:22:52.406754+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
-    "correct": 0,
+    "correct": 1,
     "wrong": 0,
-    "total": 0,
+    "total": 1,
     "void": 0,
     "pending": 0,
-    "by_confidence": {}
+    "by_confidence": {
+      "5": {
+        "correct": 1,
+        "total": 1
+      }
+    }
   },
   "upcoming": [
     {
@@ -21,25 +26,9 @@
       "away": "Coventry",
       "pick": "Arsenal",
       "confidence": 5,
-      "p_pick": 0.7727,
+      "p_pick": 0.7741,
       "score": "2-0",
       "provisional": true,
-      "odds": null,
-      "book": null
-    },
-    {
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 2,
-      "matchweek": 1,
-      "date": "2026-08-19T19:00:00+00:00",
-      "home": "Ath Madrid",
-      "away": "Malaga",
-      "pick": "Ath Madrid",
-      "confidence": 5,
-      "p_pick": 0.7181,
-      "score": "2-0",
-      "provisional": false,
       "odds": null,
       "book": null
     },
@@ -53,7 +42,7 @@
       "away": "Rennes",
       "pick": "Paris SG",
       "confidence": 4,
-      "p_pick": 0.6919,
+      "p_pick": 0.6918,
       "score": "2-0",
       "provisional": true,
       "odds": null,
@@ -69,39 +58,7 @@
       "away": "Hamburg",
       "pick": "Dortmund",
       "confidence": 4,
-      "p_pick": 0.6876,
-      "score": "2-0",
-      "provisional": true,
-      "odds": null,
-      "book": null
-    },
-    {
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 8,
-      "matchweek": 1,
-      "date": "2026-08-26T19:00:00+00:00",
-      "home": "Real Madrid",
-      "away": "Sociedad",
-      "pick": "Real Madrid",
-      "confidence": 4,
-      "p_pick": 0.6786,
-      "score": "2-0",
-      "provisional": true,
-      "odds": null,
-      "book": null
-    },
-    {
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 6,
-      "matchweek": 1,
-      "date": "2026-08-27T19:00:00+00:00",
-      "home": "Barcelona",
-      "away": "Ath Bilbao",
-      "pick": "Barcelona",
-      "confidence": 4,
-      "p_pick": 0.6677,
+      "p_pick": 0.6881,
       "score": "2-0",
       "provisional": true,
       "odds": null,
@@ -117,8 +74,24 @@
       "away": "Stuttgart",
       "pick": "Bayern Munich",
       "confidence": 4,
-      "p_pick": 0.6675,
+      "p_pick": 0.6677,
       "score": "2-1",
+      "provisional": true,
+      "odds": null,
+      "book": null
+    },
+    {
+      "league": "La Liga",
+      "league_key": "LALIGA",
+      "id": 8,
+      "matchweek": 1,
+      "date": "2026-08-26T19:00:00+00:00",
+      "home": "Real Madrid",
+      "away": "Sociedad",
+      "pick": "Real Madrid",
+      "confidence": 4,
+      "p_pick": 0.6586,
+      "score": "2-0",
       "provisional": true,
       "odds": null,
       "book": null
@@ -133,14 +106,34 @@
       "away": "Paderborn",
       "pick": "Mainz",
       "confidence": 4,
-      "p_pick": 0.6528,
+      "p_pick": 0.6531,
       "score": "2-0",
       "provisional": true,
       "odds": null,
       "book": null
     }
   ],
-  "settled": [],
+  "settled": [
+    {
+      "league": "La Liga",
+      "league_key": "LALIGA",
+      "id": 2,
+      "matchweek": 1,
+      "date": "2026-08-19T19:00:00+00:00",
+      "home": "Ath Madrid",
+      "away": "Malaga",
+      "pick": "Ath Madrid",
+      "confidence": 5,
+      "p_pick": 0.7181,
+      "board": true,
+      "result": {
+        "home_goals": 2,
+        "away_goals": 0
+      },
+      "graded": "correct",
+      "void": false
+    }
+  ],
   "backtested_hit_rate_pct": 77.6,
   "backtested_n": 473,
   "backtested_league_range_pct": [

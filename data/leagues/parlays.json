@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-19T22:53:28.673256+00:00",
+  "updated": "2026-08-20T04:23:05.000533+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5549,
+          "combined": 0.5355,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -18,49 +18,9 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7727,
+              "p": 0.7741,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
-            },
-            {
-              "selection": "Ath Madrid to win",
-              "match": "Ath Madrid v Malaga",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "w",
-              "p": 0.7181,
-              "id": "LALIGA#2#w",
-              "date": "2026-08-19T19:00:00+00:00"
-            }
-          ],
-          "provisional": false,
-          "locked_at": "2026-08-17T19:11:38.384283+00:00"
-        },
-        {
-          "tier": "Balanced treble",
-          "note": "One leg from every league with a pick this round",
-          "feat": true,
-          "combined": 0.3839,
-          "legs": [
-            {
-              "selection": "Arsenal to win",
-              "match": "Arsenal v Coventry",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "w",
-              "p": 0.7727,
-              "id": "PL#1#w",
-              "date": "2026-08-21T19:00:00+00:00"
-            },
-            {
-              "selection": "Ath Madrid to win",
-              "match": "Ath Madrid v Malaga",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "w",
-              "p": 0.7181,
-              "id": "LALIGA#2#w",
-              "date": "2026-08-19T19:00:00+00:00"
             },
             {
               "selection": "Paris SG to win",
@@ -68,20 +28,70 @@
               "league": "Ligue 1",
               "league_key": "LIGUE1",
               "tag": "w",
-              "p": 0.6919,
+              "p": 0.6918,
               "id": "LIGUE1#7#w",
               "date": "2026-08-23T18:45:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-18T04:32:50.902064+00:00"
+          "locked_at": "2026-08-20T04:23:05.000533+00:00"
+        },
+        {
+          "tier": "Balanced treble",
+          "note": "One leg from every league with a pick this round",
+          "feat": true,
+          "combined": 0.3679,
+          "legs": [
+            {
+              "selection": "Arsenal to win",
+              "match": "Arsenal v Coventry",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "w",
+              "p": 0.7741,
+              "id": "PL#1#w",
+              "date": "2026-08-21T19:00:00+00:00"
+            },
+            {
+              "selection": "Ante Budimir 2+ shot attempts",
+              "match": "Osasuna v Levante",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.687,
+              "id": "LALIGA#18#shots#Ante Budimir",
+              "date": "2026-08-24T17:30:00+00:00"
+            },
+            {
+              "selection": "Paris SG to win",
+              "match": "Paris SG v Rennes",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "w",
+              "p": 0.6918,
+              "id": "LIGUE1#7#w",
+              "date": "2026-08-23T18:45:00+00:00"
+            }
+          ],
+          "provisional": false,
+          "locked_at": "2026-08-20T04:23:05.000533+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1496,
+          "combined": 0.1426,
           "legs": [
+            {
+              "selection": "Ante Budimir 2+ shot attempts",
+              "match": "Osasuna v Levante",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.687,
+              "id": "LALIGA#18#shots#Ante Budimir",
+              "date": "2026-08-24T17:30:00+00:00"
+            },
             {
               "selection": "Erling Haaland 1+ shot on target",
               "match": "Manchester City v Bournemouth",
@@ -93,28 +103,17 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
-              "selection": "Ademola Lookman to score",
-              "match": "Ath Madrid v Malaga",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "g",
-              "p": 0.379,
-              "id": "LALIGA#2#goal#Ademola Lookman",
-              "date": "2026-08-19T19:00:00+00:00"
-            },
-            {
-              "selection": "Thiago 1+ shot on target",
+              "selection": "Thiago to score",
               "match": "Brentford v Tottenham",
               "league": "Premier League",
               "league_key": "PL",
-              "tag": "o",
-              "p": 0.584,
-              "id": "PL#6#sot#Thiago",
+              "tag": "g",
+              "p": 0.307,
+              "id": "PL#6#goal#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-08-19T18:55:33.904047+00:00"
+          "provisional": true
         }
       ]
     },
@@ -126,8 +125,18 @@
           "tier": "Shots double",
           "note": "The two safest shot-volume calls",
           "feat": false,
-          "combined": 0.3948,
+          "combined": 0.4644,
           "legs": [
+            {
+              "selection": "Ante Budimir 2+ shot attempts",
+              "match": "Osasuna v Levante",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.687,
+              "id": "LALIGA#18#shots#Ante Budimir",
+              "date": "2026-08-24T17:30:00+00:00"
+            },
             {
               "selection": "Erling Haaland 1+ shot on target",
               "match": "Manchester City v Bournemouth",
@@ -137,6 +146,45 @@
               "p": 0.676,
               "id": "PL#8#sot#Erling Haaland",
               "date": "2026-08-23T13:00:00+00:00"
+            }
+          ],
+          "provisional": true
+        },
+        {
+          "tier": "Shots accumulator",
+          "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
+          "feat": true,
+          "combined": 0.1663,
+          "legs": [
+            {
+              "selection": "Ante Budimir 2+ shot attempts",
+              "match": "Osasuna v Levante",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.687,
+              "id": "LALIGA#18#shots#Ante Budimir",
+              "date": "2026-08-24T17:30:00+00:00"
+            },
+            {
+              "selection": "Erling Haaland 1+ shot on target",
+              "match": "Manchester City v Bournemouth",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.676,
+              "id": "PL#8#sot#Erling Haaland",
+              "date": "2026-08-23T13:00:00+00:00"
+            },
+            {
+              "selection": "Kylian Mbappe-Lottin 1+ shot on target",
+              "match": "Espanol v Real Madrid",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "o",
+              "p": 0.613,
+              "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+              "date": "2026-08-22T19:30:00+00:00"
             },
             {
               "selection": "Thiago 1+ shot on target",
@@ -161,7 +209,7 @@
           "tier": "PL Banker",
           "note": "Two safest Premier League calls",
           "feat": false,
-          "combined": 0.5223,
+          "combined": 0.5233,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -169,7 +217,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7727,
+              "p": 0.7741,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
             },
@@ -191,7 +239,7 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.305,
+          "combined": 0.3056,
           "legs": [
             {
               "selection": "Arsenal to win",
@@ -199,7 +247,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7727,
+              "p": 0.7741,
               "id": "PL#1#w",
               "date": "2026-08-21T19:00:00+00:00"
             },
@@ -231,7 +279,7 @@
           "tier": "PL Goals double",
           "note": "Two Premier League scorers",
           "feat": false,
-          "combined": 0.0933,
+          "combined": 0.0946,
           "legs": [
             {
               "selection": "Erling Haaland to score",
@@ -239,7 +287,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "g",
-              "p": 0.306,
+              "p": 0.308,
               "id": "PL#8#goal#Erling Haaland",
               "date": "2026-08-23T13:00:00+00:00"
             },
@@ -249,7 +297,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "g",
-              "p": 0.305,
+              "p": 0.307,
               "id": "PL#6#goal#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
             }
@@ -261,10 +309,33 @@
   ],
   "record": {
     "correct": 0,
-    "wrong": 0,
+    "wrong": 1,
     "void": 0,
-    "total": 0,
-    "pending": 8
+    "total": 1,
+    "pending": 9
   },
-  "settled": []
+  "settled": [
+    {
+      "combined": 0.1496,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#2#goal#Ademola Lookman",
+          "p": 0.379,
+          "selection": "Ademola Lookman to score"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-19T19:00:00+00:00"
+    }
+  ]
 }

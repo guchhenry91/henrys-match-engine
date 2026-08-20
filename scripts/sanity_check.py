@@ -91,7 +91,14 @@ def check_league(fn, key, n_teams, releg):
                 fail(tag, f"top_scores probabilities sum to {sum(pcts):.1f}%")
 
         # confidence must match the banding of the picked probability
-        pp = {"home": p["p_home"], "draw": p["p_draw"], "away": p["p_away"]}[p["pick_type"]]
+        # Judge the banding on the SAME number publish used. p_home/p_draw/p_away
+        # are rounded to 3dp for display; confidence is computed from the raw
+        # probability. A pick at 0.3996 therefore bands as 1 while its published
+        # 0.400 bands as 2, and this check failed the whole pipeline on a
+        # rounding artefact -- Valencia v Betis, 2026-08-20. p_pick carries 4dp.
+        pp = p.get("p_pick")
+        if pp is None:
+            pp = {"home": p["p_home"], "draw": p["p_draw"], "away": p["p_away"]}[p["pick_type"]]
         exp_conf = next((c for t, c in ((.70, 5), (.60, 4), (.50, 3), (.40, 2)) if pp >= t), 1)
         if p["confidence"] != exp_conf:
             fail(tag, f"confidence {p['confidence']} but picked prob {pp:.3f} implies {exp_conf}")

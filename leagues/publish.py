@@ -855,6 +855,14 @@ def build_best_picks() -> dict:
                 "home": row["home"], "away": row["away"],
                 "pick": entry["pick"], "confidence": entry.get("confidence"),
                 "p_pick": entry.get("p_pick"),
+                # Tier membership as FROZEN at lock time. sanity_check requires it
+                # on every settled entry, because without it a settled pick would
+                # fall back to comparing against the LIVE bar -- so raising the bar
+                # would retroactively evict past picks from the record. It was
+                # never written here, and nothing caught that until Ath Madrid v
+                # Malaga became the first Best Pick ever to settle: every earlier
+                # graded pick sat below 0.65 and so never reached this list.
+                "board": entry.get("board"),
             }
             if bool(row["played"]):
                 g = picks.grade(entry, {"home": row["home"], "away": row["away"],
