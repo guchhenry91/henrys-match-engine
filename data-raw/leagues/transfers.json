@@ -603,6 +603,16 @@
     "verified_by": "agent web search, current reporting as of 2026-08-20",
     "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Semenyo's Man City attribution re-confirmed correct (Jan 2026 move from Bournemouth, long-settled). Guirassy (Dortmund) remains the one active saga worth watching -- reportedly wants to leave (Fenerbahce/Aston Villa/others linked, ~EUR35-50m release clause) but no transfer completed and Dortmund still say no intention to sell. All others (Budimir, Haaland, Kane, Mbappe, Igor Thiago, Vinicius Jr, Olise, Undav, Edouard, Thauvin) unchanged and unremarkable.",
     "not_checked": "no fixtures fell in the 45min-3h Best Picks window this run (nearest was Arsenal v Coventry, ~23h54m out at check time) -- full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist either (checked via script across all four league files' \"matches\" arrays). Thursday six_scores.json check: independently re-confirmed via aggregator (aceodds.com) against the owner-supplied selection already on file -- exact match, no changes needed."
+   },
+   {
+    "date": "2026-08-20T21:04Z",
+    "scope": "matchday-news board check (leagues-matchday-news task) -- second run today",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 12,
+    "method": "board composition unchanged from the 19:06Z sweep (Ante Budimir, Erling Haaland, Harry Kane, Kylian Mbappe-Lottin, Thiago (Igor Thiago), Vinicius Junior, Antoine Semenyo, Michael Olise, Serhou Guirassy, Deniz Undav, Odsonne Edouard, Florian Thauvin). Targeted fresh search on the one active saga (Guirassy) plus a general done-deals scan across all four leagues; the other 11 were exhaustively re-verified under two hours earlier at 19:06Z and not re-queried a second time same-day absent any new signal.",
+    "verified_by": "direct web search, current reporting as of 2026-08-20T21:04Z",
+    "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: still wants to leave Dortmund (Turkey interest reported, Aston Villa also linked at a reported ~EUR40m Dortmund valuation) but Ricken continues to deny an imminent exit and no fee is agreed -- still Dortmund, unconfirmed rumour only, not actioned. General done-deals scan (FootballTransfers) found zero official transfers completed in the top five leagues today. All others unchanged from the 19:06Z sweep.",
+    "not_checked": "no fixtures fell in the 45min-3h Best Picks window this run (nearest was Arsenal v Coventry, ~21h56m out at check time) -- full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist either (checked via script across all four league files' \"matches\" arrays, kickoff-plus-2h15m vs null result). Thursday six_scores.json check already independently re-confirmed earlier today (19:06Z sweep) against the aceodds.com aggregator -- not re-queried a second time same-day."
    }
   ],
   "known_gaps": [
