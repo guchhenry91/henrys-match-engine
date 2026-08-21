@@ -1,37 +1,21 @@
 {
-  "updated": "2026-08-21T22:51:41.234472+00:00",
+  "updated": "2026-08-21T23:01:48.189597+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
-    "correct": 1,
+    "correct": 2,
     "wrong": 0,
-    "total": 1,
+    "total": 2,
     "void": 0,
     "pending": 0,
     "by_confidence": {
       "5": {
-        "correct": 1,
-        "total": 1
+        "correct": 2,
+        "total": 2
       }
     }
   },
   "upcoming": [
-    {
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 1,
-      "matchweek": 1,
-      "date": "2026-08-21T19:00:00+00:00",
-      "home": "Arsenal",
-      "away": "Coventry",
-      "pick": "Arsenal",
-      "confidence": 5,
-      "p_pick": 0.7705,
-      "score": "2-0",
-      "provisional": false,
-      "odds": 1.2,
-      "book": "bet365"
-    },
     {
       "league": "Ligue 1",
       "league_key": "LIGUE1",
@@ -42,7 +26,7 @@
       "away": "Rennes",
       "pick": "Paris SG",
       "confidence": 4,
-      "p_pick": 0.6917,
+      "p_pick": 0.6944,
       "score": "2-0",
       "provisional": true,
       "odds": 1.5,
@@ -90,7 +74,7 @@
       "away": "Sociedad",
       "pick": "Real Madrid",
       "confidence": 4,
-      "p_pick": 0.6576,
+      "p_pick": 0.6577,
       "score": "2-0",
       "provisional": true,
       "odds": null,
@@ -114,6 +98,25 @@
     }
   ],
   "settled": [
+    {
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 1,
+      "matchweek": 1,
+      "date": "2026-08-21T19:00:00+00:00",
+      "home": "Arsenal",
+      "away": "Coventry",
+      "pick": "Arsenal",
+      "confidence": 5,
+      "p_pick": 0.7705,
+      "board": true,
+      "result": {
+        "home_goals": 3,
+        "away_goals": 0
+      },
+      "graded": "correct",
+      "void": false
+    },
     {
       "league": "La Liga",
       "league_key": "LALIGA",

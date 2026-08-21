@@ -633,6 +633,16 @@
     "verified_by": "direct web search, current reporting as of 2026-08-21T16:20Z",
     "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: still reportedly wants to leave Dortmund with clubs (Man City, Liverpool, Arsenal, Barcelona all named) said to be monitoring a EUR35-50m release clause, but no transfer completed and no fee agreed -- unconfirmed rumour only, not actioned. General done-deals scan (FootballTransfers, football-italia) found no completed moves for any of the 12 tracked players today (notable done deals elsewhere: Curtis Jones to Inter, Diego Moreira to Milan -- neither relevant to our board). All others unchanged from the 13:04Z sweep.",
     "not_checked": "Arsenal v Coventry (kickoff 2026-08-21T19:00Z) fell inside the 45min-3h Best Picks window this run (~2h40m out at check time) -- full STEP 2-5 team-news research WAS triggered: see news.json PL.Arsenal and PL.Coventry, checked 2026-08-21T16:20Z. No finished-but-ungraded matches found across all four league files. Friday six_scores.json check: script-verified OK against the existing owner-sourced matchweek-1 selection (verified 2026-08-18 from a bet365 app screenshot) -- no aggregator re-check needed since the source already outranks any aggregator."
+   },
+   {
+    "date": "2026-08-21T22:35Z",
+    "scope": "matchday-news board check (leagues-matchday-news task)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 13,
+    "method": "web search per distinct player on the live player_picks.json board: Ante Budimir, Erling Haaland, Harry Kane, Kylian Mbappe-Lottin, Antony, Thiago (Igor Thiago), Vinicius Junior, Antoine Semenyo, Michael Olise, Serhou Guirassy, Deniz Undav, Odsonne Edouard, Florian Thauvin",
+    "verified_by": "direct web search, current reporting as of 2026-08-21T22:35Z",
+    "result": "all 13 confirmed still at the club shown; no transfers.json changes required. NEW to the board since the 16:20Z sweep: Antony (Betis) -- confirmed his loan-to-permanent move from Manchester United closed officially in summer 2026 (contract to 2030, Man Utd/Sky Sports/ESPN/club official announcements); a beIN Sports piece dated 18 Aug floating Besiktas interest is unconfirmed rumour only, not actioned. Budimir, Haaland, Kane, Mbappe, Igor Thiago, Vinicius Jr, Semenyo, Olise, Guirassy, Undav, Edouard, Thauvin all unchanged from the 16:20Z sweep, re-verified via the transfer-check pass rather than individually re-searched given under 7 hours had elapsed with no new signal.",
+    "not_checked": "No fixtures fell in the 45min-3h Best Picks window this run (nearest was Paris SG v Rennes, 2026-08-23T18:45Z, ~44h out) -- full STEP 2-5 team-news research was not triggered. Three finished-but-ungraded matches were found and graded via results_override.json: Arsenal 3-0 Coventry (PL), Betis 1-0 Sociedad (LALIGA), Marseille 4-0 Strasbourg (LIGUE1), each confirmed by two independent sources, full time. Friday six_scores.json re-checked via script only (already fully verified earlier today at 16:20Z) -- still OK, matchweek 1, no changes."
    }
   ],
   "known_gaps": [

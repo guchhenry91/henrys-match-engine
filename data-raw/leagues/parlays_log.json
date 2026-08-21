@@ -111,6 +111,29 @@
     "locked_at": "2026-08-20T04:23:05.000533+00:00",
     "tainted": false
   },
+  "LALIGA#18#shots#Ante Budimir|LIGUE1#7#w|PL#8#sot#Erling Haaland": {
+    "combined": 0.3225,
+    "earliest_kickoff": "2026-08-23T13:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#8#sot#Erling Haaland",
+        "p": 0.676,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#7#w",
+        "p": 0.6944,
+        "selection": "Paris SG to win"
+      }
+    ],
+    "locked_at": "2026-08-21T23:01:39.872242+00:00",
+    "tainted": false
+  },
   "LALIGA#18#shots#Ante Budimir|PL#6#goal#Thiago|PL#8#sot#Erling Haaland": {
     "combined": 0.1421,
     "earliest_kickoff": "2026-08-22T16:30:00+00:00",
@@ -337,6 +360,24 @@
       }
     ],
     "locked_at": "2026-08-20T16:37:26.182191+00:00",
+    "tainted": false
+  },
+  "PL#6#sot#Thiago|PL#8#sot#Erling Haaland": {
+    "combined": 0.3948,
+    "earliest_kickoff": "2026-08-22T16:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#8#sot#Erling Haaland",
+        "p": 0.676,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "PL#6#sot#Thiago",
+        "p": 0.584,
+        "selection": "Thiago 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-08-21T23:01:39.872242+00:00",
     "tainted": false
   }
 }

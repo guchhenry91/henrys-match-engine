@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. Same evidence bar as transfers.json and fixture_times.json: two independent sources, full-time confirmed. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-08-15",
+  "_verified_on": "2026-08-21",
   "LALIGA": {
     "Alaves|Getafe": {
       "home_goals": 3,
@@ -18,6 +18,37 @@
       "sources": [
         "ESPN match page (gameId 401882918): Sevilla 2-1 Rayo Vallecano, Full Time",
         "FOX Sports boxscore (908959): Sevilla 2, Rayo Vallecano 1, Full Time"
+      ]
+    },
+    "Betis|Sociedad": {
+      "home_goals": 1,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401882914): Real Betis 1-0 Real Sociedad, Full Time",
+        "Yahoo Sports boxscore: Real Betis 1-0 Real Sociedad, Riquelme 63'"
+      ]
+    }
+  },
+  "PL": {
+    "Arsenal|Coventry": {
+      "home_goals": 3,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401879301): Arsenal 3-0 Coventry, Full Time",
+        "Sky Sports report: Arsenal 3-0 Coventry, Havertz/Saka/Odegaard, Full Time"
+      ]
+    }
+  },
+  "LIGUE1": {
+    "Marseille|Strasbourg": {
+      "home_goals": 4,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "Maxifoot: Marseille 4-0 Strasbourg (fini)",
+        "Eurosport FR: Marseille 4-0 Strasbourg, Gouiri brace"
       ]
     }
   }
