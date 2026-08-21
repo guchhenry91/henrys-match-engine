@@ -1,6 +1,6 @@
 {
  "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves (and late 2025-26 ones) are invisible without this file. Keys are EXACT Understat spellings, resolved by scripts/apply_transfers.py. Value = new canonical club, or null if the player left this league. Verified by per-league agents requiring two independent sources or an official announcement; rumours excluded.",
- "_verified_on": "2026-08-20",
+ "_verified_on": "2026-08-21",
  "_held_back": {
   "LIGUE1": {
    "Sekou Mara": "Strasbourg (Transfermarkt only -- two pages, one source)",
@@ -613,6 +613,16 @@
     "verified_by": "direct web search, current reporting as of 2026-08-20T21:04Z",
     "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Guirassy: still wants to leave Dortmund (Turkey interest reported, Aston Villa also linked at a reported ~EUR40m Dortmund valuation) but Ricken continues to deny an imminent exit and no fee is agreed -- still Dortmund, unconfirmed rumour only, not actioned. General done-deals scan (FootballTransfers) found zero official transfers completed in the top five leagues today. All others unchanged from the 19:06Z sweep.",
     "not_checked": "no fixtures fell in the 45min-3h Best Picks window this run (nearest was Arsenal v Coventry, ~21h56m out at check time) -- full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist either (checked via script across all four league files' \"matches\" arrays, kickoff-plus-2h15m vs null result). Thursday six_scores.json check already independently re-confirmed earlier today (19:06Z sweep) against the aceodds.com aggregator -- not re-queried a second time same-day."
+   },
+   {
+    "date": "2026-08-21T13:04Z",
+    "scope": "matchday-news board check (leagues-matchday-news task)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 12,
+    "method": "web search per distinct player on the live player_picks.json board: Ante Budimir, Erling Haaland, Harry Kane, Kylian Mbappe-Lottin, Thiago (Igor Thiago), Vinicius Junior, Antoine Semenyo, Michael Olise, Serhou Guirassy, Deniz Undav, Odsonne Edouard, Florian Thauvin",
+    "verified_by": "direct web search, current reporting as of 2026-08-21",
+    "result": "all 12 confirmed still at the club shown; no transfers.json changes required. Semenyo's Man City attribution re-confirmed correct (Jan 2026 move from Bournemouth, long-settled). Vinicius Jr's new Real Madrid contract to 2032 re-confirmed. Kane received the 2026 European Golden Shoe on 19 Aug, in a Bayern contract year with talks expected to begin soon, no exit signal. Igor Thiago: Brentford still unwilling to sell despite Chelsea/Man Utd/Spurs interest, player has a long-term contract. Guirassy, Undav, Olise, Budimir, Mbappe, Edouard, Thauvin unchanged and unremarkable from the 2026-08-20T21:04Z sweep.",
+    "not_checked": "no fixtures fell in the 45min-3h Best Picks window this run (nearest was Arsenal v Coventry, ~5h56m out at check time, 2026-08-21T19:00Z) -- full STEP 2-5 team-news research was not triggered."
    }
   ],
   "known_gaps": [
