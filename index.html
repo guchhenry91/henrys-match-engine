@@ -299,6 +299,22 @@ function buildNav(){
     nav.append(b);});
 }
 
+// Kickoff shown in the READER'S OWN timezone. The payload stores UTC, which is
+// right for storage and useless on a card -- a reader in London should not be
+// converting 19:00Z in their head to know when Arsenal kick off. Date.toLocale*
+// handles the offset and the DST switch on 25 October for free.
+// Compact by design: "Fri 21 Aug, 20:00". Today and tomorrow say so instead,
+// because that is what a reader actually wants to know on a matchday.
+function whenStr(iso){
+  const d=new Date(iso); if(isNaN(d)) return "";
+  const time=d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
+  const day0=new Date(); day0.setHours(0,0,0,0);
+  const days=Math.round((new Date(d).setHours(0,0,0,0)-day0)/86400000);
+  if(days===0) return `Today ${time}`;
+  if(days===1) return `Tomorrow ${time}`;
+  return `${d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})}, ${time}`;
+}
+
 function tierOf(p){return p>=.75?`<span class="tier t-elite">Elite</span>`:p>=.68?`<span class="tier t-strong">Strong</span>`:`<span class="tier t-lean">Lean</span>`;}
 
 function bestRow(u){
@@ -308,7 +324,7 @@ function bestRow(u){
   const price=(u.odds!=null&&Number.isFinite(Number(u.odds)))
     ? ` · ${esc(u.book||"bookmaker")} ${Number(u.odds).toFixed(2)}` : "";
   return `<div class="rw" onclick="openMatch('${u.league_key}',${u.id})"><span class="lgtag" style="background:${LC[u.league_key]}"></span>
-    <div class="info"><b>${esc(u.home)} v ${esc(u.away)}</b><span>${esc(LG[u.league_key])} · pick ${esc(u.pick)}${price}</span></div>
+    <div class="info"><b>${esc(u.home)} v ${esc(u.away)}</b><span>${whenStr(u.date)} · ${esc(LG[u.league_key])} · pick ${esc(u.pick)}${price}</span></div>
     ${tierOf(u.p_pick)}<div class="conf" style="min-width:74px"><b>${pc(u.p_pick)}%</b><div class="bar"><i style="width:${pc(u.p_pick)}%"></i></div></div>
     <span class="chev">›</span></div>`;
 }
@@ -336,7 +352,7 @@ function viewToday(){
   const rec=best.record||{correct:0,wrong:0};
   const days=daysToKickoff(up);
   let h=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
-    <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b> · matchweek ${d.matchweek||1}</div>
+    <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b> · ${whenStr(d.date)}</div>
     <div class="num"><b>${pc(d.p_pick)}%</b><span>win probability</span></div><div class="go">Tap for full breakdown ›</div></div>`;
   h+=`<div class="tiles"><div class="glass tile"><div class="k grad">${up.length+players.length}</div><div class="l">Live picks</div></div>
     <div class="glass tile"><div class="k">${rec.correct}–${rec.wrong}</div><div class="l">Record</div></div>
@@ -365,7 +381,7 @@ function viewBest(){
 
 function playerRow(p){const m=MK[p.market]||{tag:"a",name:p.market};
   return `<div class="rw static"><div class="av" style="background:${tc(p.team)}">${esc(initials(p.player))}</div>
-    <div class="info"><b>${esc(p.player)}</b><span>${esc(p.team)} · ${esc(LG[p.league_key]||p.league)}</span></div>
+    <div class="info"><b>${esc(p.player)}</b><span>${whenStr(p.date)} · ${esc(p.team)} · ${esc(LG[p.league_key]||p.league)}</span></div>
     <span class="mk ${m.tag}">${esc(m.name)}</span><div class="conf" style="min-width:70px"><b>${pc(p.p_pick)}%</b><span>${figFor(p)}</span></div></div>`;
 }
 
@@ -480,7 +496,7 @@ function viewSix(){
       const alt=(p.alternatives||[])[0];
       return `<div class="rw static"><span class="lgtag" style="background:${LC.PL}"></span>
         <div class="info"><b>${esc(p.home)} v ${esc(p.away)}</b>
-          <span>${p.agrees_with_match_pick?"scoreline agrees with the match pick":`match pick ${esc(p.match_pick||"—")}`}${p.provisional?"":" · locked"}</span></div>
+          <span>${whenStr(p.date)} · ${p.agrees_with_match_pick?"agrees with match pick":`match pick ${esc(p.match_pick||"—")}`}${p.provisional?"":" · locked"}</span></div>
         <div class="conf" style="min-width:88px">
           <b>${esc(p.score)}</b> <span style="font-size:11.5px">${p.score_pct}%</span>
           ${alt?`<span style="display:block;margin-top:2px;font-size:10.5px;opacity:.7">or ${esc(alt.score)} ${alt.pct}%</span>`:""}
@@ -587,7 +603,7 @@ function viewLeague(k){
     // NOT the headline here, but it is one tap away in the match view, where
     // correct-score betting needs it.
     return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
-      <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
+      <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>${whenStr(m.date)} · MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
       <span class="psc">${esc(p.score||"–")}<small>if pick lands</small></span>
       <div class="conf" style="min-width:48px"><b>${pc(p.p_pick)}%</b></div><span class="chev">›</span></div>`;}).join("")}</div>
     <p class="note">The score shown is the most likely one if the pick lands, so it always agrees with the pick. Tap a match for the highest-probability score across every result -- the better number for correct-score betting. Full standings are in the Tables tab.</p>`;
