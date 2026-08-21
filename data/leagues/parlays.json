@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-21T18:43:14.719266+00:00",
+  "updated": "2026-08-21T18:58:57.971598+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -156,7 +156,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.1663,
+          "combined": 0.1032,
           "legs": [
             {
               "selection": "Ante Budimir 2+ shot attempts",
@@ -177,6 +177,16 @@
               "p": 0.676,
               "id": "PL#8#sot#Erling Haaland",
               "date": "2026-08-23T13:00:00+00:00"
+            },
+            {
+              "selection": "Antony 2+ shot attempts",
+              "match": "Betis v Sociedad",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.621,
+              "id": "LALIGA#13#shots#Antony",
+              "date": "2026-08-21T19:00:00+00:00"
             },
             {
               "selection": "Kylian Mbappe-Lottin 1+ shot on target",
@@ -200,7 +210,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-20T16:37:26.182191+00:00"
+          "locked_at": "2026-08-21T18:58:57.971598+00:00"
         }
       ]
     },
@@ -316,7 +326,7 @@
     "wrong": 1,
     "void": 0,
     "total": 1,
-    "pending": 13
+    "pending": 14
   },
   "settled": [
     {
