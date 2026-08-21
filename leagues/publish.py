@@ -1053,7 +1053,16 @@ def build_player_picks() -> dict:
         "record": picks.record(settled),
         "record_by_market": by_market,
         "record_by_lineup": by_lineup,
-        "ungradeable_leagues": sorted(set(ungradeable)),
+        # Union of two sources, because the settled path alone is too late.
+        # `ungradeable` is only appended when a league FAILS TO GRADE a settled
+        # pick, so on 2026-08-21 six Bundesliga picks sat on the board flagged
+        # gradeable=False -- Kane's 0.660 shots among them, kicking off that
+        # evening -- while this list was empty and the page's "not graded" note
+        # never rendered. The warning arrived only after a pick had already
+        # silently failed to reach the record. An UPCOMING pick that cannot be
+        # graded is exactly as worth warning about as a settled one.
+        "ungradeable_leagues": sorted(set(ungradeable) | {
+            u["league"] for u in upcoming if u.get("gradeable") is False}),
         "_incomplete": incomplete,     # non-empty -> caller must NOT publish
         "upcoming": upcoming,
         "settled": settled[:120],
