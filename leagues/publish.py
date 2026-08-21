@@ -26,20 +26,29 @@ MATCHWEEKS_AHEAD = 1
 # pick would then contradict the probabilities shown beside it. Until a fixture
 # enters this window its pick is provisional and recomputed every run.
 #
-# 45 minutes. Deliberately AFTER the confirmed starting XI, which clubs publish about
-# an hour before kickoff -- the whole point is that a late team change reaches the
-# model before the pick is committed.
+# 60 minutes. Held AT the confirmed starting XI, which clubs publish about an hour
+# before kickoff -- the whole point is that a late team change reaches the model
+# before the pick is committed.
 #
 # TIED TO THE PUBLISH CADENCE. A pick can only freeze on a run landing inside this
-# window, so the matchday workflow runs every 30 minutes: narrower than the window,
-# giving each fixture roughly two chances to lock.
+# window, so the matchday workflow runs every 15 minutes -- comfortably narrower
+# than the window, giving each fixture about four chances to lock.
 #
-# THE COST, stated plainly: GitHub's scheduled runs are routinely delayed under load
-# and are occasionally dropped. Lose both runs in a 45-minute window and the pick
-# locks after kickoff, is marked tainted, and is VOIDED out of the record rather than
-# backdated. That is the honest failure, but it is still a lost pick -- so if voids
-# start appearing in the record, widen this window and the cadence TOGETHER.
-LOCK_WINDOW_HOURS = 0.75
+# WIDENED FROM 45 MINUTES ON 2026-08-21, and the cadence halved with it, exactly as
+# the previous version of this comment prescribed. On the opening night GitHub had
+# both the 18:00 and 18:30 runs still queued at 18:36; Arsenal v Coventry kicked off
+# at 19:00 with its pick unfrozen and 21 minutes of the window already gone. It was
+# locked by hand with 22 minutes to spare. Nobody would have noticed the void until
+# the next morning -- and on a Saturday nine fixtures lock, not one.
+#
+# WHY 60 MINUTES AND NOT MORE. Clubs publish confirmed XIs about an hour before
+# kickoff, and the entire reason this window is short is so a late team change
+# reaches the model BEFORE the pick commits. Tonight's news landed at 17:59 for a
+# 19:00 kickoff -- 61 minutes out -- and moved Arsenal from 77.4% to 77.1% on Timber
+# and Saliba. Widen much past an hour and picks routinely freeze before that news
+# exists, which trades a rare void for a systematic loss of the thing the window is
+# for. Four chances inside an hour is the cheaper side of that trade.
+LOCK_WINDOW_HOURS = 1.0
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues, not guessed. The tier hit rates that justify
 # it are no longer copied here: `leagues.tune` computes them at each of these
