@@ -315,6 +315,40 @@ function whenStr(iso){
   return `${d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})}, ${time}`;
 }
 
+// Group fixtures under the day they are played, with a count -- a flat list of
+// 30 fixtures across four leagues is hard to scan, and "SATURDAY 22 AUGUST ·
+// 9 matches" tells a reader where to look immediately.
+function groupByDay(items){
+  const out=[], seen=new Map();
+  for(const it of items){
+    const d=new Date(it.date); if(isNaN(d)) continue;
+    const key=d.toDateString();
+    if(!seen.has(key)){ const g={key,date:d,items:[]}; seen.set(key,g); out.push(g); }
+    seen.get(key).items.push(it);
+  }
+  out.sort((a,b)=>a.date-b.date);
+  return out;
+}
+function dayHeading(d){
+  const day0=new Date(); day0.setHours(0,0,0,0);
+  const days=Math.round((new Date(d).setHours(0,0,0,0)-day0)/86400000);
+  const rel=days===0?"Today":days===1?"Tomorrow":null;
+  const full=d.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
+  return rel?`${rel} · ${full}`:full;
+}
+// All three outcomes, not just the picked one. A single number hides the draw
+// risk: 44/28/28 and 44/12/44 are the same "44% pick" and completely different
+// bets. The picked side is emphasised so the row still reads as a call.
+function hdaStrip(p){
+  // Stacked UNDER the fixture rather than beside it. As a right-hand column it
+  // cost ~95px and truncated five of nine fixture names at 375px; the row has
+  // full width to give underneath, so nothing is clipped.
+  const cell=(lbl,v,on)=>`<span style="font-variant-numeric:tabular-nums;
+    ${on?"color:var(--ink);font-weight:800":"color:var(--sub);font-weight:600"}">${lbl} ${pc(v)}</span>`;
+  return `<div style="display:flex;gap:12px;font-size:11.5px;margin-top:4px">
+    ${cell("H",p.p_home,p.pick_type==="home")}${cell("D",p.p_draw,p.pick_type==="draw")}${cell("A",p.p_away,p.pick_type==="away")}</div>`;
+}
+
 function tierOf(p){return p>=.75?`<span class="tier t-elite">Elite</span>`:p>=.68?`<span class="tier t-strong">Strong</span>`:`<span class="tier t-lean">Lean</span>`;}
 
 function bestRow(u){
@@ -370,7 +404,15 @@ function viewBest(){
     h+=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
       <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b></div>
       <div class="num"><b>${pc(d.p_pick)}%</b><span>model win probability</span></div><div class="go">Tap for breakdown ›</div></div>`;
-    h+=`<div class="eyebrow">The board · p ≥ ${pc(best.min_probability||.65)}%</div><div class="glass rowc">${up.slice(1).map(bestRow).join("")||emptyRow("Just the top pick this week")}</div>`;
+    const rest=up.slice(1);
+    if(!rest.length){
+      h+=`<div class="eyebrow">The board · p ≥ ${pc(best.min_probability||.65)}%</div><div class="glass rowc">${emptyRow("Just the top pick this week")}</div>`;
+    } else {
+      h+=`<div class="eyebrow">The board · p ≥ ${pc(best.min_probability||.65)}%</div>`;
+      for(const g of groupByDay(rest))
+        h+=`<div class="sectsub" style="margin:14px 2px 8px">${esc(dayHeading(g.date))} · ${g.items.length} pick${g.items.length===1?"":"s"}</div>
+          <div class="glass rowc">${g.items.map(bestRow).join("")}</div>`;
+    }
   }
   if(settled.length){h+=`<div class="eyebrow mt">Settled</div><div class="glass rowc">${settled.slice(0,12).map(s=>`
     <div class="rw static"><span class="lgtag" style="background:${LC[s.league_key]}"></span>
@@ -594,19 +636,19 @@ function viewLeague(k){
   const ms=(d.matches||[]).filter(m=>!m.result);
   if(!ms.length) return emptyState();
   // Fixtures only -- the full standings live in the Tables tab, not repeated here.
-  let h=`<div class="eyebrow" style="color:${LC[k]}">${esc(LG[k])} · upcoming fixtures</div><div class="glass rowc">${ms.slice(0,16).map(m=>{const p=m.prediction||{};
-    // The row shows p.score: the most likely scoreline GIVEN the pick, so the
-    // card never reads "pick Manchester United ... 1-1". top_scores[0] is a
-    // DIFFERENT number -- the highest-probability score across ALL results,
-    // ignoring who wins -- and is measurably the better exact-score bet
-    // (12.60% vs 10.69% over 3,958 walk-forward matches). It is deliberately
-    // NOT the headline here, but it is one tap away in the match view, where
-    // correct-score betting needs it.
-    return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
-      <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>${whenStr(m.date)} · MW${m.matchweek} · pick ${esc(p.pick)}</span></div>
-      <span class="psc">${esc(p.score||"–")}<small>if pick lands</small></span>
-      <div class="conf" style="min-width:48px"><b>${pc(p.p_pick)}%</b></div><span class="chev">›</span></div>`;}).join("")}</div>
-    <p class="note">The score shown is the most likely one if the pick lands, so it always agrees with the pick. Tap a match for the highest-probability score across every result -- the better number for correct-score betting. Full standings are in the Tables tab.</p>`;
+  // The row shows p.score: the most likely scoreline GIVEN the pick, so the card
+  // never reads "pick Manchester United ... 1-1". top_scores[0] is a DIFFERENT
+  // number -- the highest-probability score across ALL results -- and is one tap
+  // away in the match view, where correct-score betting needs it.
+  let h=`<div class="sectsub" style="margin:0 2px 12px">Home · draw · away, out of 100. What may happen, not what will.</div>`;
+  for(const g of groupByDay(ms)){
+    h+=`<div class="eyebrow" style="color:${LC[k]}">${esc(dayHeading(g.date))} · ${g.items.length} match${g.items.length===1?"":"es"}</div>
+      <div class="glass rowc">${g.items.map(m=>{const p=m.prediction||{};
+      return `<div class="rw" onclick="openMatch('${k}',${m.id})"><span class="lgtag" style="background:${LC[k]}"></span>
+        <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b><span>${whenStr(m.date)} · ${esc(p.pick)} · ${esc(p.score||"–")} if it lands</span>
+          ${hdaStrip(p)}</div><span class="chev">›</span></div>`;}).join("")}</div>`;
+  }
+  h+=`<p class="note">The score shown is the most likely one if the pick lands, so it always agrees with the pick. Tap a match for the highest-probability score across every result -- the better number for correct-score betting. Full standings are in the Tables tab.</p>`;
   return h;
 }
 

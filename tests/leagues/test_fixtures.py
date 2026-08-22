@@ -1,4 +1,21 @@
+import pytest
+
+from leagues import fixtures as fixtures_mod
 from leagues.fixtures import parse_fixtures
+
+
+@pytest.fixture(autouse=True)
+def _isolate_override_files(tmp_path, monkeypatch):
+    """Point the override files at nothing for every test in this module.
+
+    These tests use Arsenal v Coventry as their sample fixture, and once that
+    pairing appeared in the real results_override.json -- 3-0, written the night
+    it was played -- parse_fixtures dutifully marked the unplayed sample as
+    played and the test failed. A unit test asserting on parser behaviour must
+    not read whatever the live data files happen to contain today.
+    """
+    monkeypatch.setattr(fixtures_mod, "OVERRIDES", tmp_path / "no_times.json")
+    monkeypatch.setattr(fixtures_mod, "RESULTS", tmp_path / "no_results.json")
 
 RAW = [
     {"MatchNumber": 1, "RoundNumber": 1, "DateUtc": "2026-08-21 19:00:00Z",
