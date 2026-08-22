@@ -1,4 +1,22 @@
-"""Fetch confirmed XIs shortly before kickoff without wasting the daily quota."""
+"""Fetch confirmed XIs shortly before kickoff without wasting the daily quota.
+
+POLLED ON A LADDER: 60, 45, 30 and 15 minutes before kickoff, one attempt per
+rung. A single attempt in a 40-minute window was too brittle -- clubs publish
+late and unevenly, so one poll that happened to land before a slow club released
+its XI got nothing and never looked again, and the props for that fixture went
+out on appearance probabilities instead of the actual eleven.
+
+Quota is protected by stopping early rather than by refusing to look: a fixture
+whose BOTH XIs are already confirmed is skipped on every later rung, so the extra
+polls are only ever spent on the fixtures still missing one. Most resolve at 60
+or 45 and never reach the lower rungs.
+
+NOTE ON ORDERING. publish.py locks a pick at LOCK_WINDOW_HOURS (60 minutes), so a
+pick can freeze before its XI arrives. That is deliberate -- see
+publish._player_pick_publishable: requiring a confirmed XI to lock was tried and
+acted as a kill switch. A confirmed XI arriving after the lock still updates the
+PROPS through props.match_props; it just cannot move the frozen match pick.
+"""
 import json
 import os
 from datetime import datetime, timezone
@@ -7,6 +25,9 @@ from leagues.api_football import Client
 from leagues.names import canonical, UnknownTeam
 from leagues.team_news import NEWS_PATH, upcoming_fixtures
 from scripts.sync_rosters import API_LEAGUES
+
+# Minutes before kickoff at which to poll for a confirmed XI, highest first.
+RUNGS = (60, 45, 30, 15)
 
 
 def main(now=None):
@@ -18,18 +39,23 @@ def main(now=None):
     for fixture in upcoming_fixtures(now=now):
         kickoff = datetime.fromisoformat(fixture["date"].replace("Z", "+00:00"))
         minutes = (kickoff - now).total_seconds() / 60
-        if 0 < minutes <= 40:
-            imminent.append((fixture, kickoff))
+        # SMALLEST rung at or above the time remaining, so consecutive runs consume
+        # different rungs: 58->60, 43->45, 28->30, 12->15. Iterating RUNGS as
+        # written (descending) matched 60 for everything, spending one rung and
+        # silently skipping the other three.
+        rung = next((r for r in sorted(RUNGS) if r >= minutes), None)
+        if rung is not None and minutes > 0:
+            imminent.append((fixture, kickoff, rung))
     if not imminent:
-        print("no fixtures inside the 55-minute lineup window; no quota used")
+        print(f"no fixtures inside the {RUNGS[0]}-minute lineup window; no quota used")
         return 0
 
     news = json.loads(NEWS_PATH.read_text(encoding="utf-8")) if NEWS_PATH.exists() else {}
-    client = Client(limit=44)
+    client = Client(limit=60)   # four rungs need more headroom than one poll did
     by_date = {}
     changed = False
     confirmed = 0
-    for fixture, kickoff in imminent:
+    for fixture, kickoff, rung in imminent:
         league = fixture["league_key"]
         section = news.setdefault(league, {})
         if all((section.get(team) or {}).get("lineup_confirmed") is True
@@ -55,22 +81,33 @@ def main(now=None):
                   f"{fixture['home']} v {fixture['away']}")
             continue
         fixture_id = match["fixture"]["id"]
-        if any((section.get(team) or {}).get("lineup_api_attempted_fixture") == fixture_id
-               for team in (fixture["home"], fixture["away"])):
+        # ONE ATTEMPT PER RUNG, not one per fixture. The marker records which rungs
+        # have been spent on THIS fixture, so a 15-minute cadence cannot burn the
+        # same rung twice while the ladder still gets its four looks.
+        done = set()
+        for team in (fixture["home"], fixture["away"]):
+            e = section.get(team) or {}
+            if e.get("lineup_api_attempted_fixture") == fixture_id:
+                done |= set(e.get("lineup_api_rungs") or [])
+        if rung in done:
             continue
-        lineups = client.get("fixtures/lineups", fixture=fixture_id)
-        # One attempt per fixture. This marker is committed even when the provider
-        # has no XI yet, preventing the next 30-minute run from spending the same
-        # daily quota again. The 40-minute window matches the provider's documented
-        # publication timing.
+        try:
+            lineups = client.get("fixtures/lineups", fixture=fixture_id)
+        except RuntimeError as exc:
+            # Out of per-run budget. Stop cleanly and keep what was gathered --
+            # this step must never fail the publish it precedes.
+            print(f"lineup poll stopped early ({exc}); {confirmed} confirmed so far")
+            break
         for team in (fixture["home"], fixture["away"]):
             section.setdefault(team, {}).update({
                 "lineup_api_attempted_fixture": fixture_id,
                 "lineup_api_attempted_at": now.isoformat(),
+                "lineup_api_rungs": sorted(done | {rung}, reverse=True),
             })
         changed = True
         if len(lineups) != 2:
-            print(f"lineup not published yet: {fixture['home']} v {fixture['away']}")
+            print(f"lineup not published yet at the {rung}-minute rung: "
+                  f"{fixture['home']} v {fixture['away']}")
             continue
         for row in lineups:
             try:
