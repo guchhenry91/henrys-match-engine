@@ -431,9 +431,22 @@ function viewPlayers(){
   const pp=DATA.player_picks||{}, up=pp.upcoming||[];
   if(!up.length) return emptyState();
   const chips=[["all","All"],["goal","Anytime"],["shots","Attempts"],["sot","On target"]];
-  const list=up.filter(p=>filter==="all"||p.market===filter);
+  const NAME={goal:"Anytime goalscorer",shots:"2+ shot attempts",sot:"1+ shot on target"};
+  const rbm=pp.record_by_market||{};
   let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
-  h+=`<div class="glass rowc">${list.map(playerRow).join("")||emptyRow("No picks in this market yet")}</div>`;
+  // ONE SECTION PER MARKET, always -- including under "All". The three markets
+  // have completely different ceilings (a 31% anytime pick and a 69% shots pick
+  // are both near the top of their own market), so a single mixed list ranked by
+  // probability buries every goalscorer under every shots pick and reads as if
+  // the goalscorers are the weak ones.
+  const markets=(filter==="all")?["goal","shots","sot"]:[filter];
+  for(const mk of markets){
+    const list=up.filter(p=>p.market===mk).sort((a,b)=>b.p_pick-a.p_pick);
+    const r=rbm[mk]||{};
+    const rec=r.total?` · ${r.correct}–${r.wrong} graded`:"";
+    h+=`<div class="eyebrow" style="margin-top:18px">${esc(NAME[mk]||mk)} · ${list.length} pick${list.length===1?"":"s"}${rec}</div>
+      <div class="glass rowc">${list.map(playerRow).join("")||emptyRow("No picks in this market yet")}</div>`;
+  }
   if((pp.ungradeable_leagues||[]).length)
     h+=`<p class="note">${esc(pp.ungradeable_leagues.join(", "))} player picks publish but are not graded — no shot-level feed there.</p>`;
   return h;
@@ -609,6 +622,24 @@ function allPicksBlock(){
       <span class="res ${esc(m.graded)}">${m.graded==="correct"?"WON":(m.graded==="void"?"VOID":"LOST")}</span></div>`
   ).join("")}</div>`;
   const bar=Math.round(100*(((DATA.best||{}).min_probability)||0.65));
+  // BY TIER. Pooling a 77% call with a 41% one produces a headline describing
+  // neither, and the low-confidence picks are the ones with no board of their
+  // own -- so they were being graded invisibly. publish already bands every pick
+  // 1-5 by probability at lock time, so this is a display of data that exists.
+  const BAND={5:"Elite · 70%+",4:"Strong · 60-70%",3:"Even · 50-60%",2:"Lean · 40-50%",1:"Longshot · under 40%"};
+  const tiers={};
+  Object.keys(FILES).forEach(k=>{
+    const bc=((DATA[FILES[k]]||{}).record||{}).by_confidence||{};
+    Object.entries(bc).forEach(([c,v])=>{
+      const s=tiers[c]||(tiers[c]={correct:0,total:0});
+      s.correct+=v.correct||0; s.total+=v.total||0;
+    });
+  });
+  const bands=Object.keys(tiers).sort((a,b)=>b-a);
+  if(bands.length)
+    h+=`<div class="eyebrow" style="margin-top:18px">By confidence</div><div class="glass rowc">${
+      bands.map(c=>tierRow(BAND[c]||`Band ${c}`,`${tiers[c].total} graded`,
+        {correct:tiers[c].correct,wrong:tiers[c].total-tiers[c].correct,total:tiers[c].total})).join("")}</div>`;
   h+=`<p class="note">The board above counts only picks at ${bar}% or higher. This counts every match the model called, at any confidence — the fuller and less flattering number.</p>`;
   return h;
 }
