@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T21:38:07.971662+00:00",
+  "updated": "2026-08-22T21:47:15.872432+00:00",
   "min_probability": {
     "goal": 0.276,
     "shots": 0.497,
@@ -12,22 +12,22 @@
   },
   "record": {
     "correct": 0,
-    "wrong": 9,
-    "total": 9,
+    "wrong": 13,
+    "total": 13,
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "1": {
-        "correct": 0,
-        "total": 4
-      },
       "3": {
         "correct": 0,
-        "total": 4
+        "total": 7
       },
       "4": {
         "correct": 0,
-        "total": 1
+        "total": 2
+      },
+      "1": {
+        "correct": 0,
+        "total": 4
       }
     }
   },
@@ -47,11 +47,15 @@
     },
     "shots": {
       "correct": 0,
-      "wrong": 1,
-      "total": 1,
+      "wrong": 3,
+      "total": 3,
       "void": 0,
       "pending": 0,
       "by_confidence": {
+        "3": {
+          "correct": 0,
+          "total": 2
+        },
         "4": {
           "correct": 0,
           "total": 1
@@ -60,14 +64,18 @@
     },
     "sot": {
       "correct": 0,
-      "wrong": 4,
-      "total": 4,
+      "wrong": 6,
+      "total": 6,
       "void": 0,
       "pending": 0,
       "by_confidence": {
+        "4": {
+          "correct": 0,
+          "total": 1
+        },
         "3": {
           "correct": 0,
-          "total": 4
+          "total": 5
         }
       }
     }
@@ -96,18 +104,22 @@
     },
     "unconfirmed": {
       "correct": 0,
-      "wrong": 4,
-      "total": 4,
+      "wrong": 8,
+      "total": 8,
       "void": 0,
       "pending": 0,
       "by_confidence": {
+        "3": {
+          "correct": 0,
+          "total": 4
+        },
+        "4": {
+          "correct": 0,
+          "total": 1
+        },
         "1": {
           "correct": 0,
           "total": 3
-        },
-        "3": {
-          "correct": 0,
-          "total": 1
         }
       }
     }
@@ -255,7 +267,7 @@
       "penalty_taker": true,
       "appearance_pct": 80.0,
       "expected_minutes": 67.7,
-      "anytime_pct": 28.1,
+      "anytime_pct": 28.2,
       "exp_shots": 3.87,
       "exp_sot": 1.79,
       "lineup_confirmed": false,
@@ -266,31 +278,6 @@
       "date": "2026-08-26T19:00:00+00:00",
       "home": "Real Madrid",
       "away": "Sociedad"
-    },
-    {
-      "market": "sot",
-      "line": "1+ shot on target",
-      "player": "Kylian Mbappe-Lottin",
-      "team": "Real Madrid",
-      "position": "FW",
-      "p_pick": 0.613,
-      "confidence": 4,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": true,
-      "appearance_pct": 80.0,
-      "expected_minutes": 67.7,
-      "anytime_pct": 22.1,
-      "exp_shots": 3.6,
-      "exp_sot": 1.67,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 15,
-      "date": "2026-08-22T19:30:00+00:00",
-      "home": "Espanol",
-      "away": "Real Madrid"
     },
     {
       "market": "shots",
@@ -305,7 +292,7 @@
       "penalty_taker": true,
       "appearance_pct": 80.0,
       "expected_minutes": 67.7,
-      "anytime_pct": 28.1,
+      "anytime_pct": 28.2,
       "exp_shots": 3.87,
       "exp_sot": 1.79,
       "lineup_confirmed": false,
@@ -341,31 +328,6 @@
       "date": "2026-08-26T19:00:00+00:00",
       "home": "Real Madrid",
       "away": "Sociedad"
-    },
-    {
-      "market": "shots",
-      "line": "2+ shot attempts",
-      "player": "Kylian Mbappe-Lottin",
-      "team": "Real Madrid",
-      "position": "FW",
-      "p_pick": 0.572,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": true,
-      "appearance_pct": 80.0,
-      "expected_minutes": 67.7,
-      "anytime_pct": 22.1,
-      "exp_shots": 3.6,
-      "exp_sot": 1.67,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 15,
-      "date": "2026-08-22T19:30:00+00:00",
-      "home": "Espanol",
-      "away": "Real Madrid"
     },
     {
       "market": "shots",
@@ -443,31 +405,6 @@
       "away": "Sociedad"
     },
     {
-      "market": "sot",
-      "line": "1+ shot on target",
-      "player": "Vin\u00edcius J\u00fanior",
-      "team": "Real Madrid",
-      "position": "FW",
-      "p_pick": 0.546,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": false,
-      "appearance_pct": 92.5,
-      "expected_minutes": 73.6,
-      "anytime_pct": 11.6,
-      "exp_shots": 2.55,
-      "exp_sot": 1.1,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 15,
-      "date": "2026-08-22T19:30:00+00:00",
-      "home": "Espanol",
-      "away": "Real Madrid"
-    },
-    {
       "market": "shots",
       "line": "2+ shot attempts",
       "player": "Michael Olise",
@@ -541,31 +478,6 @@
       "date": "2026-08-28T18:30:00+00:00",
       "home": "Bayern Munich",
       "away": "Stuttgart"
-    },
-    {
-      "market": "shots",
-      "line": "2+ shot attempts",
-      "player": "Vin\u00edcius J\u00fanior",
-      "team": "Real Madrid",
-      "position": "FW",
-      "p_pick": 0.505,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": false,
-      "appearance_pct": 92.5,
-      "expected_minutes": 73.6,
-      "anytime_pct": 11.6,
-      "exp_shots": 2.55,
-      "exp_sot": 1.1,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "La Liga",
-      "league_key": "LALIGA",
-      "id": 15,
-      "date": "2026-08-22T19:30:00+00:00",
-      "home": "Espanol",
-      "away": "Real Madrid"
     },
     {
       "market": "goal",
@@ -648,14 +560,14 @@
       "player": "Kylian Mbappe-Lottin",
       "team": "Real Madrid",
       "position": "FW",
-      "p_pick": 0.281,
+      "p_pick": 0.282,
       "confidence": 1,
       "provisional": true,
       "doubt": false,
       "penalty_taker": true,
       "appearance_pct": 80.0,
       "expected_minutes": 67.7,
-      "anytime_pct": 28.1,
+      "anytime_pct": 28.2,
       "exp_shots": 3.87,
       "exp_sot": 1.79,
       "lineup_confirmed": false,
@@ -694,6 +606,118 @@
     }
   ],
   "settled": [
+    {
+      "appearance_pct": 80.0,
+      "bar": 0.497,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 67.7,
+      "kickoff": "2026-08-22T19:30:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-22T18:31:21.407674+00:00",
+      "market": "shots",
+      "news_checked_hours_ago": 0.5,
+      "p_pick": 0.572,
+      "player": "Kylian Mbappe-Lottin",
+      "tainted": false,
+      "team": "Real Madrid",
+      "team_attribution": "Real Madrid",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "La Liga",
+      "league_key": "LALIGA",
+      "id": 15,
+      "line": "2+ shot attempts",
+      "date": "2026-08-22T19:30:00+00:00",
+      "home": "Espanol",
+      "away": "Real Madrid"
+    },
+    {
+      "appearance_pct": 92.5,
+      "bar": 0.497,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 73.6,
+      "kickoff": "2026-08-22T19:30:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-22T18:31:21.407674+00:00",
+      "market": "shots",
+      "news_checked_hours_ago": 0.5,
+      "p_pick": 0.505,
+      "player": "Vin\u00edcius J\u00fanior",
+      "tainted": false,
+      "team": "Real Madrid",
+      "team_attribution": "Real Madrid",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "La Liga",
+      "league_key": "LALIGA",
+      "id": 15,
+      "line": "2+ shot attempts",
+      "date": "2026-08-22T19:30:00+00:00",
+      "home": "Espanol",
+      "away": "Real Madrid"
+    },
+    {
+      "appearance_pct": 80.0,
+      "bar": 0.511,
+      "confidence": 4,
+      "doubt": false,
+      "expected_minutes": 67.7,
+      "kickoff": "2026-08-22T19:30:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-22T18:31:21.407674+00:00",
+      "market": "sot",
+      "news_checked_hours_ago": 0.5,
+      "p_pick": 0.613,
+      "player": "Kylian Mbappe-Lottin",
+      "tainted": false,
+      "team": "Real Madrid",
+      "team_attribution": "Real Madrid",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "La Liga",
+      "league_key": "LALIGA",
+      "id": 15,
+      "line": "1+ shot on target",
+      "date": "2026-08-22T19:30:00+00:00",
+      "home": "Espanol",
+      "away": "Real Madrid"
+    },
+    {
+      "appearance_pct": 92.5,
+      "bar": 0.511,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 73.6,
+      "kickoff": "2026-08-22T19:30:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-22T18:31:21.407674+00:00",
+      "market": "sot",
+      "news_checked_hours_ago": 0.5,
+      "p_pick": 0.546,
+      "player": "Vin\u00edcius J\u00fanior",
+      "tainted": false,
+      "team": "Real Madrid",
+      "team_attribution": "Real Madrid",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "La Liga",
+      "league_key": "LALIGA",
+      "id": 15,
+      "line": "1+ shot on target",
+      "date": "2026-08-22T19:30:00+00:00",
+      "home": "Espanol",
+      "away": "Real Madrid"
+    },
     {
       "appearance_pct": 97.5,
       "bar": 0.276,
