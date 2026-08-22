@@ -105,6 +105,18 @@ def main(now=None):
                 break
             data.setdefault(league, {})[f"{home}|{away}"] = {
                 "home_goals": g["home"], "away_goals": g["away"], "status": "FT",
+                # PROVENANCE, and it matters. Hand-written entries in this file
+                # carry two independent sources because an agent reading match
+                # reports can hallucinate a scoreline. This entry was not read,
+                # it was fetched: a structured feed reporting integer goals under
+                # a finished status cannot misread itself the way prose can, and
+                # it can only ever cite one source -- itself. `auto` marks the
+                # difference so a single-source machine entry is never mistaken
+                # for a two-source verified one, and so the evidence test can
+                # hold each kind to the bar that actually applies to it.
+                "auto": True,
+                "api_fixture_id": c["fixture"]["id"],
+                "api_status": status,
                 "sources": [f"API-Football fixture {c['fixture']['id']}: "
                             f"{home} {g['home']}-{g['away']} {away}, status {status}"],
             }

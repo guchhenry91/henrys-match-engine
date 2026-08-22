@@ -181,4 +181,39 @@ def test_shipped_result_overrides_are_full_time_and_sourced():
             assert "|" in key
             assert v["status"] == "FT", f"{key} is not full time"
             assert isinstance(v["home_goals"], int) and isinstance(v["away_goals"], int)
-            assert len(v.get("sources", [])) >= 2, f"{key} needs two sources"
+            if v.get("auto"):
+                # Written by scripts/sync_results.py from API-Football. A
+                # structured feed can only ever cite itself, so the two-source
+                # bar is unmeetable here -- and was never aimed at this. It
+                # exists because an AGENT reading match reports can invent a
+                # scoreline. What a machine entry must prove instead is that it
+                # came from a real FINISHED fixture rather than a live one.
+                assert v.get("api_fixture_id"), f"{key} is auto but cites no fixture"
+                assert v.get("api_status") in {"FT", "AET", "PEN"},                     f"{key} is auto but the feed had not finished it"
+                assert len(v.get("sources", [])) >= 1, f"{key} needs a source"
+            else:
+                assert len(v.get("sources", [])) >= 2, f"{key} needs two sources"
+
+
+def test_auto_results_must_still_be_finished():
+    """The provenance split must not become a way in for a live score.
+
+    sync_results.py writes single-source entries because a structured feed can
+    only cite itself. That relaxation is about WHO is speaking, not about what
+    counts as a result -- a half-time score written as final would grade a pick
+    against a scoreline that had not happened yet, into an append-only record.
+    """
+    live = {"home_goals": 1, "away_goals": 0, "status": "FT", "auto": True,
+            "api_fixture_id": 123, "api_status": "HT", "sources": ["feed"]}
+    assert live["api_status"] not in {"FT", "AET", "PEN"}
+
+    unsourced = {"home_goals": 1, "away_goals": 0, "status": "FT", "auto": True,
+                 "api_status": "FT", "sources": ["feed"]}
+    assert not unsourced.get("api_fixture_id")
+
+
+def test_hand_written_results_still_need_two_sources():
+    hand = {"home_goals": 1, "away_goals": 0, "status": "FT",
+            "sources": ["one report"]}
+    assert not hand.get("auto")
+    assert len(hand["sources"]) < 2
