@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T18:43:57.774605+00:00",
+  "updated": "2026-08-22T18:51:42.396031+00:00",
   "min_probability": {
     "goal": 0.276,
     "shots": 0.497,
@@ -12,18 +12,18 @@
   },
   "record": {
     "correct": 0,
-    "wrong": 6,
-    "total": 6,
+    "wrong": 9,
+    "total": 9,
     "void": 0,
     "pending": 0,
     "by_confidence": {
       "1": {
         "correct": 0,
-        "total": 3
+        "total": 4
       },
       "3": {
         "correct": 0,
-        "total": 2
+        "total": 4
       },
       "4": {
         "correct": 0,
@@ -34,14 +34,14 @@
   "record_by_market": {
     "goal": {
       "correct": 0,
-      "wrong": 3,
-      "total": 3,
+      "wrong": 4,
+      "total": 4,
       "void": 0,
       "pending": 0,
       "by_confidence": {
         "1": {
           "correct": 0,
-          "total": 3
+          "total": 4
         }
       }
     },
@@ -60,21 +60,6 @@
     },
     "sot": {
       "correct": 0,
-      "wrong": 2,
-      "total": 2,
-      "void": 0,
-      "pending": 0,
-      "by_confidence": {
-        "3": {
-          "correct": 0,
-          "total": 2
-        }
-      }
-    }
-  },
-  "record_by_lineup": {
-    "confirmed": {
-      "correct": 0,
       "wrong": 4,
       "total": 4,
       "void": 0,
@@ -82,7 +67,22 @@
       "by_confidence": {
         "3": {
           "correct": 0,
-          "total": 2
+          "total": 4
+        }
+      }
+    }
+  },
+  "record_by_lineup": {
+    "confirmed": {
+      "correct": 0,
+      "wrong": 5,
+      "total": 5,
+      "void": 0,
+      "pending": 0,
+      "by_confidence": {
+        "3": {
+          "correct": 0,
+          "total": 3
         },
         "4": {
           "correct": 0,
@@ -96,14 +96,18 @@
     },
     "unconfirmed": {
       "correct": 0,
-      "wrong": 2,
-      "total": 2,
+      "wrong": 4,
+      "total": 4,
       "void": 0,
       "pending": 0,
       "by_confidence": {
         "1": {
           "correct": 0,
-          "total": 2
+          "total": 3
+        },
+        "3": {
+          "correct": 0,
+          "total": 1
         }
       }
     }
@@ -316,31 +320,6 @@
     {
       "market": "sot",
       "line": "1+ shot on target",
-      "player": "Thiago",
-      "team": "Brentford",
-      "position": "FW",
-      "p_pick": 0.584,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": true,
-      "appearance_pct": 97.5,
-      "expected_minutes": 84.5,
-      "anytime_pct": 26.4,
-      "exp_shots": 2.37,
-      "exp_sot": 1.15,
-      "lineup_confirmed": true,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 6,
-      "date": "2026-08-22T16:30:00+00:00",
-      "home": "Brentford",
-      "away": "Tottenham"
-    },
-    {
-      "market": "sot",
-      "line": "1+ shot on target",
       "player": "Vin\u00edcius J\u00fanior",
       "team": "Real Madrid",
       "position": "FW",
@@ -539,31 +518,6 @@
       "away": "Hamburg"
     },
     {
-      "market": "sot",
-      "line": "1+ shot on target",
-      "player": "Richarlison",
-      "team": "Tottenham",
-      "position": "FW",
-      "p_pick": 0.513,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": false,
-      "appearance_pct": 100.0,
-      "expected_minutes": 70.0,
-      "anytime_pct": 13.3,
-      "exp_shots": 2.34,
-      "exp_sot": 0.96,
-      "lineup_confirmed": true,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 6,
-      "date": "2026-08-22T16:30:00+00:00",
-      "home": "Brentford",
-      "away": "Tottenham"
-    },
-    {
       "market": "shots",
       "line": "2+ shot attempts",
       "player": "Deniz Undav",
@@ -740,6 +694,90 @@
     }
   ],
   "settled": [
+    {
+      "appearance_pct": 97.5,
+      "bar": 0.276,
+      "confidence": 1,
+      "doubt": false,
+      "expected_minutes": 84.5,
+      "kickoff": "2026-08-22T16:30:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-22T15:37:17.184213+00:00",
+      "market": "goal",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.28,
+      "player": "Thiago",
+      "tainted": false,
+      "team": "Brentford",
+      "team_attribution": "Brentford",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 6,
+      "line": "Anytime goalscorer",
+      "date": "2026-08-22T16:30:00+00:00",
+      "home": "Brentford",
+      "away": "Tottenham"
+    },
+    {
+      "appearance_pct": 100.0,
+      "bar": 0.511,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 70.0,
+      "kickoff": "2026-08-22T16:30:00+00:00",
+      "lineup_confirmed": true,
+      "locked_at": "2026-08-22T16:25:15.756038+00:00",
+      "market": "sot",
+      "news_checked_hours_ago": 0.7,
+      "p_pick": 0.513,
+      "player": "Richarlison",
+      "tainted": false,
+      "team": "Tottenham",
+      "team_attribution": "Tottenham",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 6,
+      "line": "1+ shot on target",
+      "date": "2026-08-22T16:30:00+00:00",
+      "home": "Brentford",
+      "away": "Tottenham"
+    },
+    {
+      "appearance_pct": 97.5,
+      "bar": 0.511,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 84.5,
+      "kickoff": "2026-08-22T16:30:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-22T15:37:17.184213+00:00",
+      "market": "sot",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.584,
+      "player": "Thiago",
+      "tainted": false,
+      "team": "Brentford",
+      "team_attribution": "Brentford",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 6,
+      "line": "1+ shot on target",
+      "date": "2026-08-22T16:30:00+00:00",
+      "home": "Brentford",
+      "away": "Tottenham"
+    },
     {
       "appearance_pct": 94.4,
       "bar": 0.276,

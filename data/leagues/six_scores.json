@@ -1,25 +1,8 @@
 {
-  "updated": "2026-08-22T18:43:57.814810+00:00",
+  "updated": "2026-08-22T18:51:42.425305+00:00",
   "matchweek": 1,
   "selection_verified_on": "2026-08-18",
   "picks": [
-    {
-      "id": 6,
-      "date": "2026-08-22T16:30:00+00:00",
-      "home": "Brentford",
-      "away": "Tottenham",
-      "score": "1-1",
-      "score_pct": 13.2,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 10.1
-        }
-      ],
-      "match_pick": "Brentford",
-      "agrees_with_match_pick": false,
-      "provisional": false
-    },
     {
       "id": 7,
       "date": "2026-08-23T13:00:00+00:00",
@@ -30,7 +13,7 @@
       "alternatives": [
         {
           "score": "1-0",
-          "pct": 10.3
+          "pct": 10.4
         }
       ],
       "match_pick": "Brighton",
@@ -47,7 +30,7 @@
       "alternatives": [
         {
           "score": "1-0",
-          "pct": 10.1
+          "pct": 10.2
         }
       ],
       "match_pick": "Manchester City",
@@ -60,7 +43,7 @@
       "home": "Newcastle United",
       "away": "Liverpool",
       "score": "1-1",
-      "score_pct": 13.0,
+      "score_pct": 13.1,
       "alternatives": [
         {
           "score": "1-2",
@@ -74,9 +57,18 @@
   ],
   "missing_fixtures": [
     "Everton|Crystal Palace",
-    "Nottingham Forest|Leeds"
+    "Nottingham Forest|Leeds",
+    "Brentford|Tottenham"
   ],
   "settled": [
+    {
+      "home": "Brentford",
+      "away": "Tottenham",
+      "date": "2026-08-22T16:30:00+00:00",
+      "predicted": "1-1",
+      "actual": "3-0",
+      "graded": "wrong"
+    },
     {
       "home": "Everton",
       "away": "Crystal Palace",
@@ -96,7 +88,7 @@
   ],
   "record": {
     "correct": 0,
-    "total": 2
+    "total": 3
   },
   "expected_of_six": 0.71,
   "hit_rate_pct": 11.84,
