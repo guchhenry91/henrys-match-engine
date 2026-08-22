@@ -94,3 +94,20 @@ def test_nothing_is_polled_before_the_top_rung():
 def test_ladder_is_ordered_and_starts_at_an_hour():
     assert RUNGS[0] == 60 and RUNGS[-1] == 15
     assert list(RUNGS) == sorted(RUNGS, reverse=True)
+
+
+# --- results sync ------------------------------------------------------------
+
+from scripts.sync_results import FINISHED, MIN_MINUTES_AFTER_KICKOFF
+
+
+def test_only_genuinely_finished_statuses_count():
+    """A live or half-time score written as final would grade a pick against a
+    scoreline that had not happened yet, into an append-only record."""
+    assert FINISHED == {"FT", "AET", "PEN"}
+    for live in ("NS", "1H", "HT", "2H", "LIVE", "PST", "CANC", "SUSP", "INT"):
+        assert live not in FINISHED
+
+
+def test_waits_long_enough_for_a_match_to_actually_end():
+    assert MIN_MINUTES_AFTER_KICKOFF >= 120     # 90 + stoppage + half time

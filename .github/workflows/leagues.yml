@@ -122,6 +122,17 @@ jobs:
       - name: Refresh multi-source team news
         run: python -m scripts.sync_team_news
 
+      # Final scores. fixturedownload has published 1 of 380 results this season,
+      # so every grade until now came from the LOCAL scheduled task writing
+      # results_override.json -- meaning the record only advanced while the
+      # owner's laptop was on. API-Football's key is already a secret here, so
+      # this closes the loop in the cloud. Runs BEFORE publish so anything it
+      # records is graded in the same run.
+      - name: Fetch final scores
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.sync_results
+
       - name: Refresh confirmed pre-match lineups
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}

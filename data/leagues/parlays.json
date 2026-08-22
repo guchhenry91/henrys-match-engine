@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T18:01:48.971575+00:00",
+  "updated": "2026-08-22T18:32:39.339181+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.4566,
+          "combined": 0.4578,
           "legs": [
             {
               "selection": "Paris SG to win",
@@ -18,7 +18,7 @@
               "league": "Ligue 1",
               "league_key": "LIGUE1",
               "tag": "w",
-              "p": 0.6943,
+              "p": 0.6961,
               "id": "LIGUE1#7#w",
               "date": "2026-08-23T18:45:00+00:00"
             },
@@ -40,7 +40,7 @@
           "tier": "Balanced treble",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.3224,
+          "combined": 0.3233,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -68,7 +68,7 @@
               "league": "Ligue 1",
               "league_key": "LIGUE1",
               "tag": "w",
-              "p": 0.6943,
+              "p": 0.6961,
               "id": "LIGUE1#7#w",
               "date": "2026-08-23T18:45:00+00:00"
             }
@@ -156,7 +156,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0534,
+          "combined": 0.1046,
           "legs": [
             {
               "selection": "Ante Budimir 2+ shot attempts",
@@ -207,20 +207,10 @@
               "p": 0.584,
               "id": "PL#6#sot#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
-            },
-            {
-              "selection": "Matheus Cunha 1+ shot on target",
-              "match": "Hull v Manchester United",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "o",
-              "p": 0.511,
-              "id": "PL#2#sot#Matheus Cunha",
-              "date": "2026-08-22T11:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-22T16:50:49.399826+00:00"
+          "locked_at": "2026-08-22T18:30:27.868615+00:00"
         }
       ]
     },
@@ -262,7 +252,7 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.2017,
+          "combined": 0.3948,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -283,32 +273,54 @@
               "p": 0.584,
               "id": "PL#6#sot#Thiago",
               "date": "2026-08-22T16:30:00+00:00"
-            },
-            {
-              "selection": "Matheus Cunha 1+ shot on target",
-              "match": "Hull v Manchester United",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "o",
-              "p": 0.511,
-              "id": "PL#2#sot#Matheus Cunha",
-              "date": "2026-08-22T11:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-22T11:19:36.603696+00:00"
+          "locked_at": "2026-08-21T23:01:39.872242+00:00"
         }
       ]
     }
   ],
   "record": {
     "correct": 1,
-    "wrong": 2,
-    "void": 2,
-    "total": 3,
-    "pending": 18
+    "wrong": 4,
+    "void": 3,
+    "total": 5,
+    "pending": 16
   },
   "settled": [
+    {
+      "combined": 0.1046,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+          "p": 0.613,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T16:30:00+00:00"
+    },
     {
       "combined": 0.1296,
       "graded": "void",
@@ -354,6 +366,60 @@
           "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
           "p": 0.613,
           "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#2#sot#Matheus Cunha",
+          "p": 0.511,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T11:30:00+00:00"
+    },
+    {
+      "combined": 0.085,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+          "p": 0.613,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#2#sot#Matheus Cunha",
+          "p": 0.511,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T11:30:00+00:00"
+    },
+    {
+      "combined": 0.2017,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
         },
         {
           "id": "PL#6#sot#Thiago",
