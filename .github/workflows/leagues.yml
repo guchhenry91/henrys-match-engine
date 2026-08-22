@@ -175,9 +175,16 @@ jobs:
           git config user.email "actions@github.com"
           # ONLY league files -- never the World Cup app's data.
           git add data/leagues data-raw/leagues
-          if git diff --cached --quiet; then
+          # A byte-level diff is ALWAYS non-empty: publish rewrites `updated` in
+          # every league file each run. With the matchday cadence at 15 minutes
+          # that meant 48 Render deploys a day, nearly all of them shipping only
+          # a new timestamp -- which is how the account hit its build-minute
+          # spend limit on 2026-08-22 and stopped deploying at all. The gate
+          # below asks whether anything a reader would SEE actually changed.
+          if git diff --cached --quiet || ! python -m scripts.deploy_needed; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No league changes to publish."
+            echo "No meaningful league changes to publish."
+            git reset -q
           else
             # Captured BEFORE committing: the commit this job actually started
             # from. A cold-cache publish can take 50+ minutes, comfortably

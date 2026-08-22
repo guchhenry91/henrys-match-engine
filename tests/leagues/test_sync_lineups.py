@@ -111,3 +111,45 @@ def test_only_genuinely_finished_statuses_count():
 
 def test_waits_long_enough_for_a_match_to_actually_end():
     assert MIN_MINUTES_AFTER_KICKOFF >= 120     # 90 + stoppage + half time
+
+
+# --- deploy gate -------------------------------------------------------------
+# Render stopped deploying on 2026-08-22 after hitting its build-minute spend
+# limit: every one of 48 daily runs deployed, because publish rewrites `updated`.
+
+import copy
+from scripts.deploy_needed import _norm
+
+
+def test_timestamp_churn_is_not_a_change():
+    a = {"updated": "2026-08-22T10:00:00Z", "matches": [{"p": 0.5}]}
+    b = {"updated": "2026-08-22T10:15:00Z", "matches": [{"p": 0.5}]}
+    assert _norm(a) == _norm(b)
+
+
+def test_float_noise_below_display_precision_is_not_a_change():
+    """A no-op publish differs in lambda_goals at the seventh decimal --
+    optimiser noise, invisible on the page."""
+    a = {"props": [{"lambda_goals": 0.40540651489768426}]}
+    b = {"props": [{"lambda_goals": 0.40540116269273530}]}
+    assert _norm(a) == _norm(b)
+
+
+def test_a_changed_probability_is_a_change():
+    a = {"matches": [{"p_pick": 0.7705}]}
+    b = {"matches": [{"p_pick": 0.6210}]}
+    assert _norm(a) != _norm(b)
+
+
+def test_a_new_result_is_a_change():
+    a = {"matches": [{"result": None}]}
+    b = {"matches": [{"result": {"home_goals": 2, "away_goals": 0}}]}
+    assert _norm(a) != _norm(b)
+
+
+def test_lock_timestamps_are_noise_but_the_pick_is_not():
+    a = {"pick": "Arsenal", "locked_at": "2026-08-21T18:37:48Z"}
+    b = {"pick": "Arsenal", "locked_at": "2026-08-21T18:52:11Z"}
+    c = {"pick": "Coventry", "locked_at": "2026-08-21T18:37:48Z"}
+    assert _norm(a) == _norm(b)
+    assert _norm(a) != _norm(c)
