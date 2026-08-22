@@ -60,6 +60,39 @@
     "locked_at": "2026-08-21T18:58:57.971598+00:00",
     "tainted": false
   },
+  "LALIGA#15#sot#Kylian Mbappe-Lottin|LALIGA#18#shots#Ante Budimir|PL#2#sot#Matheus Cunha|PL#6#sot#Thiago|PL#8#sot#Erling Haaland": {
+    "combined": 0.085,
+    "earliest_kickoff": "2026-08-22T11:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "PL#8#sot#Erling Haaland",
+        "p": 0.676,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+        "p": 0.613,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "PL#6#sot#Thiago",
+        "p": 0.584,
+        "selection": "Thiago 1+ shot on target"
+      },
+      {
+        "id": "PL#2#sot#Matheus Cunha",
+        "p": 0.511,
+        "selection": "Matheus Cunha 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-08-22T11:19:36.603696+00:00",
+    "tainted": false
+  },
   "LALIGA#15#sot#Kylian Mbappe-Lottin|LALIGA#18#shots#Ante Budimir|PL#6#sot#Thiago|PL#8#sot#Erling Haaland": {
     "combined": 0.1663,
     "earliest_kickoff": "2026-08-22T16:30:00+00:00",
@@ -342,6 +375,29 @@
       }
     ],
     "locked_at": "2026-08-19T19:27:14.402613+00:00",
+    "tainted": false
+  },
+  "PL#2#sot#Matheus Cunha|PL#6#sot#Thiago|PL#8#sot#Erling Haaland": {
+    "combined": 0.2017,
+    "earliest_kickoff": "2026-08-22T11:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#8#sot#Erling Haaland",
+        "p": 0.676,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "PL#6#sot#Thiago",
+        "p": 0.584,
+        "selection": "Thiago 1+ shot on target"
+      },
+      {
+        "id": "PL#2#sot#Matheus Cunha",
+        "p": 0.511,
+        "selection": "Matheus Cunha 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-08-22T11:19:36.603696+00:00",
     "tainted": false
   },
   "PL#6#goal#Thiago|PL#8#goal#Erling Haaland": {
