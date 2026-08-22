@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T15:47:43.018324+00:00",
+  "updated": "2026-08-22T16:25:50.498582+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -50,7 +50,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.13,
+          "combined": 0.1296,
           "legs": [
             {
               "selection": "Ante Budimir 2+ shot attempts",
@@ -73,18 +73,18 @@
               "date": "2026-08-23T13:00:00+00:00"
             },
             {
-              "selection": "Thiago to score",
-              "match": "Brentford v Tottenham",
-              "league": "Premier League",
-              "league_key": "PL",
+              "selection": "Odsonne Edouard to score",
+              "match": "Lens v Auxerre",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
               "tag": "g",
-              "p": 0.28,
-              "id": "PL#6#goal#Thiago",
-              "date": "2026-08-22T16:30:00+00:00"
+              "p": 0.279,
+              "id": "LIGUE1#4#goal#Odsonne Edouard",
+              "date": "2026-08-22T15:15:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-20T16:37:26.182191+00:00"
+          "locked_at": "2026-08-22T16:25:50.498582+00:00"
         }
       ]
     },
@@ -257,36 +257,6 @@
           ],
           "provisional": false,
           "locked_at": "2026-08-22T11:19:36.603696+00:00"
-        },
-        {
-          "tier": "PL Goals double",
-          "note": "Two Premier League scorers",
-          "feat": false,
-          "combined": 0.079,
-          "legs": [
-            {
-              "selection": "Erling Haaland to score",
-              "match": "Manchester City v Bournemouth",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "g",
-              "p": 0.282,
-              "id": "PL#8#goal#Erling Haaland",
-              "date": "2026-08-23T13:00:00+00:00"
-            },
-            {
-              "selection": "Thiago to score",
-              "match": "Brentford v Tottenham",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "g",
-              "p": 0.28,
-              "id": "PL#6#goal#Thiago",
-              "date": "2026-08-22T16:30:00+00:00"
-            }
-          ],
-          "provisional": false,
-          "locked_at": "2026-08-20T16:37:26.182191+00:00"
         }
       ]
     }
@@ -294,11 +264,33 @@
   "record": {
     "correct": 1,
     "wrong": 2,
-    "void": 0,
+    "void": 1,
     "total": 3,
     "pending": 16
   },
   "settled": [
+    {
+      "combined": 0.1296,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "selection": "Ante Budimir 2+ shot attempts",
+          "p": 0.687
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "selection": "Erling Haaland 1+ shot on target",
+          "p": 0.676
+        },
+        {
+          "id": "LIGUE1#4#goal#Odsonne Edouard",
+          "selection": "Odsonne Edouard to score",
+          "p": 0.279
+        }
+      ],
+      "kickoff": "2026-08-22T15:15:00+00:00"
+    },
     {
       "combined": 0.1032,
       "graded": "wrong",
