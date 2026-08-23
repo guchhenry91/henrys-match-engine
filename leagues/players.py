@@ -450,6 +450,98 @@ def fetch_player_logs(league: str, apply_transfers: bool = True) -> pd.DataFrame
     return build_player_logs(stats, shots, league, transfers=tr)
 
 
+def api_match_stats(league: str):
+    """Per-match player lines fetched from API-Football -> (DataFrame, covered).
+
+    The fallback feed, written by scripts/sync_player_stats.py and read here so
+    grading has a second source when Understat has not filed a fixture. Same
+    columns as match_player_stats so callers need no special case.
+
+    `covered` is the set of (team, date) sides the fallback can speak about. It
+    is derived from the SQUADS the feed returned, not from the matched rows: a
+    fixture where every player is present but our particular man never shot is
+    still covered, and his pick must grade wrong rather than hang forever.
+    """
+    path = (Path(__file__).resolve().parent.parent / "data-raw" / "leagues"
+            / "player_stats.json")
+    empty = pd.DataFrame(columns=["date", "team", "player", "goals", "shots", "sot"])
+    if not path.exists():
+        return empty, set()
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8")).get(league, {})
+    except Exception as exc:
+        print(f"WARNING: player_stats.json unreadable ({exc}); ignoring fallback")
+        return empty, set()
+
+    rows, covered = [], set()
+    for entry in raw.values():
+        try:
+            day = pd.Timestamp(entry["date"]).date()
+        except Exception:
+            continue
+        for team in (entry.get("api_squads") or {}):
+            covered.add((team, day))
+        for name, st in (entry.get("players") or {}).items():
+            rows.append({"date": pd.Timestamp(entry["date"]), "team": st.get("team"),
+                         "player": name, "goals": int(st.get("goals") or 0),
+                         "shots": int(st.get("shots") or 0),
+                         "sot": int(st.get("sot") or 0)})
+    return (pd.DataFrame(rows) if rows else empty), covered
+
+
+def resolve_squad_name(ours: str, candidates) -> str | None:
+    """Find `ours` among a squad list written by a DIFFERENT feed, or None.
+
+    API-Football spells players its own way ("Richarlison de Andrade" for
+    Understat's "Richarlison", "K. Mbappe" for "Kylian Mbappe-Lottin"), so
+    grading a pick against its match stats needs the two vocabularies joined.
+
+    The guards are the ones the roster rescue already learned the hard way, and
+    they matter more here, not less: a wrong join does not merely mislabel a
+    player, it settles a bet against a stranger's shot count.
+
+      1. Callers pass ONE FIXTURE'S ONE CLUB, so a match can never cross squads.
+      2. An exact identity key wins outright, before any fuzzy work.
+      3. Otherwise exactly ONE candidate may share a strong name part -- two
+         means we cannot tell which team-mate we found (Inaki vs Nico Williams),
+         and guessing is worse than leaving the pick pending.
+      4. Remaining name parts must be compatible, so "Joao Neves" cannot be
+         settled by "Ruben Neves".
+      5. A share that is only both names' FIRST part is a forename collision,
+         not identity (Marc Cucurella vs team-mate Marc Guiu). Mononyms are
+         exempt: their single part is the whole name.
+
+    Returns the candidate string as the other feed spells it.
+    """
+    cands = [c for c in candidates if c]
+    if not cands:
+        return None
+    key = _player_key(ours)
+    for c in cands:
+        if _player_key(c) == key:
+            return c
+
+    ours_all = _name_tokens(ours)
+    strong = {t for t in ours_all if len(t) >= 3 and t not in _PARTICLES}
+    if not strong:
+        return None
+    hits = []
+    for c in cands:
+        theirs_all = _name_tokens(c)
+        shared = strong & {t for t in theirs_all
+                           if len(t) >= 3 and t not in _PARTICLES}
+        if not shared:
+            continue
+        if (len(ours_all) >= 2 and len(theirs_all) >= 2
+                and shared == {ours_all[0]} == {theirs_all[0]}):
+            continue                      # forename collision, not identity
+        if not _forenames_compatible(set(ours_all) - shared,
+                                     set(theirs_all) - shared):
+            continue
+        hits.append(c)
+    return hits[0] if len(hits) == 1 else None
+
+
 def match_player_stats(league: str, seasons=None) -> pd.DataFrame:
     """Per-player, per-MATCH actuals -- the feed player picks are graded against.
 

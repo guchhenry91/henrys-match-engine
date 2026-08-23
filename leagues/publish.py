@@ -76,6 +76,19 @@ def _read_raw(name: str) -> dict:
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
 
 
+def _covered_sides(actuals) -> set:
+    """(team, date) pairs the shot feed can actually speak about.
+
+    A side that played always registers shots, so its presence on a date is a
+    reliable signal the feed holds that half of that fixture. Absence means the
+    feed is silent about it -- which is a different thing from the feed saying a
+    player did nothing, and must not be graded as though it were.
+    """
+    if actuals is None or actuals.empty:
+        return set()
+    return {(r["team"], r["day"]) for _, r in actuals.iterrows()}
+
+
 def _backtested_tier_stats(min_prob: float) -> dict:
     """Pooled hit rate for the board's tier, plus the per-league spread.
 
@@ -965,6 +978,11 @@ def build_player_picks() -> dict:
     that describes neither.
     """
     upcoming, settled, ungradeable, incomplete = [], [], [], []
+    # Frozen picks on PLAYED fixtures the shot feed does not cover yet.
+    # Not settled (no evidence) and not upcoming (already kicked off), so
+    # they need their own bucket -- otherwise they vanish from the page
+    # entirely and a reader cannot tell a pick is still owed a result.
+    uncovered = []
     for league, fname in FILE_FOR.items():
         lg = config.get(league)
         season_tag = lg.fixture_slug.rsplit("-", 1)[-1]
@@ -999,7 +1017,15 @@ def build_player_picks() -> dict:
         except Exception as exc:
             print(f"  player-picks: no actuals for {league} ({exc})")
             actuals = pd.DataFrame()
-        have_actuals = not actuals.empty
+        # Second source, for fixtures Understat has not filed. Understat stays
+        # authoritative wherever it HAS the match (it is shot-event derived and
+        # identifies penalties); this only fills silence.
+        try:
+            api_actuals, api_covered = players.api_match_stats(league)
+        except Exception as exc:
+            print(f"  player-picks: fallback stats unreadable for {league} ({exc})")
+            api_actuals, api_covered = pd.DataFrame(), set()
+        have_actuals = not actuals.empty or not api_actuals.empty
         if not have_actuals:
             # Distinguish a PERMANENT missing feed from a transient one. Bundesliga
             # genuinely has no shot events (upstream crash) and its picks can never
@@ -1019,9 +1045,42 @@ def build_player_picks() -> dict:
                 incomplete.append(lg.name)
             continue
         if have_actuals:
-            actuals = actuals.assign(day=pd.to_datetime(actuals["date"]).dt.date)
-            idx = {(r["player"], r["day"]): r for _, r in actuals.iterrows()}
-
+            # WHICH FIXTURES THE FEEDS ACTUALLY COVER.
+            #
+            # grade_prop treats a missing player row as WRONG on purpose: he
+            # either did not play or played and never shot, and a shot feed
+            # cannot tell those apart, so we take the harsher reading. That
+            # reasoning holds only where the feed HAS the match. Where it does
+            # not, "wrong" is not a harsh reading of the evidence -- it is an
+            # answer invented in the absence of any.
+            #
+            # This is not hypothetical. Understat published NOTHING for 2026-27
+            # while 26 fixtures were played: its newest row was 2026-05-24, the
+            # previous May. The frame was far from empty (26,401 rows for the PL
+            # alone) so the have_actuals guard above passed happily, every lookup
+            # missed, and the board published 0 correct / 18 wrong -- including
+            # 0-for-4 on picks stated at 60-70%, odds near one in ten million had
+            # those picks been graded against real data.
+            #
+            # A side that played always registers shots, so its presence on a
+            # date is a reliable signal that a feed covers that half of that
+            # fixture. Keyed by the PLAYER'S OWN TEAM rather than the fixture, so
+            # a pick is only graded against a side some feed can speak about.
+            idx = {}
+            covered = set(api_covered)
+            if not api_actuals.empty:
+                api_actuals = api_actuals.assign(
+                    day=pd.to_datetime(api_actuals["date"]).dt.date)
+                idx = {(r["player"], r["day"]): r
+                       for _, r in api_actuals.iterrows()}
+            if not actuals.empty:
+                actuals = actuals.assign(
+                    day=pd.to_datetime(actuals["date"]).dt.date)
+                # Understat last, so it OVERWRITES the fallback on any fixture
+                # both feeds hold.
+                idx.update({(r["player"], r["day"]): r
+                            for _, r in actuals.iterrows()})
+                covered |= _covered_sides(actuals)
         for key, entry in log.items():
             parts = str(key).split(":")
             if len(parts) < 4 or parts[0] != season_tag:
@@ -1037,6 +1096,14 @@ def build_player_picks() -> dict:
             if not bool(row["played"]):
                 continue                  # already covered by the payload read above
             day = pd.Timestamp(row["date"]).date()
+            if (entry.get("team"), day) not in covered:
+                # The feed has no line for this player's side in this fixture, so
+                # there is no evidence either way. Stays PENDING: it will grade
+                # itself the moment the data lands, and an ungraded pick is an
+                # honest gap where a fabricated loss is a lie in an append-only
+                # record.
+                uncovered.append(item)
+                continue
             actual = idx.get((entry["player"], day))
             settled.append(picks.grade_prop(entry, None if actual is None
                                             else dict(actual)) | item)
@@ -1070,6 +1137,15 @@ def build_player_picks() -> dict:
         # never rendered. The warning arrived only after a pick had already
         # silently failed to reach the record. An UPCOMING pick that cannot be
         # graded is exactly as worth warning about as a settled one.
+        # Played, frozen, and still waiting on the shot feed. Surfaced so the
+        # page can say so out loud: silence here is what let 18 fabricated
+        # losses look like a real 0% hit rate.
+        "awaiting_data": sorted(
+            ({"player": u.get("player"), "team": u.get("team"),
+              "market": u.get("market"), "league": u.get("league"),
+              "date": u.get("date"), "fixture": f"{u.get('home')} v {u.get('away')}"}
+             for u in uncovered),
+            key=lambda u: (u["date"] or "", u["player"] or "")),
         "ungradeable_leagues": sorted(set(ungradeable) | {
             u["league"] for u in upcoming if u.get("gradeable") is False}),
         "_incomplete": incomplete,     # non-empty -> caller must NOT publish

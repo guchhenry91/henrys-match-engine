@@ -133,6 +133,20 @@ jobs:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.sync_results
 
+      # Understat is the player-grading feed and it filed NOTHING for 2026-27
+      # while 26 fixtures were played -- its newest row was the previous May.
+      # Because the frame was full of last season it did not look absent, so
+      # every player pick graded against a fixture the feed had never seen and
+      # the board published 0 correct / 18 wrong, none of it real. publish now
+      # refuses to grade an uncovered side; this fills the silence so those
+      # picks settle honestly instead of hanging. Runs BEFORE publish so what it
+      # fetches is graded in the same run, and costs nothing once Understat
+      # catches up.
+      - name: Fetch per-match player stats
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.sync_player_stats
+
       - name: Refresh confirmed pre-match lineups
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}

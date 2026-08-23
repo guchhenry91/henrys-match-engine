@@ -160,6 +160,31 @@ EXCLUDING own goals. A player with no shot row grades **wrong, not void** — th
 cannot separate "didn't play" from "played, never shot", so we take the harsher
 reading deliberately: it can only understate the record, never inflate it.
 
+**That harsh reading applies ONLY to a fixture the feed actually covers.** A pick
+is graded only when the shot feed holds the player's own side on that date
+(`_covered_sides` in publish.py); otherwise it stays PENDING and is listed under
+`awaiting_data`. This is not a nicety. On 2026-08-23 Understat had published
+nothing for 2026-27 — newest row 2026-05-24, the previous May — while 26 fixtures
+had been played. The frame was nowhere near empty (26,401 rows for the PL alone),
+so the "is the feed available" guard passed, every lookup missed, and the board
+published **0 correct / 18 wrong**. Not one of those losses was real, and it read
+as a 0% hit rate against a stated 74.4%. Absence of the match is not evidence
+about the player: where the feed is silent, the honest answer is "not yet", and a
+fabricated loss in an append-only record cannot be taken back.
+
+**API-Football is the fallback player feed** (`scripts/sync_player_stats.py` →
+`data-raw/leagues/player_stats.json`, read by `players.api_match_stats`). It
+supplies goals/shots/SOT per player per fixture, but **only where Understat has
+not filed the match** — Understat is shot-event derived and identifies penalties,
+so it wins wherever it has the game, and the merge applies it last so it
+overwrites. One request per fixture, only for played fixtures that carry a frozen
+pick and are still uncovered, so it costs nothing once Understat catches up.
+Player names are joined across the two feeds by `players.resolve_squad_name`,
+which reuses the roster rescue's guards and is constrained to ONE CLUB IN ONE
+FIXTURE; a player it cannot match confidently is left pending rather than
+guessed, because a wrong join does not mislabel a player, it settles a bet
+against a stranger's shot count.
+
 **Bundesliga cannot be graded** (its shot events crash upstream), so its player picks
 publish with `gradeable: false`, are excluded from the record rather than parked as
 permanent "pending", and the SOT market is withheld there entirely — without a shot

@@ -449,6 +449,16 @@ function viewPlayers(){
   }
   if((pp.ungradeable_leagues||[]).length)
     h+=`<p class="note">${esc(pp.ungradeable_leagues.join(", "))} player picks publish but are not graded — no shot-level feed there.</p>`;
+  // Played, frozen, still waiting on the shot feed. Said out loud on purpose:
+  // these picks used to be graded WRONG against a fixture the feed had never
+  // filed, which published a 0% hit rate that was pure fiction. Showing nothing
+  // at all would be the quieter version of the same dishonesty -- the reader
+  // would see a pick disappear between kickoff and the record.
+  const aw=pp.awaiting_data||[];
+  if(aw.length)
+    h+=`<p class="note">${aw.length} settled pick${aw.length===1?"":"s"} awaiting result data — `
+      +`${esc(aw.slice(0,3).map(a=>a.player).join(", "))}${aw.length>3?` and ${aw.length-3} more`:""}. `
+      +`Graded as soon as the feed publishes those fixtures; never guessed.</p>`;
   return h;
 }
 
