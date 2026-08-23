@@ -19,6 +19,7 @@ identical semantics -- the only thing lost is per-match granularity, which the
 props gate works around (see props_backtest.py).
 """
 import json
+import os
 from pathlib import Path
 import unicodedata
 
@@ -711,6 +712,43 @@ def shot_events_available(league: str) -> bool:
         return True
     except Exception:
         return False
+
+
+# API-Football competition ids. Duplicated from scripts.sync_rosters rather than
+# imported: leagues/ is the engine and must not depend on scripts/, which imports
+# it. Four integers that have not changed in years is the cheaper coupling.
+_API_LEAGUE_IDS = {"PL": 39, "LALIGA": 140, "BUNDESLIGA": 78, "LIGUE1": 61}
+
+
+def grading_feed_available(league: str) -> bool:
+    """Can a pick in this league be SETTLED afterwards, by EITHER feed?
+
+    Distinct from shot_events_available, which asks a different question: whether
+    the RATES behind a prop can be measured. One flag used to answer both, and
+    that conflation cost Bundesliga its entire player record.
+
+    Bundesliga's Understat shot events crash upstream, so it had no way to settle
+    a pick and its picks published gradeable=false -- excluded from the record and
+    from every parlay. That was true when Understat was the only per-match player
+    feed. It stopped being true when API-Football became the fallback: it reports
+    Bundesliga goals, shots and shots on target per fixture like any other league.
+
+    The rates question is unchanged and still says no there, because rates are
+    built from SEASONS of history and the fallback only covers fixtures it is
+    asked to fetch. So the shots-on-target MARKET stays withheld in Bundesliga
+    while its goal and shots picks become gradeable -- two different answers,
+    which is the point of asking two questions.
+
+    Forward-looking by necessity: this claims a pick WILL be settleable, so it
+    checks the fallback is actually usable (league known, key present) rather
+    than assuming it.
+    """
+    try:
+        if shot_events_available(league):
+            return True
+    except Exception:
+        pass
+    return bool(os.environ.get("API_FOOTBALL_KEY")) and league in _API_LEAGUE_IDS
 
 
 def penalty_takers(logs: pd.DataFrame) -> dict:

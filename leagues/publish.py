@@ -420,11 +420,27 @@ def build(league: str = "PL") -> dict:
     # average, i.e. an assumption dressed as a measurement) nor grade any player
     # pick afterwards. Both consequences are surfaced rather than hidden.
     shots_ok = players.shot_events_available(league)
+    # TWO QUESTIONS, NOT ONE. shots_ok asks whether the RATES behind a prop can be
+    # measured; can_grade asks whether a pick can be SETTLED afterwards. They had
+    # the same answer only while Understat was the sole per-match player feed, and
+    # collapsing them cost Bundesliga its whole player record -- every pick there
+    # published gradeable=false and was excluded from the record and from every
+    # parlay, because its shot events crash upstream. API-Football settles those
+    # fixtures perfectly well; it just cannot supply the seasons of history the
+    # rates need. So Bundesliga's goal and shots picks now grade, while its
+    # shots-on-target market stays withheld.
+    can_grade = players.grading_feed_available(league)
     if not shots_ok:
         warnings.append(
-            f"{lg.name} has no shot-level feed, so player picks here cannot be "
-            f"graded against actual match lines and the shots-on-target market is "
+            f"{lg.name} has no shot-level feed, so the shots-on-target market is "
             f"withheld entirely.")
+    if not can_grade:
+        # Losing the SOT market is a narrowing; losing gradeability is a pick that
+        # can never settle. Different severity, so it gets said separately rather
+        # than folded into the sentence above.
+        warnings.append(
+            f"{lg.name} player picks cannot be graded against actual match lines "
+            f"-- neither the shot feed nor the fallback can settle them.")
     concede = ctx["concede_factor"]
     pens_rate = ctx["pens_per_team_match"]
 
@@ -631,7 +647,7 @@ def build(league: str = "PL") -> dict:
                     "exp_shots": p.get("exp_shots"),
                     "exp_sot": p.get("exp_sot"),
                     "lineup_confirmed": lineup_ready,
-                    "gradeable": shots_ok,
+                    "gradeable": can_grade,
                 })
         player_picks.sort(key=lambda x: -x["p_pick"])
 
@@ -1048,7 +1064,11 @@ def build_player_picks() -> dict:
             # treating it as permanent would silently delete that league's record
             # AND print a flatly false claim that it has no shot feed.
             try:
-                permanent = not players.shot_events_available(league)
+                # Permanent means NOTHING can ever settle a pick here -- so it
+                # must ask about both feeds, not just the shot events. Asking
+                # only Understat would brand Bundesliga permanently ungradeable
+                # on a run where the fallback simply had nothing to fetch yet.
+                permanent = not players.grading_feed_available(league)
             except Exception:
                 permanent = False
             if permanent:

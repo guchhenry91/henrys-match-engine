@@ -97,3 +97,45 @@ def test_resolver_accepts_real_spelling_differences():
     assert r("Matheus Cunha",
              ["Matheus Santos Carneiro Da Cunha"]) == \
         "Matheus Santos Carneiro Da Cunha"
+
+
+# --- gradeable vs measurable -------------------------------------------------
+# Bundesliga's Understat shot events crash upstream. One flag, shots_ok, used to
+# answer two different questions with that fact: can the RATES behind a prop be
+# measured, and can a pick be SETTLED afterwards. The second answer stopped being
+# correct when API-Football became the fallback -- it reports Bundesliga goals,
+# shots and SOT per fixture like any other league -- but the conflation kept the
+# whole league out of the record and out of every parlay.
+
+
+def test_a_working_shot_feed_is_gradeable_regardless_of_the_fallback(monkeypatch):
+    monkeypatch.setattr(players, "shot_events_available", lambda lg: True)
+    monkeypatch.delenv("API_FOOTBALL_KEY", raising=False)
+    assert players.grading_feed_available("PL") is True
+
+
+def test_the_fallback_makes_a_broken_shot_feed_gradeable(monkeypatch):
+    """The Bundesliga case, which is the whole point of the split."""
+    monkeypatch.setattr(players, "shot_events_available", lambda lg: False)
+    monkeypatch.setenv("API_FOOTBALL_KEY", "test-key")
+    assert players.grading_feed_available("BUNDESLIGA") is True
+
+
+def test_without_a_key_a_broken_shot_feed_stays_ungradeable(monkeypatch):
+    """gradeable is a forward-looking CLAIM, so it must not be made on hope."""
+    monkeypatch.setattr(players, "shot_events_available", lambda lg: False)
+    monkeypatch.delenv("API_FOOTBALL_KEY", raising=False)
+    assert players.grading_feed_available("BUNDESLIGA") is False
+
+
+def test_an_unknown_league_is_never_claimed_gradeable(monkeypatch):
+    monkeypatch.setattr(players, "shot_events_available", lambda lg: False)
+    monkeypatch.setenv("API_FOOTBALL_KEY", "test-key")
+    assert players.grading_feed_available("MLS") is False
+
+
+def test_a_raising_shot_feed_falls_through_rather_than_crashing(monkeypatch):
+    monkeypatch.setattr(players, "shot_events_available",
+                        lambda lg: (_ for _ in ()).throw(TimeoutError("blip")))
+    monkeypatch.setenv("API_FOOTBALL_KEY", "test-key")
+    assert players.grading_feed_available("BUNDESLIGA") is True

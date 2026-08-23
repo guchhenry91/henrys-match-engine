@@ -314,13 +314,18 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
     built cross-league board dicts (build_best_picks / build_player_picks)."""
     now = picks._utc(now if now is not None else pd.Timestamp.now("UTC"))
     team_legs = [_match_leg(u) for u in best.get("upcoming", []) if u.get("p_pick")]
-    # ONLY gradeable prop legs. Bundesliga player picks publish with
-    # gradeable=false (no shot feed -- see build_player_picks), so they never
-    # appear in player_picks.json's `settled` list and their leg-id would never
-    # resolve in _outcome_lookup. Stacking one into a parlay would leave that
-    # parlay stuck "pending" forever, silently dropped from the record. Match-
-    # winner legs for the same league are fine -- results are always gradeable --
-    # so this filter is on props only.
+    # ONLY gradeable prop legs. A pick that can never settle never appears in
+    # player_picks.json's `settled` list, so its leg-id would never resolve in
+    # _outcome_lookup and the parlay would sit "pending" forever, silently
+    # dropped from the record. Match-winner legs are always fine -- results are
+    # gradeable everywhere -- so this filter is on props only.
+    #
+    # This USED to mean "no Bundesliga props", since its shot events crash
+    # upstream and gradeable was tied to that one feed. It no longer does:
+    # API-Football settles Bundesliga fixtures, so its goal and shots picks are
+    # gradeable and eligible here. Its shots-on-target market is still withheld
+    # at source, for a different reason -- the rates behind it cannot be measured
+    # (see build_player_picks) -- so no SOT leg arises there anyway.
     prop_legs = [_prop_leg(u) for u in pp.get("upcoming", [])
                  if u.get("p_pick") and u.get("gradeable") is not False]
     team_legs, prop_legs = _within_window(team_legs, prop_legs, now)

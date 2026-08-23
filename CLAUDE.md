@@ -185,10 +185,27 @@ FIXTURE; a player it cannot match confidently is left pending rather than
 guessed, because a wrong join does not mislabel a player, it settles a bet
 against a stranger's shot count.
 
-**Bundesliga cannot be graded** (its shot events crash upstream), so its player picks
-publish with `gradeable: false`, are excluded from the record rather than parked as
-permanent "pending", and the SOT market is withheld there entirely — without a shot
-feed the on-target ratio is a league average, i.e. an assumption, not a measurement.
+**Bundesliga: gradeable, but its SOT market stays withheld.** Two different
+questions used to share one answer, because `shots_ok` answered both. They are now
+separate:
+
+- **Can the RATES be measured?** (`players.shot_events_available`) — still NO for
+  Bundesliga: its Understat shot events crash upstream, so the on-target ratio
+  would be a league average, an assumption dressed as a measurement. The **SOT
+  market is therefore still withheld there entirely**, and the fallback cannot
+  help — rates are built from SEASONS of history, and API-Football only covers
+  fixtures it is asked to fetch.
+- **Can a pick be SETTLED afterwards?** (`players.grading_feed_available`) — now
+  YES, because API-Football reports Bundesliga goals/shots/SOT per fixture like
+  any other league. So Bundesliga **goal and shots picks now grade, count in the
+  record, and are eligible for parlays**.
+
+Collapsing these two cost the league its entire player record: every pick there
+published `gradeable: false` and was excluded from the record and from every
+parlay, on the strength of a fact that only ever bore on the rates. `gradeable` is
+a forward-looking claim, so `grading_feed_available` checks the fallback is
+genuinely usable (league known, `API_FOOTBALL_KEY` present) rather than assuming
+it — without a key, a league with no shot feed is still correctly ungradeable.
 
 **`MIN_SQUAD_FOR_PROPS = 6`** — a team with fewer players in the rates table gets NO
 props. The sigma-lambda rescale forces a team's players to sum to the match lambda,
