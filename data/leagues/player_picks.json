@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-23T15:01:35.765655+00:00",
+  "updated": "2026-08-23T15:38:46.154196+00:00",
   "min_probability": {
     "goal": 0.276,
     "shots": 0.497,
@@ -12,20 +12,20 @@
   },
   "record": {
     "correct": 0,
-    "wrong": 13,
-    "total": 13,
+    "wrong": 18,
+    "total": 18,
     "void": 0,
     "pending": 0,
     "by_confidence": {
+      "1": {
+        "correct": 0,
+        "total": 5
+      },
       "3": {
         "correct": 0,
-        "total": 7
+        "total": 9
       },
       "4": {
-        "correct": 0,
-        "total": 2
-      },
-      "1": {
         "correct": 0,
         "total": 4
       }
@@ -34,48 +34,48 @@
   "record_by_market": {
     "goal": {
       "correct": 0,
-      "wrong": 4,
-      "total": 4,
+      "wrong": 5,
+      "total": 5,
       "void": 0,
       "pending": 0,
       "by_confidence": {
         "1": {
           "correct": 0,
-          "total": 4
+          "total": 5
         }
       }
     },
     "shots": {
       "correct": 0,
-      "wrong": 3,
-      "total": 3,
+      "wrong": 5,
+      "total": 5,
       "void": 0,
       "pending": 0,
       "by_confidence": {
         "3": {
           "correct": 0,
-          "total": 2
+          "total": 3
         },
         "4": {
           "correct": 0,
-          "total": 1
+          "total": 2
         }
       }
     },
     "sot": {
       "correct": 0,
-      "wrong": 6,
-      "total": 6,
+      "wrong": 8,
+      "total": 8,
       "void": 0,
       "pending": 0,
       "by_confidence": {
-        "4": {
-          "correct": 0,
-          "total": 1
-        },
         "3": {
           "correct": 0,
-          "total": 5
+          "total": 6
+        },
+        "4": {
+          "correct": 0,
+          "total": 2
         }
       }
     }
@@ -104,20 +104,20 @@
     },
     "unconfirmed": {
       "correct": 0,
-      "wrong": 8,
-      "total": 8,
+      "wrong": 13,
+      "total": 13,
       "void": 0,
       "pending": 0,
       "by_confidence": {
-        "3": {
+        "1": {
           "correct": 0,
           "total": 4
         },
-        "4": {
+        "3": {
           "correct": 0,
-          "total": 1
+          "total": 6
         },
-        "1": {
+        "4": {
           "correct": 0,
           "total": 3
         }
@@ -155,31 +155,6 @@
       "away": "Levante"
     },
     {
-      "market": "sot",
-      "line": "1+ shot on target",
-      "player": "Erling Haaland",
-      "team": "Manchester City",
-      "position": "FW",
-      "p_pick": 0.676,
-      "confidence": 4,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": true,
-      "appearance_pct": 90.0,
-      "expected_minutes": 76.6,
-      "anytime_pct": 27.7,
-      "exp_shots": 3.39,
-      "exp_sot": 1.63,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 8,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Manchester City",
-      "away": "Bournemouth"
-    },
-    {
       "market": "shots",
       "line": "2+ shot attempts",
       "player": "Harry Kane",
@@ -203,31 +178,6 @@
       "date": "2026-08-28T18:30:00+00:00",
       "home": "Bayern Munich",
       "away": "Stuttgart"
-    },
-    {
-      "market": "shots",
-      "line": "2+ shot attempts",
-      "player": "Erling Haaland",
-      "team": "Manchester City",
-      "position": "FW",
-      "p_pick": 0.648,
-      "confidence": 4,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": true,
-      "appearance_pct": 90.0,
-      "expected_minutes": 76.6,
-      "anytime_pct": 27.7,
-      "exp_shots": 3.39,
-      "exp_sot": 1.63,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 8,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Manchester City",
-      "away": "Bournemouth"
     },
     {
       "market": "sot",
@@ -328,56 +278,6 @@
       "date": "2026-08-26T19:00:00+00:00",
       "home": "Real Madrid",
       "away": "Sociedad"
-    },
-    {
-      "market": "shots",
-      "line": "2+ shot attempts",
-      "player": "Antoine Semenyo",
-      "team": "Manchester City",
-      "position": "FW",
-      "p_pick": 0.563,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": false,
-      "appearance_pct": 95.0,
-      "expected_minutes": 82.7,
-      "anytime_pct": 11.9,
-      "exp_shots": 2.75,
-      "exp_sot": 1.11,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 8,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Manchester City",
-      "away": "Bournemouth"
-    },
-    {
-      "market": "sot",
-      "line": "1+ shot on target",
-      "player": "Antoine Semenyo",
-      "team": "Manchester City",
-      "position": "FW",
-      "p_pick": 0.558,
-      "confidence": 3,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": false,
-      "appearance_pct": 95.0,
-      "expected_minutes": 82.7,
-      "anytime_pct": 11.9,
-      "exp_shots": 2.75,
-      "exp_sot": 1.11,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 8,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Manchester City",
-      "away": "Bournemouth"
     },
     {
       "market": "shots",
@@ -578,34 +478,149 @@
       "date": "2026-08-26T19:00:00+00:00",
       "home": "Real Madrid",
       "away": "Sociedad"
-    },
-    {
-      "market": "goal",
-      "line": "Anytime goalscorer",
-      "player": "Erling Haaland",
-      "team": "Manchester City",
-      "position": "FW",
-      "p_pick": 0.277,
-      "confidence": 1,
-      "provisional": false,
-      "doubt": false,
-      "penalty_taker": true,
-      "appearance_pct": 90.0,
-      "expected_minutes": 76.6,
-      "anytime_pct": 27.7,
-      "exp_shots": 3.39,
-      "exp_sot": 1.63,
-      "lineup_confirmed": false,
-      "gradeable": true,
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 8,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Manchester City",
-      "away": "Bournemouth"
     }
   ],
   "settled": [
+    {
+      "appearance_pct": 90.0,
+      "bar": 0.276,
+      "confidence": 1,
+      "doubt": false,
+      "expected_minutes": 76.6,
+      "kickoff": "2026-08-23T13:00:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-23T12:02:07.946330+00:00",
+      "market": "goal",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.277,
+      "player": "Erling Haaland",
+      "tainted": false,
+      "team": "Manchester City",
+      "team_attribution": "Manchester City",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 8,
+      "line": "Anytime goalscorer",
+      "date": "2026-08-23T13:00:00+00:00",
+      "home": "Manchester City",
+      "away": "Bournemouth"
+    },
+    {
+      "appearance_pct": 95.0,
+      "bar": 0.497,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 82.7,
+      "kickoff": "2026-08-23T13:00:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-23T12:02:07.946330+00:00",
+      "market": "shots",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.563,
+      "player": "Antoine Semenyo",
+      "tainted": false,
+      "team": "Manchester City",
+      "team_attribution": "Manchester City",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 8,
+      "line": "2+ shot attempts",
+      "date": "2026-08-23T13:00:00+00:00",
+      "home": "Manchester City",
+      "away": "Bournemouth"
+    },
+    {
+      "appearance_pct": 90.0,
+      "bar": 0.497,
+      "confidence": 4,
+      "doubt": false,
+      "expected_minutes": 76.6,
+      "kickoff": "2026-08-23T13:00:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-23T12:02:07.946330+00:00",
+      "market": "shots",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.648,
+      "player": "Erling Haaland",
+      "tainted": false,
+      "team": "Manchester City",
+      "team_attribution": "Manchester City",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 8,
+      "line": "2+ shot attempts",
+      "date": "2026-08-23T13:00:00+00:00",
+      "home": "Manchester City",
+      "away": "Bournemouth"
+    },
+    {
+      "appearance_pct": 95.0,
+      "bar": 0.511,
+      "confidence": 3,
+      "doubt": false,
+      "expected_minutes": 82.7,
+      "kickoff": "2026-08-23T13:00:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-23T12:02:07.946330+00:00",
+      "market": "sot",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.558,
+      "player": "Antoine Semenyo",
+      "tainted": false,
+      "team": "Manchester City",
+      "team_attribution": "Manchester City",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 8,
+      "line": "1+ shot on target",
+      "date": "2026-08-23T13:00:00+00:00",
+      "home": "Manchester City",
+      "away": "Bournemouth"
+    },
+    {
+      "appearance_pct": 90.0,
+      "bar": 0.511,
+      "confidence": 4,
+      "doubt": false,
+      "expected_minutes": 76.6,
+      "kickoff": "2026-08-23T13:00:00+00:00",
+      "lineup_confirmed": false,
+      "locked_at": "2026-08-23T12:02:07.946330+00:00",
+      "market": "sot",
+      "news_checked_hours_ago": 0.0,
+      "p_pick": 0.676,
+      "player": "Erling Haaland",
+      "tainted": false,
+      "team": "Manchester City",
+      "team_attribution": "Manchester City",
+      "unavailable": false,
+      "void": false,
+      "actual": null,
+      "graded": "wrong",
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 8,
+      "line": "1+ shot on target",
+      "date": "2026-08-23T13:00:00+00:00",
+      "home": "Manchester City",
+      "away": "Bournemouth"
+    },
     {
       "appearance_pct": 80.0,
       "bar": 0.497,

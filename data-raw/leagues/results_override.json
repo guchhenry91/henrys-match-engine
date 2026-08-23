@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-08-22",
+  "_verified_on": "2026-08-23",
   "LALIGA": {
     "Alaves|Getafe": {
       "home_goals": 3,
@@ -117,6 +117,28 @@
       "sources": [
         "API-Football fixture 1557372: Brentford 3-0 Tottenham, status FT"
       ]
+    },
+    "Manchester City|Bournemouth": {
+      "home_goals": 2,
+      "away_goals": 1,
+      "status": "FT",
+      "auto": true,
+      "api_fixture_id": 1557374,
+      "api_status": "FT",
+      "sources": [
+        "API-Football fixture 1557374: Manchester City 2-1 Bournemouth, status FT"
+      ]
+    },
+    "Brighton|Aston Villa": {
+      "home_goals": 4,
+      "away_goals": 0,
+      "status": "FT",
+      "auto": true,
+      "api_fixture_id": 1557373,
+      "api_status": "FT",
+      "sources": [
+        "API-Football fixture 1557373: Brighton 4-0 Aston Villa, status FT"
+      ]
     }
   },
   "LIGUE1": {
@@ -180,6 +202,17 @@
       "api_status": "FT",
       "sources": [
         "API-Football fixture 1552731: Le Mans 2-2 Brest, status FT"
+      ]
+    },
+    "Angers|Lille": {
+      "home_goals": 0,
+      "away_goals": 2,
+      "status": "FT",
+      "auto": true,
+      "api_fixture_id": 1552729,
+      "api_status": "FT",
+      "sources": [
+        "API-Football fixture 1552729: Angers 0-2 Lille, status FT"
       ]
     }
   }

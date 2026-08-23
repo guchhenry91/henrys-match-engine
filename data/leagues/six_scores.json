@@ -1,42 +1,8 @@
 {
-  "updated": "2026-08-23T15:01:35.799180+00:00",
+  "updated": "2026-08-23T15:38:46.186359+00:00",
   "matchweek": 1,
   "selection_verified_on": "2026-08-18",
   "picks": [
-    {
-      "id": 7,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Brighton",
-      "away": "Aston Villa",
-      "score": "1-1",
-      "score_pct": 14.0,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 10.4
-        }
-      ],
-      "match_pick": "Brighton",
-      "agrees_with_match_pick": false,
-      "provisional": false
-    },
-    {
-      "id": 8,
-      "date": "2026-08-23T13:00:00+00:00",
-      "home": "Manchester City",
-      "away": "Bournemouth",
-      "score": "1-1",
-      "score_pct": 12.1,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 10.2
-        }
-      ],
-      "match_pick": "Manchester City",
-      "agrees_with_match_pick": false,
-      "provisional": false
-    },
     {
       "id": 9,
       "date": "2026-08-23T15:30:00+00:00",
@@ -47,7 +13,7 @@
       "alternatives": [
         {
           "score": "1-2",
-          "pct": 8.5
+          "pct": 8.4
         }
       ],
       "match_pick": "Liverpool",
@@ -58,9 +24,27 @@
   "missing_fixtures": [
     "Everton|Crystal Palace",
     "Nottingham Forest|Leeds",
-    "Brentford|Tottenham"
+    "Brentford|Tottenham",
+    "Brighton|Aston Villa",
+    "Manchester City|Bournemouth"
   ],
   "settled": [
+    {
+      "home": "Brighton",
+      "away": "Aston Villa",
+      "date": "2026-08-23T13:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "4-0",
+      "graded": "wrong"
+    },
+    {
+      "home": "Manchester City",
+      "away": "Bournemouth",
+      "date": "2026-08-23T13:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "2-1",
+      "graded": "wrong"
+    },
     {
       "home": "Brentford",
       "away": "Tottenham",
@@ -88,7 +72,7 @@
   ],
   "record": {
     "correct": 0,
-    "total": 3
+    "total": 5
   },
   "expected_of_six": 0.71,
   "hit_rate_pct": 11.84,
