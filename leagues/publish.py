@@ -1012,11 +1012,13 @@ def build_player_picks() -> dict:
         # Actual per-match player lines. Empty when shot events are unreadable
         # (upstream Bundesliga crash) -- then every pick in that league stays
         # PENDING rather than being graded wrong against missing data.
+        primary_failed = False
         try:
             actuals = players.match_player_stats(league)
         except Exception as exc:
             print(f"  player-picks: no actuals for {league} ({exc})")
             actuals = pd.DataFrame()
+            primary_failed = True
         # Second source, for fixtures Understat has not filed. Understat stays
         # authoritative wherever it HAS the match (it is shot-event derived and
         # identifies penalties); this only fills silence.
@@ -1026,6 +1028,18 @@ def build_player_picks() -> dict:
             print(f"  player-picks: fallback stats unreadable for {league} ({exc})")
             api_actuals, api_covered = pd.DataFrame(), set()
         have_actuals = not actuals.empty or not api_actuals.empty
+        if primary_failed and have_actuals:
+            # The fallback must never paper over an OUTAGE of the primary feed.
+            # It covers only the fixtures it was asked to fetch, so continuing on
+            # it alone would quietly move every Understat-covered pick into
+            # awaiting_data -- shrinking the published record without saying why,
+            # which is the same partial-record dishonesty the check below exists
+            # to prevent. A feed that normally works and did not answer this run
+            # is a reason to publish nothing, not a reason to publish less.
+            print(f"  player-picks: {league} primary feed failed; refusing to "
+                  f"publish a record backed only by the fallback")
+            incomplete.append(lg.name)
+            continue
         if not have_actuals:
             # Distinguish a PERMANENT missing feed from a transient one. Bundesliga
             # genuinely has no shot events (upstream crash) and its picks can never

@@ -144,3 +144,41 @@ def test_a_pick_never_frozen_onto_the_board_stays_off_it(tmp_path, monkeypatch):
     monkeypatch.setattr(publish, "BEST_PICK_MIN_PROB", 0.50)   # bar lowered after
     b = publish.build_best_picks()
     assert b["record"]["total"] == 0, "a winner was adopted onto the board in hindsight"
+
+
+def test_the_fallback_feed_does_not_mask_a_primary_outage(frozen_losses, monkeypatch):
+    """A working fallback must not turn "publish nothing" into "publish less".
+
+    Caught in CI the first run after API-Football was wired in. Once
+    player_stats.json existed, a timeout on Understat no longer produced an empty
+    frame -- the fallback filled it -- so the league sailed past the incomplete
+    check and published a record missing every pick the fallback had not been
+    asked to fetch. The board would have shrunk silently, with no reader able to
+    tell why, which is precisely the partial-record dishonesty that check exists
+    to prevent.
+
+    The fallback covers only fixtures it fetched. It is a cure for a feed that
+    has not FILED a match, never for a feed that did not ANSWER.
+    """
+    import pandas as pd
+
+    monkeypatch.setattr(publish.fixtures, "fetch_fixtures", lambda lg: frozen_losses)
+    monkeypatch.setattr(publish.players, "match_player_stats",
+                        lambda lg: (_ for _ in ()).throw(TimeoutError("blip")))
+    monkeypatch.setattr(publish.players, "shot_events_available", lambda lg: True)
+    # The fallback DOES have something -- this is the CI condition exactly.
+    monkeypatch.setattr(
+        publish.players, "api_match_stats",
+        lambda lg: (pd.DataFrame([{"date": pd.Timestamp("2026-08-22"),
+                                   "team": "Arsenal", "player": "Kane",
+                                   "goals": 1, "shots": 3, "sot": 2}]),
+                    {("Arsenal", pd.Timestamp("2026-08-22").date())}))
+    (publish.PICKS_DIR / "pl" / "player_picks_log.json").write_text(
+        '{"2026:1:goal:Kane": {"market": "goal", "player": "Kane", "team": "Arsenal",'
+        ' "p_pick": 0.45, "confidence": 2, "tainted": false,'
+        ' "kickoff": "2026-08-22T14:00:00+00:00"}}', encoding="utf-8")
+
+    pp = publish.build_player_picks()
+    assert pp["_incomplete"] == ["Premier League"]
+    assert pp["ungradeable_leagues"] == []
+    assert pp["record"]["total"] == 0
