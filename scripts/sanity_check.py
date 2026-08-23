@@ -291,20 +291,32 @@ def check_freshness():
         # An aborted league leaves last week's fixtures behind, all now in the past.
         # An empty list is fine (end of season); a list where NOTHING is still to
         # come is not, because these are supposed to be upcoming fixtures.
+        #
+        # A fixture that has KICKED OFF but not yet finished still counts as
+        # current. On 2026-08-23 this check blocked every publish and deploy for
+        # the duration of Rennes v Paris SG: it was the last fixture of Ligue 1's
+        # matchweek, so the window held exactly one match, and from the moment it
+        # kicked off the file had zero future fixtures and was branded stale. It
+        # was 27 minutes old. The rule is meant to catch a snapshot left behind by
+        # an aborted league, and a match currently being played is the opposite of
+        # that -- so allow the length of one, generously: 90 minutes plus half
+        # time, stoppage and any delay.
+        IN_PLAY_HOURS = 3.5
         ms = d.get("matches") or []
         if ms:
-            future = 0
+            current = 0
             for m in ms:
                 try:
                     k = dt.datetime.fromisoformat(str(m.get("date")))
                     if k.tzinfo is None:
                         k = k.replace(tzinfo=dt.timezone.utc)
-                    future += (k > now)
+                    current += (k > now - dt.timedelta(hours=IN_PLAY_HOURS))
                 except Exception:
                     continue
-            if future == 0:
-                fail(tag, f"all {len(ms)} published fixtures are in the past -- "
-                          f"stale file being presented as 'next up'")
+            if current == 0:
+                fail(tag, f"all {len(ms)} published fixtures kicked off more than "
+                          f"{IN_PLAY_HOURS:g}h ago -- stale file being presented "
+                          f"as 'next up'")
 
 
 def check_best_picks():
