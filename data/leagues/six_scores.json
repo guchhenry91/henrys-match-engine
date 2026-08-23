@@ -1,34 +1,25 @@
 {
-  "updated": "2026-08-23T17:18:19.008615+00:00",
+  "updated": "2026-08-23T17:46:27.431874+00:00",
   "matchweek": 1,
   "selection_verified_on": "2026-08-18",
-  "picks": [
-    {
-      "id": 9,
-      "date": "2026-08-23T15:30:00+00:00",
-      "home": "Newcastle United",
-      "away": "Liverpool",
-      "score": "1-1",
-      "score_pct": 13.1,
-      "alternatives": [
-        {
-          "score": "1-2",
-          "pct": 8.4
-        }
-      ],
-      "match_pick": "Liverpool",
-      "agrees_with_match_pick": false,
-      "provisional": false
-    }
-  ],
+  "picks": [],
   "missing_fixtures": [
     "Everton|Crystal Palace",
     "Nottingham Forest|Leeds",
     "Brentford|Tottenham",
     "Brighton|Aston Villa",
-    "Manchester City|Bournemouth"
+    "Manchester City|Bournemouth",
+    "Newcastle United|Liverpool"
   ],
   "settled": [
+    {
+      "home": "Newcastle United",
+      "away": "Liverpool",
+      "date": "2026-08-23T15:30:00+00:00",
+      "predicted": "1-1",
+      "actual": "2-2",
+      "graded": "wrong"
+    },
     {
       "home": "Brighton",
       "away": "Aston Villa",
@@ -72,7 +63,7 @@
   ],
   "record": {
     "correct": 0,
-    "total": 5
+    "total": 6
   },
   "expected_of_six": 0.71,
   "hit_rate_pct": 11.84,
