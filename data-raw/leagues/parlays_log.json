@@ -1,4 +1,111 @@
 {
+  "BUNDESLIGA#1#shots#Harry Kane|BUNDESLIGA#9#shots#Serhou Guirassy|LALIGA#18#shots#Ante Budimir|LALIGA#6#shots#Lamine Yamal|LALIGA#8#sot#Kylian Mbappe-Lottin|LIGUE1#16#shots#Lassine Sinayoko|LIGUE1#17#sot#Esteban Lepaul": {
+    "combined": 0.0306,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#1#shots#Harry Kane",
+        "p": 0.66,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+        "p": 0.629,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#6#shots#Lamine Yamal",
+        "p": 0.629,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#17#sot#Esteban Lepaul",
+        "p": 0.545,
+        "selection": "Esteban Lepaul 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+        "p": 0.525,
+        "selection": "Serhou Guirassy 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-24T17:59:45.033481+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#1#shots#Harry Kane|LALIGA#18#shots#Ante Budimir": {
+    "combined": 0.4534,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#1#shots#Harry Kane",
+        "p": 0.66,
+        "selection": "Harry Kane 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-24T17:59:45.033481+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#9#goal#Serhou Guirassy|LALIGA#18#shots#Ante Budimir|LALIGA#8#sot#Kylian Mbappe-Lottin": {
+    "combined": 0.1759,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+        "p": 0.629,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+        "p": 0.407,
+        "selection": "Serhou Guirassy to score"
+      }
+    ],
+    "locked_at": "2026-08-24T17:59:45.033481+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#9#w|LALIGA#18#shots#Ante Budimir|LIGUE1#16#shots#Lassine Sinayoko": {
+    "combined": 0.2823,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#9#w",
+        "p": 0.6883,
+        "selection": "Dortmund to win"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-24T17:59:45.033481+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#9#w|LALIGA#2#w|LIGUE1#7#w|PL#1#w": {
     "combined": 0.271,
     "earliest_kickoff": "2026-08-19T19:00:00+00:00",
