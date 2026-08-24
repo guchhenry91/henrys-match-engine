@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-08-23",
+  "_verified_on": "2026-08-24",
   "LALIGA": {
     "Alaves|Getafe": {
       "home_goals": 3,
@@ -78,6 +78,15 @@
       "sources": [
         "ESPN match page (gameId 401882911): Getafe 1-0 Racing Santander, Enes Ünal 81', Full Time",
         "FOX Sports boxscore (908966): Getafe 1, Racing Santander 0, Final Score, Ünal 81'"
+      ]
+    },
+    "Elche|Barcelona": {
+      "home_goals": 0,
+      "away_goals": 5,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401882913): Elche 0-5 Barcelona, Full Time",
+        "FOX Sports boxscore (908964): Elche 0, Barcelona 5, Final Score"
       ]
     }
   },
@@ -255,6 +264,15 @@
       "api_status": "FT",
       "sources": [
         "API-Football fixture 1552730: Le Havre 0-1 Monaco, status FT"
+      ]
+    },
+    "Rennes|Paris SG": {
+      "home_goals": 2,
+      "away_goals": 2,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401876487): Stade Rennais 2-2 Paris Saint-Germain, Full Time",
+        "VAVEL match report: Stade Rennais FC 2-2 PSG, Rennes led 2-0 at halftime, PSG salvaged draw, Full Time"
       ]
     }
   }
