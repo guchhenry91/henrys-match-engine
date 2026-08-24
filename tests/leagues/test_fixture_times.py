@@ -217,3 +217,53 @@ def test_hand_written_results_still_need_two_sources():
             "sources": ["one report"]}
     assert not hand.get("auto")
     assert len(hand["sources"]) < 2
+
+
+# --- an override must never reach an unplayed fixture -------------------------
+# Home|Away is not unique across a season. Ligue 1 carried Rennes v Paris SG
+# twice in the SAME orientation -- matchweek 1 on 2026-08-23, matchweek 23 on
+# 2027-03-05 -- so a verified 2-2 for the first stamped itself onto the second,
+# and a match seven months away was published with a final score, counted as
+# played, and served live.
+
+def _meeting(number, date, home, away):
+    return {"MatchNumber": number, "RoundNumber": 1, "DateUtc": date,
+            "Location": "x", "HomeTeam": home, "AwayTeam": away,
+            "HomeTeamScore": None, "AwayTeamScore": None}
+
+
+def test_an_override_does_not_score_a_future_fixture(tmp_path, monkeypatch):
+    import json as _json
+    res = tmp_path / "results.json"
+    res.write_text(_json.dumps({"LIGUE1": {"Rennes|Paris SG": {
+        "home_goals": 2, "away_goals": 2, "status": "FT",
+        "sources": ["a", "b"]}}}), encoding="utf-8")
+    monkeypatch.setattr(fixtures, "RESULTS", res)
+    monkeypatch.setattr(fixtures, "OVERRIDES", tmp_path / "none.json")
+
+    df = fixtures.parse_fixtures([
+        _meeting(7,   "2026-08-23 18:45:00Z", "Rennes", "Paris SG"),
+        _meeting(205, "2099-03-05 20:00:00Z", "Rennes", "Paris SG"),
+    ], "LIGUE1")
+
+    played = df.set_index("match_id")["played"].astype(bool)
+    assert played[7] is True or played[7] == True     # the match that happened
+    assert not played[205], "a fixture that has not kicked off was scored"
+
+
+def test_a_dated_key_targets_only_that_meeting(tmp_path, monkeypatch):
+    import json as _json
+    res = tmp_path / "results.json"
+    res.write_text(_json.dumps({"LIGUE1": {"Rennes|Paris SG|2026-08-23": {
+        "home_goals": 2, "away_goals": 2, "status": "FT",
+        "sources": ["a", "b"]}}}), encoding="utf-8")
+    monkeypatch.setattr(fixtures, "RESULTS", res)
+    monkeypatch.setattr(fixtures, "OVERRIDES", tmp_path / "none.json")
+
+    df = fixtures.parse_fixtures([
+        _meeting(7,   "2026-08-23 18:45:00Z", "Rennes", "Paris SG"),
+        _meeting(205, "2099-03-05 20:00:00Z", "Rennes", "Paris SG"),
+    ], "LIGUE1")
+    played = df.set_index("match_id")["played"].astype(bool)
+    assert played[7]
+    assert not played[205]

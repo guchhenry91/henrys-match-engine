@@ -155,6 +155,12 @@ jobs:
       - name: Publish all four leagues
         run: python -m leagues.publish
         env:
+          # publish makes no API call itself, but it must state whether a pick
+          # WILL be settleable (players.grading_feed_available). Bundesliga's
+          # answer depends on the fallback being usable, and without the key in
+          # this step publish read "no key" and kept branding the whole league
+          # ungradeable -- the exact exclusion the fallback was meant to lift.
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           # Two independent leagues at once roughly halves a cold Understat build
           # without aggressively fanning out against a free public service.
           PUBLISH_WORKERS: "2"

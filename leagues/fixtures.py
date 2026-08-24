@@ -81,7 +81,32 @@ def parse_fixtures(raw: list[dict], league: str) -> pd.DataFrame:
         played = hg is not None and ag is not None
         home = canonical(r["HomeTeam"], league)
         away = canonical(r["AwayTeam"], league)
-        verified = results.get(f"{home}|{away}")
+        # Date FIRST, so an override can name the exact fixture; the bare
+        # Home|Away form stays supported for the common case.
+        fixed = over.get(f"{home}|{away}")
+        date = pd.to_datetime(fixed or r["DateUtc"], utc=True)
+
+        verified = (results.get(f"{home}|{away}|{date.date().isoformat()}")
+                    or results.get(f"{home}|{away}"))
+        # AN OVERRIDE MAY NEVER REACH A FIXTURE THAT HAS NOT KICKED OFF.
+        #
+        # Home|Away is not unique across a season. On 2026-08-24 the Ligue 1
+        # fixture list carried Rennes v Paris SG twice in the same orientation --
+        # matchweek 1 on 23 Aug 2026 and matchweek 23 on 5 Mar 2027 -- so a
+        # verified 2-2 for the first stamped itself onto the second as well, and
+        # a match seven months away was published with a final score and counted
+        # as played. Exactly the fabrication the two-source rule exists to
+        # prevent, arriving through the key rather than the evidence.
+        #
+        # A result for a fixture that has not started cannot be right whatever
+        # the key says, so this guard holds even if the keying is wrong again.
+        if verified and date > pd.Timestamp.now(tz="UTC"):
+            print(f"WARNING: {league}: {home} v {away} on {date.date()} has not "
+                  f"kicked off, so the verified {verified[0]}-{verified[1]} "
+                  f"override was NOT applied to it. If that result belongs to "
+                  f"this fixture the key is wrong; if it belongs to another "
+                  f"meeting of the same clubs, key it Home|Away|YYYY-MM-DD.")
+            verified = None
         if verified:
             if not played:
                 # The feed has not scored this fixture yet. Fill in the verified
@@ -96,8 +121,6 @@ def parse_fixtures(raw: list[dict], league: str) -> pd.DataFrame:
                 print(f"WARNING: {league}: {home} v {away}: verified override "
                       f"{verified[0]}-{verified[1]} disagrees with the feed's "
                       f"{hg}-{ag}; using the FEED. Re-check results_override.json.")
-        fixed = over.get(f"{home}|{away}")
-        date = pd.to_datetime(fixed or r["DateUtc"], utc=True)
         rows.append({
             "match_id": r["MatchNumber"],
             "round": r["RoundNumber"],
