@@ -42,6 +42,74 @@
     "locked_at": "2026-08-24T17:59:45.033481+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#1#shots#Harry Kane|BUNDESLIGA#9#shots#Serhou Guirassy|LALIGA#18#shots#Ante Budimir|LALIGA#6#shots#Lamine Yamal|LALIGA#8#sot#Kylian Mbappe-Lottin|LIGUE1#16#shots#Lassine Sinayoko|LIGUE1#17#sot#Esteban Lepaul|PL#15#sot#Erling Haaland|PL#16#shots#Dominic Calvert-Lewin|PL#17#sot#Alexander Isak|PL#18#shots#Matheus Cunha|PL#20#sot#Richarlison": {
+    "combined": 0.0026,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#1#shots#Harry Kane",
+        "p": 0.66,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+        "p": 0.629,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#6#shots#Lamine Yamal",
+        "p": 0.629,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "PL#17#sot#Alexander Isak",
+        "p": 0.606,
+        "selection": "Alexander Isak 1+ shot on target"
+      },
+      {
+        "id": "PL#16#shots#Dominic Calvert-Lewin",
+        "p": 0.606,
+        "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "PL#15#sot#Erling Haaland",
+        "p": 0.59,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LIGUE1#17#sot#Esteban Lepaul",
+        "p": 0.545,
+        "selection": "Esteban Lepaul 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+        "p": 0.524,
+        "selection": "Serhou Guirassy 2+ shot attempts"
+      },
+      {
+        "id": "PL#20#sot#Richarlison",
+        "p": 0.516,
+        "selection": "Richarlison 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-08-25T07:11:12.760198+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#1#shots#Harry Kane|LALIGA#18#shots#Ante Budimir": {
     "combined": 0.4534,
     "earliest_kickoff": "2026-08-24T17:30:00+00:00",
@@ -83,6 +151,29 @@
     "locked_at": "2026-08-24T17:59:45.033481+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#9#goal#Serhou Guirassy|LALIGA#18#sot#Ante Budimir|PL#18#shots#Matheus Cunha": {
+    "combined": 0.1938,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#18#sot#Ante Budimir",
+        "p": 0.634,
+        "selection": "Ante Budimir 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+        "p": 0.398,
+        "selection": "Serhou Guirassy to score"
+      }
+    ],
+    "locked_at": "2026-08-25T07:11:12.760198+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#9#w|LALIGA#18#shots#Ante Budimir|LIGUE1#16#shots#Lassine Sinayoko": {
     "combined": 0.2823,
     "earliest_kickoff": "2026-08-24T17:30:00+00:00",
@@ -104,6 +195,34 @@
       }
     ],
     "locked_at": "2026-08-24T17:59:45.033481+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#9#w|LALIGA#18#shots#Ante Budimir|LIGUE1#16#shots#Lassine Sinayoko|PL#18#shots#Matheus Cunha": {
+    "combined": 0.2167,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#9#w",
+        "p": 0.688,
+        "selection": "Dortmund to win"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-25T07:11:12.760198+00:00",
     "tainted": true
   },
   "BUNDESLIGA#9#w|LALIGA#2#w|LIGUE1#7#w|PL#1#w": {
@@ -592,6 +711,24 @@
     ],
     "locked_at": "2026-08-21T23:01:39.872242+00:00",
     "tainted": false
+  },
+  "LALIGA#18#shots#Ante Budimir|PL#18#shots#Matheus Cunha": {
+    "combined": 0.5276,
+    "earliest_kickoff": "2026-08-24T17:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#18#shots#Ante Budimir",
+        "p": 0.687,
+        "selection": "Ante Budimir 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-25T07:11:12.760198+00:00",
+    "tainted": true
   },
   "LALIGA#18#shots#Ante Budimir|PL#6#goal#Thiago|PL#8#sot#Erling Haaland": {
     "combined": 0.1421,
