@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T19:27:36.335808+00:00",
+  "updated": "2026-08-25T19:59:31.683370+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -90,7 +90,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.158,
+          "combined": 0.1923,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -113,18 +113,18 @@
               "date": "2026-08-26T19:00:00+00:00"
             },
             {
-              "selection": "Raphinha to score",
-              "match": "Barcelona v Ath Bilbao",
-              "league": "La Liga",
-              "league_key": "LALIGA",
+              "selection": "Serhou Guirassy to score",
+              "match": "Dortmund v Hamburg",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
               "tag": "g",
-              "p": 0.327,
-              "id": "LALIGA#6#goal#Raphinha",
-              "date": "2026-08-27T19:00:00+00:00"
+              "p": 0.398,
+              "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+              "date": "2026-08-29T16:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-25T19:27:36.335808+00:00"
+          "locked_at": "2026-08-25T09:54:06.068490+00:00"
         }
       ]
     },
@@ -136,7 +136,7 @@
           "tier": "Shots double",
           "note": "The two safest shot-volume calls",
           "feat": false,
-          "combined": 0.4831,
+          "combined": 0.5069,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -149,24 +149,23 @@
               "date": "2026-08-30T15:30:00+00:00"
             },
             {
-              "selection": "Kylian Mbappe-Lottin 1+ shot on target",
-              "match": "Real Madrid v Sociedad",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "o",
-              "p": 0.629,
-              "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
-              "date": "2026-08-26T19:00:00+00:00"
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Bayern Munich v Stuttgart",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.66,
+              "id": "BUNDESLIGA#1#shots#Harry Kane",
+              "date": "2026-08-28T18:30:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-08-25T19:27:36.335808+00:00"
+          "provisional": true
         },
         {
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0111,
+          "combined": 0.0038,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -177,6 +176,16 @@
               "p": 0.768,
               "id": "PL#18#shots#Matheus Cunha",
               "date": "2026-08-30T15:30:00+00:00"
+            },
+            {
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Bayern Munich v Stuttgart",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.66,
+              "id": "BUNDESLIGA#1#shots#Harry Kane",
+              "date": "2026-08-28T18:30:00+00:00"
             },
             {
               "selection": "Kylian Mbappe-Lottin 1+ shot on target",
@@ -249,6 +258,16 @@
               "date": "2026-08-30T15:15:00+00:00"
             },
             {
+              "selection": "Serhou Guirassy 2+ shot attempts",
+              "match": "Dortmund v Hamburg",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.524,
+              "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+              "date": "2026-08-29T16:30:00+00:00"
+            },
+            {
               "selection": "Richarlison 1+ shot on target",
               "match": "Tottenham v Newcastle United",
               "league": "Premier League",
@@ -260,7 +279,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-25T19:27:36.335808+00:00"
+          "locked_at": "2026-08-25T09:54:06.068490+00:00"
         }
       ]
     },
