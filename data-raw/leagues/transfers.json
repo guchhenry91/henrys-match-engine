@@ -694,6 +694,16 @@
     "verified_by": "direct web search, current reporting as of 2026-08-26T12:06Z",
     "result": "Gakpo: personal terms remain agreed with Tottenham (since July) but fee talks with Liverpool are still unresolved (reports of a rejected ~EUR70m bid and an ~EUR85m ask) -- no club-official announcement or completed medical found -- still Liverpool, unconfirmed, not actioned. No other change from the 09:10Z sweep.",
     "not_checked": "No fixtures fell in the 45min-3h Best Picks window this run (nearest is still Real Madrid v Sociedad, 2026-08-26T19:00Z, ~6h54m out at check time) -- full STEP 2-5 team-news research was not triggered. No finished-but-ungraded matches exist across all four league files (script-checked: kickoff-plus-2h15m vs null result). Wednesday: not a bet365 6 Scores Challenge check day (Thu/Fri only)."
+   },
+   {
+    "date": "2026-08-26T17:20Z",
+    "scope": "matchday-news board check (leagues-matchday-news task) -- fourth run today, Real Madrid v Sociedad now inside the 45min-3h window (~1h40m out)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only, plus full STEP 2-5 team news for Real Madrid v Sociedad",
+    "players": 18,
+    "method": "board composition unchanged from the 12:06Z sweep (same 18 distinct players). An automated feed had already refreshed data-raw/leagues/news.json for Real Madrid and Sociedad 6 minutes before this run started (checked_at 16:59:20Z); independently re-verified both via direct web search rather than trusting it blindly. Targeted re-check on the one actively-progressing saga (Gakpo/Tottenham); the other 17 board players were exhaustively re-verified within the prior 5-9 hours and not re-queried absent any new signal.",
+    "verified_by": "direct web search, current reporting as of 2026-08-26T17:20Z",
+    "result": "Gakpo: still no change -- personal terms agreed with Tottenham since July, fee talks with Liverpool unresolved (~GBP70m bid reportedly rejected, Spurs preparing a new offer), no official announcement -- still Liverpool, unconfirmed, not actioned. Real Madrid v Sociedad team news independently corroborated and news.json updated: Real Madrid's automated note (Militao/Mendy/Rodrygo/Asencio out, Tchouameni/Endrick/Pitarch doubtful, Bellingham playing through an ankle knock) confirmed accurate by a second source (Managing Madrid/Heavy.com); Sociedad's automated note (Odriozola out) was INCOMPLETE -- added three additional doubts found via two independent sources (Sports Mole, Heavy.com) not in the automated pass: Pablo Marin, Jon Gorrotxategi, Goncalo Guedes, all muscle-related and pending a late fitness check.",
+    "not_checked": "No other fixtures fell in the 45min-3h Best Picks window this run. No finished-but-ungraded matches exist across all four league files (script-checked: kickoff-plus-2h15m vs null result). Wednesday: not a bet365 6 Scores Challenge check day (Thu/Fri only)."
    }
   ],
   "known_gaps": [
