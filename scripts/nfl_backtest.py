@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-from nfl import backtest, config, data, features
+from nfl import backtest, config, data, features, games_backtest
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data-raw" / "nfl" / "backtest_report.json"
@@ -33,6 +33,18 @@ def main():
               f"RELEASED={result['released']}")
         if not result["released"]:
             print(f"    withheld: {result['reason'][:170]}")
+    # The game model, scored on the same seasons and gated the same way. Its
+    # baseline is home advantage rather than player form -- the best anyone can do
+    # knowing nothing about the teams.
+    winner = games_backtest.evaluate(games_backtest.walk_forward(games))
+    report["markets"]["team_winner"] = winner
+    w = winner.get("overall", {})
+    print(f"{'team_winner':20s} n={w.get('n'):6}  Brier {w.get('brier')} vs "
+          f"{w.get('baseline_brier')}  accuracy {w.get('accuracy')}  "
+          f"RELEASED={winner['released']}")
+    if not winner["released"]:
+        print(f"    withheld: {winner['reason'][:170]}")
+
     report["released_markets"] = sorted(m for m, r in report["markets"].items()
                                         if r.get("released"))
     OUT.parent.mkdir(parents=True, exist_ok=True)

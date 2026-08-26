@@ -30,48 +30,55 @@ def _weeks(values, stat="receiving_yards"):
 
 def test_history_never_includes_the_current_game():
     """A single enormous game must not raise the features OF that game."""
-    frame = _weeks([10] * 12 + [999])
+    frame = _weeks([40] * 12 + [999])
     built = features.build(frame, "receiving_yards")
     spike = built[built["week"] == 13]
     assert not spike.empty
-    assert spike["hist_rate"].iloc[0] == pytest.approx(10.0)
-    assert spike["form5"].iloc[0] == pytest.approx(10.0)
-    assert spike["line"].iloc[0] == pytest.approx(10.5)
+    assert spike["hist_rate"].iloc[0] == pytest.approx(40.0)
+    assert spike["form5"].iloc[0] == pytest.approx(40.0)
+    assert spike["line"].iloc[0] == pytest.approx(40.5)
 
 
 def test_the_spike_does_show_up_in_the_next_game():
     """...but it must reach the NEXT one, or the window is simply broken."""
-    frame = _weeks([10] * 12 + [999, 10])
+    frame = _weeks([40] * 12 + [999, 40])
     built = features.build(frame, "receiving_yards")
     after = built[built["week"] == 14]
     assert after["form5"].iloc[0] > 100, "history is not updating at all"
 
 
 def test_last_five_is_strictly_prior_and_ordered():
-    frame = _weeks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    frame = _weeks([21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
     built = features.build(frame, "receiving_yards")
     row = built[built["week"] == 10].iloc[0]
-    assert row["last_five"] == [5.0, 6.0, 7.0, 8.0, 9.0]
-    assert 10.0 not in row["last_five"], "the current game leaked into last five"
+    assert row["last_five"] == [25.0, 26.0, 27.0, 28.0, 29.0]
+    assert 30.0 not in row["last_five"], "the current game leaked into last five"
 
 
 def test_last_five_is_what_the_model_used():
     """The board shows these five; the projection must come from the same five."""
-    frame = _weeks([20] * 10)
+    frame = _weeks([40] * 10)
     built = features.build(frame, "receiving_yards")
     row = built.iloc[-1]
     assert len(row["last_five"]) == config.FORM_GAMES
     assert row["form5"] == pytest.approx(sum(row["last_five"]) / len(row["last_five"]))
 
 
+def test_a_line_no_book_would_quote_is_not_published():
+    """A fringe receiver at "over 0.5 yards" is trivially likely and tells nobody
+    anything. The floor keeps those off the board AND out of the backtest, so the
+    measured numbers describe the product actually on screen."""
+    assert features.build(_weeks([3] * 12), "receiving_yards").empty
+
+
 def test_a_player_below_the_games_threshold_is_not_published():
-    built = features.build(_weeks([10] * 4), "receiving_yards")
+    built = features.build(_weeks([40] * 4), "receiving_yards")
     assert built.empty
 
 
 def test_a_player_without_a_role_is_not_published():
     """A receiver with no carries must never acquire a rushing line."""
-    frame = _weeks([10] * 12, stat="rushing_yards")
+    frame = _weeks([40] * 12, stat="rushing_yards")
     frame["carries"] = 0.0
     assert features.build(frame, "rushing_yards").empty
 

@@ -1,0 +1,117 @@
+name: NFL refresh
+
+# SEPARATE FROM leagues.yml ON PURPOSE. The soccer job runs every fifteen minutes
+# on a matchday because a pick has to freeze before kickoff. Nothing about the NFL
+# board needs that: the slate is weekly, and fitting five models over eight
+# seasons takes minutes rather than seconds. Bolting it onto the football cron
+# would multiply that cost by ninety-six a day for no benefit, and a failure in
+# either sport would take the other down with it.
+#
+# It also costs no API quota at all. nflverse serves flat CSVs with no daily cap,
+# which is why the six-season backfill lives here and not on the API-NFL key.
+
+on:
+  schedule:
+    # Daily at 09:00 UTC. Ratings only move when games are played, but the slate
+    # rolls over mid-week and a stale "week 1" board after week 1 has started
+    # would be worse than a slightly early one.
+    - cron: "0 9 * * *"
+    # Tuesday: re-run the walk-forward backtest after Monday night football, so
+    # the released markets and the evidence on the cards reflect the season as it
+    # actually unfolds rather than a number frozen in August.
+    - cron: "30 8 * * 2"
+  workflow_dispatch:
+    inputs:
+      backtest:
+        description: "Re-run the walk-forward backtest and release gate"
+        type: boolean
+        default: false
+
+concurrency:
+  group: nfl-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: nfl-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Cache nflverse downloads
+        uses: actions/cache@v4
+        with:
+          path: data-raw/nfl/_cache
+          key: nflverse-${{ github.run_id }}
+          restore-keys: nflverse-
+
+      - name: Install dependencies
+        run: python -m pip install -q -r requirements.txt
+
+      - name: Re-run the release gate
+        # Tuesdays and on request. The gate decides which markets are allowed on
+        # the board at all, so it must not run on every publish -- a market
+        # flickering in and out of release day to day would be unreadable.
+        if: github.event.schedule == '30 8 * * 2' || inputs.backtest
+        run: python -m scripts.nfl_backtest
+
+      - name: Publish the NFL board
+        run: python -m nfl.publish
+
+      - name: Tests
+        run: python -m pytest tests/nfl -q
+
+      - name: Commit the refreshed board
+        id: commit
+        run: |
+          git config user.name "leagues-bot"
+          git config user.email "leagues-bot@users.noreply.github.com"
+          git add data/nfl data-raw/nfl
+          if git diff --cached --quiet || ! python -m scripts.deploy_needed; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No meaningful NFL changes to publish."
+            git reset -q
+          else
+            git commit -m "auto: NFL board $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash origin main
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Render deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          HOOK="$(printf '%s' "$HOOK" | tr -d '[:space:]')"
+          if [ -z "$HOOK" ]; then
+            echo "::error::RENDER_DEPLOY_HOOK is not set -- the board was pushed but not deployed."
+            exit 1
+          fi
+          code=$(curl --retry 3 --retry-all-errors --retry-delay 2 \
+            --connect-timeout 10 --max-time 30 -sS -o /dev/null \
+            -w "%{http_code}" -X POST "$HOOK")
+          echo "deploy hook responded $code"
+          [ "$code" = "200" ] || [ "$code" = "201" ] || [ "$code" = "202" ]
+
+      - name: Alert on failure
+        if: failure()
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TOKEN" ] && [ -n "$CHAT" ]; then
+            curl -sS -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+              -d "chat_id=$CHAT" \
+              -d "text=NFL refresh failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >/dev/null || true
+          fi

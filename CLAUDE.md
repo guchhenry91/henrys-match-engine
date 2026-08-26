@@ -249,6 +249,78 @@ a 0/6 is the model behaving as measured, not misfiring. Picks are ranked by
 confidence (they range ~12-14.5%) and each card shows the runner-up score with
 `gap_to_next_pp`, the cost in probability points of playing it instead.
 
+---
+
+# NFL engine (`nfl/`, tab: NFL)
+
+A second sport, deliberately kept in its own package. The soccer engine is a
+Dixon-Coles model over two low-count goal processes; nothing about that survives
+translation to a sport scoring 20-30 points from drives. What IS shared is the
+discipline: walk-forward validation on seasons the model never saw, a release
+gate that WITHHOLDS rather than caveats, and evidence published beside the picks.
+
+- `python -m scripts.nfl_backtest` — the gate. Writes `data-raw/nfl/backtest_report.json`.
+- `python -m nfl.publish` — the board. Writes `data/nfl/board.json`.
+- `.github/workflows/nfl.yml` — daily publish, Tuesday re-gate. Separate from
+  leagues.yml because the NFL slate is weekly and fitting five models takes
+  minutes; bolting it onto a 15-minute football cron would multiply that by 96 a
+  day and let either sport's failure take the other down.
+
+## Data: nflverse, NOT the API-NFL key
+Flat CSVs, no daily cap, so a six-season backfill is free. This matters: the
+API-Football account hit its daily limit twice in one week and a backfill is
+exactly the shape of job that causes that. **The current release path is
+`stats_player/stats_player_week_{season}`** — the older `player_stats/player_stats_{season}`
+still serves 2020-2024 and 404s for 2025, which looks like "no recent data"
+rather than "wrong URL". `recent_team` was renamed `team`; normalised in data.py.
+
+## What is measured, and against what
+EIGHT seasons load (2018-2025), FOUR are scored (2022-2025). 2018-2021 are
+burn-in and never graded -- widening that window is more evidence before the
+test, not a change to the test.
+
+| Market | n | Brier | Baseline | ECE |
+|---|---|---|---|---|
+| anytime_touchdown | 11,703 | 0.1850 | 0.1894 | 0.014 |
+| receiving_yards | 9,337 | 0.2321 | 0.2430 | 0.017 |
+| rushing_yards | 3,725 | 0.2278 | 0.2378 | 0.027 |
+| passing_yards | 2,061 | 0.2319 | 0.2405 | 0.037 |
+| team_winner | 1,087 | 0.2231 | 0.2473 | 63.6% accuracy |
+
+All sixteen prop season-market combinations beat their baseline. Team winner
+beats home-advantage (53.3%) in every season.
+
+## Decisions that are load-bearing
+- **The line is the player's own entering MEDIAN**, not his mean and not a
+  sportsbook price. Yardage is right-skewed, so a line at the mean is beaten only
+  36% of the time -- a market a model looks clever in by always saying "under",
+  against a baseline flattered the same way. `MIN_LINE` then floors it: nobody
+  quotes "over 0.5 receiving yards", and the floor applies in the BACKTEST too,
+  so the gate measures the product on screen.
+- **`MIN_OPPORTUNITY` requires a role**, or a receiver with a median of zero
+  carries acquires a rushing line.
+- **Ensemble, never selection.** Candidate feature sets are all fitted and
+  AVERAGED. Selecting the best on an inner split made markets flip in and out of
+  release as candidates were added -- that was the selector's variance, not model
+  quality, and averaging removes the choice.
+- **Cross-fitted calibration.** Every training row gets an out-of-fold
+  prediction, then the model refits on all of them. A held-out tail cost 30% of
+  the data and, on the first fold, degenerated into calibrating on rows the model
+  had memorised.
+- **Isotonic only above 5,000 rows**, Platt below: isotonic carves step functions
+  out of noise on small samples.
+- **The calibration bar is `max(0.04, null_95)`** -- practically calibrated OR
+  statistically indistinguishable from perfect at that sample size. A bare
+  constant punishes small markets for being small; a bare null test punishes large
+  ones for being measurable.
+
+## Known holes, stated on the board rather than hidden
+No depth charts (a backup QB carries a low line and can top a market he may not
+play in), no injury data, and a player's club comes from his last appearance so
+an offseason move is invisible until he plays. `ACTIVE_WITHIN_SEASONS` keeps
+retired players off -- without it the week 1 board filled with Alfred Blue,
+C.J. Anderson and Colt McCoy, each carried forward from a final season years back.
+
 ## Roster verification
 `python -m scripts.sync_rosters` snapshots every current 2026-27 club and player
 from the ESPN league/team roster feeds into `data-raw/leagues/rosters.json`.

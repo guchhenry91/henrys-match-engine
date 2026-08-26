@@ -233,7 +233,8 @@ def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -
     frame = frame[frame["games_before"] >= config.MIN_GAMES_FOR_PROP].copy()
     frame = frame[frame["opp_median"] >= config.MIN_OPPORTUNITY[market]]
     if market != "anytime_touchdown":
-        frame = frame[frame["line"].notna() & (frame["line"] > 0)]
+        frame = frame[frame["line"].notna()
+                      & (frame["line"] >= config.MIN_LINE[market])]
     if games is not None:
         frame = attach_game_context(frame, games)
         form = team_form(games)

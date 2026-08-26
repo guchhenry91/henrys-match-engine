@@ -282,13 +282,18 @@ async function boot(){
     try{const r=await fetch(`data/leagues/${n}.json`,{cache:"no-cache"});DATA[n]=r.ok?await r.json():null;}
     catch(e){DATA[n]=null;}
   }));
+  // NFL lives under its own path and its own engine. Fetched separately and
+  // allowed to fail on its own: a missing NFL board must never blank the four
+  // football leagues that were here first.
+  try{const r=await fetch("data/nfl/board.json",{cache:"no-cache"});DATA.nfl=r.ok?await r.json():null;}
+  catch(e){DATA.nfl=null;}
   FRESH=computeFreshness(); updateLivePill();
   buildNav(); render("today");
 }
 
-const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},
+const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},
   {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"}];
-const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",
+const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",
   PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
 
 function buildNav(){
@@ -374,6 +379,7 @@ function render(k){
   else if(k==="tables") h=viewTables();
   else if(k==="six") h=viewSix();
   else if(k==="grades") h=viewGrades();
+  else if(k==="NFL") h=viewNFL();
   else h=viewLeague(k);
   app.innerHTML=staleBanner()+h;window.scrollTo(0,0);
 }
@@ -579,6 +585,107 @@ function viewSix(){
         <div class="info"><b>${esc(x.home)} ${esc(x.actual)} ${esc(x.away)}</b><span>predicted ${esc(x.predicted)}</span></div>
         <span class="res ${esc(x.graded)}">${x.graded==="correct"?"HIT":"MISS"}</span></div>`).join("")}</div>`;
   }
+  return h+archiveLink();
+}
+
+function nflWhen(iso){
+  // DATE ONLY. The schedule feed carries a gameday with no kickoff time, so the
+  // shared whenStr rendered every game at "00:00" -- a precise-looking number
+  // that is not merely unknown but wrong. Showing the date alone says exactly
+  // what is known.
+  try{
+    const d=new Date(iso);
+    if(isNaN(d)) return "";
+    return d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
+  }catch(e){return "";}
+}
+
+function nflLastFive(p){
+  // The five games the projection was built from, oldest first. Shown as the
+  // actual numbers rather than an average, because "23, 145, 0, 71, 88" and
+  // "65.4 average" describe very different players.
+  const v=p.last_five||[];
+  if(!v.length) return "";
+  const td=p.market==="anytime_touchdown";
+  const cells=v.map(x=>{
+    const hit=td?x>0:(p.line!=null&&x>p.line);
+    const label=td?(x>0?"TD":"–"):Math.round(x);
+    return `<span style="display:inline-block;min-width:26px;text-align:center;padding:1px 4px;margin-right:3px;
+      border-radius:5px;font-size:10.5px;font-variant-numeric:tabular-nums;
+      background:${hit?"rgba(55,230,216,.16)":"rgba(255,255,255,.05)"};
+      color:${hit?"var(--cyan)":"var(--sub)"}">${label}</span>`;
+  }).join("");
+  return `<span style="display:block;margin-top:3px">${cells}</span>`;
+}
+
+function nflPropRow(p){
+  const line=p.line==null?"":` o${p.line}`;
+  const venue=p.home?"vs":"@";
+  return `<div class="rw static">
+    <div class="info"><b>${esc(p.player)}</b>
+      <span>${esc(p.team)} ${venue} ${esc(p.opponent)}${line} · last 5${
+        p.last_five_average!=null?` avg ${p.last_five_average}`:""}</span>
+      ${nflLastFive(p)}</div>
+    <div class="conf" style="min-width:56px"><b>${Math.round(p.probability*100)}%</b></div></div>`;
+}
+
+function viewNFL(){
+  const d=DATA.nfl;
+  if(!d) return emptyState();
+  const ev=d.evidence||{}, mk=d.markets||{};
+  const chips=[["all","All"],["team_winner","Winners"],["anytime_touchdown","Anytime TD"],
+               ["receiving_yards","Receiving"],["rushing_yards","Rushing"],["passing_yards","Passing"]];
+  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
+
+  const tw=ev.team_winner||{};
+  if(tw.n) h+=`<div class="glass stat"><div class="k">${Math.round((tw.accuracy||0)*100)}%</div>
+    <div class="l">team-winner accuracy over ${tw.n} games the model never saw · ${(tw.seasons_scored||[]).join(", ")}</div></div>`;
+
+  if(d.season) h+=`<div class="eyebrow">Season ${d.season} · week ${d.week}</div>`;
+
+  if(filter==="all"||filter==="team_winner"){
+    const games=(d.games||[]).slice().sort((a,b)=>b.p_pick-a.p_pick);
+    h+=`<div class="eyebrow" style="margin-top:18px">Team winner · ${games.length} game${games.length===1?"":"s"}</div>
+      <div class="glass rowc">${games.map(g=>`
+        <div class="rw static"><div class="info">
+          <b>${esc(g.away)} @ ${esc(g.home)}</b>
+          <span>${nflWhen(g.kickoff)}${g.neutral?" · neutral site":""} · Elo ${Math.round(g.rating_away)} v ${Math.round(g.rating_home)}</span>
+        </div>
+        <div class="conf" style="min-width:74px"><b>${esc(g.pick)}</b>
+          <span style="font-size:11.5px">${Math.round(g.p_pick*100)}%</span></div></div>`).join("")
+        ||emptyRow("No games in the current slate")}</div>`;
+  }
+
+  // ONE SECTION PER MARKET. The four have very different ceilings -- a 53%
+  // anytime touchdown and an 80% rushing over are both near the top of their own
+  // market -- so a single mixed list ranked by probability buries every
+  // touchdown pick and reads as if they are the weak ones.
+  // "Winners" means winners ONLY. Sharing the team-winner branch's condition
+  // meant selecting it still printed all four prop markets underneath, which
+  // defeats the point of grouping them.
+  const allMarkets=["anytime_touchdown","receiving_yards","rushing_yards","passing_yards"];
+  const markets = filter==="all" ? allMarkets
+                : filter==="team_winner" ? []
+                : [filter];
+  for(const m of markets){
+    const block=(d.props||{})[m];
+    if(!block) continue;
+    const e=ev[m]||{};
+    const evidence=e.n?` · Brier ${e.brier} vs ${e.baseline_brier} over ${e.n} unseen`:"";
+    if(!block.released){
+      h+=`<div class="eyebrow" style="margin-top:18px">${esc(mk[m]||m)}</div>
+        <div class="glass rowc">${emptyRow("Withheld — this market did not clear the release gate")}</div>`;
+      continue;
+    }
+    const picks=block.picks||[];
+    h+=`<div class="eyebrow" style="margin-top:18px">${esc(mk[m]||m)} · ${picks.length} pick${picks.length===1?"":"s"}${evidence}</div>
+      <div class="glass rowc">${picks.map(nflPropRow).join("")||emptyRow("No picks in this market this week")}</div>`;
+  }
+
+  const through=d.player_data_through||{};
+  h+=`<p class="note">Every number here is built only from games already played, so week 1 is projected from last season — player data runs through ${through.season||"?"} week ${through.week||"?"}. Lines are each player&rsquo;s own entering median, not a sportsbook price, so &ldquo;over&rdquo; means a better day than his typical one. The five boxes are the actual last five games, highlighted where they beat the line.</p>`;
+  if((d.caveats||[]).length)
+    h+=`<div class="glass warnbox" style="margin-top:10px">${d.caveats.map(c=>`<div>· ${esc(c)}</div>`).join("")}</div>`;
   return h+archiveLink();
 }
 

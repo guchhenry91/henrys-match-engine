@@ -63,3 +63,20 @@ MIN_OPPORTUNITY = {
     "rushing_yards": 4.0,         # carries a game
     "passing_yards": 15.0,        # pass attempts a game
 }
+
+# A yards market needs a line worth quoting. Without this the board's top picks
+# were fringe tight ends at "over 0.5 receiving yards" -- trivially likely, utterly
+# uninformative, and not a bet any sportsbook offers. The backtest applies the
+# same floor, because a gate that validates lines the board will never publish is
+# measuring a different product from the one on screen.
+MIN_LINE = {
+    "receiving_yards": 15.0,
+    "rushing_yards": 20.0,
+    "passing_yards": 150.0,
+}
+
+# A player must have appeared in the most recent completed season to be projected.
+# Attribution follows a player's last appearance, so without this the week 1 board
+# filled up with men who retired years ago -- Alfred Blue, C.J. Anderson and Colt
+# McCoy were all being projected onto 2026 fixtures from their final seasons.
+ACTIVE_WITHIN_SEASONS = 1
