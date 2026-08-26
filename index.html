@@ -100,6 +100,17 @@
   .mk.a{color:var(--cyan);background:rgba(55,230,216,.12);border-color:rgba(55,230,216,.22)}
   .mk.o{color:var(--violet);background:rgba(139,123,255,.14);border-color:rgba(139,123,255,.28)}
   .mk.w{color:var(--amber);background:rgba(255,207,92,.12);border-color:rgba(255,207,92,.28)}
+  .mk.r{color:#ff8f6a;background:rgba(255,143,106,.12);border-color:rgba(255,143,106,.26)}
+  .mk.p{color:#6ab8ff;background:rgba(106,184,255,.12);border-color:rgba(106,184,255,.26)}
+  /* Last five games. Tabular figures so the column of numbers reads as a series
+     rather than ragged text, and a filled chip where the game beat the line --
+     the shape of a player's form should be legible before any number is read. */
+  .l5{display:flex;gap:3px;margin-top:5px}
+  .l5 i{font-style:normal;flex:0 0 auto;min-width:27px;text-align:center;padding:2px 4px;
+    border-radius:6px;font-size:10.5px;font-weight:750;font-variant-numeric:tabular-nums;
+    background:var(--glass2);color:var(--sub);border:1px solid transparent}
+  .l5 i.hit{background:rgba(55,230,216,.15);color:var(--cyan);border-color:rgba(55,230,216,.25)}
+  .l5 i.now{box-shadow:0 0 0 1px rgba(255,255,255,.10) inset}
 
   .tr{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px}
   .tr.head{padding:8px 14px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);font-weight:800}
@@ -232,6 +243,21 @@ const LC={PL:"#ff5c6a",LALIGA:"#f5c518",BUNDESLIGA:"#ff5c8a",LIGUE1:"#37a9e6"};
 const TC={"Bayern Munich":"#37e6d8","Manchester City":"#8b7bff","Stuttgart":"#c8ff4d","Dortmund":"#f5c518",
   "Ath Madrid":"#ff5c8a","Arsenal":"#37e6d8","Paris SG":"#8b7bff","Real Madrid":"#c8ff4d","Barcelona":"#37e6d8","Liverpool":"#ff5c8a"};
 const tc=n=>TC[n]||"#37e6d8";
+// NFL sides get the same treatment clubs do -- a colour makes a 32-team board
+// scannable in a way a wall of three-letter codes never is. Grouped by
+// conference-ish families rather than exact brand colours, which would be
+// unreadable at 44px against a dark glass panel.
+const NFLC={KC:"#ff5c6a",BUF:"#37a9e6",PHI:"#37e6d8",SF:"#f5c518",BAL:"#8b7bff",
+  DET:"#37a9e6",DAL:"#6ab8ff",GB:"#c8ff4d",MIN:"#8b7bff",CIN:"#ff8f6a",
+  HOU:"#37a9e6",LAC:"#f5c518",LA:"#6ab8ff",TB:"#ff5c6a",PIT:"#f5c518",
+  SEA:"#37e6d8",DEN:"#ff8f6a",MIA:"#37e6d8",NYJ:"#c8ff4d",NE:"#8b7bff",
+  JAX:"#37e6d8",IND:"#6ab8ff",TEN:"#37a9e6",CLE:"#ff8f6a",LV:"#c9d1e0",
+  ARI:"#ff5c8a",ATL:"#ff5c6a",CAR:"#37a9e6",CHI:"#ff8f6a",NO:"#f5c518",
+  NYG:"#6ab8ff",WAS:"#ff5c6a"};
+const nc=t=>NFLC[t]||"#37e6d8";
+const NFL_OVERVIEW=5;     // rows per market on the "All" overview
+const NFLMK={anytime_touchdown:{tag:"g",name:"TD"},receiving_yards:{tag:"o",name:"Rec"},
+  rushing_yards:{tag:"r",name:"Rush"},passing_yards:{tag:"p",name:"Pass"}};
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const initials=n=>String(n).split(" ").map(w=>w[0]).slice(0,2).join("");
 const pc=p=>Math.round((p||0)*100);
@@ -591,8 +617,7 @@ function viewSix(){
 function nflWhen(iso){
   // DATE ONLY. The schedule feed carries a gameday with no kickoff time, so the
   // shared whenStr rendered every game at "00:00" -- a precise-looking number
-  // that is not merely unknown but wrong. Showing the date alone says exactly
-  // what is known.
+  // that is not merely unknown but wrong.
   try{
     const d=new Date(iso);
     if(isNaN(d)) return "";
@@ -601,96 +626,110 @@ function nflWhen(iso){
 }
 
 function nflLastFive(p){
-  // The five games the projection was built from, oldest first. Shown as the
-  // actual numbers rather than an average, because "23, 145, 0, 71, 88" and
-  // "65.4 average" describe very different players.
+  // The five games the projection was built from, oldest first, with the most
+  // recent marked. Actual numbers rather than an average, because "23, 145, 0,
+  // 71, 88" and "65.4 average" describe very different players.
   const v=p.last_five||[];
   if(!v.length) return "";
   const td=p.market==="anytime_touchdown";
-  const cells=v.map(x=>{
+  return `<div class="l5">${v.map((x,i)=>{
     const hit=td?x>0:(p.line!=null&&x>p.line);
-    const label=td?(x>0?"TD":"–"):Math.round(x);
-    return `<span style="display:inline-block;min-width:26px;text-align:center;padding:1px 4px;margin-right:3px;
-      border-radius:5px;font-size:10.5px;font-variant-numeric:tabular-nums;
-      background:${hit?"rgba(55,230,216,.16)":"rgba(255,255,255,.05)"};
-      color:${hit?"var(--cyan)":"var(--sub)"}">${label}</span>`;
-  }).join("");
-  return `<span style="display:block;margin-top:3px">${cells}</span>`;
+    const label=td?(x>0?"TD":"·"):Math.round(x);
+    const last=i===v.length-1?" now":"";
+    return `<i class="${hit?"hit":""}${last}">${label}</i>`;
+  }).join("")}</div>`;
+}
+
+function nflFig(p){
+  // The sub-label under the percentage, matching how the football player cards
+  // read: the line the pick is against, not just a bare number.
+  if(p.market==="anytime_touchdown") return "anytime";
+  return p.line==null?"":`over ${p.line}`;
 }
 
 function nflPropRow(p){
-  const line=p.line==null?"":` o${p.line}`;
+  const m=NFLMK[p.market]||{tag:"a",name:p.market};
   const venue=p.home?"vs":"@";
-  // A doubtful player stays on the board with the doubt visible. Dropping him
-  // would hide a real pick; hiding the flag would mislead. Anyone ruled OUT never
-  // reaches here -- publish removes him.
+  // Doubt rides in the market-tag vocabulary rather than a bespoke pill. Anyone
+  // ruled OUT never reaches here -- publish removes him.
   const doubt=p.availability==="doubt"
-    ? `<span style="margin-left:5px;padding:1px 5px;border-radius:5px;font-size:10px;
-        background:rgba(255,190,90,.16);color:#ffbe5a">doubt${
-        p.injury_note?` · ${esc(p.injury_note)}`:""}</span>` : "";
+    ? `<span class="mk w" title="${esc(p.injury_note||"")}">Doubt</span>` : "";
   return `<div class="rw static">
-    <div class="info"><b>${esc(p.player)}${doubt}</b>
-      <span>${esc(p.team)} ${venue} ${esc(p.opponent)}${line} · last 5${
-        p.last_five_average!=null?` avg ${p.last_five_average}`:""}</span>
+    <div class="av" style="background:${nc(p.team)};font-size:${p.team.length>2?"13px":"15px"}">${esc(p.team)}</div>
+    <div class="info"><b>${esc(p.player)}</b>
+      <span>${esc(p.team)} ${venue} ${esc(p.opponent)} · ${nflWhen(p.kickoff)}</span>
       ${nflLastFive(p)}</div>
-    <div class="conf" style="min-width:56px"><b>${Math.round(p.probability*100)}%</b></div></div>`;
+    ${doubt}<span class="mk ${m.tag}">${esc(m.name)}</span>
+    <div class="conf" style="min-width:74px"><b>${pc(p.probability)}%</b><span>${esc(nflFig(p))}</span></div></div>`;
+}
+
+function nflGameRow(g){
+  const pickHome=g.pick===g.home;
+  return `<div class="rw static">
+    <div class="av" style="background:${nc(g.pick)};font-size:${g.pick.length>2?"13px":"15px"}">${esc(g.pick)}</div>
+    <div class="info"><b>${esc(g.away)} @ ${esc(g.home)}</b>
+      <span>${nflWhen(g.kickoff)}${g.neutral?" · neutral":""} · Elo ${Math.round(g.rating_away)} v ${Math.round(g.rating_home)}</span></div>
+    <span class="mk ${pickHome?"a":"o"}">${pickHome?"Home":"Away"}</span>
+    <div class="conf" style="min-width:74px"><b>${pc(g.p_pick)}%</b><span>to win</span></div></div>`;
 }
 
 function viewNFL(){
   const d=DATA.nfl;
   if(!d) return emptyState();
-  const ev=d.evidence||{}, mk=d.markets||{};
+  const ev=d.evidence||{};
   const chips=[["all","All"],["team_winner","Winners"],["anytime_touchdown","Anytime TD"],
                ["receiving_yards","Receiving"],["rushing_yards","Rushing"],["passing_yards","Passing"]];
   let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
 
   const tw=ev.team_winner||{};
-  if(tw.n) h+=`<div class="glass stat"><div class="k">${Math.round((tw.accuracy||0)*100)}%</div>
-    <div class="l">team-winner accuracy over ${tw.n} games the model never saw · ${(tw.seasons_scored||[]).join(", ")}</div></div>`;
+  if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
+    <div class="l">Team winners on ${tw.n} games the model never saw · ${(tw.seasons_scored||[]).length} seasons</div></div>`;
 
-  if(d.season) h+=`<div class="eyebrow">Season ${d.season} · week ${d.week}</div>`;
+  const allMarkets=["anytime_touchdown","receiving_yards","rushing_yards","passing_yards"];
+  const markets = filter==="all" ? allMarkets : filter==="team_winner" ? [] : [filter];
 
   if(filter==="all"||filter==="team_winner"){
     const games=(d.games||[]).slice().sort((a,b)=>b.p_pick-a.p_pick);
-    h+=`<div class="eyebrow" style="margin-top:18px">Team winner · ${games.length} game${games.length===1?"":"s"}</div>
-      <div class="glass rowc">${games.map(g=>`
-        <div class="rw static"><div class="info">
-          <b>${esc(g.away)} @ ${esc(g.home)}</b>
-          <span>${nflWhen(g.kickoff)}${g.neutral?" · neutral site":""} · Elo ${Math.round(g.rating_away)} v ${Math.round(g.rating_home)}</span>
-        </div>
-        <div class="conf" style="min-width:74px"><b>${esc(g.pick)}</b>
-          <span style="font-size:11.5px">${Math.round(g.p_pick*100)}%</span></div></div>`).join("")
+    h+=`<div class="eyebrow" style="margin-top:18px">Team winner · ${
+      d.season?`week ${d.week} · `:""}${games.length} game${games.length===1?"":"s"}</div>
+      <div class="glass rowc">${games.map(nflGameRow).join("")
         ||emptyRow("No games in the current slate")}</div>`;
   }
 
-  // ONE SECTION PER MARKET. The four have very different ceilings -- a 53%
-  // anytime touchdown and an 80% rushing over are both near the top of their own
-  // market -- so a single mixed list ranked by probability buries every
-  // touchdown pick and reads as if they are the weak ones.
-  // "Winners" means winners ONLY. Sharing the team-winner branch's condition
-  // meant selecting it still printed all four prop markets underneath, which
-  // defeats the point of grouping them.
-  const allMarkets=["anytime_touchdown","receiving_yards","rushing_yards","passing_yards"];
-  const markets = filter==="all" ? allMarkets
-                : filter==="team_winner" ? []
-                : [filter];
+  // ONE SECTION PER MARKET, the same reasoning as the football player picks: a
+  // 53% anytime touchdown and an 80% rushing over are both near the top of their
+  // own market, and a single ranked list buries every touchdown pick.
   for(const m of markets){
     const block=(d.props||{})[m];
     if(!block) continue;
-    const e=ev[m]||{};
-    const evidence=e.n?` · Brier ${e.brier} vs ${e.baseline_brier} over ${e.n} unseen`:"";
+    const e=ev[m]||{}, name=(NFLMK[m]||{}).name||m;
+    const full=(d.markets||{})[m]||name;
     if(!block.released){
-      h+=`<div class="eyebrow" style="margin-top:18px">${esc(mk[m]||m)}</div>
-        <div class="glass rowc">${emptyRow("Withheld — this market did not clear the release gate")}</div>`;
+      h+=`<div class="eyebrow" style="margin-top:18px">${esc(name)}</div>
+        <div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
       continue;
     }
     const picks=block.picks||[];
-    h+=`<div class="eyebrow" style="margin-top:18px">${esc(mk[m]||m)} · ${picks.length} pick${picks.length===1?"":"s"}${evidence}</div>
-      <div class="glass rowc">${picks.map(nflPropRow).join("")||emptyRow("No picks in this market this week")}</div>`;
+    // "All" is an OVERVIEW, not the whole database. Four markets at full length
+    // is 111 rows of nearly identical cards -- the reader scrolls past the
+    // touchdown board looking for the end of it and takes nothing in. The top few
+    // per market here, the full list behind that market's own chip, which is how
+    // the football player picks already behave.
+    const overview = filter==="all";
+    const shown = overview ? picks.slice(0, NFL_OVERVIEW) : picks;
+    const more = picks.length - shown.length;
+    const proof=e.n?` · ${e.n.toLocaleString()} unseen`:"";
+    h+=`<div class="eyebrow" style="margin-top:18px">${esc(full)} · ${
+      picks.length} pick${picks.length===1?"":"s"}${proof}</div>
+      <div class="glass rowc">${shown.map(nflPropRow).join("")
+        ||emptyRow("No picks in this market this week")}${
+        more>0?`<div class="rw" onclick="setFilter('${m}')"><div class="info">
+          <span>Show all ${picks.length} ${esc(full.toLowerCase())} picks →</span></div></div>`:""}</div>`;
   }
 
-  const through=d.player_data_through||{};
-  h+=`<p class="note">Every number here is built only from games already played, so week 1 is projected from last season — player data runs through ${through.season||"?"} week ${through.week||"?"}. Lines are each player&rsquo;s own entering median, not a sportsbook price, so &ldquo;over&rdquo; means a better day than his typical one. The five boxes are the actual last five games, highlighted where they beat the line.</p>`;
+  const through=d.player_data_through||{}, inj=d.injury_report||{};
+  h+=`<p class="note">Boxes are the last five games, oldest first, filled where the game beat the line — the same five the projection was built from. Lines are each player&rsquo;s own median, not a bookmaker price, so &ldquo;over&rdquo; means a better day than his typical one. Player data runs through ${through.season||"?"} week ${through.week||"?"}${
+    inj.players_listed?`, and ${inj.players_listed} players carry an injury status from ${esc(inj.source||"the feed")} — anyone ruled out is off the board entirely` : ""}.</p>`;
   if((d.caveats||[]).length)
     h+=`<div class="glass warnbox" style="margin-top:10px">${d.caveats.map(c=>`<div>· ${esc(c)}</div>`).join("")}</div>`;
   return h+archiveLink();
