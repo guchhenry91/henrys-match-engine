@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26T20:54:08.952328+00:00",
+  "updated": "2026-08-26T21:06:38.845627+00:00",
   "season": 2026,
   "week": 1,
   "elo": {
@@ -2773,6 +2773,12 @@
       ]
     }
   },
+  "caveats": [
+    "No depth charts. The model does not know who starts, so a backup with a low line can top a market he may not play in.",
+    "No injury data. A ruled-out player is projected exactly as if fit.",
+    "A player's club is taken from his last appearance, so an offseason move is not reflected until he plays for the new team.",
+    "Lines are each player's own entering median, not a sportsbook price. 'Over' means a better day than his typical one."
+  ],
   "markets": {
     "anytime_touchdown": "Anytime touchdown",
     "receiving_yards": "Receiving yards",
