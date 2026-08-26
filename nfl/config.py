@@ -4,13 +4,18 @@
 # without crowds in most stadiums, which is where the home-field estimate starts
 # behaving normally again -- taking 2020-2025 keeps the window contiguous and
 # recent rather than reaching back for one more year of thinner relevance.
-SEASONS = (2020, 2021, 2022, 2023, 2024, 2025)
+# EIGHT seasons loaded, FOUR scored. 2018-2021 are burn-in and are never scored;
+# the released numbers still come from 2022-2025 exactly as before. Widening the
+# window is not a change to the evaluation, it is more evidence for the model to
+# learn from before facing it -- passing yards trains on ~500 quarterback-games a
+# season, and doubling that is the cheapest honest gain available.
+SEASONS = (2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025)
 CURRENT_SEASON = 2026
 
 # The first two seasons establish player roles and opponent history and are never
 # scored: a player's "historical rate" has to come from somewhere, and scoring a
 # fold whose features were built from nothing measures the warm-up, not the model.
-BURN_IN_SEASONS = 2
+BURN_IN_SEASONS = 4
 
 # REGULAR SEASON ONLY. Preseason is played by men who will not be on the roster in
 # week 1 and its snap counts are meaningless; playoff samples are tiny and the

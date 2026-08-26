@@ -202,6 +202,15 @@ def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -
     frame["form5"] = _prior_mean(frame, stat, config.FORM_GAMES)
     frame["form10"] = _prior_mean(frame, stat, config.LONG_FORM_GAMES)
     frame["opp5"] = _prior_mean(frame, opportunity, config.FORM_GAMES)
+
+    # EFFICIENCY, separated from volume. Yards are opportunity times efficiency,
+    # and a five-game yardage average silently blends the two -- a quarterback
+    # throwing 40 times for 6.0 a go and one throwing 28 times for 8.6 look
+    # identical in it, and they are not the same bet. Yards per attempt, per
+    # carry, per target isolates the half that form cannot see.
+    per_unit = frame[stat] / frame[opportunity].replace(0, np.nan)
+    frame["_eff"] = per_unit.fillna(0.0)
+    frame["eff5"] = _prior_mean(frame, "_eff", config.FORM_GAMES)
     frame["last_five"] = last_five(frame, stat)
 
     frame = _opponent_allowance(frame, stat)
