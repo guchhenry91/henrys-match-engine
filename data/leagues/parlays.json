@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-26T20:05:42.914313+00:00",
+  "updated": "2026-08-26T21:53:14.702144+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.4581,
+          "combined": 0.4585,
           "legs": [
             {
               "selection": "Dortmund to win",
@@ -28,7 +28,7 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "w",
-              "p": 0.6658,
+              "p": 0.6664,
               "id": "LALIGA#6#w",
               "date": "2026-08-27T19:00:00+00:00"
             }
@@ -40,7 +40,7 @@
           "tier": "Balanced four-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.21,
+          "combined": 0.2102,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -58,7 +58,7 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "w",
-              "p": 0.6658,
+              "p": 0.6664,
               "id": "LALIGA#6#w",
               "date": "2026-08-27T19:00:00+00:00"
             },
@@ -90,7 +90,7 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1966,
+          "combined": 0.1894,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -103,14 +103,14 @@
               "date": "2026-08-30T15:30:00+00:00"
             },
             {
-              "selection": "Kylian Mbappe-Lottin 1+ shot on target",
-              "match": "Real Madrid v Sociedad",
-              "league": "La Liga",
-              "league_key": "LALIGA",
+              "selection": "Alexander Isak 1+ shot on target",
+              "match": "Liverpool v Nottingham Forest",
+              "league": "Premier League",
+              "league_key": "PL",
               "tag": "o",
-              "p": 0.629,
-              "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
-              "date": "2026-08-26T19:00:00+00:00"
+              "p": 0.606,
+              "id": "PL#17#sot#Alexander Isak",
+              "date": "2026-08-29T11:30:00+00:00"
             },
             {
               "selection": "Serhou Guirassy to score",
@@ -123,8 +123,7 @@
               "date": "2026-08-29T16:30:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-08-25T09:54:06.068490+00:00"
+          "provisional": true
         }
       ]
     },
@@ -166,7 +165,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0038,
+          "combined": 0.0061,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -187,16 +186,6 @@
               "p": 0.66,
               "id": "BUNDESLIGA#1#shots#Harry Kane",
               "date": "2026-08-28T18:30:00+00:00"
-            },
-            {
-              "selection": "Kylian Mbappe-Lottin 1+ shot on target",
-              "match": "Real Madrid v Sociedad",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "o",
-              "p": 0.629,
-              "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
-              "date": "2026-08-26T19:00:00+00:00"
             },
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -280,7 +269,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-25T09:54:06.068490+00:00"
+          "locked_at": "2026-08-26T21:53:14.702144+00:00"
         }
       ]
     },
@@ -362,11 +351,252 @@
   "record": {
     "correct": 2,
     "wrong": 6,
-    "void": 27,
+    "void": 37,
     "total": 8,
-    "pending": 16
+    "pending": 7
   },
   "settled": [
+    {
+      "combined": 0.0038,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#1#shots#Harry Kane",
+          "p": 0.66,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#shots#Lamine Yamal",
+          "p": 0.629,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "PL#15#sot#Erling Haaland",
+          "p": 0.59,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+          "p": 0.524,
+          "selection": "Serhou Guirassy 2+ shot attempts"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.1923,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+          "p": 0.398,
+          "selection": "Serhou Guirassy to score"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.4475,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "BUNDESLIGA#9#w",
+          "p": 0.6883,
+          "selection": "Dortmund to win"
+        },
+        {
+          "id": "LALIGA#8#w",
+          "p": 0.6501,
+          "selection": "Real Madrid to win"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.2102,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#w",
+          "p": 0.6664,
+          "selection": "Real Madrid to win"
+        },
+        {
+          "id": "BUNDESLIGA#9#w",
+          "p": 0.6881,
+          "selection": "Dortmund to win"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.158,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#goal#Raphinha",
+          "p": 0.327,
+          "selection": "Raphinha to score"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.0111,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#shots#Lamine Yamal",
+          "p": 0.629,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "PL#15#sot#Erling Haaland",
+          "p": 0.59,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.3039,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#shots#Lamine Yamal",
+          "p": 0.629,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.4831,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
     {
       "combined": 0.0306,
       "graded": "void",
@@ -729,6 +959,23 @@
         }
       ],
       "kickoff": "2026-08-23T19:30:00+00:00"
+    },
+    {
+      "combined": 0.4566,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LIGUE1#7#w",
+          "p": 0.6943,
+          "selection": "Paris SG to win"
+        },
+        {
+          "id": "LALIGA#8#w",
+          "p": 0.6576,
+          "selection": "Real Madrid to win"
+        }
+      ],
+      "kickoff": "2026-08-23T18:45:00+00:00"
     },
     {
       "combined": 0.131,
@@ -1179,6 +1426,28 @@
           "id": "PL#6#sot#Thiago",
           "p": 0.584,
           "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-19T19:00:00+00:00"
+    },
+    {
+      "combined": 0.125,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#8#shots#Kylian Mbappe-Lottin",
+          "p": 0.589,
+          "selection": "Kylian Mbappe-Lottin 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+          "p": 0.314,
+          "selection": "Alexander S\u00f8rloth to score"
         }
       ],
       "kickoff": "2026-08-19T19:00:00+00:00"
