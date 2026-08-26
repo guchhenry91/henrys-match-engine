@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 from sklearn.isotonic import IsotonicRegression
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 
 # The pre-game signals, in the order the fitted coefficients expect.
@@ -30,8 +31,20 @@ from sklearn.preprocessing import StandardScaler
 CORE = ["hist_edge", "form5_edge", "form10_edge", "opp5", "opp_allowed_edge",
         "games_before"]
 WITH_CONTEXT = CORE + ["is_home", "rest_days"]
-CANDIDATES = {"core": CORE, "context": WITH_CONTEXT}
-FEATURES = WITH_CONTEXT          # superset, for frame_features to build
+WITH_SHARE = CORE + ["share5"]
+WITH_BOTH = CORE + ["is_home", "rest_days", "share5"]
+SCRIPT = ["team_scored5", "team_allowed5", "opp_scored5", "opp_allowed5"]
+WITH_SCRIPT = WITH_BOTH + SCRIPT
+# SCRIPT is built and available but NOT a candidate. Points scored and allowed
+# were a reasonable hypothesis for passing volume -- a team behind throws more --
+# and it was tested and rejected: it left passing yards unchanged and pushed
+# rushing back out of release. Every extra candidate also costs something even
+# when it is never chosen, because the selector picks between more options on the
+# same finite evidence and sometimes picks wrong. A feature set has to earn its
+# place; this one did not.
+CANDIDATES = {"core": CORE, "context": WITH_CONTEXT, "share": WITH_SHARE,
+              "both": WITH_BOTH}
+FEATURES = WITH_SCRIPT           # superset, for frame_features to build
 
 BLEND = 0.5          # equal parts model and empirical baseline
 
@@ -41,10 +54,23 @@ BLEND = 0.5          # equal parts model and empirical baseline
 # overfit -- and below THAT it ships uncalibrated rather than pretending.
 MIN_ROWS_FOR_ISOTONIC = 1500
 MIN_ROWS_FOR_PLATT = 300
-# The tail of the training window held back to fit the calibrator. It must be
-# unseen by the logistic fit, or the mapping is learned from predictions the model
-# has already memorised and corrects a distortion that will not exist live.
-CALIBRATION_SEASONS = 2
+# The tail of the training window held back to fit the calibrator, as a FRACTION
+# of rows in date order rather than a whole number of seasons.
+#
+# Seasons degenerate at the edge. With a two-season calibration window and a
+# two-season training window -- which is exactly the first scored fold -- the
+# holdout came out empty, the guard silently fell back to using everything, and
+# the calibrator was fitted on the very rows the logistic had just memorised. It
+# then corrected a distortion that does not exist on unseen data. A fraction
+# cannot degenerate: both parts are always non-empty and always disjoint.
+# CROSS-FITTED, not held out. A single held-back tail costs the logistic 30% of
+# its training data -- which the small markets cannot afford, rushing yards having
+# only ~1,000 rows a season -- and fits the calibrator on one slice of one period.
+# Cross-fitting gives every training row an out-of-fold prediction, so the
+# calibrator sees the whole window and the logistic is then refitted on all of it.
+# Both stages use 100% of the data and neither ever sees its own prediction.
+CALIBRATION_FOLDS = 5
+MIN_CALIBRATION_ROWS = 200
 
 
 def frame_features(frame: pd.DataFrame, market: str) -> pd.DataFrame:
@@ -73,6 +99,9 @@ def frame_features(frame: pd.DataFrame, market: str) -> pd.DataFrame:
     out["games_before"] = frame["games_before"]
     out["is_home"] = frame.get("is_home", 0.5)
     out["rest_days"] = frame.get("rest_days", 7.0)
+    out["share5"] = frame.get("share5", 0.0)
+    for column in SCRIPT:
+        out[column] = frame.get(column, 0.0)
     return out.replace([np.inf, -np.inf], np.nan).fillna(0.0)
 
 
@@ -137,7 +166,8 @@ class PropModel:
         base = empirical_baseline(frame, self.market)
         if not self.fitted:
             return base
-        x = self.scaler.transform(frame_features(frame, self.market)[self.columns])
+        x = self.scaler.transform(
+            frame_features(frame, self.market)[self.columns].to_numpy())
         modelled = self.clf.predict_proba(x)[:, 1]
         return BLEND * modelled + (1 - BLEND) * base
 
@@ -158,24 +188,43 @@ class PropModel:
         the logistic fit, because a mapping learned from predictions the model has
         memorised corrects a distortion that will not exist on live data.
         """
-        seasons = sorted(frame["season"].unique())
-        holdout = seasons[-CALIBRATION_SEASONS:] if len(seasons) > CALIBRATION_SEASONS else []
-        core = frame[~frame["season"].isin(holdout)] if holdout else frame
-        calib = frame[frame["season"].isin(holdout)] if holdout else frame
-
-        self.columns = self._choose_features(core)
-        x = self.scaler.fit_transform(frame_features(core, self.market)[self.columns])
-        y = core["outcome"].to_numpy()
+        ordered = frame.sort_values(["season", "week"]).reset_index(drop=True)
+        self.columns = self._choose_features(ordered)
+        features_all = frame_features(ordered, self.market)[self.columns].to_numpy()
+        y = ordered["outcome"].to_numpy()
         # A fold with one class in it cannot be fitted and must not be faked --
         # fall back to the baseline alone rather than inventing a decision boundary.
         if len(np.unique(y)) < 2:
             self.fitted = False
             return self
-        self.clf.fit(x, y)
+
+        # Out-of-fold predictions for every training row: each row is scored by a
+        # model that never saw it, so the calibrator learns the distortion the
+        # model will actually show on unseen data.
+        oof = np.full(len(ordered), np.nan)
+        if len(ordered) >= MIN_CALIBRATION_ROWS:
+            for train_idx, test_idx in KFold(n_splits=CALIBRATION_FOLDS, shuffle=True,
+                                             random_state=20260826).split(features_all):
+                if len(np.unique(y[train_idx])) < 2:
+                    continue
+                scaler = StandardScaler().fit(features_all[train_idx])
+                clf = LogisticRegression(max_iter=2000, C=1.0).fit(
+                    scaler.transform(features_all[train_idx]), y[train_idx])
+                modelled = clf.predict_proba(scaler.transform(features_all[test_idx]))[:, 1]
+                base = empirical_baseline(ordered.iloc[test_idx], self.market)
+                oof[test_idx] = BLEND * modelled + (1 - BLEND) * base
+
+        # Now refit on EVERYTHING -- the folds existed to produce honest
+        # predictions for the calibrator, not to throw data away.
+        self.scaler.fit(features_all)
+        self.clf.fit(self.scaler.transform(features_all), y)
         self.fitted = True
 
-        raw = self._raw(calib)
-        truth = calib["outcome"].to_numpy()
+        usable = ~np.isnan(oof)
+        if usable.sum() < MIN_CALIBRATION_ROWS:
+            return self
+        raw = oof[usable]
+        truth = y[usable]
         if len(raw) >= MIN_ROWS_FOR_ISOTONIC and len(np.unique(truth)) > 1:
             self.calibrator = IsotonicRegression(out_of_bounds="clip",
                                                  y_min=0.01, y_max=0.99).fit(raw, truth)

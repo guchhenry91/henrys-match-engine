@@ -135,6 +135,49 @@ def attach_game_context(frame: pd.DataFrame, games: pd.DataFrame) -> pd.DataFram
     return out.reset_index(drop=True)
 
 
+def opportunity_share(player_weeks: pd.DataFrame, opportunity: str) -> pd.Series:
+    """A player's share of his own team's volume in that game.
+
+    The signal both weak markets were missing. Ten carries means one thing on a
+    team that ran forty times and something else entirely on a team that ran
+    twelve -- the raw count cannot tell a lead back from a committee, and the
+    committee is where rushing projections go wrong. Share separates them.
+
+    Computed on the raw game, then lagged like everything else: the share used for
+    a game is always the share he had BEFORE it.
+    """
+    totals = (player_weeks.groupby(["team", "season", "week"])[opportunity]
+              .transform("sum"))
+    return (player_weeks[opportunity] / totals.replace(0, np.nan)).fillna(0.0)
+
+
+def team_form(games: pd.DataFrame) -> pd.DataFrame:
+    """Each team's prior scoring and conceding rate, per game, strictly lagged.
+
+    GAME SCRIPT is what drives passing volume, and it is the thing a quarterback's
+    five-game form cannot see. A team with a leaky defence spends the second half
+    behind and throwing; a team that leads runs the clock out. Points scored and
+    allowed going INTO the game are the cheapest honest proxy for that, and both
+    are known before kickoff.
+
+    Deliberately not the betting spread or total, which live in the same file and
+    would predict this better. Reading the market is not the same as modelling the
+    game, and a market-derived feature makes the board a mirror rather than a check.
+    """
+    home = games[["season", "week", "home_team", "home_score", "away_score"]].rename(
+        columns={"home_team": "team", "home_score": "scored", "away_score": "allowed"})
+    away = games[["season", "week", "away_team", "away_score", "home_score"]].rename(
+        columns={"away_team": "team", "away_score": "scored", "home_score": "allowed"})
+    rows = pd.concat([home, away], ignore_index=True).sort_values(
+        ["team", "season", "week"])
+    for column in ("scored", "allowed"):
+        shifted = rows.groupby("team", sort=False)[column].shift(1)
+        rows[f"team_{column}5"] = (shifted.groupby(rows["team"], sort=False)
+                                   .rolling(config.FORM_GAMES, min_periods=1).mean()
+                                   .reset_index(level=0, drop=True))
+    return rows[["season", "week", "team", "team_scored5", "team_allowed5"]]
+
+
 def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -> pd.DataFrame:
     """Per-player-game rows with pre-game features and the settled outcome."""
     stat = MARKET_STAT[market]
@@ -142,7 +185,19 @@ def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -
     frame = player_weeks[player_weeks["position"].isin(ELIGIBLE[market])].copy()
     frame = frame.sort_values(["player_id", "season", "week"]).reset_index(drop=True)
 
+    # Share must be computed against the FULL squad, before the position filter --
+    # a running back's share of his team's carries is meaningless if the other
+    # backs have already been filtered out of the denominator.
+    share_source = player_weeks.copy()
+    share_source["_share"] = opportunity_share(share_source, opportunity)
+    frame = frame.merge(
+        share_source[["player_id", "season", "week", "_share"]],
+        on=["player_id", "season", "week"], how="left")
+    frame["_share"] = frame["_share"].fillna(0.0)
+    frame = frame.sort_values(["player_id", "season", "week"]).reset_index(drop=True)
+
     frame["games_before"] = _prior_count(frame)
+    frame["share5"] = _prior_mean(frame, "_share", config.FORM_GAMES)
     frame["hist_rate"] = _prior_mean(frame, stat)
     frame["form5"] = _prior_mean(frame, stat, config.FORM_GAMES)
     frame["form10"] = _prior_mean(frame, stat, config.LONG_FORM_GAMES)
@@ -172,8 +227,18 @@ def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -
         frame = frame[frame["line"].notna() & (frame["line"] > 0)]
     if games is not None:
         frame = attach_game_context(frame, games)
+        form = team_form(games)
+        frame = frame.merge(form, on=["season", "week", "team"], how="left")
+        opponent = form.rename(columns={"team": "opponent_team",
+                                        "team_scored5": "opp_scored5",
+                                        "team_allowed5": "opp_allowed5"})
+        frame = frame.merge(opponent, on=["season", "week", "opponent_team"], how="left")
+        for column in ("team_scored5", "team_allowed5", "opp_scored5", "opp_allowed5"):
+            frame[column] = frame[column].fillna(frame[column].mean())
     else:
         frame["is_home"] = 0.5
         frame["rest_days"] = 7.0
+        for column in ("team_scored5", "team_allowed5", "opp_scored5", "opp_allowed5"):
+            frame[column] = 0.0
     frame["market"] = market
     return frame.reset_index(drop=True)

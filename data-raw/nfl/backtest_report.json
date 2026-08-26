@@ -17,47 +17,47 @@
       "reason": "passed every gate",
       "overall": {
         "n": 11824,
-        "brier": 0.185339,
+        "brier": 0.184702,
         "baseline_brier": 0.189664,
-        "ece": 0.014169,
-        "ece_equal_width": 0.006287,
-        "ece_null_95": 0.014461
+        "ece": 0.01664,
+        "ece_equal_width": 0.00828,
+        "ece_null_95": 0.014453
       },
       "per_season": {
         "2022": {
           "n": 2833,
-          "brier": 0.186182,
+          "brier": 0.185987,
           "baseline_brier": 0.193443,
-          "ece": 0.023388,
-          "ece_equal_width": 0.019419,
-          "ece_null_95": 0.026177,
+          "ece": 0.019594,
+          "ece_equal_width": 0.018271,
+          "ece_null_95": 0.026028,
           "hit_rate": 0.2616
         },
         "2023": {
           "n": 3059,
-          "brier": 0.181673,
+          "brier": 0.180213,
           "baseline_brier": 0.183575,
-          "ece": 0.025829,
-          "ece_equal_width": 0.024628,
-          "ece_null_95": 0.027373,
+          "ece": 0.034327,
+          "ece_equal_width": 0.021916,
+          "ece_null_95": 0.025494,
           "hit_rate": 0.2573
         },
         "2024": {
           "n": 2940,
-          "brier": 0.186133,
+          "brier": 0.186168,
           "baseline_brier": 0.189812,
-          "ece": 0.024324,
-          "ece_equal_width": 0.017887,
-          "ece_null_95": 0.027188,
+          "ece": 0.024605,
+          "ece_equal_width": 0.017413,
+          "ece_null_95": 0.026348,
           "hit_rate": 0.2752
         },
         "2025": {
           "n": 2992,
-          "brier": 0.187508,
+          "brier": 0.186634,
           "baseline_brier": 0.192166,
-          "ece": 0.036281,
-          "ece_equal_width": 0.038175,
-          "ece_null_95": 0.025126,
+          "ece": 0.024502,
+          "ece_equal_width": 0.027848,
+          "ece_null_95": 0.028099,
           "hit_rate": 0.2667
         }
       }
@@ -68,98 +68,98 @@
       "reason": "passed every gate",
       "overall": {
         "n": 13028,
-        "brier": 0.236277,
+        "brier": 0.235582,
         "baseline_brier": 0.249991,
-        "ece": 0.008697,
-        "ece_equal_width": 0.009552,
-        "ece_null_95": 0.014909
+        "ece": 0.016472,
+        "ece_equal_width": 0.010591,
+        "ece_null_95": 0.015052
       },
       "per_season": {
         "2022": {
           "n": 3176,
-          "brier": 0.241286,
+          "brier": 0.241303,
           "baseline_brier": 0.256059,
-          "ece": 0.020796,
-          "ece_equal_width": 0.018528,
-          "ece_null_95": 0.030349,
+          "ece": 0.022089,
+          "ece_equal_width": 0.019581,
+          "ece_null_95": 0.029921,
           "hit_rate": 0.4556
         },
         "2023": {
           "n": 3314,
-          "brier": 0.234897,
+          "brier": 0.233966,
           "baseline_brier": 0.248449,
-          "ece": 0.02188,
-          "ece_equal_width": 0.017938,
-          "ece_null_95": 0.028338,
+          "ece": 0.024193,
+          "ece_equal_width": 0.023967,
+          "ece_null_95": 0.028858,
           "hit_rate": 0.4336
         },
         "2024": {
           "n": 3280,
-          "brier": 0.235535,
+          "brier": 0.235209,
           "baseline_brier": 0.246527,
-          "ece": 0.025695,
-          "ece_equal_width": 0.01949,
-          "ece_null_95": 0.027055,
+          "ece": 0.034008,
+          "ece_equal_width": 0.024404,
+          "ece_null_95": 0.02885,
           "hit_rate": 0.4634
         },
         "2025": {
           "n": 3258,
-          "brier": 0.233545,
+          "brier": 0.232024,
           "baseline_brier": 0.249131,
-          "ece": 0.026461,
-          "ece_equal_width": 0.026963,
-          "ece_null_95": 0.02794,
+          "ece": 0.023109,
+          "ece_equal_width": 0.024366,
+          "ece_null_95": 0.029418,
           "hit_rate": 0.4306
         }
       }
     },
     "rushing_yards": {
       "market": "rushing_yards",
-      "released": false,
-      "reason": "2023: ECE 0.048566 exceeds both 0.04 and the calibrated-null 95th centile 0.04601",
+      "released": true,
+      "reason": "passed every gate",
       "overall": {
         "n": 4341,
-        "brier": 0.231776,
+        "brier": 0.228875,
         "baseline_brier": 0.238131,
-        "ece": 0.014892,
-        "ece_equal_width": 0.014411,
-        "ece_null_95": 0.026137
+        "ece": 0.023915,
+        "ece_equal_width": 0.02166,
+        "ece_null_95": 0.025725
       },
       "per_season": {
         "2022": {
           "n": 1079,
-          "brier": 0.237252,
+          "brier": 0.236013,
           "baseline_brier": 0.245949,
-          "ece": 0.034149,
-          "ece_equal_width": 0.02604,
-          "ece_null_95": 0.049892,
+          "ece": 0.029087,
+          "ece_equal_width": 0.02517,
+          "ece_null_95": 0.04853,
           "hit_rate": 0.4513
         },
         "2023": {
           "n": 1040,
-          "brier": 0.229993,
+          "brier": 0.224372,
           "baseline_brier": 0.235228,
-          "ece": 0.048566,
-          "ece_equal_width": 0.041273,
-          "ece_null_95": 0.04601,
+          "ece": 0.039809,
+          "ece_equal_width": 0.034204,
+          "ece_null_95": 0.053096,
           "hit_rate": 0.4279
         },
         "2024": {
           "n": 1096,
-          "brier": 0.232153,
+          "brier": 0.228961,
           "baseline_brier": 0.23674,
-          "ece": 0.034531,
-          "ece_equal_width": 0.030431,
-          "ece_null_95": 0.048307,
+          "ece": 0.043468,
+          "ece_equal_width": 0.04367,
+          "ece_null_95": 0.050557,
           "hit_rate": 0.4544
         },
         "2025": {
           "n": 1126,
-          "brier": 0.227808,
+          "brier": 0.226112,
           "baseline_brier": 0.234673,
-          "ece": 0.040574,
-          "ece_equal_width": 0.032656,
-          "ece_null_95": 0.04452,
+          "ece": 0.028892,
+          "ece_equal_width": 0.020829,
+          "ece_null_95": 0.046404,
           "hit_rate": 0.452
         }
       }
@@ -167,50 +167,50 @@
     "passing_yards": {
       "market": "passing_yards",
       "released": false,
-      "reason": "2023: Brier 0.247272 does not beat baseline 0.241111; 2024: Brier 0.240371 does not beat baseline 0.238754; 2025: ECE 0.076139 exceeds both 0.04 and the calibrated-null 95th centile 0.074381",
+      "reason": "2023: Brier 0.241916 does not beat baseline 0.241111",
       "overall": {
         "n": 2125,
-        "brier": 0.240956,
+        "brier": 0.235937,
         "baseline_brier": 0.240959,
-        "ece": 0.03583,
-        "ece_equal_width": 0.022008,
-        "ece_null_95": 0.038307
+        "ece": 0.032857,
+        "ece_equal_width": 0.018575,
+        "ece_null_95": 0.036553
       },
       "per_season": {
         "2022": {
           "n": 496,
-          "brier": 0.240508,
+          "brier": 0.241401,
           "baseline_brier": 0.24411,
-          "ece": 0.073053,
-          "ece_equal_width": 0.050769,
-          "ece_null_95": 0.077146,
+          "ece": 0.076981,
+          "ece_equal_width": 0.046286,
+          "ece_null_95": 0.077191,
           "hit_rate": 0.4456
         },
         "2023": {
           "n": 515,
-          "brier": 0.247272,
+          "brier": 0.241916,
           "baseline_brier": 0.241111,
-          "ece": 0.033945,
-          "ece_equal_width": 0.033831,
-          "ece_null_95": 0.078895,
+          "ece": 0.064179,
+          "ece_equal_width": 0.046963,
+          "ece_null_95": 0.077362,
           "hit_rate": 0.4718
         },
         "2024": {
           "n": 554,
-          "brier": 0.240371,
+          "brier": 0.232942,
           "baseline_brier": 0.238754,
-          "ece": 0.040833,
-          "ece_equal_width": 0.025801,
-          "ece_null_95": 0.072942,
+          "ece": 0.037527,
+          "ece_equal_width": 0.027566,
+          "ece_null_95": 0.067009,
           "hit_rate": 0.4386
         },
         "2025": {
           "n": 560,
-          "brier": 0.236124,
+          "brier": 0.228564,
           "baseline_brier": 0.240211,
-          "ece": 0.076139,
-          "ece_equal_width": 0.043604,
-          "ece_null_95": 0.074381,
+          "ece": 0.046621,
+          "ece_equal_width": 0.03632,
+          "ece_null_95": 0.067673,
           "hit_rate": 0.4464
         }
       }
@@ -218,6 +218,7 @@
   },
   "released_markets": [
     "anytime_touchdown",
-    "receiving_yards"
+    "receiving_yards",
+    "rushing_yards"
   ]
 }
