@@ -65,6 +65,15 @@ jobs:
         if: github.event.schedule == '30 8 * * 2' || inputs.backtest
         run: python -m scripts.nfl_backtest
 
+      - name: Refresh the injury report
+        # The one thing nflverse cannot supply. 32 requests -- one per team --
+        # against an allowance in the thousands, and it degrades to the previous
+        # file rather than failing the run: a board without today's injuries is
+        # worse than one with them and far better than no board.
+        env:
+          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
+        run: python -m scripts.sync_nfl_injuries
+
       - name: Publish the NFL board
         run: python -m nfl.publish
 

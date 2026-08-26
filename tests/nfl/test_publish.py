@@ -77,3 +77,69 @@ def test_every_pick_carries_its_last_five():
             if pick["last_five"]:
                 assert pick["last_five_average"] == pytest.approx(
                     sum(pick["last_five"]) / len(pick["last_five"]), abs=0.05)
+
+
+# --- availability -------------------------------------------------------------
+
+def test_a_ruled_out_player_is_removed_from_the_board(monkeypatch, tmp_path):
+    """His last five look exactly as good as anyone's right up until he is
+    inactive, which is why publishing him is the most misleading thing here."""
+    import pandas as pd
+    from nfl import features, model
+
+    weeks = pd.DataFrame([{
+        "player_id": "P1", "player_display_name": "Ruled Out", "position": "WR",
+        "team": "AAA", "season": 2025, "week": w, "season_type": "REG",
+        "opponent_team": "ZZZ", "passing_yards": 0.0, "rushing_yards": 0.0,
+        "receiving_yards": 60.0, "receptions": 5.0, "carries": 0.0, "targets": 8.0,
+        "attempts": 0.0, "completions": 0.0, "passing_tds": 0.0,
+        "rushing_tds": 0.0, "receiving_tds": 0.0, "touchdowns": 0, "touches": 5.0,
+    } for w in range(1, 14)])
+    upcoming = pd.DataFrame([{"season": 2026, "week": 1,
+                              "gameday": pd.Timestamp("2026-09-13"),
+                              "home_team": "AAA", "away_team": "BBB"}])
+
+    monkeypatch.setattr(model.PropModel, "fit", lambda self, f: self)
+    monkeypatch.setattr(model.PropModel, "predict",
+                        lambda self, f: [0.9] * len(f))
+
+    healthy = publish.player_projections(weeks, None, "receiving_yards", upcoming,
+                                         injuries={})
+    assert [p["player"] for p in healthy] == ["Ruled Out"]
+    assert healthy[0]["availability"] == "not reported"
+
+    gone = publish.player_projections(weeks, None, "receiving_yards", upcoming,
+                                      injuries={"Ruled Out": {"status": "out"}})
+    assert gone == [], "a player who will not dress was still published"
+
+
+def test_a_doubtful_player_stays_but_carries_the_flag(monkeypatch):
+    """Dropping him would hide a real pick; hiding the doubt would mislead."""
+    import pandas as pd
+    from nfl import model
+
+    weeks = pd.DataFrame([{
+        "player_id": "P1", "player_display_name": "Doubtful Man", "position": "WR",
+        "team": "AAA", "season": 2025, "week": w, "season_type": "REG",
+        "opponent_team": "ZZZ", "passing_yards": 0.0, "rushing_yards": 0.0,
+        "receiving_yards": 60.0, "receptions": 5.0, "carries": 0.0, "targets": 8.0,
+        "attempts": 0.0, "completions": 0.0, "passing_tds": 0.0,
+        "rushing_tds": 0.0, "receiving_tds": 0.0, "touchdowns": 0, "touches": 5.0,
+    } for w in range(1, 14)])
+    upcoming = pd.DataFrame([{"season": 2026, "week": 1,
+                              "gameday": pd.Timestamp("2026-09-13"),
+                              "home_team": "AAA", "away_team": "BBB"}])
+    monkeypatch.setattr(model.PropModel, "fit", lambda self, f: self)
+    monkeypatch.setattr(model.PropModel, "predict", lambda self, f: [0.9] * len(f))
+
+    out = publish.player_projections(
+        weeks, None, "receiving_yards", upcoming,
+        injuries={"Doubtful Man": {"status": "doubt", "detail": "hamstring"}})
+    assert len(out) == 1
+    assert out[0]["availability"] == "doubt"
+    assert out[0]["injury_note"] == "hamstring"
+
+
+def test_a_missing_injury_file_means_not_reported_never_fit(monkeypatch, tmp_path):
+    monkeypatch.setattr(publish, "ROOT", tmp_path)
+    assert publish.availability() == {}

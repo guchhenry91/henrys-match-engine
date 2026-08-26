@@ -621,8 +621,15 @@ function nflLastFive(p){
 function nflPropRow(p){
   const line=p.line==null?"":` o${p.line}`;
   const venue=p.home?"vs":"@";
+  // A doubtful player stays on the board with the doubt visible. Dropping him
+  // would hide a real pick; hiding the flag would mislead. Anyone ruled OUT never
+  // reaches here -- publish removes him.
+  const doubt=p.availability==="doubt"
+    ? `<span style="margin-left:5px;padding:1px 5px;border-radius:5px;font-size:10px;
+        background:rgba(255,190,90,.16);color:#ffbe5a">doubt${
+        p.injury_note?` · ${esc(p.injury_note)}`:""}</span>` : "";
   return `<div class="rw static">
-    <div class="info"><b>${esc(p.player)}</b>
+    <div class="info"><b>${esc(p.player)}${doubt}</b>
       <span>${esc(p.team)} ${venue} ${esc(p.opponent)}${line} · last 5${
         p.last_five_average!=null?` avg ${p.last_five_average}`:""}</span>
       ${nflLastFive(p)}</div>

@@ -314,10 +314,31 @@ beats home-advantage (53.3%) in every season.
   constant punishes small markets for being small; a bare null test punishes large
   ones for being measurable.
 
+## API-NFL: availability only
+`nfl/api.py` + `scripts/sync_nfl_injuries.py` -> `data-raw/nfl/injuries.json`.
+The key is used for the ONE thing nflverse cannot supply: who will actually play.
+32 requests a day, one per team.
+
+A player reported OUT is removed from the board entirely -- his last five games
+look exactly as good as anyone's right up until he is inactive. A DOUBTFUL player
+stays with the doubt shown, because dropping him hides a real pick while hiding
+the flag misleads. **Absence from the report means NOT REPORTED, never confirmed
+fit**: a quiet file because the sync failed is indistinguishable from a quiet file
+because everyone is healthy, and treating the first as the second is how a
+ruled-out player gets published at full confidence.
+
+The client counts its own requests, reads the account's remaining allowance from
+the rate-limit headers, and prints both every run. `data-raw/nfl/_quota.json` is a
+dated circuit breaker: once the API reports the daily limit reached, every caller
+no-ops for the rest of that UTC day. Both exist because of the API-Football
+incident -- 7,500 calls gone in four hours, traced only by reading thirty-one
+workflow logs since two of four scripts reported nothing, and every run afterwards
+still firing doomed requests at a wall.
+
 ## Known holes, stated on the board rather than hidden
-No depth charts (a backup QB carries a low line and can top a market he may not
-play in), no injury data, and a player's club comes from his last appearance so
-an offseason move is invisible until he plays. `ACTIVE_WITHIN_SEASONS` keeps
+No depth charts -- a backup quarterback carries a low line and can top a market he
+may not play in. A player's club comes from his last appearance, so an offseason
+move is invisible until he plays for the new team. `ACTIVE_WITHIN_SEASONS` keeps
 retired players off -- without it the week 1 board filled with Alfred Blue,
 C.J. Anderson and Colt McCoy, each carried forward from a final season years back.
 

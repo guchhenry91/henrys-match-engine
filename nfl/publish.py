@@ -57,6 +57,23 @@ def _evidence() -> dict:
     return out
 
 
+def availability() -> dict:
+    """player name -> {"status": "out"|"doubt", ...} from the API-NFL report.
+
+    ABSENCE MEANS NOT REPORTED, never "confirmed fit". The distinction matters: a
+    quiet file because the sync failed looks identical to a quiet file because
+    everyone is healthy, and treating the first as the second would publish a
+    ruled-out player with full confidence. So this only ever REMOVES or FLAGS
+    players it has positive information about.
+    """
+    path = ROOT / "data-raw" / "nfl" / "injuries.json"
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return raw.get("players") or {}
+
+
 def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
     """The next slate: the earliest unplayed week."""
     future = schedule[~schedule["played"]].copy()
@@ -68,8 +85,9 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
     return future.sort_values("gameday")
 
 
-def player_projections(player_weeks, games, market, upcoming) -> list:
+def player_projections(player_weeks, games, market, upcoming, injuries=None) -> list:
     """Project every eligible player in the upcoming slate for one market."""
+    injuries = injuries or {}
     frame = features.build(player_weeks, market, games=games)
     if frame.empty:
         return []
@@ -102,10 +120,20 @@ def player_projections(player_weeks, games, market, upcoming) -> list:
     rows = []
     for (_, player), prob in zip(playing.iterrows(), model.predict(playing)):
         game, opponent, is_home = fixtures[player["team"]]
+        name = player["player_display_name"]
+
+        # RULED OUT MEANS OFF THE BOARD. His last five games look exactly as good
+        # as anyone's right up until he is inactive, which is precisely why a
+        # projection for a player who will not dress is the most misleading thing
+        # this board could print.
+        report = injuries.get(name) or {}
+        if report.get("status") == "out":
+            continue
+
         last_five = [float(v) for v in (player["last_five"] or [])]
         rows.append({
             "market": market,
-            "player": player["player_display_name"],
+            "player": name,
             "player_id": player["player_id"],
             "team": player["team"],
             "opponent": opponent,
@@ -120,6 +148,12 @@ def player_projections(player_weeks, games, market, upcoming) -> list:
             "last_five": last_five,
             "last_five_average": (round(sum(last_five) / len(last_five), 1)
                                   if last_five else None),
+            # "doubt" survives onto the board rather than being dropped: a
+            # questionable player who plays is a real pick, and hiding the doubt
+            # is what would mislead. Absent from the report means NOT REPORTED,
+            # which is why the field says so rather than saying "fit".
+            "availability": report.get("status") or "not reported",
+            "injury_note": report.get("detail") or None,
             "games_played": int(player["games_before"]),
             "as_of_season": int(player["season"]),
             "as_of_week": int(player["week"]),
@@ -139,6 +173,7 @@ def build() -> dict:
                                  params["regression"])
     upcoming = upcoming_games(schedule)
     released = _released()
+    injuries = availability()
 
     games_out = []
     for _, game in upcoming.iterrows():
@@ -167,7 +202,8 @@ def build() -> dict:
         if market not in released:
             props[market] = {"released": False, "picks": []}
             continue
-        projections = player_projections(player_weeks, history, market, upcoming)
+        projections = player_projections(player_weeks, history, market, upcoming,
+                                         injuries=injuries)
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:
@@ -199,10 +235,15 @@ def build() -> dict:
         # board right now: a backup quarterback carries a low line because he has
         # only played in relief, which makes "over" look easy until you notice he
         # may not take a snap.
+        "injury_report": {
+            "players_listed": len(injuries),
+            "source": "API-NFL" if injuries else None,
+        },
         "caveats": [
             "No depth charts. The model does not know who starts, so a backup "
             "with a low line can top a market he may not play in.",
-            "No injury data. A ruled-out player is projected exactly as if fit.",
+            "Injury data covers players API-NFL reports on. Absence from that "
+            "report means not reported, which is not the same as confirmed fit.",
             "A player's club is taken from his last appearance, so an offseason "
             "move is not reflected until he plays for the new team.",
             "Lines are each player's own entering median, not a sportsbook price. "

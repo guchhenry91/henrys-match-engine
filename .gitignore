@@ -31,3 +31,6 @@ graphify-out/
 
 # nflverse CSVs, re-downloadable and large -- cached locally, never committed
 data-raw/nfl/_cache/
+
+# API-NFL circuit breaker: a local runtime marker, not project state
+data-raw/nfl/_quota.json
