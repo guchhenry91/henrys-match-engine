@@ -214,6 +214,41 @@ single player with top-flight history and published as a **72.8% anytime scorer*
 when nothing else in four leagues beat 50.8%. One player is more dangerous than
 none — none is visibly a hole, one looks like the best pick on the board.
 
+## Exact-score board (bet365 6 Scores Challenge)
+`leagues/six_scores.py`. Correct score is the hardest common market and this
+engine does not beat the trivial strategy in the Premier League: **12.84% on a
+holdout against ~13.0% for the best any lambda-based model can do**, measured by
+an empirical lookup allowed to fit ON the answers. The board is AT its ceiling --
+there is no accuracy headroom, and anything promising 2+ of 6 weekly (33% a
+fixture) is promising 2.6x a cheating upper bound.
+
+**`data-raw/leagues/score_calibration.json`** corrects a real, stable bias in the
+fitted grid: over 1,900 PL matches it over-predicts 0-0 by 35% and 1-1 by 10%,
+and under-predicts 2-2 by 20% -- Dixon-Coles' low-score correction pushed too far
+for this league. Generated and gated by `scripts/calibrate_scorelines.py`
+(corrections learned on the earlier seasons, scored on a held-out tail), never
+hand-edited.
+
+It buys VARIETY, NOT ACCURACY, and must never be sold as the latter: holdout hit
+rate moves -0.21pp (noise) while 1-1 falls from **89% to 74% of fixtures** and
+distinct scorelines rise from 4 to 7. A board that says the same thing six times
+is one nobody can use; that is the entire trade, and the gate accepts a small
+accuracy cost (`TOLERANCE_PP`) only because variety is the point.
+
+**SCOPE IS LOAD-BEARING.** These factors are applied when choosing which
+SCORELINE to display -- `top_scorelines` and `score_for_outcome` -- and nowhere
+else. Never to `p_home`/`p_draw`/`p_away`, never to the match pick, never to
+anything the record grades. The match model is calibrated and working (stated
+48.3% vs 56.0% actual over its first 25 picks) and is not retuned to tidy a
+scoreline board.
+
+The board also publishes what its record will LOOK like before it happens:
+`expected_of_six` (0.71), `odds_of_none_pct` (~47%) and `odds_of_two_plus_pct`
+(~15%). Zero correct is the single most likely week -- more likely than one -- so
+a 0/6 is the model behaving as measured, not misfiring. Picks are ranked by
+confidence (they range ~12-14.5%) and each card shows the runner-up score with
+`gap_to_next_pp`, the cost in probability points of playing it instead.
+
 ## Roster verification
 `python -m scripts.sync_rosters` snapshots every current 2026-27 club and player
 from the ESPN league/team roster feeds into `data-raw/leagues/rosters.json`.

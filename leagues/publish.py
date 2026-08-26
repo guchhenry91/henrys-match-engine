@@ -15,7 +15,8 @@ import pandas as pd
 from leagues import (config, dataset, fixtures, odds, parlays, picks, players,
                      props, second_tier, sim, six_scores)
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
-                           top_scorelines, scoreline_grid, outcome_probs)
+                           top_scorelines, scoreline_grid, outcome_probs,
+                           score_calibration)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "leagues"
@@ -332,6 +333,11 @@ def build(league: str = "PL") -> dict:
             print(f"WARNING: {league}: no second-tier prior for {still_missing}; "
                   f"weakest-side fallback")
     model = LeagueModel(**params).fit(matches, ref=ref, priors=priors)
+    # Scoreline-display corrections only (see model.score_calibration): the fitted
+    # grid over-predicts 0-0 and 1-1 in this league, which is why the six-score
+    # board printed 1-1 on 89% of fixtures. Applied when CHOOSING a scoreline to
+    # show, never to p_home/p_draw/p_away or to anything the record grades.
+    score_corr = score_calibration(league)
 
     # Squad freshness during an open transfer window. TWO independent things
     # decide how much a stale transfers.json actually matters, so the warning
@@ -562,11 +568,11 @@ def build(league: str = "PL") -> dict:
         # The model's committed single call. It is the most likely score GIVEN the
         # pick, so the card never contradicts itself -- the unconditional mode is
         # 1-1 in 68% of fixtures and would fight a home/away pick.
-        score = score_for_outcome(pred["grid"], pick_type)
+        score = score_for_outcome(pred["grid"], pick_type, corr=score_corr)
         # ...and the honest spread behind it. A single score is right ~12% of the
         # time; these three cover ~31%, and their probabilities show how thin the
         # call really is. `agrees_with_pick` marks which of them match the pick.
-        spread = top_scorelines(pred["grid"], n=3)
+        spread = top_scorelines(pred["grid"], n=3, corr=score_corr)
         for s in spread:
             h, a = (int(x) for x in s["score"].split("-"))
             s["outcome"] = "home" if h > a else "away" if a > h else "draw"

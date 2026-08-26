@@ -547,6 +547,9 @@ function viewSix(){
   const picks=s.picks||[], rec=s.record||{correct:0,total:0};
   let h=`<div class="glass stat"><div class="k">${s.expected_of_six!=null?s.expected_of_six:"—"}</div>
     <div class="l">expected correct of 6 · model ${s.hit_rate_pct}% vs ${s.baseline_pct}% for always 1-1</div></div>`;
+  // Said up front, in words. A reader looking at 0/6 needs to know that is the
+  // most likely single week, not a malfunction.
+  if(s.outlook) h+=`<p class="note" style="margin-top:-2px">${esc(s.outlook)}</p>`;
   if(rec.total) h+=`<div class="glass stat"><div class="k">${rec.correct}/${rec.total}</div>
     <div class="l">Scorelines correct since launch</div></div>`;
   if(!picks.length){
@@ -560,15 +563,16 @@ function viewSix(){
       // because the first is only ~12% likely and a lone number would overstate it.
       const alt=(p.alternatives||[])[0];
       return `<div class="rw static"><span class="lgtag" style="background:${LC.PL}"></span>
-        <div class="info"><b>${esc(p.home)} v ${esc(p.away)}</b>
+        <div class="info"><b>${p.rank?`${p.rank}. `:""}${esc(p.home)} v ${esc(p.away)}</b>
           <span>${whenStr(p.date)} · ${p.agrees_with_match_pick?"agrees with match pick":`match pick ${esc(p.match_pick||"—")}`}${p.provisional?"":" · locked"}</span></div>
-        <div class="conf" style="min-width:88px">
+        <div class="conf" style="min-width:104px">
           <b>${esc(p.score)}</b> <span style="font-size:11.5px">${p.score_pct}%</span>
-          ${alt?`<span style="display:block;margin-top:2px;font-size:10.5px;opacity:.7">or ${esc(alt.score)} ${alt.pct}%</span>`:""}
+          ${alt?`<span style="display:block;margin-top:2px;font-size:10.5px;opacity:.7">or ${esc(alt.score)} ${alt.pct}%${
+            p.gap_to_next_pp!=null?` &middot; costs ${p.gap_to_next_pp}pp`:""}</span>`:""}
         </div></div>`;
     }).join("")}</div>`;
   }
-  h+=`<p class="note">Two scores per fixture, because one would overstate it. These are the likeliest and second-likeliest results from each side&rsquo;s expected goals — and the leader usually sits near 12%, so the model is really saying it does not know, and most weeks neither will be right. Evenly matched sides come out 1-1 because with about 1.3 goals a side that genuinely is the least unlikely score; where the gap is real, so is the prediction. The six fixtures are chosen by bet365, not by the model. In the Premier League the model does not beat always guessing 1-1 — this board is published so that can be checked week by week rather than argued about.</p>`;
+  h+=`<p class="note">Ranked by how confident the model is, most confident first &mdash; these six are not equally hopeless, and that ordering is the only real steer this market allows. Two scores per fixture, because one would overstate it. &ldquo;Costs Xpp&rdquo; is what you give up by playing the second score instead of the first; it is usually two or three points, so differentiating from everyone else writing 1-1 is close to free. These are the likeliest and second-likeliest results from each side&rsquo;s expected goals — and the leader usually sits near 12%, so the model is really saying it does not know, and most weeks neither will be right. Evenly matched sides come out 1-1 because with about 1.3 goals a side that genuinely is the least unlikely score; where the gap is real, so is the prediction. The six fixtures are chosen by bet365, not by the model. In the Premier League the model does not beat always guessing 1-1 — this board is published so that can be checked week by week rather than argued about.</p>`;
   if((s.settled||[]).length){
     h+=`<div class="eyebrow mt">Settled</div><div class="glass rowc">${s.settled.map(x=>`
       <div class="rw static"><span class="lgtag" style="background:${LC.PL}"></span>

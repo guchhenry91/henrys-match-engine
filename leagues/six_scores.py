@@ -35,6 +35,12 @@ SELECTION = ROOT / "data-raw" / "leagues" / "six_scores.json"
 PL_HIT_RATE_PCT = 11.84
 PL_BASELINE_PCT = 12.37
 EXPECTED_OF_SIX = round(6 * PL_HIT_RATE_PCT / 100.0, 2)
+# What the record will actually look like, stated before it happens. At ~11.8% a
+# fixture, ZERO correct is the single most likely week -- more likely than one --
+# so a 0/6 is the model behaving exactly as measured, not misfiring.
+_p = PL_HIT_RATE_PCT / 100.0
+ODDS_OF_NONE_PCT = round(100.0 * (1 - _p) ** 6, 1)
+ODDS_OF_TWO_PCT = round(100.0 * (1 - (1 - _p) ** 6 - 6 * _p * (1 - _p) ** 5), 1)
 
 
 def load_selection() -> dict:
@@ -65,6 +71,13 @@ def _entry(m: dict) -> dict | None:
         # field is flat without turning the card into a table.
         "alternatives": [{"score": t["score"], "pct": t["pct"]} for t in tops[1:2]],
         "match_pick": pred.get("pick"),
+        # The gap to the runner-up, in points of probability. With the top score
+        # at 12-14% and the next at 9-11%, substituting the alternative usually
+        # costs two or three points -- worth showing plainly, because a reader
+        # deciding whether to differentiate from everyone else playing 1-1 is
+        # entitled to know the price is close to nothing.
+        "gap_to_next_pp": (round(best["pct"] - tops[1]["pct"], 1)
+                           if len(tops) > 1 else None),
         # Grid mode answers "what is the likeliest score", the match pick answers
         # "who wins". They disagree often and legitimately; flag it rather than
         # letting the card look self-contradictory.
@@ -103,6 +116,16 @@ def build(pl_payload: dict, log: dict, now: pd.Timestamp) -> dict:
             e["provisional"] = False
         picks_out.append(e)
 
+    # RANK BY CONFIDENCE. These six are not equally hopeless -- across a typical
+    # week the top score ranges from about 12% to 14.5%, and the board used to
+    # hide that behind six identically-presented cards. Ordering them says which
+    # lines the model is least unsure about, which is the only steer it can
+    # honestly give in this market. Kickoff order is preserved as a tiebreak so
+    # the board stays readable when the numbers are level.
+    picks_out.sort(key=lambda e: (-(e.get("score_pct") or 0), e["date"]))
+    for i, e in enumerate(picks_out, 1):
+        e["rank"] = i
+
     settled, correct = [], 0
     for m in pl_payload.get("season", []):
         entry = log.get(f"{season}:six:{m.get('id')}")
@@ -126,6 +149,15 @@ def build(pl_payload: dict, log: dict, now: pd.Timestamp) -> dict:
         "settled": settled[:24],
         "record": {"correct": correct, "total": len(settled)},
         # Published WITH the picks so the claim and its evidence travel together.
+        # The plain-English version matters more than the percentages: a reader
+        # who sees 0 of 6 needs to know that is the SINGLE most likely result,
+        # not a failure. Roughly 43% of weeks return nothing at all.
+        "outlook": (f"Expect 0-1 correct. Two or more lands in about "
+                    f"{ODDS_OF_TWO_PCT:.0f}% of weeks -- correct score is the "
+                    f"hardest market there is, and this board is measured at "
+                    f"{PL_HIT_RATE_PCT}% a fixture."),
+        "odds_of_none_pct": ODDS_OF_NONE_PCT,
+        "odds_of_two_plus_pct": ODDS_OF_TWO_PCT,
         "expected_of_six": EXPECTED_OF_SIX,
         "hit_rate_pct": PL_HIT_RATE_PCT,
         "baseline_pct": PL_BASELINE_PCT,

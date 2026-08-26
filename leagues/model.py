@@ -16,6 +16,9 @@ expected goals when added into the away lambda's log-rate.
 """
 from dataclasses import dataclass, field
 
+from functools import lru_cache
+from pathlib import Path
+import json
 import numpy as np
 import pandas as pd
 import penaltyblog as pb
@@ -99,7 +102,66 @@ def goals_markets(grid: np.ndarray) -> dict:
     }
 
 
-def top_scorelines(grid: np.ndarray, n: int = 3) -> list[dict]:
+_SCORE_CALIBRATION_PATH = (Path(__file__).resolve().parent.parent
+                           / "data-raw" / "leagues" / "score_calibration.json")
+
+
+@lru_cache(maxsize=8)
+def score_calibration(league: str = "PL"):
+    """Per-scoreline corrections for the exact-score DISPLAY. None if unavailable.
+
+    SCOPE IS THE POINT. These factors are applied when choosing which SCORELINE
+    to show, and nowhere else -- never to p_home/p_draw/p_away, never to the
+    match pick, never to anything the record is graded on. The match model is
+    calibrated and working and is not being retuned to tidy up a scoreline board.
+
+    They exist because the fitted grid is reliably biased: over 1,900 Premier
+    League matches it over-predicts 0-0 by 35% and 1-1 by 10%, and under-predicts
+    2-2 by 20%. That is Dixon-Coles' low-score correction pushed too far for this
+    league. Correcting it does NOT make the board more accurate -- exact score
+    tops out near 13% and the board already scores 12.84% -- it makes it stop
+    printing 1-1 on 89% of fixtures, which is what made it unusable.
+
+    Generated and gated by scripts/calibrate_scorelines.py.
+    """
+    try:
+        raw = json.loads(_SCORE_CALIBRATION_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if raw.get("league") != league or not raw.get("accepted"):
+        return None
+    factors = raw.get("factors") or {}
+    if not factors:
+        return None
+    size = int(raw.get("grid") or 6)
+    corr = np.ones((size, size))
+    for key, value in factors.items():
+        try:
+            h, a = (int(x) for x in key.split("-"))
+        except ValueError:
+            continue
+        if 0 <= h < size and 0 <= a < size:
+            corr[h, a] = float(value)
+    return corr
+
+
+def calibrated_grid(grid: np.ndarray, corr) -> np.ndarray:
+    """The grid reweighted for scoreline choice, renormalised to sum to 1.
+
+    Cells outside the correction's range keep their own weight, so a 6-0 is still
+    reachable -- the correction is a nudge to the crowded low-score corner, not a
+    truncation of the scoreline space.
+    """
+    if corr is None:
+        return grid
+    out = np.array(grid, dtype=float, copy=True)
+    size = min(corr.shape[0], out.shape[0]), min(corr.shape[1], out.shape[1])
+    out[:size[0], :size[1]] *= corr[:size[0], :size[1]]
+    total = out.sum()
+    return out / total if total > 0 else grid
+
+
+def top_scorelines(grid: np.ndarray, n: int = 3, corr=None) -> list[dict]:
     """The n most likely exact scorelines with their probabilities.
 
     A single "most likely score" badly overstates confidence: measured on 1,136 PL
@@ -108,6 +170,7 @@ def top_scorelines(grid: np.ndarray, n: int = 3) -> list[dict]:
     The top three cover ~31%. Showing the spread is the honest presentation, and it
     lets a reader see how thin the favourite really is.
     """
+    grid = calibrated_grid(grid, corr)
     flat = grid.ravel()
     idx = np.argsort(-flat)[:n]
     out = []
@@ -118,7 +181,7 @@ def top_scorelines(grid: np.ndarray, n: int = 3) -> list[dict]:
     return out
 
 
-def score_for_outcome(grid: np.ndarray, outcome: str) -> str:
+def score_for_outcome(grid: np.ndarray, outcome: str, corr=None) -> str:
     """Most likely exact scoreline GIVEN a home win / draw / away win.
 
     The single most likely scoreline overall is 1-1 in most fixtures (the score
@@ -128,7 +191,7 @@ def score_for_outcome(grid: np.ndarray, outcome: str) -> str:
     Conditioning on the picked outcome keeps the card coherent: it answers "if they
     win, what is the most likely way?" rather than "what is the likeliest score?".
     """
-    n = grid.shape[0]
+    grid = calibrated_grid(grid, corr)
     rows, cols = np.indices(grid.shape)
     if outcome == "home":
         mask = rows > cols
