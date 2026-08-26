@@ -28,3 +28,6 @@ _audit*.py
 
 # graphify knowledge graph output (regenerable via `graphify update .`)
 graphify-out/
+
+# nflverse CSVs, re-downloadable and large -- cached locally, never committed
+data-raw/nfl/_cache/
