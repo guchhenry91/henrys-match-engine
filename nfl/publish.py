@@ -201,9 +201,13 @@ def build() -> dict:
     # A snapshot may only overrule nflverse if it demonstrably describes the same
     # league. Measured against the players we independently know are active --
     # see rosters.corroborates for what happened without this.
-    known_active = sorted(set(
-        player_weeks[player_weeks["season"] == player_weeks["season"].max()]
-        ["player_display_name"]))
+    # Strings only: the column carries NaN for the occasional row with no name,
+    # and sorting a set of floats and strings raises. Hit this locally, patched it
+    # in the throwaway script I was testing with, and left the real code broken --
+    # which is how it reached CI.
+    latest_season = player_weeks[player_weeks["season"] == player_weeks["season"].max()]
+    known_active = sorted({str(n) for n in latest_season["player_display_name"]
+                           if isinstance(n, str) and n.strip()})
     trusted, agreement = rosters.corroborates(roster_index, known_active)
     if not trusted:
         print(f"WARNING: roster snapshot recognises only {agreement:.0%} of known "

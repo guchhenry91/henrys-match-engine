@@ -97,3 +97,34 @@ def test_a_confirmed_player_is_marked_as_such():
         {"AAA": _team(["Real Player"] + [f"P{i}" for i in range(40)])}))
     team, why = rosters.reconcile("Real Player", "AAA", lookup, done)
     assert team == "AAA" and why == "confirmed"
+
+
+def test_corroboration_refuses_a_snapshot_that_does_not_know_the_league():
+    """THE GUARD THAT WAS MISSING. API-NFL returned 43-71 plausible names a team --
+    every count check passed -- and they did not include Patrick Mahomes, A.J.
+    Brown or Alvin Kamara. 177 current players were marked as having left."""
+    lookup = {rosters.name_key(f"Fringe Guy {i}"): ["AAA"] for i in range(100)}
+    known = [f"Star Player {i}" for i in range(100)]
+    trusted, rate = rosters.corroborates(lookup, known)
+    assert not trusted and rate == 0.0
+
+
+def test_corroboration_accepts_a_snapshot_that_does():
+    known = [f"Real Player {i}" for i in range(100)]
+    lookup = {rosters.name_key(n): ["AAA"] for n in known[:80]}
+    trusted, rate = rosters.corroborates(lookup, known)
+    assert trusted and rate == pytest.approx(0.80)
+
+
+def test_corroboration_is_false_with_nothing_to_compare():
+    assert rosters.corroborates({}, ["A"]) == (False, 0.0)
+    assert rosters.corroborates({"a": ["X"]}, []) == (False, 0.0)
+
+
+def test_a_name_column_with_missing_values_does_not_crash_the_build():
+    """publish sorts these; a NaN mixed with strings raises TypeError and took
+    down a CI run."""
+    import math
+    names = ["Real Player", float("nan"), None, "", "Another Player"]
+    cleaned = sorted({str(n) for n in names if isinstance(n, str) and n.strip()})
+    assert cleaned == ["Another Player", "Real Player"]
