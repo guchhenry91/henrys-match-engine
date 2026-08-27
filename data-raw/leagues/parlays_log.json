@@ -1163,6 +1163,29 @@
     "locked_at": "2026-08-25T19:27:36.335808+00:00",
     "tainted": false
   },
+  "LALIGA#6#goal#Raphinha|PL#17#sot#Alexander Isak|PL#18#shots#Matheus Cunha": {
+    "combined": 0.1513,
+    "earliest_kickoff": "2026-08-27T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "PL#17#sot#Alexander Isak",
+        "p": 0.606,
+        "selection": "Alexander Isak 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#6#goal#Raphinha",
+        "p": 0.325,
+        "selection": "Raphinha to score"
+      }
+    ],
+    "locked_at": "2026-08-27T20:10:40.820066+00:00",
+    "tainted": true
+  },
   "LALIGA#6#shots#Lamine Yamal|LALIGA#8#sot#Kylian Mbappe-Lottin|LIGUE1#16#shots#Lassine Sinayoko|LIGUE1#17#sot#Esteban Lepaul|PL#15#sot#Erling Haaland|PL#16#shots#Dominic Calvert-Lewin|PL#17#sot#Alexander Isak|PL#18#shots#Matheus Cunha|PL#20#sot#Richarlison": {
     "combined": 0.0111,
     "earliest_kickoff": "2026-08-26T19:00:00+00:00",
@@ -1238,6 +1261,72 @@
     ],
     "locked_at": "2026-08-26T07:43:26.749704+00:00",
     "tainted": false
+  },
+  "LALIGA#6#shots#Lamine Yamal|LIGUE1#16#shots#Lassine Sinayoko|LIGUE1#17#sot#Esteban Lepaul|PL#15#sot#Erling Haaland|PL#16#shots#Dominic Calvert-Lewin|PL#17#sot#Alexander Isak|PL#18#shots#Matheus Cunha|PL#20#sot#Richarlison": {
+    "combined": 0.0176,
+    "earliest_kickoff": "2026-08-27T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#6#shots#Lamine Yamal",
+        "p": 0.629,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "PL#17#sot#Alexander Isak",
+        "p": 0.606,
+        "selection": "Alexander Isak 1+ shot on target"
+      },
+      {
+        "id": "PL#16#shots#Dominic Calvert-Lewin",
+        "p": 0.606,
+        "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "PL#15#sot#Erling Haaland",
+        "p": 0.59,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LIGUE1#17#sot#Esteban Lepaul",
+        "p": 0.545,
+        "selection": "Esteban Lepaul 1+ shot on target"
+      },
+      {
+        "id": "PL#20#sot#Richarlison",
+        "p": 0.516,
+        "selection": "Richarlison 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-08-27T20:10:40.820066+00:00",
+    "tainted": true
+  },
+  "LALIGA#6#shots#Lamine Yamal|PL#18#shots#Matheus Cunha": {
+    "combined": 0.4831,
+    "earliest_kickoff": "2026-08-27T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#6#shots#Lamine Yamal",
+        "p": 0.629,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-27T20:10:40.820066+00:00",
+    "tainted": true
   },
   "LALIGA#8#sot#Kylian Mbappe-Lottin|PL#18#shots#Matheus Cunha": {
     "combined": 0.4831,
