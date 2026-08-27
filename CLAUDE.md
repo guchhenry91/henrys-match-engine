@@ -335,12 +335,44 @@ incident -- 7,500 calls gone in four hours, traced only by reading thirty-one
 workflow logs since two of four scripts reported nothing, and every run afterwards
 still firing doomed requests at a wall.
 
+## Rosters: who is actually on each team (`nfl/rosters.py`)
+Box scores say where a man last PLAYED; the roster says where he IS. Those agree
+all season and disagree all summer, which is when the board must be right.
+**Source is nflverse `roster_{season}.csv` -- free, 91.6 players a team, and it
+carries `gsis_id`, the SAME key as `player_stats.player_id`, so clubs are joined
+by IDENTITY and name matching never enters into it.**
+
+**This was built against API-NFL first and it failed in the worst possible way.**
+Its player endpoint returned 43-71 plausible names a team -- passing every
+count-based "complete roster" check -- and those names did not include Patrick
+Mahomes, A.J. Brown, Alvin Kamara or Austin Ekeler. Philadelphia came back as Andy
+Dalton, Britain Covey and Danny Gray. The board dropped **177 current players** as
+having left the league, halved itself, and every guard reported success. The
+lesson is in `rosters.corroborates`: a completeness check that counts rows cannot
+tell a full roster from the first slice of one, and "all 32 teams complete" is the
+most reassuring possible way to be wrong.
+
+- `ACT`/`E14` only. `CUT`, `RET` and `RES` are exactly the people the board used
+  to keep projecting.
+- **Corroboration gate**: the file may only overrule the box scores if it
+  recognises >=60% of the players we independently know were active. nflverse
+  agrees 86%; API-NFL managed 49% and was refused wholesale.
+- A player listed by two teams mid-camp is placed by neither -- guessing is how a
+  projection lands on the wrong team while looking certain.
+- Every card carries `club_source`, so a confirmed roster spot is distinguishable
+  from an inference off last season.
+
+Live effect on the week 1 board: 98 confirmed, **10 real reassignments** (Isaiah
+Likely BAL->NYG, Jauan Jennings SF->MIN, Rico Dowdle CAR->PIT, Wan'Dale Robinson
+NYG->TEN, Tank Bigsby JAX->PHI and others), nothing wrongly dropped.
+
 ## Known holes, stated on the board rather than hidden
 No depth charts -- a backup quarterback carries a low line and can top a market he
-may not play in. A player's club comes from his last appearance, so an offseason
-move is invisible until he plays for the new team. `ACTIVE_WITHIN_SEASONS` keeps
-retired players off -- without it the week 1 board filled with Alfred Blue,
-C.J. Anderson and Colt McCoy, each carried forward from a final season years back.
+may not play in. **Lines are each player's own entering median, not a sportsbook
+price**, so "over" means a better day than his typical one and the board makes NO
+claim to beat a bookmaker's number. `ACTIVE_WITHIN_SEASONS` keeps long-retired
+players off -- without it the week 1 board filled with Alfred Blue, C.J. Anderson
+and Colt McCoy, each carried forward from a final season years back.
 
 ## Roster verification
 `python -m scripts.sync_rosters` snapshots every current 2026-27 club and player

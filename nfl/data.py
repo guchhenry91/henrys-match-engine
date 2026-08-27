@@ -27,6 +27,12 @@ CACHE = ROOT / "data-raw" / "nfl" / "_cache"
 PLAYER_STATS_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
                     "stats_player/stats_player_week_{season}.csv")
 GAMES_URL = "https://github.com/nflverse/nfldata/raw/master/data/games.csv"
+# Who is ON each team right now, which the box scores cannot say. Carries gsis_id,
+# the SAME key as player_stats' player_id, so clubs are reconciled by identity
+# rather than by matching names.
+ROSTER_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
+              "rosters/roster_{season}.csv")
+ROSTER_COLUMNS = ["season", "team", "position", "status", "full_name", "gsis_id"]
 
 # Columns we actually use. Named explicitly so an upstream schema change fails
 # loudly here rather than silently producing a column of NaN three layers down.
@@ -105,6 +111,25 @@ def player_weeks(seasons=None, refresh: bool = False) -> pd.DataFrame:
     out["touches"] = out["carries"] + out["receptions"]
 
     out = out.sort_values(["season", "week", "player_id"]).reset_index(drop=True)
+    return out
+
+
+def rosters(season=None, refresh: bool = False) -> pd.DataFrame:
+    """Current rosters for one season. Empty frame if unavailable."""
+    season = season or config.CURRENT_SEASON
+    try:
+        raw = _read_csv(ROSTER_URL.format(season=season),
+                        f"roster_{season}.csv", refresh)
+    except Exception as exc:
+        print(f"WARNING: no roster file for {season} ({exc}); clubs will fall back "
+              f"to each player's last appearance")
+        return pd.DataFrame(columns=ROSTER_COLUMNS)
+    missing = [c for c in ROSTER_COLUMNS if c not in raw.columns]
+    if missing:
+        print(f"WARNING: roster_{season} is missing {missing}; not trusting it")
+        return pd.DataFrame(columns=ROSTER_COLUMNS)
+    out = raw[ROSTER_COLUMNS].copy()
+    out["gsis_id"] = out["gsis_id"].astype(str)
     return out
 
 

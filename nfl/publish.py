@@ -119,18 +119,17 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     # last PLAYED; the roster snapshot says where he IS, and through an offseason
     # those differ. Doing this after the fixture lookup would project a moved
     # player onto his OLD team's game.
-    if roster_index:
-        resolved, reasons = [], []
-        for _, row in latest.iterrows():
-            team, why = rosters.reconcile(row["player_display_name"], row["team"],
-                                          roster_index, rosters_complete)
-            resolved.append(team)
-            reasons.append(why)
-        latest = latest.assign(_team=resolved, _why=reasons)
-        latest = latest[latest["_team"].notna()].copy()
-        latest["team"] = latest["_team"]
-    else:
-        latest = latest.assign(_why="no roster snapshot; using last appearance")
+    resolved, reasons = [], []
+    for _, row in latest.iterrows():
+        team, why = rosters.reconcile(row["player_id"], row["team"],
+                                      roster_index, rosters_complete)
+        resolved.append(team)
+        reasons.append(why)
+    latest = latest.assign(_team=resolved, _why=reasons)
+    latest = latest[latest["_team"].notna()].copy()
+    if latest.empty:
+        return []
+    latest["team"] = latest["_team"]
 
     playing = latest[latest["team"].isin(fixtures)]
     if playing.empty:
@@ -196,23 +195,20 @@ def build() -> dict:
     upcoming = upcoming_games(schedule)
     released = _released()
     injuries = availability()
-    snapshot = rosters.load()
-    roster_index, rosters_complete = rosters.index(snapshot)
-    # A snapshot may only overrule nflverse if it demonstrably describes the same
-    # league. Measured against the players we independently know are active --
-    # see rosters.corroborates for what happened without this.
-    # Strings only: the column carries NaN for the occasional row with no name,
-    # and sorting a set of floats and strings raises. Hit this locally, patched it
-    # in the throwaway script I was testing with, and left the real code broken --
-    # which is how it reached CI.
+    roster = data.rosters()
+    roster_index = rosters.build_index(roster)
+    # The roster may only overrule the box scores if it demonstrably describes the
+    # same league. Measured BY ID against the players we independently know were
+    # active last season -- see rosters.corroborates for what happened without it.
     latest_season = player_weeks[player_weeks["season"] == player_weeks["season"].max()]
-    known_active = sorted({str(n) for n in latest_season["player_display_name"]
-                           if isinstance(n, str) and n.strip()})
-    trusted, agreement = rosters.corroborates(roster_index, known_active)
-    if not trusted:
-        print(f"WARNING: roster snapshot recognises only {agreement:.0%} of known "
-              f"active players; NOT trusting it to drop or move anyone")
-        roster_index, rosters_complete = {}, False
+    known_ids = sorted({str(i) for i in latest_season["player_id"] if str(i) != "nan"})
+    rosters_complete, agreement = rosters.corroborates(roster_index, known_ids)
+    if not rosters_complete:
+        print(f"WARNING: roster file recognises only {agreement:.0%} of known active "
+              f"players; NOT trusting it to drop or move anyone")
+    else:
+        print(f"roster file agrees with {agreement:.0%} of known active players; "
+              f"{len(roster_index)} placed")
 
     games_out = []
     for _, game in upcoming.iterrows():
@@ -277,13 +273,11 @@ def build() -> dict:
         # only played in relief, which makes "over" look easy until you notice he
         # may not take a snap.
         "roster_check": {
-            "teams": len((snapshot.get("teams") or {})),
-            "complete": sum(1 for e in (snapshot.get("teams") or {}).values()
-                            if e.get("complete")),
-            "all_complete": rosters_complete,
+            "source": "nflverse rosters",
+            "players_placed": len(roster_index),
+            "teams": int(roster["team"].nunique()) if not roster.empty else 0,
             "agreement_with_known_players": round(agreement, 3),
-            "trusted": trusted,
-            "updated": snapshot.get("updated"),
+            "trusted": rosters_complete,
         },
         "injury_report": {
             "players_listed": len(injuries),

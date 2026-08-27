@@ -69,15 +69,6 @@ jobs:
         if: github.event.schedule == '30 8 * * 2' || inputs.backtest
         run: python -m scripts.nfl_backtest
 
-      - name: Refresh current rosters
-        # Who is ON each team, which nflverse cannot say -- it reports where a man
-        # last PLAYED, so all summer that means where he played last December. The
-        # season opens 10 September with real movement behind it; a projection on
-        # the wrong club looks exactly as confident as a correct one.
-        env:
-          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
-        run: python -m scripts.sync_nfl_rosters
-
       - name: Refresh the injury report
         # The one thing nflverse cannot supply. 32 requests -- one per team --
         # against an allowance in the thousands, and it degrades to the previous

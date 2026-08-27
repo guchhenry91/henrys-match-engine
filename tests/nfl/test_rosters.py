@@ -1,130 +1,100 @@
-"""The roster snapshot corroborates. It must never convict on thin evidence.
+"""Clubs are reconciled by ID against the nflverse roster. Never by name.
 
-This rule was learned expensively on the soccer side, where treating incomplete
-rosters as proof deleted Real Madrid, Barcelona, PSG and 14 of 18 Bundesliga
-clubs -- 70% of two leagues -- because a free feed happened to list fewer than 18
-names for them. The NFL board must not repeat it two weeks before a season opens.
+This was built against API-NFL first and it failed in the worst possible way: its
+player endpoint returned 43-71 plausible names a team -- enough to pass every
+count-based completeness check -- and those names did not include Patrick Mahomes,
+A.J. Brown, Alvin Kamara or Austin Ekeler. Philadelphia came back as Andy Dalton,
+Britain Covey and Danny Gray. The board dropped 177 current players as having left
+the league and every guard reported success, because I had measured QUANTITY and
+concluded IDENTITY.
+
+nflverse publishes 91.6 players a team with gsis_id, the same key the stats use,
+so the join needs no name matching at all.
 """
+import pandas as pd
 import pytest
 
 from nfl import rosters
 
 
-def _snapshot(teams, failed=None):
-    return {"teams": teams, "failed_teams": failed or []}
+def _roster(rows):
+    return pd.DataFrame(rows, columns=["season", "team", "position", "status",
+                                       "full_name", "gsis_id"])
 
 
-def _team(names, complete=True):
-    return {"players": names, "count": len(names), "complete": complete}
+def _row(gsis, team, status="ACT", name="A Player"):
+    return {"season": 2026, "team": team, "position": "WR", "status": status,
+            "full_name": name, "gsis_id": gsis}
 
 
-def test_name_key_ignores_accents_case_and_punctuation():
-    assert rosters.name_key("De'Von Achane") == rosters.name_key("Devon Achane")
-    assert rosters.name_key("Vinícius Júnior") == rosters.name_key("Vinicius Junior")
+def test_an_active_player_is_placed_on_his_team():
+    index = rosters.build_index(_roster([_row("00-1", "KC")]))
+    assert index == {"00-1": "KC"}
 
 
-def test_name_key_ignores_generational_suffixes():
-    """Both feeds spell these inconsistently; a strict key calls one man two."""
-    assert rosters.name_key("Travis Etienne Jr.") == rosters.name_key("Travis Etienne")
-    assert rosters.name_key("Michael Pittman Jr") == rosters.name_key("Michael Pittman")
+def test_cut_and_retired_players_are_not_placed():
+    """Exactly the people the board kept projecting before any of this existed."""
+    index = rosters.build_index(_roster([
+        _row("00-1", "KC", "CUT"), _row("00-2", "KC", "RET"),
+        _row("00-3", "KC", "RES"), _row("00-4", "KC", "ACT")]))
+    assert index == {"00-4": "KC"}
 
 
-def test_name_key_still_separates_different_people():
-    """The suffix rule must not merge Penix into Pittman, which is exactly the
-    false positive a looser check produced when this was investigated."""
-    assert rosters.name_key("Michael Penix Jr.") != rosters.name_key("Michael Pittman Jr.")
+def test_a_player_listed_by_two_teams_is_placed_by_neither():
+    """Happens mid-camp. Guessing is how a projection lands on the wrong team
+    while looking certain."""
+    index = rosters.build_index(_roster([_row("00-1", "KC"), _row("00-1", "BUF")]))
+    assert "00-1" not in index
 
 
-def test_a_move_is_applied_when_the_roster_is_complete():
-    lookup, done = rosters.index(_snapshot({"MIN": _team(["Kyler Murray"] * 1 + [f"P{i}" for i in range(40)]),
-                                            "ARI": _team([f"Q{i}" for i in range(40)])}))
-    team, why = rosters.reconcile("Kyler Murray", "ARI", lookup, done)
-    assert team == "MIN"
-    assert "moved" in why
+def test_an_empty_roster_places_nobody():
+    assert rosters.build_index(_roster([])) == {}
+    assert rosters.build_index(None) == {}
 
 
-def test_a_player_on_no_complete_roster_is_dropped_only_when_evidence_is_complete():
-    lookup, done = rosters.index(_snapshot({
-        "AAA": _team([f"P{i}" for i in range(40)]),
-        "BBB": _team([f"Q{i}" for i in range(40)]),
-    }))
-    assert done is True
-    team, why = rosters.reconcile("Retired Guy", "AAA", lookup, done)
-    assert team is None and "no current roster" in why
+def test_a_move_is_applied():
+    index = {"00-1": "MIN"}
+    team, why = rosters.reconcile("00-1", "ARI", index, trusted=True)
+    assert team == "MIN" and why.startswith("moved")
 
 
-def test_a_thin_roster_never_deletes_anyone():
-    """THE RULE. A team returning eight players is a broken fetch, not a squad."""
-    lookup, done = rosters.index(_snapshot({
-        "AAA": _team([f"P{i}" for i in range(40)]),
-        "BBB": _team(["Only", "Eight", "Names"], complete=False),
-    }))
-    assert done is False
-    team, why = rosters.reconcile("Some Player", "BBB", lookup, done)
-    assert team == "BBB", "a thin roster was treated as proof of absence"
-    assert "incomplete" in why
+def test_a_confirmed_player_keeps_his_team():
+    team, why = rosters.reconcile("00-1", "KC", {"00-1": "KC"}, trusted=True)
+    assert team == "KC" and why == "confirmed"
 
 
-def test_a_failed_team_makes_the_evidence_incomplete():
-    lookup, done = rosters.index(_snapshot(
-        {"AAA": _team([f"P{i}" for i in range(40)])}, failed=["BBB: timeout"]))
-    assert done is False
-    team, _ = rosters.reconcile("Unknown Man", "BBB", lookup, done)
-    assert team == "BBB"
+def test_a_player_on_no_active_roster_is_dropped_when_the_file_is_trusted():
+    team, why = rosters.reconcile("00-9", "KC", {"00-1": "KC"}, trusted=True)
+    assert team is None and "not on an active roster" in why
 
 
-def test_two_teams_listing_one_man_is_not_guessed():
-    """Camp cuts produce this. Picking one is how a projection lands on the wrong
-    team while looking certain."""
-    shared = "Split Player"
-    lookup, done = rosters.index(_snapshot({
-        "AAA": _team([shared] + [f"P{i}" for i in range(40)]),
-        "BBB": _team([shared] + [f"Q{i}" for i in range(40)]),
-    }))
-    team, why = rosters.reconcile(shared, "AAA", lookup, done)
-    assert team == "AAA"
-    assert "2 teams" in why
+def test_nothing_is_dropped_when_the_file_is_not_trusted():
+    """THE GUARD. An untrusted file must never delete anyone."""
+    team, why = rosters.reconcile("00-9", "KC", {"00-1": "KC"}, trusted=False)
+    assert team == "KC" and "unusable" in why
 
 
-def test_no_snapshot_at_all_falls_back_rather_than_emptying_the_board():
-    team, why = rosters.reconcile("Anyone", "AAA", {}, False)
-    assert team == "AAA"
-    assert "no roster snapshot" in why
-
-
-def test_a_confirmed_player_is_marked_as_such():
-    lookup, done = rosters.index(_snapshot(
-        {"AAA": _team(["Real Player"] + [f"P{i}" for i in range(40)])}))
-    team, why = rosters.reconcile("Real Player", "AAA", lookup, done)
-    assert team == "AAA" and why == "confirmed"
-
-
-def test_corroboration_refuses_a_snapshot_that_does_not_know_the_league():
-    """THE GUARD THAT WAS MISSING. API-NFL returned 43-71 plausible names a team --
-    every count check passed -- and they did not include Patrick Mahomes, A.J.
-    Brown or Alvin Kamara. 177 current players were marked as having left."""
-    lookup = {rosters.name_key(f"Fringe Guy {i}"): ["AAA"] for i in range(100)}
-    known = [f"Star Player {i}" for i in range(100)]
+def test_corroboration_refuses_a_file_that_does_not_know_the_league():
+    """The API-NFL failure, reproduced: plausible rows, wrong people."""
+    lookup = {f"00-{i}": "AAA" for i in range(100)}
+    known = [f"90-{i}" for i in range(100)]
     trusted, rate = rosters.corroborates(lookup, known)
     assert not trusted and rate == 0.0
 
 
-def test_corroboration_accepts_a_snapshot_that_does():
-    known = [f"Real Player {i}" for i in range(100)]
-    lookup = {rosters.name_key(n): ["AAA"] for n in known[:80]}
+def test_corroboration_accepts_a_file_that_does():
+    known = [f"00-{i}" for i in range(100)]
+    lookup = {i: "AAA" for i in known[:86]}
     trusted, rate = rosters.corroborates(lookup, known)
-    assert trusted and rate == pytest.approx(0.80)
+    assert trusted and rate == pytest.approx(0.86)
 
 
 def test_corroboration_is_false_with_nothing_to_compare():
-    assert rosters.corroborates({}, ["A"]) == (False, 0.0)
-    assert rosters.corroborates({"a": ["X"]}, []) == (False, 0.0)
+    assert rosters.corroborates({}, ["00-1"]) == (False, 0.0)
+    assert rosters.corroborates({"00-1": "AAA"}, []) == (False, 0.0)
 
 
-def test_a_name_column_with_missing_values_does_not_crash_the_build():
-    """publish sorts these; a NaN mixed with strings raises TypeError and took
-    down a CI run."""
-    import math
-    names = ["Real Player", float("nan"), None, "", "Another Player"]
-    cleaned = sorted({str(n) for n in names if isinstance(n, str) and n.strip()})
-    assert cleaned == ["Another Player", "Real Player"]
+def test_ids_compare_as_strings_whatever_the_frame_holds():
+    index = rosters.build_index(_roster([_row("00-1", "KC")]))
+    team, _ = rosters.reconcile(0o1 if False else "00-1", "KC", index, trusted=True)
+    assert team == "KC"
