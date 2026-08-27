@@ -689,7 +689,9 @@ function nflGameRow(g){
     <div class="av" style="background:${nc(g.pick)};font-size:${g.pick.length>2?"13px":"15px"}">${esc(g.pick)}</div>
     <div class="info"><b>${esc(g.away)} @ ${esc(g.home)}</b>
       <span>${nflWhen(g.kickoff)}${g.neutral?" · neutral":""} · Elo ${Math.round(g.rating_away)} v ${Math.round(g.rating_home)}</span></div>
-    <span class="tier ${nflTier(g.p_pick).cls}">${nflTier(g.p_pick).label}</span>
+    ${g.edge!=null&&g.verdict==="value"
+      ? `<span class="tier t-elite" title="${esc(g.book||"book")} makes it ${Math.round((g.book_p_pick||0)*100)}%">+${Math.round(g.edge*100)}% edge</span>`
+      : `<span class="tier ${nflTier(g.p_pick).cls}">${nflTier(g.p_pick).label}</span>`}
     <span class="mk ${pickHome?"a":"o"}">${pickHome?"Home":"Away"}</span>
     <div class="conf" style="min-width:80px"><b style="color:${nflConfColour(g.p_pick)}">${pc(g.p_pick)}%</b>
       <span>to win</span></div></div>`;
@@ -749,9 +751,10 @@ function viewNFL(){
           <span>Show all ${picks.length} ${esc(full.toLowerCase())} picks →</span></div></div>`:""}</div>`;
   }
 
-  const through=d.player_data_through||{}, inj=d.injury_report||{};
+  const through=d.player_data_through||{}, inj=d.injury_report||{}, od=d.odds||{};
   h+=`<p class="note">Boxes are the last five games, oldest first, filled where the game beat the line — the same five the projection was built from. Lines are each player&rsquo;s own median, not a bookmaker price, so &ldquo;over&rdquo; means a better day than his typical one. Player data runs through ${through.season||"?"} week ${through.week||"?"}${
     inj.players_listed?`, and ${inj.players_listed} players carry an injury status from ${esc(inj.source||"the feed")} — anyone ruled out is off the board entirely` : ""}.</p>`;
+  if(od.note) h+=`<p class="note" style="margin-top:-4px">${esc(od.note)}</p>`;
   if((d.caveats||[]).length)
     h+=`<div class="glass warnbox" style="margin-top:10px">${d.caveats.map(c=>`<div>· ${esc(c)}</div>`).join("")}</div>`;
   return h+archiveLink();

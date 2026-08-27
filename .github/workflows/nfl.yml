@@ -81,6 +81,13 @@ jobs:
           API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
         run: python -m scripts.probe_nfl_odds
 
+      - name: Refresh book prices
+        # One request per unplayed fixture, bet365 preferred. Writes nothing when
+        # no prices exist rather than overwriting good data with an empty file.
+        env:
+          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
+        run: python -m scripts.sync_nfl_odds
+
       - name: Refresh the injury report
         # The one thing nflverse cannot supply. 32 requests -- one per team --
         # against an allowance in the thousands, and it degrades to the previous

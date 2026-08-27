@@ -18,7 +18,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from nfl import config, data, features, games_model, rosters
+from nfl import config, data, features, games_model, odds as odds_mod, rosters
 from nfl.model import PropModel
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -72,6 +72,20 @@ def availability() -> dict:
     except Exception:
         return {}
     return raw.get("players") or {}
+
+
+def book_prices() -> dict:
+    """Fair (de-vigged) book probabilities per fixture, or {} when none exist.
+
+    Empty is the normal state until books post, and it must read as "no price",
+    never as "the book thinks this is unlikely" -- the second manufactures an
+    enormous false edge out of a missing file.
+    """
+    path = ROOT / "data-raw" / "nfl" / "odds.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("games") or {}
+    except Exception:
+        return {}
 
 
 def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
@@ -195,6 +209,7 @@ def build() -> dict:
     upcoming = upcoming_games(schedule)
     released = _released()
     injuries = availability()
+    prices = book_prices()
     roster = data.rosters()
     roster_index = rosters.build_index(roster)
     # The roster may only overrule the box scores if it demonstrably describes the
@@ -231,6 +246,24 @@ def build() -> dict:
             "rating_away": round(float(priced.iloc[0]["rating_away"]), 1),
             "gradeable": "team_winner" in released,
         })
+        # THE EDGE, where a price exists. Everything else on this board is
+        # calibrated against history; only this compares the model with what a
+        # bookmaker will actually pay. Absent a price the fields stay null rather
+        # than defaulting to something that looks like agreement.
+        line = prices.get(f"{game['home_team']}|{game['away_team']}")
+        entry = games_out[-1]
+        entry["book"] = None
+        entry["book_p_pick"] = None
+        entry["edge"] = None
+        entry["verdict"] = None
+        if line:
+            book_p = line["home"] if pick_home else line["away"]
+            verdict, gap = odds_mod.value_verdict(entry["p_pick"], book_p)
+            entry["book"] = line.get("book")
+            entry["book_p_pick"] = book_p
+            entry["book_price_overround"] = line.get("overround")
+            entry["edge"] = gap
+            entry["verdict"] = verdict
 
     props = {}
     for market in config.MARKETS:
@@ -278,6 +311,16 @@ def build() -> dict:
             "teams": int(roster["team"].nunique()) if not roster.empty else 0,
             "agreement_with_known_players": round(agreement, 3),
             "trusted": rosters_complete,
+        },
+        "odds": {
+            "fixtures_priced": len(prices),
+            "source": "API-NFL, bet365 preferred" if prices else None,
+            # Said plainly: without prices the board is calibrated, not proven
+            # profitable, and those are different claims.
+            "note": ("No book prices available yet -- the board states calibrated "
+                     "probabilities and makes NO claim to beat a bookmaker."
+                     if not prices else
+                     "Edges are model probability minus the de-vigged book price."),
         },
         "injury_report": {
             "players_listed": len(injuries),
