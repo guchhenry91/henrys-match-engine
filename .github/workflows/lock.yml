@@ -1,0 +1,89 @@
+name: Lock picks
+
+# FREEZING A PICK NEEDS NO MODEL, only the board that was already published. That
+# is the whole reason this workflow exists separately from leagues.yml.
+#
+# Locking used to happen only inside the full publish, which refits four league
+# models and takes about ten minutes to reach the lock step. Add GitHub's own
+# scheduling delay -- a MEDIAN of 8 minutes after the cron slot, measured over 109
+# runs -- and a nominal 18:45 run froze a pick at roughly 19:05. For a 19:00
+# kickoff that is a late lock, which taints the pick, which voids it. Four La Liga
+# fixtures, eight player picks and thirty-seven parlays went that way in a
+# fortnight, every one of them a perfectly good pick.
+#
+# This job reads JSON, compares timestamps and writes JSON. It installs pandas and
+# nothing else, because leagues.config holds the lock window and picks/parlays need
+# no more than that -- importing leagues.publish would drag in penaltyblog, scipy
+# and sklearn and cost two minutes to learn one float.
+
+on:
+  schedule:
+    # Every ten minutes through the hours football is played. GitHub drops
+    # high-frequency schedules under load, which is precisely why the answer is
+    # many cheap chances rather than one expensive one.
+    - cron: "*/10 11-23 * * *"
+  workflow_dispatch:
+
+concurrency:
+  # Never two lockers at once: both would read the same log, both would write it,
+  # and the second would clobber the first. lock_pick is idempotent per key but
+  # the FILE write is not.
+  group: lock-picks
+  cancel-in-progress: false
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: lock-pip-pandas
+
+      - name: Install pandas only
+        run: python -m pip install -q "pandas>=2.2"
+
+      - name: Freeze anything inside the window
+        run: python -m scripts.lock_picks
+
+      - name: Commit newly frozen picks
+        run: |
+          git config user.name "leagues-bot"
+          git config user.email "leagues-bot@users.noreply.github.com"
+          # ONLY the pick logs. This job must never touch data/leagues -- it does
+          # not republish the board, and staging a payload it did not generate
+          # would let a stale file ride out on someone else's deploy.
+          git add data-raw/leagues
+          if git diff --cached --quiet; then
+            echo "nothing newly frozen"
+          else
+            git commit -m "auto: lock picks $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase --autostash origin main
+            git push
+          fi
+
+      # NO RENDER DEPLOY, deliberately. Locking changes the RECORD, not the board
+      # -- the published payload still shows the same pick at the same
+      # probability, and the next publish will mark it non-provisional. Deploying
+      # here would spend build minutes to change nothing a reader can see, which
+      # is the exact waste that exhausted the Render spend limit on 2026-08-22.
+
+      - name: Alert on failure
+        if: failure()
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TOKEN" ] && [ -n "$CHAT" ]; then
+            curl -sS -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+              -d "chat_id=$CHAT" \
+              -d "text=Pick locker failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >/dev/null || true
+          fi

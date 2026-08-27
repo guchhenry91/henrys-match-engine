@@ -419,13 +419,42 @@ La Liga and the PL began scheduling midweek fixtures): it needs judgement about
 confirmed XI vs rumour, which is why it cannot live in Actions.
 
 **Its cadence is NOT what protects the pick lock.** Freezing a pick is
-`leagues.yml`'s `0,30 11-22 * * *` cron in GitHub Actions, which is every 30
-minutes precisely because it must be narrower than the 45-minute lock window.
-This local task has its own, much wider gate — fixtures 45 minutes to 3 hours
-out, a 2h15m window — so hourly still gives every fixture about two chances to
-be researched before it locks. Do not "restore" this to 30 minutes on the belief
-that the lock depends on it; if voids ever appear in the record, the cadence to
-tighten is the Actions one.
+`.github/workflows/lock.yml` (`scripts/lock_picks.py`), every 10 minutes,
+11:00-23:59. This local task has its own, much wider gate — fixtures 45 minutes
+to 3 hours out — and does not affect locking at all.
+
+## Locking (`scripts/lock_picks.py`, `.github/workflows/lock.yml`)
+**Freezing a pick needs no model, only the board already published.** That is why
+it is its own workflow. Locking used to happen only inside `leagues.publish`,
+which refits four league models and needs ~10 minutes to reach the lock step; add
+GitHub's own scheduling delay — a MEDIAN of 8 minutes after the cron slot,
+measured over 109 runs, 90th percentile 14 — and a nominal 18:45 run froze a pick
+at ~19:05. For a 19:00 kickoff that is a late lock, which taints it, which VOIDS
+it. Four La Liga fixtures, eight player picks and thirty-seven parlays went that
+way in a fortnight; every one was a good pick. 29% of scheduled runs also fail
+outright, and on 2026-08-26 GitHub fired nothing at all between 17:30 and 19:09.
+
+The locker reads JSON, compares timestamps, writes JSON — seconds, not minutes —
+so it can run every 10 minutes and survive dropped runs. It installs **pandas
+only**: `LOCK_WINDOW_HOURS` lives in `leagues/config.py` (pure stdlib) precisely
+so this job need not import penaltyblog/scipy/sklearn to learn one float.
+
+- It **only ever freezes what was already published**. It computes nothing, so it
+  cannot introduce a number the board did not show.
+- Idempotent: `lock_pick`/`lock_prop` no-op on a second call for the same key, so
+  running every 10 minutes can never move `locked_at` forward and turn a
+  well-timed lock into a late one.
+- It honours `time_suspect` (now published on each match for this purpose) and
+  never locks a fixture that has already kicked off.
+- **No Render deploy.** Locking changes the RECORD, not the board; deploying would
+  spend build minutes to change nothing a reader sees — the exact waste that
+  exhausted the Render spend limit on 2026-08-22.
+
+`publish` still locks too, as a safety net on the same window. **`LATE_LOCK_HOURS`
+stays at 0.0 and must not be relaxed**: tolerating a late lock would hide the
+symptom without making the pick honest, and the record's whole value is that every
+entry demonstrably was made before kickoff. Narrow `LOCK_WINDOW_HOURS` back toward
+an hour only once the locker's real-world reliability has been MEASURED.
 
 **It ABORTS on a dirty working tree** (SKILL.md STEP 0.5) and must never be
 "fixed" by stashing. It once improvised `git stash` to get a blocked

@@ -42,33 +42,10 @@ MATCHWEEKS_AHEAD = 1
 # locked by hand with 22 minutes to spare. Nobody would have noticed the void until
 # the next morning -- and on a Saturday nine fixtures lock, not one.
 #
-# WIDENED TO 2 HOURS ON 2026-08-26, overturning the reasoning below on evidence.
-#
-# The old note argued 60 minutes gave "four chances inside an hour" and traded "a
-# rare void for a systematic loss" of late team news. Both halves turned out to be
-# wrong, measured over 109 scheduled runs:
-#
-#   * There are not four chances. A run starts a MEDIAN 8 minutes after its cron
-#     slot (90th percentile 14), and the job takes about another 10 to reach the
-#     lock. So a nominal 18:45 run locks at roughly 19:05 -- after a 19:00 kickoff.
-#     The last genuinely usable slot is about T-25, leaving two or three chances,
-#     and 29% of scheduled runs FAIL, so the real number is often one.
-#   * The void is not rare. In two weeks it took four La Liga fixtures, eight
-#     player picks and thirty-seven parlays out of the record -- locked 1, 12, 20
-#     and 29 minutes after kickoff. On 2026-08-26 GitHub fired nothing at all
-#     between 17:30 and 19:09 for a 19:00 kickoff; no one-hour window survives a
-#     100-minute gap.
-#   * The thing being protected is small. The note's own example is the news
-#     moving Arsenal from 77.4% to 77.1% -- three tenths of a point. That is the
-#     benefit being bought, and it was being paid for with whole fixtures.
-#
-# Two hours gives roughly seven slots, so a run has to fail or vanish seven times
-# running rather than two. Picks now usually freeze before the confirmed XI, which
-# is a real and accepted loss -- 0.3pp of accuracy is worth far less than a pick
-# that counts. The better fix is a fast lock-only job that does not refit the
-# model and so does not carry ten minutes of latency; until that exists, this is
-# the honest trade.
-LOCK_WINDOW_HOURS = 2.0
+# The lock window now lives in leagues.config so the fast locker can read it
+# without importing this module's model stack. Re-exported here because a
+# dozen call sites and several tests already reference publish.LOCK_WINDOW_HOURS.
+LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues, not guessed. The tier hit rates that justify
 # it are no longer copied here: `leagues.tune` computes them at each of these
@@ -673,6 +650,17 @@ def build(league: str = "PL") -> dict:
                     "exp_sot": p.get("exp_sot"),
                     "lineup_confirmed": lineup_ready,
                     "gradeable": can_grade,
+                    # Audit fields, published so a lock made by
+                    # scripts/lock_picks.py is identical to one made here rather
+                    # than a thinner version of it. p_pick alone answers "was he
+                    # graded right", never "was the prediction reasonable given
+                    # what we knew" -- and that is the question a settled pick
+                    # actually needs to answer later.
+                    "bar": PLAYER_PICK_MIN_PROB[market],
+                    "news_checked_hours_ago": players.news_checked_age_hours(
+                        news, (home, away)),
+                    "unavailable": p["player"] in unavailable,
+                    "team_attribution": p["team"],
                 })
         player_picks.sort(key=lambda x: -x["p_pick"])
 
@@ -683,6 +671,11 @@ def build(league: str = "PL") -> dict:
             "venue": m["venue"],
             "home": home,
             "away": away,
+            # Published so scripts/lock_picks.py can honour the same guard this
+            # module does. A locker that cannot see a suspect kickoff would freeze
+            # a pick against a time the fixture does not have -- the exact failure
+            # release_moved_lock exists to undo.
+            "time_suspect": bool(m.get("time_suspect")),
             "prediction": {
                 "p_home": round(pred["p_home"], 3),
                 "p_draw": round(pred["p_draw"], 3),
