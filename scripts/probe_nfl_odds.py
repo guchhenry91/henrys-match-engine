@@ -54,34 +54,46 @@ def main():
     except Exception as exc:
         print(f"bet types lookup failed: {exc}")
 
-    # One real upcoming game, to see the actual shape of a priced market.
-    try:
-        schedule = data.games(seasons=(2026,))
-        upcoming = publish.upcoming_games(schedule)
-        if not upcoming.empty:
-            row = upcoming.iloc[0]
-            print(f"\n  probing odds for {row['away_team']} @ {row['home_team']} "
-                  f"week {row['week']}")
-            fixtures = client.get("games", league=1, season=2026,
-                                  date=str(row["gameday"].date()))
-            print(f"  games that day: {len(fixtures)}")
-            if fixtures:
-                gid = ((fixtures[0].get("game") or {}).get("id")
-                       or fixtures[0].get("id"))
-                print(f"  game id: {gid}")
-                odds = client.get("odds", game=gid)
-                show("odds payload", odds, limit=3)
-                if odds:
-                    book_names = [b.get("name") for o in odds
-                                  for b in (o.get("bookmakers") or [])]
-                    print(f"\n  bookmakers quoting this game: {sorted(set(book_names))}")
-                    for o in odds:
-                        for b in (o.get("bookmakers") or []):
-                            if "365" in str(b.get("name", "")).lower():
-                                print(f"\n  BET365 markets: "
-                                      f"{[x.get('name') for x in (b.get('bets') or [])]}")
-    except Exception as exc:
-        print(f"game odds probe failed: {exc}")
+    # Does a real upcoming game actually have PRICES yet? Several lookups,
+    # because the games endpoint's parameters differ by sport and a wrong one
+    # returns an empty list rather than an error -- which reads exactly like "no
+    # games" and is how the first probe learned nothing while spending three calls.
+    gid = None
+    for label, params in (("by week", {"league": 1, "season": 2026, "week": 1}),
+                          ("by season", {"league": 1, "season": 2026})):
+        try:
+            fixtures = client.get("games", **params)
+        except Exception as exc:
+            print(f"  games {label}: FAILED {exc}")
+            continue
+        print(f"  games {label}: {len(fixtures)}")
+        if fixtures:
+            first = fixtures[0]
+            print("   sample:", json.dumps(first)[:280])
+            inner = first.get("game") if isinstance(first.get("game"), dict) else None
+            gid = (inner or {}).get("id") or first.get("id")
+            print(f"   game id: {gid}")
+            break
+
+    if not gid:
+        print("  no game id resolved; cannot probe prices")
+    else:
+        for label, params in (("bet365", {"game": gid, "bookmaker": 4}),
+                              ("all books", {"game": gid})):
+            try:
+                odds = client.get("odds", **params)
+            except Exception as exc:
+                print(f"  odds {label}: FAILED {exc}")
+                continue
+            print(f"  odds {label}: {len(odds)} row(s)")
+            if not odds:
+                continue
+            print("   raw:", json.dumps(odds[0])[:700])
+            for o in odds:
+                for b in (o.get("bookmakers") or []):
+                    names = [x.get("name") for x in (b.get("bets") or [])]
+                    print(f"   {b.get('name')}: {len(names)} markets -> {names[:12]}")
+            break
 
     print(f"\n{client.report()}")
     return 0
