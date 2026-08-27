@@ -54,29 +54,33 @@ def main():
     except Exception as exc:
         print(f"bet types lookup failed: {exc}")
 
-    # Does a real upcoming game actually have PRICES yet? Several lookups,
-    # because the games endpoint's parameters differ by sport and a wrong one
-    # returns an empty list rather than an error -- which reads exactly like "no
-    # games" and is how the first probe learned nothing while spending three calls.
+    # Pick an UNPLAYED REGULAR-SEASON game. The first probe took the first game
+    # in the list, which was a finished preseason fixture from 7 August, and books
+    # withdraw prices once a game settles -- so "0 odds rows" told me nothing about
+    # coverage and looked exactly like "this API has no odds".
     gid = None
-    for label, params in (("by week", {"league": 1, "season": 2026, "week": 1}),
-                          ("by season", {"league": 1, "season": 2026})):
-        try:
-            fixtures = client.get("games", **params)
-        except Exception as exc:
-            print(f"  games {label}: FAILED {exc}")
-            continue
-        print(f"  games {label}: {len(fixtures)}")
-        if fixtures:
-            first = fixtures[0]
-            print("   sample:", json.dumps(first)[:280])
-            inner = first.get("game") if isinstance(first.get("game"), dict) else None
-            gid = (inner or {}).get("id") or first.get("id")
-            print(f"   game id: {gid}")
-            break
+    try:
+        fixtures = client.get("games", league=1, season=2026)
+        print(f"  games in season: {len(fixtures)}")
+        candidates = []
+        for row in fixtures:
+            game = row.get("game") if isinstance(row.get("game"), dict) else row
+            status = ((game.get("status") or {}).get("short") or "").upper()
+            stage = str(game.get("stage") or "")
+            if status in {"NS", "TBD"} and "Regular" in stage:
+                candidates.append(game)
+        print(f"  unplayed regular-season games: {len(candidates)}")
+        if candidates:
+            candidates.sort(key=lambda g: ((g.get("date") or {}).get("timestamp") or 0))
+            pick = candidates[0]
+            gid = pick.get("id")
+            when = (pick.get("date") or {}).get("date")
+            print(f"   earliest: id={gid} week={pick.get('week')} date={when}")
+    except Exception as exc:
+        print(f"  games lookup FAILED: {exc}")
 
     if not gid:
-        print("  no game id resolved; cannot probe prices")
+        print("  no unplayed regular-season game found; cannot probe prices")
     else:
         for label, params in (("bet365", {"game": gid, "bookmaker": 4}),
                               ("all books", {"game": gid})):
@@ -88,11 +92,14 @@ def main():
             print(f"  odds {label}: {len(odds)} row(s)")
             if not odds:
                 continue
-            print("   raw:", json.dumps(odds[0])[:700])
             for o in odds:
                 for b in (o.get("bookmakers") or []):
                     names = [x.get("name") for x in (b.get("bets") or [])]
-                    print(f"   {b.get('name')}: {len(names)} markets -> {names[:12]}")
+                    print(f"   {b.get('name')}: {len(names)} markets")
+                    for bet in (b.get("bets") or [])[:6]:
+                        vals = [(v.get("value"), v.get("odd"))
+                                for v in (bet.get("values") or [])[:4]]
+                        print(f"      {bet.get('name')}: {vals}")
             break
 
     print(f"\n{client.report()}")
