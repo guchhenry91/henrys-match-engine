@@ -18,7 +18,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from nfl import config, data, features, games_model
+from nfl import config, data, features, games_model, rosters
 from nfl.model import PropModel
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -85,9 +85,11 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
     return future.sort_values("gameday")
 
 
-def player_projections(player_weeks, games, market, upcoming, injuries=None) -> list:
+def player_projections(player_weeks, games, market, upcoming, injuries=None,
+                       roster_index=None, rosters_complete=False) -> list:
     """Project every eligible player in the upcoming slate for one market."""
     injuries = injuries or {}
+    roster_index = roster_index or {}
     frame = features.build(player_weeks, market, games=games)
     if frame.empty:
         return []
@@ -112,6 +114,23 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None) -> 
     for _, game in upcoming.iterrows():
         fixtures[game["home_team"]] = (game, game["away_team"], True)
         fixtures[game["away_team"]] = (game, game["home_team"], False)
+
+    # RECONCILE THE CLUB BEFORE choosing who is playing. nflverse says where a man
+    # last PLAYED; the roster snapshot says where he IS, and through an offseason
+    # those differ. Doing this after the fixture lookup would project a moved
+    # player onto his OLD team's game.
+    if roster_index:
+        resolved, reasons = [], []
+        for _, row in latest.iterrows():
+            team, why = rosters.reconcile(row["player_display_name"], row["team"],
+                                          roster_index, rosters_complete)
+            resolved.append(team)
+            reasons.append(why)
+        latest = latest.assign(_team=resolved, _why=reasons)
+        latest = latest[latest["_team"].notna()].copy()
+        latest["team"] = latest["_team"]
+    else:
+        latest = latest.assign(_why="no roster snapshot; using last appearance")
 
     playing = latest[latest["team"].isin(fixtures)]
     if playing.empty:
@@ -153,6 +172,9 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None) -> 
             # is what would mislead. Absent from the report means NOT REPORTED,
             # which is why the field says so rather than saying "fit".
             "availability": report.get("status") or "not reported",
+            # How the club on this card was decided, so a reader can tell a
+            # confirmed roster spot from an inference off last season.
+            "club_source": player.get("_why", "unknown"),
             "injury_note": report.get("detail") or None,
             "games_played": int(player["games_before"]),
             "as_of_season": int(player["season"]),
@@ -174,6 +196,8 @@ def build() -> dict:
     upcoming = upcoming_games(schedule)
     released = _released()
     injuries = availability()
+    snapshot = rosters.load()
+    roster_index, rosters_complete = rosters.index(snapshot)
 
     games_out = []
     for _, game in upcoming.iterrows():
@@ -203,7 +227,9 @@ def build() -> dict:
             props[market] = {"released": False, "picks": []}
             continue
         projections = player_projections(player_weeks, history, market, upcoming,
-                                         injuries=injuries)
+                                         injuries=injuries,
+                                         roster_index=roster_index,
+                                         rosters_complete=rosters_complete)
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:
@@ -235,6 +261,13 @@ def build() -> dict:
         # board right now: a backup quarterback carries a low line because he has
         # only played in relief, which makes "over" look easy until you notice he
         # may not take a snap.
+        "roster_check": {
+            "teams": len((snapshot.get("teams") or {})),
+            "complete": sum(1 for e in (snapshot.get("teams") or {}).values()
+                            if e.get("complete")),
+            "all_complete": rosters_complete,
+            "updated": snapshot.get("updated"),
+        },
         "injury_report": {
             "players_listed": len(injuries),
             "source": "API-NFL" if injuries else None,
@@ -244,8 +277,9 @@ def build() -> dict:
             "with a low line can top a market he may not play in.",
             "Injury data covers players API-NFL reports on. Absence from that "
             "report means not reported, which is not the same as confirmed fit.",
-            "A player's club is taken from his last appearance, so an offseason "
-            "move is not reflected until he plays for the new team.",
+            "Clubs are reconciled against the current API-NFL rosters where those "
+            "are complete; where a roster came back thin the club falls back to "
+            "the player's last appearance and the card says so.",
             "Lines are each player's own entering median, not a sportsbook price. "
             "'Over' means a better day than his typical one.",
         ],

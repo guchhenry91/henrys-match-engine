@@ -16,6 +16,10 @@ on:
     # rolls over mid-week and a stale "week 1" board after week 1 has started
     # would be worse than a slightly early one.
     - cron: "0 9 * * *"
+    # A second pass at 16:00 UTC -- midday US East. Injury designations and
+    # roster cuts land through the day, and a board carrying yesterday's
+    # availability into a Thursday night opener is the one that misleads.
+    - cron: "0 16 * * *"
     # Tuesday: re-run the walk-forward backtest after Monday night football, so
     # the released markets and the evidence on the cards reflect the season as it
     # actually unfolds rather than a number frozen in August.
@@ -64,6 +68,15 @@ jobs:
         # flickering in and out of release day to day would be unreadable.
         if: github.event.schedule == '30 8 * * 2' || inputs.backtest
         run: python -m scripts.nfl_backtest
+
+      - name: Refresh current rosters
+        # Who is ON each team, which nflverse cannot say -- it reports where a man
+        # last PLAYED, so all summer that means where he played last December. The
+        # season opens 10 September with real movement behind it; a projection on
+        # the wrong club looks exactly as confident as a correct one.
+        env:
+          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
+        run: python -m scripts.sync_nfl_rosters
 
       - name: Refresh the injury report
         # The one thing nflverse cannot supply. 32 requests -- one per team --
