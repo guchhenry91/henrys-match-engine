@@ -30,6 +30,10 @@ on:
         description: "Re-run the walk-forward backtest and release gate"
         type: boolean
         default: false
+      probe_odds:
+        description: "Report what odds coverage the API actually has (prints only)"
+        type: boolean
+        default: false
 
 concurrency:
   group: nfl-refresh
@@ -68,6 +72,14 @@ jobs:
         # flickering in and out of release day to day would be unreadable.
         if: github.event.schedule == '30 8 * * 2' || inputs.backtest
         run: python -m scripts.nfl_backtest
+
+      - name: Probe odds coverage
+        # Reconnaissance only, on request. Whether bet365 is visible and whether
+        # PLAYER props are priced decides what an honest edge column can cover.
+        if: inputs.probe_odds
+        env:
+          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
+        run: python -m scripts.probe_nfl_odds
 
       - name: Refresh the injury report
         # The one thing nflverse cannot supply. 32 requests -- one per team --
