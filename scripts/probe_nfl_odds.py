@@ -54,53 +54,31 @@ def main():
     except Exception as exc:
         print(f"bet types lookup failed: {exc}")
 
-    # Pick an UNPLAYED REGULAR-SEASON game. The first probe took the first game
-    # in the list, which was a finished preseason fixture from 7 August, and books
-    # withdraw prices once a game settles -- so "0 odds rows" told me nothing about
-    # coverage and looked exactly like "this API has no odds".
-    gid = None
+    # WHICH GAMES, IF ANY, ARE PRICED? Week 1 is 14 days out and returned nothing,
+    # which could mean "this API has no NFL odds" or "books have not posted yet".
+    # Those need completely different responses from me, so ask the odds endpoint
+    # itself what it holds rather than guessing from one empty answer.
     try:
-        fixtures = client.get("games", league=1, season=2026)
-        print(f"  games in season: {len(fixtures)}")
-        candidates = []
-        for row in fixtures:
-            game = row.get("game") if isinstance(row.get("game"), dict) else row
-            status = ((game.get("status") or {}).get("short") or "").upper()
-            stage = str(game.get("stage") or "")
-            if status in {"NS", "TBD"} and "Regular" in stage:
-                candidates.append(game)
-        print(f"  unplayed regular-season games: {len(candidates)}")
-        if candidates:
-            candidates.sort(key=lambda g: ((g.get("date") or {}).get("timestamp") or 0))
-            pick = candidates[0]
-            gid = pick.get("id")
-            when = (pick.get("date") or {}).get("date")
-            print(f"   earliest: id={gid} week={pick.get('week')} date={when}")
+        priced = client.get("odds", league=1, season=2026)
+        print(f"  odds rows for the whole season: {len(priced)}")
+        if priced:
+            seen = []
+            for row in priced[:40]:
+                game = row.get("game") or {}
+                books = [b.get("name") for b in (row.get("bookmakers") or [])]
+                seen.append((game.get("id"), game.get("date"), books[:6]))
+            for s in seen[:12]:
+                print("   ", s)
+            sample = priced[0]
+            for b in (sample.get("bookmakers") or []):
+                names = [x.get("name") for x in (b.get("bets") or [])]
+                print(f"   {b.get('name')}: {len(names)} markets -> {names[:12]}")
+                for bet in (b.get("bets") or [])[:4]:
+                    vals = [(v.get("value"), v.get("odd"))
+                            for v in (bet.get("values") or [])[:4]]
+                    print(f"      {bet.get('name')}: {vals}")
     except Exception as exc:
-        print(f"  games lookup FAILED: {exc}")
-
-    if not gid:
-        print("  no unplayed regular-season game found; cannot probe prices")
-    else:
-        for label, params in (("bet365", {"game": gid, "bookmaker": 4}),
-                              ("all books", {"game": gid})):
-            try:
-                odds = client.get("odds", **params)
-            except Exception as exc:
-                print(f"  odds {label}: FAILED {exc}")
-                continue
-            print(f"  odds {label}: {len(odds)} row(s)")
-            if not odds:
-                continue
-            for o in odds:
-                for b in (o.get("bookmakers") or []):
-                    names = [x.get("name") for x in (b.get("bets") or [])]
-                    print(f"   {b.get('name')}: {len(names)} markets")
-                    for bet in (b.get("bets") or [])[:6]:
-                        vals = [(v.get("value"), v.get("odd"))
-                                for v in (bet.get("values") or [])[:4]]
-                        print(f"      {bet.get('name')}: {vals}")
-            break
+        print(f"  season-wide odds lookup FAILED: {exc}")
 
     print(f"\n{client.report()}")
     return 0
