@@ -453,9 +453,26 @@ function viewBest(){
   return h;
 }
 
+// The last five matches, same component the NFL board uses -- the actual games,
+// filled where the game cleared this market's line. "0, 2, 0, 1, 3 shots" and
+// "1.2 average" describe very different players, and only one of them tells you
+// whether a 2+ shots pick is a habit or a hope.
+function soccerLastFive(p){
+  const v=p.last_five||[];
+  if(!v.length) return "";
+  const line=p.last_five_line;
+  const goal=p.market==="goal";
+  return `<div class="l5">${v.map((x,i)=>{
+    const hit=line!=null&&x>=line;
+    const label=goal?(x>0?(x>1?x:"G"):"·"):x;
+    return `<i class="${hit?"hit":""}${i===v.length-1?" now":""}">${label}</i>`;
+  }).join("")}</div>`;
+}
+
 function playerRow(p){const m=MK[p.market]||{tag:"a",name:p.market};
   return `<div class="rw static"><div class="av" style="background:${tc(p.team)}">${esc(initials(p.player))}</div>
-    <div class="info"><b>${esc(p.player)}</b><span>${whenStr(p.date)} · ${esc(p.team)} · ${esc(LG[p.league_key]||p.league)}</span></div>
+    <div class="info"><b>${esc(p.player)}</b><span>${whenStr(p.date)} · ${esc(p.team)} · ${esc(LG[p.league_key]||p.league)}</span>
+      ${soccerLastFive(p)}</div>
     <span class="mk ${m.tag}">${esc(m.name)}</span><div class="conf" style="min-width:70px"><b>${pc(p.p_pick)}%</b><span>${figFor(p)}</span></div></div>`;
 }
 

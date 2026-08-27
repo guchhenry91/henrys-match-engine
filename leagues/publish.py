@@ -443,6 +443,15 @@ def build(league: str = "PL") -> dict:
         warnings.append(
             f"{lg.name} player picks cannot be graded against actual match lines "
             f"-- neither the shot feed nor the fallback can settle them.")
+    # Last five matches per player, from the SAME merged rows the record is
+    # graded on. Built once per league rather than per pick: it is one pass over
+    # the shot feed and would otherwise be repeated for every published name.
+    try:
+        form5 = players.recent_form(league)
+    except Exception as exc:
+        print(f"WARNING: {league} form strips unavailable ({exc})")
+        form5 = {}
+
     concede = ctx["concede_factor"]
     pens_rate = ctx["pens_per_team_match"]
 
@@ -656,6 +665,13 @@ def build(league: str = "PL") -> dict:
                     # graded right", never "was the prediction reasonable given
                     # what we knew" -- and that is the question a settled pick
                     # actually needs to answer later.
+                    # THE LAST FIVE, the same treatment the NFL props get: the
+                    # individual matches rather than an average, because
+                    # "0, 2, 0, 1, 3 shots" and "1.2 average" describe very
+                    # different players. Keyed to the stat THIS market settles on.
+                    "last_five": (form5.get(p["player"], {})
+                                  .get(picks.PROP_MARKETS[market][0], [])),
+                    "last_five_line": picks.PROP_MARKETS[market][1],
                     "bar": PLAYER_PICK_MIN_PROB[market],
                     "news_checked_hours_ago": players.news_checked_age_hours(
                         news, (home, away)),

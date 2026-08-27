@@ -584,6 +584,58 @@ def match_player_stats(league: str, seasons=None) -> pd.DataFrame:
     return out
 
 
+def recent_form(league: str, n: int = 5) -> dict:
+    """player -> {"goals": [...], "shots": [...], "sot": [...]}, oldest first.
+
+    The last n matches a player actually played, from BOTH feeds merged the same
+    way grading merges them: Understat wherever it has the fixture (it is
+    shot-event derived and identifies penalties), the API-Football fallback only
+    where Understat is silent. Two sources disagreeing about one match would
+    otherwise show the same game twice in a five-game strip.
+
+    This is display data, and it is deliberately built from the same rows the
+    record is graded on. A board showing one form window while the model and the
+    grader used another is explaining itself with numbers nobody scored it by.
+
+    Returns {} rather than raising: a missing form strip is a smaller problem than
+    a board that will not publish.
+    """
+    frames = []
+    try:
+        primary = match_player_stats(league)
+        if not primary.empty:
+            frames.append(primary.assign(_src=0))
+    except Exception as exc:
+        print(f"WARNING: no primary form data for {league} ({exc})")
+    try:
+        fallback, _ = api_match_stats(league)
+        if not fallback.empty:
+            frames.append(fallback.assign(_src=1))
+    except Exception as exc:
+        print(f"WARNING: no fallback form data for {league} ({exc})")
+    if not frames:
+        return {}
+
+    merged = pd.concat(frames, ignore_index=True)
+    merged["date"] = pd.to_datetime(merged["date"], errors="coerce")
+    merged = merged.dropna(subset=["date", "player"])
+    # Understat wins a duplicated (player, match): sort it first, then drop the
+    # later duplicate.
+    merged = (merged.sort_values(["player", "date", "_src"])
+                    .drop_duplicates(subset=["player", "date"], keep="first"))
+
+    out = {}
+    for player, group in merged.groupby("player", sort=False):
+        tail = group.sort_values("date").tail(n)
+        entry = {}
+        for column in ("goals", "shots", "sot"):
+            if column in tail:
+                entry[column] = [int(v) for v in tail[column].fillna(0)]
+        if entry:
+            out[str(player)] = entry
+    return out
+
+
 def load_news(league: str) -> dict:
     """Team news for one league: club -> {"out": [...], "doubt": [...], ...}.
 
