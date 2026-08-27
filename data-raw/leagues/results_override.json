@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-08-26",
+  "_verified_on": "2026-08-27",
   "LALIGA": {
     "Valencia|Betis": {
       "home_goals": 0,
@@ -125,6 +125,17 @@
       "api_status": "FT",
       "sources": [
         "API-Football fixture 1570340: Real Madrid 4-1 Sociedad, status FT"
+      ]
+    },
+    "Celta|Osasuna": {
+      "home_goals": 1,
+      "away_goals": 2,
+      "status": "FT",
+      "auto": true,
+      "api_fixture_id": 1570336,
+      "api_status": "FT",
+      "sources": [
+        "API-Football fixture 1570336: Celta 1-2 Osasuna, status FT"
       ]
     }
   },
