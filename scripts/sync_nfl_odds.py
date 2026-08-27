@@ -29,24 +29,43 @@ BET365_ID = 4
 
 
 def upcoming_ids(client, upcoming) -> dict:
-    """(home, away) -> API game id, for the fixtures we are about to price."""
+    """(home, away) -> API game id, matched on TEAM CODE.
+
+    The first version compared nflverse abbreviations ("SEA", "NE") against the
+    API's full team names with a substring test and matched nothing -- 0 of 16 --
+    while reporting no error. It would have stayed silently broken until prices
+    appeared and then produced an empty board with no explanation. Codes are what
+    both feeds actually share, and a mismatch is now reported.
+    """
     try:
         fixtures = client.get("games", league=1, season=config.CURRENT_SEASON)
     except Exception as exc:
         print(f"WARNING: could not list fixtures ({exc})")
         return {}
+
     wanted = {(r["home_team"], r["away_team"]) for _, r in upcoming.iterrows()}
-    found = {}
+    found, seen_codes = {}, set()
     for row in fixtures:
         game = row.get("game") if isinstance(row.get("game"), dict) else row
         teams = row.get("teams") or {}
-        home = ((teams.get("home") or {}).get("name")
-                or (teams.get("home") or {}).get("code"))
-        away = ((teams.get("away") or {}).get("name")
-                or (teams.get("away") or {}).get("code"))
-        for key in wanted:
-            if home and away and key[0] in str(home) and key[1] in str(away):
-                found[key] = game.get("id")
+        home = (teams.get("home") or {})
+        away = (teams.get("away") or {})
+        hc = str(home.get("code") or home.get("abbreviation") or "").upper()
+        ac = str(away.get("code") or away.get("abbreviation") or "").upper()
+        if not hc or not ac:
+            continue
+        seen_codes.update({hc, ac})
+        if (hc, ac) in wanted:
+            found[(hc, ac)] = game.get("id")
+
+    missing = wanted - set(found)
+    if missing:
+        print(f"  {len(missing)} fixture(s) unmatched, e.g. {sorted(missing)[:3]}")
+        unknown = {c for pair in missing for c in pair} - seen_codes
+        if unknown:
+            # A code we use that the API has never heard of is a MAPPING problem,
+            # not a coverage one, and the two need different fixes.
+            print(f"  codes the API does not use: {sorted(unknown)}")
     return found
 
 
