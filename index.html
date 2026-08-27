@@ -647,6 +647,23 @@ function nflFig(p){
   return p.line==null?"":`over ${p.line}`;
 }
 
+// Strength bands, reusing the tier vocabulary the football boards already use.
+// Colour that MEANS something: a 78% rushing over and a 51% touchdown are both
+// "picks" and are not remotely the same claim, and a board where every row is the
+// same shade makes the reader do that arithmetic themselves. Bands are set where
+// these markets actually sit -- props cluster between 50% and 85%, so soccer's
+// thresholds would paint almost everything a single colour.
+function nflTier(prob){
+  if(prob>=0.70) return {cls:"t-elite",label:"Strong"};
+  if(prob>=0.60) return {cls:"t-strong",label:"Solid"};
+  return {cls:"t-lean",label:"Lean"};
+}
+function nflConfColour(prob){
+  if(prob>=0.70) return "var(--lime)";
+  if(prob>=0.60) return "var(--cyan)";
+  return "var(--ink)";
+}
+
 function nflPropRow(p){
   const m=NFLMK[p.market]||{tag:"a",name:p.market};
   const venue=p.home?"vs":"@";
@@ -654,13 +671,16 @@ function nflPropRow(p){
   // ruled OUT never reaches here -- publish removes him.
   const doubt=p.availability==="doubt"
     ? `<span class="mk w" title="${esc(p.injury_note||"")}">Doubt</span>` : "";
+  const t=nflTier(p.probability);
   return `<div class="rw static">
     <div class="av" style="background:${nc(p.team)};font-size:${p.team.length>2?"13px":"15px"}">${esc(p.team)}</div>
     <div class="info"><b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${venue} ${esc(p.opponent)} · ${nflWhen(p.kickoff)}</span>
       ${nflLastFive(p)}</div>
-    ${doubt}<span class="mk ${m.tag}">${esc(m.name)}</span>
-    <div class="conf" style="min-width:74px"><b>${pc(p.probability)}%</b><span>${esc(nflFig(p))}</span></div></div>`;
+    ${doubt}<span class="tier ${t.cls}">${t.label}</span>
+    <span class="mk ${m.tag}">${esc(m.name)}</span>
+    <div class="conf" style="min-width:80px"><b style="color:${nflConfColour(p.probability)}">${pc(p.probability)}%</b>
+      <span style="color:${p.line!=null?"var(--ink)":"var(--sub)"}">${esc(nflFig(p))}</span></div></div>`;
 }
 
 function nflGameRow(g){
@@ -669,8 +689,10 @@ function nflGameRow(g){
     <div class="av" style="background:${nc(g.pick)};font-size:${g.pick.length>2?"13px":"15px"}">${esc(g.pick)}</div>
     <div class="info"><b>${esc(g.away)} @ ${esc(g.home)}</b>
       <span>${nflWhen(g.kickoff)}${g.neutral?" · neutral":""} · Elo ${Math.round(g.rating_away)} v ${Math.round(g.rating_home)}</span></div>
+    <span class="tier ${nflTier(g.p_pick).cls}">${nflTier(g.p_pick).label}</span>
     <span class="mk ${pickHome?"a":"o"}">${pickHome?"Home":"Away"}</span>
-    <div class="conf" style="min-width:74px"><b>${pc(g.p_pick)}%</b><span>to win</span></div></div>`;
+    <div class="conf" style="min-width:80px"><b style="color:${nflConfColour(g.p_pick)}">${pc(g.p_pick)}%</b>
+      <span>to win</span></div></div>`;
 }
 
 function viewNFL(){
@@ -967,7 +989,11 @@ function openMatch(lk,id){
   window.scrollTo(0,0);
 }
 
-function setFilter(f){filter=f;render("players");}
+// Renders the CURRENT tab, not a hardcoded one. This said render("players"),
+// which was invisible while Player Picks was the only view with chips -- and
+// then the NFL tab got chips, and every one of them navigated the reader to
+// soccer. `cur` already tracks the active tab for exactly this reason.
+function setFilter(f){filter=f;render(cur);}
 function daysToKickoff(up){const ds=up.map(u=>new Date(u.date)).filter(d=>!isNaN(d));if(!ds.length)return null;
   const first=new Date(Math.min(...ds));const diff=Math.ceil((first-new Date())/864e5);return diff>0?diff:0;}
 function emptyRow(t){return `<div class="rw static"><div class="info"><span>${esc(t)}</span></div></div>`;}
