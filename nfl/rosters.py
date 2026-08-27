@@ -74,6 +74,34 @@ def index(snapshot: dict) -> tuple[dict, bool]:
     return lookup, all_complete
 
 
+# The snapshot must RECOGNISE most of the players we already know are active
+# before it is allowed to say anyone has left. Below this it is describing a
+# different population and its silence means nothing.
+MIN_CORROBORATION = 0.60
+
+
+def corroborates(lookup: dict, known: list) -> tuple[bool, float]:
+    """Does this snapshot describe the same league we think it does?
+
+    THE GUARD THAT WAS MISSING. The first version trusted any roster with 30+
+    names, which measured QUANTITY and not IDENTITY -- and API-NFL's player
+    endpoint duly returned 43-71 plausible-looking names per team that did not
+    include Patrick Mahomes, A.J. Brown, Alvin Kamara or Austin Ekeler. Philadelphia
+    came back as Andy Dalton, Britain Covey and Danny Gray. Every count check
+    passed and 177 current players were marked as having left the league.
+
+    So completeness is now measured by AGREEMENT: what fraction of the players we
+    independently know are active does this snapshot contain? A real roster feed
+    contains nearly all of them. One that contains a third of them is not a roster
+    feed for our purposes, whatever its row count says.
+    """
+    if not lookup or not known:
+        return False, 0.0
+    hits = sum(1 for name in known if name_key(name) in lookup)
+    rate = hits / len(known)
+    return rate >= MIN_CORROBORATION, rate
+
+
 def reconcile(player: str, nflverse_team: str, lookup: dict,
               all_complete: bool) -> tuple[str | None, str]:
     """Return (team or None to drop, reason).

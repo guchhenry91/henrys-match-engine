@@ -44,7 +44,8 @@ def main():
             print("API_NFL_KEY is not set; skipping the roster sync")
         return 0
 
-    client = api.Client(budget=40)
+    # Paginated, so the budget must allow several pages per team rather than one.
+    client = api.Client(budget=200)
     try:
         teams = client.get("teams", league=1, season=SEASON)
     except api.QuotaExhausted as exc:
@@ -62,7 +63,7 @@ def main():
         if not team_id or not code:
             continue
         try:
-            rows = client.get("players", team=team_id, season=SEASON)
+            rows = client.get_all("players", team=team_id, season=SEASON)
         except api.QuotaExhausted as exc:
             print(f"  stopped early: {exc}")
             break

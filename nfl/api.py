@@ -39,6 +39,7 @@ class Client:
         self.used = 0
         self.remaining = None
         self.limit = None
+        self.pages = {}
         self.opener = opener
 
     def get(self, path: str, **params):
@@ -64,6 +65,14 @@ class Client:
             except (TypeError, ValueError):
                 pass
 
+        # API-Sports paginates, and a caller that ignores it silently receives
+        # page one and believes it has everything. That is exactly what happened
+        # to the first roster sync: 43-71 names a team looked like a plausible
+        # squad and was in fact the first slice of one, missing Patrick Mahomes
+        # and most other starters.
+        paging = payload.get("paging") or {}
+        self.pages = {"current": paging.get("current"), "total": paging.get("total")}
+
         errors = payload.get("errors")
         # The API reports a spent allowance as a normal 200 with an error body,
         # which is exactly how it slips past naive error handling and gets retried
@@ -75,6 +84,20 @@ class Client:
         if errors:
             raise RuntimeError(f"API-NFL error: {errors}")
         return payload.get("response") or []
+
+    def get_all(self, path: str, max_pages: int = 12, **params):
+        """Every page, not just the first.
+
+        Capped so a runaway `total` cannot spend an allowance; the cap being hit
+        is reported rather than silently truncating like the bug this replaces.
+        """
+        rows = self.get(path, **params)
+        total = self.pages.get("total") or 1
+        for page in range(2, min(int(total), max_pages) + 1):
+            rows.extend(self.get(path, page=page, **params))
+        if total > max_pages:
+            print(f"  WARNING: /{path} reports {total} pages, fetched {max_pages}")
+        return rows
 
     def report(self) -> str:
         """One line, printed by every caller. The thing that was missing before."""

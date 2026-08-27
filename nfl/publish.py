@@ -198,6 +198,17 @@ def build() -> dict:
     injuries = availability()
     snapshot = rosters.load()
     roster_index, rosters_complete = rosters.index(snapshot)
+    # A snapshot may only overrule nflverse if it demonstrably describes the same
+    # league. Measured against the players we independently know are active --
+    # see rosters.corroborates for what happened without this.
+    known_active = sorted(set(
+        player_weeks[player_weeks["season"] == player_weeks["season"].max()]
+        ["player_display_name"]))
+    trusted, agreement = rosters.corroborates(roster_index, known_active)
+    if not trusted:
+        print(f"WARNING: roster snapshot recognises only {agreement:.0%} of known "
+              f"active players; NOT trusting it to drop or move anyone")
+        roster_index, rosters_complete = {}, False
 
     games_out = []
     for _, game in upcoming.iterrows():
@@ -266,6 +277,8 @@ def build() -> dict:
             "complete": sum(1 for e in (snapshot.get("teams") or {}).values()
                             if e.get("complete")),
             "all_complete": rosters_complete,
+            "agreement_with_known_players": round(agreement, 3),
+            "trusted": trusted,
             "updated": snapshot.get("updated"),
         },
         "injury_report": {
