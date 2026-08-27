@@ -42,14 +42,33 @@ MATCHWEEKS_AHEAD = 1
 # locked by hand with 22 minutes to spare. Nobody would have noticed the void until
 # the next morning -- and on a Saturday nine fixtures lock, not one.
 #
-# WHY 60 MINUTES AND NOT MORE. Clubs publish confirmed XIs about an hour before
-# kickoff, and the entire reason this window is short is so a late team change
-# reaches the model BEFORE the pick commits. Tonight's news landed at 17:59 for a
-# 19:00 kickoff -- 61 minutes out -- and moved Arsenal from 77.4% to 77.1% on Timber
-# and Saliba. Widen much past an hour and picks routinely freeze before that news
-# exists, which trades a rare void for a systematic loss of the thing the window is
-# for. Four chances inside an hour is the cheaper side of that trade.
-LOCK_WINDOW_HOURS = 1.0
+# WIDENED TO 2 HOURS ON 2026-08-26, overturning the reasoning below on evidence.
+#
+# The old note argued 60 minutes gave "four chances inside an hour" and traded "a
+# rare void for a systematic loss" of late team news. Both halves turned out to be
+# wrong, measured over 109 scheduled runs:
+#
+#   * There are not four chances. A run starts a MEDIAN 8 minutes after its cron
+#     slot (90th percentile 14), and the job takes about another 10 to reach the
+#     lock. So a nominal 18:45 run locks at roughly 19:05 -- after a 19:00 kickoff.
+#     The last genuinely usable slot is about T-25, leaving two or three chances,
+#     and 29% of scheduled runs FAIL, so the real number is often one.
+#   * The void is not rare. In two weeks it took four La Liga fixtures, eight
+#     player picks and thirty-seven parlays out of the record -- locked 1, 12, 20
+#     and 29 minutes after kickoff. On 2026-08-26 GitHub fired nothing at all
+#     between 17:30 and 19:09 for a 19:00 kickoff; no one-hour window survives a
+#     100-minute gap.
+#   * The thing being protected is small. The note's own example is the news
+#     moving Arsenal from 77.4% to 77.1% -- three tenths of a point. That is the
+#     benefit being bought, and it was being paid for with whole fixtures.
+#
+# Two hours gives roughly seven slots, so a run has to fail or vanish seven times
+# running rather than two. Picks now usually freeze before the confirmed XI, which
+# is a real and accepted loss -- 0.3pp of accuracy is worth far less than a pick
+# that counts. The better fix is a fast lock-only job that does not refit the
+# model and so does not carry ten minutes of latency; until that exists, this is
+# the honest trade.
+LOCK_WINDOW_HOURS = 2.0
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues, not guessed. The tier hit rates that justify
 # it are no longer copied here: `leagues.tune` computes them at each of these
