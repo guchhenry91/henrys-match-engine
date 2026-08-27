@@ -54,31 +54,32 @@ def main():
     except Exception as exc:
         print(f"bet types lookup failed: {exc}")
 
-    # WHICH GAMES, IF ANY, ARE PRICED? Week 1 is 14 days out and returned nothing,
-    # which could mean "this API has no NFL odds" or "books have not posted yet".
-    # Those need completely different responses from me, so ask the odds endpoint
-    # itself what it holds rather than guessing from one empty answer.
-    try:
-        priced = client.get("odds", league=1, season=2026)
-        print(f"  odds rows for the whole season: {len(priced)}")
-        if priced:
-            seen = []
-            for row in priced[:40]:
-                game = row.get("game") or {}
-                books = [b.get("name") for b in (row.get("bookmakers") or [])]
-                seen.append((game.get("id"), game.get("date"), books[:6]))
-            for s in seen[:12]:
-                print("   ", s)
-            sample = priced[0]
-            for b in (sample.get("bookmakers") or []):
+    # The odds endpoint rejects league/season, so ask it the two ways it accepts:
+    # by DATE, and per GAME across the earliest few unplayed fixtures. If nothing
+    # anywhere is priced, the answer is "books have not posted yet", not "this API
+    # has no odds" -- and those demand different responses from me.
+    import datetime as dt
+    today = dt.date.today()
+    for offset in (0, 1, 2, 7, 14):
+        day = (today + dt.timedelta(days=offset)).isoformat()
+        try:
+            rows = client.get("odds", date=day)
+        except Exception as exc:
+            print(f"  odds date={day}: FAILED {exc}")
+            continue
+        print(f"  odds date={day}: {len(rows)} row(s)")
+        if rows:
+            books = [b.get("name") for r in rows for b in (r.get("bookmakers") or [])]
+            print(f"    bookmakers: {sorted(set(books))}")
+            sample = rows[0]
+            for b in (sample.get("bookmakers") or [])[:3]:
                 names = [x.get("name") for x in (b.get("bets") or [])]
-                print(f"   {b.get('name')}: {len(names)} markets -> {names[:12]}")
-                for bet in (b.get("bets") or [])[:4]:
+                print(f"    {b.get('name')}: {len(names)} markets -> {names[:10]}")
+                for bet in (b.get("bets") or [])[:3]:
                     vals = [(v.get("value"), v.get("odd"))
                             for v in (bet.get("values") or [])[:4]]
-                    print(f"      {bet.get('name')}: {vals}")
-    except Exception as exc:
-        print(f"  season-wide odds lookup FAILED: {exc}")
+                    print(f"       {bet.get('name')}: {vals}")
+            break
 
     print(f"\n{client.report()}")
     return 0
