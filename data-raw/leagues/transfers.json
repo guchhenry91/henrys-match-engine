@@ -1,6 +1,6 @@
 {
  "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves (and late 2025-26 ones) are invisible without this file. Keys are EXACT Understat spellings, resolved by scripts/apply_transfers.py. Value = new canonical club, or null if the player left this league. Verified by per-league agents requiring two independent sources or an official announcement; rumours excluded.",
- "_verified_on": "2026-08-26",
+ "_verified_on": "2026-08-28",
  "_held_back": {
   "LIGUE1": {
    "Sekou Mara": "Strasbourg (Transfermarkt only -- two pages, one source)",
@@ -714,6 +714,16 @@
     "verified_by": "agent web search, current reporting as of 2026-08-26 21:10 UTC",
     "result": "all 18 confirmed still at the club shown; no transfers.json changes required. Gakpo: personal terms remain agreed with Tottenham, fee talks with Liverpool still unresolved (~£60-70m range), no official announcement or medical -- still Liverpool. Guirassy: reportedly decided he wants out and is weighing a move to Turkey/Istanbul club interest, but no fee agreed and contract runs to 2028 -- still Dortmund. Bruno Fernandes: Galatasaray interest reported but United say 'not for sale at any price', working on a new contract -- still Manchester United. Richarlison: uncertain long-term future under De Zerbi (Flamengo/Everton/Benfica/Juventus links) but no concrete deal, Spurs won't sell cheap -- still Tottenham.",
     "not_checked": "Real Madrid v Sociedad kicked off at 19:00Z and is not yet past the 2h15m grading threshold (2h10m elapsed) -- left ungraded for the next run. No fixtures were within the 45min-3h Best Picks window this run, so full STEP 2-5 team-news research was not triggered."
+   },
+   {
+    "date": "2026-08-28T08:12Z",
+    "scope": "matchday-news board check (leagues-matchday-news task) -- board grew from 18 to 22 distinct players since the 2026-08-26T21:10Z sweep: web search on the 4 new additions (Antony, Fermin Lopez, Orri Oskarsson, Raphinha); plus a fresh re-check on the four previously-unresolved sagas (Cody Gakpo, Serhou Guirassy, Bruno Fernandes, Richarlison) given ~35h had passed since they were last verified.",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 8,
+    "method": "web search per player: Antony (Real Betis), Fermin Lopez (Barcelona), Orri Oskarsson (Real Sociedad), Raphinha (Barcelona), Cody Gakpo (Liverpool), Serhou Guirassy (Dortmund), Bruno Fernandes (Manchester United), Richarlison (Tottenham). Other 14 board names unchanged since the 2026-08-26 sweeps and not individually re-searched this run.",
+    "verified_by": "agent web search, current reporting as of 2026-08-28",
+    "result": "all 8 confirmed still at the club shown; no transfers.json changes required. New additions: Antony a completed Real Betis permanent signing from Man Utd (EUR25m, contract to 2030); Fermin Lopez extended at Barcelona to 2031, no exit; Orri Oskarsson no transfer activity, contracted Real Sociedad; Raphinha turned down Al-Hilal interest and is staying at Barcelona, tipped as a club captain. Unresolved sagas, none completed as the window nears its close: Gakpo has personal terms agreed with Tottenham but the bid is gated on Liverpool completing Barcola (and possibly Mbaye) first, fee unresolved -- still Liverpool. Guirassy has interest from Arsenal/Man Utd/PSG/Aston Villa but Dortmund says no talks have happened and he remains under contract to 2028 -- still Dortmund. Bruno Fernandes: Man Utd rejecting all offers including a reported EUR50m Galatasaray approach, working on a new deal -- still Manchester United. Richarlison: Spurs want a real fee for him amid Saudi/Everton interest, player says he wants to stay in London -- still Tottenham.",
+    "not_checked": "earliest fixture in the 45min-3h Best Picks window this run: none (nearest is Bayern-Stuttgart today 18:30Z, ~10h out) -- so full STEP 2-5 team-news research was not triggered. Deadline day is imminent for the PL/La Liga/Ligue1 window; Gakpo and Guirassy in particular are live sagas worth re-checking again before it closes."
    }
   ],
   "known_gaps": [
