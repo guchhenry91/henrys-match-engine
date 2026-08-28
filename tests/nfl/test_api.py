@@ -9,7 +9,7 @@ was spent -- roughly 120 wasted calls a day.
 """
 import io
 import json
-from datetime import date, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -71,11 +71,26 @@ def test_a_spent_allowance_trips_the_breaker_rather_than_raising_a_plain_error()
 
 
 def test_the_breaker_only_applies_to_today():
+    """UTC, matching the code and the API's own daily reset.
+
+    This used date.today() -- the LOCAL date -- while breaker_tripped() uses UTC.
+    For the hours each day when the two disagree, "yesterday local" IS "today
+    UTC", and the test failed on a correct implementation. It duly broke the
+    moment the date rolled over mid-session. A date-dependent test must use the
+    same clock as the thing it is testing.
+    """
     api.BREAKER.parent.mkdir(parents=True, exist_ok=True)
-    api.BREAKER.write_text(json.dumps({
-        "exhausted_on": (date.today() - timedelta(days=1)).isoformat()}),
-        encoding="utf-8")
+    yesterday = (datetime.now(timezone.utc).date() - timedelta(days=1)).isoformat()
+    api.BREAKER.write_text(json.dumps({"exhausted_on": yesterday}), encoding="utf-8")
     assert not api.breaker_tripped(), "yesterday's exhaustion must not block today"
+
+
+def test_the_breaker_does_apply_today():
+    """The other half, which the original never checked."""
+    api.BREAKER.parent.mkdir(parents=True, exist_ok=True)
+    today = datetime.now(timezone.utc).date().isoformat()
+    api.BREAKER.write_text(json.dumps({"exhausted_on": today}), encoding="utf-8")
+    assert api.breaker_tripped()
 
 
 def test_a_run_budget_stops_a_runaway_loop():
