@@ -32,11 +32,14 @@ on:
     - cron: "0,15,30,45 11-22 * * *"
   workflow_dispatch:
     inputs:
+      # NOTE: ONE inputs block. Adding a second one is legal YAML and silently
+      # discards the first -- which is how probe_ucl vanished and the dispatch
+      # came back "Unexpected inputs provided", with yaml.safe_load reporting the
+      # file as perfectly valid the whole time.
       probe_ucl:
         description: "Report Champions League data coverage (prints only)"
         type: boolean
-        default: false            # lets you run it by hand from the Actions tab
-    inputs:
+        default: false
       force_rosters:
         description: >-
           Comma-separated league keys (PL,LALIGA,BUNDESLIGA,LIGUE1) to
