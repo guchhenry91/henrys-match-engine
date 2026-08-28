@@ -30,7 +30,48 @@
     background:linear-gradient(180deg,var(--bar) 0%,#0e1a15 68%,transparent 100%)}
 
 
-  .wrap{max-width:540px;margin:0 auto;padding:16px 15px var(--safe)}
+  /* SHELL. One row: sidebar then content. The sidebar only exists where there is
+     room for it -- below 900px the bottom nav already does this job, and a drawer
+     would hide the same links behind an extra tap. */
+  .shell{display:flex;align-items:flex-start;gap:0;max-width:1180px;margin:0 auto}
+  .wrap{flex:1;min-width:0;max-width:640px;margin:0 auto;padding:16px 15px var(--safe)}
+
+  aside#side{display:none;flex:0 0 232px;position:sticky;top:0;align-self:flex-start;
+    max-height:100vh;overflow-y:auto;padding:18px 10px 30px;scrollbar-width:thin}
+  aside#side::-webkit-scrollbar{width:6px}
+  aside#side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:4px}
+  .sgroup{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--cyan);padding:16px 12px 8px}
+  .sitem{display:flex;align-items:center;gap:11px;width:100%;border:0;cursor:pointer;
+    background:transparent;color:var(--ink);font:inherit;font-size:14px;font-weight:650;
+    padding:9px 12px;border-radius:8px;text-align:left;transition:background .12s}
+  .sitem:hover{background:var(--glass)}
+  .sitem.on{background:var(--glass2);color:#fff;font-weight:800;
+    box-shadow:inset 3px 0 0 var(--cyan)}
+  .sitem .ic{width:22px;flex:0 0 auto;text-align:center;font-size:15px}
+  .sitem .ct{margin-left:auto;font-size:11px;font-weight:700;color:var(--sub);
+    font-variant-numeric:tabular-nums}
+
+  /* RAIL. The icon strip across the top of the content, as the reference has
+     above its promos. Same targets as the sidebar, because two navigations that
+     can disagree is a bug waiting to happen -- both are built from `views`. */
+  .rail{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rtile{flex:0 0 auto;width:78px;border:1px solid var(--line);background:var(--glass);
+    color:var(--sub);cursor:pointer;font:inherit;border-radius:9px;padding:9px 4px 8px;
+    display:flex;flex-direction:column;align-items:center;gap:5px;transition:background .12s}
+  .rtile:hover{background:var(--glass2)}
+  .rtile.on{background:var(--cyan);border-color:transparent;color:#fff}
+  .rtile .ic{font-size:19px;line-height:1}
+  .rtile .lb{font-size:10px;font-weight:750;letter-spacing:.01em;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+  @media (min-width:900px){
+    aside#side{display:block}
+    nav{display:none}                 /* the sidebar replaces it, not duplicates it */
+    .wrap{padding-bottom:40px}
+  }
+
   /* Full-bleed green masthead, the one piece of chrome that is not black. */
   header{display:flex;align-items:center;justify-content:space-between;
     padding:12px 15px;margin:-16px -15px 14px;
@@ -238,12 +279,18 @@
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand"><div class="logo">H</div><div><h1>Henry's Match Engine</h1><p id="sub">Today</p></div></div>
-    <span class="live" id="live">● Live</span>
-  </header>
-  <main id="app"><div class="loading">Loading the model…</div></main>
+<header>
+  <div class="brand"><div class="logo">H</div><div><h1>Henry&rsquo;s Match Engine</h1><p id="sub">Today</p></div></div>
+  <span class="live" id="live">● Live</span>
+</header>
+<div class="shell">
+  <!-- Desktop only. On a phone the bottom nav is already the right shape and a
+       drawer would just hide the same links behind an extra tap. -->
+  <aside id="side" aria-label="Sections"></aside>
+  <div class="wrap">
+    <div id="rail" class="rail" aria-label="Jump to a board"></div>
+    <main id="app"><div class="loading">Loading the model…</div></main>
+  </div>
 </div>
 <nav id="nav" aria-label="Sections"></nav>
 
@@ -326,7 +373,7 @@ async function boot(){
   try{const r=await fetch("data/nfl/board.json",{cache:"no-cache"});DATA.nfl=r.ok?await r.json():null;}
   catch(e){DATA.nfl=null;}
   FRESH=computeFreshness(); updateLivePill();
-  buildNav(); render("today");
+  buildNav(); go("today");
 }
 
 const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},
@@ -334,12 +381,83 @@ const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ P
 const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",
   PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
 
+// ONE SOURCE OF TRUTH FOR EVERY NAVIGATION. The bottom nav, the sidebar and the
+// rail are all built from `views` and all call go(). Three hand-maintained lists
+// would drift, and a link that looks live and does nothing is worse than no link
+// -- which is exactly what the NFL chips were when setFilter rendered a hardcoded
+// tab.
+const ICON={today:"⚡",best:"★",players:"👤",six:"🎯",parlay:"🧩",tables:"📊",grades:"✅",
+  NFL:"🏈",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷"};
+const GROUPS=[
+  {name:"Trending", keys:["today","best","players","six"]},
+  {name:"Most used", keys:["parlay","tables","grades"]},
+  {name:"Sports", keys:["NFL","PL","LALIGA","BUNDESLIGA","LIGUE1"]},
+];
+
+function go(k){
+  cur=k; filter="all"; render(k); syncNav();
+  window.scrollTo(0,0);
+}
+
+// Marks the active target everywhere at once, so the three navigations can never
+// disagree about where the reader is.
+function syncNav(){
+  document.querySelectorAll("#nav button,.sitem,.rtile").forEach(el=>{
+    el.classList.toggle("on", el.dataset.k===cur);
+  });
+}
+
+// How many things a board is currently showing. A count that cannot be computed
+// is omitted rather than shown as 0 -- "0 picks" and "not loaded" look identical
+// and mean opposite things.
+function countFor(k){
+  const n=x=>Array.isArray(x)?x.length:null;
+  if(k==="best")    return n((DATA.best||{}).upcoming);
+  if(k==="players") return n((DATA.player_picks||{}).upcoming);
+  if(k==="six")     return n((DATA.six_scores||{}).picks);
+  if(k==="parlay")  return n((DATA.parlays||{}).upcoming);
+  if(k==="NFL")     return DATA.nfl ? (DATA.nfl.games||[]).length : null;
+  if(FILES[k])      return n((DATA[FILES[k]]||{}).matches);
+  return null;
+}
+
 function buildNav(){
   const nav=document.getElementById("nav");nav.innerHTML="";
-  views.forEach((v,i)=>{const b=document.createElement("button");b.textContent=v.t;b.type="button";
-    if(!i)b.className="on";
-    b.onclick=()=>{[...nav.children].forEach(c=>c.classList.remove("on"));b.classList.add("on");cur=v.k;filter="all";render(v.k);};
-    nav.append(b);});
+  views.forEach(v=>{const b=document.createElement("button");b.textContent=v.t;b.type="button";
+    b.dataset.k=v.k; b.onclick=()=>go(v.k); nav.append(b);});
+  buildSidebar();
+  buildRail();
+  syncNav();
+}
+
+function buildSidebar(){
+  const side=document.getElementById("side"); if(!side) return;
+  const byKey=Object.fromEntries(views.map(v=>[v.k,v]));
+  side.innerHTML="";
+  for(const g of GROUPS){
+    const h=document.createElement("div"); h.className="sgroup"; h.textContent=g.name;
+    side.append(h);
+    for(const k of g.keys){
+      const v=byKey[k]; if(!v) continue;
+      const b=document.createElement("button"); b.type="button"; b.className="sitem"; b.dataset.k=k;
+      const c=countFor(k);
+      b.innerHTML=`<span class="ic">${ICON[k]||"•"}</span><span>${esc(v.t.replace(/^★ /,""))}</span>`
+        + (c!=null?`<span class="ct">${c}</span>`:"");
+      b.onclick=()=>go(k);
+      side.append(b);
+    }
+  }
+}
+
+function buildRail(){
+  const rail=document.getElementById("rail"); if(!rail) return;
+  rail.innerHTML="";
+  views.forEach(v=>{
+    const b=document.createElement("button"); b.type="button"; b.className="rtile"; b.dataset.k=v.k;
+    b.innerHTML=`<span class="ic">${ICON[v.k]||"•"}</span><span class="lb">${esc(v.t.replace(/^★ /,""))}</span>`;
+    b.onclick=()=>go(v.k);
+    rail.append(b);
+  });
 }
 
 // Kickoff shown in the READER'S OWN timezone. The payload stores UTC, which is
