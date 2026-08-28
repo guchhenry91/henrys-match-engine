@@ -36,7 +36,7 @@ POTS = {
 # debutant look identical in the data and must not be treated alike.
 NAME_TO_API = {
     "Real Betis": "Betis",
-    "Fenerbahce": "Fenerbahce SK",
+    "Fenerbahce": "Fenerbahçe",     # the API spells it with the cedilla
     "AEK Athens": "AEK Athens FC",
     "LASK": "Lask Linz",
     "Sabah": "Sabah FA",
@@ -49,6 +49,19 @@ NAME_TO_API = {
 # Below this many European matches a club is mostly its pot rather than its own
 # record. Not a cliff: the shrinkage is continuous and this only sets the scale.
 PRIOR_STRENGTH = 25.0
+
+# Under this many matches the number on the card is mostly a seed, and the board
+# says so. Measured, not guessed: seven of the 36 drawn clubs sit here -- Viking
+# has two European matches in sixteen seasons, Lens and LASK six, Stuttgart eight.
+THIN_HISTORY = 20
+
+# Clubs with NO Champions League history at all in the loaded window. Real Betis
+# and Como are not name mismatches -- Betis has been a Europa League side and Como
+# is a debutant -- so they cannot be fitted and are seeded from the weakest sides
+# in the competition, flagged on the card. "Viking" is also distinct from
+# "Vikingur Reykjavik" and "Vikingur Gota" and must never be merged with them.
+SEEDED_NOTE = ("no Champions League history in the loaded window; seeded at the "
+               "strength of the competition's weakest sides")
 
 # Time decay, per day. Matches the leagues engine's XI_PER_DAY: a club's form from
 # 2013 is not evidence about it now, but it is not nothing either.

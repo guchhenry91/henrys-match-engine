@@ -19,6 +19,7 @@ from ucl import config
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data-raw" / "ucl" / "history.json"
+FIXTURES_OUT = ROOT / "data-raw" / "ucl" / "fixtures.json"
 FINISHED = {"FT", "AET", "PEN"}
 
 
@@ -64,6 +65,32 @@ def parse(rows) -> list:
     return out
 
 
+def upcoming(rows) -> list:
+    """The drawn league-phase fixtures, played or not.
+
+    Kept separately from history because they are a different thing: history is
+    what happened, this is what was drawn. Qualifying rounds are excluded here --
+    the board is about the league phase the 36 clubs were drawn into.
+    """
+    out = []
+    for row in rows:
+        fixture = row.get("fixture") or {}
+        league = row.get("league") or {}
+        rnd = str(league.get("round") or "")
+        if "League Stage" not in rnd and "League Phase" not in rnd:
+            continue
+        teams = row.get("teams") or {}
+        home = ((teams.get("home") or {}).get("name"))
+        away = ((teams.get("away") or {}).get("name"))
+        status = (fixture.get("status") or {}).get("short")
+        if not (home and away):
+            continue
+        out.append({"date": (fixture.get("date") or "")[:10], "matchday": rnd,
+                    "home": home, "away": away,
+                    "played": status in FINISHED})
+    return sorted(out, key=lambda f: (f["date"], f["home"]))
+
+
 def main():
     cache = load()
     seasons = cache.get("seasons") or {}
@@ -85,6 +112,15 @@ def main():
             print(f"  {season}: FAILED {exc}")
             continue
         seasons[key] = parse(rows)
+        if season == config.CURRENT_SEASON:
+            drawn = upcoming(rows)
+            FIXTURES_OUT.parent.mkdir(parents=True, exist_ok=True)
+            FIXTURES_OUT.write_text(
+                json.dumps({"_note": "Drawn league-phase fixtures for the "
+                                     "current season.",
+                            "season": season, "fixtures": drawn}, indent=1),
+                encoding="utf-8")
+            print(f"  {season}: {len(drawn)} league-phase fixtures drawn")
         fetched += 1
         print(f"  {season}: {len(seasons[key])} finished matches")
 
