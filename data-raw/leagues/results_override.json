@@ -1,7 +1,25 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-08-27",
+  "_verified_on": "2026-08-28",
   "LALIGA": {
+    "Racing Santander|Elche": {
+      "home_goals": 3,
+      "away_goals": 2,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401882900): Racing 3-2 Elche, Full Time",
+        "FOX Sports boxscore (908977): Racing Santander 3, Elche 2, Full Time"
+      ]
+    },
+    "Alaves|Villarreal": {
+      "home_goals": 1,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "FOX Sports boxscore (908971): Alaves 1, Villarreal 0, Full Time",
+        "fotmob match page: Deportivo Alaves 1-0 Villarreal, Lucas Boye 31', Full Time"
+      ]
+    },
     "Valencia|Betis": {
       "home_goals": 0,
       "away_goals": 1,
@@ -151,6 +169,15 @@
     }
   },
   "PL": {
+    "Crystal Palace|Manchester City": {
+      "home_goals": 1,
+      "away_goals": 4,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401879294): Crystal Palace 1-4 Manchester City, Full Time",
+        "FOX Sports boxscore (891080): Crystal Palace 1, Manchester City 4, Full Time"
+      ]
+    },
     "Fulham|Chelsea": {
       "home_goals": 2,
       "away_goals": 3,
@@ -250,7 +277,27 @@
       ]
     }
   },
+  "BUNDESLIGA": {
+    "Bayern Munich|Stuttgart": {
+      "home_goals": 5,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401884817): Bayern Munich 5-1 VfB Stuttgart, Full Time",
+        "FOX Sports boxscore (912546): Bayern Munich 5, VfB Stuttgart 1, Full Time"
+      ]
+    }
+  },
   "LIGUE1": {
+    "Lille|Paris SG": {
+      "home_goals": 2,
+      "away_goals": 2,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401876476): Lille 2-2 PSG, Full Time",
+        "fotmob match page: Lille 2-2 PSG, Haraldsson 21'/Bakwa 84' - Vitinha 90+1'/Marquinhos 90+5', Full Time"
+      ]
+    },
     "Marseille|Strasbourg": {
       "home_goals": 4,
       "away_goals": 0,

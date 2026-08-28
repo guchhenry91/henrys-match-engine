@@ -5,42 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Henry's Match Engine</title>
 <style>
+  /* Sportsbook palette, referencing the bet365 layout: a dark green chrome bar
+     over a near-black body, one saturated green carrying every affirmative
+     signal, and flat panels instead of glass. Deliberately OUR branding on it --
+     borrowing a visual language is design reference; borrowing a bookmaker's
+     marks would be passing this off as theirs. */
   :root{
-    --ink:#eaf0ff; --sub:#8a96b8; --line:rgba(255,255,255,.10);
-    --glass:rgba(255,255,255,.055); --glass2:rgba(255,255,255,.09);
-    --cyan:#37e6d8; --lime:#c8ff4d; --violet:#8b7bff; --hot:#ff5c8a; --amber:#ffcf5c;
-    --r:22px; --safe:calc(90px + env(safe-area-inset-bottom));
+    --ink:#eef1ee; --sub:#9aa4a0; --line:rgba(255,255,255,.09);
+    --glass:#1c2521; --glass2:#243029;
+    --bar:#0b3d2c; --bar2:#12654a;      /* header gradient */
+    --cyan:#00b767;                      /* the affirmative green */
+    --lime:#39e57f; --violet:#5ec6ff; --hot:#ff5a5f; --amber:#ffbe3d;
+    --r:10px;                            /* sportsbook cards are square-ish */
+    --safe:calc(90px + env(safe-area-inset-bottom));
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{height:100%}
   body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif;
-    color:var(--ink);background:#05070f;overflow-x:hidden;min-height:100%}
-  body::before{content:"";position:fixed;inset:-30%;z-index:-2;
-    background:
-      radial-gradient(38% 30% at 20% 6%, rgba(55,230,216,.34) 0%, transparent 60%),
-      radial-gradient(42% 34% at 88% 4%, rgba(139,123,255,.34) 0%, transparent 62%),
-      radial-gradient(46% 40% at 82% 96%, rgba(200,255,77,.20) 0%, transparent 60%),
-      radial-gradient(50% 44% at 8% 90%, rgba(255,92,138,.24) 0%, transparent 60%);
-    filter:blur(20px);animation:aur 24s ease-in-out infinite alternate}
-  @keyframes aur{to{transform:translate3d(0,-4%,0) scale(1.08)}}
-  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
-    background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:3px 3px}
-  @media (prefers-reduced-motion:reduce){body::before{animation:none}}
+    color:var(--ink);background:#121815;overflow-x:hidden;min-height:100%}
+  /* The aurora and dot grid are gone. A sportsbook page is flat and quiet so the
+     numbers carry the attention; a glowing gradient behind a price list reads as
+     decoration competing with the content. */
+  body::before{content:"";position:fixed;top:0;left:0;right:0;height:190px;z-index:-2;
+    background:linear-gradient(180deg,var(--bar) 0%,#0e1a15 68%,transparent 100%)}
+
 
   .wrap{max-width:540px;margin:0 auto;padding:16px 15px var(--safe)}
-  header{display:flex;align-items:center;justify-content:space-between;padding:6px 4px 14px}
+  /* Full-bleed green masthead, the one piece of chrome that is not black. */
+  header{display:flex;align-items:center;justify-content:space-between;
+    padding:12px 15px;margin:-16px -15px 14px;
+    background:linear-gradient(180deg,var(--bar2),var(--bar));
+    border-bottom:1px solid rgba(0,0,0,.35);box-shadow:0 2px 14px rgba(0,0,0,.4)}
   .brand{display:flex;align-items:center;gap:11px}
-  .logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-weight:850;font-size:18px;color:#05070f;
-    background:linear-gradient(150deg,var(--cyan),var(--lime));box-shadow:0 0 24px rgba(55,230,216,.5)}
+  .logo{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;font-weight:850;font-size:17px;color:#07120d;
+    background:linear-gradient(150deg,#ffe14d,#ffc400)}   /* the accent that is not green, so it reads as a mark */
   .brand h1{font-size:16.5px;font-weight:800;letter-spacing:-.02em}
-  .brand p{font-size:11px;color:var(--sub);font-weight:600}
-  .live{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);
-    padding:6px 11px;border-radius:20px;border:1px solid rgba(200,255,77,.3);background:rgba(200,255,77,.08)}
+  .brand p{font-size:11px;color:rgba(255,255,255,.62);font-weight:600}
+  .live{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#0b3d2c;
+    padding:6px 11px;border-radius:14px;border:0;background:#39e57f}
 
+  /* Flat panels. Backdrop blur is a phone-OS idiom; a book uses opaque cards so
+     a dense list of prices stays legible at small sizes. */
   .glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);
-    backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);
+    
     box-shadow:0 16px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08)}
-  .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin:2px 2px 10px}
+  /* Uppercase section labels with a green marker, as the reference does for
+     "HOT SHOTS" / "MAIN MEN ON TARGET" -- the market is named before the
+     selections, so a scanning reader knows what they are looking at. */
+  .eyebrow{border-left:3px solid var(--cyan);padding-left:9px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin:2px 2px 10px}
   .eyebrow.mt{margin-top:22px}
   main{animation:in .4s ease both}
   @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -49,12 +61,12 @@
   .chips::-webkit-scrollbar{display:none}
   .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--glass);color:var(--sub);
     font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:20px;cursor:pointer;transition:.2s;white-space:nowrap;
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-  .chip.on{color:#05070f;background:linear-gradient(150deg,var(--cyan),#5ff0e4);border-color:transparent;box-shadow:0 5px 18px rgba(55,230,216,.4)}
+    }
+  .chip.on{color:#fff;background:var(--cyan);border-color:transparent;font-weight:800}
 
   .hero{position:relative;padding:22px 20px;margin-bottom:14px;overflow:hidden;cursor:pointer}
   .hero::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;
-    background:radial-gradient(circle,rgba(55,230,216,.4),transparent 70%);filter:blur(6px)}
+    background:radial-gradient(circle,rgba(0,183,103,.4),transparent 70%);filter:blur(6px)}
   .hero .lg{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
   .hero .mt2{font-size:26px;font-weight:850;letter-spacing:-.03em;margin:8px 0 4px;line-height:1.04;position:relative;z-index:1}
   .hero .pk{font-size:13.5px;color:var(--sub);font-weight:650;position:relative;z-index:1}
@@ -82,24 +94,24 @@
   .rw .info span{font-size:12px;color:var(--sub);font-weight:600}
   .conf{flex:0 0 auto;text-align:right;min-width:96px}
   .bar{height:6px;border-radius:6px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:6px}
-  .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--lime));box-shadow:0 0 12px rgba(55,230,216,.6)}
+  .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--lime));box-shadow:0 0 12px rgba(0,183,103,.6)}
   .conf b{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
   .conf span{font-size:11px;color:var(--sub);font-weight:600}
   .chev{color:var(--sub);font-size:18px;flex:0 0 auto;margin-left:-4px}
   .tier{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:6px;flex:0 0 auto}
   .t-elite{color:#05070f;background:var(--lime)}
-  .t-strong{color:var(--cyan);background:rgba(55,230,216,.14);border:1px solid rgba(55,230,216,.25)}
+  .t-strong{color:var(--cyan);background:rgba(0,183,103,.14);border:1px solid rgba(0,183,103,.25)}
   .t-lean{color:var(--sub);background:rgba(255,255,255,.06)}
   .res{font-size:11px;font-weight:800;padding:3px 8px;border-radius:7px;flex:0 0 auto}
   .res.correct{color:#05070f;background:var(--lime)}.res.wrong{color:#fff;background:var(--hot)}.res.void{color:var(--sub);background:rgba(255,255,255,.06)}
 
   .av{width:44px;height:44px;border-radius:13px;flex:0 0 auto;display:grid;place-items:center;font-weight:800;font-size:15px;color:#05070f}
   .mk{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:8px;
-    color:var(--cyan);background:rgba(55,230,216,.12);border:1px solid rgba(55,230,216,.22);flex:0 0 auto}
-  .mk.g{color:var(--lime);background:rgba(200,255,77,.12);border-color:rgba(200,255,77,.25)}
-  .mk.a{color:var(--cyan);background:rgba(55,230,216,.12);border-color:rgba(55,230,216,.22)}
-  .mk.o{color:var(--violet);background:rgba(139,123,255,.14);border-color:rgba(139,123,255,.28)}
-  .mk.w{color:var(--amber);background:rgba(255,207,92,.12);border-color:rgba(255,207,92,.28)}
+    color:var(--cyan);background:rgba(0,183,103,.12);border:1px solid rgba(0,183,103,.22);flex:0 0 auto}
+  .mk.g{color:var(--lime);background:rgba(57,229,127,.12);border-color:rgba(57,229,127,.25)}
+  .mk.a{color:var(--cyan);background:rgba(0,183,103,.12);border-color:rgba(0,183,103,.22)}
+  .mk.o{color:var(--violet);background:rgba(94,198,255,.14);border-color:rgba(94,198,255,.28)}
+  .mk.w{color:var(--amber);background:rgba(255,190,61,.12);border-color:rgba(255,190,61,.28)}
   .mk.r{color:#ff8f6a;background:rgba(255,143,106,.12);border-color:rgba(255,143,106,.26)}
   .mk.p{color:#6ab8ff;background:rgba(106,184,255,.12);border-color:rgba(106,184,255,.26)}
   /* Last five games. Tabular figures so the column of numbers reads as a series
@@ -109,7 +121,7 @@
   .l5 i{font-style:normal;flex:0 0 auto;min-width:27px;text-align:center;padding:2px 4px;
     border-radius:6px;font-size:10.5px;font-weight:750;font-variant-numeric:tabular-nums;
     background:var(--glass2);color:var(--sub);border:1px solid transparent}
-  .l5 i.hit{background:rgba(55,230,216,.15);color:var(--cyan);border-color:rgba(55,230,216,.25)}
+  .l5 i.hit{background:rgba(0,183,103,.15);color:var(--cyan);border-color:rgba(0,183,103,.25)}
   .l5 i.now{box-shadow:0 0 0 1px rgba(255,255,255,.10) inset}
 
   .tr{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px}
@@ -123,7 +135,7 @@
   .psc{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--cyan);flex:0 0 auto;min-width:40px;text-align:center;letter-spacing:.03em}
   .psc small{display:block;font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-top:1px}
   .badge{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;border-radius:6px;flex:0 0 auto}
-  .b-ucl{color:var(--cyan);border:1px solid rgba(55,230,216,.28)}.b-rel{color:var(--hot);border:1px solid rgba(255,92,138,.3)}
+  .b-ucl{color:var(--cyan);border:1px solid rgba(0,183,103,.28)}.b-rel{color:var(--hot);border:1px solid rgba(255,90,95,.3)}
 
   .back{display:inline-flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--line);
     color:var(--ink);font-family:inherit;font-size:13px;font-weight:700;padding:9px 14px;border-radius:20px;cursor:pointer;margin-bottom:14px}
@@ -148,10 +160,10 @@
   .rl{padding:8px 0;font-size:13.5px;font-weight:650;color:var(--ink);line-height:1.4}
   .rl+.rl{border-top:1px solid var(--line)}
   .warnbox{padding:13px 16px;margin-bottom:12px;font-size:12.5px;font-weight:600;color:var(--amber);line-height:1.5;
-    border:1px solid rgba(255,207,92,.25);background:rgba(255,207,92,.06)}
+    border:1px solid rgba(255,190,61,.25);background:rgba(255,190,61,.06)}
 
   .acca{padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
-  .acca.feat{border:1px solid rgba(200,255,77,.28)}
+  .acca.feat{border:1px solid rgba(57,229,127,.28)}
   .acca .ah{display:flex;align-items:center;justify-content:space-between;gap:12px}
   .acca .an{font-size:16px;font-weight:850;letter-spacing:-.01em}
   .acca .an small{display:block;font-size:11px;color:var(--sub);font-weight:650;margin-top:2px}
@@ -204,7 +216,7 @@
   .caltrack .rail{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:4px;background:rgba(255,255,255,.08)}
   .caltrack .expect{position:absolute;top:2px;bottom:2px;width:2px;background:var(--sub);border-radius:2px}
   .caltrack .actual{position:absolute;top:0;height:22px;width:22px;margin-left:-11px;border-radius:50%;
-    background:linear-gradient(150deg,var(--cyan),var(--lime));box-shadow:0 0 10px rgba(55,230,216,.5);
+    background:linear-gradient(150deg,var(--cyan),var(--lime));box-shadow:0 0 10px rgba(0,183,103,.5);
     display:grid;place-items:center;font-size:9px;font-weight:850;color:#05070f}
   .callegend{display:flex;gap:16px;justify-content:center;padding:10px 4px 2px;font-size:11px;color:var(--sub);font-weight:650}
   .callegend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
@@ -215,12 +227,12 @@
   nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom));
     width:calc(100% - 26px);max-width:512px;z-index:40;display:flex;gap:2px;padding:7px;border-radius:24px;
     background:rgba(12,16,28,.72);border:1px solid rgba(255,255,255,.1);
-    backdrop-filter:blur(30px) saturate(1.4);-webkit-backdrop-filter:blur(30px) saturate(1.4);
+    
     box-shadow:0 16px 44px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:none}
   nav::-webkit-scrollbar{display:none}
   nav button{flex:0 0 auto;border:0;background:transparent;color:var(--sub);cursor:pointer;font-family:inherit;
     font-size:12px;font-weight:750;padding:9px 13px;border-radius:18px;white-space:nowrap;transition:.2s}
-  nav button.on{color:#05070f;background:linear-gradient(150deg,var(--cyan),#5ff0e4);box-shadow:0 6px 16px rgba(55,230,216,.4)}
+  nav button.on{color:#fff;background:var(--cyan)}
   nav button:not(.on):active{background:rgba(255,255,255,.07)}
   nav button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 </style>
@@ -296,7 +308,7 @@ function computeFreshness(){
 function updateLivePill(){
   const el=document.getElementById("live"); if(!el) return;
   if(FRESH.stale){el.textContent="⚠ "+FRESH.text;
-    el.style.color="var(--amber)"; el.style.borderColor="rgba(255,207,92,.4)"; el.style.background="rgba(255,207,92,.1)";}
+    el.style.color="var(--amber)"; el.style.borderColor="rgba(255,190,61,.4)"; el.style.background="rgba(255,190,61,.1)";}
   else {el.textContent="● Live"; el.style.color=""; el.style.borderColor=""; el.style.background="";}
 }
 function staleBanner(){return FRESH.stale
@@ -694,7 +706,11 @@ function nflPropRow(p){
     <div class="info"><b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${venue} ${esc(p.opponent)} · ${nflWhen(p.kickoff)}</span>
       ${nflLastFive(p)}</div>
-    ${doubt}<span class="tier ${t.cls}">${t.label}</span>
+    ${/* DOUBT REPLACES THE STRENGTH TIER, never sits beside it. Both plus the
+          market tag and the figure overflowed the row at 375px -- and for a
+          player who may not play, "questionable" is the headline and "Solid" is
+          noise underneath it. */""}
+    ${doubt || `<span class="tier ${t.cls}">${t.label}</span>`}
     <span class="mk ${m.tag}">${esc(m.name)}</span>
     <div class="conf" style="min-width:80px"><b style="color:${nflConfColour(p.probability)}">${pc(p.probability)}%</b>
       <span style="color:${p.line!=null?"var(--ink)":"var(--sub)"}">${esc(nflFig(p))}</span></div></div>`;
