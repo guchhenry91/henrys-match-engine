@@ -364,13 +364,15 @@ async function boot(){
   // football leagues that were here first.
   try{const r=await fetch("data/nfl/board.json",{cache:"no-cache"});DATA.nfl=r.ok?await r.json():null;}
   catch(e){DATA.nfl=null;}
+  try{const r=await fetch("data/ucl/board.json",{cache:"no-cache"});DATA.ucl=r.ok?await r.json():null;}
+  catch(e){DATA.ucl=null;}
   FRESH=computeFreshness(); updateLivePill();
   buildNav(); go("today");
 }
 
-const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},
+const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"UCL",t:"Champions League"},
   {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"}];
-const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",
+const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",UCL:"Champions League · league phase",
   PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
 
 // ONE SOURCE OF TRUTH FOR EVERY NAVIGATION. The bottom nav, the sidebar and the
@@ -379,11 +381,11 @@ const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Pic
 // -- which is exactly what the NFL chips were when setFilter rendered a hardcoded
 // tab.
 const ICON={today:"⚡",best:"★",players:"👤",six:"🎯",parlay:"🧩",tables:"📊",grades:"✅",
-  NFL:"🏈",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷"};
+  NFL:"🏈",UCL:"🏆",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷"};
 const GROUPS=[
   {name:"Trending", keys:["today","best","players","six"]},
   {name:"Most used", keys:["parlay","tables","grades"]},
-  {name:"Sports", keys:["NFL","PL","LALIGA","BUNDESLIGA","LIGUE1"]},
+  {name:"Sports", keys:["UCL","NFL","PL","LALIGA","BUNDESLIGA","LIGUE1"]},
 ];
 
 function go(k){
@@ -409,6 +411,7 @@ function countFor(k){
   if(k==="six")     return n((DATA.six_scores||{}).picks);
   if(k==="parlay")  return n((DATA.parlays||{}).upcoming);
   if(k==="NFL")     return DATA.nfl ? (DATA.nfl.games||[]).length : null;
+  if(k==="UCL")     return DATA.ucl ? (DATA.ucl.matches||[]).length : null;
   if(FILES[k])      return n((DATA[FILES[k]]||{}).matches);
   return null;
 }
@@ -530,6 +533,7 @@ function render(k){
   else if(k==="six") h=viewSix();
   else if(k==="grades") h=viewGrades();
   else if(k==="NFL") h=viewNFL();
+  else if(k==="UCL") h=viewUCL();
   else h=viewLeague(k);
   app.innerHTML=staleBanner()+h;window.scrollTo(0,0);
 }
@@ -900,6 +904,54 @@ function viewNFL(){
   h+=`<p class="note">Boxes are the last five games, oldest first, filled where the game beat the line — the same five the projection was built from. Lines are each player&rsquo;s own median, not a bookmaker price, so &ldquo;over&rdquo; means a better day than his typical one. Player data runs through ${through.season||"?"} week ${through.week||"?"}${
     inj.players_listed?`, and ${inj.players_listed} players carry an injury status from ${esc(inj.source||"the feed")} — anyone ruled out is off the board entirely` : ""}.</p>`;
   if(od.note) h+=`<p class="note" style="margin-top:-4px">${esc(od.note)}</p>`;
+  if((d.caveats||[]).length)
+    h+=`<div class="glass warnbox" style="margin-top:10px">${d.caveats.map(c=>`<div>· ${esc(c)}</div>`).join("")}</div>`;
+  return h+archiveLink();
+}
+
+function uclRow(m){
+  const pickHome=m.pick===m.home, pickDraw=m.pick==="Draw";
+  const thin=(m.thin||[]).length
+    ? `<span class="mk w" title="few Champions League matches behind this number">thin</span>` : "";
+  return `<div class="rw static">
+    <div class="av" style="background:${tc(m.home)};font-size:13px">${esc(initials(m.home))}</div>
+    <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b>
+      <span>${whenStr(m.date)} · pot ${m.home_pot} v pot ${m.away_pot} · ${m.home_matches}/${m.away_matches} prior matches</span></div>
+    ${thin}<span class="tier ${nflTier(m.p_pick).cls}">${nflTier(m.p_pick).label}</span>
+    <div class="conf" style="min-width:88px"><b>${pc(m.p_pick)}%</b>
+      <span>${esc(pickDraw?"draw":m.pick)}</span></div></div>`;
+}
+
+function viewUCL(){
+  const d=DATA.ucl;
+  if(!d) return emptyState();
+  const ev=d.evidence||{};
+  let h="";
+  if(ev.n) h+=`<div class="glass stat"><div class="k">${ev.rps}</div>
+    <div class="l">RPS over ${ev.n.toLocaleString()} matches the model never saw, against ${ev.rps_baseline} for home advantage · ${(ev.seasons_scored||[]).length} seasons</div></div>`;
+
+  const ms=d.matches||[];
+  h+=`<div class="eyebrow" style="margin-top:18px">League phase · ${ms.length} fixture${ms.length===1?"":"s"}</div>
+    <div class="glass rowc">${ms.slice(0,40).map(uclRow).join("")
+      ||emptyRow("The draw is made but the fixture list has not been published by the feed yet")}</div>`;
+
+  // THE CLUBS AND WHAT STANDS BEHIND EACH NUMBER. A strength fitted from 182
+  // matches and one seeded from none render identically unless the board says
+  // which is which, and the second is the one to discount.
+  const byPot={};
+  for(const c of (d.clubs||[])) (byPot[c.pot]=byPot[c.pot]||[]).push(c);
+  h+=`<div class="eyebrow" style="margin-top:18px">The 36, by draw pot</div><div class="glass rowc">`;
+  for(const pot of Object.keys(byPot).sort()){
+    h+=`<div class="rw static"><div class="info"><b>Pot ${pot}</b><span>${
+      byPot[pot].map(c=>{
+        const mark=c.basis==="seeded"?" †":c.basis==="thin"?" •":"";
+        return esc(c.club)+mark;
+      }).join(" · ")}</span></div></div>`;
+  }
+  h+=`</div>`;
+  const seeded=(d.clubs||[]).filter(c=>c.basis==="seeded").length;
+  const thin=(d.clubs||[]).filter(c=>c.basis==="thin").length;
+  h+=`<p class="note">Strengths come from ${d.history.matches.toLocaleString()} Champions League and qualifying matches over ${d.history.seasons} seasons. &dagger; ${seeded} club${seeded===1?"":"s"} with no history in that window, seeded at the weakest sides&rsquo; strength. &bull; ${thin} more with fewer than 20 matches. Domestic form is not an input, so a club in poor league form still carries its European record.</p>`;
   if((d.caveats||[]).length)
     h+=`<div class="glass warnbox" style="margin-top:10px">${d.caveats.map(c=>`<div>· ${esc(c)}</div>`).join("")}</div>`;
   return h+archiveLink();
