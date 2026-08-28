@@ -117,6 +117,13 @@ jobs:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.probe_ucl
 
+      - name: Refresh Champions League history
+        # One request per uncached season; the past never changes so only the
+        # current season is refetched. Sixteen calls on the first run, one after.
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.sync_ucl_history
+
       - name: Validate data JSON
         run: python -m scripts.validate_data_json
 
@@ -210,7 +217,7 @@ jobs:
           git config user.name  "leagues-bot"
           git config user.email "actions@github.com"
           # ONLY league files -- never the World Cup app's data.
-          git add data/leagues data-raw/leagues
+          git add data/leagues data-raw/leagues data-raw/ucl
           # A byte-level diff is ALWAYS non-empty: publish rewrites `updated` in
           # every league file each run. With the matchday cadence at 15 minutes
           # that meant 48 Render deploys a day, nearly all of them shipping only
