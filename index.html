@@ -17,7 +17,7 @@
     --cyan:#00b767;                      /* the affirmative green */
     --lime:#39e57f; --violet:#5ec6ff; --hot:#ff5a5f; --amber:#ffbe3d;
     --r:10px;                            /* sportsbook cards are square-ish */
-    --safe:calc(90px + env(safe-area-inset-bottom));
+    --safe:calc(28px + env(safe-area-inset-bottom));
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{height:100%}
@@ -55,7 +55,9 @@
   /* RAIL. The icon strip across the top of the content, as the reference has
      above its promos. Same targets as the sidebar, because two navigations that
      can disagree is a bug waiting to happen -- both are built from `views`. */
-  .rail{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
+  .rail{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 12px;scrollbar-width:none;
+    position:sticky;top:0;z-index:5;background:#121815;
+    box-shadow:0 6px 12px -8px rgba(0,0,0,.9)}
   .rail::-webkit-scrollbar{display:none}
   .rtile{flex:0 0 auto;width:78px;border:1px solid var(--line);background:var(--glass);
     color:var(--sub);cursor:pointer;font:inherit;border-radius:9px;padding:9px 4px 8px;
@@ -68,7 +70,9 @@
 
   @media (min-width:900px){
     aside#side{display:block}
-    nav{display:none}                 /* the sidebar replaces it, not duplicates it */
+    /* With a sidebar present the rail is a second copy of the same twelve links,
+       so it stands down rather than repeating them. */
+    .rail{display:none}
     .wrap{padding-bottom:40px}
   }
 
@@ -265,17 +269,6 @@
   .arch a{color:var(--sub);font-size:12px;font-weight:650;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
   .loading{text-align:center;padding:60px 0;color:var(--sub);font-weight:650}
 
-  nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom));
-    width:calc(100% - 26px);max-width:512px;z-index:40;display:flex;gap:2px;padding:7px;border-radius:24px;
-    background:rgba(12,16,28,.72);border:1px solid rgba(255,255,255,.1);
-    
-    box-shadow:0 16px 44px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:none}
-  nav::-webkit-scrollbar{display:none}
-  nav button{flex:0 0 auto;border:0;background:transparent;color:var(--sub);cursor:pointer;font-family:inherit;
-    font-size:12px;font-weight:750;padding:9px 13px;border-radius:18px;white-space:nowrap;transition:.2s}
-  nav button.on{color:#fff;background:var(--cyan)}
-  nav button:not(.on):active{background:rgba(255,255,255,.07)}
-  nav button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -292,7 +285,6 @@
     <main id="app"><div class="loading">Loading the model…</div></main>
   </div>
 </div>
-<nav id="nav" aria-label="Sections"></nav>
 
 <script>
 "use strict";
@@ -402,7 +394,7 @@ function go(k){
 // Marks the active target everywhere at once, so the three navigations can never
 // disagree about where the reader is.
 function syncNav(){
-  document.querySelectorAll("#nav button,.sitem,.rtile").forEach(el=>{
+  document.querySelectorAll(".sitem,.rtile").forEach(el=>{
     el.classList.toggle("on", el.dataset.k===cur);
   });
 }
@@ -422,9 +414,11 @@ function countFor(k){
 }
 
 function buildNav(){
-  const nav=document.getElementById("nav");nav.innerHTML="";
-  views.forEach(v=>{const b=document.createElement("button");b.textContent=v.t;b.type="button";
-    b.dataset.k=v.k; b.onclick=()=>go(v.k); nav.append(b);});
+  // The fixed bottom bar is gone. It was the whole navigation before the sidebar
+  // and rail existed; keeping it meant three ways to reach twelve boards, two of
+  // them visible at once on a phone. The rail carries every target and is sticky,
+  // so nothing became unreachable -- which is the only thing that would have made
+  // this a removal rather than a tidy-up.
   buildSidebar();
   buildRail();
   syncNav();
