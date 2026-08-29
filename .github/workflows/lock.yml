@@ -72,6 +72,10 @@ jobs:
           # not republish the board, and staging a payload it did not generate
           # would let a stale file ride out on someone else's deploy.
           git add data-raw/leagues
+          # The locker freezes the NFL board too, and its log lives
+          # elsewhere. Without this the NFL freeze happens and is thrown
+          # away, which looks identical to it never happening.
+          [ -f data-raw/nfl/picks_log.json ] \n            && git add data-raw/nfl/picks_log.json || true
           if git diff --cached --quiet; then
             echo "nothing newly frozen"
           else
