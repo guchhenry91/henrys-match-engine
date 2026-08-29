@@ -29,7 +29,28 @@ on:
     # Every day, not only the traditional weekend windows. This covers Tuesday-
     # Thursday matchweeks and rescheduled fixtures; the interval remains narrower
     # than the 45-minute lock window.
-    - cron: "0,15,30,45 11-22 * * *"
+    # HALVED AND MOVED OFF THE HOUR ON 2026-08-29, as an experiment with a stated
+    # hypothesis rather than a preference.
+    #
+    # This asked for 48 slots a day at :00/:15/:30/:45. Measured, the honoured
+    # fraction was 55-70% (26-34 runs a day) until 2026-08-26 -- then lock.yml's
+    # `*/10` took the repo's total ask to ~130 slots a day and EVERYTHING
+    # collapsed to 3-7 runs a day, this workflow included. That is far worse than
+    # proportional, which is what makes over-asking, rather than sampling, the
+    # better explanation: GitHub appears to penalise a repo that demands far more
+    # scheduled runs than it is given.
+    #
+    # So the ask is halved to 24, and both minutes sit well away from the hour
+    # boundary -- GitHub's own docs name the start of every hour as a high-load
+    # window, and :00 and :30 were the two worst choices available.
+    #
+    # THIS MIGHT BE WRONG. If the ration is absolute rather than a penalty, fewer
+    # slots simply means fewer runs. `scripts/measure_lock_reliability.py` now
+    # tracks runs per day repo-wide; check it before concluding either way. The
+    # cost of being wrong is much lower than it was, because every run that does
+    # fire now refreshes results in the fast `lock` job rather than only in the
+    # eighteen-minute refit.
+    - cron: "17,47 11-22 * * *"
   workflow_dispatch:
     inputs:
       # NOTE: ONE inputs block. Adding a second one is legal YAML and silently
@@ -89,7 +110,24 @@ jobs:
       - name: Freeze picks due to kick off
         run: python -m scripts.lock_picks
 
-      - name: Commit frozen picks
+      # RESULTS DO NOT NEED THE MODEL. Grading a played fixture and redrawing the
+      # table is a file read plus a score, but both used to happen only inside the
+      # eighteen-minute refit below -- so the visible results were only ever as
+      # fresh as the last full run. On 2026-08-29 that left the boards four hours
+      # stale with about fifteen finished games missing. It also means results now
+      # survive the refit failing (21% of scheduled runs do) or standing down
+      # because a fresher run landed.
+      - name: Apply results to the published boards
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: |
+          # Second source first: fixturedownload had posted nothing three hours
+          # after the season's first match ended, so this fills that gap.
+          python -m scripts.sync_results || echo "result sync skipped"
+          python -m scripts.refresh_results
+
+      - name: Commit frozen picks and results
+        id: fastcommit
         run: |
           git config user.name  "leagues-bot"
           git config user.email "actions@github.com"
@@ -106,15 +144,26 @@ jobs:
           # command. This stages what exists and nothing else.
           find data-raw/leagues -name "picks_log.json"                                 -o -name "player_picks_log.json"                                 -o -name "parlays_log.json"             | while read -r f; do git add "$f"; done
           [ -f data-raw/nfl/picks_log.json ] && git add data-raw/nfl/picks_log.json || true
+          # The boards themselves, because applying results changes what a READER
+          # sees -- unlike locking, which only changes the record.
+          git add data/leagues data-raw/leagues/results_override.json 2>/dev/null || true
+          # Did anything reader-visible change? Locking alone must not deploy.
+          if git diff --cached --quiet -- data/leagues; then
+            echo "boards=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "boards=true" >> "$GITHUB_OUTPUT"
+          fi
           if git diff --cached --quiet; then
             echo "nothing newly frozen"
           else
-            # NO RENDER DEPLOY. Locking changes the RECORD, not the board, so a
-            # deploy here would spend build minutes to change nothing on screen --
-            # the exact waste that exhausted the Render spend limit on 2026-08-22.
-            # deploy-on-push skips leagues-bot commits already; the marker is the
-            # second, independent guard rather than a claim a deploy happened.
-            git commit -m "auto: freeze picks due to kick off [auto-deployed]"
+            # deploy-on-push skips leagues-bot commits already; the marker keeps
+            # that guard independent of authorship. THIS job now triggers Render
+            # itself, but only when a board actually changed (the `boards` output
+            # above). Locking alone changes the record and not the page, and
+            # deploying for that spends build minutes to change nothing on screen
+            # -- the exact waste that exhausted the Render spend limit on
+            # 2026-08-22.
+            git commit -m "auto: freeze picks and apply results [auto-deployed]"
             # NO --autostash. On 2026-08-26 an autostash here resolved into a
             # commit containing raw conflict markers and every board on the live
             # site went empty. A failed pull must abort the push and retry next
@@ -126,6 +175,23 @@ jobs:
               exit 1
             fi
           fi
+
+      - name: Publish the results
+        # Only when a board actually changed. A freeze on its own alters the
+        # record, not the page, and must not spend a Render build on it.
+        if: steps.fastcommit.outputs.boards == 'true'
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          HOOK="$(printf '%s' "$HOOK" | tr -d '[:space:]')"
+          if [ -z "$HOOK" ]; then
+            echo "::warning::RENDER_DEPLOY_HOOK not set; results pushed but not deployed"
+            exit 0
+          fi
+          code=$(curl --retry 3 --retry-all-errors --retry-delay 2 --connect-timeout 10 --max-time 30 -sS -o /dev/null -w "%{http_code}" -X POST "$HOOK")
+          echo "deploy hook responded $code"
+          # 202 (queued) is a normal Render response; treat all three as success.
+          [ "$code" = "200" ] || [ "$code" = "201" ] || [ "$code" = "202" ]
 
   refresh:
     # Sequential, not parallel: `lock` pushes the frozen picks and `refresh` then

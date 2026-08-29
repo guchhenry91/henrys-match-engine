@@ -513,6 +513,52 @@ local commit, so the class of bug that froze the pipeline for a full day on
 2026-08-02 (one missing comma in transfers.json) can't happen again -- caught
 at commit time, not discovered by a failed run hours later.
 
+## Results update without the model (`scripts/refresh_results.py`)
+Grading a played fixture and redrawing the table needs no model — the pick was
+frozen days ago and the score is a fact. But both only happened inside
+`leagues.publish`, which refits four leagues and takes ~18 minutes, so the visible
+results were only ever as fresh as the last full refresh. On 2026-08-29 that left
+the boards **four hours stale with about fifteen finished games missing**. It also
+meant results were lost whenever the heavy job failed (21% of scheduled runs) or
+stood down for a fresher run.
+
+The fast path runs in the `lock` job on every trigger, in seconds, and updates
+only what a score changes: grades frozen picks, redraws `standings`, recomputes
+`unrecorded`, and drops finished fixtures from the upcoming list. **Predictions,
+props, parlays and the projected table are left exactly as the model computed
+them** — a finished match does not change what the model thinks about the next one.
+
+- **It cannot invent a pick.** It grades the frozen log; a fixture with no entry
+  stays out of the record and is reported under `unrecorded`.
+- **It refuses to regress.** `fetch_fixtures` silently falls back to a snapshot
+  when the feed times out (5 hours old in the run that prompted this) and returns
+  it with no flag saying so. `publish` has `sanity_check` for that; this path had
+  nothing and would have overwritten a 14-match table with a stale 12-match one. A
+  season's played count only goes up, so a decrease is proof of stale input and the
+  league is skipped.
+- **`leagues/standings.py`** holds `actual_standings` and `unrecorded_fixtures`
+  precisely so this can run on a **pandas-only** environment; importing them from
+  `publish` would drag in penaltyblog, scipy, sklearn and soccerdata. `publish`
+  re-exports them, so there is still one implementation. Same reasoning that put
+  `LOCK_WINDOW_HOURS` in `config.py`.
+- The `lock` job therefore **does** trigger Render now, but only when a board file
+  actually changed. A freeze alone changes the record, not the page.
+
+## The scheduled-run ration
+Measured, not assumed. `0,15,30,45 11-22` asked for 48 slots a day and was honoured
+55-70% (26-34 runs) until 2026-08-26. Adding `lock.yml`'s `*/10` took the repo's
+total ask to ~130 slots and **everything** collapsed to 3-7 runs a day. That is far
+worse than proportional, which is what makes over-asking the better explanation
+than sampling.
+
+The matchday cron is now **`17,47 11-22`** — 24 slots, both minutes away from the
+hour boundary (GitHub's docs name the start of every hour as a high-load window;
+`:00` and `:30` were the two worst available). **This is a hypothesis under test.**
+If the ration is absolute rather than a penalty, fewer slots simply means fewer
+runs — check `scripts/measure_lock_reliability.py`, which tracks runs per day
+repo-wide, before concluding either way. The cost of being wrong is much lower now
+that every run refreshes results on the fast path.
+
 ## The lock window adapts to how often the locker actually runs
 `leagues/lockwindow.py`. `LOCK_WINDOW_HOURS` is the FLOOR; the window in force
 widens to cover the gap since the last locking run, capped at `MAX_WINDOW_HOURS`

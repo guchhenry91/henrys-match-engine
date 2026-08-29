@@ -6,19 +6,19 @@
     "wrong": 6,
     "total": 10,
     "void": 0,
-    "pending": 0,
+    "pending": 4,
     "by_confidence": {
       "3": {
         "correct": 2,
         "total": 3
       },
-      "4": {
-        "correct": 1,
-        "total": 1
-      },
       "2": {
         "correct": 1,
         "total": 4
+      },
+      "4": {
+        "correct": 1,
+        "total": 1
       },
       "1": {
         "correct": 0,
@@ -5241,5 +5241,6 @@
   "data_warnings": [
     "135 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Auxerre/Troyes: M. Diop. Neither club's number for that name is trusted, rather than guessing which one is current."
-  ]
+  ],
+  "results_updated": "2026-08-29T18:53:45.904243+00:00"
 }
