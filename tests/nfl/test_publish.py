@@ -28,12 +28,20 @@ def test_evidence_survives_a_corrupt_report(monkeypatch, tmp_path):
 def test_upcoming_is_the_earliest_unplayed_week_only():
     schedule = pd.DataFrame([
         {"season": 2026, "week": 1, "gameday": pd.Timestamp("2026-09-10"),
+         "game_id": "2026_01_BBB_AAA",
+         "kickoff": pd.Timestamp("2026-09-11T00:20:00Z"),
          "home_team": "AAA", "away_team": "BBB", "played": False},
         {"season": 2026, "week": 1, "gameday": pd.Timestamp("2026-09-13"),
+         "game_id": "2026_01_DDD_CCC",
+         "kickoff": pd.Timestamp("2026-09-13T17:00:00Z"),
          "home_team": "CCC", "away_team": "DDD", "played": False},
         {"season": 2026, "week": 2, "gameday": pd.Timestamp("2026-09-17"),
+         "game_id": "2026_02_FFF_EEE",
+         "kickoff": pd.Timestamp("2026-09-17T17:00:00Z"),
          "home_team": "EEE", "away_team": "FFF", "played": False},
         {"season": 2025, "week": 18, "gameday": pd.Timestamp("2026-01-04"),
+         "game_id": "2025_18_HHH_GGG",
+         "kickoff": pd.Timestamp("2026-01-04T18:00:00Z"),
          "home_team": "GGG", "away_team": "HHH", "played": True},
     ])
     out = publish.upcoming_games(schedule)
@@ -45,6 +53,8 @@ def test_upcoming_is_the_earliest_unplayed_week_only():
 def test_an_all_played_schedule_yields_nothing_rather_than_crashing():
     schedule = pd.DataFrame([
         {"season": 2025, "week": 18, "gameday": pd.Timestamp("2026-01-04"),
+         "game_id": "2025_18_BBB_AAA",
+         "kickoff": pd.Timestamp("2026-01-04T18:00:00Z"),
          "home_team": "AAA", "away_team": "BBB", "played": True}])
     assert publish.upcoming_games(schedule).empty
 
@@ -97,6 +107,11 @@ def test_a_ruled_out_player_is_removed_from_the_board(monkeypatch, tmp_path):
     } for w in range(1, 14)])
     upcoming = pd.DataFrame([{"season": 2026, "week": 1,
                               "gameday": pd.Timestamp("2026-09-13"),
+                              # Every prop card carries the id it will be frozen
+                              # and settled under, and the REAL kickoff rather
+                              # than the bare date the board used to publish.
+                              "game_id": "2026_01_BBB_AAA",
+                              "kickoff": pd.Timestamp("2026-09-13T17:00:00Z"),
                               "home_team": "AAA", "away_team": "BBB"}])
 
     monkeypatch.setattr(model.PropModel, "fit", lambda self, f: self)
@@ -128,6 +143,11 @@ def test_a_doubtful_player_stays_but_carries_the_flag(monkeypatch):
     } for w in range(1, 14)])
     upcoming = pd.DataFrame([{"season": 2026, "week": 1,
                               "gameday": pd.Timestamp("2026-09-13"),
+                              # Every prop card carries the id it will be frozen
+                              # and settled under, and the REAL kickoff rather
+                              # than the bare date the board used to publish.
+                              "game_id": "2026_01_BBB_AAA",
+                              "kickoff": pd.Timestamp("2026-09-13T17:00:00Z"),
                               "home_team": "AAA", "away_team": "BBB"}])
     monkeypatch.setattr(model.PropModel, "fit", lambda self, f: self)
     monkeypatch.setattr(model.PropModel, "predict", lambda self, f: [0.9] * len(f))

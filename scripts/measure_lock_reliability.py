@@ -24,6 +24,40 @@ def _t(stamp: str) -> datetime:
     return datetime.fromisoformat(stamp.replace("Z", "+00:00"))
 
 
+def fetch_all_scheduled() -> list:
+    """Every scheduled run in the repo, any workflow.
+
+    THE NUMBER THAT TURNED OUT TO MATTER. Measuring lock.yml alone showed a 3.1%
+    fire rate and suggested GitHub was dropping one high-frequency cron. The
+    repo-wide count showed something worse: total scheduled runs fell from ~30 a
+    day to 3-7 on the day lock.yml was added, and leagues.yml -- which both
+    publishes the boards and freezes their picks -- fell from 27-28 a day to 4.
+    The new workflow did not add capacity, it competed for it.
+
+    So this is tracked repo-wide from now on. A per-workflow rate cannot see a
+    budget being shared, and it is the shared budget that decides whether a pick
+    gets frozen before kickoff.
+    """
+    proc = subprocess.run(
+        ["gh", "run", "list", "--limit", "1000",
+         "--json", "workflowName,event,createdAt,conclusion"],
+        capture_output=True, text=True, cwd=ROOT)
+    if proc.returncode:
+        raise SystemExit(f"gh failed: {proc.stderr.strip()}")
+    return [r for r in json.loads(proc.stdout) if r["event"] == "schedule"]
+
+
+def per_day(runs: list) -> dict:
+    """date -> {workflow: count}, newest last."""
+    out = {}
+    for run in runs:
+        day = _t(run["createdAt"]).date().isoformat()
+        out.setdefault(day, {})
+        name = run["workflowName"]
+        out[day][name] = out[day].get(name, 0) + 1
+    return dict(sorted(out.items()))
+
+
 def fetch() -> list:
     proc = subprocess.run(
         ["gh", "run", "list", "--workflow=lock.yml", "--limit", "300",
@@ -77,6 +111,13 @@ def measure(runs: list, now=None) -> dict:
 
 def main() -> int:
     result = measure(fetch())
+    days = per_day(fetch_all_scheduled())
+    result["scheduled_runs_per_day"] = days
+    recent = list(days.items())[-7:]
+    result["repo_wide_note"] = (
+        "Total scheduled runs across ALL workflows. lock.yml's own `*/10` cron "
+        "was removed on 2026-08-29 after this collapsed from ~30/day to 3-7/day "
+        "the day it was added; locking now rides leagues.yml as a fast job.")
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     if "error" in result:
@@ -87,6 +128,11 @@ def main() -> int:
           f"({result['fire_rate_pct']}%), {result['failures']} failed")
     print(f"longest gap with no locker: {result['worst_gap_hours']}h")
     print(f"=> LOCK_WINDOW_HOURS must be at least {result['worst_gap_hours']}")
+    print()
+    print("scheduled runs per day, ALL workflows:")
+    for day, counts in recent:
+        detail = "  ".join(f"{k.split()[0]}={v}" for k, v in sorted(counts.items()))
+        print(f"  {day}  total {sum(counts.values()):3d}   {detail}")
     print(f"wrote {OUT.relative_to(ROOT)}")
     return 0
 

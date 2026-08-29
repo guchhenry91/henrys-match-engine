@@ -19,6 +19,7 @@ from pathlib import Path
 import pandas as pd
 
 from nfl import config, data, features, games_model, odds as odds_mod, rosters
+from nfl import picks
 from nfl.model import PropModel
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -170,7 +171,11 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             "team": player["team"],
             "opponent": opponent,
             "home": bool(is_home),
-            "kickoff": pd.Timestamp(game["gameday"]).isoformat(),
+            # The REAL kickoff (nfl.data._kickoff_utc), not the bare date this
+            # used to carry. A pick frozen against midnight is frozen hours
+            # early, before the inactives report, or is marked late and voided.
+            "game_id": game["game_id"],
+            "kickoff": pd.Timestamp(game["kickoff"]).isoformat(),
             "line": None if pd.isna(player["line"]) else float(player["line"]),
             "probability": round(float(prob), 4),
             # THE LAST FIVE, as asked: the individual games, not an average, and
@@ -235,8 +240,9 @@ def build() -> dict:
         prob_home = float(priced.iloc[0]["prob_home"])
         pick_home = prob_home >= 0.5
         games_out.append({
+            "game_id": game["game_id"],
             "season": int(game["season"]), "week": int(game["week"]),
-            "kickoff": pd.Timestamp(game["gameday"]).isoformat(),
+            "kickoff": pd.Timestamp(game["kickoff"]).isoformat(),
             "home": game["home_team"], "away": game["away_team"],
             "neutral": str(game.get("location", "Home")).lower() == "neutral",
             "p_home": round(prob_home, 4),
@@ -348,6 +354,10 @@ def build() -> dict:
 
 def main():
     payload = build()
+    # FREEZE AND GRADE BEFORE WRITING. Done here rather than inside build() so the
+    # locked pick is what reaches disk: the board must display the pick the record
+    # grades, not a fresher one computed moments earlier.
+    payload["record"] = picks.freeze_and_grade(payload)
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")
@@ -356,6 +366,14 @@ def main():
     counts = {m: len(v["picks"]) for m, v in payload["props"].items()}
     print(f"season {payload['season']} week {payload['week']}: "
           f"{len(payload['games'])} games, props {counts}")
+    rec = payload["record"]
+    print(f"  team winner: {rec['team_winner']['correct']}-"
+          f"{rec['team_winner']['wrong']} settled, "
+          f"{rec['team_winner']['pending']} pending, "
+          f"{rec['team_winner']['void']} void")
+    print(f"  props:       {rec['props']['correct']}-{rec['props']['wrong']} "
+          f"settled, {rec['props']['pending']} pending, "
+          f"{rec['props']['void']} void")
     print(f"wrote {path.relative_to(ROOT)}")
     return 0
 

@@ -62,26 +62,31 @@ def get(key: str) -> League:
 #     moving Arsenal from 77.4% to 77.1%.
 #
 # scripts/lock_picks.py freezes from the already-published board in seconds, so it
-# CAN run every few minutes. The open question was whether GitHub actually runs
-# it that often, and the answer decides whether this can go back to an hour.
+# CAN run every few minutes. Whether GitHub actually runs it that often is what
+# decides whether this constant can go back to an hour, so it was measured
+# (scripts/measure_lock_reliability.py -> data-raw/lock_reliability.json).
 #
-# MEASURED 2026-08-29 (scripts/measure_lock_reliability.py, written to
-# data-raw/lock_reliability.json). It does not:
+# IT DOES NOT, AND THE REASON WAS NOT WHAT IT FIRST LOOKED LIKE. lock.yml's own
+# `*/10` cron fired 3 of 97 due slots in 27.4 hours -- 3.1%, zero failures. That
+# alone looked like GitHub dropping one greedy schedule. The repo-wide count
+# showed the real effect:
 #
-#     cron slots due over 27.4 hours   97
-#     runs that actually fired          3   (3.1%)
-#     longest gap with no locker     16.1 hours
+#     scheduled runs per day, ALL workflows
+#     2026-08-23  34      2026-08-27   6   <- lock.yml added
+#     2026-08-24  27      2026-08-28   7
+#     2026-08-25  28      2026-08-29   3
 #
-# Not one of those three failed -- GitHub simply never started the other 94.
-# High-frequency schedules are dropped under load, and one of the three fired at
-# 05:12 UTC, a time the cron does not even cover. The workflow's own comment
-# claimed the design was "many cheap chances rather than one expensive one"; there
-# are not many chances, so this SO FAR remains a hope rather than a mechanism.
+# leagues.yml -- which publishes the boards AND freezes their picks -- fell from
+# 27-28 runs a day to 4. Adding a workflow to lock more often produced far LESS
+# locking overall. Whether that is a per-repo ration or GitHub-wide load cannot be
+# told apart from here; the response is the same either way, so lock.yml's cron is
+# gone and locking now rides leagues.yml as a fast `lock` job that runs BEFORE the
+# publish.
 #
-# So the window STAYS AT 2.0, and narrowing it to 1.0 would have been actively
-# harmful: with a 16.1-hour gap, a one-hour window means a pick can reach kickoff
-# having never had a locker run at all -- unfrozen, then frozen late, then
-# tainted, then VOID. That is the exact failure the widening fixed. Re-run the
-# measurement before revisiting; the floor for this constant is
-# `worst_gap_hours`, not a judgement call.
+# The window STAYS AT 2.0 until the consolidated setup has been measured for a few
+# days. Narrowing it to 1.0 on the old evidence would have been actively harmful:
+# against a 16.1-hour gap between locker runs, a one-hour window means a pick can
+# reach kickoff having never had a run at all -- unfrozen, then frozen late, then
+# tainted, then VOID. That is the exact failure the widening fixed. The floor for
+# this constant is the measured `worst_gap_hours`, not a judgement call.
 LOCK_WINDOW_HOURS = 2.0

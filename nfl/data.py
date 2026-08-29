@@ -43,7 +43,8 @@ PLAYER_COLUMNS = [
     "receptions", "carries", "targets", "attempts", "completions",
     "passing_tds", "rushing_tds", "receiving_tds",
 ]
-GAME_COLUMNS = ["season", "game_type", "week", "gameday", "home_team", "away_team",
+GAME_COLUMNS = ["game_id", "season", "game_type", "week", "gameday", "gametime",
+                "home_team", "away_team",
                 "home_score", "away_score", "result", "spread_line", "total_line",
                 "location"]
 
@@ -133,6 +134,32 @@ def rosters(season=None, refresh: bool = False) -> pd.DataFrame:
     return out
 
 
+def _kickoff_utc(frame: pd.DataFrame) -> pd.Series:
+    """The real kickoff instant, in UTC.
+
+    `gameday` alone is a DATE. Everything downstream treated it as the kickoff,
+    so every game on the board carried a midnight timestamp -- and a pick frozen
+    against midnight is frozen ~20 hours before a 20:20 kickoff, long before any
+    inactives report, or is marked late and voided. `gametime` has been in the
+    feed all along.
+
+    nflverse quotes `gametime` in US EASTERN, not UTC and not local-to-stadium, so
+    it is localised through the America/New_York zone rather than by subtracting a
+    fixed offset: the season spans the DST change in early November, and a fixed
+    -4 would put every late-season kickoff an hour wrong in the direction that
+    makes a lock late.
+    """
+    when = pd.to_datetime(
+        frame["gameday"].dt.strftime("%Y-%m-%d") + " " + frame["gametime"].fillna(""),
+        errors="coerce")
+    # A game with no time falls back to its date, and is flagged by being midnight
+    # UTC-of-Eastern rather than silently pretending to a kickoff it does not know.
+    when = when.fillna(frame["gameday"])
+    return (when.dt.tz_localize("America/New_York", ambiguous=True,
+                                nonexistent="shift_forward")
+                .dt.tz_convert("UTC"))
+
+
 def games(seasons=None, refresh: bool = False) -> pd.DataFrame:
     """One row per game, regular season, with the result filled in where played."""
     seasons = tuple(seasons or config.SEASONS)
@@ -143,6 +170,7 @@ def games(seasons=None, refresh: bool = False) -> pd.DataFrame:
     out = raw[GAME_COLUMNS]
     out = out[(out["season"].isin(seasons)) & (out["game_type"] == config.SEASON_TYPE)].copy()
     out["gameday"] = pd.to_datetime(out["gameday"], errors="coerce")
+    out["kickoff"] = _kickoff_utc(out)
     for column in ("home_score", "away_score", "result", "spread_line", "total_line"):
         out[column] = pd.to_numeric(out[column], errors="coerce")
     out["played"] = out["home_score"].notna() & out["away_score"].notna()

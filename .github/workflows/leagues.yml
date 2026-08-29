@@ -54,7 +54,84 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # FREEZE FIRST, PUBLISH SECOND. Locking needs no model -- the probability was
+  # already computed and published, so freezing it is a file read, a comparison
+  # and a file write. It runs in about thirty seconds, where `refresh` below needs
+  # ten minutes to reach its own lock step. On a 19:00 kickoff that difference is
+  # the difference between a valid pick and a late lock, which taints it, which
+  # VOIDS it.
+  #
+  # IT LIVES HERE RATHER THAN IN ITS OWN SCHEDULED WORKFLOW, and that is the whole
+  # point. lock.yml used to carry a `*/10 11-23` cron of its own. Measured over
+  # the days after it was added, total SCHEDULED runs across this repo fell from
+  # ~30 a day to 3-7: leagues.yml alone dropped from 27-28 runs a day to 4. The
+  # extra workflow did not add locking capacity, it competed for it, and it cost
+  # far more soccer locking than it bought. Riding the trigger that actually fires
+  # is worth more than asking for a tighter one that does not.
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # PANDAS ONLY. LOCK_WINDOW_HOURS lives in leagues/config.py (pure stdlib)
+      # precisely so this job need not import penaltyblog, scipy and sklearn to
+      # learn one float -- that install alone would cost more than the job.
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Freeze picks due to kick off
+        run: python -m scripts.lock_picks
+
+      - name: Commit frozen picks
+        run: |
+          git config user.name  "leagues-bot"
+          git config user.email "actions@github.com"
+          # The picks logs ONLY. This job publishes nothing a reader sees, so it
+          # must never touch a board file.
+          #
+          # THE SOCCER LOGS ARE PER LEAGUE -- data-raw/leagues/pl/picks_log.json
+          # and so on, not one file at the top. A flat list here would freeze
+          # every pick and then commit none of them, losing the lock silently on
+          # every run while still printing "froze match ...".
+          #
+          # `find -exec` rather than a glob: an unmatched shell glob passes
+          # through literally, and `git add` on a literal `*` path fails the whole
+          # command. This stages what exists and nothing else.
+          find data-raw/leagues -name "picks_log.json"                                 -o -name "player_picks_log.json"                                 -o -name "parlays_log.json"             | while read -r f; do git add "$f"; done
+          [ -f data-raw/nfl/picks_log.json ] && git add data-raw/nfl/picks_log.json || true
+          if git diff --cached --quiet; then
+            echo "nothing newly frozen"
+          else
+            # NO RENDER DEPLOY. Locking changes the RECORD, not the board, so a
+            # deploy here would spend build minutes to change nothing on screen --
+            # the exact waste that exhausted the Render spend limit on 2026-08-22.
+            # deploy-on-push skips leagues-bot commits already; the marker is the
+            # second, independent guard rather than a claim a deploy happened.
+            git commit -m "auto: freeze picks due to kick off [auto-deployed]"
+            # NO --autostash. On 2026-08-26 an autostash here resolved into a
+            # commit containing raw conflict markers and every board on the live
+            # site went empty. A failed pull must abort the push and retry next
+            # run, never improvise its way through.
+            if git pull --rebase origin main; then
+              git push
+            else
+              echo "pull failed; leaving the freeze for the next run"
+              exit 1
+            fi
+          fi
+
   refresh:
+    # Sequential, not parallel: `lock` pushes the frozen picks and `refresh` then
+    # checks out that commit. Racing them would have two jobs in one run pushing
+    # to the same branch.
+    needs: lock
     runs-on: ubuntu-latest
     # WHY 120, not 30: every run so far has timed out or been cancelled before
     # completing, which means the soccerdata cache below has NEVER once been

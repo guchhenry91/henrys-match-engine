@@ -17,15 +17,21 @@ name: Lock picks
 # and sklearn and cost two minutes to learn one float.
 
 on:
-  schedule:
-    # Every ten minutes through the hours football is played -- REQUESTED, not
-    # delivered. Measured over the first 27.4 hours (scripts/measure_lock_
-    # reliability.py): 3 of 97 slots actually fired, 3.1%, longest gap 16.1
-    # hours, zero failures. GitHub drops high-frequency schedules under load, and
-    # it drops nearly all of these. The "many cheap chances" this was built on do
-    # not currently exist, which is why LOCK_WINDOW_HOURS stays at 2.0 rather
-    # than narrowing to 1.0 on the strength of a cadence that is not happening.
-    - cron: "*/10 11-23 * * *"
+  # NO SCHEDULE. This workflow used to carry `*/10 11-23`, and adding it was a
+  # mistake that cost more locking than it bought.
+  #
+  # MEASURED (scripts/measure_lock_reliability.py). Of its own 97 due cron slots
+  # in the first 27.4 hours, 3 fired -- 3.1%, zero failures, GitHub simply never
+  # started the other 94. Worse, total SCHEDULED runs across the whole repo fell
+  # from ~30 a day to 3-7 on the exact day it was added, and leagues.yml -- which
+  # publishes the boards AND freezes their picks -- dropped from 27-28 runs a day
+  # to 4. Whether that is a per-repo ration or GitHub-wide load cannot be told
+  # apart from here, but the response is the same either way: asking for more
+  # scheduled runs produced fewer.
+  #
+  # Locking now rides leagues.yml's own trigger as a fast `lock` JOB that runs
+  # before the publish, so it happens on the schedule that actually fires. This
+  # workflow stays dispatchable for a manual freeze.
   workflow_dispatch:
 
 concurrency:

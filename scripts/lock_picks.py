@@ -147,12 +147,56 @@ def lock_parlays(now) -> list:
     return [f"{gained} parlay(s)"] if gained > 0 else []
 
 
+def lock_nfl(now) -> list:
+    """Freeze the NFL board's picks from the board it already published.
+
+    THE NFL BOARD CANNOT LOCK ITSELF IN TIME. Its own workflow publishes at 09:00
+    and 16:00 UTC; the Sunday slate kicks off at 17:00, 20:05 and 00:20 UTC. Only
+    the first of those ever falls inside the lock window from a publish run, so
+    the late games -- Sunday night football included -- would reach kickoff
+    unfrozen and then be frozen late by the next morning's run, which taints them,
+    which VOIDS them. Every late-window game would be lost from the record, which
+    is precisely the La Liga failure that created this script.
+
+    Uses nfl.picks in LOCK-ONLY mode: no results, no player feed, no network. It
+    freezes what the board already showed and grades nothing.
+    """
+    board_path = ROOT / "data" / "nfl" / "board.json"
+    if not board_path.exists():
+        return []
+    payload = json.loads(board_path.read_text(encoding="utf-8"))
+    before = _nfl_locked_count()
+    # Import here, not at module scope: this script installs pandas only, and a
+    # missing NFL dependency must never take the soccer locking down with it.
+    from nfl import picks as nfl_picks
+    log = picks.load_log(nfl_picks.PICKS_LOG)
+    log.setdefault("games", {})
+    log.setdefault("props", {})
+    nfl_picks._lock_games(payload, log["games"], now)
+    nfl_picks._lock_props(payload, log["props"], now)
+    picks.save_log(log, nfl_picks.PICKS_LOG)
+    after = _nfl_locked_count()
+    return [f"NFL {after - before} pick(s)"] if after > before else []
+
+
+def _nfl_locked_count() -> int:
+    from nfl import picks as nfl_picks
+    log = picks.load_log(nfl_picks.PICKS_LOG)
+    return sum(len([k for k in log.get(section, {}) if not k.startswith("_")])
+               for section in ("games", "props"))
+
+
 def main():
     now = picks._utc(pd.Timestamp.now("UTC"))
     matches = lock_matches(now)
     players = lock_players(now)
     accas = lock_parlays(now)
-    if not (matches or players or accas):
+    try:
+        nfl = lock_nfl(now)
+    except Exception as exc:                 # never let NFL sink soccer locking
+        print(f"  NFL locking skipped: {exc}")
+        nfl = []
+    if not (matches or players or accas or nfl):
         print(f"nothing inside the {LOCK_WINDOW_HOURS:g}h lock window; no changes")
         return 0
     for line in matches:
@@ -160,6 +204,8 @@ def main():
     for line in players:
         print(f"  froze player {line}")
     for line in accas:
+        print(f"  froze {line}")
+    for line in nfl:
         print(f"  froze {line}")
     print(f"locked {len(matches)} match, {len(players)} player pick(s)")
     return 0

@@ -843,7 +843,7 @@ function nflGameRow(g){
       : `<span class="tier ${nflTier(g.p_pick).cls}">${nflTier(g.p_pick).label}</span>`}
     <span class="mk ${pickHome?"a":"o"}">${pickHome?"Home":"Away"}</span>
     <div class="conf" style="min-width:80px"><b style="color:${nflConfColour(g.p_pick)}">${pc(g.p_pick)}%</b>
-      <span>to win</span></div></div>`;
+      <span>${g.locked?"locked":"to win"}</span></div></div>`;
 }
 
 function viewNFL(){
@@ -857,6 +857,20 @@ function viewNFL(){
   const tw=ev.team_winner||{};
   if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
     <div class="l">Team winners on ${tw.n} games the model never saw · ${(tw.seasons_scored||[]).length} seasons</div></div>`;
+
+  // THE LIVE RECORD, kept apart from the backtest above it. One is what the model
+  // scored on seasons it never saw; the other is what THIS board's frozen picks
+  // have actually done. Showing them as one number would let a good backtest
+  // stand in for a live record that does not exist yet.
+  const rec=d.record||{}, rw=rec.team_winner||{}, rp=rec.props||{};
+  const recLine=(label,r)=>!r||!(r.settled||r.pending)?"":
+    `<div class="rw static"><div class="info"><b>${label}</b><span>${
+      r.settled?`${Math.round(100*r.hit_rate)}% of ${r.settled} graded`:"nothing graded yet"}${
+      r.pending?` · ${r.pending} pending`:""}${r.void?` · ${r.void} void`:""}</span></div>
+      <div class="conf" style="min-width:78px"><b>${r.correct}–${r.wrong}</b><span>frozen</span></div></div>`;
+  if((rw.settled||rw.pending)||(rp.settled||rp.pending))
+    h+=`<div class="eyebrow" style="margin-top:18px">Live record · frozen picks</div>
+      <div class="glass rowc">${recLine("Team winner",rw)}${recLine("Player props",rp)}</div>`;
 
   const allMarkets=["anytime_touchdown","receiving_yards","rushing_yards","passing_yards"];
   const markets = filter==="all" ? allMarkets : filter==="team_winner" ? [] : [filter];

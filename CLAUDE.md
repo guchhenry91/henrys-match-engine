@@ -374,6 +374,46 @@ claim to beat a bookmaker's number. `ACTIVE_WITHIN_SEASONS` keeps long-retired
 players off -- without it the week 1 board filled with Alfred Blue, C.J. Anderson
 and Colt McCoy, each carried forward from a final season years back.
 
+## NFL locking and grading (`nfl/picks.py`)
+The NFL board was the last one in the repo publishing picks with **no log, no
+freeze and no record**. It now freezes and grades like the others, reusing
+`leagues.picks` for the freezing itself (`data-raw/nfl/picks_log.json`).
+
+**Every kickoff on the board used to be midnight.** `nfl/data.py` read `gameday`
+— a DATE — and nothing read `gametime`, which had been in the feed all along. A
+pick frozen against midnight is frozen ~20 hours before a 20:20 kickoff, long
+before the inactives report, or is frozen late and voided. Kickoffs are now built
+through the `America/New_York` zone rather than a fixed -4, because the season
+spans the November DST change and a fixed offset puts every late-season kickoff an
+hour wrong in the direction that makes a lock late.
+
+**Picks join on `game_id`**, the nflverse id (`2026_01_NE_SEA`), which encodes
+season and week so settling needs no second lookup.
+
+**Grading mirrors `nfl/features.py` exactly** — `touchdowns > 0` and
+`yards > line`, strictly greater. The release gate measured the board against that
+definition, so a record grading anything else would report on a product the gate
+never validated. Lines are quoted on the half yard, so no result can land on one
+and there is no push to handle. **The line is frozen with the pick**: it is the
+player's own entering median and moves week to week, so grading against a later
+line would settle a bet nobody made.
+
+**A tie is VOID, not a loss.** The gate scores a tie 0.5 — half a win to each side,
+which is what it is — and a win/loss record has no half. Scoring it a loss would
+understate the model against its own measurement; a moneyline pushes for the same
+reason.
+
+**A prop settles only where the player feed holds his OWN TEAM in that week**
+(`covered_games`). This is the 0-18 guard, ported: the soccer board once graded 18
+picks as losses against a feed that had published nothing for the season, and
+every one of those losses was fabricated. Where the feed is silent the pick stays
+PENDING. nflverse also 404s `stats_player_week_{season}` until a season starts, so
+`grading_stats` degrades to an EMPTY frame rather than to something that looks
+like coverage.
+
+Week 1 has not been played, so none of this can be proven by watching the live
+board. `tests/nfl/test_picks.py` carries the load.
+
 ## Roster verification
 `python -m scripts.sync_rosters` snapshots every current 2026-27 club and player
 from the ESPN league/team roster feeds into `data-raw/leagues/rosters.json`.
@@ -449,8 +489,7 @@ for the record to drift.
 so the board shows 0 matches and the record 0-0. The machinery therefore cannot be
 proven by watching it, and is covered by `tests/ucl/test_picks.py` instead.
 
-**NFL still does not lock or grade** — it publishes picks with no frozen record.
-That is the same gap, still open, and is not fixed by any of the above.
+NFL now locks and grades too — see the NFL section above.
 
 ## Data JSON validation
 `scripts/validate_data_json.py` parses **every** JSON file the site depends on --
@@ -516,14 +555,16 @@ The one scheduled task that IS correct to have locally is `leagues-matchday-news
 La Liga and the PL began scheduling midweek fixtures): it needs judgement about
 confirmed XI vs rumour, which is why it cannot live in Actions.
 
-**Its cadence is NOT what protects the pick lock.** Freezing a pick is
-`.github/workflows/lock.yml` (`scripts/lock_picks.py`), every 10 minutes,
-11:00-23:59. This local task has its own, much wider gate — fixtures 45 minutes
-to 3 hours out — and does not affect locking at all.
+**Its cadence is NOT what protects the pick lock.** Freezing a pick is the
+`lock` job at the top of `.github/workflows/leagues.yml` (`scripts/lock_picks.py`),
+which runs before the publish on every trigger of that workflow. This local task
+has its own, much wider gate — fixtures 45 minutes to 3 hours out — and does not
+affect locking at all.
 
-## Locking (`scripts/lock_picks.py`, `.github/workflows/lock.yml`)
+## Locking (`scripts/lock_picks.py`, the `lock` job in `leagues.yml`)
 **Freezing a pick needs no model, only the board already published.** That is why
-it is its own workflow. Locking used to happen only inside `leagues.publish`,
+it runs as its own fast JOB ahead of the publish, rather than inside it. Locking
+used to happen only inside `leagues.publish`,
 which refits four league models and needs ~10 minutes to reach the lock step; add
 GitHub's own scheduling delay — a MEDIAN of 8 minutes after the cron slot,
 measured over 109 runs, 90th percentile 14 — and a nominal 18:45 run froze a pick
@@ -533,14 +574,24 @@ way in a fortnight; every one was a good pick. 29% of scheduled runs also fail
 outright, and on 2026-08-26 GitHub fired nothing at all between 17:30 and 19:09.
 
 The locker reads JSON, compares timestamps, writes JSON — seconds, not minutes —
-so it can run every 10 minutes and survive dropped runs. It installs **pandas
-only**: `LOCK_WINDOW_HOURS` lives in `leagues/config.py` (pure stdlib) precisely
-so this job need not import penaltyblog/scipy/sklearn to learn one float.
+so it finishes in about thirty seconds and the pick is frozen within a minute of
+the trigger instead of ten minutes into a refit. It installs **pandas only**:
+`LOCK_WINDOW_HOURS` lives in `leagues/config.py` (pure stdlib) precisely so this
+job need not import penaltyblog/scipy/sklearn to learn one float.
+
+**It freezes the NFL board too.** The NFL board cannot lock itself in time: its own
+workflow publishes at 09:00 and 16:00 UTC while the Sunday slate kicks off at
+17:00, 20:05 and 00:20. Only the first ever falls inside the window from a publish
+run, so every late game — Sunday night football included — would reach kickoff
+unfrozen and then be frozen late by the next morning's run, tainted, and voided.
+`lock_nfl` runs `nfl.picks` in lock-only mode: no results, no player feed, no
+network. It is wrapped in its own try/except so a missing NFL dependency can never
+take soccer locking down with it.
 
 - It **only ever freezes what was already published**. It computes nothing, so it
   cannot introduce a number the board did not show.
 - Idempotent: `lock_pick`/`lock_prop` no-op on a second call for the same key, so
-  running every 10 minutes can never move `locked_at` forward and turn a
+  running on every trigger can never move `locked_at` forward and turn a
   well-timed lock into a late one.
 - It honours `time_suspect` (now published on each match for this purpose) and
   never locks a fixture that has already kicked off.
@@ -553,17 +604,35 @@ stays at 0.0 and must not be relaxed**: tolerating a late lock would hide the
 symptom without making the pick honest, and the record's whole value is that every
 entry demonstrably was made before kickoff.
 
-**THE 10-MINUTE CADENCE IS REQUESTED, NOT DELIVERED.** Measured 2026-08-29 by
-`scripts/measure_lock_reliability.py` (writes `data-raw/lock_reliability.json`):
-over the first 27.4 hours, **3 of 97 due cron slots fired -- 3.1% -- with a
-longest gap of 16.1 hours and zero failures**. GitHub never started the other 94;
-one of the three even fired at 05:12 UTC, outside the cron's own 11-23 range. So
-`LOCK_WINDOW_HOURS` **stays at 2.0**: narrowing it to 1.0 would mean a pick can
-reach kickoff with no locker run having happened, freeze late, and be voided --
-the precise failure that widening it fixed. The floor for that constant is the
-measured `worst_gap_hours`, so re-run the measurement before revisiting it. The
-fast locker is still the right design; it is not yet a working mechanism, and the
-board's protection today rests on the 2-hour window and on `publish`'s own lock.
+**ADDING A SECOND SCHEDULED WORKFLOW COST MORE LOCKING THAN IT BOUGHT.** `lock.yml`
+was created on 2026-08-27 with its own `*/10 11-23` cron. Measured two days later
+(`scripts/measure_lock_reliability.py` -> `data-raw/lock_reliability.json`), it
+fired **3 of 97 due slots, 3.1%, with zero failures** -- GitHub simply never
+started the other 94. That looked like one greedy schedule being throttled. The
+repo-wide count showed the real effect:
+
+| date | total scheduled runs | |
+|---|---|---|
+| 2026-08-23 | 34 | |
+| 2026-08-25 | 28 | |
+| 2026-08-26 | 16 | |
+| 2026-08-27 | **6** | lock.yml added |
+| 2026-08-28 | 7 | |
+| 2026-08-29 | 3 | |
+
+`leagues.yml` — which publishes the boards **and** freezes their picks — fell from
+27-28 runs a day to 4. Whether this is a per-repo ration or GitHub-wide load
+cannot be told apart from here, but the response is the same: **asking for more
+scheduled runs produced fewer.**
+
+So `lock.yml`'s cron is **gone** (the workflow stays dispatchable for a manual
+freeze) and locking now rides `leagues.yml` as a fast `lock` **job** that runs
+BEFORE the publish job, on the trigger that actually fires. It installs pandas
+only, freezes soccer *and* NFL, commits the picks logs, and never deploys.
+
+`LOCK_WINDOW_HOURS` **stays at 2.0** until the consolidated setup has been
+measured over several days. The floor for that constant is the measured
+`worst_gap_hours`; re-run the measurement before revisiting it.
 
 **It ABORTS on a dirty working tree** (SKILL.md STEP 0.5) and must never be
 "fixed" by stashing. It once improvised `git stash` to get a blocked
