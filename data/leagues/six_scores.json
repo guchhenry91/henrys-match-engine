@@ -1,45 +1,26 @@
 {
-  "updated": "2026-08-29T18:48:02.020921+00:00",
+  "updated": "2026-08-29T20:13:56.884582+00:00",
   "matchweek": 2,
   "selection_verified_on": "2026-08-27",
   "picks": [
-    {
-      "id": 20,
-      "date": "2026-08-29T16:30:00+00:00",
-      "home": "Tottenham",
-      "away": "Newcastle United",
-      "score": "1-1",
-      "score_pct": 12.8,
-      "alternatives": [
-        {
-          "score": "0-1",
-          "pct": 9.5
-        }
-      ],
-      "match_pick": "Newcastle United",
-      "gap_to_next_pp": 3.3,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 1
-    },
     {
       "id": 16,
       "date": "2026-08-30T13:00:00+00:00",
       "home": "Leeds",
       "away": "Brentford",
       "score": "1-1",
-      "score_pct": 12.7,
+      "score_pct": 12.6,
       "alternatives": [
         {
           "score": "1-0",
-          "pct": 9.9
+          "pct": 9.7
         }
       ],
       "match_pick": "Leeds",
-      "gap_to_next_pp": 2.8,
+      "gap_to_next_pp": 2.9,
       "agrees_with_match_pick": false,
       "provisional": true,
-      "rank": 2
+      "rank": 1
     },
     {
       "id": 13,
@@ -47,18 +28,18 @@
       "home": "Chelsea",
       "away": "Brighton",
       "score": "1-1",
-      "score_pct": 12.4,
+      "score_pct": 12.3,
       "alternatives": [
         {
           "score": "1-0",
-          "pct": 10.2
+          "pct": 10.0
         }
       ],
       "match_pick": "Chelsea",
-      "gap_to_next_pp": 2.2,
+      "gap_to_next_pp": 2.3,
       "agrees_with_match_pick": false,
       "provisional": true,
-      "rank": 3
+      "rank": 2
     },
     {
       "id": 18,
@@ -66,25 +47,34 @@
       "home": "Manchester United",
       "away": "Ipswich",
       "score": "1-0",
-      "score_pct": 12.1,
+      "score_pct": 11.8,
       "alternatives": [
         {
           "score": "2-0",
-          "pct": 11.6
+          "pct": 11.5
         }
       ],
       "match_pick": "Manchester United",
-      "gap_to_next_pp": 0.5,
+      "gap_to_next_pp": 0.3,
       "agrees_with_match_pick": true,
       "provisional": true,
-      "rank": 4
+      "rank": 3
     }
   ],
   "missing_fixtures": [
     "Bournemouth|Everton",
-    "Coventry|Hull"
+    "Coventry|Hull",
+    "Tottenham|Newcastle United"
   ],
   "settled": [
+    {
+      "home": "Tottenham",
+      "away": "Newcastle United",
+      "date": "2026-08-29T16:30:00+00:00",
+      "predicted": "1-1",
+      "actual": "0-2",
+      "graded": "wrong"
+    },
     {
       "home": "Bournemouth",
       "away": "Everton",
@@ -152,7 +142,7 @@
   ],
   "record": {
     "correct": 1,
-    "total": 8
+    "total": 9
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,

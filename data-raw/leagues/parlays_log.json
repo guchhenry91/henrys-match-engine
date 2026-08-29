@@ -1537,6 +1537,67 @@
     "locked_at": "2026-08-28T22:08:46.928772+00:00",
     "tainted": false
   },
+  "LALIGA#24#shots#Lamine Yamal|LALIGA#28#sot#Kylian Mbappe-Lottin|LIGUE1#16#shots#Lassine Sinayoko|LIGUE1#17#sot#Esteban Lepaul|PL#16#shots#Dominic Calvert-Lewin|PL#18#shots#Matheus Cunha": {
+    "combined": 0.0777,
+    "earliest_kickoff": "2026-08-30T13:00:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#24#shots#Lamine Yamal",
+        "p": 0.814,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+        "p": 0.63,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "PL#16#shots#Dominic Calvert-Lewin",
+        "p": 0.606,
+        "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#17#sot#Esteban Lepaul",
+        "p": 0.545,
+        "selection": "Esteban Lepaul 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-08-29T20:13:56.869996+00:00",
+    "tainted": false
+  },
+  "LALIGA#24#shots#Lamine Yamal|LIGUE1#16#shots#Lassine Sinayoko|PL#18#shots#Matheus Cunha": {
+    "combined": 0.3732,
+    "earliest_kickoff": "2026-08-30T13:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#18#shots#Matheus Cunha",
+        "p": 0.768,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#24#shots#Lamine Yamal",
+        "p": 0.814,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#16#shots#Lassine Sinayoko",
+        "p": 0.597,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-29T20:13:56.869996+00:00",
+    "tainted": false
+  },
   "LALIGA#24#shots#Lamine Yamal|PL#18#shots#Matheus Cunha": {
     "combined": 0.6252,
     "earliest_kickoff": "2026-08-30T15:30:00+00:00",
@@ -1553,6 +1614,24 @@
       }
     ],
     "locked_at": "2026-08-28T21:20:13.856318+00:00",
+    "tainted": false
+  },
+  "LALIGA#28#w|PL#18#w": {
+    "combined": 0.4901,
+    "earliest_kickoff": "2026-08-30T15:00:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#28#w",
+        "p": 0.7538,
+        "selection": "Real Madrid to win"
+      },
+      {
+        "id": "PL#18#w",
+        "p": 0.6502,
+        "selection": "Manchester United to win"
+      }
+    ],
+    "locked_at": "2026-08-29T20:13:56.869996+00:00",
     "tainted": false
   },
   "LALIGA#6#goal#Raphinha|LALIGA#8#sot#Kylian Mbappe-Lottin|PL#18#shots#Matheus Cunha": {
