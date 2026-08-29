@@ -2,23 +2,23 @@
   "league": "La Liga",
   "updated": "2026-08-29T20:12:26.489970+00:00",
   "record": {
-    "correct": 11,
+    "correct": 12,
     "wrong": 6,
-    "total": 17,
+    "total": 18,
     "void": 6,
     "pending": 0,
     "by_confidence": {
       "2": {
-        "correct": 3,
+        "correct": 4,
+        "total": 7
+      },
+      "3": {
+        "correct": 4,
         "total": 6
       },
       "1": {
         "correct": 3,
         "total": 4
-      },
-      "3": {
-        "correct": 4,
-        "total": 6
       },
       "5": {
         "correct": 1,
@@ -36,172 +36,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 30,
-      "matchweek": 3,
-      "date": "2026-08-29T19:30:00+00:00",
-      "venue": "Ram\u00f3n S\u00e1nchez-Pizju\u00e1n",
-      "home": "Sevilla",
-      "away": "Ath Madrid",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.316,
-        "p_draw": 0.273,
-        "p_away": 0.411,
-        "pick": "Ath Madrid",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 11.9,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 10.1,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4135,
-        "why": {
-          "home_attack_pct": -12.1,
-          "home_defence_pct": -0.3,
-          "away_attack_pct": 31.4,
-          "away_defence_pct": 14.3,
-          "home_advantage_pct": 37.2
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Sevilla 32% / draw 27% / Ath Madrid 41%",
-          "Expected goals: 1.10 - 1.30"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Sevilla",
-          "player": "Jon Guridi",
-          "position": "FW",
-          "lambda_goals": 0.17506104427706826,
-          "anytime_pct": 7.2,
-          "exp_shots": 0.97,
-          "p_shots_2plus": 6.8,
-          "exp_sot": 0.32,
-          "p_sot_1plus": 17.1,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sevilla",
-          "player": "Ruben Vargas",
-          "position": "FW",
-          "lambda_goals": 0.16996510926729202,
-          "anytime_pct": 6.5,
-          "exp_shots": 1.07,
-          "p_shots_2plus": 10.7,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 11.7,
-          "appearance_pct": 62.5,
-          "expected_minutes": 43.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sevilla",
-          "player": "Miguel Sierra",
-          "position": "MF",
-          "lambda_goals": 0.12682817612310213,
-          "anytime_pct": 4.7,
-          "exp_shots": 1.0,
-          "p_shots_2plus": 7.4,
-          "exp_sot": 0.32,
-          "p_sot_1plus": 17.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Madrid",
-          "player": "Ademola Lookman",
-          "position": "FW",
-          "lambda_goals": 0.4152094374411789,
-          "anytime_pct": 21.2,
-          "exp_shots": 1.64,
-          "p_shots_2plus": 24.6,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 21.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Madrid",
-          "player": "Rodrigo Mendoza",
-          "position": "FW",
-          "lambda_goals": 0.18618848318342363,
-          "anytime_pct": 7.8,
-          "exp_shots": 1.01,
-          "p_shots_2plus": 7.7,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 14.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Madrid",
-          "player": "Juli\u00e1n \u00c1lvarez",
-          "position": "FW",
-          "lambda_goals": 0.1682732789353431,
-          "anytime_pct": 5.7,
-          "exp_shots": 0.54,
-          "p_shots_2plus": 2.8,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 10.1,
-          "appearance_pct": 37.5,
-          "expected_minutes": 24.9,
-          "penalty_taker": true,
-          "doubt": true
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.272,
-        "p_draw": 0.278,
-        "p_away": 0.45,
-        "odds": {
-          "home": 3.6,
-          "draw": 3.3,
-          "away": 2.1
-        },
-        "book": "bet365",
-        "edge": -0.039,
-        "pick_odds": 2.1,
-        "ev": -0.137
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 28,
       "matchweek": 3,
@@ -5717,6 +5551,17 @@
   ],
   "standings": [
     {
+      "team": "Ath Madrid",
+      "played": 3,
+      "won": 2,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 7,
+      "ga": 3,
+      "gd": 4,
+      "points": 7
+    },
+    {
       "team": "Alaves",
       "played": 3,
       "won": 2,
@@ -5751,13 +5596,13 @@
     },
     {
       "team": "Sevilla",
-      "played": 2,
+      "played": 3,
       "won": 2,
       "drawn": 0,
-      "lost": 0,
-      "gf": 5,
-      "ga": 2,
-      "gd": 3,
+      "lost": 1,
+      "gf": 6,
+      "ga": 5,
+      "gd": 1,
       "points": 6
     },
     {
@@ -5770,17 +5615,6 @@
       "ga": 5,
       "gd": -1,
       "points": 6
-    },
-    {
-      "team": "Ath Madrid",
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 4,
-      "ga": 2,
-      "gd": 2,
-      "points": 4
     },
     {
       "team": "Osasuna",
@@ -6188,5 +6022,6 @@
   "data_warnings": [
     "138 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "3 player identities could not be resolved because the same name appears at two different clubs in the roster source: Alaves/Vallecano: \u00c1lvaro Garc\u00eda; La Coruna/Real Madrid: \u00c1lvaro Fern\u00e1ndez; Malaga/Vallecano: Juanpe. Neither club's number for that name is trusted, rather than guessing which one is current."
-  ]
+  ],
+  "results_updated": "2026-08-29T21:44:17.160897+00:00"
 }
