@@ -61,8 +61,27 @@ def get(key: str) -> League:
 #   * What it protected is small: the old note's own example is a confirmed XI
 #     moving Arsenal from 77.4% to 77.1%.
 #
-# scripts/lock_picks.py is the real fix -- it freezes from the already-published
-# board in seconds, so it can run every few minutes. Narrow this back toward an
-# hour only once that locker's real-world reliability has been MEASURED, not on
-# the assumption that it works.
+# scripts/lock_picks.py freezes from the already-published board in seconds, so it
+# CAN run every few minutes. The open question was whether GitHub actually runs
+# it that often, and the answer decides whether this can go back to an hour.
+#
+# MEASURED 2026-08-29 (scripts/measure_lock_reliability.py, written to
+# data-raw/lock_reliability.json). It does not:
+#
+#     cron slots due over 27.4 hours   97
+#     runs that actually fired          3   (3.1%)
+#     longest gap with no locker     16.1 hours
+#
+# Not one of those three failed -- GitHub simply never started the other 94.
+# High-frequency schedules are dropped under load, and one of the three fired at
+# 05:12 UTC, a time the cron does not even cover. The workflow's own comment
+# claimed the design was "many cheap chances rather than one expensive one"; there
+# are not many chances, so this SO FAR remains a hope rather than a mechanism.
+#
+# So the window STAYS AT 2.0, and narrowing it to 1.0 would have been actively
+# harmful: with a 16.1-hour gap, a one-hour window means a pick can reach kickoff
+# having never had a locker run at all -- unfrozen, then frozen late, then
+# tainted, then VOID. That is the exact failure the widening fixed. Re-run the
+# measurement before revisiting; the floor for this constant is
+# `worst_gap_hours`, not a judgement call.
 LOCK_WINDOW_HOURS = 2.0

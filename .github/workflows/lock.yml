@@ -18,9 +18,13 @@ name: Lock picks
 
 on:
   schedule:
-    # Every ten minutes through the hours football is played. GitHub drops
-    # high-frequency schedules under load, which is precisely why the answer is
-    # many cheap chances rather than one expensive one.
+    # Every ten minutes through the hours football is played -- REQUESTED, not
+    # delivered. Measured over the first 27.4 hours (scripts/measure_lock_
+    # reliability.py): 3 of 97 slots actually fired, 3.1%, longest gap 16.1
+    # hours, zero failures. GitHub drops high-frequency schedules under load, and
+    # it drops nearly all of these. The "many cheap chances" this was built on do
+    # not currently exist, which is why LOCK_WINDOW_HOURS stays at 2.0 rather
+    # than narrowing to 1.0 on the strength of a cadence that is not happening.
     - cron: "*/10 11-23 * * *"
   workflow_dispatch:
 

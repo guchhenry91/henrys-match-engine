@@ -917,9 +917,11 @@ function uclRow(m){
     <div class="av" style="background:${tc(m.home)};font-size:13px">${esc(initials(m.home))}</div>
     <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b>
       <span>${whenStr(m.date)} · pot ${m.home_pot} v pot ${m.away_pot} · ${m.home_matches}/${m.away_matches} prior matches</span></div>
-    ${thin}<span class="tier ${nflTier(m.p_pick).cls}">${nflTier(m.p_pick).label}</span>
+    ${thin}${m.graded
+      ? `<span class="res ${esc(m.graded)}">${m.graded==="correct"?"WON":(m.graded==="void"?"VOID":"LOST")}</span>`
+      : `<span class="tier ${nflTier(m.p_pick).cls}">${nflTier(m.p_pick).label}</span>`}
     <div class="conf" style="min-width:88px"><b>${pc(m.p_pick)}%</b>
-      <span>${esc(pickDraw?"draw":m.pick)}</span></div></div>`;
+      <span>${esc(pickDraw?"draw":m.pick)}${m.locked?" · locked":""}</span></div></div>`;
 }
 
 function viewUCL(){
@@ -929,6 +931,18 @@ function viewUCL(){
   let h="";
   if(ev.n) h+=`<div class="glass stat"><div class="k">${ev.rps}</div>
     <div class="l">RPS over ${ev.n.toLocaleString()} matches the model never saw, against ${ev.rps_baseline} for home advantage · ${(ev.seasons_scored||[]).length} seasons</div></div>`;
+
+  // THE RECORD. Published from the frozen picks log, so what is counted here is
+  // what the board showed before kickoff -- never a re-pick made afterwards.
+  const rec=d.record||{};
+  if(rec.settled)
+    h+=`<div class="glass stat"><div class="k">${rec.correct}–${rec.wrong}</div>
+      <div class="l">Champions League picks · ${Math.round(100*rec.hit_rate)}% of ${rec.settled} graded${
+        rec.pending?` · ${rec.pending} pending`:""}${
+        rec.void?` · ${rec.void} void`:""}</div></div>`;
+  else if(rec.pending)
+    h+=`<div class="glass stat"><div class="k">${rec.pending}</div>
+      <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
 
   const ms=d.matches||[];
   h+=`<div class="eyebrow" style="margin-top:18px">League phase · ${ms.length} fixture${ms.length===1?"":"s"}</div>

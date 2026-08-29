@@ -67,3 +67,36 @@ def history_depth(frame: pd.DataFrame) -> dict:
         for name, n in frame[column].value_counts().items():
             counts[name] = counts.get(name, 0) + int(n)
     return counts
+
+
+def results_by_id(season=None) -> dict:
+    """Finished current-season matches keyed by API fixture id.
+
+    The grading feed. Joined on the fixture ID rather than on club names: the
+    board renders "Internazionale" where the draw list says "Inter Milan", and a
+    name join settles a frozen bet against whichever club the string happened to
+    match. An id either matches or it does not.
+
+    Only rows that carry an id are returned. History cached before ids were
+    recorded simply yields nothing here, which leaves those picks PENDING -- the
+    honest outcome. Guessing at the join would be the alternative, and a wrong
+    grade in an append-only record cannot be withdrawn.
+    """
+    season = str(season or config.CURRENT_SEASON)
+    try:
+        raw = json.loads(HISTORY.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for game in (raw.get("seasons") or {}).get(season, []):
+        fixture_id = game.get("id")
+        if fixture_id is None:
+            continue
+        if game.get("home_goals") is None or game.get("away_goals") is None:
+            continue
+        out[str(fixture_id)] = {
+            "home": game.get("home"), "away": game.get("away"),
+            "home_goals": int(game["home_goals"]),
+            "away_goals": int(game["away_goals"]),
+        }
+    return out

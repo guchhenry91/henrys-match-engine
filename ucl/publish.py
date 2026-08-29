@@ -16,6 +16,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from leagues import picks
+from leagues.config import LOCK_WINDOW_HOURS
 from leagues.model import promoted_priors
 from ucl import backtest, config, data
 
@@ -23,6 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "ucl"
 REPORT = ROOT / "data-raw" / "ucl" / "backtest_report.json"
 FIXTURES = ROOT / "data-raw" / "ucl" / "fixtures.json"
+PICKS_LOG = ROOT / "data-raw" / "ucl" / "picks_log.json"
 
 BEST_PICK_MIN_PROB = 0.65      # same bar the soccer board uses
 
@@ -55,6 +58,109 @@ def upcoming_fixtures() -> list:
     except Exception:
         return []
     return [f for f in (raw.get("fixtures") or []) if not f.get("played")]
+
+
+def freeze_and_grade(matches: list, now=None) -> tuple[dict, dict]:
+    """Freeze the picks due to start, grade the ones already played.
+
+    Reuses leagues.picks wholesale rather than writing a second implementation.
+    The three rules it enforces -- lock before kickoff, grade the FROZEN pick, and
+    void a pick first locked after kickoff -- are not football-specific, and a
+    parallel copy of them would be a second place for the record to drift.
+
+    A fixture with no id or no kickoff is NOT locked. The API supplies both, so
+    their absence means the feed is incomplete, and a pick frozen against a
+    guessed kickoff is either frozen too early to see team news or marked tainted
+    and voided out of the record. Left unlocked, it simply locks on a later run.
+
+    Returns (log, record). Mutates each match dict in place so the board DISPLAYS
+    the frozen pick: showing a freshly computed pick beside a record that grades a
+    different one is how a board quietly stops describing itself.
+    """
+    now = pd.Timestamp(now) if now is not None else pd.Timestamp.now("UTC")
+    if now.tzinfo is None:
+        now = now.tz_localize("UTC")
+    log = picks.load_log(PICKS_LOG)
+    results = data.results_by_id()
+
+    for match in matches:
+        key = match.get("id")
+        kickoff = match.get("kickoff")
+        if key is None or not kickoff:
+            match["lockable"] = False
+            continue
+        key = str(key)
+        match["lockable"] = True
+        kickoff = pd.Timestamp(kickoff)
+        if kickoff.tzinfo is None:
+            kickoff = kickoff.tz_localize("UTC")
+
+        # A kickoff that moved after the pick froze -- correction or postponement.
+        # Only ever released while the new time is still in the future.
+        picks.release_moved_lock(log, key, kickoff, now=now)
+
+        hours_out = (kickoff - now).total_seconds() / 3600.0
+        if key not in log and hours_out <= LOCK_WINDOW_HOURS:
+            picks.lock_pick(log, key, match["pick"], match["confidence"],
+                            kickoff, now=now, p_pick=match["p_pick"],
+                            board=bool(match.get("best_pick")))
+
+        entry = log.get(key)
+        if not entry:
+            continue
+        # Show what was frozen, not what the model would say now.
+        match["pick"] = entry["pick"]
+        match["p_pick"] = entry.get("p_pick", match["p_pick"])
+        match["confidence"] = entry.get("confidence", match["confidence"])
+        match["locked"] = True
+        match["locked_at"] = entry.get("locked_at")
+        match["tainted"] = bool(entry.get("tainted"))
+
+    # GRADING SWEEPS THE LOG, NOT THE BOARD. `matches` holds only fixtures still
+    # to be played, so a match grades on the very run it disappears from the board
+    # -- and every run after that would have skipped it, leaving finished picks
+    # pending forever and a record permanently reading 0-0.
+    for key, entry in list(log.items()):
+        if key.startswith("_") or entry.get("graded") is not None:
+            continue
+        result = results.get(key)
+        if result:
+            log[key] = picks.grade(entry, result)
+
+    # Reflect the verdict on any graded fixture still shown.
+    for match in matches:
+        entry = log.get(str(match.get("id")))
+        if entry and entry.get("graded"):
+            match["graded"] = entry["graded"]
+            result = results.get(str(match.get("id")))
+            if result:
+                match["result"] = f"{result['home_goals']}-{result['away_goals']}"
+
+    picks.save_log(log, PICKS_LOG)
+    return log, record(log)
+
+
+def record(log: dict) -> dict:
+    """correct/wrong/void/pending over every frozen UCL pick."""
+    counts = {"correct": 0, "wrong": 0, "void": 0, "pending": 0}
+    by_confidence = {}
+    for key, entry in log.items():
+        if key.startswith("_"):
+            continue                      # _released archive, never a pick
+        verdict = entry.get("graded") or "pending"
+        counts[verdict] = counts.get(verdict, 0) + 1
+        tier = by_confidence.setdefault(str(entry.get("confidence")),
+                                        {"correct": 0, "wrong": 0})
+        if verdict in tier:
+            tier[verdict] += 1
+    settled = counts["correct"] + counts["wrong"]
+    return {
+        **counts,
+        "total": sum(counts.values()),
+        "settled": settled,
+        "hit_rate": round(counts["correct"] / settled, 4) if settled else None,
+        "by_confidence": by_confidence,
+    }
 
 
 def build() -> dict:
@@ -91,6 +197,8 @@ def build() -> dict:
         probs = {home: pred["p_home"], "Draw": pred["p_draw"], away: pred["p_away"]}
         pick = max(probs, key=probs.get)
         matches.append({
+            "id": fixture.get("id"),
+            "kickoff": fixture.get("kickoff"),
             "date": fixture.get("date"), "matchday": fixture.get("matchday"),
             "home": home, "away": away,
             "home_pot": drawn.get(home), "away_pot": drawn.get(away),
@@ -108,6 +216,7 @@ def build() -> dict:
                             if depth.get(t, 0) < config.THIN_HISTORY}),
         })
     matches.sort(key=lambda m: (m.get("date") or "", -m["p_pick"]))
+    _, rec = freeze_and_grade(matches)
 
     clubs = []
     for name, pot in sorted(drawn.items(), key=lambda kv: (kv[1], kv[0])):
@@ -125,6 +234,7 @@ def build() -> dict:
                     "clubs": len(depth)},
         "clubs": clubs,
         "matches": matches,
+        "record": rec,
         "evidence": evidence(),
         "caveats": [
             "Strengths come from Champions League and qualifying results only -- "
@@ -148,9 +258,12 @@ def main():
     tmp = path.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
+    rec = payload["record"]
     print(f"UCL board: {len(payload['matches'])} fixtures, "
           f"{len(payload['clubs'])} clubs, "
           f"history {payload['history']['matches']} matches")
+    print(f"  picks: {rec['correct']}-{rec['wrong']} settled, "
+          f"{rec['pending']} pending, {rec['void']} void")
     return 0
 
 

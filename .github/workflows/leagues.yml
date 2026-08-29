@@ -109,6 +109,9 @@ jobs:
       # publishes with a cryptic "0/4 succeeded" and froze the site for a day.
       # This turns that into an immediate "transfers.json: line 206 ..." at the
       # very start of the run, before the slow model fetch even begins.
+      - name: Validate data JSON
+        run: python -m scripts.validate_data_json
+
       - name: Probe Champions League coverage
         # Reconnaissance only, on request. How many seasons exist, and how much
         # history each drawn club has, decide whether a UCL board is buildable.
@@ -130,9 +133,6 @@ jobs:
         run: |
           python -m scripts.ucl_backtest
           python -m ucl.publish
-
-      - name: Validate data JSON
-        run: python -m scripts.validate_data_json
 
       # Free public roster evidence. This is deliberately before the model: a
       # missing/thin club roster makes that club's player markets disappear

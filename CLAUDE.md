@@ -396,11 +396,77 @@ within the club a player is ALREADY at, so it can never invent a transfer; witho
 it Understat's "Thiago" vs the feed's "Igor Thiago" deleted a real Brentford player
 over a spelling difference. The match model is unaffected either way.
 
+---
+
+# Champions League engine (`ucl/`, tab: UCL)
+
+The 2026/27 league phase: 36 clubs, 8 matches each. Strengths are fitted from
+**sixteen seasons of European results** (`data-raw/ucl/history.json`, one
+API-Football request per season -- the past never changes, so only the current
+season is refetched).
+
+- `python -m scripts.sync_ucl_history` — history + the drawn fixture list.
+- `python -m scripts.ucl_backtest` — the gate (walk-forward, RPS vs a home-
+  advantage baseline). Writes `data-raw/ucl/backtest_report.json`.
+- `python -m ucl.publish` — the board. Writes `data/ucl/board.json`.
+
+**Qualifying rounds are included on purpose.** They are where the small clubs
+actually play: excluding them would leave exactly the clubs with the least
+evidence with even less.
+
+**Ninety-minute scores only.** A tie settled in extra time or on penalties is a
+DRAW as a football match; recording the winner's scoreline would teach the model
+these clubs score more than they do.
+
+**Seeded vs fitted is published per fixture.** Two of the 36 have no Champions
+League history in the window and are seeded at the weakest sides' strength; seven
+more carry a thin-history flag. A number fitted from 182 matches and one seeded
+from none render identically unless the board says which is which, and the second
+is the one a reader would most want to discount.
+
+## UCL locking and grading
+The board published predictions for weeks with **no picks log, no freeze and no
+record** — nothing stopped the displayed pick moving after kickoff. It now uses
+`leagues.picks` wholesale (`data-raw/ucl/picks_log.json`), rather than a second
+implementation of rules that are not football-specific and would be a second place
+for the record to drift.
+
+- **Joined on the API fixture id, never on club names.** The board renders
+  "Internazionale" where the draw list says "Inter Milan"; a name join settles a
+  frozen bet against whichever club the string happened to match.
+- **A fixture with no id or no kickoff is NOT locked.** `sync_ucl_history` now
+  carries the full kickoff timestamp (it previously truncated to a bare date). A
+  pick frozen against a *guessed* kickoff is either frozen hours early, before any
+  team news, or marked tainted and voided — the La Liga failure of 2026-08-15.
+- **Grading sweeps the LOG, not the board.** `upcoming_fixtures()` publishes only
+  unplayed games, so a match leaves the board the moment it finishes. Grading
+  driven off the board would skip every match on the one run that could have
+  graded it, and the record would read 0-0 forever. There is a regression test.
+- A result that never arrives stays **pending, never wrong** — the same rule the
+  soccer board learned when Understat's silence published 18 fabricated losses.
+
+**The league phase opens 8 September and the feed has published no fixtures yet**,
+so the board shows 0 matches and the record 0-0. The machinery therefore cannot be
+proven by watching it, and is covered by `tests/ucl/test_picks.py` instead.
+
+**NFL still does not lock or grade** — it publishes picks with no frozen record.
+That is the same gap, still open, and is not fixed by any of the above.
+
 ## Data JSON validation
-`scripts/validate_data_json.py` parses every hand/agent-edited data file
-(`data-raw/leagues/transfers.json`, `news.json`, etc. -- NOT `data/leagues/*.json`,
-which is machine-written by `json.dump` and can't be malformed this way) and
-reports the exact file/line/column on a parse error. Runs FIRST in
+`scripts/validate_data_json.py` parses **every** JSON file the site depends on --
+the hand/agent-edited inputs (`data-raw/leagues/transfers.json`, `news.json`,
+...) AND the published payloads the browser actually fetches (`data/leagues/*.json`,
+`data/nfl/board.json`, `data/ucl/board.json`) -- and reports the exact
+file/line/column on a parse error.
+
+**The payloads were excluded on the reasoning that `json.dump` output "can't be
+malformed this way", and that reasoning was wrong.** It describes the WRITER and
+says nothing about what happens to a file afterwards. On 2026-08-26 a task
+committed an unresolved autostash conflict and all eight payloads reached the live
+site containing raw `<<<<<<<` markers -- every board on the page empty. The
+validator ran that morning and passed, because it was not looking at those files.
+It now checks them, and reports a conflict marker BY NAME rather than as the
+"Expecting property name" JSON error that describes only the symptom. Runs FIRST in
 `leagues.yml`, before the slow model fetch, so a bad file fails in seconds
 instead of after an hour. `scripts/hooks/pre-commit` (install via
 `scripts/hooks/install.sh`) runs the same check on the STAGED blob before a
@@ -485,8 +551,19 @@ so this job need not import penaltyblog/scipy/sklearn to learn one float.
 `publish` still locks too, as a safety net on the same window. **`LATE_LOCK_HOURS`
 stays at 0.0 and must not be relaxed**: tolerating a late lock would hide the
 symptom without making the pick honest, and the record's whole value is that every
-entry demonstrably was made before kickoff. Narrow `LOCK_WINDOW_HOURS` back toward
-an hour only once the locker's real-world reliability has been MEASURED.
+entry demonstrably was made before kickoff.
+
+**THE 10-MINUTE CADENCE IS REQUESTED, NOT DELIVERED.** Measured 2026-08-29 by
+`scripts/measure_lock_reliability.py` (writes `data-raw/lock_reliability.json`):
+over the first 27.4 hours, **3 of 97 due cron slots fired -- 3.1% -- with a
+longest gap of 16.1 hours and zero failures**. GitHub never started the other 94;
+one of the three even fired at 05:12 UTC, outside the cron's own 11-23 range. So
+`LOCK_WINDOW_HOURS` **stays at 2.0**: narrowing it to 1.0 would mean a pick can
+reach kickoff with no locker run having happened, freeze late, and be voided --
+the precise failure that widening it fixed. The floor for that constant is the
+measured `worst_gap_hours`, so re-run the measurement before revisiting it. The
+fast locker is still the right design; it is not yet a working mechanism, and the
+board's protection today rests on the 2-hour window and on `publish`'s own lock.
 
 **It ABORTS on a dirty working tree** (SKILL.md STEP 0.5) and must never be
 "fixed" by stashing. It once improvised `git stash` to get a blocked

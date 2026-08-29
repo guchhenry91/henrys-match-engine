@@ -58,7 +58,8 @@ def parse(rows) -> list:
         date = fixture.get("date")
         if not (home and away and date):
             continue
-        out.append({"date": date[:10], "home": home, "away": away,
+        out.append({"id": fixture.get("id"),
+                    "date": date[:10], "home": home, "away": away,
                     "home_goals": int(home_goals), "away_goals": int(away_goals),
                     "round": (row.get("league") or {}).get("round"),
                     "status": status})
@@ -85,7 +86,16 @@ def upcoming(rows) -> list:
         status = (fixture.get("status") or {}).get("short")
         if not (home and away):
             continue
-        out.append({"date": (fixture.get("date") or "")[:10], "matchday": rnd,
+        when = fixture.get("date") or ""
+        out.append({"id": fixture.get("id"),
+                    "date": when[:10],
+                    # THE FULL TIMESTAMP, not just the day. A pick is frozen
+                    # against its kickoff, so a date-only field would force the
+                    # locker to assume a time -- and an assumed kickoff is what
+                    # froze Alaves 10.5 hours early and tainted Sevilla out of the
+                    # record entirely on 2026-08-15. Store what the feed says.
+                    "kickoff": when or None,
+                    "matchday": rnd,
                     "home": home, "away": away,
                     "played": status in FINISHED})
     return sorted(out, key=lambda f: (f["date"], f["home"]))
