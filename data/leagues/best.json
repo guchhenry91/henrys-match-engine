@@ -1,14 +1,18 @@
 {
-  "updated": "2026-08-29T14:35:33.389472+00:00",
+  "updated": "2026-08-29T18:45:00.516485+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
     "correct": 2,
-    "wrong": 0,
-    "total": 2,
+    "wrong": 1,
+    "total": 3,
     "void": 2,
     "pending": 0,
     "by_confidence": {
+      "4": {
+        "correct": 0,
+        "total": 1
+      },
       "5": {
         "correct": 2,
         "total": 2
@@ -63,7 +67,9 @@
       "provisional": false,
       "odds": 1.3,
       "book": "bet365"
-    },
+    }
+  ],
+  "settled": [
     {
       "league": "Bundesliga",
       "league_key": "BUNDESLIGA",
@@ -75,29 +81,14 @@
       "pick": "Mainz",
       "confidence": 4,
       "p_pick": 0.655,
-      "score": "2-0",
-      "provisional": false,
-      "odds": 1.65,
-      "book": "bet365"
+      "board": true,
+      "result": {
+        "home_goals": 0,
+        "away_goals": 0
+      },
+      "graded": "wrong",
+      "void": false
     },
-    {
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 18,
-      "matchweek": 2,
-      "date": "2026-08-30T15:30:00+00:00",
-      "home": "Manchester United",
-      "away": "Ipswich",
-      "pick": "Manchester United",
-      "confidence": 4,
-      "p_pick": 0.6531,
-      "score": "1-0",
-      "provisional": true,
-      "odds": 1.42,
-      "book": "bet365"
-    }
-  ],
-  "settled": [
     {
       "league": "La Liga",
       "league_key": "LALIGA",
