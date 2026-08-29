@@ -2,11 +2,11 @@
   "league": "Premier League",
   "updated": "2026-08-29T18:38:44.089114+00:00",
   "record": {
-    "correct": 6,
+    "correct": 7,
     "wrong": 5,
-    "total": 11,
+    "total": 12,
     "void": 1,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "5": {
         "correct": 1,
@@ -25,8 +25,8 @@
         "total": 2
       },
       "1": {
-        "correct": 1,
-        "total": 4
+        "correct": 2,
+        "total": 5
       }
     }
   },
@@ -47,204 +47,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 20,
-      "matchweek": 2,
-      "date": "2026-08-29T16:30:00+00:00",
-      "venue": "Tottenham Hotspur Stadium",
-      "home": "Tottenham",
-      "away": "Newcastle United",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.343,
-        "p_draw": 0.292,
-        "p_away": 0.364,
-        "pick": "Newcastle United",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.8,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 9.5,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 9.3,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3674,
-        "why": {
-          "home_attack_pct": 3.4,
-          "home_defence_pct": -2.1,
-          "away_attack_pct": 24.3,
-          "away_defence_pct": 2.3,
-          "home_advantage_pct": 21.2
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Tottenham 34% / draw 29% / Newcastle United 36%",
-          "Expected goals: 1.25 - 1.29"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Tottenham",
-          "player": "Richarlison",
-          "position": "FW",
-          "lambda_goals": 0.31599470126693674,
-          "anytime_pct": 15.3,
-          "exp_shots": 2.35,
-          "p_shots_2plus": 47.3,
-          "exp_sot": 0.96,
-          "p_sot_1plus": 51.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Tottenham",
-          "player": "Mathys Tel",
-          "position": "FW",
-          "lambda_goals": 0.179448206255844,
-          "anytime_pct": 7.5,
-          "exp_shots": 1.93,
-          "p_shots_2plus": 34.0,
-          "exp_sot": 0.57,
-          "p_sot_1plus": 31.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Tottenham",
-          "player": "Conor Gallagher",
-          "position": "MF",
-          "lambda_goals": 0.10083086872248094,
-          "anytime_pct": 3.4,
-          "exp_shots": 1.08,
-          "p_shots_2plus": 9.2,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 22.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 76.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Newcastle United",
-          "player": "William Osula",
-          "position": "FW",
-          "lambda_goals": 0.2867255483506626,
-          "anytime_pct": 13.6,
-          "exp_shots": 1.8,
-          "p_shots_2plus": 29.8,
-          "exp_sot": 0.78,
-          "p_sot_1plus": 43.2,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Newcastle United",
-          "player": "Yoane Wissa",
-          "position": "FW",
-          "lambda_goals": 0.2737294459722299,
-          "anytime_pct": 12.8,
-          "exp_shots": 1.72,
-          "p_shots_2plus": 27.2,
-          "exp_sot": 0.69,
-          "p_sot_1plus": 38.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Newcastle United",
-          "player": "Harvey Barnes",
-          "position": "FW",
-          "lambda_goals": 0.22478984988637868,
-          "anytime_pct": 10.0,
-          "exp_shots": 1.94,
-          "p_shots_2plus": 34.1,
-          "exp_sot": 0.72,
-          "p_sot_1plus": 40.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Richarlison",
-          "team": "Tottenham",
-          "position": "FW",
-          "p_pick": 0.516,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "anytime_pct": 15.3,
-          "exp_shots": 2.35,
-          "exp_sot": 0.96,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            2,
-            0,
-            0
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 4.125084824722222,
-          "unavailable": false,
-          "team_attribution": "Tottenham"
-        }
-      ],
-      "market": {
-        "p_home": 0.417,
-        "p_draw": 0.257,
-        "p_away": 0.326,
-        "odds": {
-          "home": 2.25,
-          "draw": 3.75,
-          "away": 2.9
-        },
-        "book": "bet365",
-        "edge": 0.038,
-        "pick_odds": 2.9,
-        "ev": 0.057
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 13,
       "matchweek": 2,
@@ -5705,6 +5507,17 @@
       "points": 6
     },
     {
+      "team": "Newcastle United",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 4,
+      "ga": 2,
+      "gd": 2,
+      "points": 4
+    },
+    {
       "team": "Everton",
       "played": 2,
       "won": 1,
@@ -5793,17 +5606,6 @@
       "points": 2
     },
     {
-      "team": "Newcastle United",
-      "played": 1,
-      "won": 0,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 2,
-      "ga": 2,
-      "gd": 0,
-      "points": 1
-    },
-    {
       "team": "Bournemouth",
       "played": 2,
       "won": 0,
@@ -5859,17 +5661,6 @@
       "points": 0
     },
     {
-      "team": "Tottenham",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 0,
-      "ga": 3,
-      "gd": -3,
-      "points": 0
-    },
-    {
       "team": "Aston Villa",
       "played": 1,
       "won": 0,
@@ -5899,6 +5690,17 @@
       "lost": 2,
       "gf": 1,
       "ga": 6,
+      "gd": -5,
+      "points": 0
+    },
+    {
+      "team": "Tottenham",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 0,
+      "ga": 5,
       "gd": -5,
       "points": 0
     }
@@ -6154,5 +5956,5 @@
     "77 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Brentford/Coventry: J. Dasilva. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-29T18:52:14.490125+00:00"
+  "results_updated": "2026-08-29T19:02:46.590808+00:00"
 }
