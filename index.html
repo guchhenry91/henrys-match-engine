@@ -998,6 +998,25 @@ function viewGrades(){
     ${tierRow("Player · On target","Shots on target",rbm.sot)}
     ${tierRow("Parlays","All-or-nothing accas",par.record)}</div>`;
   h+=`<p class="note">Every pick locks before kickoff and is graded against the frozen call — never re-scored with hindsight. Each market, and the parlays, are scored on their own.</p>`;
+
+  // PLAYED FIXTURES THAT NEVER FROZE A PICK. Without this the record above looks
+  // complete while quietly omitting games -- and the omission is not random, it
+  // is whichever fixtures kicked off when the scheduler happened not to run. A
+  // reader is entitled to see the sample the number is drawn from.
+  const missed=[];
+  for(const k of ["pl","laliga","bundesliga","ligue1"])
+    for(const m of ((DATA[k]||{}).unrecorded||[]))
+      missed.push({...m, league:(DATA[k]||{}).league||k});
+  if(missed.length){
+    missed.sort((a,b)=>(a.date<b.date?1:-1));
+    h+=`<div class="eyebrow" style="margin-top:18px">Not in the record · ${missed.length} played fixture${missed.length===1?"":"s"}</div>
+      <div class="glass rowc">${missed.slice(0,12).map(m=>`<div class="rw static">
+        <div class="info"><b>${esc(m.home)} v ${esc(m.away)}</b>
+          <span>${whenStr(m.date)} · ${esc(m.league)}${m.score?` · finished ${esc(m.score)}`:""}</span></div>
+        <span class="mk w">no pick</span></div>`).join("")}</div>
+      <p class="note">These were played but never froze a pick, so they count neither way. A pick only enters the record if it was frozen before kickoff; when a scheduled run is dropped, the fixture leaves no entry at all. They are listed here because a record that hides them would describe only the games that happened to kick off near a run.</p>`;
+  }
+
   h+=allPicksBlock();
   h+=calibrationBlock();
   return h+archiveLink();

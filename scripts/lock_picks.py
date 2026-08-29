@@ -27,11 +27,14 @@ from pathlib import Path
 
 import pandas as pd
 
-from leagues import config, parlays, picks
+from leagues import config, lockwindow, parlays, picks
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "leagues"
 PICKS_DIR = ROOT / "data-raw" / "leagues"
+# The FLOOR. The window actually applied is lockwindow.window(), which widens to
+# cover the gap since the last locking run so a fixture cannot fall between two
+# runs and vanish from the record. See leagues/lockwindow.py.
 LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
 
 FILES = {"PL": "pl", "LALIGA": "laliga", "BUNDESLIGA": "bundesliga", "LIGUE1": "ligue1"}
@@ -48,7 +51,7 @@ def _hours_out(date_text, now) -> float:
     return (picks._utc(pd.Timestamp(date_text)) - now).total_seconds() / 3600.0
 
 
-def lock_matches(now) -> list:
+def lock_matches(now, window=None) -> list:
     """Freeze the match-winner pick for anything inside the window."""
     frozen = []
     for league, stem in FILES.items():
@@ -69,7 +72,7 @@ def lock_matches(now) -> list:
             if match.get("time_suspect"):
                 continue
             hours = _hours_out(match["date"], now)
-            if hours <= 0 or hours > LOCK_WINDOW_HOURS:
+            if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
                 continue
             key = f"{tag}:{match['id']}"
             if key in log:
@@ -87,7 +90,7 @@ def lock_matches(now) -> list:
     return frozen
 
 
-def lock_players(now) -> list:
+def lock_players(now, window=None) -> list:
     """Freeze player picks for anything inside the window."""
     path = OUT / "player_picks.json"
     if not path.exists():
@@ -99,7 +102,7 @@ def lock_players(now) -> list:
         if not league or pick.get("p_pick") is None:
             continue
         hours = _hours_out(pick["date"], now)
-        if hours <= 0 or hours > LOCK_WINDOW_HOURS:
+        if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
             continue
         log_path = PICKS_DIR / league.lower() / "player_picks_log.json"
         if league not in logs:
@@ -188,16 +191,25 @@ def _nfl_locked_count() -> int:
 
 def main():
     now = picks._utc(pd.Timestamp.now("UTC"))
-    matches = lock_matches(now)
-    players = lock_players(now)
+    # Widened to cover the gap since the last locking run. With a healthy
+    # scheduler this is just LOCK_WINDOW_HOURS; after a six-hour drought it is
+    # what stops four played fixtures leaving no pick at all.
+    window = lockwindow.window(now)
+    if window > LOCK_WINDOW_HOURS:
+        print(f"lock window widened to {window:.1f}h "
+              f"(last locking run was that long ago)")
+    matches = lock_matches(now, window)
+    players = lock_players(now, window)
     accas = lock_parlays(now)
     try:
         nfl = lock_nfl(now)
     except Exception as exc:                 # never let NFL sink soccer locking
         print(f"  NFL locking skipped: {exc}")
         nfl = []
+    lockwindow.beat(now)          # always, even when nothing froze: the NEXT run
+                                  # widens from the last time locking was ATTEMPTED
     if not (matches or players or accas or nfl):
-        print(f"nothing inside the {LOCK_WINDOW_HOURS:g}h lock window; no changes")
+        print(f"nothing inside the {window:.1f}h lock window; no changes")
         return 0
     for line in matches:
         print(f"  froze match  {line}")

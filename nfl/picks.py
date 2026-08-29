@@ -26,6 +26,7 @@ from leagues import picks as core
 # Same window the soccer and UCL boards use, set from the MEASURED worst gap
 # between locker runs (see leagues/config.py). A second constant here would be a
 # second thing to forget to update.
+from leagues import lockwindow
 from leagues.config import LOCK_WINDOW_HOURS
 from nfl import config, data
 
@@ -211,7 +212,7 @@ def _lock_games(payload, log, now):
         kickoff = _utc(kickoff)
         core.release_moved_lock(log, key, kickoff, now=now)
         hours_out = (kickoff - now).total_seconds() / 3600.0
-        if key not in log and hours_out <= LOCK_WINDOW_HOURS:
+        if key not in log and hours_out <= lockwindow.window(now):
             core.lock_pick(log, key, game["pick"], _confidence(game["p_pick"]),
                            kickoff, now=now, p_pick=game["p_pick"], board=True)
         entry = log.get(key)
@@ -236,7 +237,7 @@ def _lock_props(payload, log, now):
             kickoff = _utc(kickoff)
             core.release_moved_lock(log, key, kickoff, now=now)
             hours_out = (kickoff - now).total_seconds() / 3600.0
-            if key not in log and hours_out <= LOCK_WINDOW_HOURS:
+            if key not in log and hours_out <= lockwindow.window(now):
                 entry = core.lock_prop(
                     log, key, market, pick["player"], pick["team"],
                     pick["probability"], _confidence(pick["probability"]), kickoff,

@@ -12,8 +12,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from leagues import (config, dataset, fixtures, odds, parlays, picks, players,
-                     props, second_tier, sim, six_scores)
+from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks,
+                     players, props, second_tier, sim, six_scores)
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -46,6 +46,12 @@ MATCHWEEKS_AHEAD = 1
 # without importing this module's model stack. Re-exported here because a
 # dozen call sites and several tests already reference publish.LOCK_WINDOW_HOURS.
 LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
+
+def _lock_window():
+    """The window in force for this run: the floor, widened to cover the gap
+    since the last locking run. Read through a function so tests that patch
+    publish.LOCK_WINDOW_HOURS still control the floor."""
+    return max(LOCK_WINDOW_HOURS, lockwindow.window())
 # A pick joins the high-confidence board at this probability. Chosen from a pooled
 # walk-forward over all four leagues, not guessed. The tier hit rates that justify
 # it are no longer copied here: `leagues.tune` computes them at each of these
@@ -247,6 +253,35 @@ def _market_block(mkt: dict | None, pred: dict, pick_type: str) -> dict | None:
         out["pick_odds"] = price
         out["ev"] = round(model_p * price - 1.0, 3)
     return out
+
+
+def unrecorded_fixtures(played, log, key_for) -> list[dict]:
+    """Played fixtures that carry NO frozen pick, so are absent from the record.
+
+    A pick enters the record only if a locking run happened before kickoff. When
+    the scheduler drops runs, a fixture can be shown on the board with a pick,
+    be played, and then leave no trace at all -- not graded, not void, simply
+    gone. On 2026-08-28 that took four matches across four leagues, including
+    Bayern Munich v Stuttgart and Lille v Paris SG.
+
+    A record that silently omits them is not merely incomplete, it is a BIASED
+    SAMPLE: it describes the fixtures that happened to kick off near a workflow
+    run. `leagues.lockwindow` narrows how often this happens; publishing the list
+    is what stops the remainder being invisible. A reader can see 5-4 and also
+    see that two played fixtures are not in it.
+    """
+    out = []
+    for _, m in played.iterrows():
+        if key_for(m["match_id"]) in log:
+            continue
+        out.append({
+            "date": str(m["date"]),
+            "home": m["home"], "away": m["away"],
+            "score": (f"{int(m['home_goals'])}-{int(m['away_goals'])}"
+                      if pd.notna(m.get("home_goals")) else None),
+            "reason": "no locking run happened before kickoff",
+        })
+    return sorted(out, key=lambda r: r["date"])
 
 
 def actual_standings(played, all_teams) -> list[dict]:
@@ -552,7 +587,7 @@ def build(league: str = "PL") -> dict:
         # docstring); a played match is never re-locked.
         if picks.release_moved_lock(log, log_key(m["match_id"]), m["date"], now=now):
             released_locks.append(f"{m['home']} v {m['away']}")
-        if hours_out <= LOCK_WINDOW_HOURS and not bool(m.get("time_suspect")):
+        if hours_out <= _lock_window() and not bool(m.get("time_suspect")):
             entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
                                     confidence=_confidence(probs[pick]),
                                     kickoff=m["date"], now=now,
@@ -620,7 +655,7 @@ def build(league: str = "PL") -> dict:
                     continue
                 pkey = f"{log_key(m['match_id'])}:{market}:{p['player']}"
                 prob = p[field] / 100.0
-                if hours_out <= LOCK_WINDOW_HOURS:
+                if hours_out <= _lock_window():
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=prob, confidence=_confidence(prob),
@@ -789,6 +824,9 @@ def build(league: str = "PL") -> dict:
         "league": lg.name,
         "updated": datetime.now(timezone.utc).isoformat(),
         "record": picks.record(graded),
+        # Played fixtures with no frozen pick. Published so the record cannot
+        # look complete while quietly omitting games -- see unrecorded_fixtures.
+        "unrecorded": unrecorded_fixtures(played, log, log_key),
         "matches": out_matches,
         "season": season,
         "table": table.to_dict(orient="records"),

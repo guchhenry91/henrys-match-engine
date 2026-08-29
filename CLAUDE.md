@@ -513,6 +513,41 @@ local commit, so the class of bug that froze the pipeline for a full day on
 2026-08-02 (one missing comma in transfers.json) can't happen again -- caught
 at commit time, not discovered by a failed run hours later.
 
+## The lock window adapts to how often the locker actually runs
+`leagues/lockwindow.py`. `LOCK_WINDOW_HOURS` is the FLOOR; the window in force
+widens to cover the gap since the last locking run, capped at `MAX_WINDOW_HOURS`
+(12).
+
+**This exists because a fixed window plus a sparse scheduler produces a BIASED
+RECORD, not just a thin one.** A pick enters the record only if a locking run
+happens before kickoff. On 2026-08-28 the runs were at 15:23 and 21:18, and every
+fixture kicking off between 18:30 and 19:30 fell in the gap — **Bayern Munich v
+Stuttgart, Lille v Paris SG, Alaves v Villarreal, Crystal Palace v Manchester
+City**, plus Liverpool v Nottingham Forest the next morning. All were shown on the
+board with a pick, all were played, and none left any entry: not graded, not void,
+gone. The published record read 5-4 while silently omitting two played PL games.
+
+That is a sample selected by GitHub's scheduler rather than by anything about
+football, which is why it matters more than the missing count suggests.
+
+- **What widening trades.** A pick frozen six hours out has seen less team news
+  than one frozen at two. It is still frozen strictly before kickoff, so it is
+  still honest — `LATE_LOCK_HOURS` stays 0.0 and nothing here relaxes it. The cost
+  is measured and small (a confirmed XI moved Arsenal 77.4% → 77.1%); the
+  alternative is losing the fixture from the record entirely. **Freezing early is a
+  worse pick; freezing never is a worse record.**
+- **The cap** stops the first run back from a multi-day outage freezing a whole
+  matchweek at once on stale numbers.
+- Every locking path writes the heartbeat — the fast locker AND `publish` — because
+  what matters is the gap between runs that *could* have frozen something.
+- A missing or corrupt heartbeat degrades to the plain floor, never wider.
+
+## `unrecorded`: played fixtures with no frozen pick
+Published per league and shown on the Grades tab. The adaptive window narrows this
+set; publishing it is what stops the remainder being invisible. A reader can see
+5-4 **and** see which played games are not in it. A record that hides them would
+describe only the fixtures that happened to kick off near a run.
+
 ## Telegram notifications
 Two separate channels, both gated on `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID`
 being set (silently skip otherwise -- a missing notifier must never fail the

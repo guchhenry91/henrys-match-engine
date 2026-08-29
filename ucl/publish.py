@@ -17,6 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 from leagues import picks
+from leagues import lockwindow
 from leagues.config import LOCK_WINDOW_HOURS
 from leagues.model import promoted_priors
 from ucl import backtest, config, data
@@ -100,7 +101,7 @@ def freeze_and_grade(matches: list, now=None) -> tuple[dict, dict]:
         picks.release_moved_lock(log, key, kickoff, now=now)
 
         hours_out = (kickoff - now).total_seconds() / 3600.0
-        if key not in log and hours_out <= LOCK_WINDOW_HOURS:
+        if key not in log and hours_out <= lockwindow.window(now):
             picks.lock_pick(log, key, match["pick"], match["confidence"],
                             kickoff, now=now, p_pick=match["p_pick"],
                             board=bool(match.get("best_pick")))
