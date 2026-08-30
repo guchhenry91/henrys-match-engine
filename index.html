@@ -841,7 +841,7 @@ function nflPropRow(p){
   return `<div class="rw static">
     <div class="av" style="background:${nc(p.team)};font-size:${p.team.length>2?"13px":"15px"}">${esc(p.team)}</div>
     <div class="info"><b>${esc(p.player)}</b>
-      <span>${esc(p.team)} ${venue} ${esc(p.opponent)} · ${nflWhen(p.kickoff)}</span>
+      <span>${p.depth_label?esc(p.depth_label)+" · ":""}${esc(p.team)} ${venue} ${esc(p.opponent)} · ${nflWhen(p.kickoff)}</span>
       ${nflLastFive(p)}</div>
     ${/* DOUBT REPLACES THE STRENGTH TIER, never sits beside it. Both plus the
           market tag and the figure overflowed the row at 375px -- and for a

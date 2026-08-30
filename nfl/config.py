@@ -80,3 +80,40 @@ MIN_LINE = {
 # filled up with men who retired years ago -- Alfred Blue, C.J. Anderson and Colt
 # McCoy were all being projected onto 2026 fixtures from their final seasons.
 ACTIVE_WITHIN_SEASONS = 1
+
+
+# HOW FAR DOWN THE DEPTH CHART A MARKET STAYS CREDIBLE.
+#
+# `pos_rank` is a player's rank WITHIN his position slot, so 1 is the starter at
+# that spot. These caps close the hole the board used to state and not fix: "a
+# backup quarterback carries a low line and can top a market he may not play in."
+#
+# Measured on the 2026 week 1 board before the gate existed. Six of nineteen
+# passing picks were BACKUP quarterbacks -- Marcus Mariota (WAS QB2) was the
+# second-highest passing pick on the whole board at 62%, and Cleveland published
+# its QB2 and QB3 while its starter appeared nowhere. Their lines sit at 150-180
+# yards precisely because they have only ever played in relief, which makes "over"
+# look easy right up until they take no snap at all.
+#
+# PASSING IS 1 BECAUSE THE MARKET IS WINNER-TAKE-ALL. One quarterback takes
+# essentially every drop-back, so a QB2 is not a smaller share of the market, he
+# is usually none of it. The other three markets genuinely share: a WR3 and an RB2
+# play real snaps, so they stay, and only deep reserves are cut. Rank 4+ removed
+# Mack Hollins (WR4) at 74.7%, then the highest receiving pick on the board.
+#
+# This REMOVES a player rather than flagging him, for the same reason a player
+# reported OUT is removed: his last five games look exactly as good as anyone's
+# right up until he is inactive.
+MAX_DEPTH_RANK = {
+    "anytime_touchdown": 3,
+    "receiving_yards": 3,
+    "rushing_yards": 3,
+    "passing_yards": 1,
+}
+
+# The depth chart may only overrule the board if it describes the same league the
+# board does -- the lesson of rosters.corroborates, where a file with 43-71
+# plausible names a team passed every count-based check while omitting Patrick
+# Mahomes. Below this share of the board's own players, the chart is ignored
+# entirely and the gate is reported as not applied.
+MIN_DEPTH_COVERAGE = 0.80

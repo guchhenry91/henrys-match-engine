@@ -26,6 +26,25 @@ unverified feed is what produced 177 wrongly-deleted players earlier today.
 # when bet365 is not quoting.
 PREFERRED_BOOKS = ("Bet365", "Pinnacle", "WilliamHill", "Betfair", "Unibet", "888Sport")
 
+# PLAYER-PROP BET TYPE IDS, READ FROM THE API'S OWN CATALOGUE on 2026-08-30
+# (scripts/probe_nfl_odds.py), not inferred. These are the four markets the board
+# publishes. The duplicates are real -- the catalogue lists "Player Passing Yards"
+# at both 210 and 336 -- so both are accepted rather than one being guessed at.
+#
+# NOTHING IS PRICED YET. The same probe asked for the week-1 opener's odds by game
+# id, from bet365 and from every book, and got zero records both times. Note that
+# the PREVIOUS conclusion of "no odds" was reached with a broken query: it filtered
+# by a `date` parameter the endpoint does not have, and the API was answering "The
+# Date field do not exist." So the absence is now established properly rather than
+# inherited. Having the ids recorded means that when prices do appear, no one has
+# to guess which markets to ask for.
+PLAYER_PROP_BETS = {
+    "passing_yards": (210, 336),
+    "rushing_yards": (236, 328),
+    "receiving_yards": (266,),
+    "anytime_touchdown": (47,),      # the catalogue calls it "Anytime Goal Scorer"
+}
+
 # The market that settles a team-winner pick. NFL has no draw in the regular
 # season outside a rare tie, so a two-way price de-vigs cleanly.
 MONEYLINE_MARKETS = ("Home/Away", "Moneyline", "Match Winner", "3Way Result")

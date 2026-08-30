@@ -366,9 +366,68 @@ Live effect on the week 1 board: 98 confirmed, **10 real reassignments** (Isaiah
 Likely BAL->NYG, Jauan Jennings SF->MIN, Rico Dowdle CAR->PIT, Wan'Dale Robinson
 NYG->TEN, Tank Bigsby JAX->PHI and others), nothing wrongly dropped.
 
+## Depth charts: who starts, and who was cut (`nfl/depth.py`)
+**The "no depth charts" hole is closed.** It was not hypothetical: on the 2026
+week 1 board, **six of nineteen passing picks were backup quarterbacks**. Marcus
+Mariota (WAS QB2) was the second-highest passing pick on the whole board at 62%,
+and Cleveland published its QB2 *and* QB3 while its starter appeared nowhere.
+
+The trap is mechanical. A backup's line is his own entering median, set in relief,
+so it sits at 150-180 passing yards against a starter's 210-265. "Over" looks easy,
+and the model is right that he would beat it **if he played** — what it cannot see
+is that he will not take a snap.
+
+It also answers a staleness question the roster cannot. Four days after the cut to
+53, nflverse's season roster still listed **90 active players a team**, and so did
+its weekly file; neither could say who had been cut. The depth chart is
+republished continuously and only holds players a team is actually carrying.
+
+- **`MAX_DEPTH_RANK`** (nfl/config.py): passing **1**, the other three **3**.
+  Passing is winner-take-all — one quarterback takes essentially every drop-back,
+  so a QB2 is usually *none* of that market rather than a smaller share. The other
+  markets genuinely share: a WR3 and an RB2 play real snaps, so only deep reserves
+  are cut. Rank 4+ removed Mack Hollins (WR4) at 74.7%, then the highest receiving
+  pick on the board.
+- **Removed, not flagged** — the same reason a player reported OUT is removed.
+- **Absence from the chart KEEPS a player.** Dropping on absence is exactly how
+  177 current players were deleted in August. Only an explicit rank too far down
+  removes anyone.
+- **The corroboration gate applies** (`MIN_DEPTH_COVERAGE = 0.80`): a chart that
+  does not recognise the board's own players is ignored wholesale, and
+  `depth_check.applied` on the board says whether the filter actually ran.
+- Every card publishes `depth_label` ("QB1", "WR3"), which is the context that
+  tells a reader whether a low line is a soft spot or a warning.
+
+Live effect on week 1: 108 picks -> 93, every passing pick now a QB1.
+
+## nflverse caching has a MAX AGE
+`_read_csv` used to cache forever, and CI caches the download directory between
+runs, so a file fetched once in pre-season was still being served weeks later. The
+roster cache was **68 hours old** and the schedule **93 hours old** eleven days
+before kickoff. Completed seasons still cache indefinitely (they cannot change);
+rosters, depth charts, the schedule and the current season's player weeks get a
+few hours. A failed refetch falls back to the cached copy with a **loud warning**,
+never silently.
+
+## Book prices: what the API actually returns
+Established 2026-08-30 by `scripts/probe_nfl_odds.py`, and worth stating precisely
+because the previous answer was reached with a broken query.
+
+- **bet365 IS visible** (bookmaker id 4), and all four markets exist as bet types:
+  Player Passing Yards **210/336**, Player Rushing Yards **236/328**, Player
+  Receiving Yards **266**, Anytime scorer **47** (the catalogue calls it "Anytime
+  Goal Scorer"). Recorded in `odds.PLAYER_PROP_BETS` so nothing is guessed later.
+- **No prices are served.** Asking for the week-1 opener's odds BY GAME ID returned
+  zero records from bet365 and from every book.
+- The earlier "no odds" finding filtered on a **`date` parameter the endpoint does
+  not have** — the API was answering "The Date field do not exist." So the absence
+  is only now properly established, by game id.
+- The board publishes `odds.checked_at`, so "0 priced" cannot be confused with
+  "never asked" — the same distinction the injury report draws between "not
+  reported" and "confirmed fit".
+
 ## Known holes, stated on the board rather than hidden
-No depth charts -- a backup quarterback carries a low line and can top a market he
-may not play in. **Lines are each player's own entering median, not a sportsbook
+**Lines are each player's own entering median, not a sportsbook
 price**, so "over" means a better day than his typical one and the board makes NO
 claim to beat a bookmaker's number. `ACTIVE_WITHIN_SEASONS` keeps long-retired
 players off -- without it the week 1 board filled with Alfred Blue, C.J. Anderson

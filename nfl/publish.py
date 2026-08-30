@@ -18,7 +18,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from nfl import config, data, features, games_model, odds as odds_mod, rosters
+from nfl import (config, data, depth, features, games_model,
+                 odds as odds_mod, rosters)
 from nfl import picks
 from nfl.model import PropModel
 
@@ -101,10 +102,12 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
 
 
 def player_projections(player_weeks, games, market, upcoming, injuries=None,
-                       roster_index=None, rosters_complete=False) -> list:
+                       roster_index=None, rosters_complete=False,
+                       depth_index=None, depth_trusted=False) -> list:
     """Project every eligible player in the upcoming slate for one market."""
     injuries = injuries or {}
     roster_index = roster_index or {}
+    depth_index = depth_index or {}
     frame = features.build(player_weeks, market, games=games)
     if frame.empty:
         return []
@@ -150,7 +153,7 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     if playing.empty:
         return []
 
-    rows = []
+    rows, dropped_depth = [], []
     for (_, player), prob in zip(playing.iterrows(), model.predict(playing)):
         game, opponent, is_home = fixtures[player["team"]]
         name = player["player_display_name"]
@@ -162,6 +165,18 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
         report = injuries.get(name) or {}
         if report.get("status") == "out":
             continue
+
+        # TOO FAR DOWN THE DEPTH CHART IS THE SAME KIND OF FACT AS RULED OUT: the
+        # model rates him on the snaps he took in relief, and cannot see that he
+        # will not take any. Only applied when the chart corroborates the board
+        # (see nfl/depth.py) -- otherwise a thin or broken chart would delete
+        # real players, which is exactly what happened in August.
+        entry = depth_index.get(str(player["player_id"]))
+        if depth_trusted:
+            ok, why = depth.verdict(market, entry)
+            if not ok:
+                dropped_depth.append(f"{name} ({why})")
+                continue
 
         last_five = [float(v) for v in (player["last_five"] or [])]
         rows.append({
@@ -194,12 +209,34 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             # confirmed roster spot from an inference off last season.
             "club_source": player.get("_why", "unknown"),
             "injury_note": report.get("detail") or None,
+            "depth_pos": (entry or {}).get("pos"),
+            "depth_rank": (entry or {}).get("rank"),
+            "depth_label": (f"{entry['pos']}{entry['rank']}" if entry else None),
             "games_played": int(player["games_before"]),
             "as_of_season": int(player["season"]),
             "as_of_week": int(player["week"]),
         })
+    if dropped_depth:
+        print(f"  {market}: depth chart removed {len(dropped_depth)} -> "
+              f"{dropped_depth[:6]}")
     rows.sort(key=lambda r: -r["probability"])
     return rows
+
+
+def _odds_checked_at():
+    """When the odds sync last ran, from the file it writes. None if it never has.
+
+    Published so an empty odds block is legible: "asked an hour ago and there was
+    nothing" and "never asked" look identical otherwise, and only one of them is a
+    reason to doubt the board.
+    """
+    path = ROOT / "data-raw" / "nfl" / "odds.json"
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("updated")
+    except Exception:
+        return None
 
 
 def build() -> dict:
@@ -217,12 +254,25 @@ def build() -> dict:
     prices = book_prices()
     roster = data.rosters()
     roster_index = rosters.build_index(roster)
+
+    # THE CURRENT DEPTH CHART. Answers two things the roster cannot: who is
+    # actually being carried (four days after the cut to 53 the roster file still
+    # listed 90 active a team) and who STARTS. See nfl/depth.py.
+    chart = data.depth_charts()
+    depth_index = depth.build_index(chart)
     # The roster may only overrule the box scores if it demonstrably describes the
     # same league. Measured BY ID against the players we independently know were
     # active last season -- see rosters.corroborates for what happened without it.
     latest_season = player_weeks[player_weeks["season"] == player_weeks["season"].max()]
     known_ids = sorted({str(i) for i in latest_season["player_id"] if str(i) != "nan"})
     rosters_complete, agreement = rosters.corroborates(roster_index, known_ids)
+    # Same corroboration discipline for the depth chart: it may only overrule the
+    # board if it recognises the board's own players. A chart that does not is far
+    # more likely to be broken than to be evidence the board is wrong.
+    depth_trusted, depth_coverage, depth_size = depth.usable(depth_index, known_ids)
+    print(f"depth chart: {depth_size} players, recognises "
+          f"{depth_coverage:.1%} of known actives -> "
+          f"{'APPLIED' if depth_trusted else 'IGNORED (below the bar)'}")
     if not rosters_complete:
         print(f"WARNING: roster file recognises only {agreement:.0%} of known active "
               f"players; NOT trusting it to drop or move anyone")
@@ -279,7 +329,9 @@ def build() -> dict:
         projections = player_projections(player_weeks, history, market, upcoming,
                                          injuries=injuries,
                                          roster_index=roster_index,
-                                         rosters_complete=rosters_complete)
+                                         rosters_complete=rosters_complete,
+                                         depth_index=depth_index,
+                                         depth_trusted=depth_trusted)
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:
@@ -311,6 +363,23 @@ def build() -> dict:
         # board right now: a backup quarterback carries a low line because he has
         # only played in relief, which makes "over" look easy until you notice he
         # may not take a snap.
+        # Stated beside the roster check, because a reader deserves to know
+        # whether the starter filter actually ran on the board they are seeing.
+        "depth_check": {
+            "source": "nflverse depth charts",
+            "players": depth_size,
+            "coverage_of_known_actives": round(depth_coverage, 3),
+            "applied": depth_trusted,
+            "caps": config.MAX_DEPTH_RANK,
+            "note": ("Backups are removed, not flagged: a backup's line is his own "
+                     "entering median, set in relief, so 'over' looks easy right "
+                     "up until he takes no snap. Passing is capped at the starter "
+                     "because one quarterback takes essentially every drop-back."
+                     if depth_trusted else
+                     "NOT APPLIED -- the depth chart did not recognise enough of "
+                     "the board's own players to be trusted, so no player was "
+                     "removed on its say-so."),
+        },
         "roster_check": {
             "source": "nflverse rosters",
             "players_placed": len(roster_index),
@@ -327,6 +396,26 @@ def build() -> dict:
                      "probabilities and makes NO claim to beat a bookmaker."
                      if not prices else
                      "Edges are model probability minus the de-vigged book price."),
+            # WHEN THIS WAS LAST ASKED, so "0 priced" cannot be confused with
+            # "never checked" -- the same distinction the injury report draws
+            # between "not reported" and "confirmed fit".
+            "checked_at": _odds_checked_at(),
+            "player_props": {
+                "available": False,
+                "bet_type_ids": odds_mod.PLAYER_PROP_BETS,
+                # Established 2026-08-30 by scripts/probe_nfl_odds.py: bet365 IS a
+                # visible bookmaker (id 4) and all four markets exist as bet types,
+                # but asking for the week-1 opener's odds BY GAME ID returned zero
+                # records from bet365 and from every book. The previous "no odds"
+                # conclusion had been reached with a broken query -- it filtered on
+                # a `date` parameter the endpoint does not have -- so this is the
+                # first properly established answer.
+                "note": ("bet365 is visible and every market exists in the API's "
+                         "catalogue, but this account returns no pre-match NFL "
+                         "prices. Verified by game id, not by the date filter that "
+                         "silently errored before. The ids are recorded so prices "
+                         "are picked up automatically if they appear."),
+            },
         },
         "injury_report": {
             "players_listed": len(injuries),
