@@ -40,176 +40,16 @@
       "away": "Le Mans",
       "score": "3-2",
       "reason": "no locking run happened before kickoff"
-    }
-  ],
-  "matches": [
+    },
     {
-      "id": 15,
-      "matchweek": 2,
-      "date": "2026-08-30T18:45:00+00:00",
-      "venue": "Stade Louis II",
+      "date": "2026-08-30 18:45:00+00:00",
       "home": "Monaco",
       "away": "Marseille",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.428,
-        "p_draw": 0.24,
-        "p_away": 0.332,
-        "pick": "Monaco",
-        "pick_type": "home",
-        "score": "2-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 10.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-1",
-            "pct": 8.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 7.6,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": true,
-        "p_pick": 0.4275,
-        "why": {
-          "home_attack_pct": 29.6,
-          "home_defence_pct": 8.8,
-          "away_attack_pct": 37.3,
-          "away_defence_pct": 7.7,
-          "home_advantage_pct": 20.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Monaco 43% / draw 24% / Marseille 33%",
-          "Expected goals: 1.80 - 1.57"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Monaco",
-          "player": "Folarin Balogun",
-          "position": "FW",
-          "lambda_goals": 0.3996551254072874,
-          "anytime_pct": 19.4,
-          "exp_shots": 2.12,
-          "p_shots_2plus": 37.7,
-          "exp_sot": 0.86,
-          "p_sot_1plus": 43.3,
-          "appearance_pct": 86.1,
-          "expected_minutes": 65.5,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Monaco",
-          "player": "Paris Brunner",
-          "position": "FW",
-          "lambda_goals": 0.2703542805143814,
-          "anytime_pct": 12.6,
-          "exp_shots": 1.78,
-          "p_shots_2plus": 29.0,
-          "exp_sot": 0.58,
-          "p_sot_1plus": 32.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Monaco",
-          "player": "Matthis Abline",
-          "position": "FW",
-          "lambda_goals": 0.18656953875073018,
-          "anytime_pct": 7.8,
-          "exp_shots": 1.97,
-          "p_shots_2plus": 34.5,
-          "exp_sot": 0.64,
-          "p_sot_1plus": 34.2,
-          "appearance_pct": 91.7,
-          "expected_minutes": 71.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Marseille",
-          "player": "Amine Gouiri",
-          "position": "FW",
-          "lambda_goals": 0.4089819437739833,
-          "anytime_pct": 17.9,
-          "exp_shots": 1.02,
-          "p_shots_2plus": 9.7,
-          "exp_sot": 0.44,
-          "p_sot_1plus": 20.5,
-          "appearance_pct": 63.9,
-          "expected_minutes": 38.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Marseille",
-          "player": "Igor Paix\u00e3o",
-          "position": "DF",
-          "lambda_goals": 0.28985180364652485,
-          "anytime_pct": 13.3,
-          "exp_shots": 1.06,
-          "p_shots_2plus": 9.5,
-          "exp_sot": 0.42,
-          "p_sot_1plus": 21.9,
-          "appearance_pct": 86.1,
-          "expected_minutes": 56.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Marseille",
-          "player": "Pierre-Emile H\u00f8jbjerg",
-          "position": "DF",
-          "lambda_goals": 0.1957240979538275,
-          "anytime_pct": 8.3,
-          "exp_shots": 0.87,
-          "p_shots_2plus": 5.5,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.8,
-          "appearance_pct": 91.7,
-          "expected_minutes": 77.8,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.393,
-        "p_draw": 0.254,
-        "p_away": 0.352,
-        "odds": {
-          "home": 2.4,
-          "draw": 3.7,
-          "away": 2.75
-        },
-        "book": "bet365",
-        "edge": 0.035,
-        "pick_odds": 2.4,
-        "ev": 0.026
-      },
-      "result": null,
-      "graded": null,
-      "void": false
+      "score": "2-0",
+      "reason": "no locking run happened before kickoff"
     }
   ],
+  "matches": [],
   "season": [
     {
       "id": 5,
@@ -3753,6 +3593,17 @@
   ],
   "standings": [
     {
+      "team": "Monaco",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 3,
+      "ga": 0,
+      "gd": 3,
+      "points": 6
+    },
+    {
       "team": "Paris FC",
       "played": 2,
       "won": 1,
@@ -3808,17 +3659,6 @@
       "points": 4
     },
     {
-      "team": "Marseille",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 4,
-      "ga": 0,
-      "gd": 4,
-      "points": 3
-    },
-    {
       "team": "Lens",
       "played": 2,
       "won": 1,
@@ -3830,14 +3670,14 @@
       "points": 3
     },
     {
-      "team": "Monaco",
-      "played": 1,
+      "team": "Marseille",
+      "played": 2,
       "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "gf": 1,
-      "ga": 0,
-      "gd": 1,
+      "lost": 1,
+      "gf": 4,
+      "ga": 2,
+      "gd": 2,
       "points": 3
     },
     {
@@ -4198,5 +4038,5 @@
     "135 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Auxerre/Troyes: M. Diop. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-30T18:48:38.753229+00:00"
+  "results_updated": "2026-08-30T21:03:32.382171+00:00"
 }
