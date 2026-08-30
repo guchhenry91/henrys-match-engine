@@ -6,9 +6,17 @@
     "wrong": 5,
     "total": 12,
     "void": 1,
-    "pending": 0,
+    "pending": 3,
     "by_confidence": {
       "5": {
+        "correct": 1,
+        "total": 1
+      },
+      "2": {
+        "correct": 2,
+        "total": 3
+      },
+      "4": {
         "correct": 1,
         "total": 1
       },
@@ -19,14 +27,6 @@
       "1": {
         "correct": 2,
         "total": 5
-      },
-      "2": {
-        "correct": 2,
-        "total": 3
-      },
-      "4": {
-        "correct": 1,
-        "total": 1
       }
     }
   },
@@ -5958,5 +5958,6 @@
   "data_warnings": [
     "77 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Brentford/Coventry: J. Dasilva. Neither club's number for that name is trusted, rather than guessing which one is current."
-  ]
+  ],
+  "results_updated": "2026-08-30T12:49:03.301202+00:00"
 }
