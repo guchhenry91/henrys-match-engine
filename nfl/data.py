@@ -12,6 +12,8 @@ and re-downloading six seasons each time is both slow and rude to a free host.
 import io
 from pathlib import Path
 
+import time
+
 import pandas as pd
 
 from nfl import config
@@ -34,6 +36,10 @@ ROSTER_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
               "rosters/roster_{season}.csv")
 ROSTER_COLUMNS = ["season", "team", "position", "status", "full_name", "gsis_id"]
 
+DEPTH_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
+             "depth_charts/depth_charts_{season}.csv")
+DEPTH_COLUMNS = ["dt", "team", "player_name", "gsis_id", "pos_abb", "pos_rank"]
+
 # Columns we actually use. Named explicitly so an upstream schema change fails
 # loudly here rather than silently producing a column of NaN three layers down.
 PLAYER_COLUMNS = [
@@ -49,12 +55,43 @@ GAME_COLUMNS = ["game_id", "season", "game_type", "week", "gameday", "gametime",
                 "location"]
 
 
-def _read_csv(url: str, cache_name: str, refresh: bool = False) -> pd.DataFrame:
+def _read_csv(url: str, cache_name: str, refresh: bool = False,
+              max_age_hours: float | None = None) -> pd.DataFrame:
+    """Read a cached nflverse CSV, refetching when it is older than max_age_hours.
+
+    THE CACHE USED TO BE FOREVER, and in CI the download directory is itself
+    cached between runs, so a file fetched once in pre-season was still being
+    served weeks later. On 2026-08-30 the roster cache was 68 hours old with the
+    board eleven days from kickoff.
+
+    `max_age_hours` is None for anything that CANNOT change -- a completed
+    season's box scores -- and a few hours for anything that moves: rosters,
+    depth charts, the schedule, the current season's player weeks.
+
+    A failed refetch falls back to the cached copy with a LOUD warning rather
+    than raising. Serving slightly old data beats taking the board down, but it
+    must never be silent, because a quiet fallback is indistinguishable from
+    fresh data and that is how staleness hides.
+    """
     CACHE.mkdir(parents=True, exist_ok=True)
     path = CACHE / cache_name
+    if path.exists() and not refresh and max_age_hours is not None:
+        age_h = (time.time() - path.stat().st_mtime) / 3600.0
+        if age_h > max_age_hours:
+            refresh = True
+            print(f"  {cache_name}: cache {age_h:.1f}h old (limit "
+                  f"{max_age_hours:g}h) -- refetching")
     if path.exists() and not refresh:
         return pd.read_csv(path, low_memory=False)
-    frame = pd.read_csv(url, low_memory=False)
+    try:
+        frame = pd.read_csv(url, low_memory=False)
+    except Exception as exc:
+        if not path.exists():
+            raise
+        age_h = (time.time() - path.stat().st_mtime) / 3600.0
+        print(f"WARNING: could not refetch {cache_name} ({exc}); serving a cached "
+              f"copy {age_h:.1f}h old -- anything newer than that is MISSING")
+        return pd.read_csv(path, low_memory=False)
     tmp = path.with_suffix(path.suffix + ".tmp")
     frame.to_csv(tmp, index=False)
     tmp.replace(path)            # atomic: a killed download never leaves a half file
@@ -80,8 +117,13 @@ def player_weeks(seasons=None, refresh: bool = False) -> pd.DataFrame:
     seasons = tuple(seasons or config.SEASONS)
     frames = []
     for season in seasons:
+        # A COMPLETED season never changes, so it caches forever. The CURRENT
+        # one gains a row every week and is what grading reads, so it gets a few
+        # hours at most.
         raw = _read_csv(PLAYER_STATS_URL.format(season=season),
-                        f"stats_player_week_{season}.csv", refresh)
+                        f"stats_player_week_{season}.csv", refresh,
+                        max_age_hours=(6 if int(season) >= int(config.CURRENT_SEASON)
+                                       else None))
         if "team" not in raw.columns and "recent_team" in raw.columns:
             raw = raw.rename(columns={"recent_team": "team"})
         missing = [c for c in PLAYER_COLUMNS if c not in raw.columns]
@@ -119,8 +161,10 @@ def rosters(season=None, refresh: bool = False) -> pd.DataFrame:
     """Current rosters for one season. Empty frame if unavailable."""
     season = season or config.CURRENT_SEASON
     try:
+        # Rosters move constantly in camp and after cuts. Six hours, because the
+        # cache was 68 hours old eleven days before kickoff.
         raw = _read_csv(ROSTER_URL.format(season=season),
-                        f"roster_{season}.csv", refresh)
+                        f"roster_{season}.csv", refresh, max_age_hours=6)
     except Exception as exc:
         print(f"WARNING: no roster file for {season} ({exc}); clubs will fall back "
               f"to each player's last appearance")
@@ -160,10 +204,59 @@ def _kickoff_utc(frame: pd.DataFrame) -> pd.Series:
                 .dt.tz_convert("UTC"))
 
 
+def depth_charts(season=None, refresh: bool = False) -> pd.DataFrame:
+    """THE LATEST depth-chart snapshot, one row per player, with his rank.
+
+    WHY THIS MATTERS MORE THAN IT LOOKS. Two long-standing holes close here.
+
+    First, WHO IS ACTUALLY ON THE TEAM. The season roster file is a full-season
+    record: on 2026-08-30, four days after the cut to 53, it still listed 90
+    active players a team, and so did the weekly file. It cannot say who was cut.
+    The depth chart is republished continuously (that morning at 12:30 UTC) and
+    only contains players a team is actually carrying.
+
+    Second, WHO STARTS. `pos_rank` is 1 for a starter. The board's own stated hole
+    was that "a backup quarterback carries a low line and can top a market he may
+    not play in" -- his line is low precisely because he has only played in
+    relief, which makes "over" look easy right up until he takes no snap.
+
+    Only the most recent snapshot is returned. The file holds every snapshot of
+    the season (485k rows in 2026), and an older one would reinstate players who
+    have since been cut -- the exact staleness this is here to remove.
+    """
+    season = season or config.CURRENT_SEASON
+    try:
+        raw = _read_csv(DEPTH_URL.format(season=season),
+                        f"depth_charts_{season}.csv", refresh, max_age_hours=6)
+    except Exception as exc:
+        print(f"WARNING: no depth chart for {season} ({exc}); the board falls back "
+              f"to roster-only filtering and cannot flag starters")
+        return pd.DataFrame(columns=DEPTH_COLUMNS)
+    missing = [c for c in DEPTH_COLUMNS if c not in raw.columns]
+    if missing:
+        print(f"WARNING: depth chart is missing {missing}; ignoring it rather than "
+              f"guessing at its shape")
+        return pd.DataFrame(columns=DEPTH_COLUMNS)
+    out = raw[DEPTH_COLUMNS].copy()
+    out["dt"] = pd.to_datetime(out["dt"], errors="coerce", utc=True)
+    out = out.dropna(subset=["dt", "gsis_id"])
+    if out.empty:
+        return out
+    out = out[out["dt"] == out["dt"].max()].copy()
+    out["gsis_id"] = out["gsis_id"].astype(str)
+    out["pos_rank"] = pd.to_numeric(out["pos_rank"], errors="coerce")
+    # One row per player: a man can appear at more than one position (a returner
+    # listed at WR and KR), and his BEST rank is the one that decides whether he
+    # is a starter somewhere.
+    out = out.sort_values("pos_rank").drop_duplicates(subset=["gsis_id"], keep="first")
+    return out.reset_index(drop=True)
+
+
 def games(seasons=None, refresh: bool = False) -> pd.DataFrame:
     """One row per game, regular season, with the result filled in where played."""
     seasons = tuple(seasons or config.SEASONS)
-    raw = _read_csv(GAMES_URL, "games.csv", refresh)
+    # The schedule carries kickoff times and results, both of which move.
+    raw = _read_csv(GAMES_URL, "games.csv", refresh, max_age_hours=3)
     missing = [c for c in GAME_COLUMNS if c not in raw.columns]
     if missing:
         raise RuntimeError(f"nflverse games.csv is missing {missing}")
