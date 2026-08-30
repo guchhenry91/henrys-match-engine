@@ -2,31 +2,31 @@
   "league": "Premier League",
   "updated": "2026-08-30T12:19:12.303385+00:00",
   "record": {
-    "correct": 7,
-    "wrong": 5,
-    "total": 12,
+    "correct": 9,
+    "wrong": 6,
+    "total": 15,
     "void": 1,
-    "pending": 3,
+    "pending": 1,
     "by_confidence": {
       "5": {
         "correct": 1,
         "total": 1
       },
       "2": {
-        "correct": 2,
-        "total": 3
+        "correct": 3,
+        "total": 4
       },
       "4": {
         "correct": 1,
         "total": 1
       },
+      "1": {
+        "correct": 3,
+        "total": 7
+      },
       "3": {
         "correct": 1,
         "total": 2
-      },
-      "1": {
-        "correct": 2,
-        "total": 5
       }
     }
   },
@@ -47,598 +47,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 13,
-      "matchweek": 2,
-      "date": "2026-08-30T13:00:00+00:00",
-      "venue": "Stamford Bridge",
-      "home": "Chelsea",
-      "away": "Brighton",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.431,
-        "p_draw": 0.284,
-        "p_away": 0.285,
-        "pick": "Chelsea",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 10.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.1,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4313,
-        "why": {
-          "home_attack_pct": 30.0,
-          "home_defence_pct": 3.6,
-          "away_attack_pct": 16.4,
-          "away_defence_pct": 9.6,
-          "home_advantage_pct": 20.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Chelsea 43% / draw 28% / Brighton 29%",
-          "Expected goals: 1.46 - 1.15"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Chelsea",
-          "player": "Jo\u00e3o Pedro",
-          "position": "FW",
-          "lambda_goals": 0.24261927295678526,
-          "anytime_pct": 10.8,
-          "exp_shots": 1.89,
-          "p_shots_2plus": 32.0,
-          "exp_sot": 0.7,
-          "p_sot_1plus": 37.0,
-          "appearance_pct": 90.0,
-          "expected_minutes": 69.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Chelsea",
-          "player": "Danny Welbeck",
-          "position": "FW",
-          "lambda_goals": 0.2154371094864536,
-          "anytime_pct": 9.4,
-          "exp_shots": 1.51,
-          "p_shots_2plus": 20.7,
-          "exp_sot": 0.63,
-          "p_sot_1plus": 34.6,
-          "appearance_pct": 95.0,
-          "expected_minutes": 58.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Chelsea",
-          "player": "Morgan Rogers",
-          "position": "FW",
-          "lambda_goals": 0.20291825391840826,
-          "anytime_pct": 8.7,
-          "exp_shots": 1.84,
-          "p_shots_2plus": 30.9,
-          "exp_sot": 0.68,
-          "p_sot_1plus": 37.0,
-          "appearance_pct": 95.0,
-          "expected_minutes": 84.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brighton",
-          "player": "Diego G\u00f3mez",
-          "position": "FW",
-          "lambda_goals": 0.19237215246658515,
-          "anytime_pct": 7.9,
-          "exp_shots": 0.87,
-          "p_shots_2plus": 5.9,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 13.7,
-          "appearance_pct": 82.5,
-          "expected_minutes": 56.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brighton",
-          "player": "Georginio Rutter",
-          "position": "FW",
-          "lambda_goals": 0.14185645723074655,
-          "anytime_pct": 5.3,
-          "exp_shots": 0.89,
-          "p_shots_2plus": 6.2,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.7,
-          "appearance_pct": 82.5,
-          "expected_minutes": 46.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brighton",
-          "player": "Kaoru Mitoma",
-          "position": "DF",
-          "lambda_goals": 0.13838088841848786,
-          "anytime_pct": 5.0,
-          "exp_shots": 0.63,
-          "p_shots_2plus": 2.9,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 12.5,
-          "appearance_pct": 65.0,
-          "expected_minutes": 44.8,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.517,
-        "p_draw": 0.244,
-        "p_away": 0.239,
-        "odds": {
-          "home": 1.83,
-          "draw": 4.0,
-          "away": 4.0
-        },
-        "book": "bet365",
-        "edge": -0.086,
-        "pick_odds": 1.83,
-        "ev": -0.211
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 16,
-      "matchweek": 2,
-      "date": "2026-08-30T13:00:00+00:00",
-      "venue": "Elland Road",
-      "home": "Leeds",
-      "away": "Brentford",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.39,
-        "p_draw": 0.29,
-        "p_away": 0.32,
-        "pick": "Leeds",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.9,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 8.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3899,
-        "why": {
-          "home_attack_pct": 11.5,
-          "home_defence_pct": 4.0,
-          "away_attack_pct": 22.8,
-          "away_defence_pct": 1.4,
-          "home_advantage_pct": 20.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Leeds 39% / draw 29% / Brentford 32%",
-          "Expected goals: 1.35 - 1.21"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Leeds",
-          "player": "Dominic Calvert-Lewin",
-          "position": "FW",
-          "lambda_goals": 0.38500335188470725,
-          "anytime_pct": 19.4,
-          "exp_shots": 2.83,
-          "p_shots_2plus": 60.6,
-          "exp_sot": 1.18,
-          "p_sot_1plus": 60.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 78.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Leeds",
-          "player": "Harry Wilson",
-          "position": "FW",
-          "lambda_goals": 0.2465006486414077,
-          "anytime_pct": 11.2,
-          "exp_shots": 2.75,
-          "p_shots_2plus": 58.6,
-          "exp_sot": 0.92,
-          "p_sot_1plus": 49.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 76.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Leeds",
-          "player": "Brenden Aaronson",
-          "position": "FW",
-          "lambda_goals": 0.15265253555283254,
-          "anytime_pct": 6.0,
-          "exp_shots": 1.75,
-          "p_shots_2plus": 28.1,
-          "exp_sot": 0.54,
-          "p_sot_1plus": 30.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brentford",
-          "player": "Thiago",
-          "position": "FW",
-          "lambda_goals": 0.4064996842050085,
-          "anytime_pct": 20.5,
-          "exp_shots": 1.86,
-          "p_shots_2plus": 31.6,
-          "exp_sot": 0.9,
-          "p_sot_1plus": 48.3,
-          "appearance_pct": 97.5,
-          "expected_minutes": 84.5,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Brentford",
-          "player": "Kevin Schade",
-          "position": "FW",
-          "lambda_goals": 0.2480156224269676,
-          "anytime_pct": 11.3,
-          "exp_shots": 1.53,
-          "p_shots_2plus": 21.1,
-          "exp_sot": 0.65,
-          "p_sot_1plus": 36.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 79.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brentford",
-          "player": "Dango Ouattara",
-          "position": "FW",
-          "lambda_goals": 0.20210392612846026,
-          "anytime_pct": 8.7,
-          "exp_shots": 1.63,
-          "p_shots_2plus": 24.2,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 28.3,
-          "appearance_pct": 100.0,
-          "expected_minutes": 72.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Dominic Calvert-Lewin",
-          "team": "Leeds",
-          "position": "FW",
-          "p_pick": 0.606,
-          "confidence": 4,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 100.0,
-          "expected_minutes": 78.1,
-          "anytime_pct": 19.4,
-          "exp_shots": 2.83,
-          "exp_sot": 1.18,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            4,
-            2,
-            2,
-            1,
-            2
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 21.799627580555555,
-          "unavailable": false,
-          "team_attribution": "Leeds"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Dominic Calvert-Lewin",
-          "team": "Leeds",
-          "position": "FW",
-          "p_pick": 0.604,
-          "confidence": 4,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 100.0,
-          "expected_minutes": 78.1,
-          "anytime_pct": 19.4,
-          "exp_shots": 2.83,
-          "exp_sot": 1.18,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            2,
-            1,
-            1,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 21.799628135277775,
-          "unavailable": false,
-          "team_attribution": "Leeds"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Harry Wilson",
-          "team": "Leeds",
-          "position": "FW",
-          "p_pick": 0.586,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 76.4,
-          "anytime_pct": 11.2,
-          "exp_shots": 2.75,
-          "exp_sot": 0.92,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            2,
-            3,
-            1,
-            2,
-            2
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 21.799627790000002,
-          "unavailable": false,
-          "team_attribution": "Leeds"
-        }
-      ],
-      "market": {
-        "p_home": 0.366,
-        "p_draw": 0.281,
-        "p_away": 0.353,
-        "odds": {
-          "home": 2.6,
-          "draw": 3.3,
-          "away": 2.7
-        },
-        "book": "bet365",
-        "edge": 0.024,
-        "pick_odds": 2.6,
-        "ev": 0.014
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 19,
-      "matchweek": 2,
-      "date": "2026-08-30T13:00:00+00:00",
-      "venue": "Stadium of Light",
-      "home": "Sunderland",
-      "away": "Fulham",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.349,
-        "p_draw": 0.327,
-        "p_away": 0.324,
-        "pick": "Sunderland",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.8,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 13.0,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 12.2,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3487,
-        "why": {
-          "home_attack_pct": -12.0,
-          "home_defence_pct": 0.9,
-          "away_attack_pct": 0.7,
-          "away_defence_pct": 1.6,
-          "home_advantage_pct": 20.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Sunderland 35% / draw 33% / Fulham 32%",
-          "Expected goals: 1.07 - 1.02"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Sunderland",
-          "player": "Brian Brobbey",
-          "position": "FW",
-          "lambda_goals": 0.3066882270450687,
-          "anytime_pct": 14.8,
-          "exp_shots": 1.44,
-          "p_shots_2plus": 18.5,
-          "exp_sot": 0.64,
-          "p_sot_1plus": 35.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sunderland",
-          "player": "Enzo Le F\u00e9e",
-          "position": "FW",
-          "lambda_goals": 0.22450088486469844,
-          "anytime_pct": 10.0,
-          "exp_shots": 1.22,
-          "p_shots_2plus": 12.4,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 22.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 82.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Sunderland",
-          "player": "Nilson Angulo",
-          "position": "MF",
-          "lambda_goals": 0.0912402645285596,
-          "anytime_pct": 3.0,
-          "exp_shots": 0.86,
-          "p_shots_2plus": 4.9,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 17.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fulham",
-          "player": "Rodrigo Muniz",
-          "position": "FW",
-          "lambda_goals": 0.1713431162908963,
-          "anytime_pct": 6.4,
-          "exp_shots": 0.94,
-          "p_shots_2plus": 8.4,
-          "exp_sot": 0.31,
-          "p_sot_1plus": 13.8,
-          "appearance_pct": 55.0,
-          "expected_minutes": 26.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fulham",
-          "player": "Emile Smith-Rowe",
-          "position": "MF",
-          "lambda_goals": 0.1454027971048821,
-          "anytime_pct": 5.6,
-          "exp_shots": 0.89,
-          "p_shots_2plus": 5.6,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 15.6,
-          "appearance_pct": 95.0,
-          "expected_minutes": 49.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fulham",
-          "player": "Alex Iwobi",
-          "position": "DF",
-          "lambda_goals": 0.13354501801468088,
-          "anytime_pct": 4.9,
-          "exp_shots": 1.06,
-          "p_shots_2plus": 10.1,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 20.3,
-          "appearance_pct": 75.0,
-          "expected_minutes": 64.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.393,
-        "p_draw": 0.29,
-        "p_away": 0.317,
-        "odds": {
-          "home": 2.4,
-          "draw": 3.2,
-          "away": 3.1
-        },
-        "book": "bet365",
-        "edge": -0.044,
-        "pick_odds": 2.4,
-        "ev": -0.163
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 18,
       "matchweek": 2,
@@ -5510,6 +4918,28 @@
       "points": 6
     },
     {
+      "team": "Chelsea",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 7,
+      "ga": 5,
+      "gd": 2,
+      "points": 6
+    },
+    {
+      "team": "Brentford",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 4,
+      "ga": 1,
+      "gd": 3,
+      "points": 4
+    },
+    {
       "team": "Newcastle United",
       "played": 2,
       "won": 1,
@@ -5532,14 +4962,25 @@
       "points": 4
     },
     {
+      "team": "Leeds",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 2,
+      "ga": 1,
+      "gd": 1,
+      "points": 4
+    },
+    {
       "team": "Brighton",
-      "played": 1,
+      "played": 2,
       "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "gf": 4,
-      "ga": 0,
-      "gd": 4,
+      "lost": 1,
+      "gf": 7,
+      "ga": 4,
+      "gd": 3,
       "points": 3
     },
     {
@@ -5554,28 +4995,6 @@
       "points": 3
     },
     {
-      "team": "Brentford",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 3,
-      "ga": 0,
-      "gd": 3,
-      "points": 3
-    },
-    {
-      "team": "Chelsea",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 3,
-      "ga": 2,
-      "gd": 1,
-      "points": 3
-    },
-    {
       "team": "Ipswich",
       "played": 1,
       "won": 1,
@@ -5587,14 +5006,14 @@
       "points": 3
     },
     {
-      "team": "Leeds",
-      "played": 1,
+      "team": "Sunderland",
+      "played": 2,
       "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "gf": 1,
-      "ga": 0,
-      "gd": 1,
+      "lost": 1,
+      "gf": 2,
+      "ga": 2,
+      "gd": 0,
       "points": 3
     },
     {
@@ -5632,24 +5051,13 @@
     },
     {
       "team": "Fulham",
-      "played": 1,
+      "played": 2,
       "won": 0,
       "drawn": 0,
-      "lost": 1,
+      "lost": 2,
       "gf": 2,
-      "ga": 3,
-      "gd": -1,
-      "points": 0
-    },
-    {
-      "team": "Sunderland",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 1,
-      "ga": 2,
-      "gd": -1,
+      "ga": 4,
+      "gd": -2,
       "points": 0
     },
     {
@@ -5959,5 +5367,5 @@
     "77 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Brentford/Coventry: J. Dasilva. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-30T12:49:03.301202+00:00"
+  "results_updated": "2026-08-30T15:19:56.709134+00:00"
 }
