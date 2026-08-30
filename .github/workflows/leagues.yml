@@ -147,6 +147,17 @@ jobs:
           # The boards themselves, because applying results changes what a READER
           # sees -- unlike locking, which only changes the record.
           git add data/leagues data-raw/leagues/results_override.json 2>/dev/null || true
+          # EVERYTHING ELSE THIS JOB WRITES, or `git pull --rebase` below refuses
+          # on a dirty tree and the whole job fails. That is not hypothetical: the
+          # runs at 05:21 and 11:52 on 2026-08-30 died exactly here, on
+          # "cannot pull with rebase: You have unstaged changes".
+          #   - locker_heartbeat.json: written by lockwindow.beat() every run
+          #   - _snapshots/: fetch_fixtures re-snapshots every successful fetch
+          git add data-raw/leagues/locker_heartbeat.json 2>/dev/null || true
+          git add data-raw/leagues/_snapshots 2>/dev/null || true
+          # Belt and braces: anything else generated under these two trees. Scoped
+          # to them so a stray file elsewhere can never be swept into a commit.
+          git add -A data-raw/leagues data-raw/nfl 2>/dev/null || true
           # Did anything reader-visible change? Locking alone must not deploy.
           if git diff --cached --quiet -- data/leagues; then
             echo "boards=false" >> "$GITHUB_OUTPUT"
@@ -168,11 +179,27 @@ jobs:
             # commit containing raw conflict markers and every board on the live
             # site went empty. A failed pull must abort the push and retry next
             # run, never improvise its way through.
-            if git pull --rebase origin main; then
-              git push
-            else
-              echo "pull failed; leaving the freeze for the next run"
-              exit 1
+            #
+            # A losing push race is NORMAL here, not a fault: the local hourly
+            # task and this job both commit. So retry once against the newer tip
+            # before giving up, and treat a genuine failure as a WARNING rather
+            # than an error -- nothing is lost when this job cannot push. The
+            # commit is local to a throwaway runner, the next run starts from a
+            # fresh checkout, and locking is idempotent, so the same freeze simply
+            # happens again. Failing the job instead is what let a dirty tree take
+            # the whole publish down on 2026-08-30.
+            pushed=""
+            for attempt in 1 2; do
+              if git pull --rebase origin main && git push; then
+                pushed="yes"; break
+              fi
+              echo "push attempt $attempt failed; retrying against the newer tip"
+              git rebase --abort 2>/dev/null || true
+              sleep 5
+            done
+            if [ -z "$pushed" ]; then
+              echo "::warning::could not push the freeze; the next run redoes it"
+              echo "boards=false" >> "$GITHUB_OUTPUT"
             fi
           fi
 
@@ -198,6 +225,16 @@ jobs:
     # checks out that commit. Racing them would have two jobs in one run pushing
     # to the same branch.
     needs: lock
+    # BUT NEVER BLOCKED BY IT. `needs` alone also means "only if lock SUCCEEDED",
+    # and that turned a small fault in the fast job into a total outage: on
+    # 2026-08-30 the lock job failed on a dirty tree at 05:21 and again at 11:52,
+    # and both times the entire publish was SKIPPED. The boards then went 13 hours
+    # without a refresh and the page said so.
+    #
+    # The fast path exists to SUPPLEMENT the refit, never to gate it. `always()`
+    # keeps the ordering that stops the two jobs racing a push, while removing the
+    # dependency on the outcome.
+    if: always()
     runs-on: ubuntu-latest
     # WHY 120, not 30: every run so far has timed out or been cancelled before
     # completing, which means the soccerdata cache below has NEVER once been

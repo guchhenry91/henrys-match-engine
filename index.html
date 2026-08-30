@@ -342,7 +342,21 @@ function computeFreshness(){
   // be fresh (warn at 14h). In a quiet stretch it legitimately doesn't republish,
   // so only warn once genuinely abandoned (5 days).
   const limit = soonest<=72 ? 14 : 120;
-  return {stale: ageH>limit, text: relAge(ageH), ageH};
+
+  // RESULTS AND PREDICTIONS AGE SEPARATELY NOW. scripts/refresh_results.py applies
+  // scores on every trigger in seconds, while the predictions only move when the
+  // ~18-minute refit runs. So the board can legitimately be showing yesterday's
+  // model and this afternoon's results, and a single "last updated" figure
+  // describes neither -- it reads as though the whole page were stale.
+  const rstamps=[];
+  ["pl","laliga","bundesliga","ligue1"].forEach(n=>{
+    const u=(DATA[n]||{}).results_updated; if(u){const t=new Date(u); if(!isNaN(t)) rstamps.push(+t);}});
+  const resultsAgeH = rstamps.length ? (Date.now()-Math.max(...rstamps))/36e5 : null;
+  return {stale: ageH>limit, text: relAge(ageH), ageH,
+          resultsAgeH, resultsText: resultsAgeH==null?"":relAge(resultsAgeH),
+          // Results count as current if they are fresher than the predictions
+          // AND recent in their own right.
+          resultsFresh: resultsAgeH!=null && resultsAgeH<3 && resultsAgeH<ageH};
 }
 function updateLivePill(){
   const el=document.getElementById("live"); if(!el) return;
@@ -350,8 +364,15 @@ function updateLivePill(){
     el.style.color="var(--amber)"; el.style.borderColor="rgba(255,190,61,.4)"; el.style.background="rgba(255,190,61,.1)";}
   else {el.textContent="● Live"; el.style.color=""; el.style.borderColor=""; el.style.background="";}
 }
-function staleBanner(){return FRESH.stale
-  ? `<div class="glass warnbox">Predictions last updated ${FRESH.text}. The live feed may be catching up — treat these as provisional until it refreshes.</div>` : "";}
+function staleBanner(){
+  if(!FRESH.stale) return "";
+  // Say which half is old. "Predictions last updated 16h ago" on a board whose
+  // scores and table are twenty minutes old reads as though nothing on the page
+  // could be trusted, when in fact only the forecasts are behind.
+  return FRESH.resultsFresh
+    ? `<div class="glass warnbox">Scores, tables and grades are current (updated ${FRESH.resultsText}). The <b>predictions</b> are older — last recomputed ${FRESH.text} — so treat the upcoming picks as provisional until the model refreshes.</div>`
+    : `<div class="glass warnbox">Predictions last updated ${FRESH.text}. The live feed may be catching up — treat these as provisional until it refreshes.</div>`;
+}
 
 async function boot(){
   const names=["best","player_picks","parlays","six_scores","pl","laliga","bundesliga","ligue1"];

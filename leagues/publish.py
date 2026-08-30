@@ -768,6 +768,11 @@ def build(league: str = "PL") -> dict:
     return {
         "league": lg.name,
         "updated": datetime.now(timezone.utc).isoformat(),
+        # Set here too, not only by scripts/refresh_results.py. A full publish
+        # brings the results up to date as a side effect, and if only the fast
+        # path wrote this field it would VANISH from the board every time the
+        # refit ran -- which is exactly what the live payloads showed.
+        "results_updated": datetime.now(timezone.utc).isoformat(),
         "record": picks.record(graded),
         # Played fixtures with no frozen pick. Published so the record cannot
         # look complete while quietly omitting games -- see unrecorded_fixtures.
