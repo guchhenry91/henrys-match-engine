@@ -3,14 +3,14 @@
   "updated": "2026-08-30T12:20:19.621356+00:00",
   "record": {
     "correct": 13,
-    "wrong": 6,
-    "total": 19,
+    "wrong": 7,
+    "total": 20,
     "void": 6,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "2": {
         "correct": 4,
-        "total": 7
+        "total": 8
       },
       "3": {
         "correct": 4,
@@ -43,172 +43,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 22,
-      "matchweek": 3,
-      "date": "2026-08-30T19:30:00+00:00",
-      "venue": "Estadio ABANCA Bala\u00eddos",
-      "home": "Celta",
-      "away": "Ath Bilbao",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.417,
-        "p_draw": 0.275,
-        "p_away": 0.308,
-        "pick": "Celta",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 12.3,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 10.2,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": true,
-        "p_pick": 0.4173,
-        "why": {
-          "home_attack_pct": 6.0,
-          "home_defence_pct": 4.1,
-          "away_attack_pct": 6.1,
-          "away_defence_pct": 17.3,
-          "home_advantage_pct": 36.5
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Celta 42% / draw 28% / Ath Bilbao 31%",
-          "Expected goals: 1.29 - 1.07"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Celta",
-          "player": "Borja Iglesias",
-          "position": "FW",
-          "lambda_goals": 0.23203174923682893,
-          "anytime_pct": 10.2,
-          "exp_shots": 0.99,
-          "p_shots_2plus": 7.8,
-          "exp_sot": 0.49,
-          "p_sot_1plus": 26.4,
-          "appearance_pct": 90.0,
-          "expected_minutes": 48.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Celta",
-          "player": "Ferr\u00e1n Jutgl\u00e0",
-          "position": "FW",
-          "lambda_goals": 0.2050419920037451,
-          "anytime_pct": 8.5,
-          "exp_shots": 0.97,
-          "p_shots_2plus": 8.0,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 25.8,
-          "appearance_pct": 77.5,
-          "expected_minutes": 44.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Celta",
-          "player": "Iago Aspas",
-          "position": "FW",
-          "lambda_goals": 0.19400000084261423,
-          "anytime_pct": 8.0,
-          "exp_shots": 0.64,
-          "p_shots_2plus": 2.5,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.9,
-          "appearance_pct": 82.5,
-          "expected_minutes": 27.9,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Ath Bilbao",
-          "player": "Oihan Sancet",
-          "position": "MF",
-          "lambda_goals": 0.2871069885342744,
-          "anytime_pct": 13.6,
-          "exp_shots": 1.36,
-          "p_shots_2plus": 16.1,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 25.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Ath Bilbao",
-          "player": "Gorka Guruzeta",
-          "position": "FW",
-          "lambda_goals": 0.22621408284562813,
-          "anytime_pct": 10.1,
-          "exp_shots": 1.88,
-          "p_shots_2plus": 32.3,
-          "exp_sot": 0.7,
-          "p_sot_1plus": 39.1,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Bilbao",
-          "player": "I\u00f1aki Williams",
-          "position": "FW",
-          "lambda_goals": 0.16644735603372462,
-          "anytime_pct": 6.8,
-          "exp_shots": 1.69,
-          "p_shots_2plus": 26.3,
-          "exp_sot": 0.66,
-          "p_sot_1plus": 36.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 72.9,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.396,
-        "p_draw": 0.289,
-        "p_away": 0.315,
-        "odds": {
-          "home": 2.38,
-          "draw": 3.2,
-          "away": 3.1
-        },
-        "book": "bet365",
-        "edge": 0.021,
-        "pick_odds": 2.38,
-        "ev": -0.007
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 26,
       "matchweek": 3,
@@ -5282,6 +5116,17 @@
       "points": 3
     },
     {
+      "team": "Ath Bilbao",
+      "played": 3,
+      "won": 1,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 3,
+      "ga": 5,
+      "gd": -2,
+      "points": 3
+    },
+    {
       "team": "Getafe",
       "played": 2,
       "won": 1,
@@ -5327,13 +5172,13 @@
     },
     {
       "team": "Celta",
-      "played": 2,
+      "played": 3,
       "won": 0,
       "drawn": 1,
-      "lost": 1,
+      "lost": 2,
       "gf": 1,
-      "ga": 2,
-      "gd": -1,
+      "ga": 4,
+      "gd": -3,
       "points": 1
     },
     {
@@ -5368,17 +5213,6 @@
       "ga": 7,
       "gd": -6,
       "points": 1
-    },
-    {
-      "team": "Ath Bilbao",
-      "played": 2,
-      "won": 0,
-      "drawn": 0,
-      "lost": 2,
-      "gf": 1,
-      "ga": 5,
-      "gd": -4,
-      "points": 0
     }
   ],
   "backtest": {
@@ -5633,5 +5467,5 @@
     "138 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "3 player identities could not be resolved because the same name appears at two different clubs in the roster source: Alaves/Vallecano: \u00c1lvaro Garc\u00eda; La Coruna/Real Madrid: \u00c1lvaro Fern\u00e1ndez; Malaga/Vallecano: Juanpe. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-30T21:03:30.718574+00:00"
+  "results_updated": "2026-08-30T21:54:22.518097+00:00"
 }
