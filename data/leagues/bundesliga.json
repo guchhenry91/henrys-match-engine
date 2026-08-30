@@ -2,11 +2,11 @@
   "league": "Bundesliga",
   "updated": "2026-08-30T12:20:54.459798+00:00",
   "record": {
-    "correct": 3,
+    "correct": 4,
     "wrong": 4,
-    "total": 7,
+    "total": 8,
     "void": 0,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "4": {
         "correct": 1,
@@ -17,8 +17,8 @@
         "total": 2
       },
       "2": {
-        "correct": 1,
-        "total": 1
+        "correct": 2,
+        "total": 2
       },
       "3": {
         "correct": 1,
@@ -35,129 +35,7 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [
-    {
-      "id": 6,
-      "matchweek": 1,
-      "date": "2026-08-30T15:30:00+00:00",
-      "venue": "WWK ARENA",
-      "home": "Augsburg",
-      "away": "Schalke 04",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.422,
-        "p_draw": 0.28,
-        "p_away": 0.298,
-        "pick": "Augsburg",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.3,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 10.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 8.8,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": true,
-        "p_pick": 0.4219,
-        "why": {
-          "home_attack_pct": -4.1,
-          "home_defence_pct": -5.8,
-          "away_attack_pct": -7.6,
-          "away_defence_pct": -3.8,
-          "home_advantage_pct": 21.3
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Augsburg 42% / draw 28% / Schalke 04 30%",
-          "Expected goals: 1.39 - 1.13"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Augsburg",
-          "player": "Alexis Claude Maurice",
-          "position": "FW",
-          "lambda_goals": 0.23691920640751482,
-          "anytime_pct": 10.3,
-          "exp_shots": 2.06,
-          "p_shots_2plus": 35.6,
-          "exp_sot": 0.73,
-          "p_sot_1plus": 37.0,
-          "appearance_pct": 83.3,
-          "expected_minutes": 61.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Augsburg",
-          "player": "Anton Kade",
-          "position": "DF",
-          "lambda_goals": 0.17860957330330163,
-          "anytime_pct": 7.2,
-          "exp_shots": 1.16,
-          "p_shots_2plus": 12.2,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 21.0,
-          "appearance_pct": 80.6,
-          "expected_minutes": 50.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Augsburg",
-          "player": "Michael Gregoritsch",
-          "position": "FW",
-          "lambda_goals": 0.17229824476861993,
-          "anytime_pct": 6.3,
-          "exp_shots": 0.97,
-          "p_shots_2plus": 8.9,
-          "exp_sot": 0.34,
-          "p_sot_1plus": 14.6,
-          "appearance_pct": 50.0,
-          "expected_minutes": 27.2,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.438,
-        "p_draw": 0.26,
-        "p_away": 0.302,
-        "odds": {
-          "home": 2.15,
-          "draw": 3.7,
-          "away": 3.1
-        },
-        "book": "bet365",
-        "edge": -0.016,
-        "pick_odds": 2.15,
-        "ev": -0.093
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    }
-  ],
+  "matches": [],
   "season": [
     {
       "id": 1,
@@ -3699,6 +3577,17 @@
       "points": 3
     },
     {
+      "team": "Augsburg",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 3,
+      "ga": 0,
+      "gd": 3,
+      "points": 3
+    },
+    {
       "team": "RB Leipzig",
       "played": 1,
       "won": 1,
@@ -3787,28 +3676,6 @@
       "points": 1
     },
     {
-      "team": "Augsburg",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 0,
-      "ga": 0,
-      "gd": 0,
-      "points": 0
-    },
-    {
-      "team": "Schalke 04",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 0,
-      "ga": 0,
-      "gd": 0,
-      "points": 0
-    },
-    {
       "team": "Hoffenheim",
       "played": 1,
       "won": 0,
@@ -3854,6 +3721,17 @@
     },
     {
       "team": "M'gladbach",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 0,
+      "ga": 3,
+      "gd": -3,
+      "points": 0
+    },
+    {
+      "team": "Schalke 04",
       "played": 1,
       "won": 0,
       "drawn": 0,
@@ -4127,5 +4005,5 @@
     "Bundesliga has no shot-level feed, so the shots-on-target market is withheld entirely.",
     "Bundesliga player picks cannot be graded against actual match lines -- neither the shot feed nor the fallback can settle them."
   ],
-  "results_updated": "2026-08-30T16:39:42.898545+00:00"
+  "results_updated": "2026-08-30T18:48:38.281760+00:00"
 }

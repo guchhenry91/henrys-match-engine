@@ -2,11 +2,11 @@
   "league": "Premier League",
   "updated": "2026-08-30T12:19:12.303385+00:00",
   "record": {
-    "correct": 9,
+    "correct": 10,
     "wrong": 6,
-    "total": 15,
+    "total": 16,
     "void": 1,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "5": {
         "correct": 1,
@@ -17,8 +17,8 @@
         "total": 4
       },
       "4": {
-        "correct": 1,
-        "total": 1
+        "correct": 2,
+        "total": 2
       },
       "1": {
         "correct": 3,
@@ -47,314 +47,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 18,
-      "matchweek": 2,
-      "date": "2026-08-30T15:30:00+00:00",
-      "venue": "Old Trafford",
-      "home": "Manchester United",
-      "away": "Ipswich",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.647,
-        "p_draw": 0.224,
-        "p_away": 0.129,
-        "pick": "Manchester United",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 12.1,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-0",
-            "pct": 11.6,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.6,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 4,
-        "provisional": true,
-        "p_pick": 0.6475,
-        "why": {
-          "home_attack_pct": 27.1,
-          "home_defence_pct": 9.2,
-          "away_attack_pct": -16.2,
-          "away_defence_pct": -21.4,
-          "home_advantage_pct": 20.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Manchester United 65% / draw 22% / Ipswich 13%",
-          "Expected goals: 1.99 - 0.78"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Manchester United",
-          "player": "Matheus Cunha",
-          "position": "FW",
-          "lambda_goals": 0.33966186097148565,
-          "anytime_pct": 16.7,
-          "exp_shots": 3.59,
-          "p_shots_2plus": 76.8,
-          "exp_sot": 1.42,
-          "p_sot_1plus": 68.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Bryan Mbeumo",
-          "position": "FW",
-          "lambda_goals": 0.3347030522785555,
-          "anytime_pct": 16.4,
-          "exp_shots": 2.87,
-          "p_shots_2plus": 61.5,
-          "exp_sot": 1.19,
-          "p_sot_1plus": 60.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Bruno Fernandes",
-          "position": "FW",
-          "lambda_goals": 0.3093531368804915,
-          "anytime_pct": 14.9,
-          "exp_shots": 3.45,
-          "p_shots_2plus": 74.4,
-          "exp_sot": 1.14,
-          "p_sot_1plus": 58.7,
-          "appearance_pct": 100.0,
-          "expected_minutes": 88.1,
-          "penalty_taker": true,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Matheus Cunha",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.768,
-          "confidence": 5,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "anytime_pct": 16.7,
-          "exp_shots": 3.59,
-          "exp_sot": 1.42,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            2,
-            3,
-            5,
-            4,
-            2
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 21.79965380638889,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Bruno Fernandes",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.744,
-          "confidence": 5,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 100.0,
-          "expected_minutes": 88.1,
-          "anytime_pct": 14.9,
-          "exp_shots": 3.45,
-          "exp_sot": 1.14,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            2,
-            2,
-            5,
-            1
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 21.799653661388888,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Matheus Cunha",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.684,
-          "confidence": 4,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "anytime_pct": 16.7,
-          "exp_shots": 3.59,
-          "exp_sot": 1.42,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 21.79965418222222,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Bryan Mbeumo",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.615,
-          "confidence": 4,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.1,
-          "anytime_pct": 16.4,
-          "exp_shots": 2.87,
-          "exp_sot": 1.19,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            4,
-            1,
-            6,
-            1
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 21.799653492222223,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Bryan Mbeumo",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.606,
-          "confidence": 4,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.1,
-          "anytime_pct": 16.4,
-          "exp_shots": 2.87,
-          "exp_sot": 1.19,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            0,
-            0,
-            0,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 21.79965393777778,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Bruno Fernandes",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.587,
-          "confidence": 3,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 100.0,
-          "expected_minutes": 88.1,
-          "anytime_pct": 14.9,
-          "exp_shots": 3.45,
-          "exp_sot": 1.14,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            0,
-            1,
-            0,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 21.799654063888887,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        }
-      ],
-      "market": {
-        "p_home": 0.67,
-        "p_draw": 0.195,
-        "p_away": 0.135,
-        "odds": {
-          "home": 1.42,
-          "draw": 5.0,
-          "away": 7.0
-        },
-        "book": "bet365",
-        "edge": -0.023,
-        "pick_odds": 1.42,
-        "ev": -0.081
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 12,
       "matchweek": 2,
@@ -4995,13 +4687,13 @@
       "points": 3
     },
     {
-      "team": "Ipswich",
-      "played": 1,
+      "team": "Manchester United",
+      "played": 2,
       "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "gf": 2,
-      "ga": 1,
+      "lost": 1,
+      "gf": 5,
+      "ga": 4,
       "gd": 1,
       "points": 3
     },
@@ -5014,6 +4706,17 @@
       "gf": 2,
       "ga": 2,
       "gd": 0,
+      "points": 3
+    },
+    {
+      "team": "Ipswich",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 4,
+      "ga": 6,
+      "gd": -2,
       "points": 3
     },
     {
@@ -5057,17 +4760,6 @@
       "lost": 2,
       "gf": 2,
       "ga": 4,
-      "gd": -2,
-      "points": 0
-    },
-    {
-      "team": "Manchester United",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 0,
-      "ga": 2,
       "gd": -2,
       "points": 0
     },
@@ -5367,5 +5059,5 @@
     "77 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Brentford/Coventry: J. Dasilva. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-30T16:39:41.570063+00:00"
+  "results_updated": "2026-08-30T18:48:36.619612+00:00"
 }

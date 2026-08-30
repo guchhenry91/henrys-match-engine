@@ -33,224 +33,16 @@
       "away": "Paris SG",
       "score": "2-2",
       "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-30 15:15:00+00:00",
+      "home": "Rennes",
+      "away": "Le Mans",
+      "score": "3-2",
+      "reason": "no locking run happened before kickoff"
     }
   ],
   "matches": [
-    {
-      "id": 17,
-      "matchweek": 2,
-      "date": "2026-08-30T15:15:00+00:00",
-      "venue": "Roazhon Park",
-      "home": "Rennes",
-      "away": "Le Mans",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.52,
-        "p_draw": 0.232,
-        "p_away": 0.247,
-        "pick": "Rennes",
-        "pick_type": "home",
-        "score": "2-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 10.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-1",
-            "pct": 9.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-0",
-            "pct": 7.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 3,
-        "provisional": true,
-        "p_pick": 0.5203,
-        "why": {
-          "home_attack_pct": 16.9,
-          "home_defence_pct": -2.8,
-          "away_attack_pct": 2.8,
-          "away_defence_pct": -11.5,
-          "home_advantage_pct": 20.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Rennes 52% / draw 23% / Le Mans 25%",
-          "Expected goals: 1.98 - 1.32"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Rennes",
-          "player": "Esteban Lepaul",
-          "position": "FW",
-          "lambda_goals": 0.5360637000030712,
-          "anytime_pct": 28.0,
-          "exp_shots": 2.57,
-          "p_shots_2plus": 52.6,
-          "exp_sot": 1.05,
-          "p_sot_1plus": 54.5,
-          "appearance_pct": 97.2,
-          "expected_minutes": 79.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Rennes",
-          "player": "Breel Embolo",
-          "position": "FW",
-          "lambda_goals": 0.24657668732380972,
-          "anytime_pct": 11.0,
-          "exp_shots": 1.46,
-          "p_shots_2plus": 19.6,
-          "exp_sot": 0.59,
-          "p_sot_1plus": 31.4,
-          "appearance_pct": 88.9,
-          "expected_minutes": 53.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Rennes",
-          "player": "Issa Soumar\u00e9",
-          "position": "FW",
-          "lambda_goals": 0.24192834178468917,
-          "anytime_pct": 10.9,
-          "exp_shots": 2.36,
-          "p_shots_2plus": 46.8,
-          "exp_sot": 0.89,
-          "p_sot_1plus": 47.7,
-          "appearance_pct": 97.2,
-          "expected_minutes": 84.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Esteban Lepaul",
-          "team": "Rennes",
-          "position": "FW",
-          "p_pick": 0.545,
-          "confidence": 3,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 97.2,
-          "expected_minutes": 79.0,
-          "anytime_pct": 28.0,
-          "exp_shots": 2.57,
-          "exp_sot": 1.05,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            2,
-            3,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 21.844910270277776,
-          "unavailable": false,
-          "team_attribution": "Rennes"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Esteban Lepaul",
-          "team": "Rennes",
-          "position": "FW",
-          "p_pick": 0.526,
-          "confidence": 3,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 97.2,
-          "expected_minutes": 79.0,
-          "anytime_pct": 28.0,
-          "exp_shots": 2.57,
-          "exp_sot": 1.05,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            5,
-            4,
-            3,
-            3,
-            5
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 21.84491014972222,
-          "unavailable": false,
-          "team_attribution": "Rennes"
-        },
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Esteban Lepaul",
-          "team": "Rennes",
-          "position": "FW",
-          "p_pick": 0.28,
-          "confidence": 1,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 97.2,
-          "expected_minutes": 79.0,
-          "anytime_pct": 28.0,
-          "exp_shots": 2.57,
-          "exp_sot": 1.05,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 21.844909995555557,
-          "unavailable": false,
-          "team_attribution": "Rennes"
-        }
-      ],
-      "market": {
-        "p_home": 0.659,
-        "p_draw": 0.2,
-        "p_away": 0.141,
-        "odds": {
-          "home": 1.44,
-          "draw": 5.0,
-          "away": 6.5
-        },
-        "book": "bet365",
-        "edge": -0.139,
-        "pick_odds": 1.44,
-        "ev": -0.251
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 15,
       "matchweek": 2,
@@ -3994,6 +3786,17 @@
       "points": 4
     },
     {
+      "team": "Rennes",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 5,
+      "ga": 4,
+      "gd": 1,
+      "points": 4
+    },
+    {
       "team": "Troyes",
       "played": 2,
       "won": 1,
@@ -4083,24 +3886,13 @@
     },
     {
       "team": "Le Mans",
-      "played": 1,
+      "played": 2,
       "won": 0,
       "drawn": 1,
-      "lost": 0,
-      "gf": 2,
-      "ga": 2,
-      "gd": 0,
-      "points": 1
-    },
-    {
-      "team": "Rennes",
-      "played": 1,
-      "won": 0,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 2,
-      "ga": 2,
-      "gd": 0,
+      "lost": 1,
+      "gf": 4,
+      "ga": 5,
+      "gd": -1,
       "points": 1
     },
     {
@@ -4406,5 +4198,5 @@
     "135 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Auxerre/Troyes: M. Diop. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-30T16:39:43.277716+00:00"
+  "results_updated": "2026-08-30T18:48:38.753229+00:00"
 }

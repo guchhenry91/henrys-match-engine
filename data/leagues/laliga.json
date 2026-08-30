@@ -6,7 +6,7 @@
     "wrong": 6,
     "total": 18,
     "void": 6,
-    "pending": 1,
+    "pending": 2,
     "by_confidence": {
       "2": {
         "correct": 4,
@@ -33,288 +33,16 @@
       "away": "Villarreal",
       "score": "1-0",
       "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-30 15:00:00+00:00",
+      "home": "Real Madrid",
+      "away": "Malaga",
+      "score": "4-0",
+      "reason": "no locking run happened before kickoff"
     }
   ],
   "matches": [
-    {
-      "id": 28,
-      "matchweek": 3,
-      "date": "2026-08-30T15:00:00+00:00",
-      "venue": "Bernab\u00e9u",
-      "home": "Real Madrid",
-      "away": "Malaga",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.749,
-        "p_draw": 0.169,
-        "p_away": 0.081,
-        "pick": "Real Madrid",
-        "pick_type": "home",
-        "score": "2-0",
-        "top_scores": [
-          {
-            "score": "2-0",
-            "pct": 15.3,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 14.1,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "3-0",
-            "pct": 11.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 5,
-        "provisional": true,
-        "p_pick": 0.7494,
-        "why": {
-          "home_attack_pct": 53.2,
-          "home_defence_pct": 29.2,
-          "away_attack_pct": -30.9,
-          "away_defence_pct": -2.6,
-          "home_advantage_pct": 36.5
-        },
-        "best_pick": true,
-        "reasons": [
-          "Model: Real Madrid 75% / draw 17% / Malaga 8%",
-          "Expected goals: 2.18 - 0.56"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Ferland Mendy"
-          ],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Real Madrid",
-          "player": "Kylian Mbappe-Lottin",
-          "position": "FW",
-          "lambda_goals": 0.6434797246293458,
-          "anytime_pct": 30.9,
-          "exp_shots": 3.88,
-          "p_shots_2plus": 59.0,
-          "exp_sot": 1.79,
-          "p_sot_1plus": 63.0,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Vin\u00edcius J\u00fanior",
-          "position": "FW",
-          "lambda_goals": 0.388640499388073,
-          "anytime_pct": 19.2,
-          "exp_shots": 2.75,
-          "p_shots_2plus": 55.1,
-          "exp_sot": 1.19,
-          "p_sot_1plus": 57.5,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Carlos Esp\u00ed",
-          "position": "FW",
-          "lambda_goals": 0.2694398299181151,
-          "anytime_pct": 11.4,
-          "exp_shots": 1.44,
-          "p_shots_2plus": 18.6,
-          "exp_sot": 0.59,
-          "p_sot_1plus": 27.2,
-          "appearance_pct": 65.0,
-          "expected_minutes": 34.5,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.63,
-          "confidence": 4,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 30.9,
-          "exp_shots": 3.88,
-          "exp_sot": 1.79,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            0,
-            2,
-            3,
-            7
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 0.063695195,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.59,
-          "confidence": 3,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 30.9,
-          "exp_shots": 3.88,
-          "exp_sot": 1.79,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            4,
-            5,
-            5,
-            3,
-            7
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 0.06369482527777777,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Vin\u00edcius J\u00fanior",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.575,
-          "confidence": 3,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "anytime_pct": 19.2,
-          "exp_shots": 2.75,
-          "exp_sot": 1.19,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            1,
-            0,
-            1,
-            0,
-            2
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 0.06369505972222222,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Vin\u00edcius J\u00fanior",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.551,
-          "confidence": 3,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "anytime_pct": 19.2,
-          "exp_shots": 2.75,
-          "exp_sot": 1.19,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            1,
-            2,
-            2,
-            0,
-            3
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 0.0636947138888889,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.309,
-          "confidence": 1,
-          "provisional": true,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 30.9,
-          "exp_shots": 3.88,
-          "exp_sot": 1.79,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            0,
-            1,
-            0,
-            3
-          ],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 0.06369458305555556,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        }
-      ],
-      "market": {
-        "p_home": 0.843,
-        "p_draw": 0.106,
-        "p_away": 0.051,
-        "odds": {
-          "home": 1.11,
-          "draw": 9.0,
-          "away": 21.0
-        },
-        "book": "bet365",
-        "edge": -0.094,
-        "pick_odds": 1.11,
-        "ev": -0.168
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 23,
       "matchweek": 3,
@@ -5554,6 +5282,17 @@
   ],
   "standings": [
     {
+      "team": "Real Madrid",
+      "played": 3,
+      "won": 3,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 10,
+      "ga": 2,
+      "gd": 8,
+      "points": 9
+    },
+    {
       "team": "Ath Madrid",
       "played": 3,
       "won": 2,
@@ -5584,17 +5323,6 @@
       "gf": 7,
       "ga": 0,
       "gd": 7,
-      "points": 6
-    },
-    {
-      "team": "Real Madrid",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 6,
-      "ga": 2,
-      "gd": 4,
       "points": 6
     },
     {
@@ -5741,17 +5469,6 @@
       "points": 1
     },
     {
-      "team": "Malaga",
-      "played": 2,
-      "won": 0,
-      "drawn": 1,
-      "lost": 1,
-      "gf": 1,
-      "ga": 3,
-      "gd": -2,
-      "points": 1
-    },
-    {
       "team": "Elche",
       "played": 3,
       "won": 0,
@@ -5759,6 +5476,17 @@
       "lost": 2,
       "gf": 3,
       "ga": 9,
+      "gd": -6,
+      "points": 1
+    },
+    {
+      "team": "Malaga",
+      "played": 3,
+      "won": 0,
+      "drawn": 1,
+      "lost": 2,
+      "gf": 1,
+      "ga": 7,
       "gd": -6,
       "points": 1
     },
@@ -6026,5 +5754,5 @@
     "138 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
     "3 player identities could not be resolved because the same name appears at two different clubs in the roster source: Alaves/Vallecano: \u00c1lvaro Garc\u00eda; La Coruna/Real Madrid: \u00c1lvaro Fern\u00e1ndez; Malaga/Vallecano: Juanpe. Neither club's number for that name is trusted, rather than guessing which one is current."
   ],
-  "results_updated": "2026-08-30T16:39:42.508711+00:00"
+  "results_updated": "2026-08-30T18:48:37.803186+00:00"
 }
