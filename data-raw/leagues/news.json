@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-08-29",
+  "_verified_on": "2026-08-30",
   "PL": {
     "Arsenal": {
       "out": [
@@ -1360,12 +1360,13 @@
         "Adrian Nino",
         "Carlos Dotor",
         "Diego Murillo",
-        "Fernando Calero"
+        "Fernando Calero",
+        "Moussa Diarra"
       ],
       "doubt": [
         "Juanpe"
       ],
-      "note": "Ochoa suspended; Dotor, Calero, Murillo, Nino all injured for the club's first La Liga match in eight years. Juanpe still working back from a hamstring injury, could miss out.",
+      "note": "Re-checked ahead of the Real Madrid trip (30 Aug, two independent sources: Goal.com team-news page + Yardbarker 'numerous absences' report, both dated 30 Aug): Ochoa's absence is now reported as a torn meniscus requiring surgery, not the earlier suspension -- longer-term, still out either way. Dotor, Calero, Murillo, Nino confirmed still out. Moussa Diarra newly reported unavailable (not previously listed). Juanpe still working back from a hamstring injury, could miss out.",
       "automation": {
         "checked_at": "2026-08-29T14:31:13.365187Z",
         "feeds_ok": [
@@ -1378,7 +1379,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-08-29T14:31:13.365187Z",
+      "checked": "2026-08-30T12:16:30Z",
       "lineup_api_attempted_fixture": 1570334,
       "lineup_api_attempted_at": "2026-08-19T18:54:42.335505+00:00",
       "starters": [
@@ -1611,7 +1612,7 @@
         "Endrick",
         "Thiago Pitarch"
       ],
-      "note": "Predicted XI vs Sociedad (Sportsmole/SI, 26 Aug): Courtois; Dumfries, Konate, Rudiger, Cucurella; Valverde, Guler; Diomande, Bellingham, Vinicius; Mbappe -- both Mbappe and Vinicius set to start. Militao (muscle), Rodrygo (knee), Asencio (thigh) and Mendy (hip) confirmed out. Tchouameni (thigh) confirmed by Mourinho as not recovered in time. Endrick and Thiago Pitarch doubtful (muscle/knee). Bellingham had an ankle knock but appears in the predicted starting XI and is expected to play. Independently re-confirmed 17:20Z via a second search (Managing Madrid/Heavy.com): same absentee list, with Tchouameni/Endrick also reported as having failed late fitness checks -- kept under doubt since no single source confirms both as officially scratched from the squad list.",
+      "note": "Predicted XI vs Sociedad (Sportsmole/SI, 26 Aug): Courtois; Dumfries, Konate, Rudiger, Cucurella; Valverde, Guler; Diomande, Bellingham, Vinicius; Mbappe -- both Mbappe and Vinicius set to start. Militao (muscle), Rodrygo (knee), Asencio (thigh) and Mendy (hip) confirmed out. Tchouameni (thigh) confirmed by Mourinho as not recovered in time. Endrick and Thiago Pitarch doubtful (muscle/knee). Bellingham had an ankle knock but appears in the predicted starting XI and is expected to play. Independently re-confirmed 17:20Z via a second search (Managing Madrid/Heavy.com): same absentee list, with Tchouameni/Endrick also reported as having failed late fitness checks -- kept under doubt since no single source confirms both as officially scratched from the squad list. Re-checked ahead of kickoff (30 Aug, Goal.com team-news + Managing Madrid preview, both dated 30 Aug): same absentee picture, none of the injured expected back for Malaga; Mbappe and Vinicius (both on the props board) confirmed fit and expected to start, no new fitness concerns for either.",
       "automation": {
         "checked_at": "2026-08-29T14:31:13.365187Z",
         "feeds_ok": [
@@ -1624,7 +1625,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-08-29T14:31:13.365187Z",
+      "checked": "2026-08-30T12:16:30Z",
       "lineup_api_attempted_fixture": 1570347,
       "lineup_api_attempted_at": "2026-08-22T19:05:02.966857+00:00",
       "lineup_api_rungs": [
