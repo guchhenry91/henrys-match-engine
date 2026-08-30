@@ -37,7 +37,8 @@ PICKS_DIR = ROOT / "data-raw" / "leagues"
 # runs and vanish from the record. See leagues/lockwindow.py.
 LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
 
-FILES = {"PL": "pl", "LALIGA": "laliga", "BUNDESLIGA": "bundesliga", "LIGUE1": "ligue1"}
+FILES = {"PL": "pl", "LALIGA": "laliga", "BUNDESLIGA": "bundesliga",
+         "LIGUE1": "ligue1", "SERIEA": "seriea"}
 
 
 def _season_tag(league: str) -> str:

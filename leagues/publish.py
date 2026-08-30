@@ -796,7 +796,8 @@ def build(league: str = "PL") -> dict:
 
 
 FILE_FOR = {"PL": "pl.json", "LALIGA": "laliga.json",
-            "BUNDESLIGA": "bundesliga.json", "LIGUE1": "ligue1.json"}
+            "BUNDESLIGA": "bundesliga.json", "LIGUE1": "ligue1.json",
+            "SERIEA": "seriea.json"}
 
 
 def _publish_one(league: str, fname: str) -> bool:
@@ -1211,7 +1212,7 @@ def build_player_picks() -> dict:
 
 
 def main(argv=None):
-    """Publish all four leagues, or just the ones named on the command line
+    """Publish every configured league, or just the ones named on the command line
     (e.g. `python -m leagues.publish PL` for quick iteration)."""
     import sys
     argv = sys.argv[1:] if argv is None else argv
@@ -1227,7 +1228,7 @@ def main(argv=None):
         known.append(league)
     workers = max(1, min(int(os.environ.get("PUBLISH_WORKERS", "1")), len(known)))
     if workers > 1 and len(known) > 1:
-        # The four leagues use disjoint source/cache paths and output files. Two
+        # The leagues use disjoint source/cache paths and output files. Two
         # workers substantially reduce a cold-cache run without opening four
         # simultaneous scrapers against a free upstream service.
         from concurrent.futures import ThreadPoolExecutor
@@ -1328,8 +1329,8 @@ def main(argv=None):
             print(f"wrote {hpath} - {len(hist)} snapshots")
 
     elif ok:
-        print("SKIPPED cross-league boards: they require a complete successful "
-              "four-league refresh")
+        print(f"SKIPPED cross-league boards: they require a complete successful "
+              f"refresh of all {len(FILE_FOR)} leagues")
 
     # A scheduled full refresh is atomic at the deployment boundary: individual
     # files may have been written locally, but callers must not commit or deploy

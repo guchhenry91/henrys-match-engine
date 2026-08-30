@@ -4,10 +4,12 @@ from pathlib import Path
 import pytest
 
 from leagues import config, fixtures
+# IMPORTED, not restated. This file used to keep its own copy of the map, so
+# adding Serie A had to update it in two places and failed here on the second --
+# the duplication was the bug, not the missing entry.
+from scripts.roster_integrity_check import CLUBS
 
 ROOT = Path(__file__).resolve().parents[2]
-CLUBS = {"PL": "clubs.json", "LALIGA": "clubs_laliga.json",
-         "BUNDESLIGA": "clubs_bundesliga.json", "LIGUE1": "clubs_ligue1.json"}
 
 
 @pytest.mark.parametrize("league", list(config.LEAGUES))

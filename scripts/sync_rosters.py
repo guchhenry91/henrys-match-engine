@@ -26,11 +26,17 @@ LEAGUES = {
     "LALIGA": "esp.1",
     "BUNDESLIGA": "ger.1",
     "LIGUE1": "fra.1",
+    # Serie A, added with the league itself. Checked before adding: ESPN's ita.1
+    # feed returns all 20 clubs. Without it Serie A published a data_warning
+    # saying no roster evidence existed at all, which meant player attribution
+    # fell back to last season's club plus transfer overrides.
+    "SERIEA": "ita.1",
 }
 BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 REQUEST_ATTEMPTS = 4
 REQUEST_TIMEOUT = 20
-API_LEAGUES = {"PL": 39, "LALIGA": 140, "BUNDESLIGA": 78, "LIGUE1": 61}
+API_LEAGUES = {"PL": 39, "LALIGA": 140, "BUNDESLIGA": 78, "LIGUE1": 61,
+               "SERIEA": 135}
 API_SEASON = 2026
 
 

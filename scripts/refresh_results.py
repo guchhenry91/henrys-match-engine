@@ -46,7 +46,7 @@ OUT = ROOT / "data" / "leagues"
 PICKS_DIR = ROOT / "data-raw" / "leagues"
 
 FILES = {"PL": "pl", "LALIGA": "laliga", "BUNDESLIGA": "bundesliga",
-         "LIGUE1": "ligue1"}
+         "LIGUE1": "ligue1", "SERIEA": "seriea"}
 
 
 def _season_tag(league: str) -> str:

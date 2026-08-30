@@ -31,6 +31,17 @@ LEAGUES = {
                          "GER-Bundesliga", "GER-Bundesliga", 18, 2, 4, "D2"),
     "LIGUE1": League("LIGUE1", "Ligue 1", "F1", "ligue-1-2026",
                      "FRA-Ligue 1", "FRA-Ligue 1", 18, 2, 4, "F2"),
+    # Serie A, added 2026-08-30. Every feed the engine needs was checked before
+    # the entry was written rather than after: football-data I1 has all five
+    # fitting seasons at 380 matches with B365 closing odds, I2 (Serie B) supplies
+    # the promoted-club priors, fixturedownload's serie-a-2026 has 380 fixtures,
+    # and Understat's ITA-Serie A returns team xG.
+    #
+    # HEAD-TO-HEAD, like La Liga: Serie A separates clubs level on points by their
+    # meetings first, not goal difference. Using "gd" would render a table that
+    # disagrees with the official one at exactly the positions people care about.
+    "SERIEA": League("SERIEA", "Serie A", "I1", "serie-a-2026",
+                     "ITA-Serie A", "ITA-Serie A", 20, 3, 4, "I2", "h2h"),
 }
 
 

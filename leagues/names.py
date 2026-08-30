@@ -101,6 +101,41 @@ ALIASES = {
         "Hertha": {"Hertha Berlin", "Hertha BSC"},
         "Holstein Kiel": {"KSV Holstein Kiel"},
     },
+    # SERIE A. Canonical spelling is football-data.co.uk's, as in every other
+    # league here, because that is where results and closing odds come from.
+    # Built by reading all 27 club names each feed actually uses across the five
+    # fitting seasons plus the current one, NOT from memory -- only three differ
+    # at all, and a single unmapped name raises UnknownTeam mid-fit.
+    "SERIEA": {
+        "Milan": {"AC Milan", "A.C. Milan", "Milan AC"},
+        "Inter": {"Internazionale", "Inter Milan", "FC Internazionale",
+                  "Internazionale Milano"},
+        "Parma": {"Parma Calcio 1913", "Parma Calcio"},
+        "Verona": {"Hellas Verona", "Hellas Verona FC"},
+        "Roma": {"AS Roma"},
+        "Lazio": {"SS Lazio"},
+        "Napoli": {"SSC Napoli"},
+        "Juventus": {"Juventus FC", "Juve"},
+        "Atalanta": {"Atalanta BC"},
+        "Fiorentina": {"ACF Fiorentina"},
+        "Torino": {"Torino FC"},
+        "Bologna": {"Bologna FC", "Bologna 1909"},
+        "Udinese": {"Udinese Calcio"},
+        "Genoa": {"Genoa CFC"},
+        "Cagliari": {"Cagliari Calcio"},
+        "Lecce": {"US Lecce"},
+        "Sassuolo": {"US Sassuolo", "Sassuolo Calcio"},
+        "Como": {"Como 1907"},
+        "Monza": {"AC Monza"},
+        "Venezia": {"Venezia FC"},
+        "Cremonese": {"US Cremonese"},
+        "Pisa": {"Pisa SC", "AC Pisa"},
+        "Frosinone": {"Frosinone Calcio"},
+        "Empoli": {"Empoli FC"},
+        "Salernitana": {"US Salernitana", "Salernitana 1919"},
+        "Sampdoria": {"UC Sampdoria"},
+        "Spezia": {"Spezia Calcio"},
+    },
     "LIGUE1": {
         "Marseille": {"Olympique de Marseille", "Olympique Marseille"},
         "Paris SG": {"Paris Saint-Germain", "PSG", "Paris Saint Germain"},

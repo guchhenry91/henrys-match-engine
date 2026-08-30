@@ -12,6 +12,7 @@ CLUBS = {
     "LALIGA": "clubs_laliga.json",
     "BUNDESLIGA": "clubs_bundesliga.json",
     "LIGUE1": "clubs_ligue1.json",
+    "SERIEA": "clubs_seriea.json",
 }
 
 
@@ -53,6 +54,25 @@ def audit(payload):
         teams = payload.get(league, {})
         expected = json.loads(
             (ROOT / "data" / "leagues" / CLUBS[league]).read_text(encoding="utf-8"))
+
+        # A LEAGUE THE SNAPSHOT DOES NOT COVER AT ALL IS A WARNING, NOT AN ERROR.
+        # This is the same absence-of-evidence distinction the engine already
+        # draws for a thin club roster: evidence that CONTRADICTS the league is
+        # dangerous and must fail, but no evidence at all is simply a gap. The
+        # publish path already detects it and prints a data_warning on the page
+        # ("no current-roster evidence is available for this league at all"), so
+        # player attribution falls back to last season plus transfer overrides
+        # rather than deleting anyone.
+        #
+        # Conflating the two would mean a newly added league -- or an outage at
+        # the source, which is live right now: ESPN has been answering 403 -- fails
+        # the whole audit as though the data were WRONG rather than absent.
+        if not teams:
+            warnings.append(
+                f"{league}: no roster evidence in the snapshot at all; attribution "
+                f"falls back to last season plus transfer overrides")
+            continue
+
         missing = sorted(set(expected) - set(teams))
         extra = sorted(set(teams) - set(expected))
         if len(teams) != cfg.n_teams or missing or extra:

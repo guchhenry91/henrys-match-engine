@@ -17,7 +17,8 @@ from leagues.backtest import devig
 from leagues.names import canonical, UnknownTeam
 
 FEED = "https://www.football-data.co.uk/fixtures.csv"
-DIV = {"PL": "E0", "LALIGA": "SP1", "BUNDESLIGA": "D1", "LIGUE1": "F1"}
+DIV = {"PL": "E0", "LALIGA": "SP1", "BUNDESLIGA": "D1", "LIGUE1": "F1",
+       "SERIEA": "I1"}
 COLS = ["date", "home", "away", "m_home", "m_draw", "m_away",
         "b_home", "b_draw", "b_away", "book"]
 

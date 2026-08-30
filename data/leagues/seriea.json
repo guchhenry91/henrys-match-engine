@@ -1,0 +1,5767 @@
+{
+  "league": "Serie A",
+  "updated": "2026-08-30T18:46:29.046517+00:00",
+  "results_updated": "2026-08-30T18:46:29.046524+00:00",
+  "record": {
+    "correct": 0,
+    "wrong": 0,
+    "total": 0,
+    "void": 0,
+    "pending": 0,
+    "by_confidence": {}
+  },
+  "unrecorded": [
+    {
+      "date": "2026-08-22 16:30:00+00:00",
+      "home": "Inter",
+      "away": "Monza",
+      "score": "4-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-22 16:30:00+00:00",
+      "home": "Udinese",
+      "away": "Como",
+      "score": "1-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-22 18:45:00+00:00",
+      "home": "Genoa",
+      "away": "Napoli",
+      "score": "0-2",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-22 18:45:00+00:00",
+      "home": "Parma",
+      "away": "Cagliari",
+      "score": "0-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-23 16:30:00+00:00",
+      "home": "Frosinone",
+      "away": "Juventus",
+      "score": "0-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-23 16:30:00+00:00",
+      "home": "Venezia",
+      "away": "Lecce",
+      "score": "0-2",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-23 18:45:00+00:00",
+      "home": "Atalanta",
+      "away": "Sassuolo",
+      "score": "2-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-23 18:45:00+00:00",
+      "home": "Torino",
+      "away": "Milan",
+      "score": "1-2",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-24 16:30:00+00:00",
+      "home": "Bologna",
+      "away": "Lazio",
+      "score": "0-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-24 18:45:00+00:00",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "score": "4-0",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-28 18:45:00+00:00",
+      "home": "Milan",
+      "away": "Venezia",
+      "score": "2-0",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-29 16:30:00+00:00",
+      "home": "Fiorentina",
+      "away": "Frosinone",
+      "score": "0-3",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-29 16:30:00+00:00",
+      "home": "Monza",
+      "away": "Udinese",
+      "score": "2-3",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-29 16:30:00+00:00",
+      "home": "Sassuolo",
+      "away": "Torino",
+      "score": "2-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-29 18:45:00+00:00",
+      "home": "Juventus",
+      "away": "Parma",
+      "score": "2-0",
+      "reason": "no locking run happened before kickoff"
+    }
+  ],
+  "matches": [
+    {
+      "id": 19,
+      "matchweek": 2,
+      "date": "2026-08-30T16:30:00+00:00",
+      "venue": "Diego Armando Maradona",
+      "home": "Napoli",
+      "away": "Como",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.372,
+        "p_draw": 0.29,
+        "p_away": 0.338,
+        "pick": "Napoli",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 13.3,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 12.5,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 11.8,
+            "outcome": "away",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 1,
+        "provisional": false,
+        "p_pick": 0.3722,
+        "why": {
+          "home_attack_pct": 20.4,
+          "home_defence_pct": 35.1,
+          "away_attack_pct": 31.2,
+          "away_defence_pct": 28.3,
+          "home_advantage_pct": 10.0
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Napoli 37% / draw 29% / Como 34%",
+          "Expected goals: 1.14 - 1.07"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Napoli",
+          "player": "Rasmus H\u00f8jlund",
+          "position": "FW",
+          "lambda_goals": 0.22822744639320447,
+          "anytime_pct": 9.9,
+          "exp_shots": 1.44,
+          "p_shots_2plus": 19.2,
+          "exp_sot": 0.6,
+          "p_sot_1plus": 31.5,
+          "appearance_pct": 85.0,
+          "expected_minutes": 71.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Napoli",
+          "player": "Scott McTominay",
+          "position": "MF",
+          "lambda_goals": 0.170127746824447,
+          "anytime_pct": 6.8,
+          "exp_shots": 1.77,
+          "p_shots_2plus": 28.3,
+          "exp_sot": 0.65,
+          "p_sot_1plus": 33.9,
+          "appearance_pct": 85.0,
+          "expected_minutes": 72.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Napoli",
+          "player": "Giovane",
+          "position": "FW",
+          "lambda_goals": 0.09037796290056864,
+          "anytime_pct": 2.9,
+          "exp_shots": 1.2,
+          "p_shots_2plus": 12.8,
+          "exp_sot": 0.55,
+          "p_sot_1plus": 28.9,
+          "appearance_pct": 85.0,
+          "expected_minutes": 48.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Como",
+          "player": "Tasos Douvikas",
+          "position": "FW",
+          "lambda_goals": 0.20431135953916843,
+          "anytime_pct": 8.8,
+          "exp_shots": 1.16,
+          "p_shots_2plus": 11.2,
+          "exp_sot": 0.49,
+          "p_sot_1plus": 27.0,
+          "appearance_pct": 97.5,
+          "expected_minutes": 58.5,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Como",
+          "player": "Nico Paz",
+          "position": "FW",
+          "lambda_goals": 0.16042820036187452,
+          "anytime_pct": 6.4,
+          "exp_shots": 2.11,
+          "p_shots_2plus": 38.3,
+          "exp_sot": 0.78,
+          "p_sot_1plus": 41.0,
+          "appearance_pct": 90.0,
+          "expected_minutes": 74.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Como",
+          "player": "Lucas Da Cunha",
+          "position": "MF",
+          "lambda_goals": 0.14135767093642973,
+          "anytime_pct": 5.4,
+          "exp_shots": 0.72,
+          "p_shots_2plus": 3.1,
+          "exp_sot": 0.27,
+          "p_sot_1plus": 13.5,
+          "appearance_pct": 92.5,
+          "expected_minutes": 71.0,
+          "penalty_taker": true,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": {
+        "p_home": 0.379,
+        "p_draw": 0.304,
+        "p_away": 0.317,
+        "odds": {
+          "home": 2.5,
+          "draw": 3.0,
+          "away": 3.1
+        },
+        "book": "bet365",
+        "edge": -0.007,
+        "pick_odds": 2.5,
+        "ev": -0.069
+      },
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 12,
+      "matchweek": 2,
+      "date": "2026-08-30T18:45:00+00:00",
+      "venue": "Unipol Domus",
+      "home": "Cagliari",
+      "away": "Inter",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.148,
+        "p_draw": 0.203,
+        "p_away": 0.649,
+        "pick": "Inter",
+        "pick_type": "away",
+        "score": "0-2",
+        "top_scores": [
+          {
+            "score": "0-2",
+            "pct": 11.5,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 11.3,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-2",
+            "pct": 9.8,
+            "outcome": "away",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 4,
+        "provisional": false,
+        "p_pick": 0.6489,
+        "why": {
+          "home_attack_pct": -5.5,
+          "home_defence_pct": -9.2,
+          "away_attack_pct": 67.6,
+          "away_defence_pct": 34.4,
+          "home_advantage_pct": 10.0
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Cagliari 15% / draw 20% / Inter 65%",
+          "Expected goals: 0.85 - 2.04"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Cagliari",
+          "player": "Sebastiano Esposito",
+          "position": "FW",
+          "lambda_goals": 0.2259826098876074,
+          "anytime_pct": 9.9,
+          "exp_shots": 1.44,
+          "p_shots_2plus": 18.8,
+          "exp_sot": 0.43,
+          "p_sot_1plus": 23.3,
+          "appearance_pct": 92.5,
+          "expected_minutes": 70.7,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Cagliari",
+          "player": "Gennaro Borrelli",
+          "position": "FW",
+          "lambda_goals": 0.09649538832634295,
+          "anytime_pct": 3.1,
+          "exp_shots": 0.71,
+          "p_shots_2plus": 3.9,
+          "exp_sot": 0.28,
+          "p_sot_1plus": 13.1,
+          "appearance_pct": 70.0,
+          "expected_minutes": 32.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Cagliari",
+          "player": "Semih Kili\u00e7soy",
+          "position": "FW",
+          "lambda_goals": 0.06706988522766368,
+          "anytime_pct": 1.9,
+          "exp_shots": 0.48,
+          "p_shots_2plus": 1.5,
+          "exp_sot": 0.2,
+          "p_sot_1plus": 8.9,
+          "appearance_pct": 57.5,
+          "expected_minutes": 25.4,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Inter",
+          "player": "Lautaro Mart\u00ednez",
+          "position": "FW",
+          "lambda_goals": 0.4156778772334596,
+          "anytime_pct": 19.6,
+          "exp_shots": 2.19,
+          "p_shots_2plus": 36.8,
+          "exp_sot": 0.87,
+          "p_sot_1plus": 41.0,
+          "appearance_pct": 77.5,
+          "expected_minutes": 57.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Inter",
+          "player": "Marcus Thuram",
+          "position": "FW",
+          "lambda_goals": 0.30857446934902755,
+          "anytime_pct": 13.9,
+          "exp_shots": 1.48,
+          "p_shots_2plus": 20.0,
+          "exp_sot": 0.58,
+          "p_sot_1plus": 28.7,
+          "appearance_pct": 75.0,
+          "expected_minutes": 50.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Inter",
+          "player": "Francesco Pio Esposito",
+          "position": "FW",
+          "lambda_goals": 0.22090812024182804,
+          "anytime_pct": 9.6,
+          "exp_shots": 1.27,
+          "p_shots_2plus": 14.3,
+          "exp_sot": 0.5,
+          "p_sot_1plus": 26.7,
+          "appearance_pct": 90.0,
+          "expected_minutes": 39.5,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": {
+        "p_home": 0.126,
+        "p_draw": 0.215,
+        "p_away": 0.659,
+        "odds": {
+          "home": 7.0,
+          "draw": 4.5,
+          "away": 1.44
+        },
+        "book": "bet365",
+        "edge": -0.01,
+        "pick_odds": 1.44,
+        "ev": -0.066
+      },
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 15,
+      "matchweek": 2,
+      "date": "2026-08-30T18:45:00+00:00",
+      "venue": "Olimpico",
+      "home": "Lazio",
+      "away": "Genoa",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.449,
+        "p_draw": 0.287,
+        "p_away": 0.264,
+        "pick": "Lazio",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 14.5,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 13.0,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-0",
+            "pct": 11.4,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 2,
+        "provisional": false,
+        "p_pick": 0.4489,
+        "why": {
+          "home_attack_pct": 4.2,
+          "home_defence_pct": 13.7,
+          "away_attack_pct": -7.2,
+          "away_defence_pct": -0.2,
+          "home_advantage_pct": 10.0
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Lazio 45% / draw 29% / Genoa 26%",
+          "Expected goals: 1.27 - 0.90"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Lazio",
+          "player": "Pedro",
+          "position": "FW",
+          "lambda_goals": 0.16523397362035233,
+          "anytime_pct": 6.4,
+          "exp_shots": 0.69,
+          "p_shots_2plus": 3.3,
+          "exp_sot": 0.3,
+          "p_sot_1plus": 14.8,
+          "appearance_pct": 75.0,
+          "expected_minutes": 24.7,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Lazio",
+          "player": "Mattia Zaccagni",
+          "position": "FW",
+          "lambda_goals": 0.1390769267327107,
+          "anytime_pct": 5.1,
+          "exp_shots": 1.17,
+          "p_shots_2plus": 12.7,
+          "exp_sot": 0.43,
+          "p_sot_1plus": 20.6,
+          "appearance_pct": 67.5,
+          "expected_minutes": 55.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Lazio",
+          "player": "Matteo Cancellieri",
+          "position": "FW",
+          "lambda_goals": 0.12386002482863044,
+          "anytime_pct": 4.4,
+          "exp_shots": 1.11,
+          "p_shots_2plus": 11.2,
+          "exp_sot": 0.4,
+          "p_sot_1plus": 20.1,
+          "appearance_pct": 77.5,
+          "expected_minutes": 45.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Genoa",
+          "player": "Ruslan Malinovskiy",
+          "position": "MF",
+          "lambda_goals": 0.15566532697395816,
+          "anytime_pct": 6.1,
+          "exp_shots": 1.17,
+          "p_shots_2plus": 11.9,
+          "exp_sot": 0.35,
+          "p_sot_1plus": 18.1,
+          "appearance_pct": 87.5,
+          "expected_minutes": 58.7,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Genoa",
+          "player": "Lorenzo Colombo",
+          "position": "FW",
+          "lambda_goals": 0.14156730668442555,
+          "anytime_pct": 5.4,
+          "exp_shots": 1.39,
+          "p_shots_2plus": 17.2,
+          "exp_sot": 0.5,
+          "p_sot_1plus": 27.3,
+          "appearance_pct": 97.5,
+          "expected_minutes": 60.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Genoa",
+          "player": "Vitinha",
+          "position": "FW",
+          "lambda_goals": 0.12812789912600314,
+          "anytime_pct": 4.7,
+          "exp_shots": 1.39,
+          "p_shots_2plus": 17.5,
+          "exp_sot": 0.38,
+          "p_sot_1plus": 19.8,
+          "appearance_pct": 90.0,
+          "expected_minutes": 58.2,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": {
+        "p_home": 0.475,
+        "p_draw": 0.299,
+        "p_away": 0.226,
+        "odds": {
+          "home": 2.0,
+          "draw": 3.1,
+          "away": 4.33
+        },
+        "book": "bet365",
+        "edge": -0.026,
+        "pick_odds": 2.0,
+        "ev": -0.102
+      },
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 16,
+      "matchweek": 2,
+      "date": "2026-08-31T16:30:00+00:00",
+      "venue": "Ettore Giardiniero - Via Del Mare",
+      "home": "Lecce",
+      "away": "Roma",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.172,
+        "p_draw": 0.244,
+        "p_away": 0.584,
+        "pick": "Roma",
+        "pick_type": "away",
+        "score": "0-1",
+        "top_scores": [
+          {
+            "score": "0-1",
+            "pct": 15.0,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-2",
+            "pct": 12.2,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 11.3,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.5837,
+        "why": {
+          "home_attack_pct": -21.3,
+          "home_defence_pct": -11.9,
+          "away_attack_pct": 30.6,
+          "away_defence_pct": 26.1,
+          "home_advantage_pct": 10.0
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Lecce 17% / draw 24% / Roma 58%",
+          "Expected goals: 0.76 - 1.63"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Lecce",
+          "player": "Francesco Camarda",
+          "position": "FW",
+          "lambda_goals": 0.09957232066334594,
+          "anytime_pct": 3.2,
+          "exp_shots": 0.45,
+          "p_shots_2plus": 1.3,
+          "exp_sot": 0.1,
+          "p_sot_1plus": 3.9,
+          "appearance_pct": 55.0,
+          "expected_minutes": 17.6,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Lecce",
+          "player": "Nikola Stulic",
+          "position": "FW",
+          "lambda_goals": 0.09259416758218404,
+          "anytime_pct": 3.0,
+          "exp_shots": 0.9,
+          "p_shots_2plus": 6.2,
+          "exp_sot": 0.26,
+          "p_sot_1plus": 13.0,
+          "appearance_pct": 87.5,
+          "expected_minutes": 44.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Lecce",
+          "player": "Santiago Pierotti",
+          "position": "FW",
+          "lambda_goals": 0.08534196179380507,
+          "anytime_pct": 2.7,
+          "exp_shots": 1.03,
+          "p_shots_2plus": 8.3,
+          "exp_sot": 0.24,
+          "p_sot_1plus": 12.0,
+          "appearance_pct": 95.0,
+          "expected_minutes": 68.3,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Roma",
+          "player": "Donyell Malen",
+          "position": "FW",
+          "lambda_goals": 0.31523279521560543,
+          "anytime_pct": 12.1,
+          "exp_shots": 1.54,
+          "p_shots_2plus": 16.4,
+          "exp_sot": 0.66,
+          "p_sot_1plus": 24.3,
+          "appearance_pct": 47.5,
+          "expected_minutes": 39.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Roma",
+          "player": "Paulo Dybala",
+          "position": "FW",
+          "lambda_goals": 0.19365252962060822,
+          "anytime_pct": 7.5,
+          "exp_shots": 1.14,
+          "p_shots_2plus": 12.0,
+          "exp_sot": 0.43,
+          "p_sot_1plus": 19.5,
+          "appearance_pct": 57.5,
+          "expected_minutes": 35.5,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Roma",
+          "player": "Mat\u00ecas Soul\u00e8 Malvano",
+          "position": "DF",
+          "lambda_goals": 0.14131452431216202,
+          "anytime_pct": 5.3,
+          "exp_shots": 1.2,
+          "p_shots_2plus": 12.9,
+          "exp_sot": 0.39,
+          "p_sot_1plus": 20.3,
+          "appearance_pct": 85.0,
+          "expected_minutes": 56.8,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": {
+        "p_home": 0.128,
+        "p_draw": 0.231,
+        "p_away": 0.641,
+        "odds": {
+          "home": 8.0,
+          "draw": 4.0,
+          "away": 1.48
+        },
+        "book": "bet365",
+        "edge": -0.057,
+        "pick_odds": 1.48,
+        "ev": -0.136
+      },
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 11,
+      "matchweek": 2,
+      "date": "2026-08-31T18:45:00+00:00",
+      "venue": "New Balance Arena",
+      "home": "Atalanta",
+      "away": "Bologna",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.485,
+        "p_draw": 0.255,
+        "p_away": 0.259,
+        "pick": "Atalanta",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 12.1,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 11.7,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "2-1",
+            "pct": 9.3,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.4854,
+        "why": {
+          "home_attack_pct": 38.2,
+          "home_defence_pct": 11.7,
+          "away_attack_pct": 5.8,
+          "away_defence_pct": 9.6,
+          "home_advantage_pct": 10.0
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Atalanta 49% / draw 26% / Bologna 26%",
+          "Expected goals: 1.53 - 1.04"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Atalanta",
+          "player": "Nikola Krstovic",
+          "position": "FW",
+          "lambda_goals": 0.27802640512999377,
+          "anytime_pct": 12.6,
+          "exp_shots": 1.69,
+          "p_shots_2plus": 26.0,
+          "exp_sot": 0.51,
+          "p_sot_1plus": 26.9,
+          "appearance_pct": 85.0,
+          "expected_minutes": 45.9,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Atalanta",
+          "player": "Gianluca Scamacca",
+          "position": "FW",
+          "lambda_goals": 0.19002055261610643,
+          "anytime_pct": 7.4,
+          "exp_shots": 1.1,
+          "p_shots_2plus": 11.3,
+          "exp_sot": 0.44,
+          "p_sot_1plus": 20.6,
+          "appearance_pct": 62.5,
+          "expected_minutes": 34.3,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Atalanta",
+          "player": "Charles De Ketelaere",
+          "position": "FW",
+          "lambda_goals": 0.15473822178192814,
+          "anytime_pct": 6.0,
+          "exp_shots": 1.04,
+          "p_shots_2plus": 9.5,
+          "exp_sot": 0.4,
+          "p_sot_1plus": 20.6,
+          "appearance_pct": 80.0,
+          "expected_minutes": 56.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bologna",
+          "player": "Riccardo Orsolini",
+          "position": "FW",
+          "lambda_goals": 0.23429835818375544,
+          "anytime_pct": 10.3,
+          "exp_shots": 1.62,
+          "p_shots_2plus": 24.3,
+          "exp_sot": 0.6,
+          "p_sot_1plus": 32.1,
+          "appearance_pct": 90.0,
+          "expected_minutes": 55.2,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Bologna",
+          "player": "Santiago Castro",
+          "position": "FW",
+          "lambda_goals": 0.14067443032152382,
+          "anytime_pct": 5.3,
+          "exp_shots": 1.33,
+          "p_shots_2plus": 16.1,
+          "exp_sot": 0.44,
+          "p_sot_1plus": 23.3,
+          "appearance_pct": 90.0,
+          "expected_minutes": 61.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bologna",
+          "player": "Jonathan Rowe",
+          "position": "FW",
+          "lambda_goals": 0.08537084445192777,
+          "anytime_pct": 2.7,
+          "exp_shots": 0.98,
+          "p_shots_2plus": 8.6,
+          "exp_sot": 0.33,
+          "p_sot_1plus": 16.1,
+          "appearance_pct": 72.5,
+          "expected_minutes": 41.7,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": {
+        "p_home": 0.499,
+        "p_draw": 0.264,
+        "p_away": 0.237,
+        "odds": {
+          "home": 1.85,
+          "draw": 3.75,
+          "away": 4.0
+        },
+        "book": "bet365",
+        "edge": -0.014,
+        "pick_odds": 1.85,
+        "ev": -0.102
+      },
+      "result": null,
+      "graded": null,
+      "void": false
+    }
+  ],
+  "season": [
+    {
+      "id": 5,
+      "matchweek": 1,
+      "date": "2026-08-22T16:30:00+00:00",
+      "home": "Inter",
+      "away": "Monza",
+      "result": {
+        "home_goals": 4,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 9,
+      "matchweek": 1,
+      "date": "2026-08-22T16:30:00+00:00",
+      "home": "Udinese",
+      "away": "Como",
+      "result": {
+        "home_goals": 1,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 4,
+      "matchweek": 1,
+      "date": "2026-08-22T18:45:00+00:00",
+      "home": "Genoa",
+      "away": "Napoli",
+      "result": {
+        "home_goals": 0,
+        "away_goals": 2
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 6,
+      "matchweek": 1,
+      "date": "2026-08-22T18:45:00+00:00",
+      "home": "Parma",
+      "away": "Cagliari",
+      "result": {
+        "home_goals": 0,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 3,
+      "matchweek": 1,
+      "date": "2026-08-23T16:30:00+00:00",
+      "home": "Frosinone",
+      "away": "Juventus",
+      "result": {
+        "home_goals": 0,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 10,
+      "matchweek": 1,
+      "date": "2026-08-23T16:30:00+00:00",
+      "home": "Venezia",
+      "away": "Lecce",
+      "result": {
+        "home_goals": 0,
+        "away_goals": 2
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 1,
+      "matchweek": 1,
+      "date": "2026-08-23T18:45:00+00:00",
+      "home": "Atalanta",
+      "away": "Sassuolo",
+      "result": {
+        "home_goals": 2,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 8,
+      "matchweek": 1,
+      "date": "2026-08-23T18:45:00+00:00",
+      "home": "Torino",
+      "away": "Milan",
+      "result": {
+        "home_goals": 1,
+        "away_goals": 2
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 2,
+      "matchweek": 1,
+      "date": "2026-08-24T16:30:00+00:00",
+      "home": "Bologna",
+      "away": "Lazio",
+      "result": {
+        "home_goals": 0,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 7,
+      "matchweek": 1,
+      "date": "2026-08-24T18:45:00+00:00",
+      "home": "Roma",
+      "away": "Fiorentina",
+      "result": {
+        "home_goals": 4,
+        "away_goals": 0
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 17,
+      "matchweek": 2,
+      "date": "2026-08-28T18:45:00+00:00",
+      "home": "Milan",
+      "away": "Venezia",
+      "result": {
+        "home_goals": 2,
+        "away_goals": 0
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 13,
+      "matchweek": 2,
+      "date": "2026-08-29T16:30:00+00:00",
+      "home": "Fiorentina",
+      "away": "Frosinone",
+      "result": {
+        "home_goals": 0,
+        "away_goals": 3
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 18,
+      "matchweek": 2,
+      "date": "2026-08-29T16:30:00+00:00",
+      "home": "Monza",
+      "away": "Udinese",
+      "result": {
+        "home_goals": 2,
+        "away_goals": 3
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 20,
+      "matchweek": 2,
+      "date": "2026-08-29T16:30:00+00:00",
+      "home": "Sassuolo",
+      "away": "Torino",
+      "result": {
+        "home_goals": 2,
+        "away_goals": 1
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 14,
+      "matchweek": 2,
+      "date": "2026-08-29T18:45:00+00:00",
+      "home": "Juventus",
+      "away": "Parma",
+      "result": {
+        "home_goals": 2,
+        "away_goals": 0
+      },
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 19,
+      "matchweek": 2,
+      "date": "2026-08-30T16:30:00+00:00",
+      "home": "Napoli",
+      "away": "Como",
+      "result": null,
+      "pick": "Napoli",
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 12,
+      "matchweek": 2,
+      "date": "2026-08-30T18:45:00+00:00",
+      "home": "Cagliari",
+      "away": "Inter",
+      "result": null,
+      "pick": "Inter",
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 15,
+      "matchweek": 2,
+      "date": "2026-08-30T18:45:00+00:00",
+      "home": "Lazio",
+      "away": "Genoa",
+      "result": null,
+      "pick": "Lazio",
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 16,
+      "matchweek": 2,
+      "date": "2026-08-31T16:30:00+00:00",
+      "home": "Lecce",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 11,
+      "matchweek": 2,
+      "date": "2026-08-31T18:45:00+00:00",
+      "home": "Atalanta",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 25,
+      "matchweek": 3,
+      "date": "2026-09-04T18:45:00+00:00",
+      "home": "Genoa",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 23,
+      "matchweek": 3,
+      "date": "2026-09-05T13:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 26,
+      "matchweek": 3,
+      "date": "2026-09-05T16:00:00+00:00",
+      "home": "Inter",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 29,
+      "matchweek": 3,
+      "date": "2026-09-05T18:45:00+00:00",
+      "home": "Roma",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 24,
+      "matchweek": 3,
+      "date": "2026-09-06T13:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 28,
+      "matchweek": 3,
+      "date": "2026-09-06T13:00:00+00:00",
+      "home": "Parma",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 21,
+      "matchweek": 3,
+      "date": "2026-09-06T16:00:00+00:00",
+      "home": "Bologna",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 27,
+      "matchweek": 3,
+      "date": "2026-09-06T18:45:00+00:00",
+      "home": "Juventus",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 22,
+      "matchweek": 3,
+      "date": "2026-09-07T16:30:00+00:00",
+      "home": "Cagliari",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 30,
+      "matchweek": 3,
+      "date": "2026-09-07T18:45:00+00:00",
+      "home": "Udinese",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 40,
+      "matchweek": 4,
+      "date": "2026-09-11T18:45:00+00:00",
+      "home": "Venezia",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 38,
+      "matchweek": 4,
+      "date": "2026-09-12T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 33,
+      "matchweek": 4,
+      "date": "2026-09-12T13:00:00+00:00",
+      "home": "Genoa",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 31,
+      "matchweek": 4,
+      "date": "2026-09-12T18:45:00+00:00",
+      "home": "Atalanta",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 32,
+      "matchweek": 4,
+      "date": "2026-09-13T00:00:00+00:00",
+      "home": "Como",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 35,
+      "matchweek": 4,
+      "date": "2026-09-13T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 39,
+      "matchweek": 4,
+      "date": "2026-09-13T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 36,
+      "matchweek": 4,
+      "date": "2026-09-13T13:00:00+00:00",
+      "home": "Lecce",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 37,
+      "matchweek": 4,
+      "date": "2026-09-13T16:00:00+00:00",
+      "home": "Napoli",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 34,
+      "matchweek": 4,
+      "date": "2026-09-14T18:45:00+00:00",
+      "home": "Inter",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 46,
+      "matchweek": 5,
+      "date": "2026-09-18T18:45:00+00:00",
+      "home": "Monza",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 41,
+      "matchweek": 5,
+      "date": "2026-09-19T13:00:00+00:00",
+      "home": "Bologna",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 49,
+      "matchweek": 5,
+      "date": "2026-09-19T13:00:00+00:00",
+      "home": "Udinese",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 48,
+      "matchweek": 5,
+      "date": "2026-09-19T16:00:00+00:00",
+      "home": "Roma",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 50,
+      "matchweek": 5,
+      "date": "2026-09-19T18:45:00+00:00",
+      "home": "Venezia",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 42,
+      "matchweek": 5,
+      "date": "2026-09-20T10:30:00+00:00",
+      "home": "Fiorentina",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 43,
+      "matchweek": 5,
+      "date": "2026-09-20T13:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 47,
+      "matchweek": 5,
+      "date": "2026-09-20T13:00:00+00:00",
+      "home": "Parma",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 44,
+      "matchweek": 5,
+      "date": "2026-09-20T16:00:00+00:00",
+      "home": "Juventus",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 45,
+      "matchweek": 5,
+      "date": "2026-09-20T18:45:00+00:00",
+      "home": "Milan",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 51,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 52,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 53,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Como",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 54,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 55,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 56,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 57,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 58,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 59,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 60,
+      "matchweek": 6,
+      "date": "2026-10-10T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 61,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 62,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 63,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 64,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 65,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 66,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 67,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 68,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 69,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 70,
+      "matchweek": 7,
+      "date": "2026-10-17T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 71,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 72,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 73,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Como",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 74,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 75,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 76,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 77,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 78,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 79,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 80,
+      "matchweek": 8,
+      "date": "2026-10-24T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 81,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 82,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 83,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 84,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 85,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 86,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 87,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 88,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 89,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 90,
+      "matchweek": 9,
+      "date": "2026-10-27T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 91,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 92,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 93,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Como",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 94,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 95,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 96,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 97,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 98,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 99,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 100,
+      "matchweek": 10,
+      "date": "2026-10-31T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 101,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 102,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 103,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 104,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 105,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 106,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 107,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 108,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 109,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 110,
+      "matchweek": 11,
+      "date": "2026-11-07T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 111,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 112,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 113,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Como",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 114,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 115,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 116,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 117,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 118,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 119,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 120,
+      "matchweek": 12,
+      "date": "2026-11-21T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 121,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 122,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Como",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 123,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 124,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 125,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 126,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 127,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 128,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 129,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 130,
+      "matchweek": 13,
+      "date": "2026-11-28T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 131,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 132,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 133,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 134,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 135,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 136,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 137,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 138,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 139,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 140,
+      "matchweek": 14,
+      "date": "2026-12-05T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 141,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 142,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 143,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Como",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 144,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 145,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 146,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 147,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 148,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 149,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 150,
+      "matchweek": 15,
+      "date": "2026-12-12T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 151,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 152,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 153,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 154,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 155,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 156,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 157,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 158,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 159,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 160,
+      "matchweek": 16,
+      "date": "2026-12-19T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 161,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 162,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 163,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Como",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 164,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 165,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 166,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 167,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 168,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 169,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 170,
+      "matchweek": 17,
+      "date": "2027-01-02T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 171,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 172,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 173,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 174,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 175,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 176,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 177,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 178,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 179,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 180,
+      "matchweek": 18,
+      "date": "2027-01-05T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 181,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 182,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 183,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Como",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 184,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 185,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 186,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 187,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 188,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 189,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 190,
+      "matchweek": 19,
+      "date": "2027-01-09T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 191,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 192,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 193,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 194,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 195,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 196,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 197,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 198,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 199,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 200,
+      "matchweek": 20,
+      "date": "2027-01-16T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 201,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 202,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Como",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 203,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 204,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 205,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 206,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 207,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 208,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 209,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 210,
+      "matchweek": 21,
+      "date": "2027-01-23T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 211,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 212,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 213,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 214,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 215,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 216,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 217,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 218,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 219,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 220,
+      "matchweek": 22,
+      "date": "2027-01-30T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 221,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 222,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 223,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Como",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 224,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 225,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 226,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 227,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 228,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 229,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 230,
+      "matchweek": 23,
+      "date": "2027-02-06T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 231,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 232,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 233,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 234,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 235,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 236,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 237,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 238,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 239,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 240,
+      "matchweek": 24,
+      "date": "2027-02-13T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 241,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 242,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Como",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 243,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 244,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 245,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 246,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 247,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 248,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 249,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 250,
+      "matchweek": 25,
+      "date": "2027-02-20T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 251,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 252,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 253,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Como",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 254,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 255,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 256,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 257,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 258,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 259,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 260,
+      "matchweek": 26,
+      "date": "2027-02-27T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 261,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 262,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 263,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 264,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 265,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 266,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 267,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 268,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 269,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 270,
+      "matchweek": 27,
+      "date": "2027-03-06T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 271,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 272,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 273,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Como",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 274,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 275,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 276,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 277,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 278,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 279,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 280,
+      "matchweek": 28,
+      "date": "2027-03-13T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 281,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 282,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 283,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 284,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 285,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 286,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 287,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 288,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 289,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 290,
+      "matchweek": 29,
+      "date": "2027-03-20T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 291,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 292,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Como",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 293,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 294,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 295,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 296,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 297,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 298,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 299,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 300,
+      "matchweek": 30,
+      "date": "2027-04-03T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 301,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 302,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 303,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 304,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 305,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 306,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 307,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 308,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 309,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 310,
+      "matchweek": 31,
+      "date": "2027-04-10T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 311,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 312,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 313,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Como",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 314,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 315,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 316,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 317,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 318,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 319,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 320,
+      "matchweek": 32,
+      "date": "2027-04-17T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 321,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 322,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 323,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 324,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 325,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 326,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 327,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 328,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 329,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 330,
+      "matchweek": 33,
+      "date": "2027-04-24T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 331,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 332,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 333,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Como",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 334,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 335,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 336,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 337,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 338,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 339,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 340,
+      "matchweek": 34,
+      "date": "2027-05-01T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 341,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 342,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 343,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 344,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 345,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 346,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 347,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 348,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 349,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 350,
+      "matchweek": 35,
+      "date": "2027-05-08T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 351,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 352,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 353,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Como",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 354,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 355,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 356,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 357,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 358,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 359,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 360,
+      "matchweek": 36,
+      "date": "2027-05-15T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 361,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Atalanta",
+      "away": "Lecce",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 362,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Fiorentina",
+      "away": "Monza",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 363,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Frosinone",
+      "away": "Cagliari",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 364,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Genoa",
+      "away": "Bologna",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 365,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Inter",
+      "away": "Lazio",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 366,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Parma",
+      "away": "Juventus",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 367,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Roma",
+      "away": "Como",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 368,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Torino",
+      "away": "Napoli",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 369,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Udinese",
+      "away": "Sassuolo",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 370,
+      "matchweek": 37,
+      "date": "2027-05-22T00:00:00+00:00",
+      "home": "Venezia",
+      "away": "Milan",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 371,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Bologna",
+      "away": "Parma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 372,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Cagliari",
+      "away": "Roma",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 373,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Como",
+      "away": "Genoa",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 374,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Juventus",
+      "away": "Frosinone",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 375,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Lazio",
+      "away": "Fiorentina",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 376,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Lecce",
+      "away": "Venezia",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 377,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Milan",
+      "away": "Udinese",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 378,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Monza",
+      "away": "Torino",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 379,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Napoli",
+      "away": "Atalanta",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 380,
+      "matchweek": 38,
+      "date": "2027-05-29T00:00:00+00:00",
+      "home": "Sassuolo",
+      "away": "Inter",
+      "result": null,
+      "pick": null,
+      "graded": null,
+      "void": false
+    }
+  ],
+  "table": [
+    {
+      "team": "Inter",
+      "proj_points": 77.3,
+      "title_pct": 51.9,
+      "top4_pct": 92.4,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Juventus",
+      "proj_points": 72.5,
+      "title_pct": 22.9,
+      "top4_pct": 79.4,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Roma",
+      "proj_points": 66.3,
+      "title_pct": 6.1,
+      "top4_pct": 49.5,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Napoli",
+      "proj_points": 65.2,
+      "title_pct": 5.0,
+      "top4_pct": 43.6,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Como",
+      "proj_points": 65.1,
+      "title_pct": 5.3,
+      "top4_pct": 43.3,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Atalanta",
+      "proj_points": 64.7,
+      "title_pct": 4.7,
+      "top4_pct": 41.1,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Milan",
+      "proj_points": 63.8,
+      "title_pct": 3.7,
+      "top4_pct": 35.7,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Lazio",
+      "proj_points": 55.4,
+      "title_pct": 0.4,
+      "top4_pct": 8.0,
+      "relegation_pct": 0.8
+    },
+    {
+      "team": "Bologna",
+      "proj_points": 51.6,
+      "title_pct": 0.1,
+      "top4_pct": 3.1,
+      "relegation_pct": 2.7
+    },
+    {
+      "team": "Frosinone",
+      "proj_points": 47.9,
+      "title_pct": 0.0,
+      "top4_pct": 0.9,
+      "relegation_pct": 6.2
+    },
+    {
+      "team": "Udinese",
+      "proj_points": 47.6,
+      "title_pct": 0.0,
+      "top4_pct": 1.0,
+      "relegation_pct": 6.7
+    },
+    {
+      "team": "Fiorentina",
+      "proj_points": 47.1,
+      "title_pct": 0.0,
+      "top4_pct": 0.8,
+      "relegation_pct": 8.3
+    },
+    {
+      "team": "Sassuolo",
+      "proj_points": 45.7,
+      "title_pct": 0.0,
+      "top4_pct": 0.5,
+      "relegation_pct": 9.8
+    },
+    {
+      "team": "Cagliari",
+      "proj_points": 44.6,
+      "title_pct": 0.0,
+      "top4_pct": 0.2,
+      "relegation_pct": 12.9
+    },
+    {
+      "team": "Genoa",
+      "proj_points": 44.6,
+      "title_pct": 0.0,
+      "top4_pct": 0.3,
+      "relegation_pct": 13.9
+    },
+    {
+      "team": "Torino",
+      "proj_points": 42.8,
+      "title_pct": 0.0,
+      "top4_pct": 0.1,
+      "relegation_pct": 18.9
+    },
+    {
+      "team": "Lecce",
+      "proj_points": 38.6,
+      "title_pct": 0.0,
+      "top4_pct": 0.1,
+      "relegation_pct": 38.2
+    },
+    {
+      "team": "Parma",
+      "proj_points": 35.5,
+      "title_pct": 0.0,
+      "top4_pct": 0.0,
+      "relegation_pct": 55.7
+    },
+    {
+      "team": "Venezia",
+      "proj_points": 35.0,
+      "title_pct": 0.0,
+      "top4_pct": 0.0,
+      "relegation_pct": 58.7
+    },
+    {
+      "team": "Monza",
+      "proj_points": 33.6,
+      "title_pct": 0.0,
+      "top4_pct": 0.0,
+      "relegation_pct": 67.0
+    }
+  ],
+  "standings": [
+    {
+      "team": "Milan",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 4,
+      "ga": 1,
+      "gd": 3,
+      "points": 6
+    },
+    {
+      "team": "Juventus",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 3,
+      "ga": 0,
+      "gd": 3,
+      "points": 6
+    },
+    {
+      "team": "Udinese",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 4,
+      "ga": 3,
+      "gd": 1,
+      "points": 4
+    },
+    {
+      "team": "Roma",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 4,
+      "ga": 0,
+      "gd": 4,
+      "points": 3
+    },
+    {
+      "team": "Inter",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 4,
+      "ga": 1,
+      "gd": 3,
+      "points": 3
+    },
+    {
+      "team": "Frosinone",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 3,
+      "ga": 1,
+      "gd": 2,
+      "points": 3
+    },
+    {
+      "team": "Lecce",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 2,
+      "ga": 0,
+      "gd": 2,
+      "points": 3
+    },
+    {
+      "team": "Napoli",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 2,
+      "ga": 0,
+      "gd": 2,
+      "points": 3
+    },
+    {
+      "team": "Atalanta",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 2,
+      "ga": 1,
+      "gd": 1,
+      "points": 3
+    },
+    {
+      "team": "Cagliari",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 1,
+      "ga": 0,
+      "gd": 1,
+      "points": 3
+    },
+    {
+      "team": "Lazio",
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 1,
+      "ga": 0,
+      "gd": 1,
+      "points": 3
+    },
+    {
+      "team": "Sassuolo",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 3,
+      "ga": 3,
+      "gd": 0,
+      "points": 3
+    },
+    {
+      "team": "Como",
+      "played": 1,
+      "won": 0,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 1,
+      "ga": 1,
+      "gd": 0,
+      "points": 1
+    },
+    {
+      "team": "Bologna",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 0,
+      "ga": 1,
+      "gd": -1,
+      "points": 0
+    },
+    {
+      "team": "Torino",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 2,
+      "ga": 4,
+      "gd": -2,
+      "points": 0
+    },
+    {
+      "team": "Genoa",
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 0,
+      "ga": 2,
+      "gd": -2,
+      "points": 0
+    },
+    {
+      "team": "Parma",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 0,
+      "ga": 3,
+      "gd": -3,
+      "points": 0
+    },
+    {
+      "team": "Monza",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 3,
+      "ga": 7,
+      "gd": -4,
+      "points": 0
+    },
+    {
+      "team": "Venezia",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 0,
+      "ga": 4,
+      "gd": -4,
+      "points": 0
+    },
+    {
+      "team": "Fiorentina",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 0,
+      "ga": 7,
+      "gd": -7,
+      "points": 0
+    }
+  ],
+  "backtest": {
+    "xi": 0.003,
+    "xg_weight": 0.75,
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 380,
+      "accuracy": 0.5210526315789473,
+      "rps": 0.20201482665942083,
+      "brier": 0.5961733766202558,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20201482665942083,
+      "model_accuracy_on_market_subset": 0.5210526315789473,
+      "market_accuracy": 0.5394736842105263,
+      "market_rps": 0.19612249491547964,
+      "market_brier": 0.5830348133469447
+    },
+    "sweep_winner": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 760,
+      "accuracy": 0.5328947368421053,
+      "rps": 0.18915651451477458,
+      "brier": 0.5823723018510137,
+      "n_seeded": 3,
+      "market_n": 760,
+      "model_rps_on_market_subset": 0.18915651451477458,
+      "model_accuracy_on_market_subset": 0.5328947368421053,
+      "market_accuracy": 0.5473684210526316,
+      "market_rps": 0.18443116507248633,
+      "market_brier": 0.5720554225515297
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 380,
+      "accuracy": 0.5210526315789473,
+      "rps": 0.20201482665942083,
+      "brier": 0.5961733766202558,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20201482665942083,
+      "model_accuracy_on_market_subset": 0.5210526315789473,
+      "market_accuracy": 0.5394736842105263,
+      "market_rps": 0.19612249491547964,
+      "market_brier": 0.5830348133469447
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 380
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.18919,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.1893,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.18938,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.18941,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.18941,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.18949,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.18967,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.1897,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19115,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19118,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.1917,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 1140,
+        "hit_rate_pct": 52.9
+      },
+      {
+        "min_prob": 0.6,
+        "n": 199,
+        "hit_rate_pct": 71.4
+      },
+      {
+        "min_prob": 0.65,
+        "n": 100,
+        "hit_rate_pct": 75.0
+      },
+      {
+        "min_prob": 0.7,
+        "n": 44,
+        "hit_rate_pct": 70.5
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 380,
+        "hit_rate_pct": 52.1
+      },
+      {
+        "min_prob": 0.6,
+        "n": 59,
+        "hit_rate_pct": 71.2
+      },
+      {
+        "min_prob": 0.65,
+        "n": 22,
+        "hit_rate_pct": 72.7
+      },
+      {
+        "min_prob": 0.7,
+        "n": 10,
+        "hit_rate_pct": 80.0
+      }
+    ],
+    "n": 1140,
+    "accuracy": 0.5289473684210526,
+    "rps": 0.19344261856299,
+    "brier": 0.5869726601074279,
+    "n_seeded": 4,
+    "market_n": 1140,
+    "model_rps_on_market_subset": 0.19344261856299,
+    "model_accuracy_on_market_subset": 0.5289473684210526,
+    "market_accuracy": 0.5447368421052632,
+    "market_rps": 0.18832827502015076,
+    "market_brier": 0.5757152194833346
+  },
+  "props_backtest": {},
+  "missing_squads": [
+    "Frosinone",
+    "Monza",
+    "Venezia"
+  ],
+  "thin_squads": [],
+  "roster_incomplete": [
+    "Atalanta",
+    "Bologna",
+    "Cagliari",
+    "Como",
+    "Cremonese",
+    "Fiorentina",
+    "Genoa",
+    "Inter",
+    "Juventus",
+    "Lazio",
+    "Lecce",
+    "Milan",
+    "Napoli",
+    "Parma",
+    "Pisa",
+    "Roma",
+    "Sassuolo",
+    "Torino",
+    "Udinese",
+    "Verona"
+  ],
+  "roster_snapshot_age_hours": null,
+  "roster_unmatched_count": 0,
+  "data_warnings": [
+    "No current-roster evidence is available for this league at all, so no squad could be checked against it. Player numbers are based on last season's club plus our transfer overrides, and may include someone who has since left."
+  ]
+}

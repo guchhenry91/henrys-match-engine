@@ -288,9 +288,13 @@
 
 <script>
 "use strict";
-const FILES={PL:"pl",LALIGA:"laliga",BUNDESLIGA:"bundesliga",LIGUE1:"ligue1"};
-const LG={PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
-const LC={PL:"#ff5c6a",LALIGA:"#f5c518",BUNDESLIGA:"#ff5c8a",LIGUE1:"#37a9e6"};
+const FILES={PL:"pl",LALIGA:"laliga",BUNDESLIGA:"bundesliga",LIGUE1:"ligue1",SERIEA:"seriea"};
+const LG={PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1",SERIEA:"Serie A"};
+const LC={PL:"#ff5c6a",LALIGA:"#f5c518",BUNDESLIGA:"#ff5c8a",LIGUE1:"#37a9e6",SERIEA:"#3ddc84"};
+// Every league payload slug, derived from FILES rather than repeated. Adding
+// Serie A found the same four-item list written out in five separate places, and
+// a sixth league would have had to find them all again.
+const LGSLUGS=Object.values(FILES);
 const TC={"Bayern Munich":"#37e6d8","Manchester City":"#8b7bff","Stuttgart":"#c8ff4d","Dortmund":"#f5c518",
   "Ath Madrid":"#ff5c8a","Arsenal":"#37e6d8","Paris SG":"#8b7bff","Real Madrid":"#c8ff4d","Barcelona":"#37e6d8","Liverpool":"#ff5c8a"};
 const tc=n=>TC[n]||"#37e6d8";
@@ -330,13 +334,13 @@ let FRESH={stale:false, text:""};
 const relAge=h=>h<1?"moments ago":h<24?Math.round(h)+"h ago":Math.round(h/24)+"d ago";
 function computeFreshness(){
   const stamps=[];
-  ["best","player_picks","parlays","pl","laliga","bundesliga","ligue1"].forEach(n=>{
+  ["best","player_picks","parlays",...LGSLUGS].forEach(n=>{
     const u=(DATA[n]||{}).updated; if(u){const t=new Date(u); if(!isNaN(t)) stamps.push(+t);}});
   if(!stamps.length) return {stale:false, text:""};
   const ageH=(Date.now()-Math.max(...stamps))/36e5;
   // soonest upcoming fixture across leagues -> is this an active window?
   let soonest=Infinity;
-  ["pl","laliga","bundesliga","ligue1"].forEach(k=>((DATA[k]||{}).matches||[]).forEach(m=>{
+  LGSLUGS.forEach(k=>((DATA[k]||{}).matches||[]).forEach(m=>{
     if(!m.result){const d=new Date(m.date); if(!isNaN(d)) soonest=Math.min(soonest,(+d-Date.now())/36e5);}}));
   // When a fixture is within 3 days the pipeline refreshes often, so data should
   // be fresh (warn at 14h). In a quiet stretch it legitimately doesn't republish,
@@ -349,7 +353,7 @@ function computeFreshness(){
   // model and this afternoon's results, and a single "last updated" figure
   // describes neither -- it reads as though the whole page were stale.
   const rstamps=[];
-  ["pl","laliga","bundesliga","ligue1"].forEach(n=>{
+  LGSLUGS.forEach(n=>{
     const u=(DATA[n]||{}).results_updated; if(u){const t=new Date(u); if(!isNaN(t)) rstamps.push(+t);}});
   const resultsAgeH = rstamps.length ? (Date.now()-Math.max(...rstamps))/36e5 : null;
   return {stale: ageH>limit, text: relAge(ageH), ageH,
@@ -375,7 +379,7 @@ function staleBanner(){
 }
 
 async function boot(){
-  const names=["best","player_picks","parlays","six_scores","pl","laliga","bundesliga","ligue1"];
+  const names=["best","player_picks","parlays","six_scores",...LGSLUGS];
   await Promise.all(names.map(async n=>{
     try{const r=await fetch(`data/leagues/${n}.json`,{cache:"no-cache"});DATA[n]=r.ok?await r.json():null;}
     catch(e){DATA[n]=null;}
@@ -392,9 +396,9 @@ async function boot(){
 }
 
 const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"UCL",t:"Champions League"},
-  {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"}];
+  {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"},{k:"SERIEA",t:"Serie A"}];
 const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",UCL:"Champions League · league phase",
-  PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1"};
+  PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1",SERIEA:"Serie A"};
 
 // ONE SOURCE OF TRUTH FOR EVERY NAVIGATION. The bottom nav, the sidebar and the
 // rail are all built from `views` and all call go(). Three hand-maintained lists
@@ -402,11 +406,11 @@ const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Pic
 // -- which is exactly what the NFL chips were when setFilter rendered a hardcoded
 // tab.
 const ICON={today:"⚡",best:"★",players:"👤",six:"🎯",parlay:"🧩",tables:"📊",grades:"✅",
-  NFL:"🏈",UCL:"🏆",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷"};
+  NFL:"🏈",UCL:"🏆",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷",SERIEA:"🇮🇹"};
 const GROUPS=[
   {name:"Trending", keys:["today","best","players","six"]},
   {name:"Most used", keys:["parlay","tables","grades"]},
-  {name:"Sports", keys:["UCL","NFL","PL","LALIGA","BUNDESLIGA","LIGUE1"]},
+  {name:"Sports", keys:["UCL","NFL","PL","LALIGA","BUNDESLIGA","LIGUE1","SERIEA"]},
 ];
 
 function go(k){
@@ -1025,7 +1029,7 @@ function viewGrades(){
   // is whichever fixtures kicked off when the scheduler happened not to run. A
   // reader is entitled to see the sample the number is drawn from.
   const missed=[];
-  for(const k of ["pl","laliga","bundesliga","ligue1"])
+  for(const k of LGSLUGS)
     for(const m of ((DATA[k]||{}).unrecorded||[]))
       missed.push({...m, league:(DATA[k]||{}).league||k});
   if(missed.length){

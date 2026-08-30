@@ -769,7 +769,12 @@ def shot_events_available(league: str) -> bool:
 # API-Football competition ids. Duplicated from scripts.sync_rosters rather than
 # imported: leagues/ is the engine and must not depend on scripts/, which imports
 # it. Four integers that have not changed in years is the cheaper coupling.
-_API_LEAGUE_IDS = {"PL": 39, "LALIGA": 140, "BUNDESLIGA": 78, "LIGUE1": 61}
+# Serie A is 135. UNVERIFIED against this account (the key is not available
+# locally), but it FAILS SAFE: a wrong id returns no rows, which leaves picks
+# PENDING rather than grading them against a stranger's numbers. Understat is
+# the primary feed for Serie A and does cover it, so this only fills gaps.
+_API_LEAGUE_IDS = {"PL": 39, "LALIGA": 140, "BUNDESLIGA": 78, "LIGUE1": 61,
+                   "SERIEA": 135}
 
 
 def grading_feed_available(league: str) -> bool:

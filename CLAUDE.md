@@ -51,7 +51,7 @@ Rules: never invent scores or injuries — only verified info. Team names must e
 
 ---
 
-# Leagues engine (the live product: PL, La Liga, Bundesliga, Ligue 1)
+# Leagues engine (the live product: PL, La Liga, Bundesliga, Ligue 1, Serie A)
 
 The predictor living in `leagues/`. It shares the repo and `deploy.py` with
 the archived World Cup app but **touches none of its files**: the WC
@@ -213,6 +213,53 @@ so a near-empty squad hands one man the whole team's goals: promoted Schalke had
 single player with top-flight history and published as a **72.8% anytime scorer**
 when nothing else in four leagues beat 50.8%. One player is more dangerous than
 none — none is visibly a hole, one looks like the best pick on the board.
+
+## Serie A (added 2026-08-30)
+The fifth league. **Every feed was checked before the config entry was written,
+not after**: football-data `I1` has all five fitting seasons at 380 matches with
+B365 closing odds, `I2` (Serie B) supplies the promoted-club priors,
+fixturedownload's `serie-a-2026` has 380 fixtures, and Understat's `ITA-Serie A`
+returns team xG at **100% coverage**. Its Understat shot events work, unlike
+Bundesliga's, so no market is withheld.
+
+- **Head-to-head tiebreak**, like La Liga. Serie A separates clubs level on points
+  by their meetings, not goal difference; `gd` would render a table that disagrees
+  with the official one at exactly the positions people care about.
+- **Canonical spelling is football-data's**, as everywhere else. The alias map was
+  built by reading all 27 club names each feed actually uses across six seasons
+  rather than from memory — only three differ (`AC Milan`→`Milan`, `Parma Calcio
+  1913`→`Parma`, fixturedownload's `Internazionale`→`Inter`). All 30 distinct
+  source names were then asserted to resolve, because one unmapped name raises
+  `UnknownTeam` mid-fit.
+- **The gate has been run.** Holdout n=380, accuracy 52.1%, **RPS 0.2020** —
+  in line with PL 0.2073, La Liga 0.2002, Bundesliga 0.1972, Ligue 1 0.2039. It
+  retained the incumbent xi/xg_weight like all four others, and the market beats it
+  by 0.0051 RPS, which is the expected direction. Tier hit rate 75.0% at p>=0.65
+  on n=100.
+- **`release_policy.json` has no SERIEA entry yet** — a single-league tune
+  deliberately leaves that file alone so it cannot drop the other four. No
+  practical effect, since Serie A retained the same defaults publish falls back to;
+  the entry appears on the next full gate run.
+- **No roster evidence yet.** ESPN's `ita.1` feed does serve all 20 clubs and
+  `sync_rosters` now covers it, but the sync is currently answering **403 for every
+  league** — a pre-existing outage, not a Serie A problem. Until it clears, Serie A
+  publishes the "no current-roster evidence" data_warning and attribution falls
+  back to last season plus transfer overrides.
+
+**Adding it found the four-league list written out in eleven places.** That is the
+real lesson: the config was the easy part. `tests/leagues/test_seriea.py` now
+asserts every live-path mapping against `config.LEAGUES`, so a sixth league fails
+loudly rather than silently losing its board, its lock, or its parlay section. The
+UI derives its slug list from one map (`LGSLUGS`) instead of five copies, and
+`test_publish_multi` derives its expectations from `FILE_FOR` rather than naming
+files by hand.
+
+**`roster_integrity_check.audit` now separates absent from contradictory.** A
+league the snapshot does not cover at all is a WARNING; a league present but wrong
+is still an ERROR. That is the same absence-of-evidence distinction the engine
+already draws for thin club rosters, and without it a newly added league — or the
+current ESPN outage — fails the whole audit as though the data were wrong rather
+than missing.
 
 ## Exact-score board (bet365 6 Scores Challenge)
 `leagues/six_scores.py`. Correct score is the hardest common market and this

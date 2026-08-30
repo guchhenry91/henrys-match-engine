@@ -33,7 +33,7 @@ from leagues import picks
 # short tag the UI shows. Match wins use the "w" tag.
 PROP_TAG = {"shots": "a", "sot": "o", "goal": "g"}   # a=attempts, o=on target, g=goal
 TAG_NAME = {"w": "Win", "g": "Goal", "a": "Attempts", "o": "On target"}
-LEAGUES_ORDER = ["PL", "LALIGA", "BUNDESLIGA", "LIGUE1"]
+LEAGUES_ORDER = ["PL", "LALIGA", "BUNDESLIGA", "LIGUE1", "SERIEA"]
 
 # A parlay's legs must all fall inside this window, measured from the EARLIEST
 # one. Four days covers a Friday-to-Monday round or a Tuesday-to-Thursday midweek

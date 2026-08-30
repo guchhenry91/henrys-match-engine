@@ -16,11 +16,15 @@ def test_main_writes_one_atomic_file_per_league(tmp_path, monkeypatch):
     monkeypatch.setattr(publish, "build_player_picks", lambda: _EMPTY_PLAYERS)
     publish.main([])                       # no arg -> all leagues
     written = sorted(p.name for p in tmp_path.glob("*.json"))
-    # best.json is the cross-league high-confidence board, written after the leagues
-    assert written == ["best.json", "bundesliga.json", "laliga.json",
-                       "ligue1.json", "parlays.json", "pl.json", "player_picks.json",
-                       # the bet365 6 Scores board, written from the PL payload
-                       "record_history.json", "six_scores.json"]
+    # DERIVED FROM THE CONFIG, not restated. This list was written out by hand and
+    # adding Serie A broke it -- the test was pinning the number of leagues rather
+    # than the property, which is "one file per league plus the cross-league
+    # boards". A sixth league should not need this line edited.
+    cross = ["best.json", "parlays.json", "player_picks.json",
+             "record_history.json",
+             # the bet365 6 Scores board, written from the PL payload
+             "six_scores.json"]
+    assert written == sorted(list(publish.FILE_FOR.values()) + cross)
     assert not list(tmp_path.glob("*.tmp"))          # no leftover temp files
 
 
@@ -40,7 +44,9 @@ def test_one_league_failing_does_not_block_the_others(tmp_path, monkeypatch):
     # hazard -- an aborted league leaving last week's file for the gate to pass.
     (tmp_path / "laliga.json").write_text('{"league": "STALE"}', encoding="utf-8")
     import pytest
-    with pytest.raises(RuntimeError, match="3/4"):
+    # One league of however many are configured fails; the rest still publish.
+    expected = rf"{len(publish.FILE_FOR) - 1}/{len(publish.FILE_FOR)}"
+    with pytest.raises(RuntimeError, match=expected):
         publish.main([])                   # partial files stay local; no deployment
     written = sorted(p.stem for p in tmp_path.glob("*.json"))
     assert "pl" in written and "bundesliga" in written and "ligue1" in written
