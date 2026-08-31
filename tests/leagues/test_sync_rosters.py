@@ -69,7 +69,11 @@ def test_force_roster_leagues_catches_up_a_league_outside_its_rotation_slot(
 
     monkeypatch.setattr(sync_rosters, "fetch_api_league", fake_fetch)
     monkeypatch.setattr(sync_rosters, "Client",
-                        lambda **_kw: type("FakeClient", (), {"used": 0})())
+                        lambda **_kw: type("FakeClient", (),
+                                          {"used": 0,
+                                           # sync_rosters prints client.report()
+                                           # so a run's spend is never invisible.
+                                           "report": lambda self: "fake"})())
 
     assert sync_rosters.main() == 0
     assert set(fetched) == {"PL", "BUNDESLIGA"}
@@ -101,7 +105,11 @@ def test_one_leagues_api_football_failure_does_not_discard_a_sibling_success(
                         lambda key, slug: espn_calls.append(key) or
                         {"SomeClub": {"source": "espn", "players": []}})
     monkeypatch.setattr(sync_rosters, "Client",
-                        lambda **_kw: type("FakeClient", (), {"used": 0})())
+                        lambda **_kw: type("FakeClient", (),
+                                          {"used": 0,
+                                           # sync_rosters prints client.report()
+                                           # so a run's spend is never invisible.
+                                           "report": lambda self: "fake"})())
 
     assert sync_rosters.main() == 0
     written = json.loads(out.read_text(encoding="utf-8"))

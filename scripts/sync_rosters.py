@@ -17,6 +17,7 @@ import time
 import urllib.request
 
 from leagues.names import canonical, UnknownTeam
+from leagues import config
 from leagues.api_football import Client
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -180,11 +181,24 @@ def main():
     if os.environ.get("API_FOOTBALL_KEY"):
         payload = previous or {}
         payload.setdefault("_league_verified_at", {})
-        # Alternate pairs daily. Each league refreshes every 48 hours, costing
-        # about 42 calls and preserving more than half the free quota for lineups.
-        pairs = (("PL", "BUNDESLIGA"), ("LALIGA", "LIGUE1"))
-        selected = pairs[now.toordinal() % 2]
-        due = [key for key in selected if not _fresh(payload, key, now)]
+        # EVERY CONFIGURED LEAGUE, not a hardcoded rotation.
+        #
+        # This alternated two hardcoded pairs -- (PL, BUNDESLIGA) and
+        # (LALIGA, LIGUE1) -- so a fifth league was not merely late, it was NEVER
+        # FETCHED FROM THE API AT ALL. Serie A silently fell through to the ESPN
+        # fallback, and when ESPN started answering 403 it had no roster evidence
+        # of any kind. A rotation that names leagues by hand cannot survive a new
+        # one being added, so it now comes from config.LEAGUES.
+        #
+        # The pairing existed to ration a 100-a-day free plan: ~21 calls a league
+        # (one teams call plus one squad call per club) made 42 the sensible daily
+        # spend. The account actually allows 7,500 -- the client now reads that
+        # from the response headers rather than anyone assuming it -- so all five
+        # leagues cost about 105, or 1.4% of a day's allowance.
+        #
+        # `_fresh` remains the real guard: a league refreshed inside 36 hours is
+        # skipped, so repeated runs on the same day cost nothing.
+        due = [key for key in LEAGUES if not _fresh(payload, key, now)]
         # Manual override (FORCE_ROSTER_LEAGUES=PL,BUNDESLIGA) for catching a pair
         # up outside its normal 48h slot -- e.g. right after a key change, when a
         # league has been sitting on the ESPN fallback and shouldn't wait out the
@@ -204,7 +218,12 @@ def main():
         # ESPN for all four -- throwing away the good PL fetch too). Each league's
         # failure now falls back to ESPN for THAT league alone, and a league that
         # fails both sources simply keeps its previous data untouched.
-        client = Client(limit=45)
+        # Budget sized from what is actually due -- one teams call plus one squad
+        # call per club, with headroom -- instead of a constant that silently
+        # truncated a league mid-fetch once the list grew.
+        budget = sum(config.get(key).n_teams + 2 for key in due) + 5
+        client = Client(limit=budget)
+        print(f"refreshing {len(due)} league(s): {due} (budget {budget} requests)")
         failed = []
         for key in due:
             try:
@@ -238,7 +257,7 @@ def main():
         tmp = OUT.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         tmp.replace(OUT)
-        print(f"wrote {OUT}; {client.used} API-Football requests used")
+        print(f"wrote {OUT}; {client.report()}")
         return 0
 
     return _espn_snapshot(previous, now)
