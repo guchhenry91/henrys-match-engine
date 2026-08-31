@@ -260,6 +260,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # START FROM THE CURRENT TIP, NOT THE TRIGGER COMMIT.
+      #
+      # actions/checkout takes github.sha -- the commit that TRIGGERED the run --
+      # so this job never contained the commit its own `lock` sibling had just
+      # pushed. At the end it compared origin against that stale base, saw it had
+      # "advanced", concluded a fresher run had landed, and stood down. Every
+      # time.
+      #
+      # The effect was total and silent: between 2026-08-30 18:48 and 2026-08-31
+      # 13:45 EVERY commit on main was "auto: freeze picks and apply results" and
+      # not one "auto: leagues refresh" landed. The model recomputed on schedule,
+      # produced 29 files of new predictions, and threw them away on every run --
+      # which is why the page said the predictions were 19 hours old while the
+      # scores beside them were current.
+      #
+      # Pulling here is safe in a way that rebasing at the END would not be: the
+      # tree is a clean checkout and nothing has been computed yet, so there is
+      # nothing to conflict. The stand-down guard below then means what it
+      # originally meant -- a genuinely rival publish landed mid-run.
+      - name: Start from the current tip of main
+        run: |
+          git fetch -q origin main
+          git reset -q --hard origin/main
+          echo "publishing from $(git rev-parse --short HEAD)"
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
