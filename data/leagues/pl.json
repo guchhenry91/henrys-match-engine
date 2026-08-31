@@ -1,7 +1,7 @@
 {
   "league": "Premier League",
-  "updated": "2026-08-31T20:53:59.922185+00:00",
-  "results_updated": "2026-08-31T22:49:26.492299+00:00",
+  "updated": "2026-08-31T22:53:51.133284+00:00",
+  "results_updated": "2026-08-31T22:53:51.133289+00:00",
   "record": {
     "correct": 11,
     "wrong": 6,
@@ -13,20 +13,20 @@
         "correct": 1,
         "total": 1
       },
-      "2": {
-        "correct": 4,
-        "total": 5
-      },
-      "4": {
-        "correct": 2,
+      "3": {
+        "correct": 1,
         "total": 2
       },
       "1": {
         "correct": 3,
         "total": 7
       },
-      "3": {
-        "correct": 1,
+      "2": {
+        "correct": 4,
+        "total": 5
+      },
+      "4": {
+        "correct": 2,
         "total": 2
       }
     }
@@ -47,7 +47,1782 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [],
+  "matches": [
+    {
+      "id": 27,
+      "matchweek": 3,
+      "date": "2026-09-04T19:00:00+00:00",
+      "venue": "Portman Road",
+      "home": "Ipswich",
+      "away": "Liverpool",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.174,
+        "p_draw": 0.238,
+        "p_away": 0.588,
+        "pick": "Liverpool",
+        "pick_type": "away",
+        "score": "0-2",
+        "top_scores": [
+          {
+            "score": "0-2",
+            "pct": 10.9,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 10.6,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 10.3,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.5884,
+        "why": {
+          "home_attack_pct": -15.4,
+          "home_defence_pct": -23.6,
+          "away_attack_pct": 40.4,
+          "away_defence_pct": 12.2,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Ipswich 17% / draw 24% / Liverpool 59%",
+          "Expected goals: 0.95 - 1.91"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Liverpool",
+          "player": "Alexander Isak",
+          "position": "FW",
+          "lambda_goals": 0.5154143282075249,
+          "anytime_pct": 27.1,
+          "exp_shots": 2.46,
+          "p_shots_2plus": 50.5,
+          "exp_sot": 1.14,
+          "p_sot_1plus": 58.7,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Liverpool",
+          "player": "Cody Gakpo",
+          "position": "FW",
+          "lambda_goals": 0.30770611629813194,
+          "anytime_pct": 14.8,
+          "exp_shots": 2.63,
+          "p_shots_2plus": 55.3,
+          "exp_sot": 0.76,
+          "p_sot_1plus": 42.1,
+          "appearance_pct": 100.0,
+          "expected_minutes": 76.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Liverpool",
+          "player": "Hugo Ekitike",
+          "position": "FW",
+          "lambda_goals": 0.279605521919711,
+          "anytime_pct": 12.3,
+          "exp_shots": 1.74,
+          "p_shots_2plus": 26.0,
+          "exp_sot": 0.52,
+          "p_sot_1plus": 25.7,
+          "appearance_pct": 72.5,
+          "expected_minutes": 47.5,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [
+        {
+          "market": "sot",
+          "line": "1+ shot on target",
+          "player": "Alexander Isak",
+          "team": "Liverpool",
+          "position": "FW",
+          "p_pick": 0.587,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "anytime_pct": 27.1,
+          "exp_shots": 2.46,
+          "exp_sot": 1.14,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "last_five_line": 1,
+          "bar": 0.511,
+          "news_checked_hours_ago": 63.79522042027778,
+          "unavailable": false,
+          "team_attribution": "Liverpool"
+        },
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Cody Gakpo",
+          "team": "Liverpool",
+          "position": "FW",
+          "p_pick": 0.553,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 100.0,
+          "expected_minutes": 76.6,
+          "anytime_pct": 14.8,
+          "exp_shots": 2.63,
+          "exp_sot": 0.76,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            4,
+            5,
+            5,
+            2,
+            2
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 63.795220289999996,
+          "unavailable": false,
+          "team_attribution": "Liverpool"
+        },
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Alexander Isak",
+          "team": "Liverpool",
+          "position": "FW",
+          "p_pick": 0.505,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "anytime_pct": 27.1,
+          "exp_shots": 2.46,
+          "exp_sot": 1.14,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            3,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 63.79522038305556,
+          "unavailable": false,
+          "team_attribution": "Liverpool"
+        }
+      ],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 29,
+      "matchweek": 3,
+      "date": "2026-09-05T11:30:00+00:00",
+      "venue": "St. James' Park",
+      "home": "Newcastle United",
+      "away": "Bournemouth",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.415,
+        "p_draw": 0.277,
+        "p_away": 0.308,
+        "pick": "Newcastle United",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 12.1,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 9.2,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "2-1",
+            "pct": 9.0,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.4146,
+        "why": {
+          "home_attack_pct": 23.5,
+          "home_defence_pct": 3.2,
+          "away_attack_pct": 23.5,
+          "away_defence_pct": 5.4,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Newcastle United 41% / draw 28% / Bournemouth 31%",
+          "Expected goals: 1.47 - 1.24"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Newcastle United",
+          "player": "William Osula",
+          "position": "FW",
+          "lambda_goals": 0.32200618351046056,
+          "anytime_pct": 15.7,
+          "exp_shots": 2.16,
+          "p_shots_2plus": 41.4,
+          "exp_sot": 0.94,
+          "p_sot_1plus": 50.6,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Newcastle United",
+          "player": "Yoane Wissa",
+          "position": "FW",
+          "lambda_goals": 0.3074264840342222,
+          "anytime_pct": 14.8,
+          "exp_shots": 2.07,
+          "p_shots_2plus": 38.3,
+          "exp_sot": 0.83,
+          "p_sot_1plus": 45.5,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Newcastle United",
+          "player": "Harvey Barnes",
+          "position": "FW",
+          "lambda_goals": 0.2524748903695506,
+          "anytime_pct": 11.6,
+          "exp_shots": 2.32,
+          "p_shots_2plus": 46.4,
+          "exp_sot": 0.87,
+          "p_sot_1plus": 47.2,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bournemouth",
+          "player": "Evanilson",
+          "position": "FW",
+          "lambda_goals": 0.27631891292649446,
+          "anytime_pct": 13.0,
+          "exp_shots": 1.83,
+          "p_shots_2plus": 30.7,
+          "exp_sot": 0.66,
+          "p_sot_1plus": 36.7,
+          "appearance_pct": 100.0,
+          "expected_minutes": 78.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bournemouth",
+          "player": "Eli Junior Kroupi",
+          "position": "FW",
+          "lambda_goals": 0.2219924025429696,
+          "anytime_pct": 9.6,
+          "exp_shots": 1.11,
+          "p_shots_2plus": 10.8,
+          "exp_sot": 0.44,
+          "p_sot_1plus": 22.9,
+          "appearance_pct": 85.0,
+          "expected_minutes": 44.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bournemouth",
+          "player": "Rayan",
+          "position": "MF",
+          "lambda_goals": 0.18755209317063282,
+          "anytime_pct": 7.9,
+          "exp_shots": 1.24,
+          "p_shots_2plus": 12.9,
+          "exp_sot": 0.38,
+          "p_sot_1plus": 20.2,
+          "appearance_pct": 100.0,
+          "expected_minutes": 76.4,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 22,
+      "matchweek": 3,
+      "date": "2026-09-05T14:00:00+00:00",
+      "venue": "Gtech Community Stadium",
+      "home": "Brentford",
+      "away": "Sunderland",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.506,
+        "p_draw": 0.283,
+        "p_away": 0.212,
+        "pick": "Brentford",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 13.5,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 12.2,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "2-0",
+            "pct": 9.9,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.5056,
+        "why": {
+          "home_attack_pct": 22.1,
+          "home_defence_pct": 1.7,
+          "away_attack_pct": -12.9,
+          "away_defence_pct": 2.1,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Brentford 51% / draw 28% / Sunderland 21%",
+          "Expected goals: 1.50 - 0.89"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Brentford",
+          "player": "Thiago",
+          "position": "FW",
+          "lambda_goals": 0.4924069824803611,
+          "anytime_pct": 25.5,
+          "exp_shots": 2.61,
+          "p_shots_2plus": 53.8,
+          "exp_sot": 1.27,
+          "p_sot_1plus": 62.3,
+          "appearance_pct": 97.5,
+          "expected_minutes": 84.5,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Brentford",
+          "player": "Kevin Schade",
+          "position": "FW",
+          "lambda_goals": 0.3143599006299323,
+          "anytime_pct": 15.2,
+          "exp_shots": 2.14,
+          "p_shots_2plus": 40.6,
+          "exp_sot": 0.92,
+          "p_sot_1plus": 49.5,
+          "appearance_pct": 100.0,
+          "expected_minutes": 79.5,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Brentford",
+          "player": "Dango Ouattara",
+          "position": "FW",
+          "lambda_goals": 0.25617158383460126,
+          "anytime_pct": 11.8,
+          "exp_shots": 2.28,
+          "p_shots_2plus": 44.9,
+          "exp_sot": 0.71,
+          "p_sot_1plus": 39.6,
+          "appearance_pct": 100.0,
+          "expected_minutes": 72.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Sunderland",
+          "player": "Brian Brobbey",
+          "position": "FW",
+          "lambda_goals": 0.2512086056085718,
+          "anytime_pct": 11.5,
+          "exp_shots": 1.52,
+          "p_shots_2plus": 20.9,
+          "exp_sot": 0.67,
+          "p_sot_1plus": 37.6,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Sunderland",
+          "player": "Enzo Le F\u00e9e",
+          "position": "FW",
+          "lambda_goals": 0.19975773159010302,
+          "anytime_pct": 8.6,
+          "exp_shots": 1.29,
+          "p_shots_2plus": 14.3,
+          "exp_sot": 0.43,
+          "p_sot_1plus": 23.8,
+          "appearance_pct": 100.0,
+          "expected_minutes": 82.0,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Sunderland",
+          "player": "Nilson Angulo",
+          "position": "MF",
+          "lambda_goals": 0.07472725937932163,
+          "anytime_pct": 2.3,
+          "exp_shots": 0.91,
+          "p_shots_2plus": 5.8,
+          "exp_sot": 0.35,
+          "p_sot_1plus": 18.5,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [
+        {
+          "market": "sot",
+          "line": "1+ shot on target",
+          "player": "Thiago",
+          "team": "Brentford",
+          "position": "FW",
+          "p_pick": 0.623,
+          "confidence": 4,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 97.5,
+          "expected_minutes": 84.5,
+          "anytime_pct": 25.5,
+          "exp_shots": 2.61,
+          "exp_sot": 1.27,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            2,
+            2,
+            0,
+            0,
+            0
+          ],
+          "last_five_line": 1,
+          "bar": 0.511,
+          "news_checked_hours_ago": 56.37711658944445,
+          "unavailable": false,
+          "team_attribution": "Brentford"
+        },
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Thiago",
+          "team": "Brentford",
+          "position": "FW",
+          "p_pick": 0.538,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 97.5,
+          "expected_minutes": 84.5,
+          "anytime_pct": 25.5,
+          "exp_shots": 2.61,
+          "exp_sot": 1.27,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            3,
+            2,
+            1,
+            2,
+            2
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 56.37711652166667,
+          "unavailable": false,
+          "team_attribution": "Brentford"
+        }
+      ],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 23,
+      "matchweek": 3,
+      "date": "2026-09-05T14:00:00+00:00",
+      "venue": "American Express Stadium",
+      "home": "Brighton",
+      "away": "Leeds",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.438,
+        "p_draw": 0.29,
+        "p_away": 0.272,
+        "pick": "Brighton",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 12.7,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 11.6,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "2-1",
+            "pct": 9.0,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.438,
+        "why": {
+          "home_attack_pct": 16.8,
+          "home_defence_pct": 8.3,
+          "away_attack_pct": 10.6,
+          "away_defence_pct": 4.4,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Brighton 44% / draw 29% / Leeds 27%",
+          "Expected goals: 1.41 - 1.06"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Brighton",
+          "player": "Diego G\u00f3mez",
+          "position": "FW",
+          "lambda_goals": 0.2360744129036677,
+          "anytime_pct": 10.3,
+          "exp_shots": 1.25,
+          "p_shots_2plus": 14.2,
+          "exp_sot": 0.4,
+          "p_sot_1plus": 20.5,
+          "appearance_pct": 82.5,
+          "expected_minutes": 56.4,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Brighton",
+          "player": "Georginio Rutter",
+          "position": "FW",
+          "lambda_goals": 0.1740850295886781,
+          "anytime_pct": 7.0,
+          "exp_shots": 1.27,
+          "p_shots_2plus": 14.8,
+          "exp_sot": 0.37,
+          "p_sot_1plus": 19.1,
+          "appearance_pct": 82.5,
+          "expected_minutes": 46.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Brighton",
+          "player": "Kaoru Mitoma",
+          "position": "DF",
+          "lambda_goals": 0.16977835536977925,
+          "anytime_pct": 6.5,
+          "exp_shots": 0.9,
+          "p_shots_2plus": 7.3,
+          "exp_sot": 0.39,
+          "p_sot_1plus": 18.3,
+          "appearance_pct": 65.0,
+          "expected_minutes": 44.8,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Leeds",
+          "player": "Dominic Calvert-Lewin",
+          "position": "FW",
+          "lambda_goals": 0.3161261359126769,
+          "anytime_pct": 15.3,
+          "exp_shots": 1.75,
+          "p_shots_2plus": 28.1,
+          "exp_sot": 0.73,
+          "p_sot_1plus": 40.5,
+          "appearance_pct": 100.0,
+          "expected_minutes": 78.1,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Leeds",
+          "player": "Harry Wilson",
+          "position": "FW",
+          "lambda_goals": 0.189438047571966,
+          "anytime_pct": 8.0,
+          "exp_shots": 1.7,
+          "p_shots_2plus": 26.6,
+          "exp_sot": 0.57,
+          "p_sot_1plus": 31.6,
+          "appearance_pct": 100.0,
+          "expected_minutes": 76.4,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Leeds",
+          "player": "Brenden Aaronson",
+          "position": "FW",
+          "lambda_goals": 0.11733177270473534,
+          "anytime_pct": 4.2,
+          "exp_shots": 1.08,
+          "p_shots_2plus": 9.2,
+          "exp_sot": 0.33,
+          "p_sot_1plus": 17.7,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 25,
+      "matchweek": 3,
+      "date": "2026-09-05T14:00:00+00:00",
+      "venue": "Craven Cottage",
+      "home": "Fulham",
+      "away": "Crystal Palace",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.381,
+        "p_draw": 0.301,
+        "p_away": 0.318,
+        "pick": "Fulham",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 13.1,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 11.2,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 9.8,
+            "outcome": "away",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 1,
+        "provisional": true,
+        "p_pick": 0.3814,
+        "why": {
+          "home_attack_pct": -0.6,
+          "home_defence_pct": 1.9,
+          "away_attack_pct": 10.4,
+          "away_defence_pct": -0.4,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Fulham 38% / draw 30% / Crystal Palace 32%",
+          "Expected goals: 1.26 - 1.12"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Fulham",
+          "player": "Rodrigo Muniz",
+          "position": "FW",
+          "lambda_goals": 0.21322441154600533,
+          "anytime_pct": 8.3,
+          "exp_shots": 0.99,
+          "p_shots_2plus": 9.3,
+          "exp_sot": 0.33,
+          "p_sot_1plus": 14.5,
+          "appearance_pct": 55.0,
+          "expected_minutes": 26.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Fulham",
+          "player": "Emile Smith-Rowe",
+          "position": "MF",
+          "lambda_goals": 0.18093035904072444,
+          "anytime_pct": 7.5,
+          "exp_shots": 0.94,
+          "p_shots_2plus": 6.5,
+          "exp_sot": 0.32,
+          "p_sot_1plus": 16.5,
+          "appearance_pct": 95.0,
+          "expected_minutes": 49.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Fulham",
+          "player": "Alex Iwobi",
+          "position": "DF",
+          "lambda_goals": 0.1661780407440527,
+          "anytime_pct": 6.5,
+          "exp_shots": 1.11,
+          "p_shots_2plus": 11.3,
+          "exp_sot": 0.43,
+          "p_sot_1plus": 21.4,
+          "appearance_pct": 75.0,
+          "expected_minutes": 64.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Crystal Palace",
+          "player": "Jean-Philippe Mateta",
+          "position": "FW",
+          "lambda_goals": 0.3185542177326489,
+          "anytime_pct": 15.5,
+          "exp_shots": 1.49,
+          "p_shots_2plus": 19.9,
+          "exp_sot": 0.7,
+          "p_sot_1plus": 38.9,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Crystal Palace",
+          "player": "Eddie Nketiah",
+          "position": "FW",
+          "lambda_goals": 0.2470198444054864,
+          "anytime_pct": 11.3,
+          "exp_shots": 2.05,
+          "p_shots_2plus": 37.8,
+          "exp_sot": 0.74,
+          "p_sot_1plus": 41.2,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Crystal Palace",
+          "player": "Ismaila Sarr",
+          "position": "FW",
+          "lambda_goals": 0.13853314389143767,
+          "anytime_pct": 5.1,
+          "exp_shots": 1.02,
+          "p_shots_2plus": 9.3,
+          "exp_sot": 0.44,
+          "p_sot_1plus": 21.9,
+          "appearance_pct": 72.5,
+          "expected_minutes": 56.5,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 28,
+      "matchweek": 3,
+      "date": "2026-09-05T14:00:00+00:00",
+      "venue": "Etihad Stadium",
+      "home": "Manchester City",
+      "away": "Coventry",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.806,
+        "p_draw": 0.164,
+        "p_away": 0.03,
+        "pick": "Manchester City",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 21.2,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "2-0",
+            "pct": 20.0,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "3-0",
+            "pct": 17.0,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 5,
+        "provisional": true,
+        "p_pick": 0.8063,
+        "why": {
+          "home_attack_pct": 48.9,
+          "home_defence_pct": 29.7,
+          "away_attack_pct": -69.8,
+          "away_defence_pct": -9.5,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": true,
+        "reasons": [
+          "Model: Manchester City 81% / draw 16% / Coventry 3%",
+          "Expected goals: 2.07 - 0.24"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Manchester City",
+          "player": "Erling Haaland",
+          "position": "FW",
+          "lambda_goals": 0.7131274901998315,
+          "anytime_pct": 36.1,
+          "exp_shots": 3.5,
+          "p_shots_2plus": 66.2,
+          "exp_sot": 1.68,
+          "p_sot_1plus": 68.6,
+          "appearance_pct": 90.0,
+          "expected_minutes": 76.6,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Manchester City",
+          "player": "Antoine Semenyo",
+          "position": "FW",
+          "lambda_goals": 0.35330593506334806,
+          "anytime_pct": 17.3,
+          "exp_shots": 2.83,
+          "p_shots_2plus": 58.3,
+          "exp_sot": 1.15,
+          "p_sot_1plus": 57.1,
+          "appearance_pct": 95.0,
+          "expected_minutes": 82.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Manchester City",
+          "player": "Phil Foden",
+          "position": "FW",
+          "lambda_goals": 0.23715444104854622,
+          "anytime_pct": 10.4,
+          "exp_shots": 1.74,
+          "p_shots_2plus": 27.5,
+          "exp_sot": 0.66,
+          "p_sot_1plus": 34.5,
+          "appearance_pct": 85.0,
+          "expected_minutes": 53.7,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [
+        {
+          "market": "sot",
+          "line": "1+ shot on target",
+          "player": "Erling Haaland",
+          "team": "Manchester City",
+          "position": "FW",
+          "p_pick": 0.686,
+          "confidence": 4,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 90.0,
+          "expected_minutes": 76.6,
+          "anytime_pct": 36.1,
+          "exp_shots": 3.5,
+          "exp_sot": 1.68,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            2,
+            1,
+            4,
+            1,
+            2
+          ],
+          "last_five_line": 1,
+          "bar": 0.511,
+          "news_checked_hours_ago": 79.48322214222222,
+          "unavailable": false,
+          "team_attribution": "Manchester City"
+        },
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Erling Haaland",
+          "team": "Manchester City",
+          "position": "FW",
+          "p_pick": 0.662,
+          "confidence": 4,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 90.0,
+          "expected_minutes": 76.6,
+          "anytime_pct": 36.1,
+          "exp_shots": 3.5,
+          "exp_sot": 1.68,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            5,
+            2,
+            5,
+            2,
+            4
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 79.48321961611111,
+          "unavailable": false,
+          "team_attribution": "Manchester City"
+        },
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Antoine Semenyo",
+          "team": "Manchester City",
+          "position": "FW",
+          "p_pick": 0.583,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 95.0,
+          "expected_minutes": 82.7,
+          "anytime_pct": 17.3,
+          "exp_shots": 2.83,
+          "exp_sot": 1.15,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 79.4832192588889,
+          "unavailable": false,
+          "team_attribution": "Manchester City"
+        },
+        {
+          "market": "sot",
+          "line": "1+ shot on target",
+          "player": "Antoine Semenyo",
+          "team": "Manchester City",
+          "position": "FW",
+          "p_pick": 0.571,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 95.0,
+          "expected_minutes": 82.7,
+          "anytime_pct": 17.3,
+          "exp_shots": 2.83,
+          "exp_sot": 1.15,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_five_line": 1,
+          "bar": 0.511,
+          "news_checked_hours_ago": 79.48321966388889,
+          "unavailable": false,
+          "team_attribution": "Manchester City"
+        },
+        {
+          "market": "goal",
+          "line": "Anytime goalscorer",
+          "player": "Erling Haaland",
+          "team": "Manchester City",
+          "position": "FW",
+          "p_pick": 0.361,
+          "confidence": 1,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": true,
+          "appearance_pct": 90.0,
+          "expected_minutes": 76.6,
+          "anytime_pct": 36.1,
+          "exp_shots": 3.5,
+          "exp_sot": 1.68,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "last_five_line": 1,
+          "bar": 0.276,
+          "news_checked_hours_ago": 79.48321922027777,
+          "unavailable": false,
+          "team_attribution": "Manchester City"
+        }
+      ],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 30,
+      "matchweek": 3,
+      "date": "2026-09-05T14:00:00+00:00",
+      "venue": "The City Ground",
+      "home": "Nottingham Forest",
+      "away": "Tottenham",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.403,
+        "p_draw": 0.302,
+        "p_away": 0.295,
+        "pick": "Nottingham Forest",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 13.2,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 12.0,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 9.6,
+            "outcome": "away",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.403,
+        "why": {
+          "home_attack_pct": -0.3,
+          "home_defence_pct": -0.4,
+          "away_attack_pct": 1.7,
+          "away_defence_pct": -2.1,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Nottingham Forest 40% / draw 30% / Tottenham 30%",
+          "Expected goals: 1.28 - 1.06"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Nottingham Forest",
+          "player": "Morgan Gibbs-White",
+          "position": "FW",
+          "lambda_goals": 0.23997373100472866,
+          "anytime_pct": 10.9,
+          "exp_shots": 2.21,
+          "p_shots_2plus": 42.9,
+          "exp_sot": 0.74,
+          "p_sot_1plus": 41.2,
+          "appearance_pct": 100.0,
+          "expected_minutes": 84.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Nottingham Forest",
+          "player": "Igor Jesus",
+          "position": "FW",
+          "lambda_goals": 0.20209221243078143,
+          "anytime_pct": 8.7,
+          "exp_shots": 2.23,
+          "p_shots_2plus": 43.6,
+          "exp_sot": 0.69,
+          "p_sot_1plus": 38.1,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Nottingham Forest",
+          "player": "Dan Ndoye",
+          "position": "FW",
+          "lambda_goals": 0.1656699104035564,
+          "anytime_pct": 6.7,
+          "exp_shots": 1.4,
+          "p_shots_2plus": 17.4,
+          "exp_sot": 0.42,
+          "p_sot_1plus": 23.1,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Tottenham",
+          "player": "Richarlison",
+          "position": "FW",
+          "lambda_goals": 0.26763475748653076,
+          "anytime_pct": 12.5,
+          "exp_shots": 2.11,
+          "p_shots_2plus": 39.7,
+          "exp_sot": 0.86,
+          "p_sot_1plus": 47.0,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Tottenham",
+          "player": "Mathys Tel",
+          "position": "FW",
+          "lambda_goals": 0.1520391042546014,
+          "anytime_pct": 6.0,
+          "exp_shots": 1.73,
+          "p_shots_2plus": 27.6,
+          "exp_sot": 0.51,
+          "p_sot_1plus": 28.1,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Tottenham",
+          "player": "Conor Gallagher",
+          "position": "MF",
+          "lambda_goals": 0.0853942448012495,
+          "anytime_pct": 2.7,
+          "exp_shots": 0.97,
+          "p_shots_2plus": 6.9,
+          "exp_sot": 0.36,
+          "p_sot_1plus": 19.4,
+          "appearance_pct": 100.0,
+          "expected_minutes": 76.8,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 26,
+      "matchweek": 3,
+      "date": "2026-09-05T16:30:00+00:00",
+      "venue": "MKM Stadium",
+      "home": "Hull",
+      "away": "Aston Villa",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.5,
+        "p_draw": 0.315,
+        "p_away": 0.185,
+        "pick": "Hull",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 18.6,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 12.4,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-0",
+            "pct": 11.7,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.5001,
+        "why": {
+          "home_attack_pct": 6.9,
+          "home_defence_pct": 76.8,
+          "away_attack_pct": 14.2,
+          "away_defence_pct": 5.2,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Hull 50% / draw 32% / Aston Villa 18%",
+          "Expected goals: 1.28 - 0.67"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Aston Villa",
+          "player": "Ollie Watkins",
+          "position": "FW",
+          "lambda_goals": 0.3023242186411467,
+          "anytime_pct": 14.3,
+          "exp_shots": 1.98,
+          "p_shots_2plus": 35.3,
+          "exp_sot": 0.9,
+          "p_sot_1plus": 47.4,
+          "appearance_pct": 95.0,
+          "expected_minutes": 74.7,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Aston Villa",
+          "player": "Emiliano Buend\u00eda",
+          "position": "FW",
+          "lambda_goals": 0.07438553824246164,
+          "anytime_pct": 2.3,
+          "exp_shots": 1.08,
+          "p_shots_2plus": 9.5,
+          "exp_sot": 0.28,
+          "p_sot_1plus": 14.2,
+          "appearance_pct": 92.5,
+          "expected_minutes": 45.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Aston Villa",
+          "player": "Alejandro Garnacho",
+          "position": "MF",
+          "lambda_goals": 0.0484186391708139,
+          "anytime_pct": 1.2,
+          "exp_shots": 0.95,
+          "p_shots_2plus": 8.3,
+          "exp_sot": 0.28,
+          "p_sot_1plus": 13.0,
+          "appearance_pct": 62.5,
+          "expected_minutes": 33.5,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 24,
+      "matchweek": 3,
+      "date": "2026-09-06T13:00:00+00:00",
+      "venue": "Hill Dickinson Stadium",
+      "home": "Everton",
+      "away": "Manchester United",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.315,
+        "p_draw": 0.301,
+        "p_away": 0.384,
+        "pick": "Manchester United",
+        "pick_type": "away",
+        "score": "0-1",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 13.2,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-1",
+            "pct": 11.3,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-0",
+            "pct": 9.9,
+            "outcome": "home",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 1,
+        "provisional": true,
+        "p_pick": 0.3843,
+        "why": {
+          "home_attack_pct": -3.6,
+          "home_defence_pct": 5.2,
+          "away_attack_pct": 27.5,
+          "away_defence_pct": 8.8,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Everton 31% / draw 30% / Manchester United 38%",
+          "Expected goals: 1.11 - 1.26"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Everton",
+          "player": "Tyrique George",
+          "position": "FW",
+          "lambda_goals": 0.21289914439788726,
+          "anytime_pct": 9.3,
+          "exp_shots": 1.84,
+          "p_shots_2plus": 31.0,
+          "exp_sot": 0.76,
+          "p_sot_1plus": 42.0,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Everton",
+          "player": "Iliman Ndiaye",
+          "position": "FW",
+          "lambda_goals": 0.2045885904482451,
+          "anytime_pct": 8.6,
+          "exp_shots": 1.16,
+          "p_shots_2plus": 12.0,
+          "exp_sot": 0.55,
+          "p_sot_1plus": 28.3,
+          "appearance_pct": 82.5,
+          "expected_minutes": 72.3,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Everton",
+          "player": "Thierno Barry",
+          "position": "FW",
+          "lambda_goals": 0.1764834230188705,
+          "anytime_pct": 7.3,
+          "exp_shots": 1.03,
+          "p_shots_2plus": 8.1,
+          "exp_sot": 0.35,
+          "p_sot_1plus": 18.7,
+          "appearance_pct": 97.5,
+          "expected_minutes": 49.3,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Manchester United",
+          "player": "Bruno Fernandes",
+          "position": "FW",
+          "lambda_goals": 0.22390132034697202,
+          "anytime_pct": 9.9,
+          "exp_shots": 2.34,
+          "p_shots_2plus": 46.9,
+          "exp_sot": 0.77,
+          "p_sot_1plus": 42.5,
+          "appearance_pct": 100.0,
+          "expected_minutes": 88.1,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Manchester United",
+          "player": "Matheus Cunha",
+          "position": "FW",
+          "lambda_goals": 0.20882034897465507,
+          "anytime_pct": 9.1,
+          "exp_shots": 2.44,
+          "p_shots_2plus": 49.7,
+          "exp_sot": 0.96,
+          "p_sot_1plus": 51.7,
+          "appearance_pct": 100.0,
+          "expected_minutes": 75.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Manchester United",
+          "player": "Bryan Mbeumo",
+          "position": "FW",
+          "lambda_goals": 0.20577233357007757,
+          "anytime_pct": 8.9,
+          "exp_shots": 1.94,
+          "p_shots_2plus": 34.3,
+          "exp_sot": 0.81,
+          "p_sot_1plus": 44.3,
+          "appearance_pct": 100.0,
+          "expected_minutes": 81.1,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [
+        {
+          "market": "sot",
+          "line": "1+ shot on target",
+          "player": "Matheus Cunha",
+          "team": "Manchester United",
+          "position": "FW",
+          "p_pick": 0.517,
+          "confidence": 3,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 100.0,
+          "expected_minutes": 75.9,
+          "anytime_pct": 9.1,
+          "exp_shots": 2.44,
+          "exp_sot": 0.96,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "last_five_line": 1,
+          "bar": 0.511,
+          "news_checked_hours_ago": 57.08365216222222,
+          "unavailable": false,
+          "team_attribution": "Manchester United"
+        },
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Matheus Cunha",
+          "team": "Manchester United",
+          "position": "FW",
+          "p_pick": 0.497,
+          "confidence": 2,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 100.0,
+          "expected_minutes": 75.9,
+          "anytime_pct": 9.1,
+          "exp_shots": 2.44,
+          "exp_sot": 0.96,
+          "lineup_confirmed": true,
+          "gradeable": true,
+          "last_five": [
+            3,
+            5,
+            4,
+            2,
+            2
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 57.083652013611115,
+          "unavailable": false,
+          "team_attribution": "Manchester United"
+        }
+      ],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 21,
+      "matchweek": 3,
+      "date": "2026-09-06T15:30:00+00:00",
+      "venue": "Emirates Stadium",
+      "home": "Arsenal",
+      "away": "Chelsea",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.578,
+        "p_draw": 0.256,
+        "p_away": 0.166,
+        "pick": "Arsenal",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 13.3,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 11.0,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "2-0",
+            "pct": 11.0,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.578,
+        "why": {
+          "home_attack_pct": 42.4,
+          "home_defence_pct": 64.9,
+          "away_attack_pct": 30.8,
+          "away_defence_pct": 2.7,
+          "home_advantage_pct": 21.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Arsenal 58% / draw 26% / Chelsea 17%",
+          "Expected goals: 1.72 - 0.82"
+        ],
+        "unmodeled_absences": {
+          "home": [
+            "Jurri\u00ebn Timber",
+            "William Saliba"
+          ],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Arsenal",
+          "player": "Viktor Gyokeres",
+          "position": "FW",
+          "lambda_goals": 0.3088040092706959,
+          "anytime_pct": 14.6,
+          "exp_shots": 1.32,
+          "p_shots_2plus": 15.6,
+          "exp_sot": 0.52,
+          "p_sot_1plus": 28.0,
+          "appearance_pct": 92.5,
+          "expected_minutes": 57.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Arsenal",
+          "player": "Bukayo Saka",
+          "position": "FW",
+          "lambda_goals": 0.2832876645438085,
+          "anytime_pct": 12.8,
+          "exp_shots": 1.71,
+          "p_shots_2plus": 26.1,
+          "exp_sot": 0.59,
+          "p_sot_1plus": 30.0,
+          "appearance_pct": 80.0,
+          "expected_minutes": 57.8,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Arsenal",
+          "player": "Eberechi Eze",
+          "position": "FW",
+          "lambda_goals": 0.18127944275882893,
+          "anytime_pct": 7.4,
+          "exp_shots": 1.52,
+          "p_shots_2plus": 21.2,
+          "exp_sot": 0.5,
+          "p_sot_1plus": 26.0,
+          "appearance_pct": 85.0,
+          "expected_minutes": 49.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Chelsea",
+          "player": "Cole Palmer",
+          "position": "FW",
+          "lambda_goals": 0.1425965130762575,
+          "anytime_pct": 5.2,
+          "exp_shots": 1.14,
+          "p_shots_2plus": 12.2,
+          "exp_sot": 0.45,
+          "p_sot_1plus": 21.6,
+          "appearance_pct": 67.5,
+          "expected_minutes": 52.1,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Chelsea",
+          "player": "Jo\u00e3o Pedro",
+          "position": "FW",
+          "lambda_goals": 0.13258843389580466,
+          "anytime_pct": 4.9,
+          "exp_shots": 1.2,
+          "p_shots_2plus": 12.5,
+          "exp_sot": 0.44,
+          "p_sot_1plus": 23.5,
+          "appearance_pct": 90.0,
+          "expected_minutes": 69.4,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Chelsea",
+          "player": "Danny Welbeck",
+          "position": "FW",
+          "lambda_goals": 0.11773296222241178,
+          "anytime_pct": 4.2,
+          "exp_shots": 0.95,
+          "p_shots_2plus": 6.8,
+          "exp_sot": 0.4,
+          "p_sot_1plus": 21.5,
+          "appearance_pct": 95.0,
+          "expected_minutes": 58.7,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    }
+  ],
   "season": [
     {
       "id": 1,
@@ -321,9 +2096,12 @@
       "date": "2026-08-31T19:00:00+00:00",
       "home": "Aston Villa",
       "away": "Arsenal",
-      "result": null,
+      "result": {
+        "home_goals": 0,
+        "away_goals": 1
+      },
       "pick": "Arsenal",
-      "graded": null,
+      "graded": "correct",
       "void": false
     },
     {
@@ -4290,140 +6068,140 @@
   "table": [
     {
       "team": "Arsenal",
-      "proj_points": 73.4,
-      "title_pct": 46.7,
-      "top4_pct": 91.6,
+      "proj_points": 74.9,
+      "title_pct": 52.4,
+      "top4_pct": 94.4,
       "relegation_pct": 0.0
     },
     {
       "team": "Manchester City",
-      "proj_points": 71.0,
-      "title_pct": 31.1,
-      "top4_pct": 85.3,
+      "proj_points": 71.2,
+      "title_pct": 29.0,
+      "top4_pct": 86.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Hull",
       "proj_points": 66.4,
-      "title_pct": 11.9,
-      "top4_pct": 67.2,
+      "title_pct": 10.1,
+      "top4_pct": 66.4,
       "relegation_pct": 0.0
     },
     {
       "team": "Liverpool",
-      "proj_points": 60.8,
-      "title_pct": 3.6,
-      "top4_pct": 36.6,
-      "relegation_pct": 0.2
+      "proj_points": 60.9,
+      "title_pct": 3.1,
+      "top4_pct": 37.2,
+      "relegation_pct": 0.1
     },
     {
       "team": "Chelsea",
-      "proj_points": 59.7,
-      "title_pct": 2.6,
-      "top4_pct": 30.4,
+      "proj_points": 59.4,
+      "title_pct": 2.0,
+      "top4_pct": 29.5,
       "relegation_pct": 0.3
     },
     {
       "team": "Manchester United",
       "proj_points": 57.2,
-      "title_pct": 1.2,
-      "top4_pct": 20.9,
-      "relegation_pct": 0.7
+      "title_pct": 1.1,
+      "top4_pct": 20.6,
+      "relegation_pct": 0.8
     },
     {
       "team": "Newcastle United",
-      "proj_points": 55.8,
-      "title_pct": 0.9,
-      "top4_pct": 15.5,
-      "relegation_pct": 1.1
+      "proj_points": 55.7,
+      "title_pct": 0.5,
+      "top4_pct": 15.0,
+      "relegation_pct": 1.2
     },
     {
       "team": "Brentford",
       "proj_points": 54.7,
       "title_pct": 0.5,
-      "top4_pct": 12.3,
-      "relegation_pct": 1.5
+      "top4_pct": 12.4,
+      "relegation_pct": 1.3
     },
     {
       "team": "Brighton",
-      "proj_points": 54.3,
+      "proj_points": 54.4,
       "title_pct": 0.5,
-      "top4_pct": 11.6,
-      "relegation_pct": 1.8
+      "top4_pct": 11.8,
+      "relegation_pct": 1.5
     },
     {
       "team": "Bournemouth",
-      "proj_points": 53.6,
-      "title_pct": 0.5,
-      "top4_pct": 9.7,
-      "relegation_pct": 2.0
+      "proj_points": 53.7,
+      "title_pct": 0.4,
+      "top4_pct": 10.0,
+      "relegation_pct": 2.1
     },
     {
       "team": "Leeds",
-      "proj_points": 52.4,
-      "title_pct": 0.3,
-      "top4_pct": 7.0,
-      "relegation_pct": 2.7
+      "proj_points": 52.1,
+      "title_pct": 0.2,
+      "top4_pct": 6.5,
+      "relegation_pct": 3.1
     },
     {
       "team": "Aston Villa",
-      "proj_points": 51.3,
-      "title_pct": 0.2,
-      "top4_pct": 5.5,
-      "relegation_pct": 4.5
+      "proj_points": 50.3,
+      "title_pct": 0.1,
+      "top4_pct": 3.9,
+      "relegation_pct": 5.3
     },
     {
       "team": "Everton",
       "proj_points": 48.2,
-      "title_pct": 0.1,
-      "top4_pct": 2.2,
-      "relegation_pct": 8.5
+      "title_pct": 0.0,
+      "top4_pct": 2.1,
+      "relegation_pct": 8.2
     },
     {
       "team": "Crystal Palace",
       "proj_points": 47.2,
       "title_pct": 0.0,
-      "top4_pct": 1.8,
-      "relegation_pct": 11.8
+      "top4_pct": 1.6,
+      "relegation_pct": 11.3
     },
     {
       "team": "Nottingham Forest",
-      "proj_points": 45.0,
+      "proj_points": 44.8,
       "title_pct": 0.0,
-      "top4_pct": 0.8,
-      "relegation_pct": 17.4
+      "top4_pct": 0.9,
+      "relegation_pct": 18.0
     },
     {
       "team": "Fulham",
       "proj_points": 44.1,
       "title_pct": 0.0,
-      "top4_pct": 0.6,
-      "relegation_pct": 20.9
+      "top4_pct": 0.5,
+      "relegation_pct": 20.1
     },
     {
       "team": "Tottenham",
-      "proj_points": 44.0,
+      "proj_points": 43.9,
       "title_pct": 0.0,
-      "top4_pct": 0.6,
-      "relegation_pct": 22.1
+      "top4_pct": 0.5,
+      "relegation_pct": 22.5
     },
     {
       "team": "Sunderland",
       "proj_points": 42.8,
       "title_pct": 0.0,
       "top4_pct": 0.3,
-      "relegation_pct": 26.1
+      "relegation_pct": 25.9
     },
     {
       "team": "Ipswich",
-      "proj_points": 33.9,
+      "proj_points": 33.7,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 78.3
+      "relegation_pct": 78.2
     },
     {
       "team": "Coventry",
-      "proj_points": 17.1,
+      "proj_points": 18.4,
       "title_pct": 0.0,
       "top4_pct": 0.0,
       "relegation_pct": 100.0
@@ -4707,7 +6485,7 @@
     "Ipswich"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 6.3,
+  "roster_snapshot_age_hours": 8.3,
   "roster_unmatched_count": 78,
   "data_warnings": [
     "78 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
