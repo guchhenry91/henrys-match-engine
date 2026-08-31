@@ -84,12 +84,24 @@ def test_prop_ids_are_unique():
     assert len(ids) == len(set(ids))
 
 
-def test_no_nba_link_while_there_is_no_nba_engine():
-    """NBA was asked for, and this app has no NBA engine. A link that looks live
-    and does nothing is worse than no link -- if an engine is ever added, this
-    test is the reminder to wire it up rather than the thing blocking it."""
-    assert not (ROOT / "nba").exists(), "an NBA engine exists; add its sidebar links"
-    assert not any("nba" in p["id"].lower() for p in _props())
+def test_nba_links_exist_exactly_when_there_is_an_nba_BOARD():
+    """THE RULE IS ABOUT DEAD LINKS, not about the package.
+
+    This originally asserted no `nba/` directory existed, and it fired the moment
+    the engine was built -- correctly flagging that something had changed, but
+    testing the wrong thing. The engine and its fifteen-season backtest can exist
+    long before anything is published; what must never happen is a sidebar row
+    pointing at a board the site does not serve.
+
+    So the invariant is the published payload, not the source tree: links exactly
+    when `data/nba/board.json` exists.
+    """
+    has_board = (ROOT / "data" / "nba" / "board.json").exists()
+    has_links = any("nba" in p["id"].lower() for p in _props())
+    assert has_links == has_board, (
+        "an NBA board is published but has no sidebar links"
+        if has_board else
+        "sidebar links point at an NBA board that is not published")
 
 
 def test_the_props_group_is_rendered_by_the_sidebar():

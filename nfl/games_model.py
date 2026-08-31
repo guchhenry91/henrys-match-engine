@@ -44,7 +44,11 @@ def run_elo(games: pd.DataFrame, k: float, home_edge: float,
     ratings = {}
     season_seen = None
     rows = []
-    for _, game in games.sort_values(["season", "week", "gameday"]).iterrows():
+    # Chronological, by whatever column the sport orders games with. The NFL
+    # numbers them by week and date; the NBA has only a date. NFL frames still
+    # carry both, so their iteration order is unchanged.
+    order = [c for c in ("season", "week", "gameday", "game_date") if c in games.columns]
+    for _, game in games.sort_values(order).iterrows():
         home, away = game["home_team"], game["away_team"]
         if game["season"] != season_seen:
             # Between seasons, pull every team back toward the mean. Rosters turn
@@ -57,9 +61,16 @@ def run_elo(games: pd.DataFrame, k: float, home_edge: float,
         rating_away = ratings.setdefault(away, START)
 
         # Neutral-site games get no home edge -- the schedule says which they are.
-        edge = 0.0 if str(game.get("location", "Home")).lower() == "neutral" else home_edge
+        # Two feeds say it two ways: the NFL schedule carries a `location` string,
+        # the NBA one a boolean, set where BOTH team rows read "@" and neither
+        # side owns the court. Either is honoured; granting home advantage on a
+        # neutral floor would be inventing an effect.
+        neutral = (bool(game.get("neutral", False))
+                   or str(game.get("location", "Home")).lower() == "neutral")
+        edge = 0.0 if neutral else home_edge
         prob_home = expected(rating_home + edge, rating_away)
-        rows.append({"season": game["season"], "week": game["week"],
+        # `week` is the NFL's ordering key and simply absent for the NBA.
+        rows.append({"season": game["season"], "week": game.get("week"),
                      "home_team": home, "away_team": away,
                      "prob_home": prob_home, "winner": game["winner"],
                      "played": bool(game["played"]),

@@ -597,6 +597,92 @@ proven by watching it, and is covered by `tests/ucl/test_picks.py` instead.
 
 NFL now locks and grades too — see the NFL section above.
 
+---
+
+# NBA engine (`nba/`) — MODEL AND BACKTEST ONLY, no board yet
+
+A third sport. There is **no published board, no UI tab and no live picks**: this
+is the model and its fifteen-season validation, built ahead of the API being
+wired in. `tests/leagues/test_sidebar_props.py` enforces that — sidebar links may
+exist exactly when `data/nba/board.json` does, so nothing can point at a board the
+site does not serve.
+
+- `python -m scripts.nba_backtest` — the gate. Writes `data-raw/nba/backtest_report.json`.
+- `--props-only` reuses the stored team-winner result instead of repeating a
+  240-combination Elo grid search that takes most of an hour.
+
+## Data: stats.nba.com, one request per season
+`leaguegamelog` returns an entire season at once — 26,651 player rows, 2,460 team
+rows — so **fifteen seasons cost thirty requests**. It covers the current season
+and reaches back two decades.
+
+**The obvious alternative was checked and rejected.** hoopR's flat-file releases
+are the NBA's nflverse: free, fast, and they **stop at season 2023**. They cannot
+see 2025-26 at all. That was found by reading the file listing before writing any
+engine, not after.
+
+The headers are not decoration — stats.nba.com refuses a bare request and returns
+an empty body rather than an error, which reads exactly like "no data for that
+season".
+
+## Three things the data forced
+- **Neutral-venue games were silently dropped.** Five 2025-26 games have BOTH
+  rows reading "@" (`DAL @ DET` and `DET @ DAL`) because neither side owns the
+  court. The pairing lost them — and only in the current season, so the loss would
+  have grown every year. They are kept, flagged `neutral`, and get **no home edge**.
+- **The line offset had to be measured per market.** Adding +0.5 to a small
+  INTEGER median means "over" needs median plus one, which pushed rebounds,
+  assists and threes to a 36-40% base rate. Measured over 30,561 rows: +0.5 for
+  points, -0.5 for the three count markets. Base rates became 0.494 / 0.487 /
+  0.434 / 0.565. Assists and threes are not 0.50 and cannot be — a half-point line
+  cannot straddle a small integer, and that is stated rather than tuned away.
+- **`PropModel` and the Elo were NFL-shaped**, sorting on `week` and reading a
+  `location` string. Both were generalised (date ordering, boolean `neutral`)
+  rather than fabricating a fake `week` column. NFL frames still carry `week`, so
+  their behaviour is unchanged and all 125 NFL tests pass.
+
+## What is measured: 15 seasons, 11 scored
+2011-12 to 2025-26 load; 2015-16 to 2025-26 are scored. The first four are burn-in
+and never graded.
+
+| Market | n | Brier | Baseline | Accuracy | ECE | Released |
+|---|---|---|---|---|---|---|
+| team_winner | 13,209 | 0.2158 | 0.2458 | 65.4% | — | **yes** |
+| rebounds | 173,213 | 0.2225 | 0.2310 | 64.0% | 0.011 | **yes** |
+| assists | 173,213 | 0.1925 | 0.2111 | 70.8% | 0.031 | **yes** |
+| threes | 173,213 | 0.1858 | 0.2088 | 72.1% | 0.022 | **yes** |
+| points | 173,213 | 0.2300 | 0.2311 | 61.5% | 0.063 | **WITHHELD** |
+
+**Points is withheld** and the gate is right to: it lost to the baseline in
+2023, 2024 AND 2025, and its ECE of 0.063 is above the bar. Only 2026 recovered.
+
+**Team winner beats home court in every one of the eleven seasons**, which is a
+stronger baseline in basketball than in football — the home side wins 54-59%
+outright.
+
+## THE PROP HEADLINE NUMBERS ARE FLATTERED BY THE FLOOR
+`MIN_LINE` floors a line too low to quote. Measured, that floor **binds on most
+rows**, so for those the "line" is a CONSTANT rather than the player's own median,
+and the question becomes "will a rotation player clear a fixed number" — far more
+predictable than a balanced prop.
+
+| market | at floor | accuracy overall | accuracy where the line IS his median |
+|---|---|---|---|
+| points | 27% | 61.5% | 61.7% |
+| rebounds | 64% | 64.0% | 63.7% |
+| assists | **79%** | 70.8% | **64.9%** |
+| threes | **80%** | 72.1% | **64.6%** |
+
+The edge over the baseline shrinks with it: assists from 0.0186 Brier to **0.0031**,
+threes from 0.0230 to **0.0030**. So the model has modest real skill on a
+book-shaped line, and the headline overstates it. `backtest_report.json` carries
+`floor_share` and an `above_floor` block on every market so this is published
+rather than discovered later — the same discipline as the six-scores board, which
+says plainly that it buys variety and not accuracy.
+
+Nothing here is a claim to beat a bookmaker: no NBA prices have been fetched, and
+the lines are the engine's own.
+
 ## Data JSON validation
 `scripts/validate_data_json.py` parses **every** JSON file the site depends on --
 the hand/agent-edited inputs (`data-raw/leagues/transfers.json`, `news.json`,

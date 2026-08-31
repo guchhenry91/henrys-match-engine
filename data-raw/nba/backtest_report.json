@@ -1,0 +1,546 @@
+{
+  "seasons_loaded": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "seasons_scored": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "markets": {
+    "team_winner": {
+      "market": "team_winner",
+      "released": true,
+      "failures": [],
+      "n": 13209,
+      "seasons_scored": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "brier": 0.2158,
+      "baseline_brier": 0.2458,
+      "accuracy": 0.6543,
+      "home_win_rate": 0.5645,
+      "per_season": {
+        "2016": {
+          "n": 1230,
+          "brier": 0.2009,
+          "baseline": 0.2421,
+          "accuracy": 0.6951,
+          "home_rate": 0.5886
+        },
+        "2017": {
+          "n": 1230,
+          "brier": 0.219,
+          "baseline": 0.243,
+          "accuracy": 0.6488,
+          "home_rate": 0.5837
+        },
+        "2018": {
+          "n": 1230,
+          "brier": 0.2138,
+          "baseline": 0.2438,
+          "accuracy": 0.648,
+          "home_rate": 0.5789
+        },
+        "2019": {
+          "n": 1230,
+          "brier": 0.2139,
+          "baseline": 0.2414,
+          "accuracy": 0.6561,
+          "home_rate": 0.5927
+        },
+        "2020": {
+          "n": 1059,
+          "brier": 0.2194,
+          "baseline": 0.2474,
+          "accuracy": 0.6516,
+          "home_rate": 0.5515
+        },
+        "2021": {
+          "n": 1080,
+          "brier": 0.229,
+          "baseline": 0.2481,
+          "accuracy": 0.6111,
+          "home_rate": 0.5435
+        },
+        "2022": {
+          "n": 1230,
+          "brier": 0.2229,
+          "baseline": 0.2481,
+          "accuracy": 0.6528,
+          "home_rate": 0.5439
+        },
+        "2023": {
+          "n": 1230,
+          "brier": 0.2266,
+          "baseline": 0.2435,
+          "accuracy": 0.6325,
+          "home_rate": 0.5805
+        },
+        "2024": {
+          "n": 1230,
+          "brier": 0.2128,
+          "baseline": 0.2481,
+          "accuracy": 0.6463,
+          "home_rate": 0.5431
+        },
+        "2025": {
+          "n": 1230,
+          "brier": 0.2116,
+          "baseline": 0.2481,
+          "accuracy": 0.6659,
+          "home_rate": 0.5439
+        },
+        "2026": {
+          "n": 1230,
+          "brier": 0.2061,
+          "baseline": 0.247,
+          "accuracy": 0.6829,
+          "home_rate": 0.5545
+        }
+      }
+    },
+    "points": {
+      "market": "points",
+      "released": false,
+      "floor_share": 0.2726,
+      "above_floor": {
+        "n": 125996,
+        "brier": 0.2289,
+        "baseline_brier": 0.2301,
+        "accuracy": 0.6165,
+        "base_rate": 0.5397
+      },
+      "failures": [
+        "season 2023 did not beat the baseline",
+        "season 2024 did not beat the baseline",
+        "season 2025 did not beat the baseline",
+        "ECE 0.063 above the bar 0.040"
+      ],
+      "n": 173213,
+      "seasons_scored": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "brier": 0.23,
+      "baseline_brier": 0.2311,
+      "accuracy": 0.6148,
+      "base_rate": 0.5391,
+      "ece": 0.0632,
+      "ece_bar": 0.04,
+      "per_season": {
+        "2016": {
+          "n": 15896,
+          "brier": 0.2247,
+          "baseline": 0.2318,
+          "accuracy": 0.6298
+        },
+        "2017": {
+          "n": 16037,
+          "brier": 0.2272,
+          "baseline": 0.2323,
+          "accuracy": 0.6286
+        },
+        "2018": {
+          "n": 16256,
+          "brier": 0.225,
+          "baseline": 0.2302,
+          "accuracy": 0.628
+        },
+        "2019": {
+          "n": 16255,
+          "brier": 0.2305,
+          "baseline": 0.2319,
+          "accuracy": 0.6141
+        },
+        "2020": {
+          "n": 13987,
+          "brier": 0.2272,
+          "baseline": 0.2301,
+          "accuracy": 0.6242
+        },
+        "2021": {
+          "n": 14192,
+          "brier": 0.2259,
+          "baseline": 0.2277,
+          "accuracy": 0.6285
+        },
+        "2022": {
+          "n": 16184,
+          "brier": 0.2281,
+          "baseline": 0.2316,
+          "accuracy": 0.6214
+        },
+        "2023": {
+          "n": 16045,
+          "brier": 0.2383,
+          "baseline": 0.231,
+          "accuracy": 0.5845
+        },
+        "2024": {
+          "n": 15868,
+          "brier": 0.245,
+          "baseline": 0.2331,
+          "accuracy": 0.5673
+        },
+        "2025": {
+          "n": 16087,
+          "brier": 0.2354,
+          "baseline": 0.2333,
+          "accuracy": 0.5956
+        },
+        "2026": {
+          "n": 16406,
+          "brier": 0.2218,
+          "baseline": 0.2289,
+          "accuracy": 0.6419
+        }
+      }
+    },
+    "rebounds": {
+      "market": "rebounds",
+      "released": true,
+      "floor_share": 0.6382,
+      "above_floor": {
+        "n": 62662,
+        "brier": 0.2243,
+        "baseline_brier": 0.2298,
+        "accuracy": 0.6371,
+        "base_rate": 0.5972
+      },
+      "failures": [],
+      "n": 173213,
+      "seasons_scored": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "brier": 0.2225,
+      "baseline_brier": 0.231,
+      "accuracy": 0.6399,
+      "base_rate": 0.5168,
+      "ece": 0.0106,
+      "ece_bar": 0.04,
+      "per_season": {
+        "2016": {
+          "n": 15896,
+          "brier": 0.2244,
+          "baseline": 0.2319,
+          "accuracy": 0.6364
+        },
+        "2017": {
+          "n": 16037,
+          "brier": 0.2237,
+          "baseline": 0.2323,
+          "accuracy": 0.638
+        },
+        "2018": {
+          "n": 16256,
+          "brier": 0.219,
+          "baseline": 0.2288,
+          "accuracy": 0.6486
+        },
+        "2019": {
+          "n": 16255,
+          "brier": 0.2197,
+          "baseline": 0.2286,
+          "accuracy": 0.6508
+        },
+        "2020": {
+          "n": 13987,
+          "brier": 0.2191,
+          "baseline": 0.2277,
+          "accuracy": 0.6458
+        },
+        "2021": {
+          "n": 14192,
+          "brier": 0.2185,
+          "baseline": 0.2283,
+          "accuracy": 0.6492
+        },
+        "2022": {
+          "n": 16184,
+          "brier": 0.2209,
+          "baseline": 0.2298,
+          "accuracy": 0.6462
+        },
+        "2023": {
+          "n": 16045,
+          "brier": 0.2241,
+          "baseline": 0.232,
+          "accuracy": 0.6338
+        },
+        "2024": {
+          "n": 15868,
+          "brier": 0.2264,
+          "baseline": 0.2336,
+          "accuracy": 0.6289
+        },
+        "2025": {
+          "n": 16087,
+          "brier": 0.2273,
+          "baseline": 0.2339,
+          "accuracy": 0.628
+        },
+        "2026": {
+          "n": 16406,
+          "brier": 0.2239,
+          "baseline": 0.233,
+          "accuracy": 0.6343
+        }
+      }
+    },
+    "assists": {
+      "market": "assists",
+      "released": true,
+      "floor_share": 0.7902,
+      "above_floor": {
+        "n": 36335,
+        "brier": 0.2178,
+        "baseline_brier": 0.2209,
+        "accuracy": 0.6487,
+        "base_rate": 0.614
+      },
+      "failures": [],
+      "n": 173213,
+      "seasons_scored": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "brier": 0.1925,
+      "baseline_brier": 0.2111,
+      "accuracy": 0.7082,
+      "base_rate": 0.4241,
+      "ece": 0.0314,
+      "ece_bar": 0.04,
+      "per_season": {
+        "2016": {
+          "n": 15896,
+          "brier": 0.1856,
+          "baseline": 0.2094,
+          "accuracy": 0.7189
+        },
+        "2017": {
+          "n": 16037,
+          "brier": 0.1776,
+          "baseline": 0.2044,
+          "accuracy": 0.7362
+        },
+        "2018": {
+          "n": 16256,
+          "brier": 0.1873,
+          "baseline": 0.2096,
+          "accuracy": 0.7183
+        },
+        "2019": {
+          "n": 16255,
+          "brier": 0.1945,
+          "baseline": 0.2128,
+          "accuracy": 0.704
+        },
+        "2020": {
+          "n": 13987,
+          "brier": 0.1911,
+          "baseline": 0.2107,
+          "accuracy": 0.7159
+        },
+        "2021": {
+          "n": 14192,
+          "brier": 0.1883,
+          "baseline": 0.2082,
+          "accuracy": 0.7198
+        },
+        "2022": {
+          "n": 16184,
+          "brier": 0.1917,
+          "baseline": 0.21,
+          "accuracy": 0.7092
+        },
+        "2023": {
+          "n": 16045,
+          "brier": 0.194,
+          "baseline": 0.2103,
+          "accuracy": 0.707
+        },
+        "2024": {
+          "n": 15868,
+          "brier": 0.2038,
+          "baseline": 0.2118,
+          "accuracy": 0.6812
+        },
+        "2025": {
+          "n": 16087,
+          "brier": 0.2012,
+          "baseline": 0.2182,
+          "accuracy": 0.6898
+        },
+        "2026": {
+          "n": 16406,
+          "brier": 0.2015,
+          "baseline": 0.216,
+          "accuracy": 0.6923
+        }
+      }
+    },
+    "threes": {
+      "market": "threes",
+      "released": true,
+      "floor_share": 0.8011,
+      "above_floor": {
+        "n": 34458,
+        "brier": 0.2247,
+        "baseline_brier": 0.2277,
+        "accuracy": 0.6464,
+        "base_rate": 0.6492
+      },
+      "failures": [],
+      "n": 173213,
+      "seasons_scored": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "brier": 0.1858,
+      "baseline_brier": 0.2088,
+      "accuracy": 0.7211,
+      "base_rate": 0.5956,
+      "ece": 0.0221,
+      "ece_bar": 0.04,
+      "per_season": {
+        "2016": {
+          "n": 15896,
+          "brier": 0.1763,
+          "baseline": 0.2042,
+          "accuracy": 0.7319
+        },
+        "2017": {
+          "n": 16037,
+          "brier": 0.183,
+          "baseline": 0.2097,
+          "accuracy": 0.7242
+        },
+        "2018": {
+          "n": 16256,
+          "brier": 0.1839,
+          "baseline": 0.2082,
+          "accuracy": 0.7255
+        },
+        "2019": {
+          "n": 16255,
+          "brier": 0.1854,
+          "baseline": 0.2095,
+          "accuracy": 0.7235
+        },
+        "2020": {
+          "n": 13987,
+          "brier": 0.183,
+          "baseline": 0.2032,
+          "accuracy": 0.7333
+        },
+        "2021": {
+          "n": 14192,
+          "brier": 0.1839,
+          "baseline": 0.205,
+          "accuracy": 0.7248
+        },
+        "2022": {
+          "n": 16184,
+          "brier": 0.1915,
+          "baseline": 0.2145,
+          "accuracy": 0.7069
+        },
+        "2023": {
+          "n": 16045,
+          "brier": 0.1928,
+          "baseline": 0.2155,
+          "accuracy": 0.7068
+        },
+        "2024": {
+          "n": 15868,
+          "brier": 0.1873,
+          "baseline": 0.2073,
+          "accuracy": 0.7195
+        },
+        "2025": {
+          "n": 16087,
+          "brier": 0.185,
+          "baseline": 0.2057,
+          "accuracy": 0.7269
+        },
+        "2026": {
+          "n": 16406,
+          "brier": 0.1906,
+          "baseline": 0.2125,
+          "accuracy": 0.7116
+        }
+      }
+    }
+  },
+  "_note": "Walk-forward NBA backtest. Every scored season is one the model never saw. Generated by scripts/nba_backtest.py -- do not hand-edit."
+}

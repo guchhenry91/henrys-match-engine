@@ -176,7 +176,14 @@ class PropModel:
         the logistic fit, because a mapping learned from predictions the model has
         memorised corrects a distortion that will not exist on live data.
         """
-        ordered = frame.sort_values(["season", "week"]).reset_index(drop=True)
+        # CHRONOLOGICAL ORDER, by whatever column the sport has for it. The
+        # cross-fitted calibrator needs rows in time order; NFL numbers its games
+        # by week, the NBA by date. Generalised rather than requiring a fake
+        # "week" column, which would have been a misnamed field in the NBA frame
+        # for the sake of one sort. NFL frames still carry `week`, so their
+        # ordering is byte-identical to before.
+        order = ["season", "week"] if "week" in frame.columns else ["season", "game_date"]
+        ordered = frame.sort_values(order).reset_index(drop=True)
         built = frame_features(ordered, self.market)
         self.sets = [list(c) for _, c in sorted(CANDIDATES.items())]
         y = ordered["outcome"].to_numpy()
