@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-08-31T18:05:31.403012+00:00",
-  "results_updated": "2026-08-31T18:05:31.403017+00:00",
+  "results_updated": "2026-08-31T20:49:45.831309+00:00",
   "record": {
-    "correct": 13,
+    "correct": 14,
     "wrong": 7,
-    "total": 20,
+    "total": 21,
     "void": 6,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
       "2": {
-        "correct": 4,
-        "total": 8
-      },
-      "1": {
-        "correct": 4,
-        "total": 5
+        "correct": 5,
+        "total": 9
       },
       "3": {
         "correct": 4,
         "total": 6
+      },
+      "1": {
+        "correct": 4,
+        "total": 5
       },
       "5": {
         "correct": 1,
@@ -44,172 +44,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 26,
-      "matchweek": 3,
-      "date": "2026-08-31T17:30:00+00:00",
-      "venue": "Estadio El Sadar",
-      "home": "Osasuna",
-      "away": "Getafe",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.478,
-        "p_draw": 0.3,
-        "p_away": 0.222,
-        "pick": "Osasuna",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 17.6,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-0",
-            "pct": 14.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-1",
-            "pct": 12.6,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4762,
-        "why": {
-          "home_attack_pct": -0.6,
-          "home_defence_pct": 7.8,
-          "away_attack_pct": -26.5,
-          "away_defence_pct": 18.9,
-          "home_advantage_pct": 36.6
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Osasuna 48% / draw 30% / Getafe 22%",
-          "Expected goals: 1.21 - 0.72"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Osasuna",
-          "player": "Ante Budimir",
-          "position": "FW",
-          "lambda_goals": 0.5005845017713304,
-          "anytime_pct": 25.8,
-          "exp_shots": 2.28,
-          "p_shots_2plus": 44.1,
-          "exp_sot": 0.91,
-          "p_sot_1plus": 47.8,
-          "appearance_pct": 95.0,
-          "expected_minutes": 76.9,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Raul Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.15163664564988366,
-          "anytime_pct": 5.9,
-          "exp_shots": 0.74,
-          "p_shots_2plus": 3.4,
-          "exp_sot": 0.34,
-          "p_sot_1plus": 17.9,
-          "appearance_pct": 92.5,
-          "expected_minutes": 23.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Rub\u00e9n Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.11057482449860909,
-          "anytime_pct": 3.9,
-          "exp_shots": 0.82,
-          "p_shots_2plus": 4.7,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 13.8,
-          "appearance_pct": 90.0,
-          "expected_minutes": 59.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Getafe",
-          "player": "Mart\u00edn Satriano",
-          "position": "FW",
-          "lambda_goals": 0.3289152154581036,
-          "anytime_pct": 16.1,
-          "exp_shots": 1.88,
-          "p_shots_2plus": 32.4,
-          "exp_sot": 0.69,
-          "p_sot_1plus": 38.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 89.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Getafe",
-          "player": "Ram\u00f3n Terrats",
-          "position": "FW",
-          "lambda_goals": 0.14608219817539056,
-          "anytime_pct": 5.7,
-          "exp_shots": 1.09,
-          "p_shots_2plus": 9.4,
-          "exp_sot": 0.32,
-          "p_sot_1plus": 16.8,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Getafe",
-          "player": "Zaid Romero",
-          "position": "DF",
-          "lambda_goals": 0.05788094700045546,
-          "anytime_pct": 1.6,
-          "exp_shots": 0.52,
-          "p_shots_2plus": 1.0,
-          "exp_sot": 0.14,
-          "p_sot_1plus": 6.3,
-          "appearance_pct": 100.0,
-          "expected_minutes": 90.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.425,
-        "p_draw": 0.318,
-        "p_away": 0.257,
-        "odds": {
-          "home": 2.2,
-          "draw": 3.0,
-          "away": 3.75
-        },
-        "book": "bet365",
-        "edge": 0.053,
-        "pick_odds": 2.2,
-        "ev": 0.051
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 24,
       "matchweek": 3,
@@ -5038,6 +4872,17 @@
       "points": 7
     },
     {
+      "team": "Osasuna",
+      "played": 3,
+      "won": 2,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 3,
+      "ga": 1,
+      "gd": 2,
+      "points": 7
+    },
+    {
       "team": "Barcelona",
       "played": 2,
       "won": 2,
@@ -5080,17 +4925,6 @@
       "ga": 3,
       "gd": 2,
       "points": 5
-    },
-    {
-      "team": "Osasuna",
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 2,
-      "ga": 1,
-      "gd": 1,
-      "points": 4
     },
     {
       "team": "Levante",
@@ -5137,17 +4971,6 @@
       "points": 3
     },
     {
-      "team": "Getafe",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 1,
-      "ga": 3,
-      "gd": -2,
-      "points": 3
-    },
-    {
       "team": "Sociedad",
       "played": 3,
       "won": 1,
@@ -5155,6 +4978,17 @@
       "lost": 2,
       "gf": 3,
       "ga": 6,
+      "gd": -3,
+      "points": 3
+    },
+    {
+      "team": "Getafe",
+      "played": 3,
+      "won": 1,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 1,
+      "ga": 4,
       "gd": -3,
       "points": 3
     },

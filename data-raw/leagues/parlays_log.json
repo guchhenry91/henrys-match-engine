@@ -340,6 +340,93 @@
     "locked_at": "2026-08-26T19:12:27.667821+00:00",
     "tainted": false
   },
+  "BUNDESLIGA#11#goal#Harry Kane|BUNDESLIGA#18#shots#Deniz Undav|LALIGA#24#shots#Lamine Yamal": {
+    "combined": 0.1508,
+    "earliest_kickoff": "2026-08-31T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#24#shots#Lamine Yamal",
+        "p": 0.814,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#11#goal#Harry Kane",
+        "p": 0.314,
+        "selection": "Harry Kane to score"
+      },
+      {
+        "id": "BUNDESLIGA#18#shots#Deniz Undav",
+        "p": 0.59,
+        "selection": "Deniz Undav 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-31T20:49:43.385363+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#11#shots#Harry Kane|BUNDESLIGA#18#shots#Deniz Undav|LALIGA#24#shots#Lamine Yamal": {
+    "combined": 0.2699,
+    "earliest_kickoff": "2026-08-31T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#24#shots#Lamine Yamal",
+        "p": 0.814,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#18#shots#Deniz Undav",
+        "p": 0.59,
+        "selection": "Deniz Undav 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#11#shots#Harry Kane",
+        "p": 0.562,
+        "selection": "Harry Kane 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-08-31T20:49:43.385363+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#11#w|LALIGA#24#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop": {
+    "combined": 0.1698,
+    "earliest_kickoff": "2026-08-31T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#24#shots#Lamine Yamal",
+        "p": 0.814,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#11#w",
+        "p": 0.6999,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "LIGUE1#24#goal#Sofiane Diop",
+        "p": 0.298,
+        "selection": "Sofiane Diop to score"
+      }
+    ],
+    "locked_at": "2026-08-31T20:49:43.385363+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#11#w|LALIGA#24#w": {
+    "combined": 0.4987,
+    "earliest_kickoff": "2026-08-31T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#24#w",
+        "p": 0.7126,
+        "selection": "Barcelona to win"
+      },
+      {
+        "id": "BUNDESLIGA#11#w",
+        "p": 0.6999,
+        "selection": "Bayern Munich to win"
+      }
+    ],
+    "locked_at": "2026-08-31T20:49:43.385363+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#18#shots#Deniz Undav|LALIGA#24#shots#Lamine Yamal": {
     "combined": 0.4803,
     "earliest_kickoff": "2026-08-31T19:30:00+00:00",
