@@ -1,16 +1,25 @@
 {
   "league": "Premier League",
-  "updated": "2026-08-30T12:19:12.303385+00:00",
+  "updated": "2026-08-31T14:06:36.682916+00:00",
+  "results_updated": "2026-08-31T14:06:36.682921+00:00",
   "record": {
     "correct": 10,
     "wrong": 6,
     "total": 16,
     "void": 1,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "5": {
         "correct": 1,
         "total": 1
+      },
+      "3": {
+        "correct": 1,
+        "total": 2
+      },
+      "1": {
+        "correct": 3,
+        "total": 7
       },
       "2": {
         "correct": 3,
@@ -18,14 +27,6 @@
       },
       "4": {
         "correct": 2,
-        "total": 2
-      },
-      "1": {
-        "correct": 3,
-        "total": 7
-      },
-      "3": {
-        "correct": 1,
         "total": 2
       }
     }
@@ -56,9 +57,9 @@
       "away": "Arsenal",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.225,
-        "p_draw": 0.3,
-        "p_away": 0.475,
+        "p_home": 0.227,
+        "p_draw": 0.299,
+        "p_away": 0.474,
         "pick": "Arsenal",
         "pick_type": "away",
         "score": "0-1",
@@ -84,18 +85,18 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4748,
+        "p_pick": 0.4741,
         "why": {
-          "home_attack_pct": 15.5,
-          "home_defence_pct": 4.7,
-          "away_attack_pct": 43.5,
-          "away_defence_pct": 63.1,
-          "home_advantage_pct": 20.7
+          "home_attack_pct": 15.4,
+          "home_defence_pct": 4.9,
+          "away_attack_pct": 43.4,
+          "away_defence_pct": 63.3,
+          "home_advantage_pct": 21.3
         },
         "best_pick": false,
         "reasons": [
           "Model: Aston Villa 23% / draw 30% / Arsenal 47%",
-          "Expected goals: 0.87 - 1.38"
+          "Expected goals: 0.88 - 1.38"
         ],
         "unmodeled_absences": {
           "home": [],
@@ -110,8 +111,8 @@
           "team": "Aston Villa",
           "player": "Ollie Watkins",
           "position": "FW",
-          "lambda_goals": 0.3773791243499362,
-          "anytime_pct": 18.7,
+          "lambda_goals": 0.36477726244023667,
+          "anytime_pct": 18.0,
           "exp_shots": 1.65,
           "p_shots_2plus": 25.2,
           "exp_sot": 0.75,
@@ -125,8 +126,8 @@
           "team": "Aston Villa",
           "player": "Emiliano Buend\u00eda",
           "position": "FW",
-          "lambda_goals": 0.09984328213486074,
-          "anytime_pct": 3.4,
+          "lambda_goals": 0.09557905939949048,
+          "anytime_pct": 3.2,
           "exp_shots": 0.9,
           "p_shots_2plus": 5.8,
           "exp_sot": 0.23,
@@ -140,8 +141,8 @@
           "team": "Aston Villa",
           "player": "Alejandro Garnacho",
           "position": "MF",
-          "lambda_goals": 0.06500217955582334,
-          "anytime_pct": 1.8,
+          "lambda_goals": 0.062213813312276586,
+          "anytime_pct": 1.7,
           "exp_shots": 0.79,
           "p_shots_2plus": 5.4,
           "exp_sot": 0.23,
@@ -155,8 +156,8 @@
           "team": "Arsenal",
           "player": "Viktor Gyokeres",
           "position": "FW",
-          "lambda_goals": 0.24426969080981076,
-          "anytime_pct": 11.0,
+          "lambda_goals": 0.2312927482479466,
+          "anytime_pct": 10.2,
           "exp_shots": 1.26,
           "p_shots_2plus": 14.0,
           "exp_sot": 0.49,
@@ -170,8 +171,8 @@
           "team": "Arsenal",
           "player": "Bukayo Saka",
           "position": "FW",
-          "lambda_goals": 0.23870778488725897,
-          "anytime_pct": 10.4,
+          "lambda_goals": 0.22975145600029923,
+          "anytime_pct": 9.9,
           "exp_shots": 1.63,
           "p_shots_2plus": 24.1,
           "exp_sot": 0.56,
@@ -185,8 +186,8 @@
           "team": "Arsenal",
           "player": "Eberechi Eze",
           "position": "FW",
-          "lambda_goals": 0.1433886461463944,
-          "anytime_pct": 5.4,
+          "lambda_goals": 0.13577744866580232,
+          "anytime_pct": 5.1,
           "exp_shots": 1.45,
           "p_shots_2plus": 19.3,
           "exp_sot": 0.47,
@@ -208,9 +209,9 @@
           "away": 1.53
         },
         "book": "bet365",
-        "edge": -0.141,
+        "edge": -0.142,
         "pick_odds": 1.53,
-        "ev": -0.274
+        "ev": -0.275
       },
       "result": null,
       "graded": null,
@@ -434,9 +435,12 @@
       "date": "2026-08-30T13:00:00+00:00",
       "home": "Chelsea",
       "away": "Brighton",
-      "result": null,
+      "result": {
+        "home_goals": 4,
+        "away_goals": 3
+      },
       "pick": "Chelsea",
-      "graded": null,
+      "graded": "correct",
       "void": false
     },
     {
@@ -445,9 +449,12 @@
       "date": "2026-08-30T13:00:00+00:00",
       "home": "Leeds",
       "away": "Brentford",
-      "result": null,
+      "result": {
+        "home_goals": 1,
+        "away_goals": 1
+      },
       "pick": "Leeds",
-      "graded": null,
+      "graded": "wrong",
       "void": false
     },
     {
@@ -456,9 +463,12 @@
       "date": "2026-08-30T13:00:00+00:00",
       "home": "Sunderland",
       "away": "Fulham",
-      "result": null,
+      "result": {
+        "home_goals": 1,
+        "away_goals": 0
+      },
       "pick": "Sunderland",
-      "graded": null,
+      "graded": "correct",
       "void": false
     },
     {
@@ -467,9 +477,12 @@
       "date": "2026-08-30T15:30:00+00:00",
       "home": "Manchester United",
       "away": "Ipswich",
-      "result": null,
-      "pick": null,
-      "graded": null,
+      "result": {
+        "home_goals": 5,
+        "away_goals": 2
+      },
+      "pick": "Manchester United",
+      "graded": "correct",
       "void": false
     },
     {
@@ -479,7 +492,7 @@
       "home": "Aston Villa",
       "away": "Arsenal",
       "result": null,
-      "pick": null,
+      "pick": "Arsenal",
       "graded": null,
       "void": false
     },
@@ -4447,140 +4460,140 @@
   "table": [
     {
       "team": "Arsenal",
-      "proj_points": 73.3,
-      "title_pct": 46.0,
+      "proj_points": 73.4,
+      "title_pct": 46.9,
       "top4_pct": 91.6,
       "relegation_pct": 0.0
     },
     {
       "team": "Manchester City",
-      "proj_points": 70.9,
-      "title_pct": 30.6,
-      "top4_pct": 85.5,
+      "proj_points": 71.0,
+      "title_pct": 31.0,
+      "top4_pct": 85.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Hull",
-      "proj_points": 66.6,
-      "title_pct": 13.3,
-      "top4_pct": 68.4,
+      "proj_points": 66.4,
+      "title_pct": 11.9,
+      "top4_pct": 67.2,
       "relegation_pct": 0.0
     },
     {
       "team": "Liverpool",
       "proj_points": 60.8,
-      "title_pct": 3.8,
-      "top4_pct": 38.1,
+      "title_pct": 3.5,
+      "top4_pct": 36.6,
       "relegation_pct": 0.2
     },
     {
       "team": "Chelsea",
-      "proj_points": 57.9,
-      "title_pct": 1.9,
-      "top4_pct": 24.2,
-      "relegation_pct": 0.6
+      "proj_points": 59.7,
+      "title_pct": 2.6,
+      "top4_pct": 30.5,
+      "relegation_pct": 0.3
     },
     {
       "team": "Manchester United",
-      "proj_points": 56.2,
+      "proj_points": 57.2,
       "title_pct": 1.1,
-      "top4_pct": 17.2,
-      "relegation_pct": 1.1
-    },
-    {
-      "team": "Brighton",
-      "proj_points": 55.6,
-      "title_pct": 0.9,
-      "top4_pct": 16.0,
-      "relegation_pct": 1.1
+      "top4_pct": 21.0,
+      "relegation_pct": 0.7
     },
     {
       "team": "Newcastle United",
-      "proj_points": 55.6,
-      "title_pct": 1.0,
-      "top4_pct": 16.0,
-      "relegation_pct": 1.3
+      "proj_points": 55.8,
+      "title_pct": 0.9,
+      "top4_pct": 15.5,
+      "relegation_pct": 1.2
     },
     {
       "team": "Brentford",
-      "proj_points": 54.8,
-      "title_pct": 0.6,
-      "top4_pct": 13.2,
-      "relegation_pct": 1.4
+      "proj_points": 54.7,
+      "title_pct": 0.5,
+      "top4_pct": 12.3,
+      "relegation_pct": 1.5
+    },
+    {
+      "team": "Brighton",
+      "proj_points": 54.3,
+      "title_pct": 0.5,
+      "top4_pct": 11.5,
+      "relegation_pct": 1.8
     },
     {
       "team": "Bournemouth",
-      "proj_points": 53.7,
-      "title_pct": 0.3,
-      "top4_pct": 10.4,
+      "proj_points": 53.6,
+      "title_pct": 0.5,
+      "top4_pct": 9.8,
       "relegation_pct": 2.0
     },
     {
       "team": "Leeds",
-      "proj_points": 52.5,
-      "title_pct": 0.2,
-      "top4_pct": 7.5,
-      "relegation_pct": 3.1
+      "proj_points": 52.4,
+      "title_pct": 0.3,
+      "top4_pct": 7.0,
+      "relegation_pct": 2.7
     },
     {
       "team": "Aston Villa",
-      "proj_points": 51.2,
+      "proj_points": 51.3,
       "title_pct": 0.2,
-      "top4_pct": 5.3,
-      "relegation_pct": 4.3
+      "top4_pct": 5.6,
+      "relegation_pct": 4.5
     },
     {
       "team": "Everton",
       "proj_points": 48.2,
-      "title_pct": 0.0,
+      "title_pct": 0.1,
       "top4_pct": 2.2,
-      "relegation_pct": 8.3
+      "relegation_pct": 8.5
     },
     {
       "team": "Crystal Palace",
-      "proj_points": 47.1,
+      "proj_points": 47.2,
       "title_pct": 0.0,
-      "top4_pct": 1.6,
-      "relegation_pct": 11.6
-    },
-    {
-      "team": "Fulham",
-      "proj_points": 45.7,
-      "title_pct": 0.0,
-      "top4_pct": 1.0,
-      "relegation_pct": 15.6
+      "top4_pct": 1.7,
+      "relegation_pct": 11.7
     },
     {
       "team": "Nottingham Forest",
-      "proj_points": 44.9,
-      "title_pct": 0.1,
-      "top4_pct": 0.9,
-      "relegation_pct": 17.9
+      "proj_points": 45.0,
+      "title_pct": 0.0,
+      "top4_pct": 0.7,
+      "relegation_pct": 17.5
+    },
+    {
+      "team": "Fulham",
+      "proj_points": 44.1,
+      "title_pct": 0.0,
+      "top4_pct": 0.6,
+      "relegation_pct": 21.0
     },
     {
       "team": "Tottenham",
-      "proj_points": 43.9,
+      "proj_points": 44.0,
       "title_pct": 0.0,
-      "top4_pct": 0.5,
-      "relegation_pct": 21.9
+      "top4_pct": 0.6,
+      "relegation_pct": 22.0
     },
     {
       "team": "Sunderland",
-      "proj_points": 41.0,
+      "proj_points": 42.8,
       "title_pct": 0.0,
-      "top4_pct": 0.2,
-      "relegation_pct": 36.2
+      "top4_pct": 0.3,
+      "relegation_pct": 26.2
     },
     {
       "team": "Ipswich",
-      "proj_points": 35.0,
+      "proj_points": 33.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 73.5
+      "relegation_pct": 78.3
     },
     {
       "team": "Coventry",
-      "proj_points": 17.3,
+      "proj_points": 17.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
       "relegation_pct": 100.0
@@ -4808,196 +4821,7 @@
       "points": 0
     }
   ],
-  "backtest": {
-    "xi": 0.003,
-    "xg_weight": 0.75,
-    "selection": "incumbent retained",
-    "incumbent": {
-      "xi": 0.003,
-      "xg_weight": 0.75,
-      "n": 380,
-      "accuracy": 0.4868421052631579,
-      "rps": 0.20725561526460734,
-      "brier": 0.6134512190353194,
-      "n_seeded": 1,
-      "market_n": 380,
-      "model_rps_on_market_subset": 0.20725561526460734,
-      "model_accuracy_on_market_subset": 0.4868421052631579,
-      "market_accuracy": 0.49473684210526314,
-      "market_rps": 0.20449146861486855,
-      "market_brier": 0.6077370146246498
-    },
-    "sweep_winner": {
-      "xi": 0.003,
-      "xg_weight": 0.75,
-      "n": 760,
-      "accuracy": 0.5631578947368421,
-      "rps": 0.19466941636097054,
-      "brier": 0.5646477797866633,
-      "n_seeded": 3,
-      "market_n": 760,
-      "model_rps_on_market_subset": 0.19466941636097054,
-      "model_accuracy_on_market_subset": 0.5631578947368421,
-      "market_accuracy": 0.5776315789473684,
-      "market_rps": 0.18845041128644052,
-      "market_brier": 0.5509667910353023
-    },
-    "holdout": {
-      "season_from": "2025-07-01",
-      "n": 380,
-      "accuracy": 0.4868421052631579,
-      "rps": 0.20725561526460734,
-      "brier": 0.6134512190353194,
-      "n_seeded": 1,
-      "market_n": 380,
-      "model_rps_on_market_subset": 0.20725561526460734,
-      "model_accuracy_on_market_subset": 0.4868421052631579,
-      "market_accuracy": 0.49473684210526314,
-      "market_rps": 0.20449146861486855,
-      "market_brier": 0.6077370146246498
-    },
-    "holdout_vs_incumbent_rps_ci": {
-      "mean": 0.0,
-      "lo": 0.0,
-      "hi": 0.0,
-      "n": 380
-    },
-    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
-    "rejected": [
-      {
-        "xi": 0.003,
-        "xg_weight": 0.5,
-        "sweep_rps": 0.19477,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0045,
-        "xg_weight": 0.75,
-        "sweep_rps": 0.1949,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.003,
-        "xg_weight": 1.0,
-        "sweep_rps": 0.19497,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0045,
-        "xg_weight": 0.5,
-        "sweep_rps": 0.19502,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0045,
-        "xg_weight": 1.0,
-        "sweep_rps": 0.19526,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0018,
-        "xg_weight": 0.75,
-        "sweep_rps": 0.19529,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0018,
-        "xg_weight": 0.5,
-        "sweep_rps": 0.19533,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0018,
-        "xg_weight": 1.0,
-        "sweep_rps": 0.19561,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.003,
-        "xg_weight": 0.0,
-        "sweep_rps": 0.1961,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0018,
-        "xg_weight": 0.0,
-        "sweep_rps": 0.1964,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      },
-      {
-        "xi": 0.0045,
-        "xg_weight": 0.0,
-        "sweep_rps": 0.19658,
-        "sweep_n": 760,
-        "reason": "lost the sweep"
-      }
-    ],
-    "tiers_full": [
-      {
-        "min_prob": 0.0,
-        "n": 1140,
-        "hit_rate_pct": 53.8
-      },
-      {
-        "min_prob": 0.6,
-        "n": 267,
-        "hit_rate_pct": 69.7
-      },
-      {
-        "min_prob": 0.65,
-        "n": 150,
-        "hit_rate_pct": 74.7
-      },
-      {
-        "min_prob": 0.7,
-        "n": 83,
-        "hit_rate_pct": 81.9
-      }
-    ],
-    "tiers_holdout": [
-      {
-        "min_prob": 0.0,
-        "n": 380,
-        "hit_rate_pct": 48.7
-      },
-      {
-        "min_prob": 0.6,
-        "n": 55,
-        "hit_rate_pct": 69.1
-      },
-      {
-        "min_prob": 0.65,
-        "n": 22,
-        "hit_rate_pct": 72.7
-      },
-      {
-        "min_prob": 0.7,
-        "n": 12,
-        "hit_rate_pct": 83.3
-      }
-    ],
-    "n": 1140,
-    "accuracy": 0.537719298245614,
-    "rps": 0.19886481599551614,
-    "brier": 0.5809155928695487,
-    "n_seeded": 4,
-    "market_n": 1140,
-    "model_rps_on_market_subset": 0.19886481599551614,
-    "model_accuracy_on_market_subset": 0.537719298245614,
-    "market_accuracy": 0.55,
-    "market_rps": 0.19379743039591651,
-    "market_brier": 0.5698901988984182
-  },
+  "backtest": {},
   "props_backtest": {
     "league": "PL",
     "n_players": 312,
@@ -5052,12 +4876,31 @@
     "Coventry",
     "Ipswich"
   ],
-  "roster_incomplete": [],
-  "roster_snapshot_age_hours": 55.2,
-  "roster_unmatched_count": 77,
-  "data_warnings": [
-    "77 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
-    "1 player identities could not be resolved because the same name appears at two different clubs in the roster source: Brentford/Coventry: J. Dasilva. Neither club's number for that name is trusted, rather than guessing which one is current."
+  "roster_incomplete": [
+    "Arsenal",
+    "Aston Villa",
+    "Bournemouth",
+    "Brentford",
+    "Brighton",
+    "Chelsea",
+    "Coventry",
+    "Crystal Palace",
+    "Everton",
+    "Fulham",
+    "Hull",
+    "Ipswich",
+    "Leeds",
+    "Liverpool",
+    "Manchester City",
+    "Manchester United",
+    "Newcastle United",
+    "Nottingham Forest",
+    "Sunderland",
+    "Tottenham"
   ],
-  "results_updated": "2026-08-31T14:01:48.025499+00:00"
+  "roster_snapshot_age_hours": 81.0,
+  "roster_unmatched_count": 0,
+  "data_warnings": [
+    "The current-roster evidence is 81 hours old, past the 72h limit, so no squad could be checked against it this run. Player numbers are based on last season's club plus our transfer overrides, and may include someone who has since left."
+  ]
 }

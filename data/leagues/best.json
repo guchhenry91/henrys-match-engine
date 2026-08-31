@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-30T12:22:01.233378+00:00",
+  "updated": "2026-08-31T14:07:22.930025+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
@@ -23,22 +23,6 @@
     {
       "league": "La Liga",
       "league_key": "LALIGA",
-      "id": 28,
-      "matchweek": 3,
-      "date": "2026-08-30T15:00:00+00:00",
-      "home": "Real Madrid",
-      "away": "Malaga",
-      "pick": "Real Madrid",
-      "confidence": 5,
-      "p_pick": 0.7494,
-      "score": "2-0",
-      "provisional": true,
-      "odds": 1.11,
-      "book": "bet365"
-    },
-    {
-      "league": "La Liga",
-      "league_key": "LALIGA",
       "id": 24,
       "matchweek": 3,
       "date": "2026-08-31T19:30:00+00:00",
@@ -46,11 +30,27 @@
       "away": "Vallecano",
       "pick": "Barcelona",
       "confidence": 5,
-      "p_pick": 0.7126,
+      "p_pick": 0.7148,
       "score": "2-0",
       "provisional": true,
       "odds": 1.17,
       "book": "bet365"
+    },
+    {
+      "league": "Bundesliga",
+      "league_key": "BUNDESLIGA",
+      "id": 11,
+      "matchweek": 2,
+      "date": "2026-09-05T16:30:00+00:00",
+      "home": "Schalke 04",
+      "away": "Bayern Munich",
+      "pick": "Bayern Munich",
+      "confidence": 4,
+      "p_pick": 0.6999,
+      "score": "0-2",
+      "provisional": true,
+      "odds": null,
+      "book": null
     }
   ],
   "settled": [
@@ -169,11 +169,11 @@
       "void": false
     }
   ],
-  "backtested_hit_rate_pct": 77.6,
-  "backtested_n": 473,
+  "backtested_hit_rate_pct": 75.0,
+  "backtested_n": 100,
   "backtested_league_range_pct": [
-    73.1,
-    85.3
+    75.0,
+    75.0
   ],
-  "backtested_all_picks_pct": 53.3
+  "backtested_all_picks_pct": 52.9
 }

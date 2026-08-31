@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-30T12:23:06.278337+00:00",
+  "updated": "2026-08-31T14:07:38.133675+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -7,21 +7,11 @@
       "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
       "parlays": [
         {
-          "tier": "Balanced treble",
+          "tier": "Balanced double",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.3732,
+          "combined": 0.4803,
           "legs": [
-            {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Ipswich",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.768,
-              "id": "PL#18#shots#Matheus Cunha",
-              "date": "2026-08-30T15:30:00+00:00"
-            },
             {
               "selection": "Lamine Yamal 2+ shot attempts",
               "match": "Barcelona v Vallecano",
@@ -33,24 +23,24 @@
               "date": "2026-08-31T19:30:00+00:00"
             },
             {
-              "selection": "Lassine Sinayoko 2+ shot attempts",
-              "match": "Paris FC v Nice",
-              "league": "Ligue 1",
-              "league_key": "LIGUE1",
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v FC Koln",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
               "tag": "a",
-              "p": 0.597,
-              "id": "LIGUE1#16#shots#Lassine Sinayoko",
-              "date": "2026-08-30T13:00:00+00:00"
+              "p": 0.59,
+              "id": "BUNDESLIGA#18#shots#Deniz Undav",
+              "date": "2026-09-04T18:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-29T20:13:56.869996+00:00"
+          "locked_at": "2026-08-31T14:07:38.133675+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.172,
+          "combined": 0.4803,
           "legs": [
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -63,28 +53,18 @@
               "date": "2026-08-31T19:30:00+00:00"
             },
             {
-              "selection": "Matheus Cunha 1+ shot on target",
-              "match": "Manchester United v Ipswich",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "o",
-              "p": 0.684,
-              "id": "PL#18#sot#Matheus Cunha",
-              "date": "2026-08-30T15:30:00+00:00"
-            },
-            {
-              "selection": "Kylian Mbappe-Lottin to score",
-              "match": "Real Madrid v Malaga",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "g",
-              "p": 0.309,
-              "id": "LALIGA#28#goal#Kylian Mbappe-Lottin",
-              "date": "2026-08-30T15:00:00+00:00"
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v FC Koln",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.59,
+              "id": "BUNDESLIGA#18#shots#Deniz Undav",
+              "date": "2026-09-04T18:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-28T22:08:46.928772+00:00"
+          "locked_at": "2026-08-31T14:07:38.133675+00:00"
         }
       ]
     },
@@ -96,7 +76,7 @@
           "tier": "Shots double",
           "note": "The two safest shot-volume calls",
           "feat": false,
-          "combined": 0.6252,
+          "combined": 0.4803,
           "legs": [
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -109,166 +89,433 @@
               "date": "2026-08-31T19:30:00+00:00"
             },
             {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Ipswich",
-              "league": "Premier League",
-              "league_key": "PL",
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v FC Koln",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
               "tag": "a",
-              "p": 0.768,
-              "id": "PL#18#shots#Matheus Cunha",
-              "date": "2026-08-30T15:30:00+00:00"
+              "p": 0.59,
+              "id": "BUNDESLIGA#18#shots#Deniz Undav",
+              "date": "2026-09-04T18:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-28T21:20:13.856318+00:00"
-        },
-        {
-          "tier": "Shots accumulator",
-          "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
-          "feat": true,
-          "combined": 0.0777,
-          "legs": [
-            {
-              "selection": "Lamine Yamal 2+ shot attempts",
-              "match": "Barcelona v Vallecano",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "a",
-              "p": 0.814,
-              "id": "LALIGA#24#shots#Lamine Yamal",
-              "date": "2026-08-31T19:30:00+00:00"
-            },
-            {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Ipswich",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.768,
-              "id": "PL#18#shots#Matheus Cunha",
-              "date": "2026-08-30T15:30:00+00:00"
-            },
-            {
-              "selection": "Kylian Mbappe-Lottin 1+ shot on target",
-              "match": "Real Madrid v Malaga",
-              "league": "La Liga",
-              "league_key": "LALIGA",
-              "tag": "o",
-              "p": 0.63,
-              "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
-              "date": "2026-08-30T15:00:00+00:00"
-            },
-            {
-              "selection": "Dominic Calvert-Lewin 2+ shot attempts",
-              "match": "Leeds v Brentford",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.606,
-              "id": "PL#16#shots#Dominic Calvert-Lewin",
-              "date": "2026-08-30T13:00:00+00:00"
-            },
-            {
-              "selection": "Lassine Sinayoko 2+ shot attempts",
-              "match": "Paris FC v Nice",
-              "league": "Ligue 1",
-              "league_key": "LIGUE1",
-              "tag": "a",
-              "p": 0.597,
-              "id": "LIGUE1#16#shots#Lassine Sinayoko",
-              "date": "2026-08-30T13:00:00+00:00"
-            },
-            {
-              "selection": "Esteban Lepaul 1+ shot on target",
-              "match": "Rennes v Le Mans",
-              "league": "Ligue 1",
-              "league_key": "LIGUE1",
-              "tag": "o",
-              "p": 0.545,
-              "id": "LIGUE1#17#sot#Esteban Lepaul",
-              "date": "2026-08-30T15:15:00+00:00"
-            }
-          ],
-          "provisional": false,
-          "locked_at": "2026-08-29T20:13:56.869996+00:00"
+          "locked_at": "2026-08-31T14:07:38.133675+00:00"
         }
       ]
     },
     {
       "title": "Premier League only",
       "sub": "Only Premier League games and Premier League player props",
-      "parlays": [
-        {
-          "tier": "PL Banker",
-          "note": "Two safest Premier League calls",
-          "feat": false,
-          "combined": 0.4654,
-          "legs": [
-            {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Ipswich",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.768,
-              "id": "PL#18#shots#Matheus Cunha",
-              "date": "2026-08-30T15:30:00+00:00"
-            },
-            {
-              "selection": "Dominic Calvert-Lewin 2+ shot attempts",
-              "match": "Leeds v Brentford",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.606,
-              "id": "PL#16#shots#Dominic Calvert-Lewin",
-              "date": "2026-08-30T13:00:00+00:00"
-            }
-          ],
-          "provisional": false,
-          "locked_at": "2026-08-29T13:50:49.163982+00:00"
-        },
-        {
-          "tier": "PL Acca",
-          "note": "The model's Premier League treble",
-          "feat": true,
-          "combined": 0.4654,
-          "legs": [
-            {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Ipswich",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.768,
-              "id": "PL#18#shots#Matheus Cunha",
-              "date": "2026-08-30T15:30:00+00:00"
-            },
-            {
-              "selection": "Dominic Calvert-Lewin 2+ shot attempts",
-              "match": "Leeds v Brentford",
-              "league": "Premier League",
-              "league_key": "PL",
-              "tag": "a",
-              "p": 0.606,
-              "id": "PL#16#shots#Dominic Calvert-Lewin",
-              "date": "2026-08-30T13:00:00+00:00"
-            }
-          ],
-          "provisional": false,
-          "locked_at": "2026-08-29T13:50:49.163982+00:00"
-        }
-      ]
+      "parlays": []
     }
   ],
   "record": {
     "correct": 2,
-    "wrong": 6,
+    "wrong": 15,
     "void": 43,
-    "total": 8,
-    "pending": 22
+    "total": 17,
+    "pending": 14
   },
   "settled": [
+    {
+      "combined": 0.0777,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+          "p": 0.63,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-30T13:00:00+00:00"
+    },
+    {
+      "combined": 0.4654,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-30T13:00:00+00:00"
+    },
+    {
+      "combined": 0.2402,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-29T16:30:00+00:00"
+    },
+    {
+      "combined": 0.0083,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#29#sot#Orri \u00d3skarsson",
+          "p": 0.635,
+          "selection": "Orri \u00d3skarsson 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+          "p": 0.63,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#25#shots#Antony",
+          "p": 0.622,
+          "selection": "Antony 2+ shot attempts"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+          "p": 0.524,
+          "selection": "Serhou Guirassy 2+ shot attempts"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-29T15:00:00+00:00"
+    },
+    {
+      "combined": 0.0158,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#29#sot#Orri \u00d3skarsson",
+          "p": 0.635,
+          "selection": "Orri \u00d3skarsson 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+          "p": 0.63,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#25#shots#Antony",
+          "p": 0.622,
+          "selection": "Antony 2+ shot attempts"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-29T15:00:00+00:00"
+    },
+    {
+      "combined": 0.005,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#29#sot#Orri \u00d3skarsson",
+          "p": 0.635,
+          "selection": "Orri \u00d3skarsson 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+          "p": 0.63,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#25#shots#Antony",
+          "p": 0.622,
+          "selection": "Antony 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+          "p": 0.524,
+          "selection": "Serhou Guirassy 2+ shot attempts"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-29T11:30:00+00:00"
+    },
+    {
+      "combined": 0.0096,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#29#sot#Orri \u00d3skarsson",
+          "p": 0.635,
+          "selection": "Orri \u00d3skarsson 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+          "p": 0.63,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#25#shots#Antony",
+          "p": 0.622,
+          "selection": "Antony 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-29T11:30:00+00:00"
+    },
+    {
+      "combined": 0.282,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-29T11:30:00+00:00"
+    },
+    {
+      "combined": 0.002,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#1#shots#Harry Kane",
+          "p": 0.66,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#29#sot#Orri \u00d3skarsson",
+          "p": 0.635,
+          "selection": "Orri \u00d3skarsson 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#28#sot#Kylian Mbappe-Lottin",
+          "p": 0.63,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#25#shots#Antony",
+          "p": 0.622,
+          "selection": "Antony 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "PL#16#shots#Dominic Calvert-Lewin",
+          "p": 0.606,
+          "selection": "Dominic Calvert-Lewin 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "PL#15#sot#Erling Haaland",
+          "p": 0.59,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LIGUE1#17#sot#Esteban Lepaul",
+          "p": 0.545,
+          "selection": "Esteban Lepaul 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#shots#Serhou Guirassy",
+          "p": 0.524,
+          "selection": "Serhou Guirassy 2+ shot attempts"
+        },
+        {
+          "id": "PL#20#sot#Richarlison",
+          "p": 0.516,
+          "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-28T18:30:00+00:00"
+    },
     {
       "combined": 0.0061,
       "graded": "void",

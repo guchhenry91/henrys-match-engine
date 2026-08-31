@@ -1,72 +1,33 @@
 {
-  "updated": "2026-08-30T12:23:06.336421+00:00",
+  "updated": "2026-08-31T14:07:38.137490+00:00",
   "matchweek": 2,
   "selection_verified_on": "2026-08-27",
-  "picks": [
-    {
-      "id": 16,
-      "date": "2026-08-30T13:00:00+00:00",
-      "home": "Leeds",
-      "away": "Brentford",
-      "score": "1-1",
-      "score_pct": 12.7,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 9.9
-        }
-      ],
-      "match_pick": "Leeds",
-      "gap_to_next_pp": 2.8,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 1
-    },
-    {
-      "id": 13,
-      "date": "2026-08-30T13:00:00+00:00",
-      "home": "Chelsea",
-      "away": "Brighton",
-      "score": "1-1",
-      "score_pct": 12.4,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 10.2
-        }
-      ],
-      "match_pick": "Chelsea",
-      "gap_to_next_pp": 2.2,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 2
-    },
-    {
-      "id": 18,
-      "date": "2026-08-30T15:30:00+00:00",
-      "home": "Manchester United",
-      "away": "Ipswich",
-      "score": "1-0",
-      "score_pct": 12.1,
-      "alternatives": [
-        {
-          "score": "2-0",
-          "pct": 11.6
-        }
-      ],
-      "match_pick": "Manchester United",
-      "gap_to_next_pp": 0.5,
-      "agrees_with_match_pick": true,
-      "provisional": true,
-      "rank": 3
-    }
-  ],
+  "picks": [],
   "missing_fixtures": [
     "Bournemouth|Everton",
     "Coventry|Hull",
-    "Tottenham|Newcastle United"
+    "Tottenham|Newcastle United",
+    "Chelsea|Brighton",
+    "Leeds|Brentford",
+    "Manchester United|Ipswich"
   ],
   "settled": [
+    {
+      "home": "Chelsea",
+      "away": "Brighton",
+      "date": "2026-08-30T13:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "4-3",
+      "graded": "wrong"
+    },
+    {
+      "home": "Leeds",
+      "away": "Brentford",
+      "date": "2026-08-30T13:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "1-1",
+      "graded": "correct"
+    },
     {
       "home": "Tottenham",
       "away": "Newcastle United",
@@ -141,8 +102,8 @@
     }
   ],
   "record": {
-    "correct": 1,
-    "total": 9
+    "correct": 2,
+    "total": 11
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,
