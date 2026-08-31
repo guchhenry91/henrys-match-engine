@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-31T18:06:33.700816+00:00",
+  "updated": "2026-08-31T20:54:51.981874+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -7,10 +7,40 @@
       "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
       "parlays": [
         {
-          "tier": "Balanced double",
+          "tier": "Banker",
+          "note": "Two safest calls, two leagues",
+          "feat": false,
+          "combined": 0.4987,
+          "legs": [
+            {
+              "selection": "Barcelona to win",
+              "match": "Barcelona v Vallecano",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "w",
+              "p": 0.7126,
+              "id": "LALIGA#24#w",
+              "date": "2026-08-31T19:30:00+00:00"
+            },
+            {
+              "selection": "Bayern Munich to win",
+              "match": "Schalke 04 v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "w",
+              "p": 0.6999,
+              "id": "BUNDESLIGA#11#w",
+              "date": "2026-09-05T16:30:00+00:00"
+            }
+          ],
+          "provisional": false,
+          "locked_at": "2026-08-31T20:49:43.385363+00:00"
+        },
+        {
+          "tier": "Balanced treble",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.4803,
+          "combined": 0.1698,
           "legs": [
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -23,24 +53,34 @@
               "date": "2026-08-31T19:30:00+00:00"
             },
             {
-              "selection": "Deniz Undav 2+ shot attempts",
-              "match": "Stuttgart v FC Koln",
+              "selection": "Bayern Munich to win",
+              "match": "Schalke 04 v Bayern Munich",
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.59,
-              "id": "BUNDESLIGA#18#shots#Deniz Undav",
-              "date": "2026-09-04T18:30:00+00:00"
+              "tag": "w",
+              "p": 0.6999,
+              "id": "BUNDESLIGA#11#w",
+              "date": "2026-09-05T16:30:00+00:00"
+            },
+            {
+              "selection": "Sofiane Diop to score",
+              "match": "Nice v Le Mans",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "g",
+              "p": 0.298,
+              "id": "LIGUE1#24#goal#Sofiane Diop",
+              "date": "2026-09-05T18:45:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-31T14:07:38.133675+00:00"
+          "locked_at": "2026-08-31T20:49:43.385363+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.4803,
+          "combined": 0.1508,
           "legs": [
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -51,6 +91,16 @@
               "p": 0.814,
               "id": "LALIGA#24#shots#Lamine Yamal",
               "date": "2026-08-31T19:30:00+00:00"
+            },
+            {
+              "selection": "Harry Kane to score",
+              "match": "Schalke 04 v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "g",
+              "p": 0.314,
+              "id": "BUNDESLIGA#11#goal#Harry Kane",
+              "date": "2026-09-05T16:30:00+00:00"
             },
             {
               "selection": "Deniz Undav 2+ shot attempts",
@@ -64,7 +114,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-08-31T14:07:38.133675+00:00"
+          "locked_at": "2026-08-31T20:49:43.385363+00:00"
         }
       ]
     },
@@ -101,6 +151,46 @@
           ],
           "provisional": false,
           "locked_at": "2026-08-31T14:07:38.133675+00:00"
+        },
+        {
+          "tier": "Shots accumulator",
+          "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
+          "feat": true,
+          "combined": 0.2699,
+          "legs": [
+            {
+              "selection": "Lamine Yamal 2+ shot attempts",
+              "match": "Barcelona v Vallecano",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.814,
+              "id": "LALIGA#24#shots#Lamine Yamal",
+              "date": "2026-08-31T19:30:00+00:00"
+            },
+            {
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v FC Koln",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.59,
+              "id": "BUNDESLIGA#18#shots#Deniz Undav",
+              "date": "2026-09-04T18:30:00+00:00"
+            },
+            {
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Schalke 04 v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.562,
+              "id": "BUNDESLIGA#11#shots#Harry Kane",
+              "date": "2026-09-05T16:30:00+00:00"
+            }
+          ],
+          "provisional": false,
+          "locked_at": "2026-08-31T20:49:43.385363+00:00"
         }
       ]
     },
@@ -113,11 +203,94 @@
   "record": {
     "correct": 2,
     "wrong": 15,
-    "void": 43,
+    "void": 47,
     "total": 17,
     "pending": 14
   },
   "settled": [
+    {
+      "combined": 0.1508,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#11#goal#Harry Kane",
+          "p": 0.314,
+          "selection": "Harry Kane to score"
+        },
+        {
+          "id": "BUNDESLIGA#18#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-31T19:30:00+00:00"
+    },
+    {
+      "combined": 0.2699,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#18#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#11#shots#Harry Kane",
+          "p": 0.562,
+          "selection": "Harry Kane 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-31T19:30:00+00:00"
+    },
+    {
+      "combined": 0.1698,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#11#w",
+          "p": 0.6999,
+          "selection": "Bayern Munich to win"
+        },
+        {
+          "id": "LIGUE1#24#goal#Sofiane Diop",
+          "p": 0.298,
+          "selection": "Sofiane Diop to score"
+        }
+      ],
+      "kickoff": "2026-08-31T19:30:00+00:00"
+    },
+    {
+      "combined": 0.4987,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#24#w",
+          "p": 0.7126,
+          "selection": "Barcelona to win"
+        },
+        {
+          "id": "BUNDESLIGA#11#w",
+          "p": 0.6999,
+          "selection": "Bayern Munich to win"
+        }
+      ],
+      "kickoff": "2026-08-31T19:30:00+00:00"
+    },
     {
       "combined": 0.0777,
       "graded": "wrong",

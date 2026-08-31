@@ -1,17 +1,25 @@
 {
   "league": "Premier League",
-  "updated": "2026-08-31T18:05:31.199956+00:00",
-  "results_updated": "2026-08-31T20:49:44.712803+00:00",
+  "updated": "2026-08-31T20:53:59.922185+00:00",
+  "results_updated": "2026-08-31T20:53:59.922190+00:00",
   "record": {
     "correct": 10,
     "wrong": 6,
     "total": 16,
     "void": 1,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "5": {
         "correct": 1,
         "total": 1
+      },
+      "3": {
+        "correct": 1,
+        "total": 2
+      },
+      "1": {
+        "correct": 3,
+        "total": 7
       },
       "2": {
         "correct": 3,
@@ -19,14 +27,6 @@
       },
       "4": {
         "correct": 2,
-        "total": 2
-      },
-      "1": {
-        "correct": 3,
-        "total": 7
-      },
-      "3": {
-        "correct": 1,
         "total": 2
       }
     }
@@ -78,7 +78,7 @@
           },
           {
             "score": "0-2",
-            "pct": 10.5,
+            "pct": 10.6,
             "outcome": "away",
             "agrees_with_pick": true
           }
@@ -87,7 +87,7 @@
         "provisional": false,
         "p_pick": 0.4748,
         "why": {
-          "home_attack_pct": 15.3,
+          "home_attack_pct": 15.4,
           "home_defence_pct": 4.9,
           "away_attack_pct": 43.4,
           "away_defence_pct": 63.3,
@@ -111,7 +111,7 @@
           "team": "Aston Villa",
           "player": "Ollie Watkins",
           "position": "FW",
-          "lambda_goals": 0.3791757250729009,
+          "lambda_goals": 0.37894532682984644,
           "anytime_pct": 18.8,
           "exp_shots": 1.65,
           "p_shots_2plus": 25.2,
@@ -126,7 +126,7 @@
           "team": "Aston Villa",
           "player": "Emiliano Buend\u00eda",
           "position": "FW",
-          "lambda_goals": 0.10046519630925797,
+          "lambda_goals": 0.10038701036760193,
           "anytime_pct": 3.4,
           "exp_shots": 0.9,
           "p_shots_2plus": 5.8,
@@ -141,7 +141,7 @@
           "team": "Aston Villa",
           "player": "Alejandro Garnacho",
           "position": "MF",
-          "lambda_goals": 0.06539427157826491,
+          "lambda_goals": 0.06534337920070442,
           "anytime_pct": 1.8,
           "exp_shots": 0.79,
           "p_shots_2plus": 5.4,
@@ -156,7 +156,7 @@
           "team": "Arsenal",
           "player": "Viktor Gyokeres",
           "position": "FW",
-          "lambda_goals": 0.2443667028694113,
+          "lambda_goals": 0.24415991800935055,
           "anytime_pct": 11.0,
           "exp_shots": 1.26,
           "p_shots_2plus": 14.0,
@@ -171,7 +171,7 @@
           "team": "Arsenal",
           "player": "Bukayo Saka",
           "position": "FW",
-          "lambda_goals": 0.2387814982401963,
+          "lambda_goals": 0.23863867412347078,
           "anytime_pct": 10.4,
           "exp_shots": 1.63,
           "p_shots_2plus": 24.1,
@@ -186,7 +186,7 @@
           "team": "Arsenal",
           "player": "Eberechi Eze",
           "position": "FW",
-          "lambda_goals": 0.14345234645625096,
+          "lambda_goals": 0.14333095604978793,
           "anytime_pct": 5.4,
           "exp_shots": 1.45,
           "p_shots_2plus": 19.3,
@@ -4469,71 +4469,71 @@
       "team": "Manchester City",
       "proj_points": 71.0,
       "title_pct": 31.1,
-      "top4_pct": 85.4,
+      "top4_pct": 85.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Hull",
       "proj_points": 66.4,
       "title_pct": 11.9,
-      "top4_pct": 67.1,
+      "top4_pct": 67.2,
       "relegation_pct": 0.0
     },
     {
       "team": "Liverpool",
       "proj_points": 60.8,
       "title_pct": 3.6,
-      "top4_pct": 36.5,
+      "top4_pct": 36.6,
       "relegation_pct": 0.2
     },
     {
       "team": "Chelsea",
       "proj_points": 59.7,
       "title_pct": 2.6,
-      "top4_pct": 30.6,
+      "top4_pct": 30.4,
       "relegation_pct": 0.3
     },
     {
       "team": "Manchester United",
       "proj_points": 57.2,
       "title_pct": 1.2,
-      "top4_pct": 21.0,
-      "relegation_pct": 0.8
+      "top4_pct": 20.9,
+      "relegation_pct": 0.7
     },
     {
       "team": "Newcastle United",
       "proj_points": 55.8,
       "title_pct": 0.9,
-      "top4_pct": 15.6,
+      "top4_pct": 15.5,
       "relegation_pct": 1.1
     },
     {
       "team": "Brentford",
       "proj_points": 54.7,
       "title_pct": 0.5,
-      "top4_pct": 12.2,
-      "relegation_pct": 1.6
+      "top4_pct": 12.3,
+      "relegation_pct": 1.5
     },
     {
       "team": "Brighton",
       "proj_points": 54.3,
-      "title_pct": 0.4,
-      "top4_pct": 11.5,
+      "title_pct": 0.5,
+      "top4_pct": 11.6,
       "relegation_pct": 1.8
     },
     {
       "team": "Bournemouth",
       "proj_points": 53.6,
       "title_pct": 0.5,
-      "top4_pct": 9.8,
+      "top4_pct": 9.7,
       "relegation_pct": 2.0
     },
     {
       "team": "Leeds",
       "proj_points": 52.4,
       "title_pct": 0.3,
-      "top4_pct": 7.1,
-      "relegation_pct": 2.8
+      "top4_pct": 7.0,
+      "relegation_pct": 2.7
     },
     {
       "team": "Aston Villa",
@@ -4553,26 +4553,26 @@
       "team": "Crystal Palace",
       "proj_points": 47.2,
       "title_pct": 0.0,
-      "top4_pct": 1.7,
-      "relegation_pct": 11.6
+      "top4_pct": 1.8,
+      "relegation_pct": 11.8
     },
     {
       "team": "Nottingham Forest",
       "proj_points": 45.0,
       "title_pct": 0.0,
       "top4_pct": 0.8,
-      "relegation_pct": 17.3
+      "relegation_pct": 17.4
     },
     {
       "team": "Fulham",
       "proj_points": 44.1,
       "title_pct": 0.0,
-      "top4_pct": 0.7,
-      "relegation_pct": 21.1
+      "top4_pct": 0.6,
+      "relegation_pct": 20.9
     },
     {
       "team": "Tottenham",
-      "proj_points": 43.9,
+      "proj_points": 44.0,
       "title_pct": 0.0,
       "top4_pct": 0.6,
       "relegation_pct": 22.1
@@ -4582,7 +4582,7 @@
       "proj_points": 42.8,
       "title_pct": 0.0,
       "top4_pct": 0.3,
-      "relegation_pct": 26.2
+      "relegation_pct": 26.1
     },
     {
       "team": "Ipswich",
@@ -4877,7 +4877,7 @@
     "Ipswich"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 3.5,
+  "roster_snapshot_age_hours": 6.3,
   "roster_unmatched_count": 78,
   "data_warnings": [
     "78 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
