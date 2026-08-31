@@ -1,13 +1,13 @@
 {
   "league": "Serie A",
   "updated": "2026-08-30T18:46:29.046517+00:00",
-  "results_updated": "2026-08-31T05:31:17.317777+00:00",
+  "results_updated": "2026-08-31T13:45:42.022357+00:00",
   "record": {
     "correct": 0,
     "wrong": 0,
     "total": 0,
     "void": 0,
-    "pending": 0,
+    "pending": 2,
     "by_confidence": {}
   },
   "unrecorded": [
@@ -115,507 +115,30 @@
       "away": "Parma",
       "score": "2-0",
       "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-30 16:30:00+00:00",
+      "home": "Napoli",
+      "away": "Como",
+      "score": "1-2",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-30 18:45:00+00:00",
+      "home": "Cagliari",
+      "away": "Inter",
+      "score": "0-1",
+      "reason": "no locking run happened before kickoff"
+    },
+    {
+      "date": "2026-08-30 18:45:00+00:00",
+      "home": "Lazio",
+      "away": "Genoa",
+      "score": "1-0",
+      "reason": "no locking run happened before kickoff"
     }
   ],
   "matches": [
-    {
-      "id": 19,
-      "matchweek": 2,
-      "date": "2026-08-30T16:30:00+00:00",
-      "venue": "Diego Armando Maradona",
-      "home": "Napoli",
-      "away": "Como",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.372,
-        "p_draw": 0.29,
-        "p_away": 0.338,
-        "pick": "Napoli",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.3,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 12.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 11.8,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3722,
-        "why": {
-          "home_attack_pct": 20.4,
-          "home_defence_pct": 35.1,
-          "away_attack_pct": 31.2,
-          "away_defence_pct": 28.3,
-          "home_advantage_pct": 10.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Napoli 37% / draw 29% / Como 34%",
-          "Expected goals: 1.14 - 1.07"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Napoli",
-          "player": "Rasmus H\u00f8jlund",
-          "position": "FW",
-          "lambda_goals": 0.22822744639320447,
-          "anytime_pct": 9.9,
-          "exp_shots": 1.44,
-          "p_shots_2plus": 19.2,
-          "exp_sot": 0.6,
-          "p_sot_1plus": 31.5,
-          "appearance_pct": 85.0,
-          "expected_minutes": 71.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Napoli",
-          "player": "Scott McTominay",
-          "position": "MF",
-          "lambda_goals": 0.170127746824447,
-          "anytime_pct": 6.8,
-          "exp_shots": 1.77,
-          "p_shots_2plus": 28.3,
-          "exp_sot": 0.65,
-          "p_sot_1plus": 33.9,
-          "appearance_pct": 85.0,
-          "expected_minutes": 72.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Napoli",
-          "player": "Giovane",
-          "position": "FW",
-          "lambda_goals": 0.09037796290056864,
-          "anytime_pct": 2.9,
-          "exp_shots": 1.2,
-          "p_shots_2plus": 12.8,
-          "exp_sot": 0.55,
-          "p_sot_1plus": 28.9,
-          "appearance_pct": 85.0,
-          "expected_minutes": 48.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Como",
-          "player": "Tasos Douvikas",
-          "position": "FW",
-          "lambda_goals": 0.20431135953916843,
-          "anytime_pct": 8.8,
-          "exp_shots": 1.16,
-          "p_shots_2plus": 11.2,
-          "exp_sot": 0.49,
-          "p_sot_1plus": 27.0,
-          "appearance_pct": 97.5,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Como",
-          "player": "Nico Paz",
-          "position": "FW",
-          "lambda_goals": 0.16042820036187452,
-          "anytime_pct": 6.4,
-          "exp_shots": 2.11,
-          "p_shots_2plus": 38.3,
-          "exp_sot": 0.78,
-          "p_sot_1plus": 41.0,
-          "appearance_pct": 90.0,
-          "expected_minutes": 74.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Como",
-          "player": "Lucas Da Cunha",
-          "position": "MF",
-          "lambda_goals": 0.14135767093642973,
-          "anytime_pct": 5.4,
-          "exp_shots": 0.72,
-          "p_shots_2plus": 3.1,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.5,
-          "appearance_pct": 92.5,
-          "expected_minutes": 71.0,
-          "penalty_taker": true,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.379,
-        "p_draw": 0.304,
-        "p_away": 0.317,
-        "odds": {
-          "home": 2.5,
-          "draw": 3.0,
-          "away": 3.1
-        },
-        "book": "bet365",
-        "edge": -0.007,
-        "pick_odds": 2.5,
-        "ev": -0.069
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 12,
-      "matchweek": 2,
-      "date": "2026-08-30T18:45:00+00:00",
-      "venue": "Unipol Domus",
-      "home": "Cagliari",
-      "away": "Inter",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.148,
-        "p_draw": 0.203,
-        "p_away": 0.649,
-        "pick": "Inter",
-        "pick_type": "away",
-        "score": "0-2",
-        "top_scores": [
-          {
-            "score": "0-2",
-            "pct": 11.5,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 11.3,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 9.8,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 4,
-        "provisional": false,
-        "p_pick": 0.6489,
-        "why": {
-          "home_attack_pct": -5.5,
-          "home_defence_pct": -9.2,
-          "away_attack_pct": 67.6,
-          "away_defence_pct": 34.4,
-          "home_advantage_pct": 10.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Cagliari 15% / draw 20% / Inter 65%",
-          "Expected goals: 0.85 - 2.04"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Cagliari",
-          "player": "Sebastiano Esposito",
-          "position": "FW",
-          "lambda_goals": 0.2259826098876074,
-          "anytime_pct": 9.9,
-          "exp_shots": 1.44,
-          "p_shots_2plus": 18.8,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 23.3,
-          "appearance_pct": 92.5,
-          "expected_minutes": 70.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "Gennaro Borrelli",
-          "position": "FW",
-          "lambda_goals": 0.09649538832634295,
-          "anytime_pct": 3.1,
-          "exp_shots": 0.71,
-          "p_shots_2plus": 3.9,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 13.1,
-          "appearance_pct": 70.0,
-          "expected_minutes": 32.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "Semih Kili\u00e7soy",
-          "position": "FW",
-          "lambda_goals": 0.06706988522766368,
-          "anytime_pct": 1.9,
-          "exp_shots": 0.48,
-          "p_shots_2plus": 1.5,
-          "exp_sot": 0.2,
-          "p_sot_1plus": 8.9,
-          "appearance_pct": 57.5,
-          "expected_minutes": 25.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Lautaro Mart\u00ednez",
-          "position": "FW",
-          "lambda_goals": 0.4156778772334596,
-          "anytime_pct": 19.6,
-          "exp_shots": 2.19,
-          "p_shots_2plus": 36.8,
-          "exp_sot": 0.87,
-          "p_sot_1plus": 41.0,
-          "appearance_pct": 77.5,
-          "expected_minutes": 57.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Marcus Thuram",
-          "position": "FW",
-          "lambda_goals": 0.30857446934902755,
-          "anytime_pct": 13.9,
-          "exp_shots": 1.48,
-          "p_shots_2plus": 20.0,
-          "exp_sot": 0.58,
-          "p_sot_1plus": 28.7,
-          "appearance_pct": 75.0,
-          "expected_minutes": 50.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Francesco Pio Esposito",
-          "position": "FW",
-          "lambda_goals": 0.22090812024182804,
-          "anytime_pct": 9.6,
-          "exp_shots": 1.27,
-          "p_shots_2plus": 14.3,
-          "exp_sot": 0.5,
-          "p_sot_1plus": 26.7,
-          "appearance_pct": 90.0,
-          "expected_minutes": 39.5,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.126,
-        "p_draw": 0.215,
-        "p_away": 0.659,
-        "odds": {
-          "home": 7.0,
-          "draw": 4.5,
-          "away": 1.44
-        },
-        "book": "bet365",
-        "edge": -0.01,
-        "pick_odds": 1.44,
-        "ev": -0.066
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 15,
-      "matchweek": 2,
-      "date": "2026-08-30T18:45:00+00:00",
-      "venue": "Olimpico",
-      "home": "Lazio",
-      "away": "Genoa",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.449,
-        "p_draw": 0.287,
-        "p_away": 0.264,
-        "pick": "Lazio",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 14.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 13.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-0",
-            "pct": 11.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4489,
-        "why": {
-          "home_attack_pct": 4.2,
-          "home_defence_pct": 13.7,
-          "away_attack_pct": -7.2,
-          "away_defence_pct": -0.2,
-          "home_advantage_pct": 10.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Lazio 45% / draw 29% / Genoa 26%",
-          "Expected goals: 1.27 - 0.90"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Lazio",
-          "player": "Pedro",
-          "position": "FW",
-          "lambda_goals": 0.16523397362035233,
-          "anytime_pct": 6.4,
-          "exp_shots": 0.69,
-          "p_shots_2plus": 3.3,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 14.8,
-          "appearance_pct": 75.0,
-          "expected_minutes": 24.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Lazio",
-          "player": "Mattia Zaccagni",
-          "position": "FW",
-          "lambda_goals": 0.1390769267327107,
-          "anytime_pct": 5.1,
-          "exp_shots": 1.17,
-          "p_shots_2plus": 12.7,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 20.6,
-          "appearance_pct": 67.5,
-          "expected_minutes": 55.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Lazio",
-          "player": "Matteo Cancellieri",
-          "position": "FW",
-          "lambda_goals": 0.12386002482863044,
-          "anytime_pct": 4.4,
-          "exp_shots": 1.11,
-          "p_shots_2plus": 11.2,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 20.1,
-          "appearance_pct": 77.5,
-          "expected_minutes": 45.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Ruslan Malinovskiy",
-          "position": "MF",
-          "lambda_goals": 0.15566532697395816,
-          "anytime_pct": 6.1,
-          "exp_shots": 1.17,
-          "p_shots_2plus": 11.9,
-          "exp_sot": 0.35,
-          "p_sot_1plus": 18.1,
-          "appearance_pct": 87.5,
-          "expected_minutes": 58.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Lorenzo Colombo",
-          "position": "FW",
-          "lambda_goals": 0.14156730668442555,
-          "anytime_pct": 5.4,
-          "exp_shots": 1.39,
-          "p_shots_2plus": 17.2,
-          "exp_sot": 0.5,
-          "p_sot_1plus": 27.3,
-          "appearance_pct": 97.5,
-          "expected_minutes": 60.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Vitinha",
-          "position": "FW",
-          "lambda_goals": 0.12812789912600314,
-          "anytime_pct": 4.7,
-          "exp_shots": 1.39,
-          "p_shots_2plus": 17.5,
-          "exp_sot": 0.38,
-          "p_sot_1plus": 19.8,
-          "appearance_pct": 90.0,
-          "expected_minutes": 58.2,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.475,
-        "p_draw": 0.299,
-        "p_away": 0.226,
-        "odds": {
-          "home": 2.0,
-          "draw": 3.1,
-          "away": 4.33
-        },
-        "book": "bet365",
-        "edge": -0.026,
-        "pick_odds": 2.0,
-        "ev": -0.102
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 16,
       "matchweek": 2,
@@ -5320,6 +4843,17 @@
   ],
   "standings": [
     {
+      "team": "Inter",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 5,
+      "ga": 1,
+      "gd": 4,
+      "points": 6
+    },
+    {
       "team": "Milan",
       "played": 2,
       "won": 2,
@@ -5342,6 +4876,17 @@
       "points": 6
     },
     {
+      "team": "Lazio",
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 2,
+      "ga": 0,
+      "gd": 2,
+      "points": 6
+    },
+    {
       "team": "Udinese",
       "played": 2,
       "won": 1,
@@ -5349,6 +4894,17 @@
       "lost": 0,
       "gf": 4,
       "ga": 3,
+      "gd": 1,
+      "points": 4
+    },
+    {
+      "team": "Como",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 3,
+      "ga": 2,
       "gd": 1,
       "points": 4
     },
@@ -5361,17 +4917,6 @@
       "gf": 4,
       "ga": 0,
       "gd": 4,
-      "points": 3
-    },
-    {
-      "team": "Inter",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 4,
-      "ga": 1,
-      "gd": 3,
       "points": 3
     },
     {
@@ -5398,13 +4943,13 @@
     },
     {
       "team": "Napoli",
-      "played": 1,
+      "played": 2,
       "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "gf": 2,
-      "ga": 0,
-      "gd": 2,
+      "lost": 1,
+      "gf": 3,
+      "ga": 2,
+      "gd": 1,
       "points": 3
     },
     {
@@ -5415,28 +4960,6 @@
       "lost": 0,
       "gf": 2,
       "ga": 1,
-      "gd": 1,
-      "points": 3
-    },
-    {
-      "team": "Cagliari",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 1,
-      "ga": 0,
-      "gd": 1,
-      "points": 3
-    },
-    {
-      "team": "Lazio",
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 1,
-      "ga": 0,
       "gd": 1,
       "points": 3
     },
@@ -5452,15 +4975,15 @@
       "points": 3
     },
     {
-      "team": "Como",
-      "played": 1,
-      "won": 0,
-      "drawn": 1,
-      "lost": 0,
+      "team": "Cagliari",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
       "gf": 1,
       "ga": 1,
       "gd": 0,
-      "points": 1
+      "points": 3
     },
     {
       "team": "Bologna",
@@ -5486,13 +5009,13 @@
     },
     {
       "team": "Genoa",
-      "played": 1,
+      "played": 2,
       "won": 0,
       "drawn": 0,
-      "lost": 1,
+      "lost": 2,
       "gf": 0,
-      "ga": 2,
-      "gd": -2,
+      "ga": 3,
+      "gd": -3,
       "points": 0
     },
     {
