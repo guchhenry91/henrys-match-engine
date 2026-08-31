@@ -407,14 +407,40 @@ const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Pic
 // tab.
 const ICON={today:"⚡",best:"★",players:"👤",six:"🎯",parlay:"🧩",tables:"📊",grades:"✅",
   NFL:"🏈",UCL:"🏆",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷",SERIEA:"🇮🇹"};
+// EVERY PROP MARKET, ONE CLICK. Reaching a single market used to mean opening a
+// board and then finding its chip row; these land straight on it. `view` is the
+// board to open and `filter` the market to select there -- the same value the
+// chips set, so the two navigations cannot disagree about what a market is.
+//
+// NBA is deliberately absent: this app has no NBA engine. Listing it would be a
+// link that looks live and does nothing, which is worse than no link at all.
+const PROPS=[
+  {id:"pp:goal",  view:"players", filter:"goal",  ic:"⚽", t:"Anytime scorer"},
+  {id:"pp:shots", view:"players", filter:"shots", ic:"🥅", t:"2+ shot attempts"},
+  {id:"pp:sot",   view:"players", filter:"sot",   ic:"🎯", t:"Shots on target"},
+  {id:"nfl:anytime_touchdown", view:"NFL", filter:"anytime_touchdown",
+   ic:"🏈", t:"NFL anytime TD"},
+  {id:"nfl:receiving_yards", view:"NFL", filter:"receiving_yards",
+   ic:"🙌", t:"NFL receiving yards"},
+  {id:"nfl:rushing_yards", view:"NFL", filter:"rushing_yards",
+   ic:"🏃", t:"NFL rushing yards"},
+  {id:"nfl:passing_yards", view:"NFL", filter:"passing_yards",
+   ic:"🎯", t:"NFL passing yards"},
+  {id:"nfl:team_winner", view:"NFL", filter:"team_winner",
+   ic:"🏆", t:"NFL team winner"},
+];
+
 const GROUPS=[
   {name:"Trending", keys:["today","best","players","six"]},
   {name:"Most used", keys:["parlay","tables","grades"]},
+  {name:"Player props", props:true},
   {name:"Sports", keys:["UCL","NFL","PL","LALIGA","BUNDESLIGA","LIGUE1","SERIEA"]},
 ];
 
-function go(k){
-  cur=k; filter="all"; render(k); syncNav();
+function go(k,f){
+  // `f` lets a link open a board already filtered to one market. Defaults to
+  // "all" so every existing caller behaves exactly as before.
+  cur=k; filter=f||"all"; render(k); syncNav();
   window.scrollTo(0,0);
 }
 
@@ -422,13 +448,35 @@ function go(k){
 // disagree about where the reader is.
 function syncNav(){
   document.querySelectorAll(".sitem,.rtile").forEach(el=>{
-    el.classList.toggle("on", el.dataset.k===cur);
+    // A prop row carries its own id in data-prop and is active only when BOTH the
+    // board and the market match -- otherwise opening the Players board would
+    // light up all three of its markets at once.
+    el.classList.toggle("on", el.dataset.prop
+      ? (el.dataset.k===cur && el.dataset.filter===filter)
+      : (el.dataset.k===cur && !el.dataset.filter));
   });
 }
 
 // How many things a board is currently showing. A count that cannot be computed
 // is omitted rather than shown as 0 -- "0 picks" and "not loaded" look identical
 // and mean opposite things.
+// How many picks a single market is showing. Same omission rule as countFor: a
+// count that cannot be computed is left off rather than shown as 0, because
+// "0 picks" and "not loaded" look identical and mean opposite things.
+function propCount(item){
+  if(item.view==="players"){
+    const up=(DATA.player_picks||{}).upcoming;
+    return Array.isArray(up)?up.filter(p=>p.market===item.filter).length:null;
+  }
+  if(item.view==="NFL"){
+    if(!DATA.nfl) return null;
+    if(item.filter==="team_winner") return (DATA.nfl.games||[]).length;
+    const b=(DATA.nfl.props||{})[item.filter];
+    return b?(b.picks||[]).length:null;
+  }
+  return null;
+}
+
 function countFor(k){
   const n=x=>Array.isArray(x)?x.length:null;
   if(k==="best")    return n((DATA.best||{}).upcoming);
@@ -459,6 +507,18 @@ function buildSidebar(){
   for(const g of GROUPS){
     const h=document.createElement("div"); h.className="sgroup"; h.textContent=g.name;
     side.append(h);
+    if(g.props){
+      for(const item of PROPS){
+        const b=document.createElement("button"); b.type="button"; b.className="sitem";
+        b.dataset.k=item.view; b.dataset.filter=item.filter; b.dataset.prop=item.id;
+        const c=propCount(item);
+        b.innerHTML=`<span class="ic">${item.ic}</span><span>${esc(item.t)}</span>`
+          + (c!=null?`<span class="ct">${c}</span>`:"");
+        b.onclick=()=>go(item.view,item.filter);
+        side.append(b);
+      }
+      continue;
+    }
     for(const k of g.keys){
       const v=byKey[k]; if(!v) continue;
       const b=document.createElement("button"); b.type="button"; b.className="sitem"; b.dataset.k=k;
