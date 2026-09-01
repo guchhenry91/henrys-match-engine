@@ -40,7 +40,8 @@ def test_roster_request_retries_transient_failure():
         return _R()
 
     sleeps = []
-    client = Client(key="test", opener=open_url)
+    # pace=0 so this measures the RETRY backoff only, not the inter-request pacing.
+    client = Client(key="test", opener=open_url, pace=0)
     assert client.get("teams", sleeper=sleeps.append) == [{"ok": True}]
     assert len(calls) == 3
     assert len(sleeps) == 2
@@ -212,3 +213,78 @@ def test_fetch_api_league_reports_every_unmapped_name_in_one_pass():
         assert "Some Unmapped FC" in str(exc)
         assert "Another Unknown SV" in str(exc)
     assert all(call[0] != "players/squads" for call in client.calls)
+
+
+def test_a_per_minute_rate_limit_is_waited_out_not_treated_as_final():
+    """THE ONE API ERROR THAT IS TRANSIENT. Observed 2026-09-01: a five-league
+    refresh fired ~94 requests in ten seconds and La Liga came back rate-limited
+    with 6,695 of the day's 7,500 still unspent. The daily allowance was never the
+    binding constraint; the per-minute one was."""
+    import io, json as _json
+    from leagues.api_football import Client
+
+    calls = []
+
+    class _R(io.BytesIO):
+        def __init__(self, payload):
+            super().__init__(_json.dumps(payload).encode())
+            self.headers = {}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc):
+            return False
+
+    def open_url(_request, timeout=None):
+        calls.append(1)
+        if len(calls) == 1:
+            return _R({"errors": {"rateLimit": "Too many requests. You have "
+                                               "exceeded the limit of requests "
+                                               "per minute of your subscription."}})
+        return _R({"response": [{"ok": True}]})
+
+    sleeps = []
+    client = Client(key="test", opener=open_url, pace=0)
+    assert client.get("teams", sleeper=sleeps.append) == [{"ok": True}]
+    assert len(calls) == 2, "the rate-limited call should have been retried once"
+    assert sleeps and max(sleeps) >= 10, "it must actually wait out the window"
+
+
+def test_a_permanent_api_error_is_still_not_retried():
+    """A bad league id is the endpoint ANSWERING. Retrying spends the allowance
+    twice on the same no."""
+    import io, json as _json
+    import pytest as _pytest
+    from leagues.api_football import Client
+
+    calls = []
+
+    class _R(io.BytesIO):
+        def __init__(self):
+            super().__init__(_json.dumps(
+                {"errors": {"league": "The League field is invalid."}}).encode())
+            self.headers = {}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc):
+            return False
+
+    def open_url(_request, timeout=None):
+        calls.append(1)
+        return _R()
+
+    client = Client(key="test", opener=open_url, pace=0)
+    with _pytest.raises(RuntimeError, match="API-Football error"):
+        client.get("teams")
+    assert len(calls) == 1
+
+
+def test_requests_are_paced_by_default():
+    """Cheap insurance against the per-minute ceiling: nothing about a roster
+    refresh needs to finish in ten seconds."""
+    from leagues.api_football import Client, PACE_SECONDS
+    assert PACE_SECONDS > 0
+    assert Client(key="test").pace == PACE_SECONDS

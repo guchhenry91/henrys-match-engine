@@ -20,15 +20,24 @@ import urllib.request
 
 BASE = "https://v3.football.api-sports.io"
 
+# Seconds between requests, and how long to wait out a per-minute rate limit.
+# Both exist because the DAILY allowance was never the binding constraint: a
+# five-league roster refresh spent 94 of 7,500 and still tripped the per-minute
+# ceiling by firing them in ten seconds.
+PACE_SECONDS = 0.35
+RATE_LIMIT_PAUSE_SECONDS = 20.0
+
 
 class Client:
-    def __init__(self, key=None, limit=90, opener=urllib.request.urlopen):
+    def __init__(self, key=None, limit=90, opener=urllib.request.urlopen,
+                 pace=PACE_SECONDS):
         self.key = key or os.environ.get("API_FOOTBALL_KEY")
         if not self.key:
             raise RuntimeError("API_FOOTBALL_KEY is not set")
         self.limit = limit
         self.used = 0
         self.opener = opener
+        self.pace = pace
         # What the ACCOUNT says it has left, as opposed to this run's own budget.
         # None until the first response carries the headers.
         self.remaining = None
@@ -43,9 +52,17 @@ class Client:
         now costs a league its whole refresh cycle, since a failed league keeps
         its previous snapshot until the next run.
 
-        A retry is NOT attempted on an API error (a bad league id, a spent
-        allowance): the endpoint answered, and asking again just spends the
+        A retry is NOT attempted on most API errors (a bad league id, a spent
+        daily allowance): the endpoint answered, and asking again just spends the
         allowance twice on the same "no".
+
+        A PER-MINUTE RATE LIMIT IS THE EXCEPTION, because it is the one API error
+        that is purely transient. Observed 2026-09-01: a five-league roster
+        refresh fired ~94 requests in about ten seconds and La Liga came back with
+        "You have exceeded the limit of requests per minute of your subscription"
+        -- with 6,695 of the day's 7,500 still unspent. The daily allowance was
+        never the binding constraint; the per-minute one was, and nothing in this
+        client knew it existed.
         """
         if self.used >= self.limit:
             raise RuntimeError(f"API-Football run budget exhausted ({self.limit})")
@@ -71,8 +88,24 @@ class Client:
         self.used += 1
         errors = payload.get("errors")
         if errors:
+            if self._rate_limited(errors) and attempts > 1:
+                # Wait out the minute window rather than burning the league's
+                # refresh. Bounded: one wait, then it fails like any other error.
+                sleeper(RATE_LIMIT_PAUSE_SECONDS)
+                return self.get(path, attempts=attempts - 1, sleeper=sleeper,
+                                **params)
             raise RuntimeError(f"API-Football error: {errors}")
+        # PACE THE NEXT ONE. Cheap insurance against the per-minute ceiling: a
+        # roster refresh is ~21 requests a league and nothing about it needs to
+        # finish in ten seconds.
+        if self.pace:
+            sleeper(self.pace)
         return payload.get("response") or []
+
+    @staticmethod
+    def _rate_limited(errors) -> bool:
+        text = str(errors).lower()
+        return "ratelimit" in text or "requests per minute" in text
 
     def _read_allowance(self, headers) -> None:
         """Record the account's remaining daily allowance, if the headers say."""

@@ -543,9 +543,21 @@ What replaced it:
   through to ESPN, so a run with no key looked like a successful refresh.
 - **The retry moved, it was not dropped.** ESPN's fetcher retried four times with
   backoff and was the only retry in the roster path; `api_football.Client` now
-  retries transient transport failures — but never an API *error*, since the
-  endpoint answered and asking again just spends the allowance twice on the same
-  "no".
+  retries transient transport failures — but never a *permanent* API error, since
+  the endpoint answered and asking again just spends the allowance twice on the
+  same "no".
+
+**THE DAILY ALLOWANCE WAS NEVER THE BINDING CONSTRAINT — the per-minute one is.**
+The first single-source refresh spent **94 requests of 7,500** and still had La
+Liga come back with *"You have exceeded the limit of requests per minute of your
+subscription"*, because 94 requests went out in about ten seconds. Nothing in the
+client knew a per-minute ceiling existed.
+
+So requests are now **paced** (`PACE_SECONDS`), and a rate-limit error is the one
+API error treated as transient: it waits out the window once and retries, where a
+bad league id still fails immediately. The new behaviour was visible in that same
+run and worked — La Liga kept its previous snapshot, stayed due, and no other
+league was affected.
 `python -m scripts.roster_integrity_check` verifies league membership, duplicate
 player IDs and visibly reports thin/incomplete source rosters. The snapshot is
 dated and provisional while the summer registration window remains open. It is
