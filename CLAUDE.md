@@ -599,15 +599,20 @@ NFL now locks and grades too — see the NFL section above.
 
 ---
 
-# NBA engine (`nba/`) — MODEL AND BACKTEST ONLY, no board yet
+# NBA engine (`nba/`, tab: NBA)
 
-A third sport. There is **no published board, no UI tab and no live picks**: this
-is the model and its fifteen-season validation, built ahead of the API being
-wired in. `tests/leagues/test_sidebar_props.py` enforces that — sidebar links may
-exist exactly when `data/nba/board.json` does, so nothing can point at a board the
-site does not serve.
+A third sport. The tab is live and shows **evidence, not picks**: no fixture feed
+is wired in yet, so there is nothing to project onto, and `status: evidence_only`
+plus a banner say so before any number appears. That was the middle path between a
+tab that looks live and does nothing — which this codebase treats as worse than no
+tab — and hiding fifteen seasons of finished validation.
+
+`tests/leagues/test_sidebar_props.py` holds the line: NBA sidebar links may exist
+exactly when `data/nba/board.json` does. When the fixture feed arrives, `games`
+and `props` fill in and nothing about the payload's shape changes.
 
 - `python -m scripts.nba_backtest` — the gate. Writes `data-raw/nba/backtest_report.json`.
+- `python -m nba.publish` — the board. Writes `data/nba/board.json`.
 - `--props-only` reuses the stored team-winner result instead of repeating a
   240-combination Elo grid search that takes most of an hour.
 
@@ -682,6 +687,14 @@ says plainly that it buys variety and not accuracy.
 
 Nothing here is a claim to beat a bookmaker: no NBA prices have been fetched, and
 the lines are the engine's own.
+
+## The NBA tab shows both numbers, and shows the failure
+Each market renders its headline accuracy AND its above-the-floor accuracy, plus
+what share of its lines sit at the quotable floor. Points appears too, marked
+**withheld** with the gate's reason on hover — hiding a market because it failed
+would be the dishonest option, and the sidebar links to it for the same reason.
+The per-market links genuinely filter the tab rather than labelling an unfiltered
+page.
 
 ## Data JSON validation
 `scripts/validate_data_json.py` parses **every** JSON file the site depends on --
