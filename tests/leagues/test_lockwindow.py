@@ -118,3 +118,21 @@ def test_unrecorded_is_empty_when_every_played_fixture_was_frozen():
          "away": "Crystal Palace", "home_goals": 2, "away_goals": 0}])
     log = {"2026:2": {"pick": "Everton", "graded": "correct"}}
     assert publish.unrecorded_fixtures(played, log, lambda mid: f"2026:{mid}") == []
+
+
+# --- suspect kickoff urgency --------------------------------------------------
+
+def test_an_unscheduled_round_is_not_warned_about():
+    """MOST OF A SEASON HAS NO KICKOFF TIME AND THAT IS NORMAL. On 2026-09-01 La
+    Liga had 339 upcoming fixtures at 00:00 and not one was inside ten days.
+    Warning on all 339 buries the case that costs something."""
+    from leagues import publish
+    assert publish.SUSPECT_TIME_URGENT_HOURS >= publish.LOCK_WINDOW_HOURS, (
+        "the urgency horizon must be wider than the lock window, or the warning "
+        "arrives too late to put a verified time in fixture_times.json")
+
+
+def test_the_urgency_horizon_leaves_time_to_act():
+    """Wide enough that a human can find and record a real kickoff time."""
+    from leagues import publish
+    assert publish.SUSPECT_TIME_URGENT_HOURS >= 48.0

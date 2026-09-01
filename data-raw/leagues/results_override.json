@@ -477,15 +477,6 @@
         "Eurosport DE live commentary: Koln 3-2 Hoffenheim, Dallinga brace (72', 82') after Daghim (27') and El Mala (51')/Kabak (67'), Full Time"
       ]
     },
-    "Union Berlin|Ein Frankfurt": {
-      "home_goals": 2,
-      "away_goals": 3,
-      "status": "FT",
-      "sources": [
-        "ligainsider.de match page: 1. FC Union Berlin 2:3 Eintracht Frankfurt, 1. Spieltag Bundesliga 2026/27",
-        "kicker.de Liveticker: Union 1:2 Frankfurt at halftime (Latte Lath vs Ebnoutalib double), consistent progression to the 2:3 final"
-      ]
-    },
     "Mainz|Paderborn": {
       "home_goals": 0,
       "away_goals": 0,
@@ -737,5 +728,20 @@
         "API-Football fixture 1552742: Monaco 2-0 Marseille, status FT"
       ]
     }
-  }
+  },
+  "_corrections": [
+    {
+      "fixture": "BUNDESLIGA Union Berlin|Ein Frankfurt",
+      "removed_on": "2026-09-01",
+      "was": {
+        "home_goals": 2,
+        "away_goals": 3
+      },
+      "actual": {
+        "home_goals": 3,
+        "away_goals": 3
+      },
+      "why": "The override said 2-3 citing ligainsider and a kicker halftime ticker; fixturedownload and ESPN's ger.1 scoreboard both report 3-3 at FULL TIME. Two independent sources against one inferred progression, so the override was wrong and is removed rather than corrected -- an override only exists for fixtures the feed has NOT scored, and this one it has."
+    }
+  ]
 }

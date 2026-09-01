@@ -51,6 +51,11 @@ MATCHWEEKS_AHEAD = 1
 # dozen call sites and several tests already reference publish.LOCK_WINDOW_HOURS.
 LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
 
+# How close a fixture must be before a missing kickoff time is a PROBLEM rather
+# than an unscheduled round. Comfortably wider than the lock window, so the
+# warning arrives with time to put a verified time in fixture_times.json.
+SUSPECT_TIME_URGENT_HOURS = 72.0
+
 def _lock_window():
     """The window in force for this run: the floor, widened to cover the gap
     since the last locking run. Read through a function so tests that patch
@@ -473,6 +478,8 @@ def build(league: str = "PL") -> dict:
 
     out_matches = []
     suspect_times = []          # fixtures whose kickoff the feed got wrong
+    # Of those, the ones close enough for it to MATTER. See the warning below.
+    suspect_soon = []
     released_locks = []         # picks freed because their kickoff moved
     for _, m in upcoming.iterrows():
         home, away = m["home"], m["away"]
@@ -524,7 +531,10 @@ def build(league: str = "PL") -> dict:
         # will freeze correctly once the time is verified into fixture_times.json.
         hours_out = (pd.Timestamp(m["date"]) - now).total_seconds() / 3600.0
         if bool(m.get("time_suspect")):
-            suspect_times.append(f"{m['home']} v {m['away']}")
+            label = f"{m['home']} v {m['away']}"
+            suspect_times.append(label)
+            if hours_out <= SUSPECT_TIME_URGENT_HOURS:
+                suspect_soon.append(label)
         # If this fixture's kickoff has MOVED since its pick was locked -- a
         # corrected feed time or a postponement -- that lock was made against a
         # different fixture-time and is released so it can be re-made properly.
@@ -745,15 +755,33 @@ def build(league: str = "PL") -> dict:
     if released_locks:
         print(f"NOTE: {league}: kickoff moved since lock; pick released to be "
               f"re-made at the real time: {released_locks}")
-    if suspect_times:
-        names = ", ".join(suspect_times[:4]) + (
-            f" and {len(suspect_times) - 4} more" if len(suspect_times) > 4 else "")
+    # A MISSING KICKOFF MATTERS ONLY WHEN THE FIXTURE IS CLOSE.
+    #
+    # These feeds publish times a round or two ahead, so most of a season sits at
+    # 00:00 for months and that is NORMAL, not a fault: on 2026-09-01 La Liga had
+    # 339 upcoming fixtures without a time and not one of them was inside ten
+    # days. Warning on all 339 buries the case that actually costs something --
+    # a fixture about to kick off that still has no credible time, which will
+    # never freeze a pick and will land in `unrecorded`.
+    #
+    # So the two are separated: the URGENT list is what gets a warning a reader
+    # sees, and the full count is reported quietly beside it.
+    if suspect_soon:
+        names = ", ".join(suspect_soon[:4]) + (
+            f" and {len(suspect_soon) - 4} more" if len(suspect_soon) > 4 else "")
         warnings.append(
-            f"The fixture feed gives an implausible kickoff time for {names}, so the "
-            f"time shown may be wrong and those picks stay provisional rather than "
-            f"freezing at the wrong moment. Verified times go in fixture_times.json.")
-        print(f"WARNING: {league}: implausible kickoff time, pick NOT locked, for "
-              f"{len(suspect_times)} fixture(s): {suspect_times[:6]}")
+            f"The fixture feed still gives no credible kickoff time for {names}, "
+            f"due within {SUSPECT_TIME_URGENT_HOURS:g}h. Those picks stay "
+            f"provisional rather than freezing at the wrong moment, so they will "
+            f"not enter the record unless a verified time reaches "
+            f"fixture_times.json first.")
+        print(f"WARNING: {league}: {len(suspect_soon)} fixture(s) due within "
+              f"{SUSPECT_TIME_URGENT_HOURS:g}h STILL have no credible kickoff and "
+              f"will not lock: {suspect_soon[:6]}")
+    if suspect_times:
+        print(f"note: {league}: {len(suspect_times)} upcoming fixture(s) have no "
+              f"published kickoff time yet ({len(suspect_soon)} of them urgent) -- "
+              f"normal for rounds the feed has not scheduled.")
 
     def _read(path):
         p = PICKS_DIR / path
