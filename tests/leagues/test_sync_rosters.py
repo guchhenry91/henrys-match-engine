@@ -12,21 +12,68 @@ class _Response(io.BytesIO):
         self.close()
 
 
-def test_roster_request_retries_transient_failure(monkeypatch):
+def test_roster_request_retries_transient_failure():
+    """THE RETRY MOVED, IT WAS NOT DROPPED. It used to live in the ESPN fetcher,
+    which was the only retry in the roster path; when that source was removed the
+    API-Football client gained one, because a single dropped connection would
+    otherwise cost a league its whole refresh cycle."""
+    import io, json as _json
+    from leagues.api_football import Client
+
     calls = []
 
-    def open_url(_request, timeout):
+    class _R(io.BytesIO):
+        def __init__(self):
+            super().__init__(_json.dumps({"response": [{"ok": True}]}).encode())
+            self.headers = {}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc):
+            return False
+
+    def open_url(_request, timeout=None):
         calls.append(timeout)
         if len(calls) < 3:
             raise OSError("temporary TLS failure")
-        return _Response(b'{"ok": true}')
+        return _R()
 
-    monkeypatch.setattr(sync_rosters.urllib.request, "urlopen", open_url)
     sleeps = []
-    assert sync_rosters.get_json("https://example.test", attempts=3,
-                                 sleeper=sleeps.append) == {"ok": True}
+    client = Client(key="test", opener=open_url)
+    assert client.get("teams", sleeper=sleeps.append) == [{"ok": True}]
     assert len(calls) == 3
     assert len(sleeps) == 2
+
+
+def test_an_api_error_is_not_retried():
+    """The endpoint ANSWERED -- a bad league id or a spent allowance is a 'no',
+    and asking again just spends the allowance twice on the same answer."""
+    import io, json as _json
+    import pytest as _pytest
+    from leagues.api_football import Client
+
+    calls = []
+
+    class _R(io.BytesIO):
+        def __init__(self):
+            super().__init__(_json.dumps({"errors": {"token": "bad"}}).encode())
+            self.headers = {}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc):
+            return False
+
+    def open_url(_request, timeout=None):
+        calls.append(1)
+        return _R()
+
+    client = Client(key="test", opener=open_url)
+    with _pytest.raises(RuntimeError, match="API-Football error"):
+        client.get("teams")
+    assert len(calls) == 1
 
 
 def test_failed_refresh_retains_complete_verified_snapshot(tmp_path, monkeypatch):
@@ -35,10 +82,16 @@ def test_failed_refresh_retains_complete_verified_snapshot(tmp_path, monkeypatch
     old.update({key: {"Club": {"players": []}} for key in sync_rosters.LEAGUES})
     out.write_text(json.dumps(old), encoding="utf-8")
     monkeypatch.setattr(sync_rosters, "OUT", out)
-    monkeypatch.setattr(sync_rosters, "fetch_league",
+    monkeypatch.setenv("API_FOOTBALL_KEY", "test")
+    monkeypatch.setattr(sync_rosters, "Client",
+                        lambda **_kw: type("FakeClient", (),
+                                          {"used": 0, "report": lambda self: "fake"})())
+    monkeypatch.setattr(sync_rosters, "fetch_api_league",
                         lambda *_args: (_ for _ in ()).throw(OSError("TLS")))
 
-    assert sync_rosters.main() == 0
+    # EVERY league failed, so nothing was refreshed: the file must be byte
+    # identical, not rewritten with new metadata around unchanged squads.
+    assert sync_rosters.main() == 1
     assert json.loads(out.read_text(encoding="utf-8")) == old
 
 
@@ -87,8 +140,10 @@ def test_one_leagues_api_football_failure_does_not_discard_a_sibling_success(
         tmp_path, monkeypatch):
     """Observed in production: PL fetched fine, then Bundesliga raised on an
     unmapped club name mid-loop, and the single try/except around the whole
-    batch fell back to ESPN for ALL leagues -- discarding the already-good PL
-    fetch too. Each league must succeed or fail independently."""
+    batch discarded the already-good PL fetch too. Each league must succeed or
+    fail independently -- and with the ESPN fallback removed, a failure now means
+    the league simply keeps what it had rather than being rescued from a second,
+    differently-shaped source."""
     out = tmp_path / "rosters.json"
     monkeypatch.setattr(sync_rosters, "OUT", out)
     monkeypatch.setenv("API_FOOTBALL_KEY", "test-key")
@@ -99,11 +154,7 @@ def test_one_leagues_api_football_failure_does_not_discard_a_sibling_success(
             raise ValueError("'FSV Mainz 05' is not mapped")
         return {"Arsenal": {"source": "api-football:team:1", "players": []}}
 
-    espn_calls = []
     monkeypatch.setattr(sync_rosters, "fetch_api_league", fake_fetch)
-    monkeypatch.setattr(sync_rosters, "fetch_league",
-                        lambda key, slug: espn_calls.append(key) or
-                        {"SomeClub": {"source": "espn", "players": []}})
     monkeypatch.setattr(sync_rosters, "Client",
                         lambda **_kw: type("FakeClient", (),
                                           {"used": 0,
@@ -115,10 +166,12 @@ def test_one_leagues_api_football_failure_does_not_discard_a_sibling_success(
     written = json.loads(out.read_text(encoding="utf-8"))
     assert written["PL"] == {"Arsenal": {"source": "api-football:team:1", "players": []}}
     assert "PL" in written["_league_verified_at"]
-    assert espn_calls == ["BUNDESLIGA"]
-    assert written["BUNDESLIGA"] == {"SomeClub": {"source": "espn", "players": []}}
+    # THE FAILED LEAGUE IS LEFT ALONE, not rescued from a second source. There is
+    # no fallback any more: it keeps whatever it had (nothing, here) and stays
+    # unstamped, so it is due again on the next run.
+    assert "BUNDESLIGA" not in written
     assert "BUNDESLIGA" not in written["_league_verified_at"]
-    assert "ESPN fallback for: BUNDESLIGA" in written["_source"]
+    assert "NOT refreshed this run: BUNDESLIGA" in written["_source"]
 
 
 class _FakeApiClient:

@@ -13,6 +13,7 @@ scripts using this client reported nothing about what they had spent.
 """
 import json
 import os
+import time
 import urllib.parse
 import urllib.request
 
@@ -33,7 +34,19 @@ class Client:
         self.remaining = None
         self.daily_limit = None
 
-    def get(self, path, **params):
+    def get(self, path, attempts=3, sleeper=time.sleep, **params):
+        """One request, retried on a TRANSIENT failure.
+
+        The retry moved here when the ESPN roster fallback was removed. That
+        fallback's own fetcher retried four times with backoff, and it was the
+        only retry in the roster path -- without one, a single dropped connection
+        now costs a league its whole refresh cycle, since a failed league keeps
+        its previous snapshot until the next run.
+
+        A retry is NOT attempted on an API error (a bad league id, a spent
+        allowance): the endpoint answered, and asking again just spends the
+        allowance twice on the same "no".
+        """
         if self.used >= self.limit:
             raise RuntimeError(f"API-Football run budget exhausted ({self.limit})")
         query = urllib.parse.urlencode({k: v for k, v in params.items()
@@ -42,9 +55,19 @@ class Client:
         request = urllib.request.Request(
             url, headers={"x-apisports-key": self.key,
                           "User-Agent": "henrys-match-engine/1.0"})
-        with self.opener(request, timeout=20) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-            self._read_allowance(getattr(response, "headers", None))
+        last = None
+        for attempt in range(1, attempts + 1):
+            try:
+                with self.opener(request, timeout=20) as response:
+                    payload = json.loads(response.read().decode("utf-8"))
+                    self._read_allowance(getattr(response, "headers", None))
+                break
+            except Exception as exc:            # transport, not an API "no"
+                last = exc
+                if attempt == attempts:
+                    self.used += 1              # it was still an attempt
+                    raise
+                sleeper(0.5 * attempt)
         self.used += 1
         errors = payload.get("errors")
         if errors:

@@ -522,7 +522,30 @@ board. `tests/nfl/test_picks.py` carries the load.
 
 ## Roster verification
 `python -m scripts.sync_rosters` snapshots every current 2026-27 club and player
-from the ESPN league/team roster feeds into `data-raw/leagues/rosters.json`.
+from **API-Football** into `data-raw/leagues/rosters.json`.
+
+**THE ESPN FALLBACK IS GONE, and removing it made the sync more honest rather
+than less robust.** It could not have rescued anything: ESPN answers **403 to
+every request**, for all five leagues, on a plain call. A fallback that cannot run
+is not redundancy, it is a false sense of it — and it hid the real state, which
+was that rosters had simply stopped refreshing. It also mixed two id schemas, so a
+league it "rescued" silently changed identity space mid-file; that is why those
+leagues were deliberately never stamped `_league_verified_at`, which is a lot of
+machinery around a source not trusted enough to stamp.
+
+What replaced it:
+- **A failed league keeps its previous snapshot**, unstamped, and is due again on
+  the next run. There is nothing to fall over to, and nothing pretends otherwise.
+- **If every league fails, the file is not rewritten at all** — rewriting it would
+  move `_source` and the modification time while the squads are untouched, which
+  is a file that looks freshly written and holds nothing new.
+- **A missing `API_FOOTBALL_KEY` now fails loudly** (exit 1). It used to fall
+  through to ESPN, so a run with no key looked like a successful refresh.
+- **The retry moved, it was not dropped.** ESPN's fetcher retried four times with
+  backoff and was the only retry in the roster path; `api_football.Client` now
+  retries transient transport failures — but never an API *error*, since the
+  endpoint answered and asking again just spends the allowance twice on the same
+  "no".
 `python -m scripts.roster_integrity_check` verifies league membership, duplicate
 player IDs and visibly reports thin/incomplete source rosters. The snapshot is
 dated and provisional while the summer registration window remains open. It is

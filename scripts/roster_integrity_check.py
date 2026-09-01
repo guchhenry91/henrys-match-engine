@@ -65,7 +65,7 @@ def audit(payload):
         # rather than deleting anyone.
         #
         # Conflating the two would mean a newly added league -- or an outage at
-        # the source, which is live right now: ESPN has been answering 403 -- fails
+        # the source -- fails
         # the whole audit as though the data were WRONG rather than absent.
         if not teams:
             warnings.append(

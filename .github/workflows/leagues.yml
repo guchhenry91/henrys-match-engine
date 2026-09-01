@@ -65,7 +65,7 @@ on:
         description: >-
           Comma-separated league keys (PL,LALIGA,BUNDESLIGA,LIGUE1,SERIEA) to
           force-refresh from API-Football regardless of the freshness window --
-          e.g. to catch up a league left on the ESPN fallback. Leave blank for
+          e.g. to catch up a league whose last refresh failed. Leave blank for
           the normal quota-aware refresh, which now covers every configured
           league rather than two hardcoded pairs.
         required: false
