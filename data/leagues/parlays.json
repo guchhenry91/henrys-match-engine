@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-02T15:11:25.743051+00:00",
+  "updated": "2026-09-02T23:25:41.610968+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.564,
+          "combined": 0.5638,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -28,7 +28,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6995,
+              "p": 0.6993,
               "id": "BUNDESLIGA#11#w",
               "date": "2026-09-05T16:30:00+00:00"
             }
@@ -39,7 +39,7 @@
           "tier": "Balanced five-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.0565,
+          "combined": 0.0671,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -67,7 +67,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6995,
+              "p": 0.6993,
               "id": "BUNDESLIGA#11#w",
               "date": "2026-09-05T16:30:00+00:00"
             },
@@ -77,7 +77,7 @@
               "league": "Ligue 1",
               "league_key": "LIGUE1",
               "tag": "g",
-              "p": 0.298,
+              "p": 0.354,
               "id": "LIGUE1#24#goal#Sofiane Diop",
               "date": "2026-09-05T18:45:00+00:00"
             },
@@ -92,13 +92,14 @@
               "date": "2026-09-04T18:45:00+00:00"
             }
           ],
-          "provisional": true
+          "provisional": false,
+          "locked_at": "2026-09-02T21:01:41.105705+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1376,
+          "combined": 0.1552,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -121,14 +122,14 @@
               "date": "2026-09-06T14:15:00+00:00"
             },
             {
-              "selection": "Harry Kane to score",
-              "match": "Schalke 04 v Bayern Munich",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
+              "selection": "Sofiane Diop to score",
+              "match": "Nice v Le Mans",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
               "tag": "g",
-              "p": 0.314,
-              "id": "BUNDESLIGA#11#goal#Harry Kane",
-              "date": "2026-09-05T16:30:00+00:00"
+              "p": 0.354,
+              "id": "LIGUE1#24#goal#Sofiane Diop",
+              "date": "2026-09-05T18:45:00+00:00"
             }
           ],
           "provisional": true
@@ -370,7 +371,8 @@
               "date": "2026-09-04T19:00:00+00:00"
             }
           ],
-          "provisional": true
+          "provisional": false,
+          "locked_at": "2026-09-02T21:01:41.105705+00:00"
         }
       ]
     }
@@ -380,7 +382,7 @@
     "wrong": 15,
     "void": 47,
     "total": 21,
-    "pending": 11
+    "pending": 13
   },
   "settled": [
     {
