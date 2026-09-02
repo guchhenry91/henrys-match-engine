@@ -495,6 +495,39 @@
     "locked_at": "2026-08-31T20:49:43.385363+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#11#w|LALIGA#39#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop|PL#28#w|SERIEA#25#shots#Nico Paz": {
+    "combined": 0.0565,
+    "earliest_kickoff": "2026-09-04T18:45:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#w",
+        "p": 0.8063,
+        "selection": "Manchester City to win"
+      },
+      {
+        "id": "LALIGA#39#shots#Lamine Yamal",
+        "p": 0.639,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#11#w",
+        "p": 0.6995,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "LIGUE1#24#goal#Sofiane Diop",
+        "p": 0.298,
+        "selection": "Sofiane Diop to score"
+      },
+      {
+        "id": "SERIEA#25#shots#Nico Paz",
+        "p": 0.526,
+        "selection": "Nico Paz 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-02T21:01:41.105705+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#18#shots#Deniz Undav|LALIGA#24#shots#Lamine Yamal": {
     "combined": 0.4803,
     "earliest_kickoff": "2026-08-31T19:30:00+00:00",
@@ -2193,6 +2226,29 @@
       }
     ],
     "locked_at": "2026-08-22T11:19:36.603696+00:00",
+    "tainted": false
+  },
+  "PL#22#sot#Thiago|PL#27#sot#Alexander Isak|PL#28#w": {
+    "combined": 0.2949,
+    "earliest_kickoff": "2026-09-04T19:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#w",
+        "p": 0.8063,
+        "selection": "Manchester City to win"
+      },
+      {
+        "id": "PL#22#sot#Thiago",
+        "p": 0.623,
+        "selection": "Thiago 1+ shot on target"
+      },
+      {
+        "id": "PL#27#sot#Alexander Isak",
+        "p": 0.587,
+        "selection": "Alexander Isak 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-02T21:01:41.105705+00:00",
     "tainted": false
   },
   "PL#6#goal#Thiago|PL#8#goal#Erling Haaland": {
