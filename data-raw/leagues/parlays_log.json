@@ -528,6 +528,24 @@
     "locked_at": "2026-09-02T21:01:41.105705+00:00",
     "tainted": false
   },
+  "BUNDESLIGA#11#w|PL#28#w": {
+    "combined": 0.5638,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#w",
+        "p": 0.8063,
+        "selection": "Manchester City to win"
+      },
+      {
+        "id": "BUNDESLIGA#11#w",
+        "p": 0.6993,
+        "selection": "Bayern Munich to win"
+      }
+    ],
+    "locked_at": "2026-09-03T14:59:14.484033+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#18#shots#Deniz Undav|LALIGA#24#shots#Lamine Yamal": {
     "combined": 0.4803,
     "earliest_kickoff": "2026-08-31T19:30:00+00:00",
@@ -1840,6 +1858,47 @@
     "locked_at": "2026-08-29T20:13:56.869996+00:00",
     "tainted": false
   },
+  "LALIGA#39#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop|PL#28#sot#Erling Haaland": {
+    "combined": 0.1552,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#sot#Erling Haaland",
+        "p": 0.686,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#39#shots#Lamine Yamal",
+        "p": 0.639,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#24#goal#Sofiane Diop",
+        "p": 0.354,
+        "selection": "Sofiane Diop to score"
+      }
+    ],
+    "locked_at": "2026-09-03T14:59:14.484033+00:00",
+    "tainted": false
+  },
+  "LALIGA#39#shots#Lamine Yamal|PL#28#sot#Erling Haaland": {
+    "combined": 0.4384,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#sot#Erling Haaland",
+        "p": 0.686,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#39#shots#Lamine Yamal",
+        "p": 0.639,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-03T14:59:14.484033+00:00",
+    "tainted": false
+  },
   "LALIGA#6#goal#Raphinha|LALIGA#8#sot#Kylian Mbappe-Lottin|PL#18#shots#Matheus Cunha": {
     "combined": 0.158,
     "earliest_kickoff": "2026-08-26T19:00:00+00:00",
@@ -2249,6 +2308,24 @@
       }
     ],
     "locked_at": "2026-09-02T21:01:41.105705+00:00",
+    "tainted": false
+  },
+  "PL#22#sot#Thiago|PL#28#w": {
+    "combined": 0.5023,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#w",
+        "p": 0.8063,
+        "selection": "Manchester City to win"
+      },
+      {
+        "id": "PL#22#sot#Thiago",
+        "p": 0.623,
+        "selection": "Thiago 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-03T14:59:14.484033+00:00",
     "tainted": false
   },
   "PL#6#goal#Thiago|PL#8#goal#Erling Haaland": {
