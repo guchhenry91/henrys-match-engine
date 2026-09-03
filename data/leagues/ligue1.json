@@ -1,7 +1,7 @@
 {
   "league": "Ligue 1",
-  "updated": "2026-09-03T18:49:49.979626+00:00",
-  "results_updated": "2026-09-03T21:00:41.791917+00:00",
+  "updated": "2026-09-03T21:06:32.409559+00:00",
+  "results_updated": "2026-09-03T21:06:32.409564+00:00",
   "record": {
     "correct": 6,
     "wrong": 10,
@@ -13,6 +13,10 @@
         "correct": 2,
         "total": 5
       },
+      "4": {
+        "correct": 1,
+        "total": 1
+      },
       "2": {
         "correct": 2,
         "total": 6
@@ -20,10 +24,6 @@
       "1": {
         "correct": 1,
         "total": 4
-      },
-      "4": {
-        "correct": 1,
-        "total": 1
       }
     }
   },
@@ -60,22 +60,22 @@
       "away": "Auxerre",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.551,
-        "p_draw": 0.25,
-        "p_away": 0.199,
+        "p_home": 0.552,
+        "p_draw": 0.248,
+        "p_away": 0.2,
         "pick": "Lyon",
         "pick_type": "home",
         "score": "1-0",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 11.9,
+            "pct": 11.8,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "1-0",
-            "pct": 10.5,
+            "pct": 10.6,
             "outcome": "home",
             "agrees_with_pick": true
           },
@@ -88,13 +88,13 @@
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.5514,
+        "p_pick": 0.5518,
         "why": {
-          "home_attack_pct": 17.6,
-          "home_defence_pct": 10.1,
+          "home_attack_pct": 17.7,
+          "home_defence_pct": 10.0,
           "away_attack_pct": -13.5,
           "away_defence_pct": 0.5,
-          "home_advantage_pct": 21.5
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
@@ -111,8 +111,8 @@
           "team": "Lyon",
           "player": "Pavel Sulc",
           "position": "FW",
-          "lambda_goals": 0.4480684367109416,
-          "anytime_pct": 21.3,
+          "lambda_goals": 0.44734640089378575,
+          "anytime_pct": 21.2,
           "exp_shots": 1.4,
           "p_shots_2plus": 18.1,
           "exp_sot": 0.53,
@@ -126,7 +126,7 @@
           "team": "Lyon",
           "player": "Corentin Tolisso",
           "position": "MF",
-          "lambda_goals": 0.4063466089201763,
+          "lambda_goals": 0.40588598267693554,
           "anytime_pct": 19.8,
           "exp_shots": 1.49,
           "p_shots_2plus": 20.6,
@@ -141,7 +141,7 @@
           "team": "Lyon",
           "player": "Khalis Merah",
           "position": "FW",
-          "lambda_goals": 0.1292375320787779,
+          "lambda_goals": 0.12902927343024043,
           "anytime_pct": 4.6,
           "exp_shots": 0.51,
           "p_shots_2plus": 1.7,
@@ -156,7 +156,7 @@
           "team": "Auxerre",
           "player": "Danny Namaso",
           "position": "FW",
-          "lambda_goals": 0.2280183709606102,
+          "lambda_goals": 0.2280429165155568,
           "anytime_pct": 9.9,
           "exp_shots": 1.63,
           "p_shots_2plus": 24.3,
@@ -171,7 +171,7 @@
           "team": "Auxerre",
           "player": "Remy Labeau Lascary",
           "position": "FW",
-          "lambda_goals": 0.18493918349039443,
+          "lambda_goals": 0.1849590916884533,
           "anytime_pct": 7.5,
           "exp_shots": 0.83,
           "p_shots_2plus": 5.5,
@@ -186,7 +186,7 @@
           "team": "Auxerre",
           "player": "Josu\u00e9 Casimir",
           "position": "DF",
-          "lambda_goals": 0.17961239197675005,
+          "lambda_goals": 0.1796183369198985,
           "anytime_pct": 7.4,
           "exp_shots": 0.46,
           "p_shots_2plus": 0.8,
@@ -214,8 +214,8 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.613,
-        "p_draw": 0.21,
-        "p_away": 0.177,
+        "p_draw": 0.209,
+        "p_away": 0.178,
         "pick": "Paris SG",
         "pick_type": "home",
         "score": "2-1",
@@ -228,7 +228,7 @@
           },
           {
             "score": "1-1",
-            "pct": 9.5,
+            "pct": 9.4,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -241,13 +241,13 @@
         ],
         "confidence": 4,
         "provisional": true,
-        "p_pick": 0.6131,
+        "p_pick": 0.6129,
         "why": {
-          "home_attack_pct": 61.0,
+          "home_attack_pct": 61.1,
           "home_defence_pct": 42.8,
-          "away_attack_pct": 29.3,
-          "away_defence_pct": 10.1,
-          "home_advantage_pct": 21.5
+          "away_attack_pct": 29.4,
+          "away_defence_pct": 10.0,
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
@@ -264,7 +264,7 @@
           "team": "Paris SG",
           "player": "Ousmane Demb\u00e9l\u00e9",
           "position": "FW",
-          "lambda_goals": 0.3755064306330405,
+          "lambda_goals": 0.3750377944678175,
           "anytime_pct": 16.4,
           "exp_shots": 1.28,
           "p_shots_2plus": 15.1,
@@ -279,7 +279,7 @@
           "team": "Paris SG",
           "player": "Maghnes Akliouche",
           "position": "FW",
-          "lambda_goals": 0.2776484672667352,
+          "lambda_goals": 0.27719368090061974,
           "anytime_pct": 12.7,
           "exp_shots": 1.59,
           "p_shots_2plus": 23.3,
@@ -294,7 +294,7 @@
           "team": "Paris SG",
           "player": "Khvicha Kvaratskhelia",
           "position": "FW",
-          "lambda_goals": 0.2766251963020292,
+          "lambda_goals": 0.2761720860470343,
           "anytime_pct": 12.4,
           "exp_shots": 1.66,
           "p_shots_2plus": 24.9,
@@ -309,7 +309,7 @@
           "team": "Monaco",
           "player": "Folarin Balogun",
           "position": "FW",
-          "lambda_goals": 0.2878838429315392,
+          "lambda_goals": 0.28808111969112843,
           "anytime_pct": 13.2,
           "exp_shots": 1.54,
           "p_shots_2plus": 21.8,
@@ -324,7 +324,7 @@
           "team": "Monaco",
           "player": "Paris Brunner",
           "position": "FW",
-          "lambda_goals": 0.162147109854815,
+          "lambda_goals": 0.16233821372399704,
           "anytime_pct": 6.5,
           "exp_shots": 1.29,
           "p_shots_2plus": 14.3,
@@ -339,7 +339,7 @@
           "team": "Monaco",
           "player": "Matthis Abline",
           "position": "FW",
-          "lambda_goals": 0.1119001285445345,
+          "lambda_goals": 0.11203201216272525,
           "anytime_pct": 3.9,
           "exp_shots": 1.43,
           "p_shots_2plus": 18.6,
@@ -367,15 +367,15 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.605,
-        "p_draw": 0.222,
-        "p_away": 0.174,
+        "p_draw": 0.22,
+        "p_away": 0.175,
         "pick": "Lens",
         "pick_type": "home",
         "score": "2-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 10.4,
+            "pct": 10.3,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -394,18 +394,18 @@
         ],
         "confidence": 4,
         "provisional": true,
-        "p_pick": 0.6047,
+        "p_pick": 0.6045,
         "why": {
           "home_attack_pct": 36.9,
-          "home_defence_pct": 20.5,
-          "away_attack_pct": -1.0,
+          "home_defence_pct": 20.4,
+          "away_attack_pct": -0.9,
           "away_defence_pct": 0.7,
-          "home_advantage_pct": 21.5
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
-          "Model: Lens 60% / draw 22% / Lorient 17%",
-          "Expected goals: 2.06 - 1.02"
+          "Model: Lens 60% / draw 22% / Lorient 18%",
+          "Expected goals: 2.05 - 1.02"
         ],
         "unmodeled_absences": {
           "home": [],
@@ -417,7 +417,7 @@
           "team": "Lens",
           "player": "Odsonne Edouard",
           "position": "FW",
-          "lambda_goals": 0.5981787311951771,
+          "lambda_goals": 0.5968408354900108,
           "anytime_pct": 29.4,
           "exp_shots": 1.61,
           "p_shots_2plus": 23.7,
@@ -432,8 +432,8 @@
           "team": "Lens",
           "player": "Florian Thauvin",
           "position": "MF",
-          "lambda_goals": 0.5597556417234726,
-          "anytime_pct": 29.0,
+          "lambda_goals": 0.5587992756454896,
+          "anytime_pct": 28.9,
           "exp_shots": 1.76,
           "p_shots_2plus": 28.2,
           "exp_sot": 0.64,
@@ -447,8 +447,8 @@
           "team": "Lens",
           "player": "Rayan Fofana",
           "position": "FW",
-          "lambda_goals": 0.26076639320628625,
-          "anytime_pct": 11.3,
+          "lambda_goals": 0.26018315910027695,
+          "anytime_pct": 11.2,
           "exp_shots": 0.8,
           "p_shots_2plus": 5.1,
           "exp_sot": 0.27,
@@ -462,7 +462,7 @@
           "team": "Lorient",
           "player": "Aiyegun Tosin",
           "position": "FW",
-          "lambda_goals": 0.22810022002500766,
+          "lambda_goals": 0.22825065454217466,
           "anytime_pct": 9.7,
           "exp_shots": 0.6,
           "p_shots_2plus": 2.2,
@@ -477,7 +477,7 @@
           "team": "Lorient",
           "player": "Jean-Victor Makengo",
           "position": "FW",
-          "lambda_goals": 0.20749506430164688,
+          "lambda_goals": 0.20763190949982047,
           "anytime_pct": 8.9,
           "exp_shots": 0.83,
           "p_shots_2plus": 4.9,
@@ -492,7 +492,7 @@
           "team": "Lorient",
           "player": "Mohamed Bamba",
           "position": "FW",
-          "lambda_goals": 0.2163510679330461,
+          "lambda_goals": 0.21644504604008408,
           "anytime_pct": 8.3,
           "exp_shots": 0.41,
           "p_shots_2plus": 1.0,
@@ -532,7 +532,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.035716039722222225,
+          "news_checked_hours_ago": 0.03642598138888889,
           "unavailable": false,
           "team_attribution": "Lens"
         },
@@ -542,14 +542,14 @@
           "player": "Florian Thauvin",
           "team": "Lens",
           "position": "MF",
-          "p_pick": 0.29,
+          "p_pick": 0.289,
           "confidence": 1,
           "provisional": true,
           "doubt": false,
           "penalty_taker": true,
           "appearance_pct": 94.4,
           "expected_minutes": 71.8,
-          "anytime_pct": 29.0,
+          "anytime_pct": 28.9,
           "exp_shots": 1.76,
           "exp_sot": 0.64,
           "lineup_confirmed": false,
@@ -563,7 +563,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.035716005277777775,
+          "news_checked_hours_ago": 0.03642594638888889,
           "unavailable": false,
           "team_attribution": "Lens"
         }
@@ -583,40 +583,40 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.369,
-        "p_draw": 0.28,
-        "p_away": 0.351,
+        "p_draw": 0.278,
+        "p_away": 0.353,
         "pick": "Le Havre",
         "pick_type": "home",
         "score": "1-0",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 13.4,
+            "pct": 13.3,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "1-0",
-            "pct": 8.6,
+            "pct": 8.7,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
-            "score": "2-1",
-            "pct": 8.3,
-            "outcome": "home",
-            "agrees_with_pick": true
+            "score": "0-1",
+            "pct": 8.5,
+            "outcome": "away",
+            "agrees_with_pick": false
           }
         ],
         "confidence": 1,
         "provisional": true,
-        "p_pick": 0.3688,
+        "p_pick": 0.3695,
         "why": {
           "home_attack_pct": -16.5,
           "home_defence_pct": -5.4,
           "away_attack_pct": -1.0,
-          "away_defence_pct": -5.8,
-          "home_advantage_pct": 21.5
+          "away_defence_pct": -5.9,
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
@@ -633,7 +633,7 @@
           "team": "Le Havre",
           "player": "Mbwana Samatta",
           "position": "FW",
-          "lambda_goals": 0.3137424078681301,
+          "lambda_goals": 0.3133564968331125,
           "anytime_pct": 14.3,
           "exp_shots": 1.38,
           "p_shots_2plus": 17.7,
@@ -648,8 +648,8 @@
           "team": "Le Havre",
           "player": "Fod\u00e9 Doucour\u00e9",
           "position": "DF",
-          "lambda_goals": 0.25368905975012523,
-          "anytime_pct": 11.7,
+          "lambda_goals": 0.25337701584032657,
+          "anytime_pct": 11.6,
           "exp_shots": 0.92,
           "p_shots_2plus": 5.8,
           "exp_sot": 0.35,
@@ -663,7 +663,7 @@
           "team": "Le Havre",
           "player": "Rassoul Ndiaye",
           "position": "MF",
-          "lambda_goals": 0.2194823930825401,
+          "lambda_goals": 0.21921242423115603,
           "anytime_pct": 9.7,
           "exp_shots": 1.17,
           "p_shots_2plus": 11.3,
@@ -678,8 +678,8 @@
           "team": "Brest",
           "player": "Ludovic Ajorque",
           "position": "FW",
-          "lambda_goals": 0.4165097483878042,
-          "anytime_pct": 20.7,
+          "lambda_goals": 0.4165848754178212,
+          "anytime_pct": 20.8,
           "exp_shots": 1.69,
           "p_shots_2plus": 26.3,
           "exp_sot": 0.65,
@@ -693,7 +693,7 @@
           "team": "Brest",
           "player": "Romain Del Castillo",
           "position": "FW",
-          "lambda_goals": 0.30480908414864544,
+          "lambda_goals": 0.3048409263984886,
           "anytime_pct": 14.4,
           "exp_shots": 1.22,
           "p_shots_2plus": 12.9,
@@ -708,7 +708,7 @@
           "team": "Brest",
           "player": "Kamory Doumbia",
           "position": "MF",
-          "lambda_goals": 0.18782595569987176,
+          "lambda_goals": 0.1878598343936273,
           "anytime_pct": 7.5,
           "exp_shots": 1.03,
           "p_shots_2plus": 9.6,
@@ -736,15 +736,15 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.471,
-        "p_draw": 0.242,
-        "p_away": 0.287,
+        "p_draw": 0.24,
+        "p_away": 0.289,
         "pick": "Nice",
         "pick_type": "home",
         "score": "2-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 10.8,
+            "pct": 10.7,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -763,13 +763,13 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4706,
+        "p_pick": 0.4711,
         "why": {
-          "home_attack_pct": 2.3,
-          "home_defence_pct": -1.1,
+          "home_attack_pct": 2.4,
+          "home_defence_pct": -1.2,
           "away_attack_pct": 11.6,
           "away_defence_pct": -15.9,
-          "home_advantage_pct": 21.5
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
@@ -786,7 +786,7 @@
           "team": "Nice",
           "player": "Sofiane Diop",
           "position": "FW",
-          "lambda_goals": 0.6822425230279011,
+          "lambda_goals": 0.6816135290947788,
           "anytime_pct": 35.4,
           "exp_shots": 1.67,
           "p_shots_2plus": 25.8,
@@ -801,7 +801,7 @@
           "team": "Nice",
           "player": "Ali Abdi",
           "position": "DF",
-          "lambda_goals": 0.20034995435211597,
+          "lambda_goals": 0.20012086327850426,
           "anytime_pct": 8.0,
           "exp_shots": 0.52,
           "p_shots_2plus": 1.7,
@@ -816,8 +816,8 @@
           "team": "Nice",
           "player": "Jonathan Clauss",
           "position": "DF",
-          "lambda_goals": 0.1668332242313796,
-          "anytime_pct": 6.7,
+          "lambda_goals": 0.16664245801644903,
+          "anytime_pct": 6.6,
           "exp_shots": 0.9,
           "p_shots_2plus": 6.3,
           "exp_sot": 0.27,
@@ -856,7 +856,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.03571913222222222,
+          "news_checked_hours_ago": 0.036429053055555556,
           "unavailable": false,
           "team_attribution": "Nice"
         }
@@ -875,22 +875,22 @@
       "away": "Strasbourg",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.297,
-        "p_draw": 0.274,
-        "p_away": 0.429,
+        "p_home": 0.298,
+        "p_draw": 0.272,
+        "p_away": 0.43,
         "pick": "Strasbourg",
         "pick_type": "away",
         "score": "0-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 13.1,
+            "pct": 13.0,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "0-1",
-            "pct": 9.2,
+            "pct": 9.4,
             "outcome": "away",
             "agrees_with_pick": true
           },
@@ -903,13 +903,13 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4289,
+        "p_pick": 0.43,
         "why": {
-          "home_attack_pct": -18.4,
-          "home_defence_pct": -5.0,
+          "home_attack_pct": -18.3,
+          "home_defence_pct": -4.9,
           "away_attack_pct": 13.2,
-          "away_defence_pct": 3.2,
-          "home_advantage_pct": 21.5
+          "away_defence_pct": 3.1,
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
@@ -926,7 +926,7 @@
           "team": "Strasbourg",
           "player": "Joaqu\u00edn Panichelli",
           "position": "FW",
-          "lambda_goals": 0.5762228140189609,
+          "lambda_goals": 0.5758896109065401,
           "anytime_pct": 27.5,
           "exp_shots": 1.53,
           "p_shots_2plus": 21.4,
@@ -941,7 +941,7 @@
           "team": "Strasbourg",
           "player": "Martial Godo",
           "position": "MF",
-          "lambda_goals": 0.3099415151807882,
+          "lambda_goals": 0.30972055491866685,
           "anytime_pct": 14.2,
           "exp_shots": 0.87,
           "p_shots_2plus": 6.0,
@@ -956,7 +956,7 @@
           "team": "Strasbourg",
           "player": "Sebastian Nanasi",
           "position": "FW",
-          "lambda_goals": 0.19484262604399427,
+          "lambda_goals": 0.19470372087765025,
           "anytime_pct": 7.5,
           "exp_shots": 0.49,
           "p_shots_2plus": 1.7,
@@ -984,21 +984,21 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.267,
-        "p_draw": 0.267,
-        "p_away": 0.466,
+        "p_draw": 0.265,
+        "p_away": 0.468,
         "pick": "Rennes",
         "pick_type": "away",
         "score": "0-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 12.7,
+            "pct": 12.6,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "0-1",
-            "pct": 9.4,
+            "pct": 9.5,
             "outcome": "away",
             "agrees_with_pick": true
           },
@@ -1011,17 +1011,17 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4662,
+        "p_pick": 0.4679,
         "why": {
-          "home_attack_pct": -26.3,
+          "home_attack_pct": -26.2,
           "home_defence_pct": -8.6,
           "away_attack_pct": 16.5,
-          "away_defence_pct": -2.8,
-          "home_advantage_pct": 21.5
+          "away_defence_pct": -2.9,
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
-          "Model: Angers 27% / draw 27% / Rennes 47%",
+          "Model: Angers 27% / draw 26% / Rennes 47%",
           "Expected goals: 1.15 - 1.59"
         ],
         "unmodeled_absences": {
@@ -1034,7 +1034,7 @@
           "team": "Angers",
           "player": "Prosper Peter",
           "position": "FW",
-          "lambda_goals": 0.3347957051128743,
+          "lambda_goals": 0.33415643014881463,
           "anytime_pct": 15.7,
           "exp_shots": 0.83,
           "p_shots_2plus": 5.2,
@@ -1049,7 +1049,7 @@
           "team": "Angers",
           "player": "Amine Sba\u00ef",
           "position": "FW",
-          "lambda_goals": 0.28875386351004406,
+          "lambda_goals": 0.2882025030448456,
           "anytime_pct": 12.7,
           "exp_shots": 1.2,
           "p_shots_2plus": 13.4,
@@ -1064,8 +1064,8 @@
           "team": "Angers",
           "player": "Louis Mouton",
           "position": "MF",
-          "lambda_goals": 0.12263488091242127,
-          "anytime_pct": 4.5,
+          "lambda_goals": 0.12240071599366485,
+          "anytime_pct": 4.4,
           "exp_shots": 1.0,
           "p_shots_2plus": 7.8,
           "exp_sot": 0.23,
@@ -1079,7 +1079,7 @@
           "team": "Rennes",
           "player": "Esteban Lepaul",
           "position": "FW",
-          "lambda_goals": 0.5076582858634355,
+          "lambda_goals": 0.5078572761079697,
           "anytime_pct": 26.4,
           "exp_shots": 2.35,
           "p_shots_2plus": 46.6,
@@ -1094,7 +1094,7 @@
           "team": "Rennes",
           "player": "Issa Soumar\u00e9",
           "position": "FW",
-          "lambda_goals": 0.22483280367548725,
+          "lambda_goals": 0.22495319719432785,
           "anytime_pct": 10.0,
           "exp_shots": 2.16,
           "p_shots_2plus": 40.9,
@@ -1109,7 +1109,7 @@
           "team": "Rennes",
           "player": "Mousa Al Tamari",
           "position": "FW",
-          "lambda_goals": 0.1512085533790378,
+          "lambda_goals": 0.15128952256824194,
           "anytime_pct": 5.9,
           "exp_shots": 1.74,
           "p_shots_2plus": 27.7,
@@ -1137,15 +1137,15 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.552,
-        "p_draw": 0.229,
-        "p_away": 0.219,
+        "p_draw": 0.227,
+        "p_away": 0.22,
         "pick": "Marseille",
         "pick_type": "home",
         "score": "2-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 10.4,
+            "pct": 10.3,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -1164,18 +1164,18 @@
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.552,
+        "p_pick": 0.5522,
         "why": {
           "home_attack_pct": 35.9,
           "home_defence_pct": 7.7,
-          "away_attack_pct": 5.0,
-          "away_defence_pct": 2.0,
-          "home_advantage_pct": 21.5
+          "away_attack_pct": 5.1,
+          "away_defence_pct": 1.9,
+          "home_advantage_pct": 21.2
         },
         "best_pick": false,
         "reasons": [
           "Model: Marseille 55% / draw 23% / Paris FC 22%",
-          "Expected goals: 2.02 - 1.21"
+          "Expected goals: 2.01 - 1.22"
         ],
         "unmodeled_absences": {
           "home": [],
@@ -1187,7 +1187,7 @@
           "team": "Marseille",
           "player": "Amine Gouiri",
           "position": "FW",
-          "lambda_goals": 0.5519610266225105,
+          "lambda_goals": 0.5512652352248638,
           "anytime_pct": 23.9,
           "exp_shots": 1.34,
           "p_shots_2plus": 16.3,
@@ -1202,7 +1202,7 @@
           "team": "Marseille",
           "player": "Igor Paix\u00e3o",
           "position": "DF",
-          "lambda_goals": 0.3908784043688758,
+          "lambda_goals": 0.39038567061020824,
           "anytime_pct": 18.9,
           "exp_shots": 1.39,
           "p_shots_2plus": 17.7,
@@ -1217,8 +1217,8 @@
           "team": "Marseille",
           "player": "Pierre-Emile H\u00f8jbjerg",
           "position": "DF",
-          "lambda_goals": 0.2640762463441134,
-          "anytime_pct": 12.1,
+          "lambda_goals": 0.2637433569340524,
+          "anytime_pct": 12.0,
           "exp_shots": 1.15,
           "p_shots_2plus": 11.2,
           "exp_sot": 0.34,
@@ -1232,7 +1232,7 @@
           "team": "Paris FC",
           "player": "Lassine Sinayoko",
           "position": "FW",
-          "lambda_goals": 0.3395527589441522,
+          "lambda_goals": 0.3396581321485356,
           "anytime_pct": 16.4,
           "exp_shots": 1.73,
           "p_shots_2plus": 27.4,
@@ -1247,7 +1247,7 @@
           "team": "Paris FC",
           "player": "Pablo Pagis",
           "position": "FW",
-          "lambda_goals": 0.18617916814085325,
+          "lambda_goals": 0.18627202287323702,
           "anytime_pct": 7.6,
           "exp_shots": 1.15,
           "p_shots_2plus": 11.9,
@@ -1262,7 +1262,7 @@
           "team": "Paris FC",
           "player": "Ilan Kebbal",
           "position": "FW",
-          "lambda_goals": 0.1414177980869417,
+          "lambda_goals": 0.14148832859756108,
           "anytime_pct": 5.3,
           "exp_shots": 1.04,
           "p_shots_2plus": 9.3,
@@ -1540,9 +1540,12 @@
       "date": "2026-09-03T18:45:00+00:00",
       "home": "Toulouse",
       "away": "Lille",
-      "result": null,
+      "result": {
+        "home_goals": 0,
+        "away_goals": 1
+      },
       "pick": "Lille",
-      "graded": null,
+      "graded": "correct",
       "void": false
     },
     {
@@ -4707,128 +4710,128 @@
     {
       "team": "Paris SG",
       "proj_points": 68.8,
-      "title_pct": 66.4,
-      "top4_pct": 96.3,
+      "title_pct": 65.1,
+      "top4_pct": 96.1,
       "relegation_pct": 0.0
     },
     {
       "team": "Lens",
-      "proj_points": 59.1,
-      "title_pct": 10.8,
-      "top4_pct": 66.9,
-      "relegation_pct": 0.0
-    },
-    {
-      "team": "Monaco",
-      "proj_points": 57.6,
-      "title_pct": 7.9,
-      "top4_pct": 57.2,
+      "proj_points": 59.0,
+      "title_pct": 10.6,
+      "top4_pct": 65.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Lille",
-      "proj_points": 57.1,
-      "title_pct": 6.3,
-      "top4_pct": 55.6,
+      "proj_points": 59.0,
+      "title_pct": 8.9,
+      "top4_pct": 64.5,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Monaco",
+      "proj_points": 57.4,
+      "title_pct": 6.8,
+      "top4_pct": 55.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Marseille",
-      "proj_points": 55.9,
-      "title_pct": 5.3,
-      "top4_pct": 49.3,
+      "proj_points": 56.0,
+      "title_pct": 5.2,
+      "top4_pct": 48.3,
       "relegation_pct": 0.1
     },
     {
       "team": "Lyon",
-      "proj_points": 52.1,
+      "proj_points": 52.0,
       "title_pct": 1.8,
-      "top4_pct": 27.3,
-      "relegation_pct": 0.3
+      "top4_pct": 26.1,
+      "relegation_pct": 0.4
     },
     {
       "team": "Rennes",
       "proj_points": 48.6,
-      "title_pct": 0.6,
+      "title_pct": 0.8,
       "top4_pct": 13.8,
-      "relegation_pct": 1.2
+      "relegation_pct": 1.4
     },
     {
       "team": "Strasbourg",
-      "proj_points": 48.5,
+      "proj_points": 48.6,
       "title_pct": 0.5,
-      "top4_pct": 12.8,
-      "relegation_pct": 1.3
+      "top4_pct": 12.9,
+      "relegation_pct": 1.4
     },
     {
       "team": "Paris FC",
-      "proj_points": 45.9,
-      "title_pct": 0.3,
-      "top4_pct": 7.3,
-      "relegation_pct": 2.8
+      "proj_points": 45.8,
+      "title_pct": 0.2,
+      "top4_pct": 7.4,
+      "relegation_pct": 2.7
     },
     {
       "team": "Toulouse",
-      "proj_points": 45.5,
+      "proj_points": 44.3,
       "title_pct": 0.1,
-      "top4_pct": 6.4,
-      "relegation_pct": 2.6
+      "top4_pct": 4.3,
+      "relegation_pct": 4.1
     },
     {
       "team": "Nice",
-      "proj_points": 41.3,
+      "proj_points": 41.4,
       "title_pct": 0.0,
-      "top4_pct": 2.0,
-      "relegation_pct": 9.8
+      "top4_pct": 1.8,
+      "relegation_pct": 9.2
     },
     {
       "team": "Lorient",
       "proj_points": 40.7,
       "title_pct": 0.0,
-      "top4_pct": 1.9,
-      "relegation_pct": 10.3
+      "top4_pct": 1.8,
+      "relegation_pct": 10.4
     },
     {
       "team": "Brest",
-      "proj_points": 39.9,
+      "proj_points": 39.7,
       "title_pct": 0.0,
-      "top4_pct": 1.5,
-      "relegation_pct": 12.8
+      "top4_pct": 1.1,
+      "relegation_pct": 12.7
     },
     {
       "team": "Le Mans",
-      "proj_points": 38.9,
+      "proj_points": 39.0,
       "title_pct": 0.0,
       "top4_pct": 1.0,
-      "relegation_pct": 16.2
+      "relegation_pct": 16.5
     },
     {
       "team": "Troyes",
-      "proj_points": 36.6,
+      "proj_points": 36.7,
       "title_pct": 0.0,
-      "top4_pct": 0.4,
-      "relegation_pct": 25.7
+      "top4_pct": 0.3,
+      "relegation_pct": 24.7
     },
     {
       "team": "Auxerre",
-      "proj_points": 35.9,
+      "proj_points": 35.8,
       "title_pct": 0.0,
       "top4_pct": 0.3,
-      "relegation_pct": 28.4
+      "relegation_pct": 29.6
     },
     {
       "team": "Le Havre",
-      "proj_points": 34.5,
+      "proj_points": 34.6,
       "title_pct": 0.0,
-      "top4_pct": 0.1,
-      "relegation_pct": 35.9
+      "top4_pct": 0.2,
+      "relegation_pct": 35.2
     },
     {
       "team": "Angers",
-      "proj_points": 32.0,
+      "proj_points": 32.1,
       "title_pct": 0.0,
-      "top4_pct": 0.0,
-      "relegation_pct": 52.4
+      "top4_pct": 0.1,
+      "relegation_pct": 51.6
     }
   ],
   "standings": [
@@ -5083,7 +5086,7 @@
   ],
   "thin_squads": [],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 19.5,
+  "roster_snapshot_age_hours": 21.7,
   "roster_unmatched_count": 148,
   "data_warnings": [
     "148 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
