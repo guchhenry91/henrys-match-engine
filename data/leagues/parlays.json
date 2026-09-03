@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-03T21:07:04.608523+00:00",
+  "updated": "2026-09-03T21:26:49.815214+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -373,12 +373,79 @@
   ],
   "record": {
     "correct": 6,
-    "wrong": 15,
+    "wrong": 16,
     "void": 47,
-    "total": 21,
-    "pending": 18
+    "total": 22,
+    "pending": 17
   },
   "settled": [
+    {
+      "combined": 0.0012,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#18#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        },
+        {
+          "id": "PL#27#sot#Alexander Isak",
+          "p": 0.587,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#11#shots#Harry Kane",
+          "p": 0.562,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#33#sot#Kylian Mbappe-Lottin",
+          "p": 0.558,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "p": 0.553,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#60#sot#Orri \u00d3skarsson",
+          "p": 0.543,
+          "selection": "Orri \u00d3skarsson 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#25#shots#Nico Paz",
+          "p": 0.526,
+          "selection": "Nico Paz 2+ shot attempts"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#21#shots#Riccardo Orsolini",
+          "p": 0.497,
+          "selection": "Riccardo Orsolini 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-03T19:00:00+00:00"
+    },
     {
       "combined": 0.1508,
       "graded": "void",
