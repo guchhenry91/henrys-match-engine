@@ -31,12 +31,19 @@ from nfl.model import PropModel, empirical_baseline
 
 
 def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
-    """Predict each scored season from the seasons before it."""
+    """Predict each scored season from the seasons before it.
+
+    Training is capped at the most recent `config.TRAIN_SEASONS` -- see that
+    constant for the measurement. Briefly: an unbounded window anchors the model
+    to a decade-old scoring environment, and points lost to its baseline in three
+    seasons purely because it was calibrated to one the league had left behind.
+    """
     seasons = sorted(frame["season"].unique())
     scored = seasons[config.BURN_IN_SEASONS:]
     out = []
     for season in scored:
-        train = frame[frame["season"] < season]
+        train = frame[(frame["season"] < season)
+                      & (frame["season"] >= season - config.TRAIN_SEASONS)]
         test = frame[frame["season"] == season]
         if train.empty or test.empty:
             continue

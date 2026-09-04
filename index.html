@@ -442,9 +442,11 @@ const PROPS=[
   {id:"nfl:team_winner", view:"NFL", filter:"team_winner",
    ic:"🏆", t:"NFL team winner"},
   // NBA. These land on the evidence tab, not on picks -- there are none yet, and
-  // the tab says so. `points` is listed even though the gate WITHHELD it: the tab
-  // shows it as withheld with the reason, and hiding a market because it failed
-  // would be the dishonest option.
+  // the tab says so. Every market is listed whatever the gate decided: release is
+  // read from the payload per market, and a withheld one renders as withheld with
+  // the gate's reason on hover. Hiding a market because it failed would be the
+  // dishonest option, and hardcoding WHICH market failed would go stale the first
+  // time one changed -- as points did once its training window was capped.
   {id:"nba:points", view:"NBA", filter:"points", ic:"🏀", t:"NBA points"},
   {id:"nba:rebounds", view:"NBA", filter:"rebounds", ic:"🙌", t:"NBA rebounds"},
   {id:"nba:assists", view:"NBA", filter:"assists", ic:"🎯", t:"NBA assists"},

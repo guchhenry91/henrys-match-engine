@@ -29,6 +29,40 @@ SHORT_SEASONS = {2012: "lockout, 66 games a team"}
 # graded prediction, and grading a season it partly trained on measures nothing.
 BURN_IN_SEASONS = 4
 
+# HOW MANY SEASONS OF HISTORY A PROP MODEL MAY TRAIN ON.
+#
+# THIS IS WHY POINTS USED TO BE WITHHELD, and the reason is drift, not a broken
+# market. Training on ALL prior seasons anchors the model to a decade-long
+# average scoring environment, and the NBA's has moved: the points over-rate rose
+# from 0.461 in 2012 to 0.555 by 2019 as the line -- a player's own expanding
+# CAREER median -- lagged further and further behind what he was actually
+# scoring. Measured on the walk-forward, the model predicted 39.9% overs in 2024
+# when 53.2% landed, a 13-point miscalibration, and lost to the baseline in 2023,
+# 2024 and 2025 for exactly that reason.
+#
+# The tell was that 2026 recovered on its own (bias -0.5pp): by then the training
+# set finally contained the high-scoring seasons. A market that fixes itself once
+# history catches up was never a bad market, it was a late one.
+#
+# FIVE, not three, and the distinction matters. Windows of 3 and 5 BOTH clear the
+# gate on all four markets, and 3 scores better on every one. Five is chosen
+# because when two options both pass, taking the one with more data is the choice
+# that is not reaching for the scoreboard -- picking the window that maximises
+# performance on the very seasons the gate scores is how a selector overfits a
+# gate, which is the same failure `nfl.model` avoids by averaging its candidate
+# feature sets instead of selecting among them.
+#
+# Effect, measured across all four markets (failing seasons, all-history -> 5):
+#   points   3 -> 0     rebounds 0 -> 0
+#   assists  0 -> 0     threes   0 -> 0
+# Assists' worst season also improves (+0.0080 -> +0.0114); rebounds and threes
+# are unchanged. Nothing was traded away to fix points.
+#
+# NOT applied to team_winner: `games_backtest` fits an Elo, which is already
+# recency-weighted by construction through its k-factor and per-season regression
+# to the mean, and it beats home court in every one of the eleven scored seasons.
+TRAIN_SEASONS = 5
+
 # The four markets, mapped to the column that settles them. Points, rebounds and
 # assists are the three every book quotes; threes made is the fourth because it is
 # the one genuinely different shape -- a low-count count, not a continuous total.

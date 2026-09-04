@@ -83,10 +83,27 @@ def build() -> dict:
             "a fixed number' -- far more predictable than a balanced prop. It binds "
             "on 79% of assists rows and 80% of threes rows, so each market "
             "publishes both its headline and its above-the-floor number.",
-            "Points is WITHHELD: it lost to the baseline in 2023, 2024 and 2025 "
-            "and its calibration error is above the bar.",
-        ],
+        ] + withheld_caveat(ev, withheld),
     }
+
+
+def withheld_caveat(ev: dict, withheld: list) -> list:
+    """Name the withheld markets and the gate's own reason, or say nothing.
+
+    DERIVED, NEVER HARDCODED. This line used to be the literal string "Points is
+    WITHHELD: it lost to the baseline in 2023, 2024 and 2025" -- true when it was
+    written and false the moment the training window was capped and points
+    started clearing the gate. A caveat that outlives the condition it describes
+    is worse than no caveat: it is the page confidently reporting a failure that
+    is not happening any more.
+    """
+    if not withheld:
+        return []
+    out = []
+    for market in withheld:
+        why = "; ".join((ev.get(market) or {}).get("failures") or []) or "failed the gate"
+        out.append(f"{market.capitalize()} is WITHHELD: {why}.")
+    return out
 
 
 def main() -> int:

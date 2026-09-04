@@ -688,13 +688,57 @@ and never graded.
 | Market | n | Brier | Baseline | Accuracy | ECE | Released |
 |---|---|---|---|---|---|---|
 | team_winner | 13,209 | 0.2158 | 0.2458 | 65.4% | — | **yes** |
-| rebounds | 173,213 | 0.2225 | 0.2310 | 64.0% | 0.011 | **yes** |
-| assists | 173,213 | 0.1925 | 0.2111 | 70.8% | 0.031 | **yes** |
-| threes | 173,213 | 0.1858 | 0.2088 | 72.1% | 0.022 | **yes** |
-| points | 173,213 | 0.2300 | 0.2311 | 61.5% | 0.063 | **WITHHELD** |
+| rebounds | 173,213 | 0.2227 | 0.2310 | 63.9% | 0.005 | **yes** |
+| assists | 173,213 | 0.1918 | 0.2111 | 71.0% | 0.006 | **yes** |
+| threes | 173,213 | 0.1858 | 0.2088 | 72.2% | 0.008 | **yes** |
+| points | 173,213 | 0.2258 | 0.2311 | 62.9% | 0.012 | **yes** |
 
-**Points is withheld** and the gate is right to: it lost to the baseline in
-2023, 2024 AND 2025, and its ECE of 0.063 is above the bar. Only 2026 recovered.
+## Points was withheld, and the cause was DRIFT, not a bad market
+It lost to its baseline in 2023, 2024 and 2025 with an ECE of 0.063. The tell
+that this was not a weak market was that **2026 recovered on its own** (bias
+-0.5pp): a market that fixes itself once history catches up was never bad, it was
+LATE.
+
+The models trained on an expanding window of ALL prior seasons, so their
+calibration was anchored to a decade-long average scoring environment. The NBA's
+had moved. The points over-rate rose from 0.461 in 2012 to 0.555 by 2019 as the
+line -- a player's own expanding CAREER median -- fell further behind what he was
+actually scoring. Measured on the walk-forward, the model predicted **39.9% overs
+in 2024 when 53.2% landed**. Against a baseline that simply tracks recent form,
+a 13-point miscalibration loses.
+
+**`TRAIN_SEASONS = 5`** (nba/config.py) caps how far back a prop model trains.
+Calibration improved in EVERY market, which is the signature of a real fix rather
+than a lucky one:
+
+| market | ECE before | ECE after |
+|---|---|---|
+| points | 0.063 | **0.012** |
+| assists | 0.031 | 0.006 |
+| threes | 0.022 | 0.008 |
+| rebounds | 0.011 | 0.005 |
+
+Nothing was traded away: assists' worst season improved (+0.0080 -> +0.0114),
+rebounds and threes are unchanged, and no release bar, calibration threshold or
+every-season rule was touched.
+
+**FIVE was chosen over THREE deliberately.** Both clear the gate on all four
+markets and 3 scores better on every one. When two options both pass, taking the
+one with more data is the choice that is not reaching for the scoreboard --
+picking the window that maximises performance on the very seasons the gate scores
+is how a selector overfits a gate, the same failure `nfl.model` avoids by
+averaging its candidate feature sets rather than selecting among them.
+
+Not applied to team_winner: the Elo is already recency-weighted through its
+k-factor and per-season regression, and it beats home court in all eleven seasons.
+
+**THE DEEPER ISSUE IS STILL OPEN.** The line is an expanding CAREER median, which
+by `features.py`'s own stated intent should "split his own history near 50/50"
+and actually splits 55/45 in recent seasons. A rolling median tracks a player's
+current level far better (season-to-season spread of the over-rate 0.067 vs
+0.094). That is the ROOT CAUSE; the training window corrects its symptom. Fixing
+it changes the published product for all four markets, so it needs its own change
+and its own gate run.
 
 **Team winner beats home court in every one of the eleven seasons**, which is a
 stronger baseline in basketball than in football — the home side wins 54-59%

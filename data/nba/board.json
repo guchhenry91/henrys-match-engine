@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-01T03:51:45.682280+00:00",
+  "updated": "2026-09-04T19:53:07.310600+00:00",
   "season": 2026,
   "seasons_backtested": [
     2012,
@@ -22,16 +22,15 @@
   "status_note": "The model and its fifteen-season backtest are live; no fixtures are priced yet because the NBA data feed for upcoming games is not wired in. No pick on this tab is a prediction about a future game -- the numbers below are what the model scored on seasons it never saw.",
   "markets_released": [
     "assists",
+    "points",
     "rebounds",
     "threes"
   ],
-  "markets_withheld": [
-    "points"
-  ],
+  "markets_withheld": [],
   "games": [],
   "props": {
     "points": {
-      "released": false,
+      "released": true,
       "picks": []
     },
     "rebounds": {
@@ -73,12 +72,12 @@
       "above_floor": null
     },
     "points": {
-      "released": false,
+      "released": true,
       "n": 173213,
-      "brier": 0.23,
+      "brier": 0.2258,
       "baseline_brier": 0.2311,
-      "accuracy": 0.6148,
-      "ece": 0.0632,
+      "accuracy": 0.6289,
+      "ece": 0.0124,
       "seasons_scored": [
         2016,
         2017,
@@ -92,28 +91,23 @@
         2025,
         2026
       ],
-      "failures": [
-        "season 2023 did not beat the baseline",
-        "season 2024 did not beat the baseline",
-        "season 2025 did not beat the baseline",
-        "ECE 0.063 above the bar 0.040"
-      ],
+      "failures": [],
       "floor_share": 0.2726,
       "above_floor": {
         "n": 125996,
-        "brier": 0.2289,
+        "brier": 0.2236,
         "baseline_brier": 0.2301,
-        "accuracy": 0.6165,
+        "accuracy": 0.6337,
         "base_rate": 0.5397
       }
     },
     "rebounds": {
       "released": true,
       "n": 173213,
-      "brier": 0.2225,
+      "brier": 0.2227,
       "baseline_brier": 0.231,
-      "accuracy": 0.6399,
-      "ece": 0.0106,
+      "accuracy": 0.6391,
+      "ece": 0.0053,
       "seasons_scored": [
         2016,
         2017,
@@ -131,19 +125,19 @@
       "floor_share": 0.6382,
       "above_floor": {
         "n": 62662,
-        "brier": 0.2243,
+        "brier": 0.2242,
         "baseline_brier": 0.2298,
-        "accuracy": 0.6371,
+        "accuracy": 0.6363,
         "base_rate": 0.5972
       }
     },
     "assists": {
       "released": true,
       "n": 173213,
-      "brier": 0.1925,
+      "brier": 0.1918,
       "baseline_brier": 0.2111,
-      "accuracy": 0.7082,
-      "ece": 0.0314,
+      "accuracy": 0.7104,
+      "ece": 0.0058,
       "seasons_scored": [
         2016,
         2017,
@@ -161,9 +155,9 @@
       "floor_share": 0.7902,
       "above_floor": {
         "n": 36335,
-        "brier": 0.2178,
+        "brier": 0.2143,
         "baseline_brier": 0.2209,
-        "accuracy": 0.6487,
+        "accuracy": 0.6586,
         "base_rate": 0.614
       }
     },
@@ -172,8 +166,8 @@
       "n": 173213,
       "brier": 0.1858,
       "baseline_brier": 0.2088,
-      "accuracy": 0.7211,
-      "ece": 0.0221,
+      "accuracy": 0.7217,
+      "ece": 0.008,
       "seasons_scored": [
         2016,
         2017,
@@ -191,16 +185,15 @@
       "floor_share": 0.8011,
       "above_floor": {
         "n": 34458,
-        "brier": 0.2247,
+        "brier": 0.2232,
         "baseline_brier": 0.2277,
-        "accuracy": 0.6464,
+        "accuracy": 0.6502,
         "base_rate": 0.6492
       }
     }
   },
   "caveats": [
     "Lines are each player's own entering median, floored at what a book would actually quote -- not a sportsbook price. No NBA odds have been fetched, so the board makes NO claim to beat a bookmaker.",
-    "Where that floor binds, the line is a CONSTANT rather than the player's median, and the market becomes 'will a rotation player clear a fixed number' -- far more predictable than a balanced prop. It binds on 79% of assists rows and 80% of threes rows, so each market publishes both its headline and its above-the-floor number.",
-    "Points is WITHHELD: it lost to the baseline in 2023, 2024 and 2025 and its calibration error is above the bar."
+    "Where that floor binds, the line is a CONSTANT rather than the player's median, and the market becomes 'will a rotation player clear a fixed number' -- far more predictable than a balanced prop. It binds on 79% of assists rows and 80% of threes rows, so each market publishes both its headline and its above-the-floor number."
   ]
 }

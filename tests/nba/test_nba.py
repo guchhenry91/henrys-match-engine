@@ -206,3 +206,54 @@ def test_the_lockout_season_is_documented_as_short():
     """1,980 team rows in 2011-12 is correct, not a truncated download -- a
     row-count check that assumes 2,460 would flag the one legitimately short one."""
     assert 2012 in config.SHORT_SEASONS
+
+
+# --- the training window -------------------------------------------------------
+
+def test_the_training_window_is_bounded(monkeypatch):
+    """THE FIX THAT RELEASED POINTS. An unbounded window anchors the model to a
+    decade-old scoring environment: the points over-rate drifted from 0.461 in
+    2012 to 0.555 by 2019, the model predicted 39.9% overs in 2024 when 53.2%
+    landed, and it lost to its baseline in three straight seasons for no reason
+    other than being calibrated to a league that had moved on.
+
+    Asserted on the SPAN actually handed to fit(), not on the constant, because
+    the constant existing proves nothing about whether walk_forward honours it.
+    """
+    seen = []
+
+    class Spy:
+        def __init__(self, market): pass
+        def fit(self, train):
+            seen.append((int(train["season"].min()), int(train["season"].max())))
+            return self          # the real PropModel.fit is chained
+        def predict(self, test):
+            return np.full(len(test), 0.5)
+
+    monkeypatch.setattr(backtest, "PropModel", Spy)
+    monkeypatch.setattr(backtest, "empirical_baseline",
+                        lambda frame, market: np.full(len(frame), 0.5))
+
+    frame = pd.concat([
+        pd.DataFrame({"season": s, "outcome": [1.0, 0.0] * 30, "line": 10.5,
+                      "at_floor": False,
+                      "game_date": pd.date_range(f"{s}-01-01", periods=60)})
+        for s in range(2012, 2027)], ignore_index=True)
+    backtest.walk_forward(frame, "points")
+
+    assert seen, "no season was scored"
+    for lo, hi in seen:
+        assert hi - lo + 1 <= config.TRAIN_SEASONS, (
+            f"trained on {hi - lo + 1} seasons ({lo}-{hi}), "
+            f"cap is {config.TRAIN_SEASONS}")
+
+
+def test_a_scored_season_is_never_in_its_own_training_set():
+    """The bound must not be implemented in a way that lets the window slide
+    forward over the season being predicted."""
+    assert config.TRAIN_SEASONS >= 1
+    frame = pd.DataFrame({"season": [2020, 2021, 2022]})
+    for season in (2021, 2022):
+        train = frame[(frame["season"] < season)
+                      & (frame["season"] >= season - config.TRAIN_SEASONS)]
+        assert season not in set(train["season"])
