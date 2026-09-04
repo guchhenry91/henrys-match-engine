@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-04T21:07:55.364908+00:00",
-  "results_updated": "2026-09-04T21:07:55.364913+00:00",
+  "results_updated": "2026-09-04T23:02:37.019650+00:00",
   "record": {
     "correct": 15,
-    "wrong": 8,
-    "total": 23,
+    "wrong": 9,
+    "total": 24,
     "void": 6,
     "pending": 0,
     "by_confidence": {
       "2": {
         "correct": 5,
-        "total": 10
-      },
-      "1": {
-        "correct": 4,
-        "total": 5
+        "total": 11
       },
       "3": {
         "correct": 4,
         "total": 6
+      },
+      "1": {
+        "correct": 4,
+        "total": 5
       },
       "5": {
         "correct": 2,
@@ -44,268 +44,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 33,
-      "matchweek": 4,
-      "date": "2026-09-04T19:00:00+00:00",
-      "venue": "Estadio La Cartuja",
-      "home": "Betis",
-      "away": "Real Madrid",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.338,
-        "p_draw": 0.255,
-        "p_away": 0.407,
-        "pick": "Real Madrid",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.1,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 9.3,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 8.7,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.407,
-        "why": {
-          "home_attack_pct": 16.1,
-          "home_defence_pct": 10.0,
-          "away_attack_pct": 53.8,
-          "away_defence_pct": 29.8,
-          "home_advantage_pct": 37.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Betis 34% / draw 25% / Real Madrid 41%",
-          "Expected goals: 1.30 - 1.45"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": [
-            "Ferland Mendy"
-          ]
-        }
-      },
-      "props": [
-        {
-          "team": "Betis",
-          "player": "Isco",
-          "position": "MF",
-          "lambda_goals": 0.24419933599009286,
-          "anytime_pct": 11.1,
-          "exp_shots": 1.49,
-          "p_shots_2plus": 19.9,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 28.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Betis",
-          "player": "Juan Camilo Hern\u00e1ndez",
-          "position": "FW",
-          "lambda_goals": 0.21968877695453382,
-          "anytime_pct": 9.4,
-          "exp_shots": 2.13,
-          "p_shots_2plus": 37.1,
-          "exp_sot": 0.62,
-          "p_sot_1plus": 31.7,
-          "appearance_pct": 82.5,
-          "expected_minutes": 67.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Betis",
-          "player": "Antony",
-          "position": "FW",
-          "lambda_goals": 0.21213940381077565,
-          "anytime_pct": 9.3,
-          "exp_shots": 2.47,
-          "p_shots_2plus": 50.7,
-          "exp_sot": 0.94,
-          "p_sot_1plus": 50.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 78.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Kylian Mbappe-Lottin",
-          "position": "FW",
-          "lambda_goals": 0.45267214546611245,
-          "anytime_pct": 21.7,
-          "exp_shots": 2.95,
-          "p_shots_2plus": 50.7,
-          "exp_sot": 1.36,
-          "p_sot_1plus": 55.8,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Vin\u00edcius J\u00fanior",
-          "position": "FW",
-          "lambda_goals": 0.2507915146997238,
-          "anytime_pct": 11.3,
-          "exp_shots": 2.09,
-          "p_shots_2plus": 38.2,
-          "exp_sot": 0.9,
-          "p_sot_1plus": 46.9,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Carlos Esp\u00ed",
-          "position": "FW",
-          "lambda_goals": 0.1737847264495178,
-          "anytime_pct": 6.7,
-          "exp_shots": 1.1,
-          "p_shots_2plus": 11.3,
-          "exp_sot": 0.45,
-          "p_sot_1plus": 21.3,
-          "appearance_pct": 65.0,
-          "expected_minutes": 34.5,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.558,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 21.7,
-          "exp_shots": 2.95,
-          "exp_sot": 1.36,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            0,
-            2,
-            3,
-            7
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 2.671982045277778,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Antony",
-          "team": "Betis",
-          "position": "FW",
-          "p_pick": 0.507,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 78.0,
-          "anytime_pct": 9.3,
-          "exp_shots": 2.47,
-          "exp_sot": 0.94,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            3,
-            2,
-            5,
-            3,
-            4
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 2.671981948055555,
-          "unavailable": false,
-          "team_attribution": "Betis"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.507,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 21.7,
-          "exp_shots": 2.95,
-          "exp_sot": 1.36,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            4,
-            5,
-            5,
-            3,
-            7
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 2.671982003333333,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        }
-      ],
-      "market": {
-        "p_home": 0.149,
-        "p_draw": 0.186,
-        "p_away": 0.664,
-        "odds": {
-          "home": 7.0,
-          "draw": 5.25,
-          "away": 1.38
-        },
-        "book": "bet365",
-        "edge": -0.257,
-        "pick_odds": 1.38,
-        "ev": -0.438
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 32,
       "matchweek": 4,
@@ -6223,13 +5961,24 @@
     },
     {
       "team": "Real Madrid",
-      "played": 3,
+      "played": 4,
       "won": 3,
       "drawn": 0,
-      "lost": 0,
+      "lost": 1,
       "gf": 10,
-      "ga": 2,
-      "gd": 8,
+      "ga": 3,
+      "gd": 7,
+      "points": 9
+    },
+    {
+      "team": "Betis",
+      "played": 4,
+      "won": 3,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 5,
+      "ga": 5,
+      "gd": 0,
       "points": 9
     },
     {
@@ -6274,17 +6023,6 @@
       "gf": 6,
       "ga": 5,
       "gd": 1,
-      "points": 6
-    },
-    {
-      "team": "Betis",
-      "played": 3,
-      "won": 2,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 4,
-      "ga": 5,
-      "gd": -1,
       "points": 6
     },
     {
