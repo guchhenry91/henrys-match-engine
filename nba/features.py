@@ -95,8 +95,22 @@ def build(player_games: pd.DataFrame, market: str) -> pd.DataFrame:
     frame["opp5"] = frame["opp_allowed"].fillna(frame["opp_allowed"].mean())
 
     # THE LINE, on the half point, floored by what a book would actually quote.
+    #
+    # THE MEDIAN IS ROUNDED TO A WHOLE NUMBER FIRST, and that is a fix rather than
+    # a detail. It used to be rounded to the nearest HALF (`(median*2).round()/2`),
+    # so a median of 12.5 plus the +0.5 offset produced a line of 13.0 -- an
+    # INTEGER. 9,625 points lines (4.1%) came out whole, and on a whole line a
+    # result can land exactly on it: 528 rows scored exactly their line and every
+    # one was graded a LOSS, because `outcome` is `stat > line`. The module
+    # docstring's claim that "there is never a push to settle" was false, and
+    # test_lines_are_always_on_the_half_point passed only because its synthetic
+    # medians happened to be whole.
+    #
+    # An integer median plus a half-point offset is always a half-point line, so
+    # the tie cannot arise. The bias was small -- 0.23% of rows, all in the same
+    # direction -- but it was a silent thumb on the scale against every over.
     median = _prior_median(frame, stat)
-    frame["line"] = (median * 2).round() / 2 + config.LINE_OFFSET[market]
+    frame["line"] = np.floor(median + 0.5) + config.LINE_OFFSET[market]
     frame["line"] = frame["line"].clip(lower=config.MIN_LINE[market])
     frame["outcome"] = (frame[stat] > frame["line"]).astype(float)
 

@@ -87,9 +87,32 @@ def test_every_market_has_a_floor_and_an_offset():
 
 
 def test_lines_are_always_on_the_half_point():
-    """No result can land exactly on a line, so there is never a push."""
-    frame = features.build(_rows(1, [7.0, 9.0] * 15), "points")
-    assert ((frame["line"] * 2) % 2 == 1).all()
+    """No result can land exactly on a line, so there is never a push.
+
+    THE VALUES MATTER. This used to alternate 7 and 9, whose running median is a
+    WHOLE number (8), so the line came out on the half point no matter how the
+    rounding worked and the test could not fail. Alternating 7 and 8 gives a
+    median of 7.5, which is exactly the case that used to produce an INTEGER line
+    -- 9,625 of them on the real points frame, 528 of which a player matched
+    exactly and was graded a loss for.
+
+    A test whose fixture cannot produce the failure is not testing for it.
+    """
+    for values in ([7.0, 8.0] * 15, [7.0, 9.0] * 15, [3.0, 4.0, 5.0] * 10):
+        frame = features.build(_rows(1, values), "points")
+        assert ((frame["line"] * 2) % 2 == 1).all(), (
+            f"integer line from {values[:2]}: "
+            f"{sorted(set(frame['line'][((frame['line'] * 2) % 2) == 0]))}")
+
+
+def test_a_result_can_never_land_exactly_on_its_line():
+    """The consequence, asserted directly: `outcome` is `stat > line`, so an
+    exact tie grades as a LOSS. That is a silent thumb on the scale against every
+    over, and the only thing preventing it is the half-point line."""
+    for market in config.MARKETS:
+        stat = config.MARKETS[market]
+        frame = features.build(_rows(1, [4.0, 5.0, 6.0] * 12, stat=stat), market)
+        assert not (frame[stat] == frame["line"]).any()
 
 
 # --- the outcome --------------------------------------------------------------
