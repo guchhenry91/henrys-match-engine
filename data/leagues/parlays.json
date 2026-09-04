@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-04T14:14:34.073400+00:00",
+  "updated": "2026-09-04T15:03:50.423282+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5638,
+          "combined": 0.5637,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -28,7 +28,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6992,
+              "p": 0.6991,
               "id": "BUNDESLIGA#11#w",
               "date": "2026-09-05T16:30:00+00:00"
             }
@@ -68,7 +68,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6992,
+              "p": 0.6991,
               "id": "BUNDESLIGA#11#w",
               "date": "2026-09-05T16:30:00+00:00"
             },
@@ -176,7 +176,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0135,
+          "combined": 0.0045,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -209,6 +209,16 @@
               "date": "2026-09-05T14:00:00+00:00"
             },
             {
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v FC Koln",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.59,
+              "id": "BUNDESLIGA#18#shots#Deniz Undav",
+              "date": "2026-09-04T18:30:00+00:00"
+            },
+            {
               "selection": "Alexander Isak 1+ shot on target",
               "match": "Ipswich v Liverpool",
               "league": "Premier League",
@@ -217,6 +227,16 @@
               "p": 0.587,
               "id": "PL#27#sot#Alexander Isak",
               "date": "2026-09-04T19:00:00+00:00"
+            },
+            {
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Schalke 04 v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.561,
+              "id": "BUNDESLIGA#11#shots#Harry Kane",
+              "date": "2026-09-05T16:30:00+00:00"
             },
             {
               "selection": "Kylian Mbappe-Lottin 1+ shot on target",
@@ -260,7 +280,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-04T14:14:34.073400+00:00"
+          "locked_at": "2026-09-04T15:03:50.423282+00:00"
         }
       ]
     },
@@ -346,7 +366,7 @@
     "wrong": 16,
     "void": 47,
     "total": 22,
-    "pending": 18
+    "pending": 19
   },
   "settled": [
     {
