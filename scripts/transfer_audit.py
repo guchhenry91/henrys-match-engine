@@ -25,11 +25,14 @@ from pathlib import Path
 
 import pandas as pd
 
-from leagues import players, props
+from leagues import config, players, props
 from leagues.players import _player_key as key, _name_tokens, _forenames_compatible, _PARTICLES
 
 ROOT = Path(__file__).resolve().parents[1]
-LEAGUES = ["PL", "LALIGA", "BUNDESLIGA", "LIGUE1"]
+# Driven by config, not a literal. Serie A was added as the fifth league and
+# this list was not, so for its whole life it was audited by nothing at all --
+# a hardcoded list silently opts a new league OUT of the check it needs most.
+LEAGUES = list(config.LEAGUES)
 
 
 def _index(roster: dict) -> list[tuple]:
@@ -68,7 +71,19 @@ def _candidates(uname: str, ulg: str, uclub: str, idx: list[tuple]) -> list[tupl
 def run() -> dict:
     roster = json.load(open(ROOT / "data-raw/leagues/rosters.json", encoding="utf-8"))
     idx = _index(roster)
-    report = {"same_league": [], "cross_league": [], "checked": 0}
+    report = {"same_league": [], "cross_league": [], "ambiguous": [],
+              "orphan_targets": [], "checked": 0}
+
+    # An override naming a club that is not in the league sends the player
+    # nowhere: he is dropped exactly as if the entry said null, so the mistake
+    # costs nothing at runtime and shows up in no output -- which is why two of
+    # them (West Ham, Nantes, both relegated) sat in the file unnoticed. Cheap to
+    # check, and the only thing standing between a typo'd club and a silent drop.
+    for lg in LEAGUES:
+        clubs = set(roster.get(lg) or {})
+        for player, club in (players.load_transfers(lg) or {}).items():
+            if club and club not in clubs:
+                report["orphan_targets"].append(f"{lg}: {player} -> {club!r} is not a {lg} club")
 
     for lg in LEAGUES:
         overrides = set(players.load_transfers(lg) or {})
@@ -76,8 +91,32 @@ def run() -> dict:
         squad = players.current_squad(logs)
         rates = props.player_rates(logs, ref=pd.Timestamp.now("UTC").tz_localize(None))
         rates = rates[rates["player"].isin(squad)]
-        safe, _inc, unmatched, _amb = players.reconcile_rates_to_roster(rates, lg)
+        safe, _inc, unmatched, ambiguous = players.reconcile_rates_to_roster(rates, lg)
+        # THE RECONCILER ALREADY KNOWS which abbreviated names are shared by two
+        # clubs, and refuses to guess between them -- that is why both men land in
+        # `unmatched`. Reading only `unmatched` and ignoring `ambiguous` threw that
+        # knowledge away and re-guessed: Lorenzo Pellegrini (Roma) and Luca
+        # Pellegrini (Lazio) were proposed as transferring INTO each other's club,
+        # in both directions, off one shared 'L. Pellegrini'. Same shape as the
+        # Alvaro Garcia/Alvaro Fernandez pair in the docstring, but this time the
+        # pipeline had already caught it and the audit un-caught it.
+        # Keyed on the CLUB PAIR plus the shared surname, not on the name string:
+        # the reconciler reports the roster spelling ("M. Pessina") while the scan
+        # holds the Understat spelling ("Massimo Pessina"), so comparing the two
+        # name keys directly never matches and the guard silently does nothing.
+        ambiguous_pairs = set()
+        for a in ambiguous:
+            clubs, _, shared = a.partition(": ")
+            if not shared or "/" not in clubs:
+                continue
+            c1, c2 = clubs.split("/", 1)
+            surnames = {tok for tok in _name_tokens(shared)[1:]
+                        if len(tok) >= 4 and tok not in _PARTICLES}
+            for s in surnames:
+                ambiguous_pairs.add((c1, c2, s))
+                ambiguous_pairs.add((c2, c1, s))
         report["checked"] += len(rates)
+        report["ambiguous"] += [f"{lg}: {a}" for a in ambiguous]
 
         for u in unmatched:
             club, name = u.split("/", 1)
@@ -87,6 +126,10 @@ def run() -> dict:
             if len(hits) != 1:
                 continue                       # 0 = gone; >1 = ambiguous, never guess
             tlg, tclub, tname = hits[0]
+            surnames = {tok for tok in _name_tokens(name)[1:]
+                        if len(tok) >= 4 and tok not in _PARTICLES}
+            if any((club, tclub, s) in ambiguous_pairs for s in surnames):
+                continue                       # two men share this name; never guess
             row = rates[(rates["player"] == name) & (rates["team"] == club)]
             if row.empty:
                 continue
@@ -130,6 +173,16 @@ def main():
               f"{c['league']}/{c['from']:<16} {c['player'][:22]:<22} -> {c['to_league']}/{c['to']}")
     if len(rep["cross_league"]) > 10:
         print(f"        ... and {len(rep['cross_league']) - 10} more")
+    if rep.get("orphan_targets"):
+        print(f"\n=== ORPHAN OVERRIDE TARGETS ({len(rep['orphan_targets'])}) -- "
+              f"these silently drop the player ===")
+        for o in rep["orphan_targets"]:
+            print(f"        {o}")
+    if rep.get("ambiguous"):
+        print(f"\n=== REFUSED as ambiguous ({len(rep['ambiguous'])}) -- "
+              f"two clubs share the name ===")
+        for a in rep["ambiguous"]:
+            print(f"        {a}")
     print("\nCANDIDATES ONLY -- verify each against two independent sources or an "
           "official announcement before writing. And run a news pass for the last "
           "~72h, which this scan cannot see.")
