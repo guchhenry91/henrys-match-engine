@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-09-03",
+  "_verified_on": "2026-09-04",
   "LALIGA": {
     "Sociedad|Espanol": {
       "home_goals": 2,
@@ -749,7 +749,17 @@
       "sources": [
         "API-Football fixture 1552754: Toulouse 0-1 Lille, status FT"
       ]
-    }
+    },
+    "Lyon|Auxerre": {
+      "home_goals": 3,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "ESPN match page (gameId 401876472, dated Sep 4 2026): Lyon 3-1 Auxerre, Full Time, goals Bacher 28', Athekame 31', Nuamah 53' vs Archer 42'",
+        "FOX Sports boxscore (878557): Lyon 3, AJ Auxerre 1, Full Time"
+      ],
+      "_note": "Web search summaries initially disagreed (3-2 per an aggregated snippet, 3-1 per footmercato/foot-direct) and a stale/wrong ESPN gameId (706504, no date, listing Villarreal's Mikautadze as a Lyon scorer) returned a bogus 2-2. Fetched the correctly-dated ESPN gameId directly plus FOX Sports; both independently agree 3-1 FT with matching goalscorers."
+      }
   },
   "_corrections": [
     {
