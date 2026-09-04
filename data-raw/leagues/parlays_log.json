@@ -628,6 +628,49 @@
     "locked_at": "2026-09-04T20:50:52.356980+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#11#shots#Harry Kane|LALIGA#39#shots#Lamine Yamal|LALIGA#40#sot#Georges Mikautadze|PL#22#sot#Thiago|PL#24#sot#Matheus Cunha|PL#28#sot#Erling Haaland|SERIEA#25#shots#Nico Paz": {
+    "combined": 0.023,
+    "earliest_kickoff": "2026-09-04T18:45:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#sot#Erling Haaland",
+        "p": 0.686,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#39#shots#Lamine Yamal",
+        "p": 0.639,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "PL#22#sot#Thiago",
+        "p": 0.623,
+        "selection": "Thiago 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#11#shots#Harry Kane",
+        "p": 0.561,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#40#sot#Georges Mikautadze",
+        "p": 0.553,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "SERIEA#25#shots#Nico Paz",
+        "p": 0.526,
+        "selection": "Nico Paz 2+ shot attempts"
+      },
+      {
+        "id": "PL#24#sot#Matheus Cunha",
+        "p": 0.517,
+        "selection": "Matheus Cunha 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-04T23:08:46.332910+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#11#w|LALIGA#24#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop": {
     "combined": 0.1698,
     "earliest_kickoff": "2026-08-31T19:30:00+00:00",
@@ -2507,6 +2550,29 @@
       }
     ],
     "locked_at": "2026-08-22T11:19:36.603696+00:00",
+    "tainted": false
+  },
+  "PL#22#sot#Thiago|PL#24#sot#Matheus Cunha|PL#28#w": {
+    "combined": 0.2595,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#w",
+        "p": 0.8056,
+        "selection": "Manchester City to win"
+      },
+      {
+        "id": "PL#22#sot#Thiago",
+        "p": 0.623,
+        "selection": "Thiago 1+ shot on target"
+      },
+      {
+        "id": "PL#24#sot#Matheus Cunha",
+        "p": 0.517,
+        "selection": "Matheus Cunha 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-04T23:08:46.332910+00:00",
     "tainted": false
   },
   "PL#22#sot#Thiago|PL#27#sot#Alexander Isak|PL#28#w": {
