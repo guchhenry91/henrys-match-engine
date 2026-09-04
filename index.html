@@ -159,6 +159,17 @@
   .mk.w{color:var(--amber);background:rgba(255,190,61,.12);border-color:rgba(255,190,61,.28)}
   .mk.r{color:#ff8f6a;background:rgba(255,143,106,.12);border-color:rgba(255,143,106,.26)}
   .mk.p{color:#6ab8ff;background:rgba(106,184,255,.12);border-color:rgba(106,184,255,.26)}
+  /* Confidence band. Same chip shape as .mk so a row reads as one object, but
+     a distinct colour ramp: these are the model's own bands, cold for a coin
+     flip and warm as it commits. */
+  .cf{font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;
+    border-radius:8px;flex:0 0 auto;white-space:nowrap}
+  .cf.c5{color:var(--lime);background:rgba(57,229,127,.14);border:1px solid rgba(57,229,127,.28)}
+  .cf.c4{color:var(--cyan);background:rgba(0,183,103,.12);border:1px solid rgba(0,183,103,.24)}
+  .cf.c3{color:#6ab8ff;background:rgba(106,184,255,.12);border:1px solid rgba(106,184,255,.26)}
+  .cf.c2{color:var(--amber);background:rgba(255,190,61,.12);border:1px solid rgba(255,190,61,.26)}
+  .cf.c1{color:#ff8f6a;background:rgba(255,143,106,.12);border:1px solid rgba(255,143,106,.26)}
+  .cf.c0{color:var(--sub);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
   /* Last five games. Tabular figures so the column of numbers reads as a series
      rather than ragged text, and a filled chip where the game beat the line --
      the shape of a player's form should be legible before any number is read. */
@@ -641,21 +652,139 @@ function render(k){
   app.innerHTML=staleBanner()+h;window.scrollTo(0,0);
 }
 
+// CONFIDENCE, THE ONE THE RECORD IS KEPT BY. These are leagues/publish.py's
+// _confidence() bands (>=.70, .60, .50, .40), which is what every payload's
+// `confidence` field holds and what Grades calibrates against.
+//
+// Deliberately NOT tierOf(), which is a second, three-way scheme (>=.75 Elite,
+// >=.68 Strong, else Lean) used on the Best rows. The two disagree: a 72% pick
+// is band 5 "Elite" in the record and "Strong" to tierOf, a 55% pick is "Even"
+// in the record and "Lean" to tierOf. A tag whose accuracy has never been
+// measured is worse than no tag, so today's board wears the measured one.
+const CONF={5:{n:"Elite",r:"70%+"},4:{n:"Strong",r:"60–70%"},3:{n:"Even",r:"50–60%"},
+  2:{n:"Lean",r:"40–50%"},1:{n:"Longshot",r:"under 40%"}};
+
+// Mirrors _confidence() exactly. Only needed where a payload does not already
+// carry the field -- the NFL board publishes p_pick but no band.
+function confOf(p){
+  if(p==null||!Number.isFinite(Number(p))) return null;
+  const v=Number(p);
+  return v>=.70?5:v>=.60?4:v>=.50?3:v>=.40?2:1;
+}
+function confTag(c){
+  if(!c||!CONF[c]) return `<span class="cf c0" title="no model probability">—</span>`;
+  return `<span class="cf c${c}" title="${CONF[c].r}">${CONF[c].n}</span>`;
+}
+
+// The reader's own calendar day, matching whenStr's "Today". A fixture at 00:20
+// UTC is not on the same DATE for a reader in London and one in Los Angeles, and
+// the tab has to agree with the clock the reader is looking at.
+function isToday(iso){
+  const d=new Date(iso); if(isNaN(d)) return false;
+  const n=new Date();
+  return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth()&&d.getDate()===n.getDate();
+}
+
+// EVERY fixture today, per competition -- played, in progress and still to come.
+// A "Today" tab that hides this morning's finished games is not showing today.
+function todayFixtures(){
+  const comps=[];
+  Object.keys(FILES).forEach(k=>{
+    const rows=(((DATA[FILES[k]]||{}).matches)||[]).filter(m=>isToday(m.date)).map(m=>{
+      const pr=m.prediction||{};
+      return {home:m.home, away:m.away, date:m.date, pick:pr.pick,
+              p:pr.p_pick, conf:pr.confidence!=null?pr.confidence:confOf(pr.p_pick),
+              result:m.result, graded:m.graded, void:m.void,
+              go:`openMatch('${k}',${m.id})`, colour:LC[k]};
+    });
+    comps.push({name:LG[k], colour:LC[k], rows, sport:"Football"});
+  });
+
+  const ucl=(((DATA.ucl||{}).matches)||[]).filter(m=>isToday(m.kickoff||m.date)).map(m=>({
+    home:m.home, away:m.away, date:m.kickoff||m.date, pick:m.pick, p:m.p_pick,
+    conf:m.confidence!=null?m.confidence:confOf(m.p_pick),
+    result:m.result, graded:m.graded, go:`go('UCL')`, colour:"#8b7bff"}));
+  comps.push({name:"Champions League", colour:"#8b7bff", rows:ucl, sport:"Football"});
+
+  const nfl=(((DATA.nfl||{}).games)||[]).filter(g=>isToday(g.kickoff)).map(g=>({
+    home:g.home, away:g.away, date:g.kickoff, pick:g.pick, p:g.p_pick,
+    // The NFL board publishes a probability and no band, so it is computed here
+    // with the same thresholds rather than given a scheme of its own.
+    conf:confOf(g.p_pick), result:g.result, graded:g.graded,
+    go:`go('NFL')`, colour:nc(g.home)}));
+  comps.push({name:"NFL", colour:"#37a9e6", rows:nfl, sport:"NFL"});
+
+  const nba=(((DATA.nba||{}).games)||[]).filter(g=>isToday(g.date||g.kickoff)).map(g=>({
+    home:g.home, away:g.away, date:g.date||g.kickoff, pick:g.pick, p:g.p_pick,
+    conf:confOf(g.p_pick), go:`go('NBA')`, colour:"#ff8f6a"}));
+  comps.push({name:"NBA", colour:"#ff8f6a", rows:nba, sport:"NBA",
+              // NBA has a model and fifteen seasons of validation but no fixture
+              // feed, so "no games today" would be a lie -- there are games, the
+              // board simply cannot see them. Say which it is.
+              blocked:((DATA.nba||{}).status==="evidence_only")
+                ? "No fixture feed wired in yet, so today’s NBA slate cannot be listed or priced."
+                : null});
+  return comps;
+}
+
+function todayRow(r){
+  const t=new Date(r.date);
+  const time=isNaN(t)?"":t.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
+  const score=r.result?`${r.result.home_goals}-${r.result.away_goals}`:null;
+  // A finished game shows what happened and how the pick did; an upcoming one
+  // shows the pick. Both show the confidence the model actually staked.
+  const sub=score
+    ? `${time} · final ${score}${r.pick?` · pick ${esc(r.pick)}`:""}`
+    : `${time}${r.pick?` · pick ${esc(r.pick)}`:" · no pick"}`;
+  const verdict=r.void?`<span class="res void">void</span>`
+    : r.graded?`<span class="res ${r.graded}">${r.graded}</span>`:"";
+  return `<div class="rw" onclick="${r.go}"><span class="lgtag" style="background:${r.colour}"></span>
+    <div class="info"><b>${esc(r.home)} v ${esc(r.away)}</b><span>${sub}</span></div>
+    ${confTag(r.conf)}
+    <div class="conf" style="min-width:64px"><b>${r.p!=null?pc(r.p)+"%":"—"}</b>
+      <div class="bar"><i style="width:${r.p!=null?pc(r.p):0}%"></i></div></div>
+    ${verdict||'<span class="chev">›</span>'}</div>`;
+}
+
 function viewToday(){
+  const comps=todayFixtures();
+  const total=comps.reduce((n,c)=>n+c.rows.length,0);
   const best=DATA.best||{}, up=best.upcoming||[];
-  if(!up.length) return emptyState();
-  const d=up[0];
-  const players=(DATA.player_picks||{}).upcoming||[];
   const rec=best.record||{correct:0,wrong:0};
-  const days=daysToKickoff(up);
-  let h=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
+  const played=comps.reduce((n,c)=>n+c.rows.filter(r=>r.result).length,0);
+
+  let h=`<div class="tiles"><div class="glass tile"><div class="k grad">${total}</div><div class="l">Games today</div></div>
+    <div class="glass tile"><div class="k">${played}</div><div class="l">Played</div></div>
+    <div class="glass tile"><div class="k">${rec.correct}–${rec.wrong}</div><div class="l">Record</div></div></div>`;
+
+  // The top pick still leads the tab, but only when it is actually TODAY.
+  // Heroing a fixture three days out on a tab called "Today" is the kind of
+  // small dishonesty that makes a reader stop trusting the rest of the page.
+  const d=up.find(u=>isToday(u.date));
+  if(d) h+=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick today</div>
     <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b> · ${whenStr(d.date)}</div>
     <div class="num"><b>${pc(d.p_pick)}%</b><span>win probability</span></div><div class="go">Tap for full breakdown ›</div></div>`;
-  h+=`<div class="tiles"><div class="glass tile"><div class="k grad">${up.length+players.length}</div><div class="l">Live picks</div></div>
-    <div class="glass tile"><div class="k">${rec.correct}–${rec.wrong}</div><div class="l">Record</div></div>
-    <div class="glass tile"><div class="k">${days==null?"—":days+"d"}</div><div class="l">To kickoff</div></div></div>`;
-  h+=`<div class="eyebrow">Best of the board</div><div class="glass rowc">${up.slice(1,4).map(bestRow).join("")||emptyRow("No more picks yet")}</div>`;
-  if(players.length){h+=`<div class="eyebrow">Top player picks</div><div class="glass rowc">${players.slice(0,3).map(playerRow).join("")}</div>`;}
+
+  if(!total && !comps.some(c=>c.blocked))
+    h+=`<div class="glass stat"><div class="k">No games</div><div class="l">Nothing is scheduled in any competition today.</div></div>`;
+
+  // EVERY competition gets a line, including the empty ones. A section that
+  // silently disappears on a quiet day is indistinguishable from one that broke,
+  // and the reader cannot tell "no games" from "we failed to load them".
+  for(const c of comps){
+    if(!c.rows.length && !c.blocked){
+      h+=`<div class="eyebrow mt">${esc(c.name)}</div><div class="glass rowc">${emptyRow("No games today")}</div>`;
+      continue;
+    }
+    h+=`<div class="eyebrow mt">${esc(c.name)}${c.rows.length?` · ${c.rows.length} game${c.rows.length===1?"":"s"}`:""}</div>`;
+    if(c.blocked){ h+=`<div class="glass rowc">${emptyRow(c.blocked)}</div>`; continue; }
+    h+=`<div class="glass rowc">${c.rows
+      .sort((a,b)=>new Date(a.date)-new Date(b.date)).map(todayRow).join("")}</div>`;
+  }
+
+  h+=`<p class="note">Confidence bands are the model's own — ${Object.keys(CONF).sort((a,b)=>b-a)
+    .map(k=>`<b>${CONF[k].n}</b> ${CONF[k].r}`).join(" · ")} — and are the same bands the Grades tab
+    checks its record against, so a label here means what it says there.</p>`;
   return h+archiveLink();
 }
 
