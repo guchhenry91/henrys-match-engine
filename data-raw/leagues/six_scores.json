@@ -1,15 +1,15 @@
 {
   "_note": "bet365's 6 Scores Challenge selection. bet365 PRE-SELECT the six Premier League fixtures each week -- you cannot choose them -- and there is no feed for them, so this file is filled in from their published list. Keys are 'Home|Away' in CANONICAL club names as they appear in data/leagues/pl.json. Leave `fixtures` empty when the week's six are not published yet: the board then says so rather than inventing a selection.",
   "_expectation": "MEASURED, not hoped for. On the held-out season the model's correct-score accuracy in the Premier League is 11.84% per fixture, against 12.37% for simply writing 1-1 on every line (scripts/correct_score_check.py). Expect ~0.7 correct out of 6, with 3+ correct in roughly 3% of weeks. This board is published as an honest test of that, not as a tip sheet.",
-  "_verified_on": "2026-08-27",
-  "matchweek": 2,
+  "_verified_on": "2026-09-04",
+  "matchweek": 3,
   "fixtures": [
-    "Bournemouth|Everton",
-    "Coventry|Hull",
-    "Tottenham|Newcastle United",
-    "Chelsea|Brighton",
-    "Leeds|Brentford",
-    "Manchester United|Ipswich"
+    "Brighton|Leeds",
+    "Fulham|Crystal Palace",
+    "Nottingham Forest|Tottenham",
+    "Hull|Aston Villa",
+    "Everton|Manchester United",
+    "Arsenal|Chelsea"
   ],
-  "_source": "aceodds.com bet365 6 Scores Challenge page, 2026-08-27 -- all six fixtures cross-checked against our own matchweek-2 pl.json schedule (dates/kickoffs match exactly)"
+  "_source": "aceodds.com bet365 6 Scores Challenge page, 2026-09-04 -- all six fixtures dated 5th/6th September 2026 and cross-checked against our own matchweek-3 pl.json schedule (dates/kickoffs match exactly). everytip.co.uk was checked first and rejected: it served last week's matchweek-2 selection (Bournemouth-Everton etc.) unchanged, the exact stale-page failure mode this step warns about."
 }
