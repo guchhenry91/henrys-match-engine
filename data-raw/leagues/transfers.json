@@ -12,9 +12,12 @@
    "Brennan Johnson (scan target)": "Ipswich (WRONG -- roster has two 'B. Johnson'. Real move is Crystal Palace -> Everton, swap for Dwight McNeil. Written as Everton.)"
   },
   "SERIEA": {
-   "note": "Serie A had NO transfer block at all until 2026-09-01 -- it was added as the fifth league and scripts/transfer_audit.py kept a hardcoded four-league list, so every Serie A move went unaudited for the league's whole life.",
-   "Lorenzo Pellegrini / Luca Pellegrini": "NOT a transfer. Two different men sharing 'L. Pellegrini' at Roma and Lazio; the scan proposed them into each other's club in BOTH directions. The reconciler had already flagged the pair ambiguous and the audit was ignoring that -- now fixed.",
-   "Massimo Pessina, Lorenzo Colombo": "Refused as ambiguous (Bologna/Monza, Genoa/Monza)."
+   "M. Pessina (Bologna/Monza)": "REFUSED as ambiguous -- two Serie A clubs field the name and the reconciler cannot tell which man the roster row is. Never guessed.",
+   "L. Colombo (Genoa/Monza)": "REFUSED as ambiguous, same reason.",
+   "L. Pellegrini (Lazio/Roma)": "REFUSED as ambiguous, and this is the one that proves the guard earns its keep: Lorenzo Pellegrini (Roma) and Luca Pellegrini (Lazio) are different men, neither moved, and the scan once proposed each as transferring into the other's club -- two invented transfers from one shared abbreviation.",
+   "_note_on_from_clubs": "For Ngonge and Fadera the audit's FROM club is Understat's last-season club, which was a LOAN club rather than the parent: Ngonge's registration was Napoli's (via Torino then Espanyol) and Fadera's was Como's (via Sassuolo). That does not affect the override, which records where a player IS now, but it means the scan's 'from' is not evidence of anything and must not be read as such.",
+   "Daniele Rugani (Fiorentina/Juventus)": "HELD -- sources contradict. The Feb 2026 loan's obligation to buy needed five 45-minute appearances and he made two, so reporting says he returned to Juventus, and the roster agrees. But a separate report has an OFFICIAL permanent move to Fiorentina for EUR2.5m in summer 2026. One of those is wrong and nothing here can say which, so nothing is written.",
+   "Seydou Fini (Genoa/Frosinone)": "HELD -- cannot separate the January 2026 loan to Frosinone, when Frosinone were in SERIE B, from a possible new 2026-27 one. Frosinone are in Serie A now, so the roster listing him there is consistent with either. 0.5x90, so no board impact either way."
   },
   "ORPHAN_TARGETS_FIXED": "Adama Traore was written as 'West Ham' and Mathieu Cafaro as 'Nantes'. Both clubs were relegated and are not in the 2026-27 rosters, so the override pointed at a club outside its own league -- the player was silently dropped anyway, but the entry claimed something false. Set to null, which is what the file means by 'left this league'.",
   "DEADLINE_DAY_RESOLVED": "Held during the 2026-09-01 audit as agreed-but-not-completed, then confirmed once the window shut and written: Savio (Man City -> Tottenham, permanent GBP75m+10m), Ndiaye (Everton -> Man City, GBP65m), Grealish (Man City -> Everton, season loan), Mudryk (Chelsea -> Tottenham, loan), Adarabioyo (Chelsea -> Tottenham, permanent). The apparent Savio contradiction -- 'new six-year deal at Man City' vs 'joins Spurs' -- was stale reporting against current, not a real conflict; Man City's own site announced the Tottenham move. Loan vs permanent does not change the override either way."
@@ -773,11 +776,15 @@
  "SERIEA": {
   "Alberto Dossena": "Como",
   "Alessandro Romano": "Cagliari",
+  "Ali Dembélé": "Lecce",
+  "Alieu Fadera": "Cagliari",
+  "Alieu Njie": "Fiorentina",
+  "Andrea Pinamonti": "Lazio",
   "Artem Dovbyk": "Bologna",
   "Arthur Atta": "Fiorentina",
   "Benjamín Domínguez": "Sassuolo",
+  "Cyril Ngonge": "Monza",
   "Daniel Maldini": "Cagliari",
-  "Daniele Rugani": "Juventus",
   "Davide Frattesi": "Lazio",
   "Eddy Kouadio": "Monza",
   "Eljif Elmas": "Atalanta",
@@ -787,25 +794,29 @@
   "Gianluca Gaetano": "Atalanta",
   "Giovanni Fabbian": "Parma",
   "Hans Nicolussi Caviglia": "Parma",
+  "Ignace Van der Brempt": "Sassuolo",
+  "Ivan Ilic": "Lecce",
   "Ivan Provedel": "Inter",
   "Jacopo Fazzini": "Cagliari",
+  "Jan Ziólkowski": "Monza",
   "Jeff Ekhator": "Juventus",
   "Jhon Lucumí": "Juventus",
   "Marco Brescianini": "Fiorentina",
+  "Marten de Roon": "Roma",
   "Mehmet Zeki Çelik": "Juventus",
   "Mergim Vojvoda": "Udinese",
   "Michael Folorunsho": "Monza",
-  "Moise Kean": "Como",
+  "Niccolò Fortini": "Torino",
   "Patrick Cutrone": "Monza",
   "Patrizio Masini": "Frosinone",
   "Pietro Comuzzo": "Torino",
   "Roberto Piccoli": "Bologna",
+  "Samuele Ricci": "Como",
   "Santiago Castro": "Roma",
-  "Seydou Fini": "Frosinone",
+  "Sebastiano Esposito": "Sassuolo",
   "Simon Sohm": "Venezia",
   "Thomas Thiesson Kristensen": "Atalanta",
   "Thórir Helgason": "Venezia",
-  "Toma Basic": "Venezia",
-  "Walid Cheddira": null
+  "Toma Basic": "Venezia"
  }
 }
