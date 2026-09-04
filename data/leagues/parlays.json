@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-04T20:15:16.074600+00:00",
+  "updated": "2026-09-04T20:50:52.356980+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5636,
+          "combined": 0.5627,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -28,7 +28,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.699,
+              "p": 0.6979,
               "id": "BUNDESLIGA#11#w",
               "date": "2026-09-05T16:30:00+00:00"
             }
@@ -40,7 +40,7 @@
           "tier": "Balanced five-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.0672,
+          "combined": 0.0671,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -68,7 +68,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.699,
+              "p": 0.6979,
               "id": "BUNDESLIGA#11#w",
               "date": "2026-09-05T16:30:00+00:00"
             },
@@ -176,7 +176,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0135,
+          "combined": 0.0075,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -217,6 +217,16 @@
               "p": 0.587,
               "id": "PL#27#sot#Alexander Isak",
               "date": "2026-09-04T19:00:00+00:00"
+            },
+            {
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Schalke 04 v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.561,
+              "id": "BUNDESLIGA#11#shots#Harry Kane",
+              "date": "2026-09-05T16:30:00+00:00"
             },
             {
               "selection": "Kylian Mbappe-Lottin 1+ shot on target",
@@ -260,7 +270,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-04T14:14:34.073400+00:00"
+          "locked_at": "2026-09-04T20:50:52.356980+00:00"
         }
       ]
     },
@@ -343,12 +353,183 @@
   ],
   "record": {
     "correct": 6,
-    "wrong": 16,
-    "void": 47,
-    "total": 22,
-    "pending": 19
+    "wrong": 19,
+    "void": 48,
+    "total": 25,
+    "pending": 16
   },
   "settled": [
+    {
+      "combined": 0.0075,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "selection": "Erling Haaland 1+ shot on target",
+          "p": 0.686
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "selection": "Lamine Yamal 2+ shot attempts",
+          "p": 0.639
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "selection": "Thiago 1+ shot on target",
+          "p": 0.623
+        },
+        {
+          "id": "PL#27#sot#Alexander Isak",
+          "selection": "Alexander Isak 1+ shot on target",
+          "p": 0.587
+        },
+        {
+          "id": "BUNDESLIGA#11#shots#Harry Kane",
+          "selection": "Harry Kane 2+ shot attempts",
+          "p": 0.561
+        },
+        {
+          "id": "LALIGA#33#sot#Kylian Mbappe-Lottin",
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target",
+          "p": 0.558
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "selection": "Georges Mikautadze 1+ shot on target",
+          "p": 0.553
+        },
+        {
+          "id": "SERIEA#25#shots#Nico Paz",
+          "selection": "Nico Paz 2+ shot attempts",
+          "p": 0.526
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "selection": "Matheus Cunha 1+ shot on target",
+          "p": 0.517
+        }
+      ],
+      "kickoff": "2026-09-04T18:45:00+00:00"
+    },
+    {
+      "combined": 0.0022,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#18#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        },
+        {
+          "id": "PL#27#sot#Alexander Isak",
+          "p": 0.587,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#11#shots#Harry Kane",
+          "p": 0.561,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#33#sot#Kylian Mbappe-Lottin",
+          "p": 0.558,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "p": 0.553,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#25#shots#Nico Paz",
+          "p": 0.526,
+          "selection": "Nico Paz 2+ shot attempts"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#21#shots#Riccardo Orsolini",
+          "p": 0.497,
+          "selection": "Riccardo Orsolini 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-04T18:30:00+00:00"
+    },
+    {
+      "combined": 0.0045,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#18#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        },
+        {
+          "id": "PL#27#sot#Alexander Isak",
+          "p": 0.587,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#11#shots#Harry Kane",
+          "p": 0.561,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#33#sot#Kylian Mbappe-Lottin",
+          "p": 0.558,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "p": 0.553,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#25#shots#Nico Paz",
+          "p": 0.526,
+          "selection": "Nico Paz 2+ shot attempts"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-04T18:30:00+00:00"
+    },
     {
       "combined": 0.0012,
       "graded": "wrong",
@@ -495,6 +676,23 @@
           "id": "BUNDESLIGA#11#w",
           "p": 0.6999,
           "selection": "Bayern Munich to win"
+        }
+      ],
+      "kickoff": "2026-08-31T19:30:00+00:00"
+    },
+    {
+      "combined": 0.4803,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#18#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
         }
       ],
       "kickoff": "2026-08-31T19:30:00+00:00"
