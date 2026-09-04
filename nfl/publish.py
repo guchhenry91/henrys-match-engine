@@ -447,6 +447,9 @@ def main():
     # locked pick is what reaches disk: the board must display the pick the record
     # grades, not a fresher one computed moments earlier.
     payload["record"] = picks.freeze_and_grade(payload)
+    # The picks BEHIND the record, so the Grades tab can show which hit and
+    # which missed rather than only a total.
+    payload["settled"] = picks.settled(picks.core.load_log(picks.PICKS_LOG))
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")

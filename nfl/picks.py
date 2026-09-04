@@ -174,6 +174,43 @@ def record(log: dict) -> dict:
             "props_by_market": by_market}
 
 
+def settled(log: dict) -> list:
+    """Every graded pick, newest first, flattened for display.
+
+    WHY THIS EXISTS AS A LIST and not just the counts in `record()`. A record that
+    reports 12-7 asks to be trusted; a list that names each pick and what actually
+    happened can be checked. The soccer boards have published their settled picks
+    from the start and the NFL published only totals, so the moment week 1 is
+    played the Grades tab would have shown NFL aggregates with nothing behind
+    them.
+
+    Read-only: it derives from the log and never grades, locks or writes anything.
+    """
+    out = []
+    for section, kind in ((GAMES_KEY, "game"), (PROPS_KEY, "prop")):
+        for key, entry in (log.get(section) or {}).items():
+            if key.startswith("_") or not entry.get("graded"):
+                continue
+            row = {"kind": kind, "key": key,
+                   "graded": entry.get("graded"),
+                   "void": bool(entry.get("void")),
+                   "p_pick": entry.get("p_pick"),
+                   "confidence": entry.get("confidence"),
+                   "kickoff": entry.get("kickoff"),
+                   "date": entry.get("kickoff"),
+                   "home": entry.get("home"), "away": entry.get("away"),
+                   "tainted": bool(entry.get("tainted"))}
+            if kind == "game":
+                row.update(pick=entry.get("pick"), result=entry.get("result"))
+            else:
+                row.update(market=entry.get("market"), player=entry.get("player"),
+                           team=entry.get("team"), line=entry.get("line"),
+                           actual=entry.get("actual"))
+            out.append(row)
+    out.sort(key=lambda r: str(r.get("kickoff") or ""), reverse=True)
+    return out
+
+
 def grading_stats(season):
     """The player feed for a season, or an EMPTY frame if it does not exist yet.
 
@@ -213,8 +250,13 @@ def _lock_games(payload, log, now):
         core.release_moved_lock(log, key, kickoff, now=now)
         hours_out = (kickoff - now).total_seconds() / 3600.0
         if key not in log and hours_out <= lockwindow.window(now):
-            core.lock_pick(log, key, game["pick"], _confidence(game["p_pick"]),
-                           kickoff, now=now, p_pick=game["p_pick"], board=True)
+            entry = core.lock_pick(log, key, game["pick"],
+                                   _confidence(game["p_pick"]), kickoff, now=now,
+                                   p_pick=game["p_pick"], board=True)
+            # Stored so the settled record can name the fixture later. The log is
+            # keyed by game_id and grading writes only a score STRING, so without
+            # these a graded entry cannot say who played whom.
+            entry["home"], entry["away"] = game.get("home"), game.get("away")
         entry = log.get(key)
         if entry:
             # Show what was frozen, not what the model would say now.
@@ -251,6 +293,10 @@ def _lock_props(payload, log, now):
                 entry["line"] = pick.get("line")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
+                # Same reason as the games: the settled row has to name the
+                # fixture, and the prop key does not carry it.
+                entry["home"] = pick.get("home") or pick.get("team")
+                entry["away"] = pick.get("opponent")
             entry = log.get(key)
             if entry:
                 pick["probability"] = entry.get("p_pick", pick["probability"])

@@ -141,6 +141,40 @@ def freeze_and_grade(matches: list, now=None) -> tuple[dict, dict]:
     return log, record(log)
 
 
+def settled(log: dict, matches: list) -> list:
+    """Every graded pick, newest first, named so it can be checked.
+
+    The board published a record and not the picks behind it, so "12-7" had
+    nothing a reader could inspect. The log is keyed by fixture id and holds no
+    club names, so the teams are joined back from the fixture list; a pick whose
+    fixture has dropped out of the feed still appears, with whatever the log
+    itself knows.
+
+    Read-only -- it never locks, grades or writes.
+    """
+    by_id = {str(m.get("id")): m for m in matches if m.get("id") is not None}
+    out = []
+    for key, entry in (log or {}).items():
+        if key.startswith("_") or not entry.get("graded"):
+            continue
+        match = by_id.get(str(key)) or {}
+        out.append({
+            "id": key,
+            "home": match.get("home"), "away": match.get("away"),
+            "pick": entry.get("pick"),
+            "graded": entry.get("graded"),
+            "void": bool(entry.get("void")),
+            "p_pick": entry.get("p_pick"),
+            "confidence": entry.get("confidence"),
+            "kickoff": entry.get("kickoff"),
+            "date": entry.get("kickoff"),
+            "result": entry.get("result"),
+            "tainted": bool(entry.get("tainted")),
+        })
+    out.sort(key=lambda r: str(r.get("kickoff") or ""), reverse=True)
+    return out
+
+
 def record(log: dict) -> dict:
     """correct/wrong/void/pending over every frozen UCL pick."""
     counts = {"correct": 0, "wrong": 0, "void": 0, "pending": 0}
@@ -217,7 +251,7 @@ def build() -> dict:
                             if depth.get(t, 0) < config.THIN_HISTORY}),
         })
     matches.sort(key=lambda m: (m.get("date") or "", -m["p_pick"]))
-    _, rec = freeze_and_grade(matches)
+    log, rec = freeze_and_grade(matches)
 
     clubs = []
     for name, pot in sorted(drawn.items(), key=lambda kv: (kv[1], kv[0])):
@@ -236,6 +270,9 @@ def build() -> dict:
         "clubs": clubs,
         "matches": matches,
         "record": rec,
+        # The picks behind the record, so the Grades tab can show which hit
+        # and which missed rather than only a total.
+        "settled": settled(log, matches),
         "evidence": evidence(),
         "caveats": [
             "Strengths come from Champions League and qualifying results only -- "
