@@ -547,6 +547,17 @@
       "sources": [
         "API-Football fixture 1575141: Augsburg 3-0 Schalke 04, status FT"
       ]
+    },
+    "Stuttgart|FC Koln": {
+      "home_goals": 4,
+      "away_goals": 1,
+      "status": "FT",
+      "auto": true,
+      "api_fixture_id": 1575149,
+      "api_status": "FT",
+      "sources": [
+        "API-Football fixture 1575149: Stuttgart 4-1 FC Koln, status FT"
+      ]
     }
   },
   "LIGUE1": {
@@ -759,7 +770,7 @@
         "FOX Sports boxscore (878557): Lyon 3, AJ Auxerre 1, Full Time"
       ],
       "_note": "Web search summaries initially disagreed (3-2 per an aggregated snippet, 3-1 per footmercato/foot-direct) and a stale/wrong ESPN gameId (706504, no date, listing Villarreal's Mikautadze as a Lyon scorer) returned a bogus 2-2. Fetched the correctly-dated ESPN gameId directly plus FOX Sports; both independently agree 3-1 FT with matching goalscorers."
-      }
+    }
   },
   "_corrections": [
     {
