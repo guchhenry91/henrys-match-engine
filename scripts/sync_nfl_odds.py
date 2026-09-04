@@ -27,6 +27,10 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data-raw" / "nfl" / "odds.json"
 BET365_ID = 4
 
+# API-Sports posts pre-match odds between 1 and 7 days before kickoff and keeps a
+# 7-day history. Read from the vendor's own documentation, not inferred.
+ODDS_WINDOW_DAYS = 7.0
+
 
 def team_codes(client) -> dict:
     """API team id -> team code (SEA, NE, ...).
@@ -99,6 +103,34 @@ def main():
     if upcoming.empty:
         print("no upcoming slate; nothing to price")
         return 0
+
+    # ONLY FIXTURES THE API CAN ACTUALLY HAVE PRICED. API-Sports posts pre-match
+    # odds "between 1 and 7 days before the game", so asking about a fixture ten
+    # days out is a request guaranteed to come back empty.
+    #
+    # This is not just wasted quota, though it is that too -- 14 of 16 week-1
+    # fixtures were outside the window on 2026-09-04, about 28 doomed calls twice
+    # a day. The real damage was to the CONCLUSION: every fixture returning none
+    # printed "no prices available yet (16 fixture(s) returned none)", which reads
+    # as "this API has no odds" when it actually meant "we asked too early". Four
+    # separate runs were read that way and nearly triggered a provider switch.
+    #
+    # Asking only inside the window means an empty answer is INFORMATIVE: it means
+    # the books really are not quoting a game they should be quoting.
+    within = upcoming.copy()
+    kickoff = pd.to_datetime(within["kickoff"], utc=True, errors="coerce")
+    days = (kickoff - pd.Timestamp.now("UTC")).dt.total_seconds() / 86400.0
+    outside = int((days > ODDS_WINDOW_DAYS).sum())
+    within = within[days <= ODDS_WINDOW_DAYS]
+    if outside:
+        print(f"  {outside} fixture(s) beyond the {ODDS_WINDOW_DAYS}-day odds "
+              f"window -- not asked about")
+    if within.empty:
+        nearest = days.min()
+        print(f"nothing inside the {ODDS_WINDOW_DAYS}-day odds window "
+              f"(nearest kickoff is {nearest:.1f} days away); nothing to price")
+        return 0
+    upcoming = within
 
     client = api.Client(budget=40)
     ids = upcoming_ids(client, upcoming)
