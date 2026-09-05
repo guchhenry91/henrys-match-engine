@@ -335,6 +335,11 @@ jobs:
         # in-play fixtures decides whether a live-score feature is possible at
         # all -- and the NFL odds work proved a catalogue entry is not coverage.
         if: inputs.probe_live
+        # PRINTS ONLY, SO IT MAY NEVER FAIL THE RUN. The first version raised a
+        # TypeError and took the whole refresh job down with it, skipping that
+        # run's publish -- a reconnaissance step costing a scheduled publish is
+        # a straight loss, and scheduled runs are already rationed.
+        continue-on-error: true
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.probe_live

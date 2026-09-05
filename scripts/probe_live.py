@@ -38,14 +38,21 @@ def main() -> int:
     except Exception:
         pass
 
-    client = Client(budget=4)
+    # RECONNAISSANCE MUST NOT BE ABLE TO BREAK THE PUBLISH. The first version of
+    # this called Client(budget=...) -- the NFL client's parameter, not this
+    # one's -- and the TypeError failed the whole `refresh` job, skipping that
+    # run's publish. A step that only prints has no business taking the pipeline
+    # down with it, so every path here returns 0 and the workflow step is
+    # continue-on-error as well.
     print("=== fixtures?live=all ===")
     try:
+        client = Client(limit=4)   # this client caps with `limit`, not `budget`
         rows = client.get("fixtures", live="all")
     except Exception as exc:
-        print(f"  FAILED: {exc}")
-        print("\n  DECISIVE: the endpoint is not usable on this key.")
-        print(client.report())
+        print(f"  FAILED: {type(exc).__name__}: {exc}")
+        print("\n  If this is an API refusal it is DECISIVE: no live fixtures on")
+        print("  this key. If it is a client/programming error, it says nothing")
+        print("  about the endpoint -- read the exception type before concluding.")
         return 0
 
     print(f"  {len(rows)} live fixture(s) right now")
