@@ -25,6 +25,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from leagues import config
 from leagues.api_football import Client
 from leagues.names import canonical, UnknownTeam
 from scripts.sync_rosters import API_LEAGUES
@@ -32,7 +33,17 @@ from scripts.sync_rosters import API_LEAGUES
 ROOT = Path(__file__).resolve().parents[1]
 OVERRIDE = ROOT / "data-raw" / "leagues" / "results_override.json"
 OUT = ROOT / "data" / "leagues"
-FILE_FOR = {"PL": "pl", "LALIGA": "laliga", "BUNDESLIGA": "bundesliga", "LIGUE1": "ligue1"}
+
+# DERIVED FROM config.LEAGUES, not written out. This was a literal four-league
+# dict and Serie A was added as the fifth, so it was excluded from the one script
+# whose entire purpose is "so grading does not need a laptop" -- meaning Serie A
+# grading still depended on the owner's machine being on, which is the exact
+# problem this file was written to solve. Nothing looked broken, because the
+# other results path still covered it.
+#
+# `leagues.config` is pure stdlib, so importing it here costs none of the model
+# dependencies -- the same reason LOCK_WINDOW_HOURS lives there.
+FILE_FOR = {key: key.lower() for key in config.LEAGUES}
 
 # Full time, after extra time, and after penalties. Everything else -- NS, 1H,
 # HT, 2H, LIVE, PST, CANC, SUSP -- is not a result.

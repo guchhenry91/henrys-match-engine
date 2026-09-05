@@ -32,8 +32,19 @@ def test_it_uses_head_to_head_like_the_official_table():
     assert config.get("SERIEA").tiebreak == "h2h"
 
 
+def _sync_results_file_for():
+    from scripts import sync_results
+    return sync_results.FILE_FOR
+
+
 @pytest.mark.parametrize("mapping,label", [
     (publish.FILE_FOR, "publish.FILE_FOR"),
+    # THIS LIST MISSED IT, WHICH IS THE POINT. sync_results existed to make
+    # grading work without the owner's laptop, and its four-league literal
+    # excluded Serie A -- so Serie A grading still needed the machine on, the
+    # exact problem the script was written to solve. Nothing looked broken
+    # because the other results path still covered it.
+    (_sync_results_file_for(), "sync_results.FILE_FOR"),
     (lock_picks.FILES, "lock_picks.FILES"),
     (refresh_results.FILES, "refresh_results.FILES"),
     (odds.DIV, "odds.DIV"),

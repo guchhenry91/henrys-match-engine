@@ -61,6 +61,10 @@ on:
         description: "Report Champions League data coverage (prints only)"
         type: boolean
         default: false
+      probe_live:
+        description: "Ask whether live in-play fixtures are served (prints only)"
+        type: boolean
+        default: false
       force_rosters:
         description: >-
           Comma-separated league keys (PL,LALIGA,BUNDESLIGA,LIGUE1,SERIEA) to
@@ -325,6 +329,15 @@ jobs:
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.probe_ucl
+
+      - name: Probe live in-play coverage
+        # Reconnaissance only, on request, one request. Whether this key serves
+        # in-play fixtures decides whether a live-score feature is possible at
+        # all -- and the NFL odds work proved a catalogue entry is not coverage.
+        if: inputs.probe_live
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.probe_live
 
       - name: Refresh Champions League history
         # One request per uncached season; the past never changes so only the
