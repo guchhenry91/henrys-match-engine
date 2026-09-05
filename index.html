@@ -170,6 +170,14 @@
   .cf.c2{color:var(--amber);background:rgba(255,190,61,.12);border:1px solid rgba(255,190,61,.26)}
   .cf.c1{color:#ff8f6a;background:rgba(255,143,106,.12);border:1px solid rgba(255,143,106,.26)}
   .cf.c0{color:var(--sub);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+  /* LIVE. Same chip footprint as .cf so a row does not reflow when a match
+     kicks off and the confidence band is replaced by this. */
+  .livetag{font-size:9.5px;font-weight:800;letter-spacing:.06em;padding:4px 8px;border-radius:8px;
+    flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;
+    color:#ff5c6a;background:rgba(255,92,106,.12);border:1px solid rgba(255,92,106,.3)}
+  .livetag i{width:6px;height:6px;border-radius:50%;background:#ff5c6a;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.livetag i{animation:none}}
   /* Last five games. Tabular figures so the column of numbers reads as a series
      rather than ragged text, and a filled chip where the game beat the line --
      the shape of a player's form should be legible before any number is read. */
@@ -406,6 +414,7 @@ async function boot(){
   catch(e){DATA.nba=null;}
   FRESH=computeFreshness(); updateLivePill();
   buildNav(); go("today");
+  startLive();      // no-ops unless a fixture could actually be in play
 }
 
 const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"NBA",t:"NBA"},{k:"UCL",t:"Champions League"},
@@ -689,6 +698,92 @@ function isToday(iso){
 
 // EVERY fixture today, per competition -- played, in progress and still to come.
 // A "Today" tab that hides this morning's finished games is not showing today.
+// --- live in-play scores ------------------------------------------------------
+//
+// The page is a STATIC site, so it cannot hold an API key and cannot update a
+// file without a deploy. Live scores are fetched at runtime from a small proxy
+// that holds the key instead. One constant, so moving hosts is a one-line
+// change.
+const LIVE_URL="https://nba-stats-proxy.onrender.com/api/soccer/live";
+const LIVE_POLL_MS=60000;      // matches the proxy's 30s cache; viewers share fetches
+const LIVE_WINDOW_H=3.2;       // a match is plausibly in play for this long after kickoff
+let LIVE={matches:[], available:null, at:0};
+let LIVE_TIMER=null;
+
+// NAME MATCHING IS THE DANGEROUS PART, so it refuses rather than guesses. The
+// board says "Newcastle United" and the feed says "Newcastle" -- equality fails
+// on the very first real fixture. But loose matching is worse: "Manchester"
+// would match both Manchester clubs, and a live score attached to the wrong
+// fixture is the same class of error as settling a bet against a stranger.
+//
+// The rule is token-subset in either direction, required for BOTH teams, and the
+// pairing must be UNIQUE within its league. Anything ambiguous shows no live
+// score at all, which is the honest outcome.
+const liveTokens=s=>String(s||"").toLowerCase()
+  .normalize("NFD").replace(/[̀-ͯ]/g,"")
+  .replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(Boolean);
+function liveTeamMatches(a,b){
+  const A=new Set(liveTokens(a)), B=new Set(liveTokens(b));
+  if(!A.size||!B.size) return false;
+  const subset=(x,y)=>[...x].every(t=>y.has(t));
+  return subset(A,B)||subset(B,A);
+}
+// The live row for a board fixture, or null. Null is the normal case.
+function liveFor(match, leagueKey){
+  if(!LIVE.matches.length) return null;
+  const hits=LIVE.matches.filter(l=>l.league===leagueKey
+    && liveTeamMatches(l.home, match.home)
+    && liveTeamMatches(l.away, match.away));
+  return hits.length===1 ? hits[0] : null;   // 0 = not on; >1 = ambiguous, never guess
+}
+
+// "45'", "HT", "90+". Minute is what a reader actually wants; the raw status
+// codes are the feed's vocabulary, not theirs.
+function liveClock(l){
+  if(l.status==="HT") return "HT";
+  if(l.status==="P") return "PENS";
+  if(l.status==="BT") return "ET break";
+  if(l.status==="SUSP"||l.status==="INT") return "suspended";
+  return l.elapsed!=null ? `${l.elapsed}'` : "live";
+}
+
+// POLL ONLY WHEN SOMETHING COULD BE ON. A timer running all night costs the
+// reader battery and the proxy requests, to learn every minute that nothing is
+// happening. Kickoff times are already on the board, so the page can tell.
+function liveExpected(){
+  const now=Date.now();
+  return todayFixtures().some(c=>c.rows.some(r=>{
+    if(r.result) return false;                       // already finished
+    const k=new Date(r.date); if(isNaN(k)) return false;
+    const h=(now-k)/3600000;
+    return h>=-0.05 && h<=LIVE_WINDOW_H;
+  }));
+}
+
+async function pollLive(){
+  if(!liveExpected()){ LIVE.matches=[]; stopLive(); return; }
+  try{
+    const r=await fetch(LIVE_URL,{cache:"no-store"});
+    if(!r.ok) throw new Error(r.status);
+    const j=await r.json();
+    LIVE={matches:Array.isArray(j.matches)?j.matches:[],
+          available:j.available!==false, at:Date.now()};
+  }catch(e){
+    // A dead or sleeping proxy must never break the board. The page keeps
+    // rendering exactly as it does without live data.
+    LIVE={matches:[], available:false, at:Date.now()};
+  }
+  if(cur==="today") render(cur);
+}
+function startLive(){
+  if(LIVE_TIMER) return;
+  pollLive();
+  LIVE_TIMER=setInterval(pollLive, LIVE_POLL_MS);
+}
+function stopLive(){
+  if(LIVE_TIMER){ clearInterval(LIVE_TIMER); LIVE_TIMER=null; }
+}
+
 function todayFixtures(){
   const comps=[];
   Object.keys(FILES).forEach(k=>{
@@ -696,7 +791,7 @@ function todayFixtures(){
       const pr=m.prediction||{};
       return {home:m.home, away:m.away, date:m.date, pick:pr.pick,
               p:pr.p_pick, conf:pr.confidence!=null?pr.confidence:confOf(pr.p_pick),
-              result:m.result, graded:m.graded, void:m.void,
+              result:m.result, graded:m.graded, void:m.void, lgKey:k,
               go:`openMatch('${k}',${m.id})`, colour:LC[k]};
     });
     comps.push({name:LG[k], colour:LC[k], rows, sport:"Football"});
@@ -704,7 +799,7 @@ function todayFixtures(){
 
   const ucl=(((DATA.ucl||{}).matches)||[]).filter(m=>isToday(m.kickoff||m.date)).map(m=>({
     home:m.home, away:m.away, date:m.kickoff||m.date, pick:m.pick, p:m.p_pick,
-    conf:m.confidence!=null?m.confidence:confOf(m.p_pick),
+    conf:m.confidence!=null?m.confidence:confOf(m.p_pick), lgKey:"UCL",
     result:m.result, graded:m.graded, go:`go('UCL')`, colour:"#8b7bff"}));
   comps.push({name:"Champions League", colour:"#8b7bff", rows:ucl, sport:"Football"});
 
@@ -733,18 +828,30 @@ function todayRow(r){
   const t=new Date(r.date);
   const time=isNaN(t)?"":t.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
   const score=r.result?`${r.result.home_goals}-${r.result.away_goals}`:null;
+  // A FINAL RESULT ALWAYS WINS over a live one. The engine's result is what the
+  // record is graded on; a live feed still calling a finished match "90'" must
+  // never overwrite it on screen.
+  const l=score?null:liveFor(r, r.lgKey);
   // A finished game shows what happened and how the pick did; an upcoming one
   // shows the pick. Both show the confidence the model actually staked.
   const sub=score
     ? `${time} · final ${score}${r.pick?` · pick ${esc(r.pick)}`:""}`
-    : `${time}${r.pick?` · pick ${esc(r.pick)}`:" · no pick"}`;
+    : l
+      ? `${esc(liveClock(l))} · ${l.home_goals}-${l.away_goals}${r.pick?` · pick ${esc(r.pick)}`:""}`
+      : `${time}${r.pick?` · pick ${esc(r.pick)}`:" · no pick"}`;
   const verdict=r.void?`<span class="res void">void</span>`
     : r.graded?`<span class="res ${r.graded}">${r.graded}</span>`:"";
+  // THE PROBABILITY IS PRE-MATCH AND SAYS SO. The model does not condition on
+  // the score, the clock or a red card -- it is the number computed before
+  // kickoff. Beside a live scoreline a reader would otherwise assume it had
+  // updated, which is the one misreading this feature could cause.
+  const prob=r.p!=null?pc(r.p)+"%":"—";
   return `<div class="rw" onclick="${r.go}"><span class="lgtag" style="background:${r.colour}"></span>
     <div class="info"><b>${esc(r.home)} v ${esc(r.away)}</b><span>${sub}</span></div>
-    ${confTag(r.conf)}
-    <div class="conf" style="min-width:64px"><b>${r.p!=null?pc(r.p)+"%":"—"}</b>
-      <div class="bar"><i style="width:${r.p!=null?pc(r.p):0}%"></i></div></div>
+    ${l?`<span class="livetag"><i></i>LIVE</span>`:confTag(r.conf)}
+    <div class="conf" style="min-width:64px"><b>${prob}</b>
+      ${l?`<span style="font-size:8.5px;letter-spacing:.04em">pre-match</span>`
+         :`<div class="bar"><i style="width:${r.p!=null?pc(r.p):0}%"></i></div>`}</div>
     ${verdict||'<span class="chev">›</span>'}</div>`;
 }
 
