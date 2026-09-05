@@ -50,13 +50,43 @@ def test_the_itemised_blocks_are_wired_into_the_tab(block):
     assert f"{block}()" in view, f"{block} is defined but never rendered"
 
 
-def test_every_settled_prop_is_listed_not_a_sample():
+def test_every_settled_prop_is_collected():
     """THE ONE THAT WAS MISSING ENTIRELY. Props were graded, stored and never
-    shown."""
-    body = _fn("everyPropBlock")
+    shown. The collection lives in gradedProps() so the chip row and the lists
+    cannot disagree about what exists."""
+    body = _code("gradedProps")
     assert "player_picks" in body and "settled" in body
-    assert not CAP.search(body), (
-        "everyPropBlock must not cap its list -- the tab's claim is completeness")
+    assert "DATA.nfl" in body, "NFL props must be included, not just soccer"
+    assert not CAP.search(body)
+
+
+def test_a_market_list_is_never_capped():
+    """The chips exist so the reader picks a SHORT list, not so the list is
+    trimmed for them. Once a market is chosen, every graded pick in it shows."""
+    assert not CAP.search(_code("propMarketBlock"))
+
+
+def test_every_market_with_graded_picks_gets_a_chip():
+    """WITH ONE MARKET PER CHIP, AN UNLISTED MARKET IS UNREACHABLE. Its picks
+    would be graded, stored, counted in the totals and impossible to open --
+    strictly worse than the old long page. So membership is derived from the
+    data and only the ORDER is curated."""
+    body = _code("gradeMarketsPresent")
+    assert "GRADE_MARKETS" in body
+    assert "!GRADE_MARKETS.includes" in body, (
+        "a market absent from GRADE_MARKETS must be appended, never dropped")
+    for fn in ("gradeChips", "everyPropBlock"):
+        assert "gradeMarketsPresent" in _code(fn), (
+            f"{fn} must use the derived market list, not GRADE_MARKETS directly")
+
+
+def test_the_summary_does_not_render_the_full_list():
+    """The complaint that started this: every settled pick on one page came to
+    133 rows. The summary shows tallies and a way in; the rows live behind a
+    chip."""
+    view = _code("viewGrades")
+    assert 'filter==="matches"' in view
+    assert "propMarketBlock(filter)" in view
 
 
 def test_the_match_list_is_no_longer_capped():

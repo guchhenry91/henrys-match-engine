@@ -1308,14 +1308,18 @@ function lineLabel(p){
   return typeof p.line==="number" ? `over ${p.line}` : p.line;
 }
 
-function gradedPropRow(p){
+// `showMarket` is false inside a single-market view: the heading already says
+// ATTEMPTS, so a chip repeating it on all 23 rows is noise that costs the width
+// the fixture and date need, and pushes every row to four wrapped lines on a
+// phone.
+function gradedPropRow(p, showMarket){
   const m=MK[p.market]||NFLMK[p.market]||{tag:"a",name:p.market};
   return `<div class="rw static">
     <div class="av" style="background:${tc(p.team)}">${esc(initials(p.player))}</div>
     <div class="info"><b>${esc(p.player)}</b>
       <span>${esc(lineLabel(p))} → <b style="color:var(--txt)">${esc(actualLabel(p))}</b>
         · ${esc(p.home||"")} v ${esc(p.away||"")} · ${whenStr(p.date)}</span></div>
-    <span class="mk ${m.tag}">${esc(m.name)}</span>
+    ${showMarket===false?"":`<span class="mk ${m.tag}">${esc(m.name)}</span>`}
     <div class="conf" style="min-width:46px"><b>${p.p_pick!=null?pc(p.p_pick)+"%":"—"}</b></div>
     ${verdictChip(p.graded)}</div>`;
 }
@@ -1324,29 +1328,6 @@ function gradedPropRow(p){
 // apart for the same reason publish.py records them apart: a 45% anytime pick and
 // an 80% attempts pick are each near their own market's ceiling, so a pooled
 // number describes neither.
-function everyPropBlock(){
-  const all=((DATA.player_picks||{}).settled||[]).slice();
-  // NFL props settle into their own board; included here so this section means
-  // "every prop", not "every soccer prop".
-  (((DATA.nfl||{}).settled)||[]).forEach(p=>{ if(p.market&&p.player) all.push(p); });
-  if(!all.length) return "";
-  all.sort((a,b)=>new Date(b.date||b.kickoff)-new Date(a.date||a.kickoff));
-  const t=tally(all);
-  let h=`<div class="eyebrow mt">Every player prop · ${all.length} graded</div>
-    <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
-      <div class="l">${tallyLine(t)}</div></div>`;
-  const markets=[];
-  all.forEach(p=>{ if(!markets.includes(p.market)) markets.push(p.market); });
-  for(const mk of markets){
-    const rows=all.filter(p=>p.market===mk);
-    const mt=tally(rows);
-    const name=(MK[mk]||NFLMK[mk]||{name:mk}).name;
-    h+=`<div class="sectsub" style="margin:14px 2px 8px">${esc(name)} · ${tallyLine(mt)}</div>
-      <div class="glass rowc">${rows.map(gradedPropRow).join("")}</div>`;
-  }
-  h+=`<p class="note">Every settled prop, not a sample. A pick with no shot row grades MISS rather than void — the feed cannot separate "did not play" from "played, never shot", so the harsher reading is taken deliberately: it can understate the record, never inflate it. VOID means the pick was tainted or the player was confirmed out before kickoff.</p>`;
-  return h;
-}
 
 function gradedMatchRow(m){
   // THE TWO ENGINES STORE A RESULT DIFFERENTLY. Soccer keeps {home_goals,
@@ -1368,7 +1349,19 @@ function gradedMatchRow(m){
 // EVERY settled match pick, at any confidence -- not the Best board's slice. The
 // board only publishes p>=0.65, so a record drawn from it alone describes the
 // model's most confident calls and quietly omits the rest.
-function everyMatchBlock(){
+
+// The settled picks behind the record, collected once so the chip row and the
+// lists cannot disagree about what exists. A chip is only drawn for a market
+// that actually has graded picks -- this codebase's own rule is that a link
+// which looks live and does nothing is worse than no link.
+function gradedProps(){
+  const all=((DATA.player_picks||{}).settled||[]).slice();
+  // NFL props settle into their own board; included so this means "every prop",
+  // not "every soccer prop".
+  (((DATA.nfl||{}).settled)||[]).forEach(p=>{ if(p.market&&p.player) all.push(p); });
+  return all.sort((a,b)=>new Date(b.date||b.kickoff)-new Date(a.date||a.kickoff));
+}
+function gradedMatches(){
   // THE PROBABILITY IS NOT IN THE SEASON ARRAY. Those entries carry id, teams,
   // result, pick and graded -- no p_pick, because the board publishes the number
   // only for picks that cleared the Best bar. So it is joined back from
@@ -1388,22 +1381,114 @@ function everyMatchBlock(){
   (((DATA.nfl||{}).settled)||[]).forEach(g=>{
     if(!g.market) all.push({...g, league:"NFL", colour:"#37a9e6", date:g.date||g.kickoff});
   });
+  return all.sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+
+// Market order is the boards' own, not whatever order the settled list happens
+// to arrive in, so the chips do not reshuffle as results land.
+const GRADE_MARKETS=["goal","shots","sot",
+                     "anytime_touchdown","receiving_yards","rushing_yards","passing_yards"];
+// THE SAME WORDS THE OTHER TABS USE. MK calls the goalscorer market "Goal" for a
+// narrow row chip, but Player Picks and the NFL board both label their filters
+// "Anytime" / "Receiving" -- a reader who taps "Anytime" on one tab and finds
+// "Goal" on another has to work out they are the same market.
+const GRADE_LABEL={goal:"Anytime", shots:"Attempts", sot:"On target",
+                   anytime_touchdown:"Anytime TD", receiving_yards:"Receiving",
+                   rushing_yards:"Rushing", passing_yards:"Passing"};
+const gradeName=m=>GRADE_LABEL[m]||(MK[m]||NFLMK[m]||{name:m}).name;
+
+// THE ORDER IS CURATED; THE MEMBERSHIP IS NOT. GRADE_MARKETS fixes the order so
+// the chips do not reshuffle as results land, but any market present in the data
+// and missing from it is APPENDED rather than dropped. A hardcoded list is how
+// Serie A went unaudited for its whole life, and here the failure would be worse
+// than silent: with one market per chip, a market nobody listed would have no
+// chip, and its graded picks would be unreachable from the tab entirely.
+function gradeMarketsPresent(props){
+  const found=[];
+  props.forEach(p=>{ if(p.market&&!found.includes(p.market)) found.push(p.market); });
+  return GRADE_MARKETS.filter(m=>found.includes(m))
+    .concat(found.filter(m=>!GRADE_MARKETS.includes(m)));
+}
+
+function gradeChips(){
+  const props=gradedProps();
+  const chips=[["all","Summary"]];
+  if(gradedMatches().length) chips.push(["matches","Matches"]);
+  gradeMarketsPresent(props).forEach(m=>{
+    const n=props.filter(p=>p.market===m).length;
+    if(n) chips.push([m, `${gradeName(m)} ${n}`]);
+  });
+  if(chips.length===1) return "";
+  return `<div class="chips">${chips.map(c=>
+    `<button class="chip ${filter===c[0]?"on":""}" type="button"
+       onclick="setFilter('${c[0]}')">${esc(c[1])}</button>`).join("")}</div>`;
+}
+
+// ONE market at a time. Every graded pick in it, uncapped -- the point of the
+// chips is that the reader chooses a short list, not that the list is trimmed
+// for them.
+function propMarketBlock(market){
+  const rows=gradedProps().filter(p=>p.market===market);
+  if(!rows.length) return "";
+  const t=tally(rows);
+  const name=gradeName(market);
+  return `<div class="eyebrow">${esc(name)} · ${rows.length} graded</div>
+    <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
+      <div class="l">${tallyLine(t)}</div></div>
+    <div class="glass rowc">${rows.map(r=>gradedPropRow(r,false)).join("")}</div>
+    <p class="note">Every settled pick in this market. A pick with no shot row grades MISS rather than void — the feed cannot separate "did not play" from "played, never shot", so the harsher reading is taken deliberately: it can understate the record, never inflate it. VOID means the pick was tainted or the player was confirmed out before kickoff.</p>`;
+}
+
+function everyMatchBlock(){
+  const all=gradedMatches();
   if(!all.length) return "";
-  all.sort((a,b)=>new Date(b.date)-new Date(a.date));
   const t=tally(all);
-  let h=`<div class="eyebrow mt">Every match pick · ${all.length} graded</div>
+  return `<div class="eyebrow">Every match pick · ${all.length} graded</div>
     <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
       <div class="l">${tallyLine(t)} · every match called, at any confidence</div></div>
     <div class="glass rowc">${all.map(gradedMatchRow).join("")}</div>
     <p class="note">This counts every match the model called, not only those that cleared the Best Picks bar — the fuller and less flattering number.</p>`;
-  return h;
+}
+
+// The summary's per-market lines. Each is a tally and a way in, so the reader
+// sees the shape of the record immediately and reaches any market in one tap --
+// which is the whole reason the single 133-row list was replaced.
+function everyPropBlock(){
+  const props=gradedProps();
+  if(!props.length) return "";
+  const t=tally(props);
+  const markets=gradeMarketsPresent(props);
+  return `<div class="eyebrow mt">Player props · ${props.length} graded</div>
+    <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
+      <div class="l">${tallyLine(t)}</div></div>
+    <div class="glass rowc">${markets.map(m=>{
+      const rows=props.filter(p=>p.market===m), mt=tally(rows);
+      return `<div class="rw" onclick="setFilter('${m}')">
+        <div class="info"><b>${esc(gradeName(m))}</b>
+          <span>${tallyLine(mt)}</span></div>
+        <div class="conf" style="min-width:52px"><b>${mt.pct!=null?mt.pct+"%":"—"}</b></div>
+        <span class="chev">›</span></div>`;
+    }).join("")}</div>
+    <p class="note">Markets are scored apart, never pooled: a 45% anytime pick and an 80% attempts pick are each near their own market's ceiling, so one combined number would describe neither. Tap a market to see every graded pick in it.</p>`;
 }
 
 function viewGrades(){
+  // ONE MARKET AT A TIME. Every settled pick on one page came to 133 rows and
+  // was unreadable -- the completeness was real and the tab was still useless,
+  // because finding one market's record meant scrolling past four others. The
+  // picks are all still here; the chips decide which of them is on screen.
+  const chips=gradeChips();
+  if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
+  if(filter&&filter!=="all"){
+    const block=propMarketBlock(filter);
+    // An unknown or emptied market falls back to the summary rather than
+    // rendering a blank tab.
+    if(block) return chips+block+archiveLink();
+  }
   const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
   const br=best.record||{correct:0,wrong:0,total:0};
   const total=br.total||0;
-  let h=`<div class="eyebrow">Track record</div>
+  let h=chips+`<div class="eyebrow">Track record</div>
     <div class="glass stat"><div class="k">${br.correct}–${br.wrong}</div><div class="l">${total?`Best Picks · ${Math.round(100*br.correct/total)}% of ${total} graded`:"Graded picks · season starts 15 Aug"}</div></div>`;
   const rbm=pp.record_by_market||{};
   h+=`<div class="glass rowc">${tierRow("Best Picks","Match-winner board",best.record)}
@@ -1432,7 +1517,6 @@ function viewGrades(){
   }
 
   h+=allPicksBlock();
-  h+=everyMatchBlock();
   h+=everyPropBlock();
   h+=calibrationBlock();
   return h+archiveLink();
