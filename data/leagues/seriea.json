@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
   "updated": "2026-09-05T13:57:21.844252+00:00",
-  "results_updated": "2026-09-05T13:57:21.844258+00:00",
+  "results_updated": "2026-09-05T15:11:41.488365+00:00",
   "record": {
     "correct": 3,
-    "wrong": 0,
-    "total": 3,
+    "wrong": 1,
+    "total": 4,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
+      "2": {
+        "correct": 1,
+        "total": 2
+      },
       "3": {
         "correct": 2,
         "total": 2
-      },
-      "2": {
-        "correct": 1,
-        "total": 1
       }
     }
   },
@@ -148,172 +148,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 23,
-      "matchweek": 3,
-      "date": "2026-09-05T13:00:00+00:00",
-      "venue": "Artemio Franchi",
-      "home": "Fiorentina",
-      "away": "Torino",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.434,
-        "p_draw": 0.263,
-        "p_away": 0.303,
-        "pick": "Fiorentina",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.5,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 11.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 9.4,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.436,
-        "why": {
-          "home_attack_pct": 5.7,
-          "home_defence_pct": -1.4,
-          "away_attack_pct": -1.2,
-          "away_defence_pct": -8.0,
-          "home_advantage_pct": 8.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Fiorentina 43% / draw 26% / Torino 30%",
-          "Expected goals: 1.39 - 1.11"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Fiorentina",
-          "player": "Moise Kean",
-          "position": "FW",
-          "lambda_goals": 0.2719807483670449,
-          "anytime_pct": 11.6,
-          "exp_shots": 2.56,
-          "p_shots_2plus": 37.1,
-          "exp_sot": 0.9,
-          "p_sot_1plus": 38.3,
-          "appearance_pct": 67.5,
-          "expected_minutes": 53.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fiorentina",
-          "player": "Mateo Pellegrino",
-          "position": "FW",
-          "lambda_goals": 0.25266659435508376,
-          "anytime_pct": 11.5,
-          "exp_shots": 2.42,
-          "p_shots_2plus": 47.8,
-          "exp_sot": 0.76,
-          "p_sot_1plus": 40.9,
-          "appearance_pct": 95.0,
-          "expected_minutes": 77.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fiorentina",
-          "player": "Albert Gudmundsson",
-          "position": "FW",
-          "lambda_goals": 0.22341684128182773,
-          "anytime_pct": 9.6,
-          "exp_shots": 1.43,
-          "p_shots_2plus": 18.8,
-          "exp_sot": 0.57,
-          "p_sot_1plus": 29.6,
-          "appearance_pct": 85.0,
-          "expected_minutes": 59.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Torino",
-          "player": "Giovanni Simeone",
-          "position": "FW",
-          "lambda_goals": 0.2638128310507413,
-          "anytime_pct": 11.8,
-          "exp_shots": 1.77,
-          "p_shots_2plus": 28.1,
-          "exp_sot": 0.65,
-          "p_sot_1plus": 33.4,
-          "appearance_pct": 82.5,
-          "expected_minutes": 58.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Torino",
-          "player": "Nikola Vlasic",
-          "position": "FW",
-          "lambda_goals": 0.21463895261038915,
-          "anytime_pct": 9.3,
-          "exp_shots": 1.25,
-          "p_shots_2plus": 13.6,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 23.1,
-          "appearance_pct": 95.0,
-          "expected_minutes": 79.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Torino",
-          "player": "Che Adams",
-          "position": "FW",
-          "lambda_goals": 0.16108385385165247,
-          "anytime_pct": 6.3,
-          "exp_shots": 1.17,
-          "p_shots_2plus": 12.1,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 22.4,
-          "appearance_pct": 85.0,
-          "expected_minutes": 48.9,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.495,
-        "p_draw": 0.286,
-        "p_away": 0.219,
-        "odds": {
-          "home": 1.9,
-          "draw": 3.3,
-          "away": 4.5
-        },
-        "book": "bet365",
-        "edge": -0.061,
-        "pick_odds": 1.9,
-        "ev": -0.175
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 26,
       "matchweek": 3,
@@ -6028,6 +5862,17 @@
       "points": 3
     },
     {
+      "team": "Torino",
+      "played": 3,
+      "won": 1,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 4,
+      "ga": 5,
+      "gd": -1,
+      "points": 3
+    },
+    {
       "team": "Lecce",
       "played": 2,
       "won": 1,
@@ -6037,17 +5882,6 @@
       "ga": 4,
       "gd": -2,
       "points": 3
-    },
-    {
-      "team": "Torino",
-      "played": 2,
-      "won": 0,
-      "drawn": 0,
-      "lost": 2,
-      "gf": 2,
-      "ga": 4,
-      "gd": -2,
-      "points": 0
     },
     {
       "team": "Bologna",
@@ -6106,13 +5940,13 @@
     },
     {
       "team": "Fiorentina",
-      "played": 2,
+      "played": 3,
       "won": 0,
       "drawn": 0,
-      "lost": 2,
-      "gf": 0,
-      "ga": 7,
-      "gd": -7,
+      "lost": 3,
+      "gf": 1,
+      "ga": 9,
+      "gd": -8,
       "points": 0
     }
   ],
