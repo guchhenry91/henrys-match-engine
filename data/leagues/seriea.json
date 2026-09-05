@@ -1,17 +1,17 @@
 {
   "league": "Serie A",
   "updated": "2026-09-05T15:17:03.118935+00:00",
-  "results_updated": "2026-09-05T17:20:54.153357+00:00",
+  "results_updated": "2026-09-05T19:01:37.303719+00:00",
   "record": {
-    "correct": 3,
+    "correct": 4,
     "wrong": 1,
-    "total": 4,
+    "total": 5,
     "void": 0,
-    "pending": 2,
+    "pending": 1,
     "by_confidence": {
       "2": {
-        "correct": 1,
-        "total": 2
+        "correct": 2,
+        "total": 3
       },
       "3": {
         "correct": 2,
@@ -148,172 +148,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 26,
-      "matchweek": 3,
-      "date": "2026-09-05T16:00:00+00:00",
-      "venue": "Giuseppe Meazza",
-      "home": "Inter",
-      "away": "Napoli",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.493,
-        "p_draw": 0.256,
-        "p_away": 0.251,
-        "pick": "Inter",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 12.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 12.1,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-0",
-            "pct": 9.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4955,
-        "why": {
-          "home_attack_pct": 67.0,
-          "home_defence_pct": 35.4,
-          "away_attack_pct": 20.3,
-          "away_defence_pct": 34.3,
-          "home_advantage_pct": 8.4
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Inter 49% / draw 26% / Napoli 25%",
-          "Expected goals: 1.50 - 0.99"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Inter",
-          "player": "Lautaro Mart\u00ednez",
-          "position": "FW",
-          "lambda_goals": 0.3305666895262907,
-          "anytime_pct": 15.2,
-          "exp_shots": 2.05,
-          "p_shots_2plus": 34.0,
-          "exp_sot": 0.82,
-          "p_sot_1plus": 39.0,
-          "appearance_pct": 77.5,
-          "expected_minutes": 57.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Marcus Thuram",
-          "position": "FW",
-          "lambda_goals": 0.24540498205701464,
-          "anytime_pct": 10.6,
-          "exp_shots": 1.38,
-          "p_shots_2plus": 17.7,
-          "exp_sot": 0.54,
-          "p_sot_1plus": 27.0,
-          "appearance_pct": 75.0,
-          "expected_minutes": 50.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Francesco Pio Esposito",
-          "position": "FW",
-          "lambda_goals": 0.1756887230334377,
-          "anytime_pct": 7.2,
-          "exp_shots": 1.18,
-          "p_shots_2plus": 12.2,
-          "exp_sot": 0.47,
-          "p_sot_1plus": 25.0,
-          "appearance_pct": 90.0,
-          "expected_minutes": 39.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Napoli",
-          "player": "Rasmus H\u00f8jlund",
-          "position": "FW",
-          "lambda_goals": 0.22528708241522047,
-          "anytime_pct": 9.7,
-          "exp_shots": 1.21,
-          "p_shots_2plus": 13.1,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 26.6,
-          "appearance_pct": 85.0,
-          "expected_minutes": 71.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Napoli",
-          "player": "Scott McTominay",
-          "position": "MF",
-          "lambda_goals": 0.16783924437592612,
-          "anytime_pct": 6.7,
-          "exp_shots": 1.49,
-          "p_shots_2plus": 20.4,
-          "exp_sot": 0.55,
-          "p_sot_1plus": 28.7,
-          "appearance_pct": 85.0,
-          "expected_minutes": 72.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Napoli",
-          "player": "Giovane",
-          "position": "FW",
-          "lambda_goals": 0.08932470393930003,
-          "anytime_pct": 2.9,
-          "exp_shots": 1.0,
-          "p_shots_2plus": 8.4,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 24.2,
-          "appearance_pct": 85.0,
-          "expected_minutes": 48.2,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.574,
-        "p_draw": 0.253,
-        "p_away": 0.174,
-        "odds": {
-          "home": 1.67,
-          "draw": 3.6,
-          "away": 5.5
-        },
-        "book": "bet365",
-        "edge": -0.081,
-        "pick_odds": 1.67,
-        "ev": -0.177
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 29,
       "matchweek": 3,
@@ -5733,6 +5567,17 @@
   ],
   "standings": [
     {
+      "team": "Inter",
+      "played": 3,
+      "won": 3,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 8,
+      "ga": 3,
+      "gd": 5,
+      "points": 9
+    },
+    {
       "team": "Como",
       "played": 3,
       "won": 2,
@@ -5752,17 +5597,6 @@
       "gf": 8,
       "ga": 0,
       "gd": 8,
-      "points": 6
-    },
-    {
-      "team": "Inter",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 5,
-      "ga": 1,
-      "gd": 4,
       "points": 6
     },
     {
@@ -5833,13 +5667,13 @@
     },
     {
       "team": "Napoli",
-      "played": 2,
+      "played": 3,
       "won": 1,
       "drawn": 0,
-      "lost": 1,
-      "gf": 3,
-      "ga": 2,
-      "gd": 1,
+      "lost": 2,
+      "gf": 5,
+      "ga": 5,
+      "gd": 0,
       "points": 3
     },
     {

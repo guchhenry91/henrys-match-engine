@@ -1,17 +1,21 @@
 {
   "league": "Bundesliga",
   "updated": "2026-09-05T15:16:47.861285+00:00",
-  "results_updated": "2026-09-05T17:20:53.312021+00:00",
+  "results_updated": "2026-09-05T19:01:36.377425+00:00",
   "record": {
     "correct": 8,
-    "wrong": 6,
-    "total": 14,
+    "wrong": 7,
+    "total": 15,
     "void": 0,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "2": {
         "correct": 3,
         "total": 5
+      },
+      "4": {
+        "correct": 1,
+        "total": 4
       },
       "1": {
         "correct": 1,
@@ -19,10 +23,6 @@
       },
       "3": {
         "correct": 3,
-        "total": 3
-      },
-      "4": {
-        "correct": 1,
         "total": 3
       }
     }
@@ -37,178 +37,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 11,
-      "matchweek": 2,
-      "date": "2026-09-05T16:30:00+00:00",
-      "venue": "VELTINS-Arena",
-      "home": "Schalke 04",
-      "away": "Bayern Munich",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.118,
-        "p_draw": 0.184,
-        "p_away": 0.697,
-        "pick": "Bayern Munich",
-        "pick_type": "away",
-        "score": "0-2",
-        "top_scores": [
-          {
-            "score": "0-2",
-            "pct": 11.1,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 9.6,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 9.1,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 4,
-        "provisional": false,
-        "p_pick": 0.6978,
-        "why": {
-          "home_attack_pct": -17.0,
-          "home_defence_pct": -7.9,
-          "away_attack_pct": 91.7,
-          "away_defence_pct": 31.7,
-          "home_advantage_pct": 22.7
-        },
-        "best_pick": true,
-        "reasons": [
-          "Model: Schalke 04 12% / draw 18% / Bayern Munich 70%",
-          "Expected goals: 0.87 - 2.33"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Bayern Munich",
-          "player": "Harry Kane",
-          "position": "FW",
-          "lambda_goals": 0.6172643252268212,
-          "anytime_pct": 31.2,
-          "exp_shots": 2.9,
-          "p_shots_2plus": 56.1,
-          "exp_sot": 1.02,
-          "p_sot_1plus": 50.3,
-          "appearance_pct": 88.9,
-          "expected_minutes": 68.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Bayern Munich",
-          "player": "Luis D\u00edaz",
-          "position": "MF",
-          "lambda_goals": 0.35751604145553534,
-          "anytime_pct": 17.4,
-          "exp_shots": 1.92,
-          "p_shots_2plus": 32.9,
-          "exp_sot": 0.67,
-          "p_sot_1plus": 36.2,
-          "appearance_pct": 91.7,
-          "expected_minutes": 70.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Bayern Munich",
-          "player": "Michael Olise",
-          "position": "MF",
-          "lambda_goals": 0.3210245963396712,
-          "anytime_pct": 15.3,
-          "exp_shots": 2.17,
-          "p_shots_2plus": 40.1,
-          "exp_sot": 0.76,
-          "p_sot_1plus": 40.3,
-          "appearance_pct": 91.7,
-          "expected_minutes": 66.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Harry Kane",
-          "team": "Bayern Munich",
-          "position": "FW",
-          "p_pick": 0.561,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 88.9,
-          "expected_minutes": 68.4,
-          "anytime_pct": 31.2,
-          "exp_shots": 2.9,
-          "exp_sot": 1.02,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 1.3606877694444446,
-          "unavailable": false,
-          "team_attribution": "Bayern Munich"
-        },
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Harry Kane",
-          "team": "Bayern Munich",
-          "position": "FW",
-          "p_pick": 0.313,
-          "confidence": 1,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 88.9,
-          "expected_minutes": 68.4,
-          "anytime_pct": 31.2,
-          "exp_shots": 2.9,
-          "exp_sot": 1.02,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 1.3606876169444444,
-          "unavailable": false,
-          "team_attribution": "Bayern Munich"
-        }
-      ],
-      "market": {
-        "p_home": 0.069,
-        "p_draw": 0.113,
-        "p_away": 0.818,
-        "odds": {
-          "home": 15.0,
-          "draw": 7.5,
-          "away": 1.17
-        },
-        "book": "bet365",
-        "edge": -0.121,
-        "pick_odds": 1.17,
-        "ev": -0.184
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 13,
       "matchweek": 2,
@@ -4104,14 +3932,14 @@
     },
     {
       "team": "Bayern Munich",
-      "played": 1,
+      "played": 2,
       "won": 1,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
       "gf": 5,
       "ga": 1,
       "gd": 4,
-      "points": 3
+      "points": 4
     },
     {
       "team": "Leverkusen",
@@ -4213,6 +4041,17 @@
       "points": 1
     },
     {
+      "team": "Schalke 04",
+      "played": 2,
+      "won": 0,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 0,
+      "ga": 3,
+      "gd": -3,
+      "points": 1
+    },
+    {
       "team": "Union Berlin",
       "played": 2,
       "won": 0,
@@ -4243,17 +4082,6 @@
       "gf": 0,
       "ga": 2,
       "gd": -2,
-      "points": 0
-    },
-    {
-      "team": "Schalke 04",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 0,
-      "ga": 3,
-      "gd": -3,
       "points": 0
     },
     {

@@ -1,21 +1,21 @@
 {
   "league": "La Liga",
   "updated": "2026-09-05T15:16:34.764214+00:00",
-  "results_updated": "2026-09-05T17:20:52.906940+00:00",
+  "results_updated": "2026-09-05T19:01:35.917582+00:00",
   "record": {
-    "correct": 16,
+    "correct": 17,
     "wrong": 9,
-    "total": 25,
+    "total": 26,
     "void": 6,
-    "pending": 2,
+    "pending": 1,
     "by_confidence": {
       "2": {
         "correct": 6,
         "total": 12
       },
       "3": {
-        "correct": 4,
-        "total": 6
+        "correct": 5,
+        "total": 7
       },
       "1": {
         "correct": 4,
@@ -44,127 +44,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 38,
-      "matchweek": 4,
-      "date": "2026-09-05T16:30:00+00:00",
-      "venue": "Estadio Ontime Butarque",
-      "home": "Vallecano",
-      "away": "Racing Santander",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.518,
-        "p_draw": 0.233,
-        "p_away": 0.249,
-        "pick": "Vallecano",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 11.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.8,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 3,
-        "provisional": false,
-        "p_pick": 0.5179,
-        "why": {
-          "home_attack_pct": 4.9,
-          "home_defence_pct": 5.8,
-          "away_attack_pct": 14.5,
-          "away_defence_pct": -13.2,
-          "home_advantage_pct": 37.6
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Vallecano 52% / draw 23% / Racing Santander 25%",
-          "Expected goals: 1.75 - 1.14"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Vallecano",
-          "player": "Jorge De Frutos",
-          "position": "FW",
-          "lambda_goals": 0.3378969527011571,
-          "anytime_pct": 16.3,
-          "exp_shots": 1.67,
-          "p_shots_2plus": 25.8,
-          "exp_sot": 0.66,
-          "p_sot_1plus": 35.7,
-          "appearance_pct": 92.5,
-          "expected_minutes": 64.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "Isi Palaz\u00f3n",
-          "position": "FW",
-          "lambda_goals": 0.26818795202565715,
-          "anytime_pct": 11.9,
-          "exp_shots": 1.71,
-          "p_shots_2plus": 26.2,
-          "exp_sot": 0.54,
-          "p_sot_1plus": 27.4,
-          "appearance_pct": 80.0,
-          "expected_minutes": 59.2,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "\u00c1lvaro Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.21196017456681224,
-          "anytime_pct": 9.0,
-          "exp_shots": 1.37,
-          "p_shots_2plus": 17.4,
-          "exp_sot": 0.52,
-          "p_sot_1plus": 27.0,
-          "appearance_pct": 82.5,
-          "expected_minutes": 54.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.419,
-        "p_draw": 0.279,
-        "p_away": 0.302,
-        "odds": {
-          "home": 2.25,
-          "draw": 3.25,
-          "away": 3.3
-        },
-        "book": "bet365",
-        "edge": 0.099,
-        "pick_odds": 2.25,
-        "ev": 0.165
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 40,
       "matchweek": 4,
@@ -5897,13 +5776,24 @@
     },
     {
       "team": "Racing Santander",
-      "played": 3,
+      "played": 4,
       "won": 1,
       "drawn": 1,
-      "lost": 1,
-      "gf": 5,
-      "ga": 5,
-      "gd": 0,
+      "lost": 2,
+      "gf": 7,
+      "ga": 8,
+      "gd": -1,
+      "points": 4
+    },
+    {
+      "team": "Vallecano",
+      "played": 4,
+      "won": 1,
+      "drawn": 1,
+      "lost": 2,
+      "gf": 7,
+      "ga": 10,
+      "gd": -3,
       "points": 4
     },
     {
@@ -5970,17 +5860,6 @@
       "gf": 1,
       "ga": 4,
       "gd": -3,
-      "points": 1
-    },
-    {
-      "team": "Vallecano",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 4,
-      "ga": 8,
-      "gd": -4,
       "points": 1
     },
     {
