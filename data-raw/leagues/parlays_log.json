@@ -712,6 +712,34 @@
     "locked_at": "2026-08-31T20:49:43.385363+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#11#w|LALIGA#39#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop|PL#28#w": {
+    "combined": 0.1248,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#w",
+        "p": 0.7932,
+        "selection": "Manchester City to win"
+      },
+      {
+        "id": "LALIGA#39#shots#Lamine Yamal",
+        "p": 0.639,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#11#w",
+        "p": 0.6974,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "LIGUE1#24#goal#Sofiane Diop",
+        "p": 0.353,
+        "selection": "Sofiane Diop to score"
+      }
+    ],
+    "locked_at": "2026-09-05T11:41:49.805877+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#11#w|LALIGA#39#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop|PL#28#w|SERIEA#25#shots#Nico Paz": {
     "combined": 0.0565,
     "earliest_kickoff": "2026-09-04T18:45:00+00:00",
@@ -2121,6 +2149,39 @@
       }
     ],
     "locked_at": "2026-09-04T14:14:34.073400+00:00",
+    "tainted": false
+  },
+  "LALIGA#39#shots#Lamine Yamal|LALIGA#40#sot#Georges Mikautadze|PL#22#sot#Thiago|PL#24#sot#Matheus Cunha|PL#28#sot#Erling Haaland": {
+    "combined": 0.0781,
+    "earliest_kickoff": "2026-09-05T14:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#28#sot#Erling Haaland",
+        "p": 0.686,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#39#shots#Lamine Yamal",
+        "p": 0.639,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "PL#22#sot#Thiago",
+        "p": 0.623,
+        "selection": "Thiago 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#40#sot#Georges Mikautadze",
+        "p": 0.553,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "PL#24#sot#Matheus Cunha",
+        "p": 0.517,
+        "selection": "Matheus Cunha 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-05T11:41:49.805877+00:00",
     "tainted": false
   },
   "LALIGA#39#shots#Lamine Yamal|LIGUE1#24#goal#Sofiane Diop|PL#28#sot#Erling Haaland": {
