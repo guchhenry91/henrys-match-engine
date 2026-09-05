@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-05T15:16:34.764214+00:00",
-  "results_updated": "2026-09-05T15:16:34.764218+00:00",
+  "results_updated": "2026-09-05T16:49:32.396297+00:00",
   "record": {
-    "correct": 15,
+    "correct": 16,
     "wrong": 9,
-    "total": 24,
+    "total": 25,
     "void": 6,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
       "2": {
-        "correct": 5,
-        "total": 11
-      },
-      "1": {
-        "correct": 4,
-        "total": 5
+        "correct": 6,
+        "total": 12
       },
       "3": {
         "correct": 4,
         "total": 6
+      },
+      "1": {
+        "correct": 4,
+        "total": 5
       },
       "5": {
         "correct": 2,
@@ -44,172 +44,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 32,
-      "matchweek": 4,
-      "date": "2026-09-05T14:15:00+00:00",
-      "venue": "Estadio San Mam\u00e9s",
-      "home": "Ath Bilbao",
-      "away": "Ath Madrid",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.427,
-        "p_draw": 0.268,
-        "p_away": 0.305,
-        "pick": "Ath Bilbao",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 11.8,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 9.6,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4268,
-        "why": {
-          "home_attack_pct": 6.7,
-          "home_defence_pct": 18.5,
-          "away_attack_pct": 32.0,
-          "away_defence_pct": 14.7,
-          "home_advantage_pct": 37.6
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Ath Bilbao 43% / draw 27% / Ath Madrid 30%",
-          "Expected goals: 1.35 - 1.10"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Ath Bilbao",
-          "player": "Oihan Sancet",
-          "position": "MF",
-          "lambda_goals": 0.3338366605777118,
-          "anytime_pct": 16.4,
-          "exp_shots": 1.58,
-          "p_shots_2plus": 22.7,
-          "exp_sot": 0.54,
-          "p_sot_1plus": 30.1,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Ath Bilbao",
-          "player": "Gorka Guruzeta",
-          "position": "FW",
-          "lambda_goals": 0.294595777470849,
-          "anytime_pct": 14.0,
-          "exp_shots": 2.19,
-          "p_shots_2plus": 42.2,
-          "exp_sot": 0.82,
-          "p_sot_1plus": 45.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Bilbao",
-          "player": "I\u00f1aki Williams",
-          "position": "FW",
-          "lambda_goals": 0.21681063320769095,
-          "anytime_pct": 9.5,
-          "exp_shots": 1.97,
-          "p_shots_2plus": 35.3,
-          "exp_sot": 0.77,
-          "p_sot_1plus": 42.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 72.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Madrid",
-          "player": "Ademola Lookman",
-          "position": "FW",
-          "lambda_goals": 0.3506581406298066,
-          "anytime_pct": 17.4,
-          "exp_shots": 1.4,
-          "p_shots_2plus": 17.5,
-          "exp_sot": 0.34,
-          "p_sot_1plus": 18.3,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Madrid",
-          "player": "Rodrigo Mendoza",
-          "position": "FW",
-          "lambda_goals": 0.1577034242618413,
-          "anytime_pct": 6.3,
-          "exp_shots": 0.87,
-          "p_shots_2plus": 5.0,
-          "exp_sot": 0.24,
-          "p_sot_1plus": 12.2,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ath Madrid",
-          "player": "Juli\u00e1n \u00c1lvarez",
-          "position": "FW",
-          "lambda_goals": 0.14985219689012547,
-          "anytime_pct": 5.0,
-          "exp_shots": 0.46,
-          "p_shots_2plus": 1.9,
-          "exp_sot": 0.23,
-          "p_sot_1plus": 8.7,
-          "appearance_pct": 37.5,
-          "expected_minutes": 24.9,
-          "penalty_taker": true,
-          "doubt": true
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.318,
-        "p_draw": 0.277,
-        "p_away": 0.405,
-        "odds": {
-          "home": 3.1,
-          "draw": 3.3,
-          "away": 2.3
-        },
-        "book": "bet365",
-        "edge": 0.109,
-        "pick_odds": 3.1,
-        "ev": 0.323
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 38,
       "matchweek": 4,
@@ -5985,17 +5819,6 @@
       "points": 9
     },
     {
-      "team": "Ath Madrid",
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 7,
-      "ga": 3,
-      "gd": 4,
-      "points": 7
-    },
-    {
       "team": "Alaves",
       "played": 3,
       "won": 2,
@@ -6016,6 +5839,28 @@
       "ga": 1,
       "gd": 2,
       "points": 7
+    },
+    {
+      "team": "Ath Madrid",
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 7,
+      "ga": 6,
+      "gd": 1,
+      "points": 7
+    },
+    {
+      "team": "Ath Bilbao",
+      "played": 4,
+      "won": 2,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 6,
+      "ga": 5,
+      "gd": 1,
+      "points": 6
     },
     {
       "team": "Sevilla",
@@ -6081,17 +5926,6 @@
       "gf": 5,
       "ga": 4,
       "gd": 1,
-      "points": 3
-    },
-    {
-      "team": "Ath Bilbao",
-      "played": 3,
-      "won": 1,
-      "drawn": 0,
-      "lost": 2,
-      "gf": 3,
-      "ga": 5,
-      "gd": -2,
       "points": 3
     },
     {
