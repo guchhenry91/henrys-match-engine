@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-05T11:44:23.591738+00:00",
+  "updated": "2026-09-05T12:03:38.312544+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5532,
+          "combined": 0.5619,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -18,7 +18,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7932,
+              "p": 0.8057,
               "id": "PL#28#w",
               "date": "2026-09-05T14:00:00+00:00"
             },
@@ -40,7 +40,7 @@
           "tier": "Balanced four-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.1248,
+          "combined": 0.1267,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -48,7 +48,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7932,
+              "p": 0.8057,
               "id": "PL#28#w",
               "date": "2026-09-05T14:00:00+00:00"
             },
@@ -166,7 +166,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0781,
+          "combined": 0.0438,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -199,6 +199,16 @@
               "date": "2026-09-05T14:00:00+00:00"
             },
             {
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Schalke 04 v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.561,
+              "id": "BUNDESLIGA#11#shots#Harry Kane",
+              "date": "2026-09-05T16:30:00+00:00"
+            },
+            {
               "selection": "Georges Mikautadze 1+ shot on target",
               "match": "Villarreal v La Coruna",
               "league": "La Liga",
@@ -220,7 +230,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-05T11:41:49.805877+00:00"
+          "locked_at": "2026-09-05T12:03:38.312544+00:00"
         }
       ]
     },
@@ -232,7 +242,7 @@
           "tier": "PL Banker",
           "note": "Two safest Premier League calls",
           "feat": false,
-          "combined": 0.4942,
+          "combined": 0.502,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -240,7 +250,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7932,
+              "p": 0.8057,
               "id": "PL#28#w",
               "date": "2026-09-05T14:00:00+00:00"
             },
@@ -262,7 +272,7 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.2555,
+          "combined": 0.2595,
           "legs": [
             {
               "selection": "Manchester City to win",
@@ -270,7 +280,7 @@
               "league": "Premier League",
               "league_key": "PL",
               "tag": "w",
-              "p": 0.7932,
+              "p": 0.8057,
               "id": "PL#28#w",
               "date": "2026-09-05T14:00:00+00:00"
             },
@@ -306,7 +316,7 @@
     "wrong": 19,
     "void": 49,
     "total": 25,
-    "pending": 19
+    "pending": 20
   },
   "settled": [
     {
