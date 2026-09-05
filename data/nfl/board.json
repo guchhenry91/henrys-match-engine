@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-04T22:21:52.460940+00:00",
+  "updated": "2026-09-05T12:35:12.696950+00:00",
   "season": 2026,
   "week": 1,
   "elo": {
@@ -26,10 +26,11 @@
       "rating_home": 1610.4,
       "rating_away": 1561.8,
       "gradeable": true,
-      "book": null,
-      "book_p_pick": null,
-      "edge": null,
-      "verdict": null,
+      "book": "Bet365",
+      "book_p_pick": 0.6311,
+      "edge": -0.0171,
+      "verdict": "no edge",
+      "book_price_overround": 1.0425,
       "lockable": true
     },
     {
@@ -46,10 +47,11 @@
       "rating_home": 1578.3,
       "rating_away": 1545.7,
       "gradeable": true,
-      "book": null,
-      "book_p_pick": null,
-      "edge": null,
-      "verdict": null,
+      "book": "Bet365",
+      "book_p_pick": 0.6459,
+      "edge": -0.0991,
+      "verdict": "book favours",
+      "book_price_overround": 1.046,
       "lockable": true
     },
     {
@@ -814,9 +816,9 @@
           "availability": "not reported",
           "club_source": "confirmed",
           "injury_note": null,
-          "depth_pos": "KR",
+          "depth_pos": "WR",
           "depth_rank": 2,
-          "depth_label": "KR2",
+          "depth_label": "WR2",
           "games_played": 45,
           "as_of_season": 2025,
           "as_of_week": 18,
@@ -844,9 +846,9 @@
           "availability": "not reported",
           "club_source": "confirmed",
           "injury_note": null,
-          "depth_pos": "KR",
+          "depth_pos": "PR",
           "depth_rank": 1,
-          "depth_label": "KR1",
+          "depth_label": "PR1",
           "games_played": 16,
           "as_of_season": 2025,
           "as_of_week": 18,
@@ -3519,8 +3521,8 @@
   },
   "depth_check": {
     "source": "nflverse depth charts",
-    "players": 1953,
-    "coverage_of_known_actives": 0.725,
+    "players": 1944,
+    "coverage_of_known_actives": 0.723,
     "applied": false,
     "caps": {
       "anytime_touchdown": 3,
@@ -3538,10 +3540,10 @@
     "trusted": true
   },
   "odds": {
-    "fixtures_priced": 0,
-    "source": null,
-    "note": "No book prices available yet -- the board states calibrated probabilities and makes NO claim to beat a bookmaker.",
-    "checked_at": null,
+    "fixtures_priced": 2,
+    "source": "API-NFL, bet365 preferred",
+    "note": "Edges are model probability minus the de-vigged book price.",
+    "checked_at": "2026-09-05T12:34:37.637292+00:00",
     "player_props": {
       "available": false,
       "bet_type_ids": {
@@ -3564,7 +3566,7 @@
     }
   },
   "injury_report": {
-    "players_listed": 286,
+    "players_listed": 289,
     "source": "API-NFL"
   },
   "caveats": [
