@@ -104,6 +104,7 @@
 
   .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
+  .chip .rng{opacity:.62;font-weight:650;font-size:.92em}
   .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--glass);color:var(--sub);
     font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:20px;cursor:pointer;transition:.2s;white-space:nowrap;
     }
@@ -472,7 +473,7 @@ const GROUPS=[
 function go(k,f){
   // `f` lets a link open a board already filtered to one market. Defaults to
   // "all" so every existing caller behaves exactly as before.
-  cur=k; filter=f||"all"; render(k); syncNav();
+  cur=k; filter=f||"all"; tier="all"; render(k); syncNav();
   window.scrollTo(0,0);
 }
 
@@ -897,10 +898,80 @@ function viewToday(){
   return h+archiveLink();
 }
 
+// --- confidence tier filter --------------------------------------------------
+//
+// THE NAMES ARE nflTier's, NOT NEW ONES. That function already labels the NFL
+// and Champions League rows Strong/Solid/Lean at exactly 70/60, so on those tabs
+// a chip and the rows under it say the same word. Thin is the one addition,
+// splitting nflTier's catch-all "Lean" at 50 so the weakest picks can be found
+// or avoided as a group.
+//
+// WHERE IT STILL DISAGREES, AND WHY THAT IS NOT HIDDEN. Two other vocabularies
+// exist. Today and Grades use publish.py's _confidence() bands -- Elite, Strong,
+// Even, Lean, Longshot -- which the RECORD is kept by, so renaming them would
+// rename what the calibration chart measures. `tierOf` on the Best rows is a
+// third, splitting at 75/68 and agreeing with neither. So a Best pick at 64%
+// reads "Lean" on its row under the chip "Solid".
+//
+// Every chip therefore carries its percentage range, on the chip itself rather
+// than in a title attribute: the ranges are what all the names actually refer
+// to, and a tooltip is invisible on the phone this is read on.
+const TIERS=[
+  ["strong","Strong","70%+",     b=>b>=5],
+  ["solid", "Solid", "60–70%",   b=>b===4],
+  ["lean",  "Lean",  "50–60%",   b=>b===3],
+  ["thin",  "Thin",  "under 50%",b=>b<=2],
+];
+let tier="all";
+function setTier(t){ tier=(tier===t?"all":t); render(cur); }   // tapping again clears
+
+// The band for a pick, from its published `confidence` where there is one and
+// from its probability otherwise. confOf mirrors _confidence() exactly, so both
+// routes land on the same band.
+function bandOf(p){
+  const c=p&&p.confidence;
+  if(c!=null&&c>=1&&c<=5) return c;
+  return confOf(p&&(p.p_pick!=null?p.p_pick:p.probability));
+}
+function inTier(p){
+  if(tier==="all") return true;
+  const row=TIERS.find(t=>t[0]===tier);
+  const b=bandOf(p);
+  return !!row && b!=null && row[3](b);
+}
+// Filter a list, and say how many each chip would hold so an empty tier is
+// visibly empty rather than looking broken.
+function tierCounts(items){
+  const out={};
+  TIERS.forEach(([k,,,test])=>{ out[k]=items.filter(p=>{const b=bandOf(p); return b!=null&&test(b);}).length; });
+  return out;
+}
+function tierChips(items){
+  if(!items||!items.length) return "";
+  const n=tierCounts(items);
+  // THE RANGE IS ON THE CHIP, not in a title attribute. These four names sit
+  // over five differently-named bands, so a pick tagged "Strong" appears under
+  // the chip "Solid" -- and a tooltip explaining that is invisible on a phone,
+  // which is where this is read. The percentages are the thing both names refer
+  // to, so they are the part that must always be on screen.
+  return `<div class="chips">${TIERS.map(([k,name,range])=>
+    `<button class="chip ${tier===k?"on":""}" type="button" onclick="setTier('${k}')">${
+      esc(name)} <span class="rng">${esc(range)}</span> ${n[k]}</button>`).join("")}</div>`;
+}
+// A tier with nothing in it must say so, not render a blank panel.
+function tierEmpty(){
+  const row=TIERS.find(t=>t[0]===tier);
+  return emptyRow(row?`No picks in ${row[1]} (${row[2]}) right now`:"No picks in this tier");
+}
+
 function viewBest(){
-  const best=DATA.best||{}, up=best.upcoming||[], settled=(best.settled||[]);
-  if(!up.length && !settled.length) return emptyState();
-  let h="";
+  const best=DATA.best||{}, all=best.upcoming||[], settled=(best.settled||[]);
+  if(!all.length && !settled.length) return emptyState();
+  // Counts come from the UNFILTERED list so the chips do not renumber
+  // themselves as the reader moves between them.
+  let h=tierChips(all);
+  const up=all.filter(inTier);
+  if(all.length && !up.length) h+=`<div class="glass rowc">${tierEmpty()}</div>`;
   if(up.length){const d=up[0];
     h+=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
       <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b></div>
@@ -951,7 +1022,8 @@ function viewPlayers(){
   const chips=[["all","All"],["goal","Anytime"],["shots","Attempts"],["sot","On target"]];
   const NAME={goal:"Anytime goalscorer",shots:"2+ shot attempts",sot:"1+ shot on target"};
   const rbm=pp.record_by_market||{};
-  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
+  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`
+    + tierChips(up);
   // ONE SECTION PER MARKET, always -- including under "All". The three markets
   // have completely different ceilings (a 31% anytime pick and a 69% shots pick
   // are both near the top of their own market), so a single mixed list ranked by
@@ -959,7 +1031,7 @@ function viewPlayers(){
   // the goalscorers are the weak ones.
   const markets=(filter==="all")?["goal","shots","sot"]:[filter];
   for(const mk of markets){
-    const list=up.filter(p=>p.market===mk).sort((a,b)=>b.p_pick-a.p_pick);
+    const list=up.filter(p=>p.market===mk&&inTier(p)).sort((a,b)=>b.p_pick-a.p_pick);
     const r=rbm[mk]||{};
     const rec=r.total?` · ${r.correct}–${r.wrong} graded`:"";
     h+=`<div class="eyebrow" style="margin-top:18px">${esc(NAME[mk]||mk)} · ${list.length} pick${list.length===1?"":"s"}${rec}</div>
@@ -1193,7 +1265,12 @@ function viewNFL(){
   const ev=d.evidence||{};
   const chips=[["all","All"],["team_winner","Winners"],["anytime_touchdown","Anytime TD"],
                ["receiving_yards","Receiving"],["rushing_yards","Rushing"],["passing_yards","Passing"]];
-  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
+  // Every pick on the board -- games and props together -- so the tier counts
+  // describe the whole tab rather than whichever market is showing.
+  const nflAll=(d.games||[]).concat(
+    Object.values(d.props||{}).flatMap(b=>(b&&b.released&&b.picks)||[]));
+  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`
+    + tierChips(nflAll);
 
   const tw=ev.team_winner||{};
   if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
@@ -1217,7 +1294,7 @@ function viewNFL(){
   const markets = filter==="all" ? allMarkets : filter==="team_winner" ? [] : [filter];
 
   if(filter==="all"||filter==="team_winner"){
-    const games=(d.games||[]).slice().sort((a,b)=>b.p_pick-a.p_pick);
+    const games=(d.games||[]).filter(inTier).sort((a,b)=>b.p_pick-a.p_pick);
     h+=`<div class="eyebrow" style="margin-top:18px">Team winner · ${
       d.season?`week ${d.week} · `:""}${games.length} game${games.length===1?"":"s"}</div>
       <div class="glass rowc">${games.map(nflGameRow).join("")
@@ -1237,7 +1314,7 @@ function viewNFL(){
         <div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
       continue;
     }
-    const picks=block.picks||[];
+    const picks=(block.picks||[]).filter(inTier);
     // "All" is an OVERVIEW, not the whole database. Four markets at full length
     // is 111 rows of nearly identical cards -- the reader scrolls past the
     // touchdown board looking for the end of it and takes nothing in. The top few
@@ -1293,6 +1370,15 @@ function viewNBA(){
   // board that happens to be empty today.
   let h=`<div class="glass warnbox">${esc(d.status_note||"")}</div>`;
 
+  // TIER CHIPS APPEAR WITH THE PICKS, NOT BEFORE THEM. This tab publishes
+  // evidence and no picks -- `games` and every `props[m].picks` are empty until
+  // the fixture feed is wired in -- so tierChips() renders nothing today rather
+  // than four chips that all read 0 and filter a page containing no picks. A
+  // control that looks live and does nothing is the thing this codebase refuses.
+  const nbaAll=(d.games||[]).concat(
+    Object.values(d.props||{}).flatMap(b=>(b&&b.released&&b.picks)||[]));
+  h+=tierChips(nbaAll);
+
   if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
     <div class="l">Team winner on ${tw.n.toLocaleString()} games the model never saw · ${(tw.seasons_scored||[]).length} seasons · Brier ${tw.brier} against ${tw.baseline_brier} for home court</div></div>`;
 
@@ -1330,7 +1416,7 @@ function viewUCL(){
   const d=DATA.ucl;
   if(!d) return emptyState();
   const ev=d.evidence||{};
-  let h="";
+  let h=tierChips(d.matches||[]);
   if(ev.n) h+=`<div class="glass stat"><div class="k">${ev.rps}</div>
     <div class="l">RPS over ${ev.n.toLocaleString()} matches the model never saw, against ${ev.rps_baseline} for home advantage · ${(ev.seasons_scored||[]).length} seasons</div></div>`;
 
@@ -1346,7 +1432,7 @@ function viewUCL(){
     h+=`<div class="glass stat"><div class="k">${rec.pending}</div>
       <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
 
-  const ms=d.matches||[];
+  const ms=(d.matches||[]).filter(inTier);
   h+=`<div class="eyebrow" style="margin-top:18px">League phase · ${ms.length} fixture${ms.length===1?"":"s"}</div>
     <div class="glass rowc">${ms.slice(0,40).map(uclRow).join("")
       ||emptyRow("The draw is made but the fixture list has not been published by the feed yet")}</div>`;
