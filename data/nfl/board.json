@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-05T17:52:25.653759+00:00",
+  "updated": "2026-09-06T12:50:13.868613+00:00",
   "season": 2026,
   "week": 1,
   "elo": {
@@ -846,9 +846,9 @@
           "availability": "not reported",
           "club_source": "confirmed",
           "injury_note": null,
-          "depth_pos": "PR",
+          "depth_pos": "KR",
           "depth_rank": 1,
-          "depth_label": "PR1",
+          "depth_label": "KR1",
           "games_played": 16,
           "as_of_season": 2025,
           "as_of_week": 18,
@@ -1383,9 +1383,9 @@
             114.0
           ],
           "last_five_average": 58.4,
-          "availability": "not reported",
+          "availability": "doubt",
           "club_source": "confirmed",
-          "injury_note": null,
+          "injury_note": "Knee - Questionable for Week 1 at Cincinnati",
           "depth_pos": "WR",
           "depth_rank": 3,
           "depth_label": "WR3",
@@ -2081,9 +2081,9 @@
           "availability": "not reported",
           "club_source": "moved: JAX -> PHI",
           "injury_note": null,
-          "depth_pos": "KR",
+          "depth_pos": "RB",
           "depth_rank": 2,
-          "depth_label": "KR2",
+          "depth_label": "RB2",
           "games_played": 29,
           "as_of_season": 2025,
           "as_of_week": 1,
@@ -2111,9 +2111,9 @@
           "availability": "not reported",
           "club_source": "confirmed",
           "injury_note": null,
-          "depth_pos": "RB",
+          "depth_pos": "KR",
           "depth_rank": 3,
-          "depth_label": "RB3",
+          "depth_label": "KR3",
           "games_played": 21,
           "as_of_season": 2025,
           "as_of_week": 18,
@@ -2168,9 +2168,9 @@
             14.0
           ],
           "last_five_average": 35.8,
-          "availability": "not reported",
+          "availability": "doubt",
           "club_source": "moved: GB -> SEA",
-          "injury_note": null,
+          "injury_note": "Hamstring - Questionable for Week 1 vs. New England",
           "depth_pos": "RB",
           "depth_rank": 3,
           "depth_label": "RB3",
@@ -2231,9 +2231,9 @@
           "availability": "not reported",
           "club_source": "moved: CAR -> PIT",
           "injury_note": null,
-          "depth_pos": "PR",
+          "depth_pos": "RB",
           "depth_rank": 2,
-          "depth_label": "PR2",
+          "depth_label": "RB2",
           "games_played": 55,
           "as_of_season": 2025,
           "as_of_week": 18,
@@ -3521,8 +3521,8 @@
   },
   "depth_check": {
     "source": "nflverse depth charts",
-    "players": 1944,
-    "coverage_of_known_actives": 0.723,
+    "players": 1941,
+    "coverage_of_known_actives": 0.724,
     "applied": false,
     "caps": {
       "anytime_touchdown": 3,
@@ -3543,7 +3543,7 @@
     "fixtures_priced": 2,
     "source": "API-NFL, bet365 preferred",
     "note": "Edges are model probability minus the de-vigged book price.",
-    "checked_at": "2026-09-05T17:51:47.951160+00:00",
+    "checked_at": "2026-09-06T12:49:17.035851+00:00",
     "player_props": {
       "available": false,
       "bet_type_ids": {
@@ -3566,7 +3566,7 @@
     }
   },
   "injury_report": {
-    "players_listed": 215,
+    "players_listed": 235,
     "source": "API-NFL"
   },
   "caveats": [
