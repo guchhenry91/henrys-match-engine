@@ -1,17 +1,17 @@
 {
   "league": "Bundesliga",
   "updated": "2026-09-06T14:00:24.067825+00:00",
-  "results_updated": "2026-09-06T15:27:01.333483+00:00",
+  "results_updated": "2026-09-06T17:01:15.558577+00:00",
   "record": {
-    "correct": 8,
+    "correct": 9,
     "wrong": 7,
-    "total": 15,
+    "total": 16,
     "void": 0,
-    "pending": 2,
+    "pending": 1,
     "by_confidence": {
       "2": {
-        "correct": 3,
-        "total": 5
+        "correct": 4,
+        "total": 6
       },
       "4": {
         "correct": 1,
@@ -37,172 +37,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 13,
-      "matchweek": 2,
-      "date": "2026-09-06T13:30:00+00:00",
-      "venue": "Volksparkstadion",
-      "home": "Hamburg",
-      "away": "Mainz",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.309,
-        "p_draw": 0.279,
-        "p_away": 0.412,
-        "pick": "Mainz",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.3,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 10.0,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 8.7,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4205,
-        "why": {
-          "home_attack_pct": -11.5,
-          "home_defence_pct": -8.8,
-          "away_attack_pct": 16.9,
-          "away_defence_pct": 2.5,
-          "home_advantage_pct": 25.3
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Hamburg 31% / draw 28% / Mainz 41%",
-          "Expected goals: 1.17 - 1.39"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Hamburg",
-          "player": "Rayan Philippe",
-          "position": "FW",
-          "lambda_goals": 0.36259954673219236,
-          "anytime_pct": 17.0,
-          "exp_shots": 1.2,
-          "p_shots_2plus": 13.1,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 22.0,
-          "appearance_pct": 80.6,
-          "expected_minutes": 36.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Hamburg",
-          "player": "Albert Sambi Lokonga",
-          "position": "MF",
-          "lambda_goals": 0.2110805563474853,
-          "anytime_pct": 8.8,
-          "exp_shots": 0.59,
-          "p_shots_2plus": 2.2,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 9.9,
-          "appearance_pct": 75.0,
-          "expected_minutes": 49.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Hamburg",
-          "player": "Nicol\u00e1s Capaldo",
-          "position": "DF",
-          "lambda_goals": 0.1024662556145044,
-          "anytime_pct": 3.4,
-          "exp_shots": 0.6,
-          "p_shots_2plus": 2.2,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 9.9,
-          "appearance_pct": 75.0,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Mainz",
-          "player": "Ransford K\u00f6nigsd\u00f6rffer",
-          "position": "FW",
-          "lambda_goals": 0.21593972257042776,
-          "anytime_pct": 9.4,
-          "exp_shots": 1.69,
-          "p_shots_2plus": 26.3,
-          "exp_sot": 0.6,
-          "p_sot_1plus": 32.6,
-          "appearance_pct": 94.4,
-          "expected_minutes": 69.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Mainz",
-          "player": "Phillip Tietz",
-          "position": "FW",
-          "lambda_goals": 0.21631981227869906,
-          "anytime_pct": 9.2,
-          "exp_shots": 1.26,
-          "p_shots_2plus": 14.5,
-          "exp_sot": 0.44,
-          "p_sot_1plus": 23.0,
-          "appearance_pct": 83.3,
-          "expected_minutes": 52.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Mainz",
-          "player": "Jae-Sung Lee",
-          "position": "FW",
-          "lambda_goals": 0.17618057615692284,
-          "anytime_pct": 7.1,
-          "exp_shots": 0.95,
-          "p_shots_2plus": 7.6,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 16.5,
-          "appearance_pct": 80.6,
-          "expected_minutes": 64.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.339,
-        "p_draw": 0.266,
-        "p_away": 0.395,
-        "odds": {
-          "home": 2.88,
-          "draw": 3.5,
-          "away": 2.4
-        },
-        "book": "bet365",
-        "edge": 0.017,
-        "pick_odds": 2.4,
-        "ev": -0.011
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 15,
       "matchweek": 2,
@@ -3949,6 +3783,17 @@
       "points": 6
     },
     {
+      "team": "Mainz",
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 5,
+      "ga": 0,
+      "gd": 5,
+      "points": 4
+    },
+    {
       "team": "Bayern Munich",
       "played": 2,
       "won": 1,
@@ -4037,17 +3882,6 @@
       "points": 1
     },
     {
-      "team": "Mainz",
-      "played": 1,
-      "won": 0,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 0,
-      "ga": 0,
-      "gd": 0,
-      "points": 1
-    },
-    {
       "team": "Paderborn",
       "played": 2,
       "won": 0,
@@ -4092,17 +3926,6 @@
       "points": 0
     },
     {
-      "team": "Hamburg",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 0,
-      "ga": 2,
-      "gd": -2,
-      "points": 0
-    },
-    {
       "team": "M'gladbach",
       "played": 2,
       "won": 0,
@@ -4111,6 +3934,17 @@
       "gf": 3,
       "ga": 7,
       "gd": -4,
+      "points": 0
+    },
+    {
+      "team": "Hamburg",
+      "played": 2,
+      "won": 0,
+      "drawn": 0,
+      "lost": 2,
+      "gf": 0,
+      "ga": 7,
+      "gd": -7,
       "points": 0
     }
   ],

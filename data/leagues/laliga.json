@@ -1,11 +1,11 @@
 {
   "league": "La Liga",
   "updated": "2026-09-06T13:59:54.741841+00:00",
-  "results_updated": "2026-09-06T15:27:00.868225+00:00",
+  "results_updated": "2026-09-06T17:01:15.109999+00:00",
   "record": {
-    "correct": 17,
+    "correct": 18,
     "wrong": 10,
-    "total": 27,
+    "total": 28,
     "void": 6,
     "pending": 3,
     "by_confidence": {
@@ -14,8 +14,8 @@
         "total": 12
       },
       "3": {
-        "correct": 5,
-        "total": 7
+        "correct": 6,
+        "total": 8
       },
       "1": {
         "correct": 4,
@@ -48,266 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 39,
-      "matchweek": 4,
-      "date": "2026-09-06T14:15:00+00:00",
-      "venue": "Camp de Mestalla",
-      "home": "Valencia",
-      "away": "Barcelona",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.247,
-        "p_draw": 0.227,
-        "p_away": 0.525,
-        "pick": "Barcelona",
-        "pick_type": "away",
-        "score": "1-2",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 10.6,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-2",
-            "pct": 9.7,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 9.1,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 3,
-        "provisional": false,
-        "p_pick": 0.5255,
-        "why": {
-          "home_attack_pct": -0.5,
-          "home_defence_pct": 5.4,
-          "away_attack_pct": 78.4,
-          "away_defence_pct": 25.2,
-          "home_advantage_pct": 37.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Valencia 25% / draw 23% / Barcelona 53%",
-          "Expected goals: 1.18 - 1.82"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Valencia",
-          "player": "Hugo Duro",
-          "position": "FW",
-          "lambda_goals": 0.22846045374005217,
-          "anytime_pct": 10.1,
-          "exp_shots": 0.82,
-          "p_shots_2plus": 4.6,
-          "exp_sot": 0.32,
-          "p_sot_1plus": 16.3,
-          "appearance_pct": 92.5,
-          "expected_minutes": 50.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Arnaut Danjuma Groeneveld",
-          "position": "FW",
-          "lambda_goals": 0.14253133467291207,
-          "anytime_pct": 5.3,
-          "exp_shots": 0.8,
-          "p_shots_2plus": 5.0,
-          "exp_sot": 0.34,
-          "p_sot_1plus": 16.8,
-          "appearance_pct": 77.5,
-          "expected_minutes": 41.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Pepelu",
-          "position": "MF",
-          "lambda_goals": 0.12755368830202163,
-          "anytime_pct": 4.6,
-          "exp_shots": 0.43,
-          "p_shots_2plus": 0.8,
-          "exp_sot": 0.12,
-          "p_sot_1plus": 4.7,
-          "appearance_pct": 80.0,
-          "expected_minutes": 58.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Barcelona",
-          "player": "Raphinha",
-          "position": "FW",
-          "lambda_goals": 0.5372255360321319,
-          "anytime_pct": 28.3,
-          "exp_shots": 2.31,
-          "p_shots_2plus": 45.8,
-          "exp_sot": 0.83,
-          "p_sot_1plus": 45.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Barcelona",
-          "player": "Lamine Yamal",
-          "position": "FW",
-          "lambda_goals": 0.3633038362884546,
-          "anytime_pct": 18.1,
-          "exp_shots": 2.96,
-          "p_shots_2plus": 63.9,
-          "exp_sot": 0.96,
-          "p_sot_1plus": 51.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Barcelona",
-          "player": "Ferm\u00edn L\u00f3pez",
-          "position": "FW",
-          "lambda_goals": 0.32694345863998286,
-          "anytime_pct": 16.0,
-          "exp_shots": 2.02,
-          "p_shots_2plus": 36.8,
-          "exp_sot": 0.76,
-          "p_sot_1plus": 42.2,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Lamine Yamal",
-          "team": "Barcelona",
-          "position": "FW",
-          "p_pick": 0.639,
-          "confidence": 4,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.8,
-          "anytime_pct": 18.1,
-          "exp_shots": 2.96,
-          "exp_sot": 0.96,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            7,
-            4,
-            2,
-            5,
-            4
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 22.74600047,
-          "unavailable": false,
-          "team_attribution": "Barcelona"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Lamine Yamal",
-          "team": "Barcelona",
-          "position": "FW",
-          "p_pick": 0.516,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.8,
-          "anytime_pct": 18.1,
-          "exp_shots": 2.96,
-          "exp_sot": 0.96,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            2,
-            1,
-            0,
-            3,
-            2
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 22.7460005925,
-          "unavailable": false,
-          "team_attribution": "Barcelona"
-        },
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Raphinha",
-          "team": "Barcelona",
-          "position": "FW",
-          "p_pick": 0.281,
-          "confidence": 1,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "anytime_pct": 28.3,
-          "exp_shots": 2.31,
-          "exp_sot": 0.83,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            2,
-            2,
-            1,
-            2
-          ],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 22.7460003975,
-          "unavailable": false,
-          "team_attribution": "Barcelona"
-        }
-      ],
-      "market": {
-        "p_home": 0.102,
-        "p_draw": 0.161,
-        "p_away": 0.737,
-        "odds": {
-          "home": 10.0,
-          "draw": 5.75,
-          "away": 1.29
-        },
-        "book": "bet365",
-        "edge": -0.212,
-        "pick_odds": 1.29,
-        "ev": -0.322
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 31,
       "matchweek": 4,
@@ -5526,14 +5266,14 @@
   "standings": [
     {
       "team": "Barcelona",
-      "played": 3,
-      "won": 3,
+      "played": 4,
+      "won": 4,
       "drawn": 0,
       "lost": 0,
-      "gf": 12,
+      "gf": 17,
       "ga": 2,
-      "gd": 10,
-      "points": 9
+      "gd": 15,
+      "points": 12
     },
     {
       "team": "Real Madrid",
@@ -5712,17 +5452,6 @@
       "points": 2
     },
     {
-      "team": "Valencia",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 1,
-      "ga": 4,
-      "gd": -3,
-      "points": 1
-    },
-    {
       "team": "Elche",
       "played": 3,
       "won": 0,
@@ -5742,6 +5471,17 @@
       "gf": 1,
       "ga": 7,
       "gd": -6,
+      "points": 1
+    },
+    {
+      "team": "Valencia",
+      "played": 4,
+      "won": 0,
+      "drawn": 1,
+      "lost": 3,
+      "gf": 1,
+      "ga": 9,
+      "gd": -8,
       "points": 1
     }
   ],
