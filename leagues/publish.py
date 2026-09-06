@@ -6,6 +6,7 @@ rather than a rewrite.
 """
 import json
 import os
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -828,12 +829,31 @@ FILE_FOR = {"PL": "pl.json", "LALIGA": "laliga.json",
             "SERIEA": "seriea.json"}
 
 
+def _describe(exc: Exception) -> str:
+    """An abort message that says WHICH HOST failed, not just how.
+
+    `HTTPError` stringifies to "HTTP Error 503: Service Temporarily Unavailable"
+    and nothing else. On 2026-09-05 every league began aborting on exactly that,
+    and the message was identical for all five -- so nine consecutive failed runs
+    over 23 hours said only that something, somewhere, returned a 503. The build
+    worked locally the whole time, which meant the one fact that mattered was
+    which upstream host CI could not reach, and it was the one fact not printed.
+
+    Same lesson as validate_data_json: a failure that does not name its cause
+    turns a five-minute fix into a day of reading logs.
+    """
+    url = getattr(exc, "url", None)
+    where = f" from {url}" if url else ""
+    return f"{type(exc).__name__}: {exc}{where}"
+
+
 def _publish_one(league: str, fname: str) -> bool:
     """Build and atomically write one league. Returns True on success."""
     try:
         payload = build(league)
     except Exception as exc:              # one league's outage must not sink the rest
-        print(f"ABORT {league}: {exc}; leaving its file untouched")
+        print(f"ABORT {league}: {_describe(exc)}; leaving its file untouched")
+        traceback.print_exc(limit=12)
         return False
     path = OUT / fname
     tmp = path.with_suffix(".json.tmp")
