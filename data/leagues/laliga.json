@@ -1,17 +1,17 @@
 {
   "league": "La Liga",
   "updated": "2026-09-06T13:59:54.741841+00:00",
-  "results_updated": "2026-09-06T17:01:15.109999+00:00",
+  "results_updated": "2026-09-06T19:09:32.989359+00:00",
   "record": {
-    "correct": 18,
-    "wrong": 10,
-    "total": 28,
+    "correct": 19,
+    "wrong": 11,
+    "total": 30,
     "void": 6,
-    "pending": 3,
+    "pending": 1,
     "by_confidence": {
       "2": {
-        "correct": 6,
-        "total": 12
+        "correct": 7,
+        "total": 14
       },
       "3": {
         "correct": 6,
@@ -48,293 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 31,
-      "matchweek": 4,
-      "date": "2026-09-06T16:30:00+00:00",
-      "venue": "Mendizorroza",
-      "home": "Alaves",
-      "away": "Osasuna",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.458,
-        "p_draw": 0.271,
-        "p_away": 0.271,
-        "pick": "Alaves",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 13.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 12.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 9.5,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4556,
-        "why": {
-          "home_attack_pct": -0.6,
-          "home_defence_pct": 8.3,
-          "away_attack_pct": -1.6,
-          "away_defence_pct": 8.3,
-          "home_advantage_pct": 37.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Alaves 46% / draw 27% / Osasuna 27%",
-          "Expected goals: 1.36 - 0.98"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Alaves",
-          "player": "Lucas Boy\u00e9",
-          "position": "FW",
-          "lambda_goals": 0.47807784692878147,
-          "anytime_pct": 22.4,
-          "exp_shots": 1.56,
-          "p_shots_2plus": 22.1,
-          "exp_sot": 0.48,
-          "p_sot_1plus": 23.9,
-          "appearance_pct": 75.0,
-          "expected_minutes": 50.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Alaves",
-          "player": "Carles Ale\u00f1\u00e1",
-          "position": "FW",
-          "lambda_goals": 0.14998859705255968,
-          "anytime_pct": 5.8,
-          "exp_shots": 0.93,
-          "p_shots_2plus": 6.8,
-          "exp_sot": 0.23,
-          "p_sot_1plus": 11.0,
-          "appearance_pct": 87.5,
-          "expected_minutes": 51.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Alaves",
-          "player": "Pablo Ib\u00e1\u00f1ez",
-          "position": "MF",
-          "lambda_goals": 0.1467227148652872,
-          "anytime_pct": 5.7,
-          "exp_shots": 1.18,
-          "p_shots_2plus": 11.9,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 17.4,
-          "appearance_pct": 95.0,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Ante Budimir",
-          "position": "FW",
-          "lambda_goals": 0.42095082192991873,
-          "anytime_pct": 21.2,
-          "exp_shots": 2.07,
-          "p_shots_2plus": 37.9,
-          "exp_sot": 0.82,
-          "p_sot_1plus": 44.0,
-          "appearance_pct": 95.0,
-          "expected_minutes": 76.9,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Raul Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.11940499614776734,
-          "anytime_pct": 4.3,
-          "exp_shots": 0.67,
-          "p_shots_2plus": 2.5,
-          "exp_sot": 0.31,
-          "p_sot_1plus": 16.0,
-          "appearance_pct": 92.5,
-          "expected_minutes": 23.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Rub\u00e9n Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.08719430779576297,
-          "anytime_pct": 2.8,
-          "exp_shots": 0.74,
-          "p_shots_2plus": 3.5,
-          "exp_sot": 0.25,
-          "p_sot_1plus": 12.3,
-          "appearance_pct": 90.0,
-          "expected_minutes": 59.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.42,
-        "p_draw": 0.308,
-        "p_away": 0.273,
-        "odds": {
-          "home": 2.25,
-          "draw": 3.1,
-          "away": 3.5
-        },
-        "book": "bet365",
-        "edge": 0.038,
-        "pick_odds": 2.25,
-        "ev": 0.03
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 37,
-      "matchweek": 4,
-      "date": "2026-09-06T16:30:00+00:00",
-      "venue": "La Rosaleda",
-      "home": "Malaga",
-      "away": "Levante",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.267,
-        "p_draw": 0.28,
-        "p_away": 0.453,
-        "pick": "Levante",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "0-1",
-            "pct": 14.2,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 12.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-0",
-            "pct": 10.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.467,
-        "why": {
-          "home_attack_pct": -43.4,
-          "home_defence_pct": -6.1,
-          "away_attack_pct": 13.0,
-          "away_defence_pct": -9.1,
-          "home_advantage_pct": 37.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Malaga 27% / draw 28% / Levante 45%",
-          "Expected goals: 0.92 - 1.30"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Levante",
-          "player": "Iv\u00e1n Romero",
-          "position": "FW",
-          "lambda_goals": 0.3954975126710211,
-          "anytime_pct": 18.9,
-          "exp_shots": 1.39,
-          "p_shots_2plus": 17.9,
-          "exp_sot": 0.42,
-          "p_sot_1plus": 21.5,
-          "appearance_pct": 82.5,
-          "expected_minutes": 60.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Levante",
-          "player": "Etta Eyong",
-          "position": "MF",
-          "lambda_goals": 0.30952847956722357,
-          "anytime_pct": 14.4,
-          "exp_shots": 0.95,
-          "p_shots_2plus": 7.2,
-          "exp_sot": 0.44,
-          "p_sot_1plus": 23.2,
-          "appearance_pct": 85.0,
-          "expected_minutes": 42.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Levante",
-          "player": "V\u00edctor Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.15431327485223673,
-          "anytime_pct": 5.6,
-          "exp_shots": 0.55,
-          "p_shots_2plus": 2.3,
-          "exp_sot": 0.22,
-          "p_sot_1plus": 9.4,
-          "appearance_pct": 55.0,
-          "expected_minutes": 27.9,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.391,
-        "p_draw": 0.288,
-        "p_away": 0.321,
-        "odds": {
-          "home": 2.38,
-          "draw": 3.25,
-          "away": 3.0
-        },
-        "book": "bet365",
-        "edge": 0.132,
-        "pick_odds": 3.0,
-        "ev": 0.358
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 35,
       "matchweek": 4,
@@ -5276,6 +4989,17 @@
       "points": 12
     },
     {
+      "team": "Alaves",
+      "played": 4,
+      "won": 3,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 10,
+      "ga": 3,
+      "gd": 7,
+      "points": 10
+    },
+    {
       "team": "Real Madrid",
       "played": 4,
       "won": 3,
@@ -5309,28 +5033,6 @@
       "points": 8
     },
     {
-      "team": "Alaves",
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 5,
-      "ga": 1,
-      "gd": 4,
-      "points": 7
-    },
-    {
-      "team": "Osasuna",
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 3,
-      "ga": 1,
-      "gd": 2,
-      "points": 7
-    },
-    {
       "team": "Ath Madrid",
       "played": 4,
       "won": 2,
@@ -5339,6 +5041,17 @@
       "gf": 7,
       "ga": 6,
       "gd": 1,
+      "points": 7
+    },
+    {
+      "team": "Osasuna",
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 5,
+      "ga": 6,
+      "gd": -1,
       "points": 7
     },
     {
@@ -5365,14 +5078,14 @@
     },
     {
       "team": "Levante",
-      "played": 3,
+      "played": 4,
       "won": 1,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 1,
       "gf": 5,
       "ga": 5,
       "gd": 0,
-      "points": 4
+      "points": 5
     },
     {
       "team": "Racing Santander",
@@ -5452,6 +5165,17 @@
       "points": 2
     },
     {
+      "team": "Malaga",
+      "played": 4,
+      "won": 0,
+      "drawn": 2,
+      "lost": 2,
+      "gf": 1,
+      "ga": 7,
+      "gd": -6,
+      "points": 2
+    },
+    {
       "team": "Elche",
       "played": 3,
       "won": 0,
@@ -5459,17 +5183,6 @@
       "lost": 2,
       "gf": 3,
       "ga": 9,
-      "gd": -6,
-      "points": 1
-    },
-    {
-      "team": "Malaga",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 1,
-      "ga": 7,
       "gd": -6,
       "points": 1
     },
