@@ -1,17 +1,17 @@
 {
   "league": "Serie A",
   "updated": "2026-09-06T14:01:03.868427+00:00",
-  "results_updated": "2026-09-06T20:23:04.690928+00:00",
+  "results_updated": "2026-09-06T21:20:20.143404+00:00",
   "record": {
     "correct": 6,
-    "wrong": 3,
-    "total": 9,
+    "wrong": 4,
+    "total": 10,
     "void": 0,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "2": {
         "correct": 4,
-        "total": 6
+        "total": 7
       },
       "3": {
         "correct": 2,
@@ -152,172 +152,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 27,
-      "matchweek": 3,
-      "date": "2026-09-06T18:45:00+00:00",
-      "venue": "Allianz Stadium",
-      "home": "Juventus",
-      "away": "Milan",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.478,
-        "p_draw": 0.259,
-        "p_away": 0.263,
-        "pick": "Juventus",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 12.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 12.2,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-1",
-            "pct": 9.1,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": true,
-        "p_pick": 0.4778,
-        "why": {
-          "home_attack_pct": 36.8,
-          "home_defence_pct": 43.5,
-          "away_attack_pct": 29.6,
-          "away_defence_pct": 13.5,
-          "home_advantage_pct": 8.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Juventus 48% / draw 26% / Milan 26%",
-          "Expected goals: 1.45 - 1.00"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Juventus",
-          "player": "Kenan Yildiz",
-          "position": "FW",
-          "lambda_goals": 0.2426255837070177,
-          "anytime_pct": 10.9,
-          "exp_shots": 2.2,
-          "p_shots_2plus": 41.1,
-          "exp_sot": 0.86,
-          "p_sot_1plus": 45.1,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Juventus",
-          "player": "Jonathan Christian David",
-          "position": "FW",
-          "lambda_goals": 0.23195290558489637,
-          "anytime_pct": 10.2,
-          "exp_shots": 1.13,
-          "p_shots_2plus": 10.8,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 21.6,
-          "appearance_pct": 90.0,
-          "expected_minutes": 45.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Juventus",
-          "player": "Francisco Concei\u00e7\u00e3o",
-          "position": "DF",
-          "lambda_goals": 0.12479064892708525,
-          "anytime_pct": 4.5,
-          "exp_shots": 1.54,
-          "p_shots_2plus": 21.8,
-          "exp_sot": 0.48,
-          "p_sot_1plus": 24.6,
-          "appearance_pct": 80.0,
-          "expected_minutes": 54.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Milan",
-          "player": "Christian Pulisic",
-          "position": "FW",
-          "lambda_goals": 0.1708187292934638,
-          "anytime_pct": 6.8,
-          "exp_shots": 0.84,
-          "p_shots_2plus": 5.6,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 18.5,
-          "appearance_pct": 77.5,
-          "expected_minutes": 41.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Milan",
-          "player": "Adrien Rabiot",
-          "position": "MF",
-          "lambda_goals": 0.1180727281295608,
-          "anytime_pct": 4.2,
-          "exp_shots": 0.77,
-          "p_shots_2plus": 4.5,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.3,
-          "appearance_pct": 75.0,
-          "expected_minutes": 65.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Milan",
-          "player": "Alexis Saelemaekers",
-          "position": "DF",
-          "lambda_goals": 0.11449280720414251,
-          "anytime_pct": 4.1,
-          "exp_shots": 0.84,
-          "p_shots_2plus": 4.9,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 13.0,
-          "appearance_pct": 90.0,
-          "expected_minutes": 72.5,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.45,
-        "p_draw": 0.287,
-        "p_away": 0.262,
-        "odds": {
-          "home": 2.1,
-          "draw": 3.25,
-          "away": 3.7
-        },
-        "book": "bet365",
-        "edge": 0.028,
-        "pick_odds": 2.1,
-        "ev": 0.003
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 22,
       "matchweek": 3,
@@ -5082,6 +4916,28 @@
       "points": 7
     },
     {
+      "team": "Milan",
+      "played": 3,
+      "won": 2,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 5,
+      "ga": 2,
+      "gd": 3,
+      "points": 7
+    },
+    {
+      "team": "Juventus",
+      "played": 3,
+      "won": 2,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 4,
+      "ga": 1,
+      "gd": 3,
+      "points": 7
+    },
+    {
       "team": "Frosinone",
       "played": 3,
       "won": 2,
@@ -5089,28 +4945,6 @@
       "lost": 1,
       "gf": 6,
       "ga": 3,
-      "gd": 3,
-      "points": 6
-    },
-    {
-      "team": "Milan",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 4,
-      "ga": 1,
-      "gd": 3,
-      "points": 6
-    },
-    {
-      "team": "Juventus",
-      "played": 2,
-      "won": 2,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 3,
-      "ga": 0,
       "gd": 3,
       "points": 6
     },
