@@ -1,13 +1,13 @@
 {
   "league": "Premier League",
   "updated": "2026-09-06T13:59:53.381560+00:00",
-  "results_updated": "2026-09-06T14:09:35.983521+00:00",
+  "results_updated": "2026-09-06T15:27:00.385107+00:00",
   "record": {
     "correct": 13,
-    "wrong": 12,
-    "total": 25,
+    "wrong": 13,
+    "total": 26,
     "void": 1,
-    "pending": 2,
+    "pending": 1,
     "by_confidence": {
       "5": {
         "correct": 2,
@@ -23,7 +23,7 @@
       },
       "1": {
         "correct": 3,
-        "total": 8
+        "total": 9
       },
       "3": {
         "correct": 2,
@@ -48,235 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 24,
-      "matchweek": 3,
-      "date": "2026-09-06T13:00:00+00:00",
-      "venue": "Hill Dickinson Stadium",
-      "home": "Everton",
-      "away": "Manchester United",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.308,
-        "p_draw": 0.312,
-        "p_away": 0.381,
-        "pick": "Manchester United",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.6,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 11.4,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 9.9,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.383,
-        "why": {
-          "home_attack_pct": -1.3,
-          "home_defence_pct": 4.3,
-          "away_attack_pct": 30.5,
-          "away_defence_pct": 7.4,
-          "home_advantage_pct": 19.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Everton 31% / draw 31% / Manchester United 38%",
-          "Expected goals: 1.08 - 1.23"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Everton",
-          "player": "Tyrique George",
-          "position": "FW",
-          "lambda_goals": 0.21675987977479916,
-          "anytime_pct": 9.5,
-          "exp_shots": 1.84,
-          "p_shots_2plus": 31.0,
-          "exp_sot": 0.76,
-          "p_sot_1plus": 42.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Brennan Johnson",
-          "position": "FW",
-          "lambda_goals": 0.18937149889250351,
-          "anytime_pct": 7.9,
-          "exp_shots": 0.86,
-          "p_shots_2plus": 5.4,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 15.4,
-          "appearance_pct": 87.5,
-          "expected_minutes": 44.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Thierno Barry",
-          "position": "FW",
-          "lambda_goals": 0.1795244061485909,
-          "anytime_pct": 7.4,
-          "exp_shots": 1.03,
-          "p_shots_2plus": 8.1,
-          "exp_sot": 0.35,
-          "p_sot_1plus": 18.7,
-          "appearance_pct": 97.5,
-          "expected_minutes": 49.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Bruno Fernandes",
-          "position": "FW",
-          "lambda_goals": 0.2190223056877852,
-          "anytime_pct": 9.7,
-          "exp_shots": 2.34,
-          "p_shots_2plus": 46.9,
-          "exp_sot": 0.77,
-          "p_sot_1plus": 42.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 88.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Matheus Cunha",
-          "position": "FW",
-          "lambda_goals": 0.20127573735667892,
-          "anytime_pct": 8.7,
-          "exp_shots": 2.44,
-          "p_shots_2plus": 49.7,
-          "exp_sot": 0.96,
-          "p_sot_1plus": 51.7,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Bryan Mbeumo",
-          "position": "FW",
-          "lambda_goals": 0.19834135995884195,
-          "anytime_pct": 8.5,
-          "exp_shots": 1.94,
-          "p_shots_2plus": 34.3,
-          "exp_sot": 0.81,
-          "p_sot_1plus": 44.3,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Matheus Cunha",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.517,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "anytime_pct": 8.7,
-          "exp_shots": 2.44,
-          "exp_sot": 0.96,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 24.078876944999998,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Matheus Cunha",
-          "team": "Manchester United",
-          "position": "FW",
-          "p_pick": 0.497,
-          "confidence": 2,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "anytime_pct": 8.7,
-          "exp_shots": 2.44,
-          "exp_sot": 0.96,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            3,
-            5,
-            4,
-            2,
-            2
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 24.078876802222222,
-          "unavailable": false,
-          "team_attribution": "Manchester United"
-        }
-      ],
-      "market": {
-        "p_home": 0.292,
-        "p_draw": 0.265,
-        "p_away": 0.443,
-        "odds": {
-          "home": 3.3,
-          "draw": 3.5,
-          "away": 2.1
-        },
-        "book": "bet365",
-        "edge": -0.062,
-        "pick_odds": 2.1,
-        "ev": -0.2
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 21,
       "matchweek": 3,
@@ -4934,6 +4705,17 @@
       "points": 5
     },
     {
+      "team": "Everton",
+      "played": 3,
+      "won": 1,
+      "drawn": 2,
+      "lost": 0,
+      "gf": 5,
+      "ga": 3,
+      "gd": 2,
+      "points": 5
+    },
+    {
       "team": "Leeds",
       "played": 3,
       "won": 1,
@@ -4956,14 +4738,14 @@
       "points": 4
     },
     {
-      "team": "Everton",
-      "played": 2,
+      "team": "Manchester United",
+      "played": 3,
       "won": 1,
       "drawn": 1,
-      "lost": 0,
-      "gf": 3,
-      "ga": 1,
-      "gd": 2,
+      "lost": 1,
+      "gf": 7,
+      "ga": 6,
+      "gd": 1,
       "points": 4
     },
     {
@@ -4976,17 +4758,6 @@
       "ga": 3,
       "gd": 0,
       "points": 4
-    },
-    {
-      "team": "Manchester United",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 5,
-      "ga": 4,
-      "gd": 1,
-      "points": 3
     },
     {
       "team": "Crystal Palace",
