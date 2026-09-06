@@ -1,24 +1,24 @@
 {
-  "updated": "2026-09-05T15:17:17.433865+00:00",
+  "updated": "2026-09-06T14:01:58.953075+00:00",
   "matchweek": 3,
   "selection_verified_on": "2026-09-04",
   "picks": [
     {
-      "id": 26,
-      "date": "2026-09-05T16:30:00+00:00",
-      "home": "Hull",
-      "away": "Aston Villa",
-      "score": "1-0",
-      "score_pct": 18.7,
+      "id": 24,
+      "date": "2026-09-06T13:00:00+00:00",
+      "home": "Everton",
+      "away": "Manchester United",
+      "score": "1-1",
+      "score_pct": 13.6,
       "alternatives": [
         {
-          "score": "1-1",
-          "pct": 12.5
+          "score": "0-1",
+          "pct": 11.4
         }
       ],
-      "match_pick": "Hull",
-      "gap_to_next_pp": 6.2,
-      "agrees_with_match_pick": true,
+      "match_pick": "Manchester United",
+      "gap_to_next_pp": 2.2,
+      "agrees_with_match_pick": false,
       "provisional": false,
       "rank": 1
     },
@@ -32,94 +32,47 @@
       "alternatives": [
         {
           "score": "1-1",
-          "pct": 11.1
+          "pct": 11.5
         }
       ],
       "match_pick": "Arsenal",
-      "gap_to_next_pp": 2.4,
+      "gap_to_next_pp": 2.0,
       "agrees_with_match_pick": true,
-      "provisional": true,
+      "provisional": false,
       "rank": 2
-    },
-    {
-      "id": 25,
-      "date": "2026-09-05T14:00:00+00:00",
-      "home": "Fulham",
-      "away": "Crystal Palace",
-      "score": "1-1",
-      "score_pct": 13.2,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 11.4
-        }
-      ],
-      "match_pick": "Fulham",
-      "gap_to_next_pp": 1.8,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 3
-    },
-    {
-      "id": 30,
-      "date": "2026-09-05T14:00:00+00:00",
-      "home": "Nottingham Forest",
-      "away": "Tottenham",
-      "score": "1-1",
-      "score_pct": 13.2,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 12.2
-        }
-      ],
-      "match_pick": "Nottingham Forest",
-      "gap_to_next_pp": 1.0,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 4
-    },
-    {
-      "id": 24,
-      "date": "2026-09-06T13:00:00+00:00",
-      "home": "Everton",
-      "away": "Manchester United",
-      "score": "1-1",
-      "score_pct": 13.2,
-      "alternatives": [
-        {
-          "score": "0-1",
-          "pct": 11.4
-        }
-      ],
-      "match_pick": "Manchester United",
-      "gap_to_next_pp": 1.8,
-      "agrees_with_match_pick": false,
-      "provisional": true,
-      "rank": 5
-    },
-    {
-      "id": 23,
-      "date": "2026-09-05T14:00:00+00:00",
-      "home": "Brighton",
-      "away": "Leeds",
-      "score": "1-1",
-      "score_pct": 12.8,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 11.7
-        }
-      ],
-      "match_pick": "Brighton",
-      "gap_to_next_pp": 1.1,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 6
     }
   ],
-  "missing_fixtures": [],
+  "missing_fixtures": [
+    "Brighton|Leeds",
+    "Fulham|Crystal Palace",
+    "Nottingham Forest|Tottenham",
+    "Hull|Aston Villa"
+  ],
   "settled": [
+    {
+      "home": "Brighton",
+      "away": "Leeds",
+      "date": "2026-09-05T14:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "1-1",
+      "graded": "correct"
+    },
+    {
+      "home": "Fulham",
+      "away": "Crystal Palace",
+      "date": "2026-09-05T14:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "2-3",
+      "graded": "wrong"
+    },
+    {
+      "home": "Nottingham Forest",
+      "away": "Tottenham",
+      "date": "2026-09-05T14:00:00+00:00",
+      "predicted": "1-1",
+      "actual": "0-0",
+      "graded": "wrong"
+    },
     {
       "home": "Chelsea",
       "away": "Brighton",
@@ -210,8 +163,8 @@
     }
   ],
   "record": {
-    "correct": 2,
-    "total": 11
+    "correct": 3,
+    "total": 14
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,
