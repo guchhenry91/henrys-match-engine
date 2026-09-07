@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
   "updated": "2026-09-07T16:31:51.710087+00:00",
-  "results_updated": "2026-09-07T16:31:51.710092+00:00",
+  "results_updated": "2026-09-07T19:08:53.583289+00:00",
   "record": {
-    "correct": 6,
+    "correct": 7,
     "wrong": 4,
-    "total": 10,
+    "total": 11,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
+      "2": {
+        "correct": 5,
+        "total": 8
+      },
       "3": {
         "correct": 2,
         "total": 2
-      },
-      "2": {
-        "correct": 4,
-        "total": 7
       },
       "1": {
         "correct": 0,
@@ -152,159 +152,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 22,
-      "matchweek": 3,
-      "date": "2026-09-07T16:30:00+00:00",
-      "venue": "Unipol Domus",
-      "home": "Cagliari",
-      "away": "Lecce",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.448,
-        "p_draw": 0.278,
-        "p_away": 0.275,
-        "pick": "Cagliari",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 13.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 12.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-0",
-            "pct": 10.1,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4477,
-        "why": {
-          "home_attack_pct": -6.4,
-          "home_defence_pct": -8.3,
-          "away_attack_pct": -22.0,
-          "away_defence_pct": -12.6,
-          "home_advantage_pct": 8.3
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Cagliari 45% / draw 28% / Lecce 27%",
-          "Expected goals: 1.32 - 0.97"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Cagliari",
-          "player": "Gennaro Borrelli",
-          "position": "FW",
-          "lambda_goals": 0.3368407689478552,
-          "anytime_pct": 15.0,
-          "exp_shots": 0.96,
-          "p_shots_2plus": 8.3,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 18.1,
-          "appearance_pct": 70.0,
-          "expected_minutes": 32.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "Daniel Maldini",
-          "position": "FW",
-          "lambda_goals": 0.2310925659805538,
-          "anytime_pct": 9.1,
-          "exp_shots": 0.83,
-          "p_shots_2plus": 6.3,
-          "exp_sot": 0.29,
-          "p_sot_1plus": 12.6,
-          "appearance_pct": 55.0,
-          "expected_minutes": 24.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "Paul Mendy",
-          "position": "FW",
-          "lambda_goals": 0.12337089043775762,
-          "anytime_pct": 3.5,
-          "exp_shots": 0.36,
-          "p_shots_2plus": 1.2,
-          "exp_sot": 0.09,
-          "p_sot_1plus": 3.0,
-          "appearance_pct": 25.0,
-          "expected_minutes": 9.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Lecce",
-          "player": "Nikola Stulic",
-          "position": "FW",
-          "lambda_goals": 0.29675680722453696,
-          "anytime_pct": 13.8,
-          "exp_shots": 0.9,
-          "p_shots_2plus": 6.1,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.9,
-          "appearance_pct": 87.5,
-          "expected_minutes": 44.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Lecce",
-          "player": "Santiago Pierotti",
-          "position": "FW",
-          "lambda_goals": 0.18882123659476502,
-          "anytime_pct": 7.9,
-          "exp_shots": 1.02,
-          "p_shots_2plus": 8.2,
-          "exp_sot": 0.24,
-          "p_sot_1plus": 11.9,
-          "appearance_pct": 95.0,
-          "expected_minutes": 68.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Lecce",
-          "player": "Tiago Gabriel",
-          "position": "DF",
-          "lambda_goals": 0.10326058599549444,
-          "anytime_pct": 3.5,
-          "exp_shots": 0.45,
-          "p_shots_2plus": 0.7,
-          "exp_sot": 0.1,
-          "p_sot_1plus": 3.9,
-          "appearance_pct": 95.0,
-          "expected_minutes": 82.8,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": null,
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 30,
       "matchweek": 3,
@@ -4957,6 +4804,17 @@
       "points": 6
     },
     {
+      "team": "Cagliari",
+      "played": 3,
+      "won": 2,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 2,
+      "ga": 1,
+      "gd": 1,
+      "points": 6
+    },
+    {
       "team": "Udinese",
       "played": 2,
       "won": 1,
@@ -4990,17 +4848,6 @@
       "points": 3
     },
     {
-      "team": "Cagliari",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 1,
-      "ga": 1,
-      "gd": 0,
-      "points": 3
-    },
-    {
       "team": "Torino",
       "played": 3,
       "won": 1,
@@ -5013,13 +4860,13 @@
     },
     {
       "team": "Lecce",
-      "played": 2,
+      "played": 3,
       "won": 1,
       "drawn": 0,
-      "lost": 1,
+      "lost": 2,
       "gf": 2,
-      "ga": 4,
-      "gd": -2,
+      "ga": 5,
+      "gd": -3,
       "points": 3
     },
     {
