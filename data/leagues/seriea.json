@@ -1,7 +1,7 @@
 {
   "league": "Serie A",
-  "updated": "2026-09-07T20:14:14.167444+00:00",
-  "results_updated": "2026-09-07T22:49:51.172375+00:00",
+  "updated": "2026-09-07T22:53:58.912188+00:00",
+  "results_updated": "2026-09-07T22:53:58.912191+00:00",
   "record": {
     "correct": 8,
     "wrong": 4,
@@ -9,13 +9,13 @@
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 6,
-        "total": 9
-      },
       "3": {
         "correct": 2,
         "total": 2
+      },
+      "2": {
+        "correct": 6,
+        "total": 9
       },
       "1": {
         "correct": 0,
@@ -151,7 +151,1466 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [],
+  "matches": [
+    {
+      "id": 40,
+      "matchweek": 4,
+      "date": "2026-09-11T18:45:00+00:00",
+      "venue": "Pier Luigi Penzo",
+      "home": "Venezia",
+      "away": "Fiorentina",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.284,
+        "p_draw": 0.265,
+        "p_away": 0.451,
+        "pick": "Fiorentina",
+        "pick_type": "away",
+        "score": "0-1",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 12.5,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-1",
+            "pct": 12.1,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-0",
+            "pct": 9.2,
+            "outcome": "home",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.451,
+        "why": {
+          "home_attack_pct": -15.2,
+          "home_defence_pct": -15.2,
+          "away_attack_pct": 5.0,
+          "away_defence_pct": -1.3,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Venezia 28% / draw 26% / Fiorentina 45%",
+          "Expected goals: 1.06 - 1.41"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Fiorentina",
+          "player": "Moise Kean",
+          "position": "FW",
+          "lambda_goals": 0.2761247011577525,
+          "anytime_pct": 11.8,
+          "exp_shots": 2.24,
+          "p_shots_2plus": 33.2,
+          "exp_sot": 0.79,
+          "p_sot_1plus": 34.9,
+          "appearance_pct": 67.5,
+          "expected_minutes": 53.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Fiorentina",
+          "player": "Mateo Pellegrino",
+          "position": "FW",
+          "lambda_goals": 0.25655812630858355,
+          "anytime_pct": 11.7,
+          "exp_shots": 2.11,
+          "p_shots_2plus": 39.1,
+          "exp_sot": 0.66,
+          "p_sot_1plus": 36.1,
+          "appearance_pct": 95.0,
+          "expected_minutes": 77.3,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Fiorentina",
+          "player": "Albert Gudmundsson",
+          "position": "FW",
+          "lambda_goals": 0.22549806597646127,
+          "anytime_pct": 9.8,
+          "exp_shots": 1.25,
+          "p_shots_2plus": 14.1,
+          "exp_sot": 0.49,
+          "p_sot_1plus": 25.9,
+          "appearance_pct": 85.0,
+          "expected_minutes": 59.0,
+          "penalty_taker": true,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 33,
+      "matchweek": 4,
+      "date": "2026-09-12T13:00:00+00:00",
+      "venue": "Luigi Ferraris",
+      "home": "Genoa",
+      "away": "Frosinone",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.377,
+        "p_draw": 0.269,
+        "p_away": 0.355,
+        "pick": "Genoa",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 12.8,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 10.8,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 10.4,
+            "outcome": "away",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 1,
+        "provisional": true,
+        "p_pick": 0.3765,
+        "why": {
+          "home_attack_pct": -7.9,
+          "home_defence_pct": -1.0,
+          "away_attack_pct": 5.8,
+          "away_defence_pct": -10.1,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Genoa 38% / draw 27% / Frosinone 35%",
+          "Expected goals: 1.26 - 1.21"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Genoa",
+          "player": "Vitinha",
+          "position": "FW",
+          "lambda_goals": 0.39726660551608417,
+          "anytime_pct": 19.6,
+          "exp_shots": 1.83,
+          "p_shots_2plus": 30.2,
+          "exp_sot": 0.5,
+          "p_sot_1plus": 26.6,
+          "appearance_pct": 90.0,
+          "expected_minutes": 58.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Genoa",
+          "player": "Leo \u00d8stigard",
+          "position": "DF",
+          "lambda_goals": 0.1840799397839622,
+          "anytime_pct": 7.4,
+          "exp_shots": 0.52,
+          "p_shots_2plus": 1.4,
+          "exp_sot": 0.22,
+          "p_sot_1plus": 10.3,
+          "appearance_pct": 77.5,
+          "expected_minutes": 68.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Genoa",
+          "player": "Johan V\u00e1squez",
+          "position": "DF",
+          "lambda_goals": 0.11400638465998034,
+          "anytime_pct": 4.0,
+          "exp_shots": 0.82,
+          "p_shots_2plus": 4.5,
+          "exp_sot": 0.21,
+          "p_sot_1plus": 9.8,
+          "appearance_pct": 92.5,
+          "expected_minutes": 82.7,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 35,
+      "matchweek": 4,
+      "date": "2026-09-12T16:00:00+00:00",
+      "venue": "Olimpico",
+      "home": "Lazio",
+      "away": "Milan",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.325,
+        "p_draw": 0.273,
+        "p_away": 0.402,
+        "pick": "Milan",
+        "pick_type": "away",
+        "score": "0-1",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 12.9,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-1",
+            "pct": 11.8,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-0",
+            "pct": 10.3,
+            "outcome": "home",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.402,
+        "why": {
+          "home_attack_pct": 4.1,
+          "home_defence_pct": 14.7,
+          "away_attack_pct": 29.3,
+          "away_defence_pct": 14.1,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Lazio 33% / draw 27% / Milan 40%",
+          "Expected goals: 1.12 - 1.28"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Lazio",
+          "player": "Andrea Pinamonti",
+          "position": "FW",
+          "lambda_goals": 0.21348359133607756,
+          "anytime_pct": 9.2,
+          "exp_shots": 1.9,
+          "p_shots_2plus": 32.4,
+          "exp_sot": 0.67,
+          "p_sot_1plus": 36.3,
+          "appearance_pct": 92.5,
+          "expected_minutes": 67.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Lazio",
+          "player": "Mattia Zaccagni",
+          "position": "FW",
+          "lambda_goals": 0.13665961965738085,
+          "anytime_pct": 5.0,
+          "exp_shots": 1.05,
+          "p_shots_2plus": 10.3,
+          "exp_sot": 0.39,
+          "p_sot_1plus": 18.6,
+          "appearance_pct": 67.5,
+          "expected_minutes": 55.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Lazio",
+          "player": "Matteo Cancellieri",
+          "position": "FW",
+          "lambda_goals": 0.12173626333498015,
+          "anytime_pct": 4.3,
+          "exp_shots": 1.0,
+          "p_shots_2plus": 8.8,
+          "exp_sot": 0.36,
+          "p_sot_1plus": 18.0,
+          "appearance_pct": 77.5,
+          "expected_minutes": 45.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Milan",
+          "player": "Christian Pulisic",
+          "position": "FW",
+          "lambda_goals": 0.21782619148483578,
+          "anytime_pct": 9.2,
+          "exp_shots": 0.95,
+          "p_shots_2plus": 7.6,
+          "exp_sot": 0.41,
+          "p_sot_1plus": 20.9,
+          "appearance_pct": 77.5,
+          "expected_minutes": 41.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Milan",
+          "player": "Adrien Rabiot",
+          "position": "MF",
+          "lambda_goals": 0.1505548419528843,
+          "anytime_pct": 5.7,
+          "exp_shots": 0.87,
+          "p_shots_2plus": 6.2,
+          "exp_sot": 0.29,
+          "p_sot_1plus": 14.1,
+          "appearance_pct": 75.0,
+          "expected_minutes": 65.8,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Milan",
+          "player": "Alexis Saelemaekers",
+          "position": "DF",
+          "lambda_goals": 0.14598646808684837,
+          "anytime_pct": 5.6,
+          "exp_shots": 0.94,
+          "p_shots_2plus": 6.8,
+          "exp_sot": 0.29,
+          "p_sot_1plus": 14.9,
+          "appearance_pct": 90.0,
+          "expected_minutes": 72.5,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 31,
+      "matchweek": 4,
+      "date": "2026-09-12T18:45:00+00:00",
+      "venue": "New Balance Arena",
+      "home": "Atalanta",
+      "away": "Cagliari",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.585,
+        "p_draw": 0.224,
+        "p_away": 0.192,
+        "pick": "Atalanta",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 11.5,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 10.6,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "2-0",
+            "pct": 10.5,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.5845,
+        "why": {
+          "home_attack_pct": 37.6,
+          "home_defence_pct": 12.4,
+          "away_attack_pct": -6.5,
+          "away_defence_pct": -7.9,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Atalanta 58% / draw 22% / Cagliari 19%",
+          "Expected goals: 1.83 - 0.94"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Atalanta",
+          "player": "Nikola Krstovic",
+          "position": "FW",
+          "lambda_goals": 0.3304291711503841,
+          "anytime_pct": 15.5,
+          "exp_shots": 2.35,
+          "p_shots_2plus": 42.9,
+          "exp_sot": 0.71,
+          "p_sot_1plus": 36.8,
+          "appearance_pct": 85.0,
+          "expected_minutes": 45.9,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Atalanta",
+          "player": "Gianluca Scamacca",
+          "position": "FW",
+          "lambda_goals": 0.2427062536936024,
+          "anytime_pct": 10.0,
+          "exp_shots": 1.53,
+          "p_shots_2plus": 19.9,
+          "exp_sot": 0.61,
+          "p_sot_1plus": 27.5,
+          "appearance_pct": 62.5,
+          "expected_minutes": 34.3,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Atalanta",
+          "player": "Charles De Ketelaere",
+          "position": "FW",
+          "lambda_goals": 0.19782570913747197,
+          "anytime_pct": 8.2,
+          "exp_shots": 1.45,
+          "p_shots_2plus": 19.5,
+          "exp_sot": 0.56,
+          "p_sot_1plus": 28.7,
+          "appearance_pct": 80.0,
+          "expected_minutes": 56.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Cagliari",
+          "player": "Gennaro Borrelli",
+          "position": "FW",
+          "lambda_goals": 0.24121030125408088,
+          "anytime_pct": 10.2,
+          "exp_shots": 0.66,
+          "p_shots_2plus": 3.2,
+          "exp_sot": 0.26,
+          "p_sot_1plus": 12.0,
+          "appearance_pct": 70.0,
+          "expected_minutes": 32.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Cagliari",
+          "player": "Daniel Maldini",
+          "position": "FW",
+          "lambda_goals": 0.16548444427276884,
+          "anytime_pct": 6.1,
+          "exp_shots": 0.57,
+          "p_shots_2plus": 2.5,
+          "exp_sot": 0.2,
+          "p_sot_1plus": 8.4,
+          "appearance_pct": 55.0,
+          "expected_minutes": 24.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Cagliari",
+          "player": "Paul Mendy",
+          "position": "FW",
+          "lambda_goals": 0.08834539162651797,
+          "anytime_pct": 2.4,
+          "exp_shots": 0.25,
+          "p_shots_2plus": 0.5,
+          "exp_sot": 0.06,
+          "p_sot_1plus": 1.9,
+          "appearance_pct": 25.0,
+          "expected_minutes": 9.1,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 36,
+      "matchweek": 4,
+      "date": "2026-09-13T13:00:00+00:00",
+      "venue": "Ettore Giardiniero - Via Del Mare",
+      "home": "Lecce",
+      "away": "Monza",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.385,
+        "p_draw": 0.287,
+        "p_away": 0.328,
+        "pick": "Lecce",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-1",
+            "pct": 13.2,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "1-0",
+            "pct": 12.9,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-1",
+            "pct": 11.6,
+            "outcome": "away",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 1,
+        "provisional": true,
+        "p_pick": 0.3854,
+        "why": {
+          "home_attack_pct": -22.6,
+          "home_defence_pct": -12.5,
+          "away_attack_pct": -19.3,
+          "away_defence_pct": -18.2,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Lecce 39% / draw 29% / Monza 33%",
+          "Expected goals: 1.16 - 1.05"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Lecce",
+          "player": "Nikola Stulic",
+          "position": "FW",
+          "lambda_goals": 0.342738958194045,
+          "anytime_pct": 16.3,
+          "exp_shots": 1.26,
+          "p_shots_2plus": 14.3,
+          "exp_sot": 0.37,
+          "p_sot_1plus": 19.2,
+          "appearance_pct": 87.5,
+          "expected_minutes": 44.1,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Lecce",
+          "player": "Santiago Pierotti",
+          "position": "FW",
+          "lambda_goals": 0.2312239245711969,
+          "anytime_pct": 10.3,
+          "exp_shots": 1.44,
+          "p_shots_2plus": 18.9,
+          "exp_sot": 0.34,
+          "p_sot_1plus": 17.8,
+          "appearance_pct": 95.0,
+          "expected_minutes": 68.3,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Lecce",
+          "player": "Tiago Gabriel",
+          "position": "DF",
+          "lambda_goals": 0.12644932518179341,
+          "anytime_pct": 4.7,
+          "exp_shots": 0.63,
+          "p_shots_2plus": 2.1,
+          "exp_sot": 0.14,
+          "p_sot_1plus": 6.0,
+          "appearance_pct": 95.0,
+          "expected_minutes": 82.8,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 37,
+      "matchweek": 4,
+      "date": "2026-09-13T16:00:00+00:00",
+      "venue": "Diego Armando Maradona",
+      "home": "Napoli",
+      "away": "Bologna",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.489,
+        "p_draw": 0.277,
+        "p_away": 0.234,
+        "pick": "Napoli",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 15.3,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 12.5,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-0",
+            "pct": 11.1,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 2,
+        "provisional": true,
+        "p_pick": 0.4888,
+        "why": {
+          "home_attack_pct": 20.5,
+          "home_defence_pct": 33.5,
+          "away_attack_pct": 5.3,
+          "away_defence_pct": 9.7,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Napoli 49% / draw 28% / Bologna 23%",
+          "Expected goals: 1.35 - 0.84"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Napoli",
+          "player": "Rasmus H\u00f8jlund",
+          "position": "FW",
+          "lambda_goals": 0.31249903142305174,
+          "anytime_pct": 14.6,
+          "exp_shots": 1.41,
+          "p_shots_2plus": 18.3,
+          "exp_sot": 0.59,
+          "p_sot_1plus": 30.8,
+          "appearance_pct": 85.0,
+          "expected_minutes": 71.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Napoli",
+          "player": "Scott McTominay",
+          "position": "MF",
+          "lambda_goals": 0.2327674697487772,
+          "anytime_pct": 10.2,
+          "exp_shots": 1.73,
+          "p_shots_2plus": 27.1,
+          "exp_sot": 0.64,
+          "p_sot_1plus": 33.2,
+          "appearance_pct": 85.0,
+          "expected_minutes": 72.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Napoli",
+          "player": "Giovane",
+          "position": "FW",
+          "lambda_goals": 0.12395507750505808,
+          "anytime_pct": 4.5,
+          "exp_shots": 1.17,
+          "p_shots_2plus": 12.1,
+          "exp_sot": 0.54,
+          "p_sot_1plus": 28.2,
+          "appearance_pct": 85.0,
+          "expected_minutes": 48.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bologna",
+          "player": "Roberto Piccoli",
+          "position": "FW",
+          "lambda_goals": 0.15059686960748048,
+          "anytime_pct": 5.8,
+          "exp_shots": 0.93,
+          "p_shots_2plus": 7.0,
+          "exp_sot": 0.31,
+          "p_sot_1plus": 15.5,
+          "appearance_pct": 82.5,
+          "expected_minutes": 42.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bologna",
+          "player": "Jonathan Rowe",
+          "position": "FW",
+          "lambda_goals": 0.12571041661305868,
+          "anytime_pct": 4.5,
+          "exp_shots": 0.87,
+          "p_shots_2plus": 6.4,
+          "exp_sot": 0.29,
+          "p_sot_1plus": 14.1,
+          "appearance_pct": 72.5,
+          "expected_minutes": 41.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Bologna",
+          "player": "Jens Odgaard",
+          "position": "FW",
+          "lambda_goals": 0.11618043422418846,
+          "anytime_pct": 4.0,
+          "exp_shots": 0.66,
+          "p_shots_2plus": 3.2,
+          "exp_sot": 0.25,
+          "p_sot_1plus": 11.9,
+          "appearance_pct": 67.5,
+          "expected_minutes": 36.1,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 38,
+      "matchweek": 4,
+      "date": "2026-09-13T18:45:00+00:00",
+      "venue": "Mapei Stadium",
+      "home": "Sassuolo",
+      "away": "Juventus",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.187,
+        "p_draw": 0.233,
+        "p_away": 0.58,
+        "pick": "Juventus",
+        "pick_type": "away",
+        "score": "0-1",
+        "top_scores": [
+          {
+            "score": "0-1",
+            "pct": 13.0,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "0-2",
+            "pct": 11.2,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 11.0,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.5797,
+        "why": {
+          "home_attack_pct": 1.7,
+          "home_defence_pct": -10.7,
+          "away_attack_pct": 36.2,
+          "away_defence_pct": 44.1,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Sassuolo 19% / draw 23% / Juventus 58%",
+          "Expected goals: 0.87 - 1.73"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Sassuolo",
+          "player": "Domenico Berardi",
+          "position": "FW",
+          "lambda_goals": 0.1922058735650784,
+          "anytime_pct": 7.7,
+          "exp_shots": 1.4,
+          "p_shots_2plus": 17.8,
+          "exp_sot": 0.61,
+          "p_sot_1plus": 28.4,
+          "appearance_pct": 67.5,
+          "expected_minutes": 51.8,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Sassuolo",
+          "player": "Sebastiano Esposito",
+          "position": "FW",
+          "lambda_goals": 0.14240073831101935,
+          "anytime_pct": 5.4,
+          "exp_shots": 1.51,
+          "p_shots_2plus": 21.0,
+          "exp_sot": 0.46,
+          "p_sot_1plus": 24.7,
+          "appearance_pct": 92.5,
+          "expected_minutes": 70.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Sassuolo",
+          "player": "Armand Lauriente",
+          "position": "FW",
+          "lambda_goals": 0.13019426527986908,
+          "anytime_pct": 4.9,
+          "exp_shots": 1.69,
+          "p_shots_2plus": 26.3,
+          "exp_sot": 0.62,
+          "p_sot_1plus": 34.2,
+          "appearance_pct": 97.5,
+          "expected_minutes": 68.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Juventus",
+          "player": "Kenan Yildiz",
+          "position": "FW",
+          "lambda_goals": 0.28864312797294833,
+          "anytime_pct": 13.5,
+          "exp_shots": 2.26,
+          "p_shots_2plus": 42.8,
+          "exp_sot": 0.88,
+          "p_sot_1plus": 46.1,
+          "appearance_pct": 92.5,
+          "expected_minutes": 73.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Juventus",
+          "player": "Jonathan Christian David",
+          "position": "FW",
+          "lambda_goals": 0.2759308286893358,
+          "anytime_pct": 12.7,
+          "exp_shots": 1.16,
+          "p_shots_2plus": 11.5,
+          "exp_sot": 0.42,
+          "p_sot_1plus": 22.2,
+          "appearance_pct": 90.0,
+          "expected_minutes": 45.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Juventus",
+          "player": "Francisco Concei\u00e7\u00e3o",
+          "position": "DF",
+          "lambda_goals": 0.1484274230293834,
+          "anytime_pct": 5.7,
+          "exp_shots": 1.58,
+          "p_shots_2plus": 22.8,
+          "exp_sot": 0.49,
+          "p_sot_1plus": 25.3,
+          "appearance_pct": 80.0,
+          "expected_minutes": 54.8,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 32,
+      "matchweek": 4,
+      "date": "2026-09-14T16:30:00+00:00",
+      "venue": "Giuseppe Sinigaglia",
+      "home": "Como",
+      "away": "Parma",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.643,
+        "p_draw": 0.22,
+        "p_away": 0.137,
+        "pick": "Como",
+        "pick_type": "home",
+        "score": "1-0",
+        "top_scores": [
+          {
+            "score": "1-0",
+            "pct": 15.1,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "2-0",
+            "pct": 13.5,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 10.1,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          }
+        ],
+        "confidence": 4,
+        "provisional": true,
+        "p_pick": 0.6433,
+        "why": {
+          "home_attack_pct": 33.0,
+          "home_defence_pct": 28.6,
+          "away_attack_pct": -22.6,
+          "away_defence_pct": -9.4,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Como 64% / draw 22% / Parma 14%",
+          "Expected goals: 1.80 - 0.68"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Como",
+          "player": "Tasos Douvikas",
+          "position": "FW",
+          "lambda_goals": 0.3651288930902857,
+          "anytime_pct": 18.1,
+          "exp_shots": 2.04,
+          "p_shots_2plus": 37.1,
+          "exp_sot": 0.86,
+          "p_sot_1plus": 46.4,
+          "appearance_pct": 97.5,
+          "expected_minutes": 58.5,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Como",
+          "player": "Assane Diao",
+          "position": "FW",
+          "lambda_goals": 0.30273483746621177,
+          "anytime_pct": 14.5,
+          "exp_shots": 2.29,
+          "p_shots_2plus": 45.2,
+          "exp_sot": 0.85,
+          "p_sot_1plus": 46.5,
+          "appearance_pct": 100.0,
+          "expected_minutes": 70.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Como",
+          "player": "Nico Paz",
+          "position": "FW",
+          "lambda_goals": 0.28688107447896233,
+          "anytime_pct": 13.3,
+          "exp_shots": 3.7,
+          "p_shots_2plus": 68.6,
+          "exp_sot": 1.37,
+          "p_sot_1plus": 61.7,
+          "appearance_pct": 90.0,
+          "expected_minutes": 74.7,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Parma",
+          "player": "Giovanni Fabbian",
+          "position": "MF",
+          "lambda_goals": 0.11175602145047216,
+          "anytime_pct": 3.9,
+          "exp_shots": 0.39,
+          "p_shots_2plus": 0.6,
+          "exp_sot": 0.12,
+          "p_sot_1plus": 4.6,
+          "appearance_pct": 75.0,
+          "expected_minutes": 30.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Parma",
+          "player": "Enrico Del Prato",
+          "position": "DF",
+          "lambda_goals": 0.0954385212744339,
+          "anytime_pct": 3.2,
+          "exp_shots": 0.27,
+          "p_shots_2plus": 0.1,
+          "exp_sot": 0.12,
+          "p_sot_1plus": 4.8,
+          "appearance_pct": 90.0,
+          "expected_minutes": 76.1,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Parma",
+          "player": "Adri\u00e1n Bernab\u00e9",
+          "position": "DF",
+          "lambda_goals": 0.09528899800911707,
+          "anytime_pct": 3.1,
+          "exp_shots": 0.76,
+          "p_shots_2plus": 4.1,
+          "exp_sot": 0.18,
+          "p_sot_1plus": 8.4,
+          "appearance_pct": 82.5,
+          "expected_minutes": 65.5,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [
+        {
+          "market": "shots",
+          "line": "2+ shot attempts",
+          "player": "Nico Paz",
+          "team": "Como",
+          "position": "FW",
+          "p_pick": 0.686,
+          "confidence": 4,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 90.0,
+          "expected_minutes": 74.7,
+          "anytime_pct": 13.3,
+          "exp_shots": 3.7,
+          "exp_sot": 1.37,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            6,
+            5,
+            2,
+            2,
+            1
+          ],
+          "last_five_line": 2,
+          "bar": 0.497,
+          "news_checked_hours_ago": 76.43965810305555,
+          "unavailable": false,
+          "team_attribution": "Como"
+        },
+        {
+          "market": "sot",
+          "line": "1+ shot on target",
+          "player": "Nico Paz",
+          "team": "Como",
+          "position": "FW",
+          "p_pick": 0.617,
+          "confidence": 4,
+          "provisional": true,
+          "doubt": false,
+          "penalty_taker": false,
+          "appearance_pct": 90.0,
+          "expected_minutes": 74.7,
+          "anytime_pct": 13.3,
+          "exp_shots": 3.7,
+          "exp_sot": 1.37,
+          "lineup_confirmed": false,
+          "gradeable": true,
+          "last_five": [
+            3,
+            3,
+            0,
+            0,
+            0
+          ],
+          "last_five_line": 1,
+          "bar": 0.511,
+          "news_checked_hours_ago": 76.43965812222223,
+          "unavailable": false,
+          "team_attribution": "Como"
+        }
+      ],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 39,
+      "matchweek": 4,
+      "date": "2026-09-14T16:30:00+00:00",
+      "venue": "Olimpico - Grande Torino",
+      "home": "Torino",
+      "away": "Roma",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.224,
+        "p_draw": 0.246,
+        "p_away": 0.53,
+        "pick": "Roma",
+        "pick_type": "away",
+        "score": "0-1",
+        "top_scores": [
+          {
+            "score": "0-1",
+            "pct": 12.4,
+            "outcome": "away",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-1",
+            "pct": 11.7,
+            "outcome": "draw",
+            "agrees_with_pick": false
+          },
+          {
+            "score": "0-2",
+            "pct": 10.0,
+            "outcome": "away",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 3,
+        "provisional": true,
+        "p_pick": 0.53,
+        "why": {
+          "home_attack_pct": -1.0,
+          "home_defence_pct": -7.5,
+          "away_attack_pct": 31.9,
+          "away_defence_pct": 27.0,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": false,
+        "reasons": [
+          "Model: Torino 22% / draw 25% / Roma 53%",
+          "Expected goals: 0.96 - 1.62"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Torino",
+          "player": "Giovanni Simeone",
+          "position": "FW",
+          "lambda_goals": 0.22400149524352603,
+          "anytime_pct": 9.6,
+          "exp_shots": 1.84,
+          "p_shots_2plus": 29.9,
+          "exp_sot": 0.68,
+          "p_sot_1plus": 34.5,
+          "appearance_pct": 82.5,
+          "expected_minutes": 58.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Torino",
+          "player": "Nikola Vlasic",
+          "position": "FW",
+          "lambda_goals": 0.19735868552602237,
+          "anytime_pct": 8.4,
+          "exp_shots": 1.3,
+          "p_shots_2plus": 14.9,
+          "exp_sot": 0.44,
+          "p_sot_1plus": 24.0,
+          "appearance_pct": 95.0,
+          "expected_minutes": 79.1,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Torino",
+          "player": "Che Adams",
+          "position": "FW",
+          "lambda_goals": 0.13679066420635508,
+          "anytime_pct": 5.1,
+          "exp_shots": 1.21,
+          "p_shots_2plus": 13.2,
+          "exp_sot": 0.45,
+          "p_sot_1plus": 23.3,
+          "appearance_pct": 85.0,
+          "expected_minutes": 48.9,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Roma",
+          "player": "Donyell Malen",
+          "position": "FW",
+          "lambda_goals": 0.34918348486475503,
+          "anytime_pct": 13.4,
+          "exp_shots": 1.61,
+          "p_shots_2plus": 17.1,
+          "exp_sot": 0.69,
+          "p_sot_1plus": 24.9,
+          "appearance_pct": 47.5,
+          "expected_minutes": 39.6,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Roma",
+          "player": "Santiago Castro",
+          "position": "FW",
+          "lambda_goals": 0.28046013420445065,
+          "anytime_pct": 12.9,
+          "exp_shots": 1.65,
+          "p_shots_2plus": 25.1,
+          "exp_sot": 0.54,
+          "p_sot_1plus": 29.2,
+          "appearance_pct": 90.0,
+          "expected_minutes": 61.2,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Roma",
+          "player": "Paulo Dybala",
+          "position": "FW",
+          "lambda_goals": 0.20818163674090337,
+          "anytime_pct": 8.1,
+          "exp_shots": 1.19,
+          "p_shots_2plus": 13.0,
+          "exp_sot": 0.45,
+          "p_sot_1plus": 20.3,
+          "appearance_pct": 57.5,
+          "expected_minutes": 35.5,
+          "penalty_taker": true,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    },
+    {
+      "id": 34,
+      "matchweek": 4,
+      "date": "2026-09-14T18:45:00+00:00",
+      "venue": "Giuseppe Meazza",
+      "home": "Inter",
+      "away": "Udinese",
+      "time_suspect": false,
+      "prediction": {
+        "p_home": 0.679,
+        "p_draw": 0.189,
+        "p_away": 0.132,
+        "pick": "Inter",
+        "pick_type": "home",
+        "score": "2-0",
+        "top_scores": [
+          {
+            "score": "2-0",
+            "pct": 11.8,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "1-0",
+            "pct": 11.1,
+            "outcome": "home",
+            "agrees_with_pick": true
+          },
+          {
+            "score": "2-1",
+            "pct": 9.7,
+            "outcome": "home",
+            "agrees_with_pick": true
+          }
+        ],
+        "confidence": 4,
+        "provisional": true,
+        "p_pick": 0.6788,
+        "why": {
+          "home_attack_pct": 67.4,
+          "home_defence_pct": 34.8,
+          "away_attack_pct": -2.3,
+          "away_defence_pct": -4.2,
+          "home_advantage_pct": 8.2
+        },
+        "best_pick": true,
+        "reasons": [
+          "Model: Inter 68% / draw 19% / Udinese 13%",
+          "Expected goals: 2.15 - 0.82"
+        ],
+        "unmodeled_absences": {
+          "home": [],
+          "away": []
+        }
+      },
+      "props": [
+        {
+          "team": "Inter",
+          "player": "Lautaro Mart\u00ednez",
+          "position": "FW",
+          "lambda_goals": 0.47980962371484676,
+          "anytime_pct": 22.8,
+          "exp_shots": 2.73,
+          "p_shots_2plus": 46.0,
+          "exp_sot": 1.09,
+          "p_sot_1plus": 47.7,
+          "appearance_pct": 77.5,
+          "expected_minutes": 57.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Inter",
+          "player": "Marcus Thuram",
+          "position": "FW",
+          "lambda_goals": 0.3562052674298941,
+          "anytime_pct": 16.3,
+          "exp_shots": 1.84,
+          "p_shots_2plus": 28.6,
+          "exp_sot": 0.72,
+          "p_sot_1plus": 34.7,
+          "appearance_pct": 75.0,
+          "expected_minutes": 50.0,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Inter",
+          "player": "Francesco Pio Esposito",
+          "position": "FW",
+          "lambda_goals": 0.25501387676276543,
+          "anytime_pct": 11.5,
+          "exp_shots": 1.58,
+          "p_shots_2plus": 22.9,
+          "exp_sot": 0.62,
+          "p_sot_1plus": 33.2,
+          "appearance_pct": 90.0,
+          "expected_minutes": 39.5,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Udinese",
+          "player": "Keinan Davis",
+          "position": "FW",
+          "lambda_goals": 0.22771881991041396,
+          "anytime_pct": 9.7,
+          "exp_shots": 0.99,
+          "p_shots_2plus": 8.5,
+          "exp_sot": 0.45,
+          "p_sot_1plus": 22.6,
+          "appearance_pct": 77.5,
+          "expected_minutes": 54.4,
+          "penalty_taker": true,
+          "doubt": false
+        },
+        {
+          "team": "Udinese",
+          "player": "Nicolo Zaniolo",
+          "position": "FW",
+          "lambda_goals": 0.1360204337303711,
+          "anytime_pct": 5.1,
+          "exp_shots": 1.31,
+          "p_shots_2plus": 15.7,
+          "exp_sot": 0.41,
+          "p_sot_1plus": 21.1,
+          "appearance_pct": 82.5,
+          "expected_minutes": 59.5,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "Udinese",
+          "player": "Jurgen Ekkelenkamp",
+          "position": "FW",
+          "lambda_goals": 0.11621583783664072,
+          "anytime_pct": 4.1,
+          "exp_shots": 0.68,
+          "p_shots_2plus": 3.0,
+          "exp_sot": 0.27,
+          "p_sot_1plus": 13.4,
+          "appearance_pct": 80.0,
+          "expected_minutes": 57.7,
+          "penalty_taker": false,
+          "doubt": false
+        }
+      ],
+      "player_picks": [],
+      "market": null,
+      "result": null,
+      "graded": null,
+      "void": false
+    }
+  ],
   "season": [
     {
       "id": 5,
@@ -565,9 +2024,12 @@
       "date": "2026-09-07T18:45:00+00:00",
       "home": "Udinese",
       "away": "Lazio",
-      "result": null,
+      "result": {
+        "home_goals": 1,
+        "away_goals": 2
+      },
       "pick": "Lazio",
-      "graded": null,
+      "graded": "correct",
       "void": false
     },
     {
@@ -4425,79 +5887,86 @@
     {
       "team": "Inter",
       "proj_points": 79.8,
-      "title_pct": 59.9,
-      "top4_pct": 95.3,
+      "title_pct": 59.6,
+      "top4_pct": 95.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Juventus",
-      "proj_points": 71.8,
-      "title_pct": 14.7,
-      "top4_pct": 73.5,
+      "proj_points": 71.9,
+      "title_pct": 15.4,
+      "top4_pct": 73.4,
       "relegation_pct": 0.0
     },
     {
       "team": "Roma",
       "proj_points": 69.5,
-      "title_pct": 9.4,
-      "top4_pct": 62.4,
+      "title_pct": 9.5,
+      "top4_pct": 61.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Como",
-      "proj_points": 68.6,
-      "title_pct": 7.6,
-      "top4_pct": 58.4,
+      "proj_points": 68.7,
+      "title_pct": 7.8,
+      "top4_pct": 57.7,
       "relegation_pct": 0.0
     },
     {
       "team": "Atalanta",
-      "proj_points": 65.1,
-      "title_pct": 3.6,
-      "top4_pct": 37.3,
+      "proj_points": 65.0,
+      "title_pct": 3.2,
+      "top4_pct": 37.1,
       "relegation_pct": 0.0
     },
     {
       "team": "Milan",
       "proj_points": 64.2,
-      "title_pct": 2.6,
-      "top4_pct": 33.5,
+      "title_pct": 2.7,
+      "top4_pct": 33.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Napoli",
-      "proj_points": 62.7,
-      "title_pct": 1.6,
-      "top4_pct": 27.0,
-      "relegation_pct": 0.1
+      "proj_points": 62.8,
+      "title_pct": 1.4,
+      "top4_pct": 26.7,
+      "relegation_pct": 0.0
     },
     {
       "team": "Lazio",
-      "proj_points": 56.9,
-      "title_pct": 0.3,
-      "top4_pct": 8.2,
-      "relegation_pct": 0.4
+      "proj_points": 58.6,
+      "title_pct": 0.4,
+      "top4_pct": 11.8,
+      "relegation_pct": 0.1
     },
     {
       "team": "Bologna",
-      "proj_points": 49.9,
-      "title_pct": 0.1,
+      "proj_points": 49.8,
+      "title_pct": 0.0,
       "top4_pct": 1.4,
-      "relegation_pct": 3.3
+      "relegation_pct": 3.0
     },
     {
       "team": "Frosinone",
       "proj_points": 48.8,
       "title_pct": 0.0,
-      "top4_pct": 0.8,
-      "relegation_pct": 4.2
+      "top4_pct": 0.9,
+      "relegation_pct": 3.8
     },
     {
       "team": "Udinese",
-      "proj_points": 47.7,
+      "proj_points": 46.4,
       "title_pct": 0.0,
-      "top4_pct": 0.8,
-      "relegation_pct": 5.4
+      "top4_pct": 0.4,
+      "relegation_pct": 7.5
+    },
+    {
+      "team": "Sassuolo",
+      "proj_points": 45.7,
+      "title_pct": 0.0,
+      "top4_pct": 0.3,
+      "relegation_pct": 8.7
     },
     {
       "team": "Fiorentina",
@@ -4507,24 +5976,17 @@
       "relegation_pct": 9.3
     },
     {
-      "team": "Sassuolo",
-      "proj_points": 45.6,
-      "title_pct": 0.0,
-      "top4_pct": 0.4,
-      "relegation_pct": 8.7
-    },
-    {
       "team": "Cagliari",
       "proj_points": 45.5,
       "title_pct": 0.0,
       "top4_pct": 0.3,
-      "relegation_pct": 8.9
+      "relegation_pct": 8.8
     },
     {
       "team": "Torino",
-      "proj_points": 44.9,
+      "proj_points": 44.7,
       "title_pct": 0.0,
-      "top4_pct": 0.3,
+      "top4_pct": 0.2,
       "relegation_pct": 11.2
     },
     {
@@ -4532,35 +5994,35 @@
       "proj_points": 42.4,
       "title_pct": 0.0,
       "top4_pct": 0.1,
-      "relegation_pct": 18.9
+      "relegation_pct": 18.4
     },
     {
       "team": "Lecce",
-      "proj_points": 36.0,
+      "proj_points": 35.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 49.0
+      "relegation_pct": 49.6
     },
     {
       "team": "Parma",
       "proj_points": 35.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 55.7
+      "relegation_pct": 55.0
     },
     {
       "team": "Venezia",
-      "proj_points": 34.4,
+      "proj_points": 34.3,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 59.5
+      "relegation_pct": 59.4
     },
     {
       "team": "Monza",
       "proj_points": 33.3,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 65.5
+      "relegation_pct": 65.0
     }
   ],
   "standings": [
@@ -4987,7 +6449,7 @@
     "Venezia"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 12.6,
+  "roster_snapshot_age_hours": 15.3,
   "roster_unmatched_count": 143,
   "data_warnings": [
     "143 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
