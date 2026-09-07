@@ -1,11 +1,11 @@
 {
   "league": "La Liga",
   "updated": "2026-09-07T20:13:46.032063+00:00",
-  "results_updated": "2026-09-07T20:13:46.032069+00:00",
+  "results_updated": "2026-09-07T22:49:49.038959+00:00",
   "record": {
     "correct": 19,
-    "wrong": 13,
-    "total": 32,
+    "wrong": 14,
+    "total": 33,
     "void": 6,
     "pending": 0,
     "by_confidence": {
@@ -13,13 +13,13 @@
         "correct": 7,
         "total": 15
       },
-      "1": {
-        "correct": 4,
-        "total": 6
-      },
       "3": {
         "correct": 6,
         "total": 8
+      },
+      "1": {
+        "correct": 4,
+        "total": 7
       },
       "5": {
         "correct": 2,
@@ -47,161 +47,7 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [
-    {
-      "id": 34,
-      "matchweek": 4,
-      "date": "2026-09-07T19:30:00+00:00",
-      "venue": "Estadio Mart\u00ednez Valero",
-      "home": "Elche",
-      "away": "Sociedad",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.395,
-        "p_draw": 0.259,
-        "p_away": 0.347,
-        "pick": "Elche",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.3,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 8.8,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3953,
-        "why": {
-          "home_attack_pct": -3.9,
-          "home_defence_pct": -13.3,
-          "away_attack_pct": 9.1,
-          "away_defence_pct": -0.5,
-          "home_advantage_pct": 37.5
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Elche 39% / draw 26% / Sociedad 35%",
-          "Expected goals: 1.40 - 1.29"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Elche",
-          "player": "German Valera",
-          "position": "MF",
-          "lambda_goals": 0.2207084798401234,
-          "anytime_pct": 9.6,
-          "exp_shots": 0.83,
-          "p_shots_2plus": 4.7,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.3,
-          "appearance_pct": 92.5,
-          "expected_minutes": 74.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Elche",
-          "player": "Tete Morente",
-          "position": "DF",
-          "lambda_goals": 0.2161969760439414,
-          "anytime_pct": 9.5,
-          "exp_shots": 0.98,
-          "p_shots_2plus": 7.1,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 72.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Elche",
-          "player": "Ali Houary",
-          "position": "MF",
-          "lambda_goals": 0.17026530177695562,
-          "anytime_pct": 7.0,
-          "exp_shots": 0.83,
-          "p_shots_2plus": 4.5,
-          "exp_sot": 0.25,
-          "p_sot_1plus": 12.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sociedad",
-          "player": "Mikel Oyarzabal",
-          "position": "FW",
-          "lambda_goals": 0.45065940410954813,
-          "anytime_pct": 23.3,
-          "exp_shots": 1.9,
-          "p_shots_2plus": 32.9,
-          "exp_sot": 0.82,
-          "p_sot_1plus": 44.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 80.2,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Sociedad",
-          "player": "Orri \u00d3skarsson",
-          "position": "FW",
-          "lambda_goals": 0.1772116123807546,
-          "anytime_pct": 6.6,
-          "exp_shots": 0.59,
-          "p_shots_2plus": 2.9,
-          "exp_sot": 0.31,
-          "p_sot_1plus": 13.5,
-          "appearance_pct": 52.5,
-          "expected_minutes": 21.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sociedad",
-          "player": "Ander Barrenetxea",
-          "position": "FW",
-          "lambda_goals": 0.13480678785356254,
-          "anytime_pct": 5.0,
-          "exp_shots": 1.0,
-          "p_shots_2plus": 8.7,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 16.6,
-          "appearance_pct": 77.5,
-          "expected_minutes": 46.3,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": null,
-      "result": null,
-      "graded": null,
-      "void": false
-    }
-  ],
+  "matches": [],
   "season": [
     {
       "id": 1,
@@ -4736,6 +4582,17 @@
       "points": 7
     },
     {
+      "team": "Sociedad",
+      "played": 5,
+      "won": 2,
+      "drawn": 1,
+      "lost": 2,
+      "gf": 6,
+      "ga": 8,
+      "gd": -2,
+      "points": 7
+    },
+    {
       "team": "Ath Bilbao",
       "played": 4,
       "won": 2,
@@ -4791,17 +4648,6 @@
       "points": 4
     },
     {
-      "team": "Sociedad",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 3,
-      "ga": 6,
-      "gd": -3,
-      "points": 4
-    },
-    {
       "team": "Getafe",
       "played": 4,
       "won": 1,
@@ -4847,13 +4693,13 @@
     },
     {
       "team": "Elche",
-      "played": 3,
+      "played": 4,
       "won": 0,
       "drawn": 1,
-      "lost": 2,
-      "gf": 3,
-      "ga": 9,
-      "gd": -6,
+      "lost": 3,
+      "gf": 5,
+      "ga": 12,
+      "gd": -7,
       "points": 1
     },
     {
