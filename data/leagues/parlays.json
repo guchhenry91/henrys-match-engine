@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-06T14:01:58.930977+00:00",
+  "updated": "2026-09-07T07:40:29.222139+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -7,64 +7,82 @@
       "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
       "parlays": [
         {
-          "tier": "Balanced double",
+          "tier": "Balanced treble",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.3304,
+          "combined": 0.2173,
           "legs": [
             {
-              "selection": "Matheus Cunha 1+ shot on target",
-              "match": "Everton v Manchester United",
+              "selection": "Evanilson 2+ shot attempts",
+              "match": "Bournemouth v Brentford",
               "league": "Premier League",
               "league_key": "PL",
-              "tag": "o",
-              "p": 0.517,
-              "id": "PL#24#sot#Matheus Cunha",
-              "date": "2026-09-06T13:00:00+00:00"
+              "tag": "a",
+              "p": 0.582,
+              "id": "PL#31#shots#Evanilson",
+              "date": "2026-09-12T14:00:00+00:00"
             },
             {
-              "selection": "Lamine Yamal 2+ shot attempts",
-              "match": "Valencia v Barcelona",
-              "league": "La Liga",
-              "league_key": "LALIGA",
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Elversberg v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
               "tag": "a",
-              "p": 0.639,
-              "id": "LALIGA#39#shots#Lamine Yamal",
-              "date": "2026-09-06T14:15:00+00:00"
+              "p": 0.561,
+              "id": "BUNDESLIGA#19#shots#Harry Kane",
+              "date": "2026-09-13T15:30:00+00:00"
+            },
+            {
+              "selection": "Lille to win",
+              "match": "Lille v Troyes",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "w",
+              "p": 0.6654,
+              "id": "LIGUE1#32#w",
+              "date": "2026-09-13T13:00:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-09-06T14:01:58.930977+00:00"
+          "provisional": true
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.3304,
+          "combined": 0.1106,
           "legs": [
             {
-              "selection": "Lamine Yamal 2+ shot attempts",
-              "match": "Valencia v Barcelona",
-              "league": "La Liga",
-              "league_key": "LALIGA",
+              "selection": "Evanilson 2+ shot attempts",
+              "match": "Bournemouth v Brentford",
+              "league": "Premier League",
+              "league_key": "PL",
               "tag": "a",
-              "p": 0.639,
-              "id": "LALIGA#39#shots#Lamine Yamal",
-              "date": "2026-09-06T14:15:00+00:00"
+              "p": 0.582,
+              "id": "PL#31#shots#Evanilson",
+              "date": "2026-09-12T14:00:00+00:00"
             },
             {
-              "selection": "Matheus Cunha 1+ shot on target",
-              "match": "Everton v Manchester United",
+              "selection": "Erling Haaland 1+ shot on target",
+              "match": "Manchester United v Manchester City",
               "league": "Premier League",
               "league_key": "PL",
               "tag": "o",
-              "p": 0.517,
-              "id": "PL#24#sot#Matheus Cunha",
-              "date": "2026-09-06T13:00:00+00:00"
+              "p": 0.559,
+              "id": "PL#38#sot#Erling Haaland",
+              "date": "2026-09-13T15:30:00+00:00"
+            },
+            {
+              "selection": "Harry Kane to score",
+              "match": "Elversberg v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "g",
+              "p": 0.34,
+              "id": "BUNDESLIGA#19#goal#Harry Kane",
+              "date": "2026-09-13T15:30:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-09-06T14:01:58.930977+00:00"
+          "provisional": true
         }
       ]
     },
@@ -76,46 +94,203 @@
           "tier": "Shots double",
           "note": "The two safest shot-volume calls",
           "feat": false,
-          "combined": 0.3304,
+          "combined": 0.3265,
           "legs": [
             {
-              "selection": "Lamine Yamal 2+ shot attempts",
-              "match": "Valencia v Barcelona",
-              "league": "La Liga",
-              "league_key": "LALIGA",
+              "selection": "Evanilson 2+ shot attempts",
+              "match": "Bournemouth v Brentford",
+              "league": "Premier League",
+              "league_key": "PL",
               "tag": "a",
-              "p": 0.639,
-              "id": "LALIGA#39#shots#Lamine Yamal",
-              "date": "2026-09-06T14:15:00+00:00"
+              "p": 0.582,
+              "id": "PL#31#shots#Evanilson",
+              "date": "2026-09-12T14:00:00+00:00"
             },
             {
-              "selection": "Matheus Cunha 1+ shot on target",
-              "match": "Everton v Manchester United",
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Elversberg v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.561,
+              "id": "BUNDESLIGA#19#shots#Harry Kane",
+              "date": "2026-09-13T15:30:00+00:00"
+            }
+          ],
+          "provisional": true
+        },
+        {
+          "tier": "Shots accumulator",
+          "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
+          "feat": true,
+          "combined": 0.0075,
+          "legs": [
+            {
+              "selection": "Evanilson 2+ shot attempts",
+              "match": "Bournemouth v Brentford",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "a",
+              "p": 0.582,
+              "id": "PL#31#shots#Evanilson",
+              "date": "2026-09-12T14:00:00+00:00"
+            },
+            {
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Elversberg v Bayern Munich",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.561,
+              "id": "BUNDESLIGA#19#shots#Harry Kane",
+              "date": "2026-09-13T15:30:00+00:00"
+            },
+            {
+              "selection": "Erling Haaland 1+ shot on target",
+              "match": "Manchester United v Manchester City",
               "league": "Premier League",
               "league_key": "PL",
               "tag": "o",
-              "p": 0.517,
-              "id": "PL#24#sot#Matheus Cunha",
-              "date": "2026-09-06T13:00:00+00:00"
+              "p": 0.559,
+              "id": "PL#38#sot#Erling Haaland",
+              "date": "2026-09-13T15:30:00+00:00"
+            },
+            {
+              "selection": "Richarlison 1+ shot on target",
+              "match": "Tottenham v Everton",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.546,
+              "id": "PL#40#sot#Richarlison",
+              "date": "2026-09-12T16:30:00+00:00"
+            },
+            {
+              "selection": "Alexander Isak 1+ shot on target",
+              "match": "Liverpool v Fulham",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.537,
+              "id": "PL#37#sot#Alexander Isak",
+              "date": "2026-09-12T14:00:00+00:00"
+            },
+            {
+              "selection": "Lassine Sinayoko 2+ shot attempts",
+              "match": "Paris FC v Lyon",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "a",
+              "p": 0.527,
+              "id": "LIGUE1#34#shots#Lassine Sinayoko",
+              "date": "2026-09-12T18:45:00+00:00"
+            },
+            {
+              "selection": "Serhou Guirassy 2+ shot attempts",
+              "match": "Dortmund v Paderborn",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.524,
+              "id": "BUNDESLIGA#27#shots#Serhou Guirassy",
+              "date": "2026-09-12T13:30:00+00:00"
+            },
+            {
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Hoffenheim v Stuttgart",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.507,
+              "id": "BUNDESLIGA#25#shots#Deniz Undav",
+              "date": "2026-09-12T13:30:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-09-06T14:01:58.930977+00:00"
+          "provisional": true
         }
       ]
     },
     {
       "title": "Premier League only",
       "sub": "Only Premier League games and Premier League player props",
-      "parlays": []
+      "parlays": [
+        {
+          "tier": "PL Banker",
+          "note": "Two safest Premier League calls",
+          "feat": false,
+          "combined": 0.3253,
+          "legs": [
+            {
+              "selection": "Evanilson 2+ shot attempts",
+              "match": "Bournemouth v Brentford",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "a",
+              "p": 0.582,
+              "id": "PL#31#shots#Evanilson",
+              "date": "2026-09-12T14:00:00+00:00"
+            },
+            {
+              "selection": "Erling Haaland 1+ shot on target",
+              "match": "Manchester United v Manchester City",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.559,
+              "id": "PL#38#sot#Erling Haaland",
+              "date": "2026-09-13T15:30:00+00:00"
+            }
+          ],
+          "provisional": true
+        },
+        {
+          "tier": "PL Acca",
+          "note": "The model's Premier League treble",
+          "feat": true,
+          "combined": 0.1776,
+          "legs": [
+            {
+              "selection": "Evanilson 2+ shot attempts",
+              "match": "Bournemouth v Brentford",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "a",
+              "p": 0.582,
+              "id": "PL#31#shots#Evanilson",
+              "date": "2026-09-12T14:00:00+00:00"
+            },
+            {
+              "selection": "Erling Haaland 1+ shot on target",
+              "match": "Manchester United v Manchester City",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.559,
+              "id": "PL#38#sot#Erling Haaland",
+              "date": "2026-09-13T15:30:00+00:00"
+            },
+            {
+              "selection": "Richarlison 1+ shot on target",
+              "match": "Tottenham v Everton",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "o",
+              "p": 0.546,
+              "id": "PL#40#sot#Richarlison",
+              "date": "2026-09-12T16:30:00+00:00"
+            }
+          ],
+          "provisional": true
+        }
+      ]
     }
   ],
   "record": {
-    "correct": 6,
-    "wrong": 22,
+    "correct": 9,
+    "wrong": 27,
     "void": 50,
-    "total": 28,
-    "pending": 17
+    "total": 36,
+    "pending": 9
   },
   "settled": [
     {
@@ -124,16 +299,53 @@
       "legs": [
         {
           "id": "PL#24#sot#Matheus Cunha",
-          "selection": "Matheus Cunha 1+ shot on target",
-          "p": 0.517
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
         },
         {
           "id": "LALIGA#39#shots#Lamine Yamal",
-          "selection": "Lamine Yamal 2+ shot attempts",
-          "p": 0.639
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
         }
       ],
       "kickoff": "2026-09-06T13:00:00+00:00"
+    },
+    {
+      "combined": 0.0438,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#11#shots#Harry Kane",
+          "p": 0.561,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "p": 0.553,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-05T14:00:00+00:00"
     },
     {
       "combined": 0.1248,
@@ -178,6 +390,138 @@
         }
       ],
       "kickoff": "2026-09-05T14:00:00+00:00"
+    },
+    {
+      "combined": 0.0781,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "p": 0.553,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-05T14:00:00+00:00"
+    },
+    {
+      "combined": 0.1552,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#24#goal#Sofiane Diop",
+          "p": 0.354,
+          "selection": "Sofiane Diop to score"
+        }
+      ],
+      "kickoff": "2026-09-05T14:00:00+00:00"
+    },
+    {
+      "combined": 0.4384,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-05T14:00:00+00:00"
+    },
+    {
+      "combined": 0.2595,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#w",
+          "p": 0.8056,
+          "selection": "Manchester City to win"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-05T14:00:00+00:00"
+    },
+    {
+      "combined": 0.5023,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#28#w",
+          "p": 0.8063,
+          "selection": "Manchester City to win"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-05T14:00:00+00:00"
+    },
+    {
+      "combined": 0.2949,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#28#w",
+          "p": 0.8063,
+          "selection": "Manchester City to win"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#27#sot#Alexander Isak",
+          "p": 0.587,
+          "selection": "Alexander Isak 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-04T19:00:00+00:00"
     },
     {
       "combined": 0.0075,
@@ -301,6 +645,53 @@
           "id": "SERIEA#25#shots#Nico Paz",
           "p": 0.526,
           "selection": "Nico Paz 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-04T18:45:00+00:00"
+    },
+    {
+      "combined": 0.0135,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#28#sot#Erling Haaland",
+          "p": 0.686,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#39#shots#Lamine Yamal",
+          "p": 0.639,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#22#sot#Thiago",
+          "p": 0.623,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#27#sot#Alexander Isak",
+          "p": 0.587,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#33#sot#Kylian Mbappe-Lottin",
+          "p": 0.558,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#40#sot#Georges Mikautadze",
+          "p": 0.553,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#25#shots#Nico Paz",
+          "p": 0.526,
+          "selection": "Nico Paz 2+ shot attempts"
+        },
+        {
+          "id": "PL#24#sot#Matheus Cunha",
+          "p": 0.517,
+          "selection": "Matheus Cunha 1+ shot on target"
         }
       ],
       "kickoff": "2026-09-04T18:45:00+00:00"
