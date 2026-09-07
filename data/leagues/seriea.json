@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
-  "updated": "2026-09-07T19:13:52.075799+00:00",
-  "results_updated": "2026-09-07T20:09:26.334728+00:00",
+  "updated": "2026-09-07T20:14:14.167444+00:00",
+  "results_updated": "2026-09-07T20:14:14.167450+00:00",
   "record": {
     "correct": 7,
     "wrong": 4,
     "total": 11,
     "void": 0,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 5,
-        "total": 8
-      },
       "3": {
         "correct": 2,
         "total": 2
+      },
+      "2": {
+        "correct": 5,
+        "total": 8
       },
       "1": {
         "correct": 0,
@@ -212,7 +212,7 @@
           "team": "Udinese",
           "player": "Keinan Davis",
           "position": "FW",
-          "lambda_goals": 0.27224006872522727,
+          "lambda_goals": 0.2722402970085672,
           "anytime_pct": 12.1,
           "exp_shots": 1.44,
           "p_shots_2plus": 19.2,
@@ -227,7 +227,7 @@
           "team": "Udinese",
           "player": "Nicolo Zaniolo",
           "position": "FW",
-          "lambda_goals": 0.1774314027081112,
+          "lambda_goals": 0.1774316150434468,
           "anytime_pct": 7.2,
           "exp_shots": 1.9,
           "p_shots_2plus": 31.4,
@@ -242,7 +242,7 @@
           "team": "Udinese",
           "player": "Jurgen Ekkelenkamp",
           "position": "FW",
-          "lambda_goals": 0.15159736341620977,
+          "lambda_goals": 0.15159754483548815,
           "anytime_pct": 5.8,
           "exp_shots": 0.99,
           "p_shots_2plus": 8.3,
@@ -257,7 +257,7 @@
           "team": "Lazio",
           "player": "Andrea Pinamonti",
           "position": "FW",
-          "lambda_goals": 0.23234195918424283,
+          "lambda_goals": 0.23234126473570846,
           "anytime_pct": 10.3,
           "exp_shots": 1.79,
           "p_shots_2plus": 29.1,
@@ -272,7 +272,7 @@
           "team": "Lazio",
           "player": "Mattia Zaccagni",
           "position": "FW",
-          "lambda_goals": 0.14873163587820654,
+          "lambda_goals": 0.14873119133316218,
           "anytime_pct": 5.5,
           "exp_shots": 0.99,
           "p_shots_2plus": 9.0,
@@ -287,7 +287,7 @@
           "team": "Lazio",
           "player": "Matteo Cancellieri",
           "position": "FW",
-          "lambda_goals": 0.13249000426684449,
+          "lambda_goals": 0.13248960826652836,
           "anytime_pct": 4.9,
           "exp_shots": 0.95,
           "p_shots_2plus": 7.6,
@@ -4700,7 +4700,7 @@
       "proj_points": 35.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 55.8
+      "relegation_pct": 55.7
     },
     {
       "team": "Venezia",
@@ -5141,7 +5141,7 @@
     "Venezia"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 11.6,
+  "roster_snapshot_age_hours": 12.6,
   "roster_unmatched_count": 143,
   "data_warnings": [
     "143 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
