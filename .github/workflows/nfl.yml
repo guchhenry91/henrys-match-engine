@@ -34,6 +34,10 @@ on:
         description: "Report what odds coverage the API actually has (prints only)"
         type: boolean
         default: false
+      probe_props:
+        description: "Ask whether PLAYER PROP prices are served (prints only)"
+        type: boolean
+        default: false
 
 concurrency:
   group: nfl-refresh
@@ -77,9 +81,21 @@ jobs:
         # Reconnaissance only, on request. Whether bet365 is visible and whether
         # PLAYER props are priced decides what an honest edge column can cover.
         if: inputs.probe_odds
+        continue-on-error: true
         env:
           API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
         run: python -m scripts.probe_nfl_odds
+
+      - name: Probe player prop prices
+        # The moneyline started returning prices on 2026-09-08; that says nothing
+        # about whether PLAYER PROPS do, and the board's four markets are props.
+        # Prints only, and continue-on-error: a reconnaissance step that fails the
+        # run costs a publish, which is what the football probe did once already.
+        if: inputs.probe_props
+        continue-on-error: true
+        env:
+          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
+        run: python -m scripts.probe_nfl_props
 
       - name: Refresh book prices
         # One request per unplayed fixture, bet365 preferred. Writes nothing when
