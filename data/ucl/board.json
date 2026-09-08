@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-08T11:19:53.913614+00:00",
+  "updated": "2026-09-08T15:09:35.367472+00:00",
   "season": 2026,
   "format": "36-team league phase, 8 matches each",
   "history": {
@@ -269,7 +269,10 @@
         "AEK Athens FC",
         "Lask Linz"
       ],
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "locked_at": "2026-09-08T15:09:35.356264+00:00",
+      "tainted": false
     },
     {
       "id": 1635714,
@@ -313,7 +316,10 @@
       "thin": [
         "Aston Villa"
       ],
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "locked_at": "2026-09-08T15:09:35.356264+00:00",
+      "tainted": false
     },
     {
       "id": 1635654,
@@ -3207,11 +3213,16 @@
     "correct": 0,
     "wrong": 0,
     "void": 0,
-    "pending": 0,
-    "total": 0,
+    "pending": 2,
+    "total": 2,
     "settled": 0,
     "hit_rate": null,
-    "by_confidence": {}
+    "by_confidence": {
+      "3": {
+        "correct": 0,
+        "wrong": 0
+      }
+    }
   },
   "settled": [],
   "evidence": {
