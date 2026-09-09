@@ -323,6 +323,8 @@ jobs:
         run: python -m scripts.validate_data_json
 
       - name: Probe Champions League coverage
+        id: ucl_probe
+        continue-on-error: true
         # Reconnaissance only, on request. How many seasons exist, and how much
         # history each drawn club has, decide whether a UCL board is buildable.
         if: inputs.probe_ucl
@@ -345,6 +347,8 @@ jobs:
         run: python -m scripts.probe_live
 
       - name: Refresh Champions League history
+        id: ucl_history
+        continue-on-error: true
         # One request per uncached season; the past never changes so only the
         # current season is refetched. Sixteen calls on the first run, one after.
         env:
@@ -352,6 +356,8 @@ jobs:
         run: python -m scripts.sync_ucl_history
 
       - name: Champions League gate and board
+        id: ucl_board
+        continue-on-error: true
         # The gate is cheap here (no network -- it reads the cached history) so it
         # runs every time rather than on a separate cadence.
         run: |
@@ -362,6 +368,8 @@ jobs:
       # missing/thin club roster makes that club's player markets disappear
       # instead of allowing last season's departed players to survive silently.
       - name: Refresh and audit current rosters
+        id: rosters
+        continue-on-error: true
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           FORCE_ROSTER_LEAGUES: ${{ inputs.force_rosters }}
@@ -374,6 +382,8 @@ jobs:
       # checked before the final publish and cannot deadlock the freshness gate.
       # Explicit absences still require two different original publishers.
       - name: Refresh multi-source team news
+        id: news
+        continue-on-error: true
         run: python -m scripts.sync_team_news
 
       # Final scores. fixturedownload has published 1 of 380 results this season,
@@ -383,6 +393,8 @@ jobs:
       # this closes the loop in the cloud. Runs BEFORE publish so anything it
       # records is graded in the same run.
       - name: Fetch final scores
+        id: results
+        continue-on-error: true
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.sync_results
@@ -397,11 +409,15 @@ jobs:
       # fetches is graded in the same run, and costs nothing once Understat
       # catches up.
       - name: Fetch per-match player stats
+        id: player_stats
+        continue-on-error: true
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.sync_player_stats
 
       - name: Refresh confirmed pre-match lineups
+        id: lineups
+        continue-on-error: true
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.sync_lineups
@@ -422,6 +438,31 @@ jobs:
       # The gate: refuses to ship output that contradicts itself (a pick against
       # its own scoreline, a table that doesn't add up, an eliminated team still
       # favoured). Non-zero exit fails the job BEFORE anything is committed.
+      - name: Report degraded steps
+        # continue-on-error keeps an enrichment outage from costing the
+        # predictions, but a failure nobody sees is the worse bug. This names
+        # every softened step that did not succeed, so "the board published with
+        # stale rosters" is legible instead of silent.
+        if: always()
+        run: |
+          FAILED=""
+          [ "${{ steps.ucl_probe.outcome }}" = "failure" ] && FAILED="$FAILED Probe Champions League coverage" || true
+          [ "${{ steps.ucl_history.outcome }}" = "failure" ] && FAILED="$FAILED Refresh Champions League history" || true
+          [ "${{ steps.ucl_board.outcome }}" = "failure" ] && FAILED="$FAILED Champions League gate and board" || true
+          [ "${{ steps.rosters.outcome }}" = "failure" ] && FAILED="$FAILED Refresh and audit current rosters" || true
+          [ "${{ steps.news.outcome }}" = "failure" ] && FAILED="$FAILED Refresh multi-source team news" || true
+          [ "${{ steps.results.outcome }}" = "failure" ] && FAILED="$FAILED Fetch final scores" || true
+          [ "${{ steps.player_stats.outcome }}" = "failure" ] && FAILED="$FAILED Fetch per-match player stats" || true
+          [ "${{ steps.lineups.outcome }}" = "failure" ] && FAILED="$FAILED Refresh confirmed pre-match lineups" || true
+          if [ -n "$FAILED" ]; then
+            echo "DEGRADED -- these enrichment steps failed and were skipped:"
+            for f in $FAILED; do echo "  - $f"; done
+            echo "The board still published; the data above is whatever the last"
+            echo "successful run left behind. Investigate before assuming fresh."
+          else
+            echo "All enrichment steps succeeded."
+          fi
+
       - name: Sanity-check the published payloads
         run: python -m scripts.sanity_check
 
