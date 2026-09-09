@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-09-08",
+  "_verified_on": "2026-09-09",
   "PL": {
     "Arsenal": {
       "out": [
@@ -542,8 +542,11 @@
       "lineup_fixture_id": 1557372
     },
     "Tottenham": {
-      "out": [],
+      "out": [
+        "Richarlison"
+      ],
       "doubt": [],
+      "note": "Richarlison excluded from Tottenham's registered Premier League squad list after failed deadline-day exit attempts (Everton, Trabzonspor) -- he is therefore ineligible for any PL fixture until the January registration window, regardless of the stale API lineup below showing him as a recent starter. As of 2026-09-09/10 he is in live, uncompleted negotiations to join Vasco da Gama (Brazil), blocked so far by Tottenham's FIFA loan-limit cap (ESPN, Yahoo, TheHardTackle). Directly affects his shots/SOT props for Tottenham v Everton (2026-09-12).",
       "automation": {
         "checked_at": "2026-09-05T13:55:09.363188Z",
         "feeds_ok": [
@@ -556,7 +559,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-05T13:55:09.363188Z",
+      "checked": "2026-09-09T23:40:00Z",
       "lineup_api_attempted_fixture": 1557372,
       "lineup_api_attempted_at": "2026-08-22T16:24:52.455570+00:00",
       "lineup_api_rungs": [
