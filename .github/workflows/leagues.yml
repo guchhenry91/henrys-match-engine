@@ -446,17 +446,26 @@ jobs:
         if: always()
         run: |
           FAILED=""
-          [ "${{ steps.ucl_probe.outcome }}" = "failure" ] && FAILED="$FAILED Probe Champions League coverage" || true
-          [ "${{ steps.ucl_history.outcome }}" = "failure" ] && FAILED="$FAILED Refresh Champions League history" || true
-          [ "${{ steps.ucl_board.outcome }}" = "failure" ] && FAILED="$FAILED Champions League gate and board" || true
-          [ "${{ steps.rosters.outcome }}" = "failure" ] && FAILED="$FAILED Refresh and audit current rosters" || true
-          [ "${{ steps.news.outcome }}" = "failure" ] && FAILED="$FAILED Refresh multi-source team news" || true
-          [ "${{ steps.results.outcome }}" = "failure" ] && FAILED="$FAILED Fetch final scores" || true
-          [ "${{ steps.player_stats.outcome }}" = "failure" ] && FAILED="$FAILED Fetch per-match player stats" || true
-          [ "${{ steps.lineups.outcome }}" = "failure" ] && FAILED="$FAILED Refresh confirmed pre-match lineups" || true
+          [ "${{ steps.ucl_probe.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Probe Champions League coverage" || true
+          [ "${{ steps.ucl_history.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Refresh Champions League history" || true
+          [ "${{ steps.ucl_board.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Champions League gate and board" || true
+          [ "${{ steps.rosters.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Refresh and audit current rosters" || true
+          [ "${{ steps.news.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Refresh multi-source team news" || true
+          [ "${{ steps.results.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Fetch final scores" || true
+          [ "${{ steps.player_stats.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Fetch per-match player stats" || true
+          [ "${{ steps.lineups.outcome }}" = "failure" ] && FAILED="$FAILED
+  - Refresh confirmed pre-match lineups" || true
           if [ -n "$FAILED" ]; then
             echo "DEGRADED -- these enrichment steps failed and were skipped:"
-            for f in $FAILED; do echo "  - $f"; done
+            printf '%b
+' "$FAILED"
             echo "The board still published; the data above is whatever the last"
             echo "successful run left behind. Investigate before assuming fresh."
           else

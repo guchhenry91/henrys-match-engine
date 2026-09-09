@@ -20,7 +20,10 @@
    "Seydou Fini (Genoa/Frosinone)": "HELD -- cannot separate the January 2026 loan to Frosinone, when Frosinone were in SERIE B, from a possible new 2026-27 one. Frosinone are in Serie A now, so the roster listing him there is consistent with either. 0.5x90, so no board impact either way."
   },
   "ORPHAN_TARGETS_FIXED": "Adama Traore was written as 'West Ham' and Mathieu Cafaro as 'Nantes'. Both clubs were relegated and are not in the 2026-27 rosters, so the override pointed at a club outside its own league -- the player was silently dropped anyway, but the entry claimed something false. Set to null, which is what the file means by 'left this league'.",
-  "DEADLINE_DAY_RESOLVED": "Held during the 2026-09-01 audit as agreed-but-not-completed, then confirmed once the window shut and written: Savio (Man City -> Tottenham, permanent GBP75m+10m), Ndiaye (Everton -> Man City, GBP65m), Grealish (Man City -> Everton, season loan), Mudryk (Chelsea -> Tottenham, loan), Adarabioyo (Chelsea -> Tottenham, permanent). The apparent Savio contradiction -- 'new six-year deal at Man City' vs 'joins Spurs' -- was stale reporting against current, not a real conflict; Man City's own site announced the Tottenham move. Loan vs permanent does not change the override either way."
+  "DEADLINE_DAY_RESOLVED": "Held during the 2026-09-01 audit as agreed-but-not-completed, then confirmed once the window shut and written: Savio (Man City -> Tottenham, permanent GBP75m+10m), Ndiaye (Everton -> Man City, GBP65m), Grealish (Man City -> Everton, season loan), Mudryk (Chelsea -> Tottenham, loan), Adarabioyo (Chelsea -> Tottenham, permanent). The apparent Savio contradiction -- 'new six-year deal at Man City' vs 'joins Spurs' -- was stale reporting against current, not a real conflict; Man City's own site announced the Tottenham move. Loan vs permanent does not change the override either way.",
+  "LALIGA_NOTES": {
+   "André Almeida (41157)": "Loan Valencia -> Racing Santander, announced by BOTH clubs on 2026-09-01, to 2026-06-30, no purchase option. Written because the API-Football snapshot lists him at both clubs and roster_integrity_check raises that as an ERROR until transfers.json says which is current -- the Taiwo Awoniyi path. With this entry the duplicate downgrades to a warning and the player is attributed to Racing rather than withheld."
+  }
  },
  "PL": {
   "Adama Traoré": null,
@@ -85,6 +88,7 @@
  "LALIGA": {
   "Adnan Januzaj": null,
   "Alexis Sánchez": null,
+  "André Almeida": "Racing Santander",
   "Conor Gallagher": null,
   "Dodi Lukebakio": null,
   "Dro Fernández": null,
