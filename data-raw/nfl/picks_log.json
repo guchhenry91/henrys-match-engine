@@ -4,16 +4,20 @@
       "away": "NE",
       "board": true,
       "confidence": 4,
+      "graded": "correct",
       "home": "SEA",
       "kickoff": "2026-09-10T00:20:00+00:00",
       "locked_at": "2026-09-09T23:13:29.729079+00:00",
       "p_pick": 0.614,
       "pick": "SEA",
-      "tainted": false
+      "result": "SEA 13-10 NE",
+      "tainted": false,
+      "void": false
     }
   },
   "props": {
     "2026_01_NE_SEA:passing_yards:00-0034869": {
+      "actual": 13.0,
       "appearance_pct": null,
       "away": "NE",
       "bar": null,
@@ -21,6 +25,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 213.5,
@@ -34,9 +39,11 @@
       "tainted": false,
       "team": "SEA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_NE_SEA:passing_yards:00-0039851": {
+      "actual": 178.0,
       "appearance_pct": null,
       "away": "SEA",
       "bar": null,
@@ -44,6 +51,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "wrong",
       "home": "NE",
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 256.5,
@@ -57,9 +65,11 @@
       "tainted": false,
       "team": "NE",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_NE_SEA:receiving_yards:00-0033555": {
+      "actual": 51.0,
       "appearance_pct": null,
       "away": "SEA",
       "bar": null,
@@ -67,6 +77,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "correct",
       "home": "NE",
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 16.5,
@@ -80,9 +91,11 @@
       "tainted": false,
       "team": "NE",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_NE_SEA:receiving_yards:00-0038543": {
+      "actual": 122.0,
       "appearance_pct": null,
       "away": "NE",
       "bar": null,
@@ -90,6 +103,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 63.5,
@@ -103,9 +117,11 @@
       "tainted": false,
       "team": "SEA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_NE_SEA:receiving_yards:00-0039793": {
+      "actual": 13.0,
       "appearance_pct": null,
       "away": "NE",
       "bar": null,
@@ -113,6 +129,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 23.5,
@@ -126,9 +143,11 @@
       "tainted": false,
       "team": "SEA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_NE_SEA:rushing_yards:00-0038797": {
+      "actual": 3.0,
       "appearance_pct": null,
       "away": "NE",
       "bar": null,
@@ -136,6 +155,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 20.0,
@@ -149,9 +169,11 @@
       "tainted": false,
       "team": "SEA",
       "team_attribution": "moved: GB -> SEA",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_NE_SEA:rushing_yards:00-0040734": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "SEA",
       "bar": null,
@@ -159,6 +181,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_01_NE_SEA",
+      "graded": "wrong",
       "home": "NE",
       "kickoff": "2026-09-10T00:20:00+00:00",
       "line": 44.0,
@@ -172,7 +195,8 @@
       "tainted": false,
       "team": "NE",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     }
   }
 }
