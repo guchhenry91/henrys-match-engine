@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-10T11:27:14.343040+00:00",
+  "updated": "2026-09-10T15:03:49.216772+00:00",
   "season": 2026,
   "format": "36-team league phase, 8 matches each",
   "history": {
@@ -266,7 +266,10 @@
       "home_matches": 30,
       "away_matches": 36,
       "thin": [],
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "locked_at": "2026-09-10T15:03:49.203360+00:00",
+      "tainted": false
     },
     {
       "id": 1635708,
@@ -287,7 +290,10 @@
       "home_matches": 70,
       "away_matches": 96,
       "thin": [],
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "locked_at": "2026-09-10T15:03:49.203360+00:00",
+      "tainted": false
     },
     {
       "id": 1635729,
@@ -3130,8 +3136,8 @@
     "correct": 3,
     "wrong": 2,
     "void": 0,
-    "pending": 0,
-    "total": 5,
+    "pending": 2,
+    "total": 7,
     "settled": 5,
     "hit_rate": 0.6,
     "by_confidence": {
