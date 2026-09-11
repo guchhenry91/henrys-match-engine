@@ -358,6 +358,78 @@
   .tab.on{color:#fff;border-bottom-color:var(--cyan);font-weight:800}
   @media (max-width:899px){.wrap{padding:16px 15px var(--safe)}}
   @media (max-width:520px){#ptitle{font-size:25px}.dbtn{display:none}}
+
+  /* MARKET-BOARD TABLES and the Results "Latest settled" panel. */
+  .flab{flex:0 0 96px}
+  .sech{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin:28px 0 14px}
+  .sech .eb{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}
+  .sech h2{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:6px}
+  .sech p{font-size:12.5px;color:var(--sub);max-width:420px;text-align:right;line-height:1.5}
+  .btable{padding:0;overflow:hidden;margin-bottom:10px}
+  .bhead,.brow{display:grid;grid-template-columns:96px minmax(0,1fr) 128px 100px 104px 100px}
+  .btable.t5 .bhead,.btable.t5 .brow{grid-template-columns:96px minmax(0,1fr) 128px 100px 110px}
+  .bhead{background:rgba(255,255,255,.05);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+  .bhead span{padding:13px 14px}
+  .brow{border-top:1px solid var(--line);box-shadow:inset 3px 0 0 var(--cyan)}
+  .brow.click{cursor:pointer}
+  .brow.click:hover{background:rgba(255,255,255,.03)}
+  .brow>div{padding:14px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+  .brow>div+div{border-left:1px solid var(--line)}
+  .bt b{font-size:13.5px;font-weight:800;line-height:1.35}
+  .bt small{font-size:9.5px;color:var(--sub);margin-top:4px;font-weight:700}
+  .be .beb{font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin-bottom:5px}
+  .be b{font-size:15px;font-weight:750}
+  .be span{font-size:12.5px;color:var(--sub);margin-top:3px;line-height:1.5}
+  .be em{font-style:normal;color:var(--ink);font-weight:800}
+  .bs{align-items:flex-start;gap:7px}
+  .bs .sel{color:var(--lime);font-size:13px;font-weight:850}
+  .bc{align-items:center;text-align:center;gap:6px}
+  .bc small{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+  .bn{font-size:20px;font-weight:850;color:#ffd84d;font-variant-numeric:tabular-nums}
+  .bn.off{color:var(--sub)}
+  .bn.pos{color:var(--lime)}
+  .bn.neg{color:var(--hot)}
+  .bc .bar{width:70%;height:4px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}
+  .bc .bar i{display:block;height:100%;background:var(--cyan)}
+  .l5h{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:10.5px;font-weight:800;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+  .l5h span+span{letter-spacing:0;text-transform:none;font-weight:650}
+  .l5t{display:flex;gap:6px;margin-top:6px}
+  .l5t i{font-style:normal;flex:1;max-width:58px;text-align:center;padding:8px 0;border-radius:6px;font-weight:850;
+    font-size:14px;background:rgba(255,255,255,.06);color:var(--sub)}
+  .l5t i.hit{background:rgba(0,183,103,.3);color:#b8ffd8}
+  .l5t i.miss{background:rgba(255,90,95,.26);color:#ffc9cb}
+  .settled{padding:6px 22px 18px;margin-bottom:18px;box-shadow:inset 4px 0 0 var(--cyan),0 16px 40px rgba(0,0,0,.45)}
+  .settled .sech{margin:18px 0 16px}
+  .settled .sech h2{font-size:28px}
+  .settled .sech p{text-align:left;margin-top:8px;max-width:none}
+  .slist{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .srow{display:grid;grid-template-columns:minmax(0,1fr) 130px 70px;align-items:center;border-top:1px solid var(--line)}
+  .srow:first-child{border-top:0}
+  .srow>div{padding:14px 18px;display:flex;flex-direction:column;min-width:0}
+  .sty{align-items:center}
+  .sty small{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
+  .sty b{font-size:13px;margin-top:4px}
+  .wv{font-size:11px;font-weight:900;letter-spacing:.06em;text-align:center}
+  .wv.win{color:var(--lime)}
+  .wv.loss{color:var(--hot)}
+  .wv.void{color:var(--amber)}
+  .dbtn.more{margin-top:12px}
+  @media (max-width:760px){
+    .bhead{display:none}
+    .brow,.btable.t5 .brow{grid-template-columns:1fr 1fr 1fr}
+    .brow>.bt{grid-column:1/-1;flex-direction:row;gap:8px;align-items:baseline;padding-bottom:0}
+    .bt br{display:none}
+    .brow>.be,.brow>.bs{grid-column:1/-1}
+    .brow>.bs{flex-direction:row;align-items:center;padding-top:0}
+    .brow>div+div{border-left:0}
+    .sech{flex-direction:column;align-items:flex-start}
+    .sech p{text-align:left}
+    .srow{grid-template-columns:1fr auto}
+    .sty{display:none!important}
+  }
+  /* The rows stack on a phone, where a 96px basis would become 96px of height. */
+  @media (max-width:520px){.flab{flex:none}}
 </style>
 </head>
 <body>
@@ -579,7 +651,8 @@ function goSport(s){ openTab(tabsFor(s)[0]); }
 function go(k,f){
   // `f` lets a link open a board already filtered to one market. Defaults to
   // "all" so every existing caller behaves exactly as before.
-  cur=k; filter=f||"all"; tier="all"; gsport="soccer"; render(k);
+  cur=k; filter=f||"all"; tier="all"; gsport="soccer";
+  fdate="all"; fleague="all"; rkind="all"; rall=false; render(k);
   window.scrollTo(0,0);
 }
 
@@ -1069,8 +1142,8 @@ function viewToday(){
     }
     h+=`<div class="eyebrow mt">${esc(c.name)}${c.rows.length?` · ${c.rows.length} game${c.rows.length===1?"":"s"}`:""}</div>`;
     if(c.blocked){ h+=`<div class="glass rowc">${emptyRow(c.blocked)}</div>`; continue; }
-    h+=`<div class="glass rowc">${c.rows
-      .sort((a,b)=>new Date(a.date)-new Date(b.date)).map(todayRow).join("")}</div>`;
+    h+=btable(TCOLS, c.rows.sort((a,b)=>new Date(a.date)-new Date(b.date))
+      .map(r=>todayTableRow({...r, comp:c.name})).join(""));
   }
 
   h+=`<p class="note">Confidence bands are the model's own — ${Object.keys(CONF).sort((a,b)=>b-a)
@@ -1145,28 +1218,186 @@ function tierEmpty(){
   return emptyRow(row?`No picks in ${row[1]} (${row[2]}) right now`:"No picks in this tier");
 }
 
+// --- Market-board tables (Today, Best Picks, Player Props) -------------------
+//
+// One row per selection, in fixed columns: when, what, its status, the model's
+// probability, the line or the player's average, and the price/edge. The same
+// columns on every board so a reader learns the layout once.
+let fdate="all", fleague="all", rkind="all", rall=false;
+function setFDate(d){ fdate=(fdate===d?"all":d); render(cur); }
+function setFLeague(l){ fleague=l; render(cur); }
+function setRKind(k){ rkind=k; rall=false; render(cur); }
+function showAllSettled(){ rall=true; render(cur); }
+const dayKey=iso=>{const d=new Date(iso); return isNaN(d)?"":d.toDateString();};
+const dayChip=key=>new Date(key).toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
+function inBoard(p){
+  return inTier(p) && (fdate==="all"||dayKey(p.date)===fdate)
+    && (fleague==="all"||p.league_key===fleague);
+}
+// Date and league rows are drawn only when they would offer a real choice -- a
+// single-option row is a control that does nothing.
+function boardFilters(items, confChips, marketChips){
+  const chip=(on,click,label)=>`<button class="chip ${on?"on":""}" type="button" onclick="${click}">${label}</button>`;
+  const days=[...new Set(items.map(p=>dayKey(p.date)).filter(Boolean))].sort((a,b)=>new Date(a)-new Date(b));
+  const lgs=Object.keys(LG).filter(k=>items.some(p=>p.league_key===k));
+  const dateRow=days.length>1?`<div class="chips">${chip(fdate==="all","setFDate('all')","All dates")}${
+    days.map(d=>chip(fdate===d,`setFDate('${d}')`,esc(dayChip(d)))).join("")}</div>`:"";
+  const lgRow=lgs.length>1?`<div class="chips">${chip(fleague==="all","setFLeague('all')","All leagues")}${
+    lgs.map(k=>chip(fleague===k,`setFLeague('${k}')`,esc(LG[k]))).join("")}</div>`:"";
+  const rows=frow("Match date",dateRow)+frow("League",lgRow)+frow("Confidence",confChips);
+  let h=rows?`<div class="glass fpanel">${rows}</div>`:"";
+  if(marketChips) h+=`<div class="glass fpanel">${frow("Market",marketChips)}</div>`;
+  return h;
+}
+
+const PCOLS=["Time","Event / selection","Status","Probability","Line / avg.","Edge / price"];
+const TCOLS=["Time","Event / selection","Status","Probability","Result"];
+function btable(cols, rows){
+  return `<div class="btable glass${cols.length===5?" t5":""}"><div class="bhead">${
+    cols.map(c=>`<span>${esc(c)}</span>`).join("")}</div>${rows}</div>`;
+}
+function sectHead(eb, title, note){
+  return `<div class="sech"><div><div class="eb">${esc(eb)}</div><h2>${esc(title)}</h2></div>${
+    note?`<p>${esc(note)}</p>`:""}</div>`;
+}
+function timeCell(iso){
+  const d=new Date(iso); if(isNaN(d)) return `<div class="bt"></div>`;
+  const day=d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
+  const t=d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
+  const tz=d.toLocaleTimeString(undefined,{timeZoneName:"short"}).split(" ").pop()||"";
+  return `<div class="bt"><b>${esc(day)},<br>${t}</b><small>${esc(tz)}</small></div>`;
+}
+function probCell(p, label){
+  return `<div class="bc"><small>${esc(label||"Model")}</small><b class="bn">${p!=null?pc(p)+"%":"—"}</b>
+    <div class="bar"><i style="width:${p!=null?pc(p):0}%"></i></div></div>`;
+}
+function valCell(label, val, cls){
+  return `<div class="bc"><small>${esc(label)}</small><b class="bn ${cls||""}">${val}</b></div>`;
+}
+
+// The selection in bet-slip words. "2+ shot attempts" and "Over 1.5 shots" are
+// the same bet; the second is how a book prints it.
+const PSEL={goal:"Anytime goal",shots:"Over 1.5 shots",sot:"Over 0.5 SOT"};
+const PMK={goal:"Anytime goal",shots:"Total shots",sot:"Shots on target"};
+
+function lastFiveTiles(p){
+  const v=p.last_five||[]; if(!v.length) return "";
+  const line=p.last_five_line!=null?p.last_five_line:(p.market==="goal"?1:null);
+  const hits=line==null?null:v.filter(x=>x>=line).length;
+  return `<div class="l5h"><span>Last five appearances</span>${
+      hits!=null?`<span>${Math.round(100*hits/v.length)}% hit (${hits}/${v.length})</span>`:""}</div>
+    <div class="l5t">${v.map(x=>`<i class="${line!=null?(x>=line?"hit":"miss"):""}">${x}</i>`).join("")}</div>`;
+}
+
+// PRICE SAYS "—" ON PURPOSE. No bookmaker prop price is fetched for soccer, so an
+// edge here would be invented. The column stays so the layout matches the other
+// boards, and says plainly that there is nothing in it.
+function propTableRow(p){
+  const v=p.last_five||[];
+  const avg=v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(2).replace(/\.?0+$/,""):"—";
+  const xi=p.lineup_confirmed?"Confirmed starting XI":"Waiting for confirmed starting XI";
+  return `<div class="brow">${timeCell(p.date)}
+    <div class="be"><div class="beb">${esc(LG[p.league_key]||p.league||"")} · ${esc(PMK[p.market]||p.market)}</div>
+      <b>${esc(p.player)}</b>
+      <span>${esc(p.home||"")} vs ${esc(p.away||"")} · ${esc(p.team||"")} · ${xi}${
+        p.doubt?" · fitness doubt":""}${p.penalty_taker?" · takes penalties":""}</span>
+      ${lastFiveTiles(p)}</div>
+    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}</div>
+    ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${valCell("Price","—","off")}</div>`;
+}
+
+// Edge = model probability minus the book's implied probability (1/odds). The
+// implied figure still carries the bookmaker's margin, so this understates the
+// edge rather than flattering it.
+function bestTableRow(u){
+  const odds=Number(u.odds), priced=u.odds!=null&&Number.isFinite(odds)&&odds>1;
+  const edge=priced?(u.p_pick-1/odds)*100:null;
+  return `<div class="brow click" onclick="openMatch('${u.league_key}',${u.id})">${timeCell(u.date)}
+    <div class="be"><div class="beb">${esc(LG[u.league_key]||"")} · Match winner</div>
+      <b>${esc(u.home)} vs ${esc(u.away)}</b>
+      <span>Model selection: <em>${esc(u.pick)}</em>${u.score?` · Correct score: <em>${esc(u.score)}</em>`:""}</span></div>
+    <div class="bs">${confTag(bandOf(u))}</div>
+    ${probCell(u.p_pick)}
+    ${valCell(priced?(u.book||"Bookmaker"):"Price",priced?odds.toFixed(2):"—",priced?"":"off")}
+    ${valCell("Edge",edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—",edge==null?"off":edge>=0?"pos":"neg")}</div>`;
+}
+
+function todayTableRow(r){
+  const score=r.result?`${r.result.home_goals}-${r.result.away_goals}`:null;
+  const l=score?null:liveFor(r, r.lgKey);
+  const verdict=r.void?`<span class="res void">void</span>`:r.graded?`<span class="res ${r.graded}">${r.graded}</span>`:"";
+  const state=score?`Final ${score}`:l?`${esc(liveClock(l))} · ${l.home_goals}-${l.away_goals}`:"Not started";
+  return `<div class="brow click" onclick="${r.go}">${timeCell(r.date)}
+    <div class="be"><div class="beb">${esc(r.comp||"")} · Winner</div>
+      <b>${esc(r.home)} vs ${esc(r.away)}</b>
+      <span>${r.pick?`Model selection: <em>${esc(r.pick)}</em>`:"No pick"}${score&&verdict?` · final ${score}`:""}</span></div>
+    <div class="bs">${l?`<span class="livetag"><i></i>LIVE</span>`:confTag(r.conf)}</div>
+    ${probCell(r.p)}
+    <div class="bc"><small>Result</small>${verdict||`<b class="bn off" style="font-size:13px">${state}</b>`}</div></div>`;
+}
+
+// --- Results: newest graded first --------------------------------------------
+function settledRows(){
+  const m=gradedMatches(gsport).map(x=>({kind:"team",x,date:x.date}));
+  const p=gradedProps(gsport).map(x=>({kind:"prop",x,date:x.date||x.kickoff}));
+  return m.concat(p).sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function propSel(p){
+  if(PSEL[p.market]) return PSEL[p.market];
+  if(p.market==="anytime_touchdown") return "Anytime TD";
+  return p.line!=null?`Over ${p.line} ${gradeName(p.market).toLowerCase()} yards`:gradeName(p.market);
+}
+function winChip(x){
+  const g=x.void?"void":x.graded;
+  if(g==="correct") return `<span class="wv win">WIN</span>`;
+  if(g==="void") return `<span class="wv void">VOID</span>`;
+  return `<span class="wv loss">LOSS</span>`;
+}
+function settledRow(r){
+  const x=r.x;
+  if(r.kind==="prop"){
+    const lg=x.league||LG[x.league_key]||(gsport==="nfl"?"NFL":"");
+    return `<div class="srow"><div class="be"><div class="beb">${esc(lg)} · ${esc(PMK[x.market]||gradeName(x.market))}</div>
+      <b>${esc(x.player)} · ${esc(propSel(x))}</b>
+      <span>${esc(x.home||"")} vs ${esc(x.away||"")} · ${esc(actualLabel(x))} · settled ${whenStr(r.date)}</span></div>
+      <div class="sty"><small>Type</small><b>Player prop</b></div>${winChip(x)}</div>`;
+  }
+  const res=x.result;
+  const teams=(typeof res==="string"&&res)?esc(res)
+    :`${esc(x.home)} ${res&&typeof res==="object"?`${res.home_goals}–${res.away_goals}`:"vs"} ${esc(x.away)}`;
+  return `<div class="srow"><div class="be"><div class="beb">${esc(x.league||"")} · Match winner</div>
+    <b>${esc(x.pick||"—")}${x.p_pick!=null?` · ${pc(x.p_pick)}%`:""}</b>
+    <span>${teams} · settled ${whenStr(r.date)}</span></div>
+    <div class="sty"><small>Type</small><b>Team pick</b></div>${winChip(x)}</div>`;
+}
+const SETTLED_SHOW=25;
+function latestSettled(){
+  const all=settledRows();
+  if(!all.length) return "";
+  const nT=all.filter(r=>r.kind==="team").length, nP=all.length-nT;
+  const rows=all.filter(r=>rkind==="all"||r.kind===rkind);
+  const shown=rall?rows:rows.slice(0,SETTLED_SHOW);
+  const chip=(k,l,n)=>`<button class="chip ${rkind===k?"on":""}" type="button" onclick="setRKind('${k}')">${l} <span class="rng">${n}</span></button>`;
+  return `<section class="glass settled">
+    <div class="sech"><div><div class="eb">Latest settled</div><h2>Newest graded results</h2>
+      <p>Team predictions and player props that finished most recently appear here first.</p></div>
+      <div class="chips">${chip("all","All",all.length)}${chip("team","Team picks",nT)}${chip("prop","Player props",nP)}</div></div>
+    <div class="slist">${shown.map(settledRow).join("")||emptyRow("Nothing settled in this view yet")}</div>
+    ${rows.length>shown.length?`<button class="dbtn more" type="button" onclick="showAllSettled()">Show all ${rows.length}</button>`:""}
+  </section>`;
+}
+
 function viewBest(){
   const best=DATA.best||{}, all=best.upcoming||[], settled=(best.settled||[]);
   if(!all.length && !settled.length) return emptyState();
   // Counts come from the UNFILTERED list so the chips do not renumber
   // themselves as the reader moves between them.
-  let h=tierChips(all);
-  const up=all.filter(inTier);
-  if(all.length && !up.length) h+=`<div class="glass rowc">${tierEmpty()}</div>`;
-  if(up.length){const d=up[0];
-    h+=`<div class="glass hero" onclick="openMatch('${d.league_key}',${d.id})"><div class="lg">${esc(LG[d.league_key])} · Top pick</div>
-      <div class="mt2">${esc(d.home)} v ${esc(d.away)}</div><div class="pk">Pick <b>${esc(d.pick)}</b></div>
-      <div class="num"><b>${pc(d.p_pick)}%</b><span>model win probability</span></div><div class="go">Tap for breakdown ›</div></div>`;
-    const rest=up.slice(1);
-    if(!rest.length){
-      h+=`<div class="eyebrow">The board · p ≥ ${pc(best.min_probability||.65)}%</div><div class="glass rowc">${emptyRow("Just the top pick this week")}</div>`;
-    } else {
-      h+=`<div class="eyebrow">The board · p ≥ ${pc(best.min_probability||.65)}%</div>`;
-      for(const g of groupByDay(rest))
-        h+=`<div class="sectsub" style="margin:14px 2px 8px">${esc(dayHeading(g.date))} · ${g.items.length} pick${g.items.length===1?"":"s"}</div>
-          <div class="glass rowc">${g.items.map(bestRow).join("")}</div>`;
-    }
-  }
+  let h=boardFilters(all, tierChips(all));
+  const up=all.filter(inBoard).sort((a,b)=>new Date(a.date)-new Date(b.date));
+  h+=sectHead("Henry's live model",`Strongest model picks · p ≥ ${pc(best.min_probability||.65)}%`,
+    "Edge is the model's probability minus the bookmaker's implied probability, shown only where a price is published.");
+  h+=up.length?btable(PCOLS,up.map(bestTableRow).join(""))
+    :`<div class="glass rowc">${emptyRow(all.length?"No picks match these filters":"No picks on the board")}</div>`;
   if(settled.length){h+=`<div class="eyebrow mt">Settled</div><div class="glass rowc">${settled.slice(0,12).map(s=>`
     <div class="rw static"><span class="lgtag" style="background:${LC[s.league_key]}"></span>
       <div class="info"><b>${esc(s.home)} v ${esc(s.away)}</b><span>pick ${esc(s.pick)}${s.result?` · ${s.result.home_goals}-${s.result.away_goals}`:""}</span></div>
@@ -1200,31 +1431,29 @@ function playerRow(p){const m=MK[p.market]||{tag:"a",name:p.market};
 function viewPlayers(){
   const pp=DATA.player_picks||{}, up=pp.upcoming||[];
   if(!up.length) return emptyState();
-  const chips=[["all","All"],["goal","Anytime"],["shots","Attempts"],["sot","On target"]];
+  const chips=[["all","All markets"],["sot","Shots on target"],["shots","Total shots"],["goal","Anytime goal"]];
   const NAME={goal:"Anytime goalscorer",shots:"2+ shot attempts",sot:"1+ shot on target"};
   const rbm=pp.record_by_market||{};
-  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`
-    + tierChips(up);
+  const mchips=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
+  let h=boardFilters(up, tierChips(up), mchips);
   // ONE SECTION PER MARKET, always -- including under "All". The three markets
   // have completely different ceilings (a 31% anytime pick and a 69% shots pick
   // are both near the top of their own market), so a single mixed list ranked by
-  // probability buries every goalscorer under every shots pick and reads as if
-  // the goalscorers are the weak ones.
-  const markets=(filter==="all")?["goal","shots","sot"]:[filter];
+  // probability buries every goalscorer under every shots pick.
+  const markets=(filter==="all")?["sot","shots","goal"]:[filter];
   for(const mk of markets){
-    const list=up.filter(p=>p.market===mk&&inTier(p)).sort((a,b)=>b.p_pick-a.p_pick);
+    const list=up.filter(p=>p.market===mk&&inBoard(p)).sort((a,b)=>b.p_pick-a.p_pick);
     const r=rbm[mk]||{};
-    const rec=r.total?` · ${r.correct}–${r.wrong} graded`:"";
-    h+=`<div class="eyebrow" style="margin-top:18px">${esc(NAME[mk]||mk)} · ${list.length} pick${list.length===1?"":"s"}${rec}</div>
-      <div class="glass rowc">${list.map(playerRow).join("")||emptyRow("No picks in this market yet")}</div>`;
+    h+=sectHead("Live board",`${NAME[mk]||mk} · ${list.length} pick${list.length===1?"":"s"}`,
+      (r.total?`${r.correct}–${r.wrong} graded in this market. `:"")
+      +"No bookmaker prop price is fetched, so Price shows — rather than an invented edge.");
+    h+=list.length?btable(PCOLS,list.map(propTableRow).join(""))
+      :`<div class="glass rowc">${emptyRow("No picks match these filters")}</div>`;
   }
   if((pp.ungradeable_leagues||[]).length)
     h+=`<p class="note">${esc(pp.ungradeable_leagues.join(", "))} player picks publish but are not graded — no shot-level feed there.</p>`;
-  // Played, frozen, still waiting on the shot feed. Said out loud on purpose:
-  // these picks used to be graded WRONG against a fixture the feed had never
-  // filed, which published a 0% hit rate that was pure fiction. Showing nothing
-  // at all would be the quieter version of the same dishonesty -- the reader
-  // would see a pick disappear between kickoff and the record.
+  // Played, frozen, still waiting on the shot feed -- said out loud, because a
+  // pick that silently vanished between kickoff and the record would hide it.
   const aw=pp.awaiting_data||[];
   if(aw.length)
     h+=`<p class="note">${aw.length} settled pick${aw.length===1?"":"s"} awaiting result data — `
@@ -1937,6 +2166,8 @@ function viewGrades(){
   // because finding one market's record meant scrolling past four others. The
   // picks are all still here; the chips decide which of them is on screen.
   const chips=gradeFilters();
+  // Newest graded first, above every summary, so a result is never buried.
+  const latest=(filter==="all"&&gsport!=="nba")?latestSettled():"";
   if(gsport==="nba") return chips+nbaGradeSummary()+archiveLink();
   if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
   if(filter&&filter!=="all"){
@@ -1945,12 +2176,12 @@ function viewGrades(){
     // rendering a blank tab.
     if(block) return chips+block+archiveLink();
   }
-  if(gsport==="nfl") return chips+nflGradeSummary()+archiveLink();
-  if(gsport==="ucl") return chips+uclGradeSummary()+archiveLink();
+  if(gsport==="nfl") return chips+latest+nflGradeSummary()+archiveLink();
+  if(gsport==="ucl") return chips+latest+uclGradeSummary()+archiveLink();
   const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
   const br=best.record||{correct:0,wrong:0,total:0};
   const total=br.total||0;
-  let h=chips+`<div class="eyebrow">Track record</div>
+  let h=chips+latest+`<div class="eyebrow">Track record</div>
     <div class="glass stat"><div class="k">${br.correct}–${br.wrong}</div><div class="l">${total?`Best Picks · ${Math.round(100*br.correct/total)}% of ${total} graded`:"Graded picks · season starts 15 Aug"}</div></div>`;
   const rbm=pp.record_by_market||{};
   h+=`<div class="glass rowc">${tierRow("Best Picks","Match-winner board",best.record)}
