@@ -299,19 +299,83 @@
   .arch a{color:var(--sub);font-size:12px;font-weight:650;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
   .loading{text-align:center;padding:60px 0;color:var(--sub);font-weight:650}
 
+
+  /* HENRY'S ENGINE SHELL. Sidebar of sports and markets, a page header with an
+     eyebrow and title, a feed-status banner, then an underlined tab row. */
+  body::before{display:none}
+  body{background:#101613}
+  .shell{max-width:none;margin:0;align-items:stretch;min-height:100vh}
+  .wrap{max-width:980px;padding:26px 28px 40px}
+  aside#side{flex:0 0 250px;height:100vh;max-height:none;padding:22px 14px 30px;
+    background:#0b100d;border-right:1px solid var(--line)}
+  .brand2{display:flex;align-items:center;gap:12px;padding:2px 8px 14px}
+  .he{width:42px;height:42px;border-radius:11px;flex:0 0 auto;display:grid;place-items:center;
+    background:linear-gradient(150deg,#39e57f,#00b767);color:#06130c;font-weight:900;font-size:15px;letter-spacing:-.02em}
+  .brand2 small{display:block;font-size:9px;font-weight:800;letter-spacing:.12em;white-space:nowrap;text-transform:uppercase;color:var(--sub)}
+  .brand2 b{display:block;font-size:17px;font-weight:850;letter-spacing:-.02em;margin-top:2px}
+  .sgroup{color:var(--sub);font-size:10.5px;letter-spacing:.14em;padding:18px 12px 8px}
+  .sitem{border-radius:8px;font-size:13.5px;padding:8px 10px;margin:1px 0}
+  .sitem.on{background:var(--glass2);box-shadow:inset 3px 0 0 var(--cyan)}
+  .sitem .gl{width:24px;height:24px;border-radius:6px;flex:0 0 auto;display:grid;place-items:center;
+    background:rgba(255,255,255,.06);font-size:12px;font-weight:800;color:var(--sub)}
+  .sitem.on .gl{background:rgba(0,183,103,.2);color:var(--lime)}
+  .badge{margin-left:auto;font-size:9.5px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 7px;border-radius:5px;white-space:nowrap}
+  .b-live{background:rgba(57,229,127,.14);color:var(--lime)}
+  .b-off{background:rgba(255,255,255,.07);color:var(--sub)}
+  .b-stale{background:rgba(255,190,61,.13);color:var(--amber)}
+
+  .mbar{display:flex;flex-direction:column;gap:12px;margin:0 0 6px}
+  .mbar .brand2{padding:0}
+  .mbar .sp{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .mbar .sp::-webkit-scrollbar{display:none}
+  @media (min-width:900px){.mbar{display:none}}
+
+  .phead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:8px 0 16px}
+  #sub{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}
+  #ptitle{font-size:32px;font-weight:850;letter-spacing:-.03em;line-height:1.08;margin-top:6px}
+  .dbtn{border:1px solid var(--line);background:var(--glass);color:var(--ink);font:inherit;font-size:12.5px;
+    font-weight:750;padding:9px 14px;border-radius:9px;cursor:pointer;white-space:nowrap}
+  .dbtn:hover{background:var(--glass2)}
+  .feed{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;margin-bottom:14px;
+    border:1px solid rgba(57,229,127,.28);background:rgba(0,183,103,.08);color:#bff5d6;
+    font-size:12.5px;font-weight:650;line-height:1.45}
+  .feed .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;background:var(--lime);box-shadow:0 0 0 4px rgba(57,229,127,.15)}
+  .feed.warn{border-color:rgba(255,190,61,.35);background:rgba(255,190,61,.08);color:#ffe2a6}
+  .feed.warn .dot{background:var(--amber);box-shadow:0 0 0 4px rgba(255,190,61,.15)}
+  .feed .lk{margin-left:auto;background:none;border:0;color:inherit;font:inherit;font-weight:800;
+    text-decoration:underline;cursor:pointer;white-space:nowrap}
+  #details{padding:12px 16px;margin-bottom:14px}
+  .dgrid{display:grid;grid-template-columns:1fr auto;gap:7px 16px;font-size:12.5px}
+  .dgrid span{color:var(--sub);font-weight:650}
+  .dgrid b{font-weight:750;text-align:right}
+  .dgrid b.off{color:var(--amber)}
+  .tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--line);margin:0 0 20px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;
+    color:var(--sub);font:inherit;font-size:13.5px;font-weight:700;padding:11px 12px 10px;cursor:pointer}
+  .tab:hover{color:var(--ink)}
+  .tab.on{color:#fff;border-bottom-color:var(--cyan);font-weight:800}
+  @media (max-width:899px){.wrap{padding:16px 15px var(--safe)}}
+  @media (max-width:520px){#ptitle{font-size:25px}.dbtn{display:none}}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand"><div class="logo">H</div><div><h1>Henry&rsquo;s Match Engine</h1><p id="sub">Today</p></div></div>
-  <span class="live" id="live">● Live</span>
-</header>
 <div class="shell">
-  <!-- Desktop only. On a phone the bottom nav is already the right shape and a
-       drawer would just hide the same links behind an extra tap. -->
-  <aside id="side" aria-label="Sections"></aside>
+  <aside id="side" aria-label="Sports and markets"></aside>
   <div class="wrap">
-    <div id="rail" class="rail" aria-label="Jump to a board"></div>
+    <div class="mbar">
+      <div class="brand2"><div class="he">HE</div><div><small>Personal sports edge</small><b>Henry&rsquo;s Engine</b></div></div>
+      <div class="sp" id="msports"></div>
+      <div class="sp" id="mleagues"></div>
+    </div>
+    <div class="phead">
+      <div><div id="sub">Today</div><h1 id="ptitle">Today&rsquo;s markets</h1></div>
+      <button class="dbtn" type="button" onclick="toggleDetails()">Data details</button>
+    </div>
+    <div id="feed"></div>
+    <div id="details" class="glass" hidden></div>
+    <nav id="tabs" class="tabs" aria-label="Markets"></nav>
     <main id="app"><div class="loading">Loading the model…</div></main>
   </div>
 </div>
@@ -473,31 +537,64 @@ const PROPS=[
   {id:"nba:threes", view:"NBA", filter:"threes", ic:"🏹", t:"NBA threes"},
 ];
 
-const GROUPS=[
-  {name:"Trending", keys:["today","best","players","six"]},
-  {name:"Most used", keys:["parlay","tables","grades"]},
-  {name:"Player props", props:true},
-  {name:"Sports", keys:["UCL","NFL","NBA","PL","LALIGA","BUNDESLIGA","LIGUE1","SERIEA"]},
-];
+// SPORT FIRST, THEN MARKET. The page is scoped to one sport at a time: the
+// sidebar lists the sports, and both the sidebar's Markets list and the tab row
+// under the header show only that sport's boards. Pooling NFL props beside
+// Premier League fixtures in one flat list described neither sport.
+const SPORTS=[["soccer","Soccer"],["nfl","NFL"],["nba","NBA"],["ucl","Champions League"]];
+const SPORT_NAME=Object.fromEntries(SPORTS);
+const SPORT_OF={NFL:"nfl",NBA:"nba",UCL:"ucl"};
+const sportOf=k=>SPORT_OF[k]||"soccer";
+function curSport(){ return cur==="grades" ? (gsport||"soccer") : sportOf(cur); }
+const propLabel=p=>{const t=p.t.replace(/^(NFL|NBA) /,""); return t[0].toUpperCase()+t.slice(1);};
+
+// Every tab is a real board. NFL and NBA markets are built from PROPS, so the tab
+// row and the sidebar links cannot disagree about which markets exist. `loose`
+// tabs stay lit while a chip inside the board narrows it; `gs` opens Results
+// already scoped to that sport.
+function tabsFor(s){
+  const props=v=>PROPS.filter(p=>p.view===v).map(p=>({k:v,f:p.filter,t:propLabel(p),ic:"+"}));
+  if(s==="nfl") return [{k:"NFL",t:"Board",ic:"⌂"},...props("NFL"),{k:"grades",gs:"nfl",t:"Results",ic:"✓"}];
+  if(s==="nba") return [{k:"NBA",t:"Evidence",ic:"⌂"},...props("NBA"),{k:"grades",gs:"nba",t:"Results",ic:"✓"}];
+  if(s==="ucl") return [{k:"UCL",t:"Today",ic:"⌂",loose:1},{k:"grades",gs:"ucl",t:"Results",ic:"✓"}];
+  return [{k:"today",t:"Today",ic:"⌂",loose:1},{k:"best",t:"Best Picks",ic:"★",loose:1},
+    {k:"players",t:"Player Props",ic:"+",loose:1},{k:"six",t:"Correct Scores",ic:"#",loose:1},
+    {k:"parlay",t:"Parlays",ic:"⧉",loose:1},{k:"tables",t:"Tables",ic:"≡",loose:1},
+    {k:"grades",gs:"soccer",t:"Results",ic:"✓"}];
+}
+// Soccer's extra sidebar sections. NFL and NBA markets ARE their tabs, so they
+// are not listed a second time.
+const SIDE_EXTRA={soccer:[{name:"Player props", props:true},
+  {name:"Leagues", keys:["PL","LALIGA","BUNDESLIGA","LIGUE1","SERIEA"]}]};
+const TITLE={today:"Today's markets",best:"Best picks",players:"Player props",six:"Correct scores",
+  parlay:"Model parlays",tables:"League tables",grades:"Results & grading",NFL:"NFL board",
+  NBA:"NBA model evidence",UCL:"Champions League"};
+
+function openTab(t){
+  go(t.k,t.f);
+  if(t.gs&&t.gs!==gsport){ gsport=t.gs; render(cur); }
+}
+function goSport(s){ openTab(tabsFor(s)[0]); }
 
 function go(k,f){
   // `f` lets a link open a board already filtered to one market. Defaults to
   // "all" so every existing caller behaves exactly as before.
-  cur=k; filter=f||"all"; tier="all"; gsport="soccer"; render(k); syncNav();
+  cur=k; filter=f||"all"; tier="all"; gsport="soccer"; render(k);
   window.scrollTo(0,0);
 }
 
-// Marks the active target everywhere at once, so the three navigations can never
-// disagree about where the reader is.
+function isOn(d){
+  if(d.k!==cur) return false;
+  if(d.k==="grades") return !d.gs||d.gs===gsport;
+  if(d.loose) return true;
+  return (d.f||"all")===filter;
+}
+// Marks the active target everywhere at once, so the sidebar and the tab row can
+// never disagree about where the reader is.
 function syncNav(){
-  document.querySelectorAll(".sitem,.rtile").forEach(el=>{
-    // A prop row carries its own id in data-prop and is active only when BOTH the
-    // board and the market match -- otherwise opening the Players board would
-    // light up all three of its markets at once.
-    el.classList.toggle("on", el.dataset.prop
-      ? (el.dataset.k===cur && el.dataset.filter===filter)
-      : (el.dataset.k===cur && !el.dataset.filter));
-  });
+  document.querySelectorAll("[data-k]").forEach(el=>el.classList.toggle("on",isOn(el.dataset)));
+  const s=curSport();
+  document.querySelectorAll("[data-sport]").forEach(el=>el.classList.toggle("on",el.dataset.sport===s));
 }
 
 // How many things a board is currently showing. A count that cannot be computed
@@ -539,57 +636,132 @@ function countFor(k){
   return null;
 }
 
-function buildNav(){
-  // The fixed bottom bar is gone. It was the whole navigation before the sidebar
-  // and rail existed; keeping it meant three ways to reach twelve boards, two of
-  // them visible at once on a phone. The rail carries every target and is sticky,
-  // so nothing became unreachable -- which is the only thing that would have made
-  // this a removal rather than a tidy-up.
-  buildSidebar();
-  buildRail();
-  syncNav();
+function buildNav(){ buildSidebar(); syncNav(); }
+
+const stampOf=d=>d&&(d.updated||d.generated_at||null);
+const agoOf=iso=>{const t=new Date(iso); return iso&&!isNaN(t)?relAge((Date.now()-t)/36e5):null;};
+
+// LIVE only where a feed is actually publishing. NBA has evidence and no fixture
+// feed, so it says NO FEED rather than looking like a board with nothing on it.
+function feedBadge(s){
+  let c="b-live",t="Live";
+  if(s==="soccer"){
+    if(!LGSLUGS.some(n=>DATA[n])){c="b-off";t="No feed";}
+    else if(FRESH.stale){c="b-stale";t="Stale";}
+  } else if(s==="nba"){ if(!DATA.nba||DATA.nba.status==="evidence_only"){c="b-off";t="No feed";} }
+  else if(!DATA[s]){c="b-off";t="No feed";}
+  return `<span class="badge ${c}">${t}</span>`;
+}
+
+function navBtn(cls,t,withIcon){
+  const b=document.createElement("button"); b.type="button"; b.className=cls;
+  b.dataset.k=t.k; if(t.f) b.dataset.f=t.f; if(t.gs) b.dataset.gs=t.gs; if(t.loose) b.dataset.loose="1";
+  b.innerHTML=(withIcon?`<span class="gl">${esc(t.ic||"•")}</span>`:"")+`<span>${esc(t.t)}</span>`
+    +(t.ct!=null?`<span class="ct">${t.ct}</span>`:"");
+  b.onclick=()=>openTab(t);
+  return b;
+}
+function sportBtn(cls,k,t,badge){
+  const b=document.createElement("button"); b.type="button"; b.className=cls; b.dataset.sport=k;
+  b.innerHTML=`<span>${esc(t)}</span>`+(badge?feedBadge(k):"");
+  b.onclick=()=>goSport(k);
+  return b;
+}
+function group(el,name){
+  const h=document.createElement("div"); h.className="sgroup"; h.textContent=name; el.append(h);
 }
 
 function buildSidebar(){
+  const s=curSport();
+  const ms=document.getElementById("msports");
+  if(ms){ ms.innerHTML=""; SPORTS.forEach(([k,t])=>ms.append(sportBtn("chip",k,t,false))); }
+  // On a phone the sidebar is hidden, so the league boards need their own row or
+  // they are unreachable there.
+  const ml=document.getElementById("mleagues");
+  if(ml){ ml.innerHTML=""; ml.hidden=s!=="soccer";
+    for(const g of SIDE_EXTRA[s]||[]) for(const k of g.keys||[]) ml.append(navBtn("chip",{k,t:LG[k]||k,loose:1},false)); }
   const side=document.getElementById("side"); if(!side) return;
-  const byKey=Object.fromEntries(views.map(v=>[v.k,v]));
-  side.innerHTML="";
-  for(const g of GROUPS){
-    const h=document.createElement("div"); h.className="sgroup"; h.textContent=g.name;
-    side.append(h);
+  side.innerHTML=`<div class="brand2"><div class="he">HE</div><div><small>Personal sports edge</small>
+    <b>Henry&rsquo;s Engine</b></div></div>`;
+  group(side,"Sports");
+  SPORTS.forEach(([k,t])=>side.append(sportBtn("sitem",k,t,true)));
+  group(side,"Markets");
+  for(const t of tabsFor(s)){
+    const ct=t.k==="grades"?null:t.f?propCount({view:t.k,filter:t.f}):countFor(t.k);
+    side.append(navBtn("sitem",{...t,ct},true));
+  }
+  for(const g of SIDE_EXTRA[s]||[]){
+    group(side,g.name);
     if(g.props){
-      for(const item of PROPS){
-        const b=document.createElement("button"); b.type="button"; b.className="sitem";
-        b.dataset.k=item.view; b.dataset.filter=item.filter; b.dataset.prop=item.id;
-        const c=propCount(item);
-        b.innerHTML=`<span class="ic">${item.ic}</span><span>${esc(item.t)}</span>`
-          + (c!=null?`<span class="ct">${c}</span>`:"");
-        b.onclick=()=>go(item.view,item.filter);
+      for(const item of PROPS.filter(p=>p.view==="players")){
+        const b=navBtn("sitem",{k:item.view,f:item.filter,t:item.t,ic:item.ic,ct:propCount(item)},true);
+        b.dataset.prop=item.id;
         side.append(b);
       }
       continue;
     }
-    for(const k of g.keys){
-      const v=byKey[k]; if(!v) continue;
-      const b=document.createElement("button"); b.type="button"; b.className="sitem"; b.dataset.k=k;
-      const c=countFor(k);
-      b.innerHTML=`<span class="ic">${ICON[k]||"•"}</span><span>${esc(v.t.replace(/^★ /,""))}</span>`
-        + (c!=null?`<span class="ct">${c}</span>`:"");
-      b.onclick=()=>go(k);
-      side.append(b);
-    }
+    for(const k of g.keys) side.append(navBtn("sitem",{k,t:LG[k]||k,ic:ICON[k],loose:1,ct:countFor(k)},true));
   }
 }
 
-function buildRail(){
-  const rail=document.getElementById("rail"); if(!rail) return;
-  rail.innerHTML="";
-  views.forEach(v=>{
-    const b=document.createElement("button"); b.type="button"; b.className="rtile"; b.dataset.k=v.k;
-    b.innerHTML=`<span class="ic">${ICON[v.k]||"•"}</span><span class="lb">${esc(v.t.replace(/^★ /,""))}</span>`;
-    b.onclick=()=>go(v.k);
-    rail.append(b);
-  });
+function buildTabs(s){
+  const el=document.getElementById("tabs"); if(!el) return;
+  el.innerHTML="";
+  tabsFor(s).forEach(t=>el.append(navBtn("tab",t,false)));
+}
+
+function feedBanner(s){
+  let ok=true, txt;
+  if(s==="soccer"){
+    if(FRESH.stale){ ok=false; txt=FRESH.resultsFresh
+      ? `Scores current (${FRESH.resultsText}) · predictions last recomputed ${FRESH.text} — treat upcoming picks as provisional`
+      : `Predictions last updated ${FRESH.text} — the feed may be catching up`; }
+    else txt=`API-Football feed connected · Predictions updated ${FRESH.text||"—"}`
+      +(FRESH.resultsText?` · Results ${FRESH.resultsText}`:"");
+  } else if(s==="nfl"){
+    ok=!!DATA.nfl;
+    txt=ok?`Paid API-NFL feed connected · Board updated ${agoOf(stampOf(DATA.nfl))||"—"}`:"NFL board did not load";
+  } else if(s==="nba"){
+    ok=false;
+    txt=DATA.nba?"No NBA fixture feed yet · showing the model's backtest evidence, not picks":"NBA board did not load";
+  } else {
+    ok=!!DATA.ucl;
+    txt=ok?`Champions League board · updated ${agoOf(stampOf(DATA.ucl))||"—"}`:"Champions League board did not load";
+  }
+  return `<div class="feed${ok?"":" warn"}"><span class="dot"></span><span>${esc(txt)}</span>
+    <button class="lk" type="button" onclick="toggleDetails()">Data details</button></div>`;
+}
+
+// What every payload says about its own age. A reader asking "is this current?"
+// gets the answer per board rather than one number describing none of them.
+let showDetails=false;
+function detailsHtml(){
+  const rows=[["Best picks","best"],["Player picks","player_picks"],["Parlays","parlays"],["Correct scores","six_scores"],
+    ...LGSLUGS.map(n=>[LG[Object.keys(FILES).find(k=>FILES[k]===n)]||n,n]),
+    ["NFL","nfl"],["Champions League","ucl"],["NBA","nba"]];
+  return `<div class="dgrid">`+rows.map(([t,n])=>{
+    const a=agoOf(stampOf(DATA[n]));
+    return `<span>${esc(t)}</span><b class="${DATA[n]?"":"off"}">${DATA[n]?(a?"updated "+a:"loaded"):"not loaded"}</b>`;
+  }).join("")+`</div>`;
+}
+function toggleDetails(){
+  showDetails=!showDetails;
+  const d=document.getElementById("details"); if(!d) return;
+  d.hidden=!showDetails; if(showDetails) d.innerHTML=detailsHtml();
+}
+
+// The page chrome around a board: eyebrow, title, feed banner, tabs, sidebar.
+function chrome(){
+  const s=curSport(), tabs=tabsFor(s);
+  const on=tabs.find(t=>isOn(t));
+  const nflMarket=(cur==="NFL"||cur==="NBA")&&filter!=="all"
+    ? PROPS.find(p=>p.view===cur&&p.filter===filter) : null;
+  const sub=document.getElementById("sub");
+  if(sub) sub.textContent=`${SPORT_NAME[s]} · ${on?on.t:(LG[cur]||subFor[cur]||"")}`;
+  const title=document.getElementById("ptitle");
+  if(title) title.textContent=nflMarket?propLabel(nflMarket):(TITLE[cur]||LG[cur]||subFor[cur]||"");
+  const feed=document.getElementById("feed"); if(feed) feed.innerHTML=feedBanner(s);
+  buildSidebar(); buildTabs(s); syncNav();
 }
 
 // Kickoff shown in the READER'S OWN timezone. The payload stores UTC, which is
@@ -658,7 +830,6 @@ function bestRow(u){
 
 function render(k){
   const app=document.getElementById("app");
-  document.getElementById("sub").textContent=subFor[k]||"Today";
   let h="";
   if(k==="today") h=viewToday();
   else if(k==="best") h=viewBest();
@@ -671,7 +842,7 @@ function render(k){
   else if(k==="NBA") h=viewNBA();
   else if(k==="UCL") h=viewUCL();
   else h=viewLeague(k);
-  app.innerHTML=staleBanner()+h;window.scrollTo(0,0);
+  app.innerHTML=h; chrome(); window.scrollTo(0,0);
 }
 
 // CONFIDENCE, THE ONE THE RECORD IS KEPT BY. These are leagues/publish.py's
