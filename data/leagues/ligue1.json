@@ -1,11 +1,11 @@
 {
   "league": "Ligue 1",
   "updated": "2026-09-11T18:40:40.079849+00:00",
-  "results_updated": "2026-09-11T18:40:40.079852+00:00",
+  "results_updated": "2026-09-11T21:00:21.626118+00:00",
   "record": {
     "correct": 9,
-    "wrong": 15,
-    "total": 24,
+    "wrong": 16,
+    "total": 25,
     "void": 0,
     "pending": 0,
     "by_confidence": {
@@ -13,17 +13,17 @@
         "correct": 3,
         "total": 7
       },
-      "4": {
-        "correct": 1,
-        "total": 3
-      },
       "2": {
         "correct": 4,
-        "total": 9
+        "total": 10
       },
       "1": {
         "correct": 1,
         "total": 5
+      },
+      "4": {
+        "correct": 1,
+        "total": 3
       }
     }
   },
@@ -51,204 +51,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 35,
-      "matchweek": 4,
-      "date": "2026-09-11T18:45:00+00:00",
-      "venue": "Roazhon Park",
-      "home": "Rennes",
-      "away": "Marseille",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.354,
-        "p_draw": 0.236,
-        "p_away": 0.411,
-        "pick": "Marseille",
-        "pick_type": "away",
-        "score": "1-2",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 10.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-2",
-            "pct": 8.4,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 7.8,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4108,
-        "why": {
-          "home_attack_pct": 17.1,
-          "home_defence_pct": -2.6,
-          "away_attack_pct": 36.3,
-          "away_defence_pct": 7.0,
-          "home_advantage_pct": 18.2
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Rennes 35% / draw 24% / Marseille 41%",
-          "Expected goals: 1.66 - 1.80"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Rennes",
-          "player": "Esteban Lepaul",
-          "position": "FW",
-          "lambda_goals": 0.5340583088228913,
-          "anytime_pct": 27.9,
-          "exp_shots": 2.04,
-          "p_shots_2plus": 37.2,
-          "exp_sot": 0.84,
-          "p_sot_1plus": 45.2,
-          "appearance_pct": 97.2,
-          "expected_minutes": 79.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Rennes",
-          "player": "Issa Soumar\u00e9",
-          "position": "FW",
-          "lambda_goals": 0.24098602724393178,
-          "anytime_pct": 10.9,
-          "exp_shots": 1.88,
-          "p_shots_2plus": 32.0,
-          "exp_sot": 0.71,
-          "p_sot_1plus": 38.9,
-          "appearance_pct": 97.2,
-          "expected_minutes": 84.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Rennes",
-          "player": "Mousa Al Tamari",
-          "position": "FW",
-          "lambda_goals": 0.16211204577511745,
-          "anytime_pct": 6.5,
-          "exp_shots": 1.51,
-          "p_shots_2plus": 20.8,
-          "exp_sot": 0.55,
-          "p_sot_1plus": 30.2,
-          "appearance_pct": 94.4,
-          "expected_minutes": 64.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Marseille",
-          "player": "Igor Paix\u00e3o",
-          "position": "DF",
-          "lambda_goals": 0.4213005507785984,
-          "anytime_pct": 21.6,
-          "exp_shots": 1.37,
-          "p_shots_2plus": 16.5,
-          "exp_sot": 0.54,
-          "p_sot_1plus": 30.1,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Marseille",
-          "player": "Amine Gouiri",
-          "position": "FW",
-          "lambda_goals": 0.48353106475246893,
-          "anytime_pct": 21.1,
-          "exp_shots": 1.07,
-          "p_shots_2plus": 10.7,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 21.5,
-          "appearance_pct": 63.9,
-          "expected_minutes": 38.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Marseille",
-          "player": "Pierre-Emile H\u00f8jbjerg",
-          "position": "DF",
-          "lambda_goals": 0.23120951175997473,
-          "anytime_pct": 10.2,
-          "exp_shots": 0.92,
-          "p_shots_2plus": 6.3,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.6,
-          "appearance_pct": 91.7,
-          "expected_minutes": 77.8,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Esteban Lepaul",
-          "team": "Rennes",
-          "position": "FW",
-          "p_pick": 0.279,
-          "confidence": 1,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 97.2,
-          "expected_minutes": 79.0,
-          "anytime_pct": 27.9,
-          "exp_shots": 2.04,
-          "exp_sot": 0.84,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 0.02760913,
-          "unavailable": false,
-          "team_attribution": "Rennes"
-        }
-      ],
-      "market": {
-        "p_home": 0.449,
-        "p_draw": 0.246,
-        "p_away": 0.305,
-        "odds": {
-          "home": 2.1,
-          "draw": 3.8,
-          "away": 3.2
-        },
-        "book": "bet365",
-        "edge": 0.106,
-        "pick_odds": 3.2,
-        "ev": 0.314
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 36,
       "matchweek": 4,
@@ -5289,6 +5091,17 @@
   ],
   "standings": [
     {
+      "team": "Rennes",
+      "played": 4,
+      "won": 3,
+      "drawn": 1,
+      "lost": 0,
+      "gf": 8,
+      "ga": 5,
+      "gd": 3,
+      "points": 10
+    },
+    {
       "team": "Monaco",
       "played": 3,
       "won": 3,
@@ -5330,17 +5143,6 @@
       "gf": 5,
       "ga": 2,
       "gd": 3,
-      "points": 7
-    },
-    {
-      "team": "Rennes",
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "gf": 7,
-      "ga": 5,
-      "gd": 2,
       "points": 7
     },
     {
@@ -5400,13 +5202,13 @@
     },
     {
       "team": "Marseille",
-      "played": 3,
+      "played": 4,
       "won": 1,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "gf": 6,
-      "ga": 5,
-      "gd": 1,
+      "ga": 6,
+      "gd": 0,
       "points": 3
     },
     {
