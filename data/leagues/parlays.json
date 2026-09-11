@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-11T11:32:25.326156+00:00",
+  "updated": "2026-09-11T12:13:12.689564+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -36,10 +36,10 @@
           "provisional": true
         },
         {
-          "tier": "Balanced five-fold",
+          "tier": "Balanced four-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.1226,
+          "combined": 0.2185,
           "legs": [
             {
               "selection": "Evanilson 2+ shot attempts",
@@ -60,16 +60,6 @@
               "p": 0.823,
               "id": "LALIGA#44#shots#Lamine Yamal",
               "date": "2026-09-13T14:15:00+00:00"
-            },
-            {
-              "selection": "Harry Kane 2+ shot attempts",
-              "match": "Elversberg v Bayern Munich",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.561,
-              "id": "BUNDESLIGA#19#shots#Harry Kane",
-              "date": "2026-09-13T15:30:00+00:00"
             },
             {
               "selection": "Lille to win",
@@ -93,13 +83,13 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-10T15:00:14.542053+00:00"
+          "locked_at": "2026-09-11T12:13:12.689564+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1744,
+          "combined": 0.1661,
           "legs": [
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -122,18 +112,18 @@
               "date": "2026-09-12T19:00:00+00:00"
             },
             {
-              "selection": "Harry Kane to score",
-              "match": "Elversberg v Bayern Munich",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
+              "selection": "Odsonne Edouard to score",
+              "match": "Le Mans v Lens",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
               "tag": "g",
-              "p": 0.339,
-              "id": "BUNDESLIGA#19#goal#Harry Kane",
-              "date": "2026-09-13T15:30:00+00:00"
+              "p": 0.323,
+              "id": "LIGUE1#31#goal#Odsonne Edouard",
+              "date": "2026-09-13T15:15:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-10T20:54:12.084635+00:00"
+          "locked_at": "2026-09-11T12:13:12.689564+00:00"
         }
       ]
     },
@@ -174,7 +164,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0005,
+          "combined": 0.0034,
           "legs": [
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -237,16 +227,6 @@
               "date": "2026-09-12T14:00:00+00:00"
             },
             {
-              "selection": "Harry Kane 2+ shot attempts",
-              "match": "Elversberg v Bayern Munich",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.561,
-              "id": "BUNDESLIGA#19#shots#Harry Kane",
-              "date": "2026-09-13T15:30:00+00:00"
-            },
-            {
               "selection": "Erling Haaland 1+ shot on target",
               "match": "Manchester United v Manchester City",
               "league": "Premier League",
@@ -277,16 +257,6 @@
               "date": "2026-09-12T18:45:00+00:00"
             },
             {
-              "selection": "Serhou Guirassy 2+ shot attempts",
-              "match": "Dortmund v Paderborn",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.524,
-              "id": "BUNDESLIGA#27#shots#Serhou Guirassy",
-              "date": "2026-09-12T13:30:00+00:00"
-            },
-            {
               "selection": "Georges Mikautadze 1+ shot on target",
               "match": "Villarreal v Betis",
               "league": "La Liga",
@@ -305,20 +275,10 @@
               "p": 0.523,
               "id": "LALIGA#42#sot#Andr\u00e9s Anta\u00f1\u00f3n",
               "date": "2026-09-13T12:00:00+00:00"
-            },
-            {
-              "selection": "Deniz Undav 2+ shot attempts",
-              "match": "Hoffenheim v Stuttgart",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
-              "tag": "a",
-              "p": 0.507,
-              "id": "BUNDESLIGA#25#shots#Deniz Undav",
-              "date": "2026-09-12T13:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-10T15:00:14.542053+00:00"
+          "locked_at": "2026-09-11T12:13:12.689564+00:00"
         }
       ]
     },
@@ -404,7 +364,7 @@
     "wrong": 27,
     "void": 50,
     "total": 36,
-    "pending": 14
+    "pending": 17
   },
   "settled": [
     {
