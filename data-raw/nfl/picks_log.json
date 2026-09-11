@@ -18,12 +18,15 @@
       "away": "SF",
       "board": true,
       "confidence": 3,
+      "graded": "wrong",
       "home": "LA",
       "kickoff": "2026-09-11T00:35:00+00:00",
       "locked_at": "2026-09-10T23:12:28.236818+00:00",
       "p_pick": 0.5468,
       "pick": "LA",
-      "tainted": false
+      "result": "LA 7-27 SF",
+      "tainted": false,
+      "void": false
     }
   },
   "props": {
@@ -210,6 +213,7 @@
       "void": false
     },
     "2026_01_SF_LA:anytime_touchdown:00-0033280": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -217,6 +221,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "wrong",
       "home": "SF",
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": null,
@@ -230,9 +235,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:anytime_touchdown:00-0037840": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -240,6 +247,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": null,
@@ -253,9 +261,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:passing_yards:00-0026498": {
+      "actual": 155.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -263,6 +273,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 266.5,
@@ -276,9 +287,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:receiving_yards:00-0036244": {
+      "actual": 6.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -286,6 +299,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 15.5,
@@ -299,9 +313,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:receiving_yards:00-0036849": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -309,6 +325,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 18.0,
@@ -322,9 +339,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:receiving_yards:00-0037112": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -332,6 +351,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "wrong",
       "home": "SF",
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 15.5,
@@ -345,9 +365,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:receiving_yards:00-0039075": {
+      "actual": 74.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -355,6 +377,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 95.5,
@@ -368,9 +391,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:rushing_yards:00-0033280": {
+      "actual": 68.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -378,6 +403,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "correct",
       "home": "SF",
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 66.5,
@@ -391,9 +417,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_01_SF_LA:rushing_yards:00-0039738": {
+      "actual": 54.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -401,6 +429,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_01_SF_LA",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-11T00:35:00+00:00",
       "line": 21.5,
@@ -414,7 +443,8 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     }
   }
 }
