@@ -1970,6 +1970,69 @@
           "minutes": 65
         }
       }
+    },
+    "2026-09-11|Rennes|Marseille": {
+      "date": "2026-09-11",
+      "home": "Rennes",
+      "away": "Marseille",
+      "api_fixture_id": 1552763,
+      "fetched_at": "2026-09-11T21:04:36.789681+00:00",
+      "api_squads": {
+        "Rennes": [
+          "Q. Merlin",
+          "Eliezer Mayenda",
+          "N. Lemaître",
+          "H. Do Marcolino",
+          "B. Dia",
+          "A. Ait Boudlal",
+          "B. Samba",
+          "P. Frankowski",
+          "C. Cresswell",
+          "A. Rouault",
+          "M. Nagida",
+          "M. Camara",
+          "V. Rongier",
+          "A. Thomasson",
+          "L. Blas",
+          "E. Lepaul",
+          "I. Soumaré",
+          "Mousa Tamari",
+          "S. Szymański",
+          "B. Reynolds"
+        ],
+        "Marseille": [
+          "T. Weah",
+          "K. Abdallah",
+          "D. Cornelius",
+          "U. Garcia",
+          "N. Maupay",
+          "B. Meité",
+          "T. Mmadi",
+          "F. Moumbagna",
+          "T. Vermot",
+          "Igor Paixão",
+          "P. Højbjerg",
+          "A. Harit",
+          "A. Gouiri",
+          "A. Gomes",
+          "Emerson",
+          "C. Egan-Riley",
+          "N. Aguerd",
+          "H. Abdelli",
+          "J. de Lange",
+          "Nouhoum Kamissoko"
+        ]
+      },
+      "players": {
+        "Esteban Lepaul": {
+          "team": "Rennes",
+          "api_name": "E. Lepaul",
+          "goals": 0,
+          "shots": 2,
+          "sot": 0,
+          "minutes": 78
+        }
+      }
     }
   },
   "_note": "Per-match player goals/shots/SOT from API-Football, used ONLY where Understat has not published the fixture. Written by scripts/sync_player_stats.py -- never by hand. `players` is keyed by OUR player name; `api_squads` keeps the feed's own spelling so a join can be audited. Understat wins wherever it has the match.",
