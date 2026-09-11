@@ -1,7 +1,7 @@
 {
   "league": "Bundesliga",
-  "updated": "2026-09-11T04:49:49.562329+00:00",
-  "results_updated": "2026-09-11T11:25:35.340230+00:00",
+  "updated": "2026-09-11T11:31:47.920926+00:00",
+  "results_updated": "2026-09-11T11:31:47.920932+00:00",
   "record": {
     "correct": 9,
     "wrong": 8,
@@ -9,10 +9,6 @@
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 4,
-        "total": 7
-      },
       "4": {
         "correct": 1,
         "total": 4
@@ -24,6 +20,10 @@
       "3": {
         "correct": 3,
         "total": 3
+      },
+      "2": {
+        "correct": 4,
+        "total": 7
       }
     }
   },
@@ -46,7 +46,7 @@
       "away": "Schalke 04",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.46,
+        "p_home": 0.459,
         "p_draw": 0.304,
         "p_away": 0.237,
         "pick": "Union Berlin",
@@ -74,10 +74,10 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4596,
+        "p_pick": 0.4592,
         "why": {
           "home_attack_pct": -6.5,
-          "home_defence_pct": 1.4,
+          "home_defence_pct": 1.3,
           "away_attack_pct": -23.3,
           "away_defence_pct": -0.8,
           "home_advantage_pct": 22.4
@@ -97,7 +97,7 @@
           "team": "Union Berlin",
           "player": "Andrej Ilic",
           "position": "FW",
-          "lambda_goals": 0.31977351149388783,
+          "lambda_goals": 0.3193738309348539,
           "anytime_pct": 15.2,
           "exp_shots": 2.15,
           "p_shots_2plus": 39.8,
@@ -112,7 +112,7 @@
           "team": "Union Berlin",
           "player": "Oliver Burke",
           "position": "FW",
-          "lambda_goals": 0.2657908853861566,
+          "lambda_goals": 0.26545867697664516,
           "anytime_pct": 11.9,
           "exp_shots": 1.41,
           "p_shots_2plus": 18.3,
@@ -127,7 +127,7 @@
           "team": "Union Berlin",
           "player": "Woo-Yeong Jeong",
           "position": "FW",
-          "lambda_goals": 0.1353410509844607,
+          "lambda_goals": 0.13517189004719293,
           "anytime_pct": 5.0,
           "exp_shots": 0.86,
           "p_shots_2plus": 5.7,
@@ -140,7 +140,20 @@
         }
       ],
       "player_picks": [],
-      "market": null,
+      "market": {
+        "p_home": 0.399,
+        "p_draw": 0.266,
+        "p_away": 0.335,
+        "odds": {
+          "home": 2.45,
+          "draw": 3.5,
+          "away": 2.8
+        },
+        "book": "bet365",
+        "edge": 0.06,
+        "pick_odds": 2.45,
+        "ev": 0.125
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -175,16 +188,16 @@
           },
           {
             "score": "1-0",
-            "pct": 9.0,
+            "pct": 9.1,
             "outcome": "home",
             "agrees_with_pick": true
           }
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4591,
+        "p_pick": 0.459,
         "why": {
-          "home_attack_pct": 19.1,
+          "home_attack_pct": 19.2,
           "home_defence_pct": 3.1,
           "away_attack_pct": 12.6,
           "away_defence_pct": 0.5,
@@ -205,7 +218,7 @@
           "team": "Mainz",
           "player": "Ransford K\u00f6nigsd\u00f6rffer",
           "position": "FW",
-          "lambda_goals": 0.23481075799070328,
+          "lambda_goals": 0.23460977954993575,
           "anytime_pct": 10.5,
           "exp_shots": 2.08,
           "p_shots_2plus": 38.0,
@@ -220,7 +233,7 @@
           "team": "Mainz",
           "player": "Phillip Tietz",
           "position": "FW",
-          "lambda_goals": 0.2350951711688163,
+          "lambda_goals": 0.23489394929407004,
           "anytime_pct": 10.2,
           "exp_shots": 1.55,
           "p_shots_2plus": 22.1,
@@ -235,7 +248,7 @@
           "team": "Mainz",
           "player": "Jae-Sung Lee",
           "position": "FW",
-          "lambda_goals": 0.19152275574015795,
+          "lambda_goals": 0.19135882822188946,
           "anytime_pct": 7.9,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.4,
@@ -250,7 +263,7 @@
           "team": "Ein Frankfurt",
           "player": "Jonathan Burkardt",
           "position": "FW",
-          "lambda_goals": 0.31485933627997814,
+          "lambda_goals": 0.3146084502605209,
           "anytime_pct": 13.5,
           "exp_shots": 1.09,
           "p_shots_2plus": 11.0,
@@ -265,7 +278,7 @@
           "team": "Ein Frankfurt",
           "player": "Ritsu Doan",
           "position": "DF",
-          "lambda_goals": 0.2229534684299962,
+          "lambda_goals": 0.22277581478669167,
           "anytime_pct": 9.7,
           "exp_shots": 1.1,
           "p_shots_2plus": 10.2,
@@ -280,7 +293,7 @@
           "team": "Ein Frankfurt",
           "player": "Can Uzun",
           "position": "MF",
-          "lambda_goals": 0.1846499869137934,
+          "lambda_goals": 0.18450285422667995,
           "anytime_pct": 7.1,
           "exp_shots": 0.89,
           "p_shots_2plus": 7.3,
@@ -293,7 +306,20 @@
         }
       ],
       "player_picks": [],
-      "market": null,
+      "market": {
+        "p_home": 0.475,
+        "p_draw": 0.243,
+        "p_away": 0.282,
+        "odds": {
+          "home": 1.95,
+          "draw": 4.0,
+          "away": 3.4
+        },
+        "book": "bet365",
+        "edge": -0.016,
+        "pick_odds": 1.95,
+        "ev": -0.105
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -308,8 +334,8 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.26,
-        "p_draw": 0.259,
-        "p_away": 0.481,
+        "p_draw": 0.26,
+        "p_away": 0.48,
         "pick": "Leverkusen",
         "pick_type": "away",
         "score": "0-1",
@@ -335,10 +361,10 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4805,
+        "p_pick": 0.4802,
         "why": {
-          "home_attack_pct": 0.2,
-          "home_defence_pct": -4.9,
+          "home_attack_pct": 0.3,
+          "home_defence_pct": -4.8,
           "away_attack_pct": 40.2,
           "away_defence_pct": 19.0,
           "home_advantage_pct": 22.4
@@ -358,8 +384,8 @@
           "team": "Augsburg",
           "player": "Alexis Claude Maurice",
           "position": "FW",
-          "lambda_goals": 0.20554687532576477,
-          "anytime_pct": 8.7,
+          "lambda_goals": 0.2053383057732003,
+          "anytime_pct": 8.6,
           "exp_shots": 2.06,
           "p_shots_2plus": 35.6,
           "exp_sot": 0.73,
@@ -373,8 +399,8 @@
           "team": "Augsburg",
           "player": "Anton Kade",
           "position": "DF",
-          "lambda_goals": 0.15435171207781076,
-          "anytime_pct": 6.0,
+          "lambda_goals": 0.15419509054087616,
+          "anytime_pct": 5.9,
           "exp_shots": 1.16,
           "p_shots_2plus": 12.2,
           "exp_sot": 0.41,
@@ -388,7 +414,7 @@
           "team": "Augsburg",
           "player": "Michael Gregoritsch",
           "position": "FW",
-          "lambda_goals": 0.14930044396731534,
+          "lambda_goals": 0.14914894798010275,
           "anytime_pct": 5.3,
           "exp_shots": 0.97,
           "p_shots_2plus": 8.9,
@@ -403,8 +429,8 @@
           "team": "Leverkusen",
           "player": "Patrik Schick",
           "position": "FW",
-          "lambda_goals": 0.4539547936940467,
-          "anytime_pct": 21.9,
+          "lambda_goals": 0.45332764477337345,
+          "anytime_pct": 21.8,
           "exp_shots": 1.91,
           "p_shots_2plus": 31.3,
           "exp_sot": 0.67,
@@ -418,7 +444,7 @@
           "team": "Leverkusen",
           "player": "Christian Kofane",
           "position": "FW",
-          "lambda_goals": 0.19067209750782285,
+          "lambda_goals": 0.19040867964812486,
           "anytime_pct": 7.9,
           "exp_shots": 1.08,
           "p_shots_2plus": 10.2,
@@ -433,7 +459,7 @@
           "team": "Leverkusen",
           "player": "Malik Tillman",
           "position": "MF",
-          "lambda_goals": 0.13860856276218186,
+          "lambda_goals": 0.13841707186542318,
           "anytime_pct": 5.2,
           "exp_shots": 0.75,
           "p_shots_2plus": 3.9,
@@ -446,7 +472,20 @@
         }
       ],
       "player_picks": [],
-      "market": null,
+      "market": {
+        "p_home": 0.24,
+        "p_draw": 0.229,
+        "p_away": 0.531,
+        "odds": {
+          "home": 4.1,
+          "draw": 4.1,
+          "away": 1.8
+        },
+        "book": "bet365",
+        "edge": -0.051,
+        "pick_odds": 1.8,
+        "ev": -0.136
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -460,8 +499,8 @@
       "away": "M'gladbach",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.462,
-        "p_draw": 0.28,
+        "p_home": 0.461,
+        "p_draw": 0.281,
         "p_away": 0.258,
         "pick": "Freiburg",
         "pick_type": "home",
@@ -488,11 +527,11 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4617,
+        "p_pick": 0.4613,
         "why": {
           "home_attack_pct": 4.1,
           "home_defence_pct": 5.7,
-          "away_attack_pct": -3.4,
+          "away_attack_pct": -3.3,
           "away_defence_pct": -2.0,
           "home_advantage_pct": 22.4
         },
@@ -511,7 +550,7 @@
           "team": "Freiburg",
           "player": "Igor Matanovic",
           "position": "FW",
-          "lambda_goals": 0.28797473934920576,
+          "lambda_goals": 0.2875746762774988,
           "anytime_pct": 13.3,
           "exp_shots": 1.57,
           "p_shots_2plus": 22.7,
@@ -526,7 +565,7 @@
           "team": "Freiburg",
           "player": "Lucas H\u00f6ler",
           "position": "FW",
-          "lambda_goals": 0.21436612301063626,
+          "lambda_goals": 0.21406831921772249,
           "anytime_pct": 9.3,
           "exp_shots": 1.22,
           "p_shots_2plus": 12.8,
@@ -541,7 +580,7 @@
           "team": "Freiburg",
           "player": "Vincenzo Grifo",
           "position": "FW",
-          "lambda_goals": 0.13614600109571315,
+          "lambda_goals": 0.13595686302227636,
           "anytime_pct": 5.1,
           "exp_shots": 1.27,
           "p_shots_2plus": 14.0,
@@ -556,7 +595,7 @@
           "team": "M'gladbach",
           "player": "Shuto Machino",
           "position": "FW",
-          "lambda_goals": 0.198353819763258,
+          "lambda_goals": 0.19826510967970043,
           "anytime_pct": 8.4,
           "exp_shots": 0.69,
           "p_shots_2plus": 2.8,
@@ -571,7 +610,7 @@
           "team": "M'gladbach",
           "player": "Jens Castrop",
           "position": "DF",
-          "lambda_goals": 0.1283624853692204,
+          "lambda_goals": 0.12830507761767646,
           "anytime_pct": 4.6,
           "exp_shots": 0.6,
           "p_shots_2plus": 2.3,
@@ -586,7 +625,7 @@
           "team": "M'gladbach",
           "player": "Franck Honorat",
           "position": "DF",
-          "lambda_goals": 0.11493801227253221,
+          "lambda_goals": 0.11488660836871627,
           "anytime_pct": 4.0,
           "exp_shots": 0.59,
           "p_shots_2plus": 2.0,
@@ -599,7 +638,20 @@
         }
       ],
       "player_picks": [],
-      "market": null,
+      "market": {
+        "p_home": 0.556,
+        "p_draw": 0.232,
+        "p_away": 0.212,
+        "odds": {
+          "home": 1.67,
+          "draw": 4.33,
+          "away": 4.5
+        },
+        "book": "bet365",
+        "edge": -0.095,
+        "pick_odds": 1.67,
+        "ev": -0.23
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -641,9 +693,9 @@
         ],
         "confidence": 1,
         "provisional": true,
-        "p_pick": 0.3849,
+        "p_pick": 0.3848,
         "why": {
-          "home_attack_pct": 17.9,
+          "home_attack_pct": 18.0,
           "home_defence_pct": -0.9,
           "away_attack_pct": 38.3,
           "away_defence_pct": 7.3,
@@ -664,7 +716,7 @@
           "team": "Hoffenheim",
           "player": "Andrej Kramaric",
           "position": "FW",
-          "lambda_goals": 0.32534599476123527,
+          "lambda_goals": 0.3251668037047713,
           "anytime_pct": 15.8,
           "exp_shots": 2.01,
           "p_shots_2plus": 36.2,
@@ -679,7 +731,7 @@
           "team": "Hoffenheim",
           "player": "Fisnik Asllani",
           "position": "MF",
-          "lambda_goals": 0.3153658958311238,
+          "lambda_goals": 0.3151922015211995,
           "anytime_pct": 15.1,
           "exp_shots": 2.02,
           "p_shots_2plus": 36.1,
@@ -694,7 +746,7 @@
           "team": "Hoffenheim",
           "player": "Tim Lemperle",
           "position": "MF",
-          "lambda_goals": 0.24885010014377537,
+          "lambda_goals": 0.2487130407883078,
           "anytime_pct": 11.0,
           "exp_shots": 1.44,
           "p_shots_2plus": 19.2,
@@ -709,7 +761,7 @@
           "team": "Stuttgart",
           "player": "Deniz Undav",
           "position": "FW",
-          "lambda_goals": 0.41833253988892355,
+          "lambda_goals": 0.4179446229130425,
           "anytime_pct": 20.2,
           "exp_shots": 2.79,
           "p_shots_2plus": 50.7,
@@ -724,7 +776,7 @@
           "team": "Stuttgart",
           "player": "Ermedin Demirovic",
           "position": "FW",
-          "lambda_goals": 0.21279361356252774,
+          "lambda_goals": 0.21259629146302791,
           "anytime_pct": 8.8,
           "exp_shots": 1.15,
           "p_shots_2plus": 12.3,
@@ -739,7 +791,7 @@
           "team": "Stuttgart",
           "player": "Jamie Leweling",
           "position": "DF",
-          "lambda_goals": 0.12574301075775618,
+          "lambda_goals": 0.12562641010200926,
           "anytime_pct": 4.6,
           "exp_shots": 1.18,
           "p_shots_2plus": 12.1,
@@ -775,12 +827,25 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 0.030447270555555555,
+          "news_checked_hours_ago": 0.03453175583333334,
           "unavailable": false,
           "team_attribution": "Stuttgart"
         }
       ],
-      "market": null,
+      "market": {
+        "p_home": 0.407,
+        "p_draw": 0.237,
+        "p_away": 0.356,
+        "odds": {
+          "home": 2.35,
+          "draw": 4.0,
+          "away": 2.63
+        },
+        "book": "bet365",
+        "edge": 0.029,
+        "pick_odds": 2.63,
+        "ev": 0.012
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -794,7 +859,7 @@
       "away": "Paderborn",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.605,
+        "p_home": 0.604,
         "p_draw": 0.322,
         "p_away": 0.074,
         "pick": "Dortmund",
@@ -822,11 +887,11 @@
         ],
         "confidence": 4,
         "provisional": true,
-        "p_pick": 0.6046,
+        "p_pick": 0.6043,
         "why": {
           "home_attack_pct": 37.5,
           "home_defence_pct": 27.5,
-          "away_attack_pct": -75.6,
+          "away_attack_pct": -75.7,
           "away_defence_pct": 52.5,
           "home_advantage_pct": 22.4
         },
@@ -847,7 +912,7 @@
           "team": "Dortmund",
           "player": "Serhou Guirassy",
           "position": "FW",
-          "lambda_goals": 0.43575083692109845,
+          "lambda_goals": 0.4354288413234187,
           "anytime_pct": 22.0,
           "exp_shots": 2.6,
           "p_shots_2plus": 52.4,
@@ -862,7 +927,7 @@
           "team": "Dortmund",
           "player": "Maximilian Beier",
           "position": "FW",
-          "lambda_goals": 0.25888798077326064,
+          "lambda_goals": 0.25869667697522275,
           "anytime_pct": 11.8,
           "exp_shots": 1.79,
           "p_shots_2plus": 29.3,
@@ -877,7 +942,7 @@
           "team": "Dortmund",
           "player": "Carney Chukwuemeka",
           "position": "FW",
-          "lambda_goals": 0.08008151297187029,
+          "lambda_goals": 0.0800223371942294,
           "anytime_pct": 2.5,
           "exp_shots": 0.69,
           "p_shots_2plus": 3.1,
@@ -914,12 +979,25 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 0.030449786111111113,
+          "news_checked_hours_ago": 0.034534374722222226,
           "unavailable": false,
           "team_attribution": "Dortmund"
         }
       ],
-      "market": null,
+      "market": {
+        "p_home": 0.761,
+        "p_draw": 0.146,
+        "p_away": 0.093,
+        "odds": {
+          "home": 1.25,
+          "draw": 6.5,
+          "away": 10.0
+        },
+        "book": "bet365",
+        "edge": -0.157,
+        "pick_odds": 1.25,
+        "ev": -0.245
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -935,7 +1013,7 @@
       "prediction": {
         "p_home": 0.449,
         "p_draw": 0.274,
-        "p_away": 0.277,
+        "p_away": 0.276,
         "pick": "FC Koln",
         "pick_type": "home",
         "score": "1-0",
@@ -961,10 +1039,10 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4492,
+        "p_pick": 0.4495,
         "why": {
-          "home_attack_pct": 5.3,
-          "home_defence_pct": -7.8,
+          "home_attack_pct": 5.4,
+          "home_defence_pct": -7.7,
           "away_attack_pct": -7.9,
           "away_defence_pct": -3.3,
           "home_advantage_pct": 22.4
@@ -984,7 +1062,7 @@
           "team": "FC Koln",
           "player": "Said El Mala",
           "position": "FW",
-          "lambda_goals": 0.4574750389273667,
+          "lambda_goals": 0.4573181118992249,
           "anytime_pct": 23.5,
           "exp_shots": 2.18,
           "p_shots_2plus": 41.6,
@@ -999,7 +1077,7 @@
           "team": "FC Koln",
           "player": "Ragnar Ache",
           "position": "FW",
-          "lambda_goals": 0.3421122718282681,
+          "lambda_goals": 0.34199491753013034,
           "anytime_pct": 16.1,
           "exp_shots": 1.64,
           "p_shots_2plus": 24.5,
@@ -1014,7 +1092,7 @@
           "team": "FC Koln",
           "player": "Marius B\u00fclter",
           "position": "DF",
-          "lambda_goals": 0.14886054648207828,
+          "lambda_goals": 0.14880948305526975,
           "anytime_pct": 5.8,
           "exp_shots": 1.05,
           "p_shots_2plus": 8.9,
@@ -1029,7 +1107,7 @@
           "team": "Werder Bremen",
           "player": "Justin Njinmah",
           "position": "FW",
-          "lambda_goals": 0.2799939772021594,
+          "lambda_goals": 0.279631182077319,
           "anytime_pct": 13.0,
           "exp_shots": 1.59,
           "p_shots_2plus": 23.1,
@@ -1044,7 +1122,7 @@
           "team": "Werder Bremen",
           "player": "Jens Stage",
           "position": "MF",
-          "lambda_goals": 0.2680765144285864,
+          "lambda_goals": 0.26772916105516475,
           "anytime_pct": 12.0,
           "exp_shots": 1.2,
           "p_shots_2plus": 12.8,
@@ -1059,7 +1137,7 @@
           "team": "Werder Bremen",
           "player": "Marco Gr\u00fcll",
           "position": "FW",
-          "lambda_goals": 0.23137902144064082,
+          "lambda_goals": 0.23107921791698002,
           "anytime_pct": 10.3,
           "exp_shots": 1.18,
           "p_shots_2plus": 11.8,
@@ -1072,7 +1150,20 @@
         }
       ],
       "player_picks": [],
-      "market": null,
+      "market": {
+        "p_home": 0.453,
+        "p_draw": 0.252,
+        "p_away": 0.295,
+        "odds": {
+          "home": 2.05,
+          "draw": 3.8,
+          "away": 3.3
+        },
+        "book": "bet365",
+        "edge": -0.004,
+        "pick_odds": 2.05,
+        "ev": -0.079
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -1137,8 +1228,8 @@
           "team": "RB Leipzig",
           "player": "Christoph Baumgartner",
           "position": "FW",
-          "lambda_goals": 0.487226217153946,
-          "anytime_pct": 25.0,
+          "lambda_goals": 0.4869116819203684,
+          "anytime_pct": 24.9,
           "exp_shots": 2.39,
           "p_shots_2plus": 46.9,
           "exp_sot": 0.84,
@@ -1152,7 +1243,7 @@
           "team": "RB Leipzig",
           "player": "R\u00f4mulo",
           "position": "FW",
-          "lambda_goals": 0.4803255241241488,
+          "lambda_goals": 0.4800154437228802,
           "anytime_pct": 23.8,
           "exp_shots": 2.0,
           "p_shots_2plus": 34.5,
@@ -1167,7 +1258,7 @@
           "team": "RB Leipzig",
           "player": "Assan Ou\u00e9draogo",
           "position": "FW",
-          "lambda_goals": 0.17202403175943323,
+          "lambda_goals": 0.17191297940406847,
           "anytime_pct": 6.4,
           "exp_shots": 0.87,
           "p_shots_2plus": 7.1,
@@ -1182,7 +1273,7 @@
           "team": "Hamburg",
           "player": "F\u00e1bio Vieira",
           "position": "FW",
-          "lambda_goals": 0.3441037501397723,
+          "lambda_goals": 0.3437670125427155,
           "anytime_pct": 16.2,
           "exp_shots": 1.55,
           "p_shots_2plus": 22.1,
@@ -1197,7 +1288,7 @@
           "team": "Hamburg",
           "player": "Albert Sambi Lokonga",
           "position": "MF",
-          "lambda_goals": 0.16390599609423048,
+          "lambda_goals": 0.1637455987976432,
           "anytime_pct": 6.4,
           "exp_shots": 0.48,
           "p_shots_2plus": 1.2,
@@ -1212,7 +1303,7 @@
           "team": "Hamburg",
           "player": "Nicol\u00e1s Capaldo",
           "position": "DF",
-          "lambda_goals": 0.07958365121398338,
+          "lambda_goals": 0.0795057711924378,
           "anytime_pct": 2.4,
           "exp_shots": 0.49,
           "p_shots_2plus": 1.2,
@@ -1225,7 +1316,20 @@
         }
       ],
       "player_picks": [],
-      "market": null,
+      "market": {
+        "p_home": 0.698,
+        "p_draw": 0.178,
+        "p_away": 0.124,
+        "odds": {
+          "home": 1.36,
+          "draw": 5.0,
+          "away": 8.0
+        },
+        "book": "bet365",
+        "edge": -0.07,
+        "pick_odds": 1.36,
+        "ev": -0.146
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -1267,10 +1371,10 @@
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.5828,
+        "p_pick": 0.5831,
         "why": {
-          "home_attack_pct": 54.3,
-          "home_defence_pct": -16.0,
+          "home_attack_pct": 54.4,
+          "home_defence_pct": -16.1,
           "away_attack_pct": 93.4,
           "away_defence_pct": 32.4,
           "home_advantage_pct": 22.4
@@ -1290,7 +1394,7 @@
           "team": "Bayern Munich",
           "player": "Harry Kane",
           "position": "FW",
-          "lambda_goals": 0.6716150834587189,
+          "lambda_goals": 0.6719021081511724,
           "anytime_pct": 33.9,
           "exp_shots": 2.9,
           "p_shots_2plus": 56.1,
@@ -1305,7 +1409,7 @@
           "team": "Bayern Munich",
           "player": "Luis D\u00edaz",
           "position": "MF",
-          "lambda_goals": 0.3887186425566779,
+          "lambda_goals": 0.3888847672486014,
           "anytime_pct": 19.2,
           "exp_shots": 1.91,
           "p_shots_2plus": 32.9,
@@ -1320,7 +1424,7 @@
           "team": "Bayern Munich",
           "player": "Michael Olise",
           "position": "MF",
-          "lambda_goals": 0.3491579558045855,
+          "lambda_goals": 0.34930717364878033,
           "anytime_pct": 16.9,
           "exp_shots": 2.16,
           "p_shots_2plus": 40.1,
@@ -1356,7 +1460,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 0.03045549111111111,
+          "news_checked_hours_ago": 0.0345405975,
           "unavailable": false,
           "team_attribution": "Bayern Munich"
         },
@@ -1383,12 +1487,25 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.030455278055555552,
+          "news_checked_hours_ago": 0.03454036305555556,
           "unavailable": false,
           "team_attribution": "Bayern Munich"
         }
       ],
-      "market": null,
+      "market": {
+        "p_home": 0.073,
+        "p_draw": 0.112,
+        "p_away": 0.814,
+        "odds": {
+          "home": 13.0,
+          "draw": 9.0,
+          "away": 1.17
+        },
+        "book": "bet365",
+        "edge": -0.231,
+        "pick_odds": 1.17,
+        "ev": -0.318
+      },
       "result": null,
       "graded": null,
       "void": false
@@ -4820,86 +4937,86 @@
     {
       "team": "Bayern Munich",
       "proj_points": 73.4,
-      "title_pct": 81.1,
+      "title_pct": 80.9,
       "top4_pct": 99.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Dortmund",
       "proj_points": 62.0,
-      "title_pct": 9.7,
+      "title_pct": 9.8,
       "top4_pct": 78.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Leverkusen",
       "proj_points": 58.4,
-      "title_pct": 4.2,
+      "title_pct": 4.4,
       "top4_pct": 61.6,
       "relegation_pct": 0.0
     },
     {
       "team": "Stuttgart",
       "proj_points": 55.7,
-      "title_pct": 1.7,
-      "top4_pct": 45.0,
+      "title_pct": 1.8,
+      "top4_pct": 44.8,
       "relegation_pct": 0.0
     },
     {
       "team": "Elversberg",
-      "proj_points": 54.9,
+      "proj_points": 54.8,
       "title_pct": 1.8,
-      "top4_pct": 39.5,
+      "top4_pct": 39.4,
       "relegation_pct": 0.1
     },
     {
       "team": "RB Leipzig",
       "proj_points": 53.1,
       "title_pct": 0.9,
-      "top4_pct": 31.3,
+      "top4_pct": 31.5,
       "relegation_pct": 0.1
     },
     {
       "team": "Mainz",
       "proj_points": 49.2,
       "title_pct": 0.3,
-      "top4_pct": 15.4,
-      "relegation_pct": 0.5
+      "top4_pct": 15.5,
+      "relegation_pct": 0.4
     },
     {
       "team": "Freiburg",
       "proj_points": 47.8,
       "title_pct": 0.1,
-      "top4_pct": 11.0,
+      "top4_pct": 10.8,
       "relegation_pct": 0.7
     },
     {
       "team": "Hoffenheim",
-      "proj_points": 44.8,
+      "proj_points": 44.9,
       "title_pct": 0.0,
-      "top4_pct": 5.5,
-      "relegation_pct": 2.2
+      "top4_pct": 5.7,
+      "relegation_pct": 2.1
     },
     {
       "team": "Augsburg",
       "proj_points": 44.2,
       "title_pct": 0.0,
-      "top4_pct": 4.1,
+      "top4_pct": 4.2,
       "relegation_pct": 2.3
     },
     {
       "team": "Ein Frankfurt",
       "proj_points": 44.1,
       "title_pct": 0.0,
-      "top4_pct": 4.0,
+      "top4_pct": 4.1,
       "relegation_pct": 2.9
     },
     {
       "team": "FC Koln",
       "proj_points": 42.1,
       "title_pct": 0.0,
-      "top4_pct": 2.5,
-      "relegation_pct": 5.2
+      "top4_pct": 2.4,
+      "relegation_pct": 5.0
     },
     {
       "team": "Werder Bremen",
@@ -4913,11 +5030,11 @@
       "proj_points": 39.5,
       "title_pct": 0.0,
       "top4_pct": 0.8,
-      "relegation_pct": 9.7
+      "relegation_pct": 9.6
     },
     {
       "team": "M'gladbach",
-      "proj_points": 38.4,
+      "proj_points": 38.5,
       "title_pct": 0.0,
       "top4_pct": 0.6,
       "relegation_pct": 12.2
@@ -4934,14 +5051,14 @@
       "proj_points": 33.1,
       "title_pct": 0.0,
       "top4_pct": 0.1,
-      "relegation_pct": 36.9
+      "relegation_pct": 37.0
     },
     {
       "team": "Paderborn",
-      "proj_points": 24.1,
+      "proj_points": 24.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 87.8
+      "relegation_pct": 88.1
     }
   ],
   "standings": [
@@ -5199,7 +5316,7 @@
     "Schalke 04"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 29.0,
+  "roster_snapshot_age_hours": 35.6,
   "roster_unmatched_count": 116,
   "data_warnings": [
     "116 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
