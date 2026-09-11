@@ -430,6 +430,19 @@
   }
   /* The rows stack on a phone, where a 96px basis would become 96px of height. */
   @media (max-width:520px){.flab{flex:none}}
+
+  /* Table fit: dates and edges never wrap mid-value. */
+  .bhead,.brow{grid-template-columns:108px minmax(0,1fr) 128px 100px 110px 112px}
+  .btable.t5 .bhead,.btable.t5 .brow{grid-template-columns:108px minmax(0,1fr) 128px 100px 116px}
+  .bt b{white-space:nowrap}
+  .bn{white-space:nowrap;font-size:19px}
+  .bsn{font-size:11px;color:var(--sub);font-weight:650}
+  .bmore{padding:13px 16px;border-top:1px solid var(--line);color:var(--lime);font-weight:750;font-size:13px;cursor:pointer}
+  .bmore:hover{background:rgba(255,255,255,.03)}
+  @media (max-width:760px){
+    .brow,.btable.t5 .brow{grid-template-columns:1fr 1fr 1fr}
+    .brow>.bt{flex-direction:row;gap:8px}
+  }
 </style>
 </head>
 <body>
@@ -1228,17 +1241,18 @@ function setFDate(d){ fdate=(fdate===d?"all":d); render(cur); }
 function setFLeague(l){ fleague=l; render(cur); }
 function setRKind(k){ rkind=k; rall=false; render(cur); }
 function showAllSettled(){ rall=true; render(cur); }
+const dateOf=p=>p.kickoff||p.date;
 const dayKey=iso=>{const d=new Date(iso); return isNaN(d)?"":d.toDateString();};
 const dayChip=key=>new Date(key).toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
 function inBoard(p){
-  return inTier(p) && (fdate==="all"||dayKey(p.date)===fdate)
+  return inTier(p) && (fdate==="all"||dayKey(dateOf(p))===fdate)
     && (fleague==="all"||p.league_key===fleague);
 }
 // Date and league rows are drawn only when they would offer a real choice -- a
 // single-option row is a control that does nothing.
 function boardFilters(items, confChips, marketChips){
   const chip=(on,click,label)=>`<button class="chip ${on?"on":""}" type="button" onclick="${click}">${label}</button>`;
-  const days=[...new Set(items.map(p=>dayKey(p.date)).filter(Boolean))].sort((a,b)=>new Date(a)-new Date(b));
+  const days=[...new Set(items.map(p=>dayKey(dateOf(p))).filter(Boolean))].sort((a,b)=>new Date(a)-new Date(b));
   const lgs=Object.keys(LG).filter(k=>items.some(p=>p.league_key===k));
   const dateRow=days.length>1?`<div class="chips">${chip(fdate==="all","setFDate('all')","All dates")}${
     days.map(d=>chip(fdate===d,`setFDate('${d}')`,esc(dayChip(d)))).join("")}</div>`:"";
@@ -1265,7 +1279,7 @@ function timeCell(iso){
   const day=d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
   const t=d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
   const tz=d.toLocaleTimeString(undefined,{timeZoneName:"short"}).split(" ").pop()||"";
-  return `<div class="bt"><b>${esc(day)},<br>${t}</b><small>${esc(tz)}</small></div>`;
+  return `<div class="bt"><b>${esc(day)}</b><b>${t}</b><small>${esc(tz)}</small></div>`;
 }
 function probCell(p, label){
   return `<div class="bc"><small>${esc(label||"Model")}</small><b class="bn">${p!=null?pc(p)+"%":"—"}</b>
@@ -1280,14 +1294,86 @@ function valCell(label, val, cls){
 const PSEL={goal:"Anytime goal",shots:"Over 1.5 shots",sot:"Over 0.5 SOT"};
 const PMK={goal:"Anytime goal",shots:"Total shots",sot:"Shots on target"};
 
-function lastFiveTiles(p){
-  const v=p.last_five||[]; if(!v.length) return "";
-  const line=p.last_five_line!=null?p.last_five_line:(p.market==="goal"?1:null);
-  const hits=line==null?null:v.filter(x=>x>=line).length;
-  return `<div class="l5h"><span>Last five appearances</span>${
-      hits!=null?`<span>${Math.round(100*hits/v.length)}% hit (${hits}/${v.length})</span>`:""}</div>
-    <div class="l5t">${v.map(x=>`<i class="${line!=null?(x>=line?"hit":"miss"):""}">${x}</i>`).join("")}</div>`;
+// Last-N tiles for any board. `hitOf` returns true, false, or null where the
+// line is unknown, so a tile is only coloured when there is something to judge.
+function tiles(v, hitOf, fmt, label){
+  if(!v||!v.length) return "";
+  const known=v.map(hitOf), n=known.filter(x=>x!=null).length, hits=known.filter(x=>x===true).length;
+  return `<div class="l5h"><span>${esc(label||"Last five appearances")}</span>${
+      n?`<span>${Math.round(100*hits/n)}% hit (${hits}/${n})</span>`:""}</div>
+    <div class="l5t">${v.map((x,i)=>`<i class="${known[i]===true?"hit":known[i]===false?"miss":""}">${fmt?fmt(x):x}</i>`).join("")}</div>`;
 }
+function lastFiveTiles(p){
+  const line=p.last_five_line!=null?p.last_five_line:(p.market==="goal"?1:null);
+  return tiles(p.last_five, x=>line==null?null:x>=line);
+}
+
+// NFL team winner. Edge is against bet365's DE-VIGGED probability, which the
+// board already publishes -- so unlike a raw 1/odds it is not flattered or
+// dragged by the bookmaker's margin.
+function nflGameTableRow(g){
+  const t=nflTier(g.p_pick);
+  const edge=g.edge!=null?g.edge*100:null, bp=g.book_p_pick;
+  return `<div class="brow">${timeCell(g.kickoff)}
+    <div class="be"><div class="beb">NFL · Team winner</div>
+      <b>${esc(g.away)} @ ${esc(g.home)}</b>
+      <span>Model selection: <em>${esc(g.pick)}</em> · ${g.pick===g.home?"home":"away"} · Elo ${
+        Math.round(g.rating_away)} v ${Math.round(g.rating_home)}${g.neutral?" · neutral site":""}</span></div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    ${probCell(g.p_pick)}
+    ${valCell(bp!=null?`${g.book||"Book"} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
+    ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
+}
+
+// NFL player prop. A tile is green where that game beat the line, strictly --
+// the same `yards > line` the grader and the release gate use.
+function nflPropTableRow(p, full){
+  const td=p.market==="anytime_touchdown";
+  const t=nflTier(p.probability);
+  const sel=td?"Anytime TD":`Over ${p.line} yds`;
+  const status=p.availability==="doubt"
+    ? `<span class="mk w" title="${esc(p.injury_note||"")}">Doubt</span>`
+    : `<span class="tier ${t.cls}">${t.label}</span>`;
+  const avg=p.last_five_average!=null?Number(p.last_five_average).toFixed(1):"—";
+  return `<div class="brow">${timeCell(p.kickoff)}
+    <div class="be"><div class="beb">NFL · ${esc(full||p.market)}</div>
+      <b>${esc(p.player)}</b>
+      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)}${p.depth_label?` · ${esc(p.depth_label)}`:""}${
+        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
+      ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}</div>
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}</div>
+    ${probCell(p.probability)}
+    ${td?valCell("5-game avg",avg):valCell("Line",p.line!=null?p.line:"—")}
+    ${valCell("Price","—","off")}</div>`;
+}
+
+function uclTableRow(m){
+  const t=nflTier(m.p_pick);
+  const status=m.graded?winChip(m):`<span class="tier ${t.cls}">${t.label}</span>`;
+  return `<div class="brow">${timeCell(m.kickoff||m.date)}
+    <div class="be"><div class="beb">Champions League · Match winner</div>
+      <b>${esc(m.home)} vs ${esc(m.away)}</b>
+      <span>Model selection: <em>${esc(m.pick)}</em> · pot ${m.home_pot} v pot ${m.away_pot} · ${
+        m.home_matches}/${m.away_matches} prior matches${(m.thin||[]).length?" · thin history":""}</span></div>
+    <div class="bs">${status}${m.locked?`<span class="bsn">Locked</span>`:""}</div>
+    ${probCell(m.p_pick)}
+    ${valCell("Home · draw · away",`<span style="font-size:14px">${pc(m.p_home)} · ${pc(m.p_draw)} · ${pc(m.p_away)}</span>`)}
+    ${valCell("Price","—","off")}</div>`;
+}
+
+const SIXCOLS=["Time","Event / selection","Score","Probability","Runner-up","Cost"];
+function sixTableRow(p){
+  const alt=(p.alternatives||[])[0];
+  return `<div class="brow">${timeCell(p.date)}
+    <div class="be"><div class="beb">Premier League · Correct score</div>
+      <b>${esc(p.home)} vs ${esc(p.away)}</b>
+      <span>${p.agrees_with_match_pick?"Agrees with the match pick":`Match pick: <em>${esc(p.match_pick||"—")}</em>`}${p.provisional?"":" · locked"}</span></div>
+    <div class="bs"><b class="sel">${esc(p.score)}</b>${p.rank?`<span class="bsn">Rank ${p.rank} of 6</span>`:""}</div>
+    ${probCell(p.score_pct!=null?p.score_pct/100:null)}
+    ${valCell(alt?`Or ${alt.score}`:"Runner-up", alt?alt.pct+"%":"—", alt?"":"off")}
+    ${valCell("Cost", p.gap_to_next_pp!=null?p.gap_to_next_pp+" pp":"—", p.gap_to_next_pp!=null?"":"off")}</div>`;
+}
+
 
 // PRICE SAYS "—" ON PURPOSE. No bookmaker prop price is fetched for soccer, so an
 // edge here would be invented. The column stays so the layout matches the other
@@ -1465,10 +1551,11 @@ function viewPlayers(){
 function viewParlay(){
   const par=DATA.parlays||{}, sections=par.sections||[];
   if(!sections.length) return emptyState();
-  let h=`<div class="eyebrow">Model parlays · combined chance = product of the legs</div>`;
+  const legsAll=sections.flatMap(x=>(x.parlays||[]).flatMap(pa=>pa.legs||[]));
+  let h=boardFilters(legsAll,"")+`<div class="eyebrow">Model parlays · combined chance = product of the legs</div>`;
   sections.forEach((sec,si)=>{
     h+=`<div class="secttl" style="${si?"margin-top:24px":""}">${esc(sec.title)}</div><div class="sectsub">${esc(sec.sub)}</div>`;
-    (sec.parlays||[]).forEach(pa=>{const legs=pa.legs||[];
+    (sec.parlays||[]).filter(pa=>(pa.legs||[]).some(inBoard)).forEach(pa=>{const legs=pa.legs||[];
       h+=`<div class="glass acca ${pa.feat?"feat":""}"><div class="ah"><div class="an">${esc(pa.tier)}<small>${legs.length} legs · ${esc(pa.note)}</small></div>
         <div class="ac"><b>${pc(pa.combined)}%</b><span>chance to hit</span></div></div>
         <div class="legs">${legs.map(l=>`<div class="leg"><span class="stt"></span>
@@ -1544,33 +1631,23 @@ function calibrationBlock(){
 function viewSix(){
   const s=DATA.six_scores;
   if(!s) return emptyState();
-  const picks=s.picks||[], rec=s.record||{correct:0,total:0};
-  let h=`<div class="glass stat"><div class="k">${s.expected_of_six!=null?s.expected_of_six:"—"}</div>
+  const allPicks=s.picks||[], picks=allPicks.filter(inBoard), rec=s.record||{correct:0,total:0};
+  let h=boardFilters(allPicks,"")+`<div class="glass stat"><div class="k">${s.expected_of_six!=null?s.expected_of_six:"—"}</div>
     <div class="l">expected correct of 6 · model ${s.hit_rate_pct}% vs ${s.baseline_pct}% for always 1-1</div></div>`;
   // Said up front, in words. A reader looking at 0/6 needs to know that is the
   // most likely single week, not a malfunction.
   if(s.outlook) h+=`<p class="note" style="margin-top:-2px">${esc(s.outlook)}</p>`;
   if(rec.total) h+=`<div class="glass stat"><div class="k">${rec.correct}/${rec.total}</div>
     <div class="l">Scorelines correct since launch</div></div>`;
-  if(!picks.length){
+  if(!allPicks.length){
     h+=`<div class="glass rowc">${emptyRow(s.missing_fixtures&&s.missing_fixtures.length
       ? "bet365's six include a fixture not in this matchweek — check the selection file"
       : "This week's six have not been published by bet365 yet")}</div>`;
   } else {
-    h+=`<div class="eyebrow">${s.matchweek?`Matchweek ${s.matchweek} · `:""}the model's six</div>
-      <div class="glass rowc">${picks.map(p=>{
-      // TWO scores, side by side. The top one is the entry; the second is there
-      // because the first is only ~12% likely and a lone number would overstate it.
-      const alt=(p.alternatives||[])[0];
-      return `<div class="rw static"><span class="lgtag" style="background:${LC.PL}"></span>
-        <div class="info"><b>${p.rank?`${p.rank}. `:""}${esc(p.home)} v ${esc(p.away)}</b>
-          <span>${whenStr(p.date)} · ${p.agrees_with_match_pick?"agrees with match pick":`match pick ${esc(p.match_pick||"—")}`}${p.provisional?"":" · locked"}</span></div>
-        <div class="conf" style="min-width:104px">
-          <b>${esc(p.score)}</b> <span style="font-size:11.5px">${p.score_pct}%</span>
-          ${alt?`<span style="display:block;margin-top:2px;font-size:10.5px;opacity:.7">or ${esc(alt.score)} ${alt.pct}%${
-            p.gap_to_next_pp!=null?` &middot; costs ${p.gap_to_next_pp}pp`:""}</span>`:""}
-        </div></div>`;
-    }).join("")}</div>`;
+    h+=sectHead("Henry's live model",`${s.matchweek?`Matchweek ${s.matchweek} · `:""}the model's six`,
+      "Two scores per fixture: the entry, and the runner-up with what it costs to play it instead.");
+    h+=picks.length?btable(SIXCOLS,picks.map(sixTableRow).join(""))
+      :`<div class="glass rowc">${emptyRow("No fixtures match these filters")}</div>`;
   }
   h+=`<p class="note">Ranked by how confident the model is, most confident first &mdash; these six are not equally hopeless, and that ordering is the only real steer this market allows. Two scores per fixture, because one would overstate it. &ldquo;Costs Xpp&rdquo; is what you give up by playing the second score instead of the first; it is usually two or three points, so differentiating from everyone else writing 1-1 is close to free. These are the likeliest and second-likeliest results from each side&rsquo;s expected goals — and the leader usually sits near 12%, so the model is really saying it does not know, and most weeks neither will be right. Evenly matched sides come out 1-1 because with about 1.3 goals a side that genuinely is the least unlikely score; where the gap is real, so is the prediction. The six fixtures are chosen by bet365, not by the model. In the Premier League the model does not beat always guessing 1-1 — this board is published so that can be checked week by week rather than argued about.</p>`;
   if((s.settled||[]).length){
@@ -1675,12 +1752,12 @@ function viewNFL(){
   const ev=d.evidence||{};
   const chips=[["all","All"],["team_winner","Winners"],["anytime_touchdown","Anytime TD"],
                ["receiving_yards","Receiving"],["rushing_yards","Rushing"],["passing_yards","Passing"]];
-  // Every pick on the board -- games and props together -- so the tier counts
-  // describe the whole tab rather than whichever market is showing.
+  // Every pick on the board -- games and props together -- so the date and tier
+  // counts describe the whole tab rather than whichever market is showing.
   const nflAll=(d.games||[]).concat(
     Object.values(d.props||{}).flatMap(b=>(b&&b.released&&b.picks)||[]));
-  let h=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`
-    + tierChips(nflAll);
+  const mchips=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
+  let h=boardFilters(nflAll, tierChips(nflAll), mchips);
 
   const tw=ev.team_winner||{};
   if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
@@ -1688,8 +1765,7 @@ function viewNFL(){
 
   // THE LIVE RECORD, kept apart from the backtest above it. One is what the model
   // scored on seasons it never saw; the other is what THIS board's frozen picks
-  // have actually done. Showing them as one number would let a good backtest
-  // stand in for a live record that does not exist yet.
+  // have actually done.
   const rec=d.record||{}, rw=rec.team_winner||{}, rp=rec.props||{};
   const recLine=(label,r)=>!r||!(r.settled||r.pending)?"":
     `<div class="rw static"><div class="info"><b>${label}</b><span>${
@@ -1704,46 +1780,41 @@ function viewNFL(){
   const markets = filter==="all" ? allMarkets : filter==="team_winner" ? [] : [filter];
 
   if(filter==="all"||filter==="team_winner"){
-    const games=(d.games||[]).filter(inTier).sort((a,b)=>b.p_pick-a.p_pick);
-    h+=`<div class="eyebrow" style="margin-top:18px">Team winner · ${
-      d.season?`week ${d.week} · `:""}${games.length} game${games.length===1?"":"s"}</div>
-      <div class="glass rowc">${games.map(nflGameRow).join("")
-        ||emptyRow("No games in the current slate")}</div>`;
+    const games=(d.games||[]).filter(inBoard)
+      .sort((a,b)=>new Date(a.kickoff)-new Date(b.kickoff)||b.p_pick-a.p_pick);
+    h+=sectHead("Henry's live model",`Team winner · ${d.season?`week ${d.week} · `:""}${games.length} game${games.length===1?"":"s"}`,
+      "Edge is the model's probability minus bet365's de-vigged probability for the same side.");
+    h+=games.length?btable(PCOLS,games.map(nflGameTableRow).join(""))
+      :`<div class="glass rowc">${emptyRow("No games match these filters")}</div>`;
   }
 
-  // ONE SECTION PER MARKET, the same reasoning as the football player picks: a
-  // 53% anytime touchdown and an 80% rushing over are both near the top of their
-  // own market, and a single ranked list buries every touchdown pick.
+  // ONE SECTION PER MARKET: a 53% anytime touchdown and an 80% rushing over are
+  // both near the top of their own market, and one ranked list buries the TDs.
   for(const m of markets){
     const block=(d.props||{})[m];
     if(!block) continue;
     const e=ev[m]||{}, name=(NFLMK[m]||{}).name||m;
     const full=(d.markets||{})[m]||name;
     if(!block.released){
-      h+=`<div class="eyebrow" style="margin-top:18px">${esc(name)}</div>
-        <div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
+      h+=sectHead("Live board",full)+`<div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
       continue;
     }
-    const picks=(block.picks||[]).filter(inTier);
-    // "All" is an OVERVIEW, not the whole database. Four markets at full length
-    // is 111 rows of nearly identical cards -- the reader scrolls past the
-    // touchdown board looking for the end of it and takes nothing in. The top few
-    // per market here, the full list behind that market's own chip, which is how
-    // the football player picks already behave.
+    const picks=(block.picks||[]).filter(inBoard);
+    // "All" is an overview: the top few per market, the full list behind that
+    // market's own chip.
     const overview = filter==="all";
     const shown = overview ? picks.slice(0, NFL_OVERVIEW) : picks;
     const more = picks.length - shown.length;
-    const proof=e.n?` · ${e.n.toLocaleString()} unseen`:"";
-    h+=`<div class="eyebrow" style="margin-top:18px">${esc(full)} · ${
-      picks.length} pick${picks.length===1?"":"s"}${proof}</div>
-      <div class="glass rowc">${shown.map(nflPropRow).join("")
-        ||emptyRow("No picks in this market this week")}${
-        more>0?`<div class="rw" onclick="setFilter('${m}')"><div class="info">
-          <span>Show all ${picks.length} ${esc(full.toLowerCase())} picks →</span></div></div>`:""}</div>`;
+    h+=sectHead("Live board",`${full} · ${picks.length} pick${picks.length===1?"":"s"}`,
+      (e.n?`${e.n.toLocaleString()} backtested predictions on games the model never saw. `:"")
+      +"No bookmaker prop price is served, so Price shows —.");
+    h+=shown.length?btable(PCOLS,shown.map(p=>nflPropTableRow(p,full)).join("")+(more>0
+        ?`<div class="bmore" onclick="setFilter('${m}')">Show all ${picks.length} ${esc(full.toLowerCase())} picks →</div>`:""))
+      :`<div class="glass rowc">${emptyRow("No picks match these filters")}</div>`;
   }
 
   const through=d.player_data_through||{}, inj=d.injury_report||{}, od=d.odds||{};
-  h+=`<p class="note">Boxes are the last five games, oldest first, filled where the game beat the line — the same five the projection was built from. Lines are each player&rsquo;s own median, not a bookmaker price, so &ldquo;over&rdquo; means a better day than his typical one. Player data runs through ${through.season||"?"} week ${through.week||"?"}${
+  h+=`<p class="note">Tiles are the last five games, oldest first, green where the game beat the line — the same five the projection was built from. Lines are each player&rsquo;s own median, not a bookmaker price, so &ldquo;over&rdquo; means a better day than his typical one. Player data runs through ${through.season||"?"} week ${through.week||"?"}${
     inj.players_listed?`, and ${inj.players_listed} players carry an injury status from ${esc(inj.source||"the feed")} — anyone ruled out is off the board entirely` : ""}.</p>`;
   if(od.note) h+=`<p class="note" style="margin-top:-4px">${esc(od.note)}</p>`;
   if((d.caveats||[]).length)
@@ -1826,7 +1897,7 @@ function viewUCL(){
   const d=DATA.ucl;
   if(!d) return emptyState();
   const ev=d.evidence||{};
-  let h=tierChips(d.matches||[]);
+  let h=boardFilters(d.matches||[], tierChips(d.matches||[]));
   if(ev.n) h+=`<div class="glass stat"><div class="k">${ev.rps}</div>
     <div class="l">RPS over ${ev.n.toLocaleString()} matches the model never saw, against ${ev.rps_baseline} for home advantage · ${(ev.seasons_scored||[]).length} seasons</div></div>`;
 
@@ -1842,10 +1913,13 @@ function viewUCL(){
     h+=`<div class="glass stat"><div class="k">${rec.pending}</div>
       <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
 
-  const ms=(d.matches||[]).filter(inTier);
-  h+=`<div class="eyebrow" style="margin-top:18px">League phase · ${ms.length} fixture${ms.length===1?"":"s"}</div>
-    <div class="glass rowc">${ms.slice(0,40).map(uclRow).join("")
-      ||emptyRow("The draw is made but the fixture list has not been published by the feed yet")}</div>`;
+  const ms=(d.matches||[]).filter(inBoard)
+    .sort((x,y)=>new Date(x.kickoff||x.date)-new Date(y.kickoff||y.date));
+  h+=sectHead("Henry's live model",`League phase · ${ms.length} fixture${ms.length===1?"":"s"}`,
+    ms.length>40?"Showing the first 40 — pick a match date above to narrow the list.":"");
+  h+=ms.length?btable(PCOLS,ms.slice(0,40).map(uclTableRow).join(""))
+    :`<div class="glass rowc">${emptyRow((d.matches||[]).length?"No fixtures match these filters"
+      :"The draw is made but the fixture list has not been published by the feed yet")}</div>`;
 
   // THE CLUBS AND WHAT STANDS BEHIND EACH NUMBER. A strength fitted from 182
   // matches and one seeded from none render identically unless the board says
