@@ -105,6 +105,16 @@
   .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
   .chip .rng{opacity:.62;font-weight:650;font-size:.92em}
+  /* Labelled filter rows: SPORT, then MARKET. The label names the level so a
+     sport chip and a market chip are never read as the same kind of choice. */
+  .fpanel{padding:4px 16px;margin-bottom:16px}
+  .frow{display:flex;align-items:center;gap:14px;padding:10px 0}
+  .frow+.frow{border-top:1px solid var(--line)}
+  .flab{flex:0 0 66px;font-size:11px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--cyan)}
+  .frow .chips{padding:0;flex:1;min-width:0}
+  @media (max-width:520px){.frow{flex-direction:column;align-items:stretch;gap:8px}
+    .flab{flex:none}}
   .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--glass);color:var(--sub);
     font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:20px;cursor:pointer;transition:.2s;white-space:nowrap;
     }
@@ -473,7 +483,7 @@ const GROUPS=[
 function go(k,f){
   // `f` lets a link open a board already filtered to one market. Defaults to
   // "all" so every existing caller behaves exactly as before.
-  cur=k; filter=f||"all"; tier="all"; render(k); syncNav();
+  cur=k; filter=f||"all"; tier="all"; gsport="soccer"; render(k); syncNav();
   window.scrollTo(0,0);
 }
 
@@ -1547,35 +1557,6 @@ function gradedMatchRow(m){
 // lists cannot disagree about what exists. A chip is only drawn for a market
 // that actually has graded picks -- this codebase's own rule is that a link
 // which looks live and does nothing is worse than no link.
-function gradedProps(){
-  const all=((DATA.player_picks||{}).settled||[]).slice();
-  // NFL props settle into their own board; included so this means "every prop",
-  // not "every soccer prop".
-  (((DATA.nfl||{}).settled)||[]).forEach(p=>{ if(p.market&&p.player) all.push(p); });
-  return all.sort((a,b)=>new Date(b.date||b.kickoff)-new Date(a.date||a.kickoff));
-}
-function gradedMatches(){
-  // THE PROBABILITY IS NOT IN THE SEASON ARRAY. Those entries carry id, teams,
-  // result, pick and graded -- no p_pick, because the board publishes the number
-  // only for picks that cleared the Best bar. So it is joined back from
-  // best.settled by league and fixture id where it exists, and simply omitted
-  // where it does not. Reading `m.prediction.p_pick` here printed a bare dash on
-  // every row: the field does not exist on this shape.
-  const prob={};
-  (((DATA.best||{}).settled)||[]).forEach(s=>{ prob[`${s.league_key}:${s.id}`]=s.p_pick; });
-  const all=[];
-  Object.keys(FILES).forEach(k=>{
-    ((DATA[FILES[k]]||{}).season||[]).forEach(m=>{
-      if(m.result&&m.graded) all.push({...m, league:LG[k], colour:LC[k],
-                                       p_pick:prob[`${k}:${m.id}`]});
-    });
-  });
-  (((DATA.ucl||{}).settled)||[]).forEach(m=>all.push({...m, league:"Champions League", colour:"#8b7bff"}));
-  (((DATA.nfl||{}).settled)||[]).forEach(g=>{
-    if(!g.market) all.push({...g, league:"NFL", colour:"#37a9e6", date:g.date||g.kickoff});
-  });
-  return all.sort((a,b)=>new Date(b.date)-new Date(a.date));
-}
 
 // Market order is the boards' own, not whatever order the settled list happens
 // to arrive in, so the chips do not reshuffle as results land.
@@ -1603,10 +1584,81 @@ function gradeMarketsPresent(props){
     .concat(found.filter(m=>!GRADE_MARKETS.includes(m)));
 }
 
+
+// ONE market at a time. Every graded pick in it, uncapped -- the point of the
+// chips is that the reader chooses a short list, not that the list is trimmed
+// for them.
+// --- Grades, scoped by sport ---------------------------------------------------
+//
+// SPORT FIRST, THEN MARKET. Every sport's record used to be poured into one list:
+// NFL team winners and Champions League picks sat in "Every match pick" beside
+// Premier League games, and NFL props sat among soccer's. Each sport is scored on
+// its own model and its own markets, so a pooled row count describes none of
+// them. The tab now scopes to one sport at a time and offers that sport's
+// markets beneath it -- the same two-level filter the reader already uses to
+// narrow a board.
+const GSPORTS=[["soccer","Soccer"],["nfl","NFL"],["ucl","Champions League"],["nba","NBA"]];
+const GMATCH_LABEL={soccer:"Every match pick", nfl:"Team winner",
+                    ucl:"Every Champions League pick"};
+let gsport="soccer";
+function setGSport(s){ gsport=s; filter="all"; render(cur); }
+
+function gradedProps(sport){
+  sport=sport||gsport;
+  let all=[];
+  if(sport==="soccer") all=((DATA.player_picks||{}).settled||[]).slice();
+  // NFL props settle into their own board's settled list.
+  if(sport==="nfl") all=(((DATA.nfl||{}).settled)||[]).filter(p=>p.market&&p.player);
+  return all.sort((a,b)=>new Date(b.date||b.kickoff)-new Date(a.date||a.kickoff));
+}
+function gradedMatches(sport){
+  sport=sport||gsport;
+  const all=[];
+  if(sport==="soccer"){
+    // THE PROBABILITY IS NOT IN THE SEASON ARRAY. Those entries carry id, teams,
+    // result, pick and graded -- no p_pick, because the board publishes the
+    // number only for picks that cleared the Best bar. So it is joined back from
+    // best.settled by league and fixture id where it exists, and simply omitted
+    // where it does not.
+    const prob={};
+    (((DATA.best||{}).settled)||[]).forEach(s=>{ prob[`${s.league_key}:${s.id}`]=s.p_pick; });
+    Object.keys(FILES).forEach(k=>{
+      ((DATA[FILES[k]]||{}).season||[]).forEach(m=>{
+        if(m.result&&m.graded) all.push({...m, league:LG[k], colour:LC[k],
+                                         p_pick:prob[`${k}:${m.id}`]});
+      });
+    });
+  }
+  if(sport==="ucl")
+    (((DATA.ucl||{}).settled)||[]).forEach(m=>all.push({...m, league:"Champions League", colour:"#8b7bff"}));
+  if(sport==="nfl")
+    (((DATA.nfl||{}).settled)||[]).forEach(g=>{
+      if(!g.market) all.push({...g, league:"NFL", colour:"#37a9e6", date:g.date||g.kickoff});
+    });
+  return all.sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+const gradedCount=s=>gradedProps(s).length+gradedMatches(s).length;
+
+// One labelled row per filter level, the way the rest of the page narrows a
+// board. A label names what the row controls, so "NFL" under SPORT and "Winners"
+// under MARKET can never be mistaken for the same kind of choice.
+function frow(label, chipsHtml){
+  if(!chipsHtml) return "";
+  return `<div class="frow"><div class="flab">${esc(label)}</div>${chipsHtml}</div>`;
+}
+function sportChips(){
+  return `<div class="chips">${GSPORTS.map(([k,name])=>
+    `<button class="chip ${gsport===k?"on":""}" type="button" onclick="setGSport('${k}')">${
+      esc(name)} <span class="rng">${gradedCount(k)}</span></button>`).join("")}</div>`;
+}
+function gradeFilters(){
+  return `<div class="glass fpanel">${frow("Sport", sportChips())}${frow("Market", gradeChips())}</div>`;
+}
+
 function gradeChips(){
   const props=gradedProps();
   const chips=[["all","Summary"]];
-  if(gradedMatches().length) chips.push(["matches","Matches"]);
+  if(gradedMatches().length) chips.push(["matches", gsport==="nfl"?"Winners":"Matches"]);
   gradeMarketsPresent(props).forEach(m=>{
     const n=props.filter(p=>p.market===m).length;
     if(n) chips.push([m, `${gradeName(m)} ${n}`]);
@@ -1617,9 +1669,52 @@ function gradeChips(){
        onclick="setFilter('${c[0]}')">${esc(c[1])}</button>`).join("")}</div>`;
 }
 
-// ONE market at a time. Every graded pick in it, uncapped -- the point of the
-// chips is that the reader chooses a short list, not that the list is trimmed
-// for them.
+// A sport with nothing settled says WHY, rather than rendering an empty panel
+// that looks like a failed load.
+function gradeEmpty(msg){
+  return `<div class="glass stat"><div class="k">0–0</div><div class="l">${esc(msg)}</div></div>`;
+}
+
+function nflGradeSummary(){
+  const rec=(DATA.nfl||{}).record||{};
+  const tw=rec.team_winner||{}, pm=rec.props_by_market||{};
+  const settled=(tw.settled||0)+((rec.props||{}).settled||0);
+  let h=`<div class="eyebrow">NFL track record</div>`;
+  h+=settled
+    ? `<div class="glass stat"><div class="k">${(tw.correct||0)+((rec.props||{}).correct||0)}–${(tw.wrong||0)+((rec.props||{}).wrong||0)}</div>
+        <div class="l">Winners and props · each market scored on its own below</div></div>`
+    : gradeEmpty("No NFL pick has settled yet. Picks freeze before kickoff and grade once nflverse publishes the week's box scores.");
+  h+=`<div class="glass rowc">${tierRow("Team winner","Moneyline pick",tw)}${
+    Object.keys(pm).map(m=>tierRow(gradeName(m),"Player prop",pm[m])).join("")}</div>`;
+  h+=everyPropBlock();
+  h+=`<p class="note">A prop settles only where the player feed holds his own team in that week; where the feed is silent the pick stays pending rather than being graded a loss. A tie is void, never a loss.</p>`;
+  return h;
+}
+
+function uclGradeSummary(){
+  const rec=(DATA.ucl||{}).record||{};
+  let h=`<div class="eyebrow">Champions League track record</div>`;
+  h+=rec.settled
+    ? `<div class="glass stat"><div class="k">${rec.correct}–${rec.wrong}</div>
+        <div class="l">${Math.round(100*(rec.hit_rate||0))}% of ${rec.settled} graded${rec.pending?` · ${rec.pending} pending`:""}${rec.void?` · ${rec.void} void`:""}</div></div>`
+    : gradeEmpty("No Champions League pick has settled yet.");
+  if(gradedMatches("ucl").length)
+    h+=`<div class="glass rowc"><div class="rw" onclick="setFilter('matches')">
+      <div class="info"><b>Every pick</b><span>${tallyLine(tally(gradedMatches("ucl")))}</span></div>
+      <span class="chev">›</span></div></div>`;
+  h+=`<p class="note">Graded on the ninety-minute result and joined on the fixture id, never on club names.</p>`;
+  return h;
+}
+
+function nbaGradeSummary(){
+  const d=DATA.nba||{};
+  return `<div class="eyebrow">NBA track record</div>
+    ${gradeEmpty("No NBA picks exist to grade. The tab publishes fifteen seasons of validated evidence, not picks, until a fixture feed is wired in.")}
+    <div class="glass rowc"><div class="rw" onclick="go('NBA')">
+      <div class="info"><b>See the backtest evidence</b><span>${esc((d.markets_released||[]).length+" markets released · "+(d.seasons_backtested||[]).length+" seasons")}</span></div>
+      <span class="chev">›</span></div></div>`;
+}
+
 function propMarketBlock(market){
   const rows=gradedProps().filter(p=>p.market===market);
   if(!rows.length) return "";
@@ -1636,7 +1731,7 @@ function everyMatchBlock(){
   const all=gradedMatches();
   if(!all.length) return "";
   const t=tally(all);
-  return `<div class="eyebrow">Every match pick · ${all.length} graded</div>
+  return `<div class="eyebrow">${esc(GMATCH_LABEL[gsport]||"Every match pick")} · ${all.length} graded</div>
     <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
       <div class="l">${tallyLine(t)} · every match called, at any confidence</div></div>
     <div class="glass rowc">${all.map(gradedMatchRow).join("")}</div>
@@ -1670,7 +1765,8 @@ function viewGrades(){
   // was unreadable -- the completeness was real and the tab was still useless,
   // because finding one market's record meant scrolling past four others. The
   // picks are all still here; the chips decide which of them is on screen.
-  const chips=gradeChips();
+  const chips=gradeFilters();
+  if(gsport==="nba") return chips+nbaGradeSummary()+archiveLink();
   if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
   if(filter&&filter!=="all"){
     const block=propMarketBlock(filter);
@@ -1678,6 +1774,8 @@ function viewGrades(){
     // rendering a blank tab.
     if(block) return chips+block+archiveLink();
   }
+  if(gsport==="nfl") return chips+nflGradeSummary()+archiveLink();
+  if(gsport==="ucl") return chips+uclGradeSummary()+archiveLink();
   const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
   const br=best.record||{correct:0,wrong:0,total:0};
   const total=br.total||0;

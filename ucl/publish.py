@@ -153,14 +153,28 @@ def settled(log: dict, matches: list) -> list:
     Read-only -- it never locks, grades or writes.
     """
     by_id = {str(m.get("id")): m for m in matches if m.get("id") is not None}
+    # PLAYED FIXTURES ARE NOT IN `matches`. That list is the upcoming board, and a
+    # match leaves it the moment it is played -- which is exactly when it becomes
+    # gradeable. Joining only on `matches` published every settled pick as
+    # "None v None" with no scoreline. The finished results, keyed by the same
+    # fixture id, carry both clubs and the score.
+    try:
+        played = data.results_by_id()
+    except Exception:
+        played = {}
     out = []
     for key, entry in (log or {}).items():
         if key.startswith("_") or not entry.get("graded"):
             continue
         match = by_id.get(str(key)) or {}
+        res = played.get(str(key)) or {}
+        result = entry.get("result")
+        if result is None and res:
+            result = {"home_goals": res["home_goals"], "away_goals": res["away_goals"]}
         out.append({
             "id": key,
-            "home": match.get("home"), "away": match.get("away"),
+            "home": match.get("home") or res.get("home"),
+            "away": match.get("away") or res.get("away"),
             "pick": entry.get("pick"),
             "graded": entry.get("graded"),
             "void": bool(entry.get("void")),
@@ -168,7 +182,7 @@ def settled(log: dict, matches: list) -> list:
             "confidence": entry.get("confidence"),
             "kickoff": entry.get("kickoff"),
             "date": entry.get("kickoff"),
-            "result": entry.get("result"),
+            "result": result,
             "tainted": bool(entry.get("tainted")),
         })
     out.sort(key=lambda r: str(r.get("kickoff") or ""), reverse=True)
