@@ -1,24 +1,24 @@
 {
   "league": "La Liga",
   "updated": "2026-09-12T10:56:00.223244+00:00",
-  "results_updated": "2026-09-12T10:56:00.223251+00:00",
+  "results_updated": "2026-09-12T14:11:21.072447+00:00",
   "record": {
-    "correct": 20,
+    "correct": 21,
     "wrong": 14,
-    "total": 34,
+    "total": 35,
     "void": 6,
-    "pending": 0,
+    "pending": 2,
     "by_confidence": {
       "2": {
-        "correct": 7,
-        "total": 15
-      },
-      "1": {
-        "correct": 5,
-        "total": 8
+        "correct": 8,
+        "total": 16
       },
       "3": {
         "correct": 6,
+        "total": 8
+      },
+      "1": {
+        "correct": 5,
         "total": 8
       },
       "5": {
@@ -48,127 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 46,
-      "matchweek": 5,
-      "date": "2026-09-12T12:00:00+00:00",
-      "venue": "El Sardinero",
-      "home": "Racing Santander",
-      "away": "Alaves",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.441,
-        "p_draw": 0.237,
-        "p_away": 0.322,
-        "pick": "Racing Santander",
-        "pick_type": "home",
-        "score": "2-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 10.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-1",
-            "pct": 9.1,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 7.9,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4412,
-        "why": {
-          "home_attack_pct": 24.0,
-          "home_defence_pct": -22.5,
-          "away_attack_pct": 2.5,
-          "away_defence_pct": 7.5,
-          "home_advantage_pct": 37.2
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Racing Santander 44% / draw 24% / Alaves 32%",
-          "Expected goals: 1.67 - 1.39"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Alaves",
-          "player": "Lucas Boy\u00e9",
-          "position": "FW",
-          "lambda_goals": 0.4877578619732341,
-          "anytime_pct": 22.9,
-          "exp_shots": 1.28,
-          "p_shots_2plus": 15.3,
-          "exp_sot": 0.39,
-          "p_sot_1plus": 19.6,
-          "appearance_pct": 75.0,
-          "expected_minutes": 50.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Alaves",
-          "player": "Carles Ale\u00f1\u00e1",
-          "position": "FW",
-          "lambda_goals": 0.15336094644681308,
-          "anytime_pct": 6.0,
-          "exp_shots": 0.77,
-          "p_shots_2plus": 4.0,
-          "exp_sot": 0.19,
-          "p_sot_1plus": 8.6,
-          "appearance_pct": 87.5,
-          "expected_minutes": 51.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Alaves",
-          "player": "Pablo Ib\u00e1\u00f1ez",
-          "position": "MF",
-          "lambda_goals": 0.14966874919954545,
-          "anytime_pct": 5.8,
-          "exp_shots": 0.97,
-          "p_shots_2plus": 7.1,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.8,
-          "appearance_pct": 95.0,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.389,
-        "p_draw": 0.269,
-        "p_away": 0.341,
-        "odds": {
-          "home": 2.45,
-          "draw": 3.5,
-          "away": 2.75
-        },
-        "book": "bet365",
-        "edge": 0.052,
-        "pick_odds": 2.45,
-        "ev": 0.081
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 45,
       "matchweek": 5,
@@ -6558,13 +6437,13 @@
     },
     {
       "team": "Alaves",
-      "played": 4,
+      "played": 5,
       "won": 3,
       "drawn": 1,
-      "lost": 0,
-      "gf": 10,
-      "ga": 3,
-      "gd": 7,
+      "lost": 1,
+      "gf": 11,
+      "ga": 5,
+      "gd": 6,
       "points": 10
     },
     {
@@ -6623,6 +6502,17 @@
       "points": 7
     },
     {
+      "team": "Racing Santander",
+      "played": 5,
+      "won": 2,
+      "drawn": 1,
+      "lost": 2,
+      "gf": 9,
+      "ga": 9,
+      "gd": 0,
+      "points": 7
+    },
+    {
       "team": "Osasuna",
       "played": 4,
       "won": 2,
@@ -6675,17 +6565,6 @@
       "gf": 6,
       "ga": 5,
       "gd": 1,
-      "points": 4
-    },
-    {
-      "team": "Racing Santander",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 7,
-      "ga": 8,
-      "gd": -1,
       "points": 4
     },
     {
