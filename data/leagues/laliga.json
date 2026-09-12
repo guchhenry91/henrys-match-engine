@@ -1,11 +1,11 @@
 {
   "league": "La Liga",
   "updated": "2026-09-12T20:39:34.326138+00:00",
-  "results_updated": "2026-09-12T20:39:34.326143+00:00",
+  "results_updated": "2026-09-12T21:41:52.700245+00:00",
   "record": {
-    "correct": 21,
+    "correct": 22,
     "wrong": 16,
-    "total": 37,
+    "total": 38,
     "void": 6,
     "pending": 0,
     "by_confidence": {
@@ -13,21 +13,21 @@
         "correct": 8,
         "total": 16
       },
-      "1": {
-        "correct": 5,
-        "total": 8
-      },
       "3": {
         "correct": 6,
         "total": 9
+      },
+      "1": {
+        "correct": 5,
+        "total": 8
       },
       "5": {
         "correct": 2,
         "total": 2
       },
       "4": {
-        "correct": 0,
-        "total": 2
+        "correct": 1,
+        "total": 3
       }
     }
   },
@@ -48,330 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 47,
-      "matchweek": 5,
-      "date": "2026-09-12T19:00:00+00:00",
-      "venue": "Bernab\u00e9u",
-      "home": "Real Madrid",
-      "away": "Vallecano",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.652,
-        "p_draw": 0.202,
-        "p_away": 0.146,
-        "pick": "Real Madrid",
-        "pick_type": "home",
-        "score": "2-0",
-        "top_scores": [
-          {
-            "score": "2-0",
-            "pct": 11.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 11.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.8,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 4,
-        "provisional": false,
-        "p_pick": 0.6546,
-        "why": {
-          "home_attack_pct": 53.4,
-          "home_defence_pct": 29.8,
-          "away_attack_pct": 5.6,
-          "away_defence_pct": 5.3,
-          "home_advantage_pct": 36.4
-        },
-        "best_pick": true,
-        "reasons": [
-          "Model: Real Madrid 65% / draw 20% / Vallecano 15%",
-          "Expected goals: 2.06 - 0.86"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Ferland Mendy"
-          ],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Real Madrid",
-          "player": "Kylian Mbappe-Lottin",
-          "position": "FW",
-          "lambda_goals": 0.6113776515331575,
-          "anytime_pct": 29.5,
-          "exp_shots": 3.8,
-          "p_shots_2plus": 58.5,
-          "exp_sot": 1.76,
-          "p_sot_1plus": 62.5,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Vin\u00edcius J\u00fanior",
-          "position": "FW",
-          "lambda_goals": 0.36564130954335194,
-          "anytime_pct": 17.9,
-          "exp_shots": 2.69,
-          "p_shots_2plus": 53.8,
-          "exp_sot": 1.16,
-          "p_sot_1plus": 56.7,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Real Madrid",
-          "player": "Carlos Esp\u00ed",
-          "position": "FW",
-          "lambda_goals": 0.25316817793279145,
-          "anytime_pct": 10.6,
-          "exp_shots": 1.41,
-          "p_shots_2plus": 18.0,
-          "exp_sot": 0.58,
-          "p_sot_1plus": 26.7,
-          "appearance_pct": 65.0,
-          "expected_minutes": 34.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "Isi Palaz\u00f3n",
-          "position": "FW",
-          "lambda_goals": 0.17972666361456255,
-          "anytime_pct": 7.2,
-          "exp_shots": 1.18,
-          "p_shots_2plus": 12.8,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 18.8,
-          "appearance_pct": 80.0,
-          "expected_minutes": 59.2,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "Jorge De Frutos",
-          "position": "FW",
-          "lambda_goals": 0.1537743566033063,
-          "anytime_pct": 6.0,
-          "exp_shots": 1.16,
-          "p_shots_2plus": 11.5,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 24.7,
-          "appearance_pct": 92.5,
-          "expected_minutes": 64.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "\u00c1lvaro Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.0964858440494512,
-          "anytime_pct": 3.2,
-          "exp_shots": 0.95,
-          "p_shots_2plus": 7.4,
-          "exp_sot": 0.36,
-          "p_sot_1plus": 18.4,
-          "appearance_pct": 82.5,
-          "expected_minutes": 54.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.625,
-          "confidence": 4,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 29.5,
-          "exp_shots": 3.8,
-          "exp_sot": 1.76,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            2,
-            3,
-            7,
-            4
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 0.018571065,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.585,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 29.5,
-          "exp_shots": 3.8,
-          "exp_sot": 1.76,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            5,
-            5,
-            3,
-            7,
-            7
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 0.01857101638888889,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Vin\u00edcius J\u00fanior",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.567,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "anytime_pct": 17.9,
-          "exp_shots": 2.69,
-          "exp_sot": 1.16,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            1,
-            0,
-            1,
-            0,
-            2
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 0.0185710425,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Vin\u00edcius J\u00fanior",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.538,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.6,
-          "anytime_pct": 17.9,
-          "exp_shots": 2.69,
-          "exp_sot": 1.16,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            1,
-            2,
-            2,
-            0,
-            3
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 0.018570984166666665,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        },
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Kylian Mbappe-Lottin",
-          "team": "Real Madrid",
-          "position": "FW",
-          "p_pick": 0.296,
-          "confidence": 1,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 80.0,
-          "expected_minutes": 67.7,
-          "anytime_pct": 29.5,
-          "exp_shots": 3.8,
-          "exp_sot": 1.76,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            1,
-            0,
-            3,
-            0
-          ],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 0.018570953055555554,
-          "unavailable": false,
-          "team_attribution": "Real Madrid"
-        }
-      ],
-      "market": {
-        "p_home": 0.845,
-        "p_draw": 0.104,
-        "p_away": 0.051,
-        "odds": {
-          "home": 1.13,
-          "draw": 9.5,
-          "away": 19.0
-        },
-        "book": "bet365",
-        "edge": -0.193,
-        "pick_odds": 1.13,
-        "ev": -0.263
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 42,
       "matchweek": 5,
@@ -5894,6 +5570,17 @@
       "points": 12
     },
     {
+      "team": "Real Madrid",
+      "played": 5,
+      "won": 4,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 14,
+      "ga": 4,
+      "gd": 10,
+      "points": 12
+    },
+    {
       "team": "Alaves",
       "played": 5,
       "won": 3,
@@ -5914,17 +5601,6 @@
       "ga": 6,
       "gd": 2,
       "points": 10
-    },
-    {
-      "team": "Real Madrid",
-      "played": 4,
-      "won": 3,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 10,
-      "ga": 3,
-      "gd": 7,
-      "points": 9
     },
     {
       "team": "Betis",
@@ -6026,17 +5702,6 @@
       "points": 5
     },
     {
-      "team": "Vallecano",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 7,
-      "ga": 10,
-      "gd": -3,
-      "points": 4
-    },
-    {
       "team": "Getafe",
       "played": 4,
       "won": 1,
@@ -6045,6 +5710,17 @@
       "gf": 2,
       "ga": 5,
       "gd": -3,
+      "points": 4
+    },
+    {
+      "team": "Vallecano",
+      "played": 5,
+      "won": 1,
+      "drawn": 1,
+      "lost": 3,
+      "gf": 8,
+      "ga": 14,
+      "gd": -6,
       "points": 4
     },
     {

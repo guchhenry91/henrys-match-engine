@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
   "updated": "2026-09-12T20:40:00.302892+00:00",
-  "results_updated": "2026-09-12T20:40:00.302896+00:00",
+  "results_updated": "2026-09-12T21:41:54.792671+00:00",
   "record": {
     "correct": 9,
-    "wrong": 6,
-    "total": 15,
+    "wrong": 7,
+    "total": 16,
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "3": {
-        "correct": 2,
-        "total": 2
-      },
       "2": {
         "correct": 7,
         "total": 11
+      },
+      "3": {
+        "correct": 2,
+        "total": 3
       },
       "1": {
         "correct": 0,
@@ -152,172 +152,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 31,
-      "matchweek": 4,
-      "date": "2026-09-12T18:45:00+00:00",
-      "venue": "New Balance Arena",
-      "home": "Atalanta",
-      "away": "Cagliari",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.583,
-        "p_draw": 0.226,
-        "p_away": 0.192,
-        "pick": "Atalanta",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 11.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 10.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-0",
-            "pct": 10.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 3,
-        "provisional": false,
-        "p_pick": 0.5827,
-        "why": {
-          "home_attack_pct": 37.4,
-          "home_defence_pct": 12.6,
-          "away_attack_pct": -6.6,
-          "away_defence_pct": -7.8,
-          "home_advantage_pct": 7.9
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Atalanta 58% / draw 23% / Cagliari 19%",
-          "Expected goals: 1.84 - 0.95"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Atalanta",
-          "player": "Nikola Krstovic",
-          "position": "FW",
-          "lambda_goals": 0.3344666924390083,
-          "anytime_pct": 15.8,
-          "exp_shots": 2.35,
-          "p_shots_2plus": 42.9,
-          "exp_sot": 0.71,
-          "p_sot_1plus": 36.8,
-          "appearance_pct": 85.0,
-          "expected_minutes": 45.9,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Atalanta",
-          "player": "Gianluca Scamacca",
-          "position": "FW",
-          "lambda_goals": 0.24671052699823817,
-          "anytime_pct": 10.2,
-          "exp_shots": 1.52,
-          "p_shots_2plus": 19.9,
-          "exp_sot": 0.61,
-          "p_sot_1plus": 27.5,
-          "appearance_pct": 62.5,
-          "expected_minutes": 34.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Atalanta",
-          "player": "Charles De Ketelaere",
-          "position": "FW",
-          "lambda_goals": 0.20120717414100442,
-          "anytime_pct": 8.4,
-          "exp_shots": 1.45,
-          "p_shots_2plus": 19.5,
-          "exp_sot": 0.56,
-          "p_sot_1plus": 28.7,
-          "appearance_pct": 80.0,
-          "expected_minutes": 56.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "Gennaro Borrelli",
-          "position": "FW",
-          "lambda_goals": 0.20057425550304753,
-          "anytime_pct": 8.1,
-          "exp_shots": 0.66,
-          "p_shots_2plus": 3.2,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.0,
-          "appearance_pct": 70.0,
-          "expected_minutes": 32.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "M'Bala Nzola",
-          "position": "FW",
-          "lambda_goals": 0.16515519086482688,
-          "anytime_pct": 6.5,
-          "exp_shots": 0.77,
-          "p_shots_2plus": 4.5,
-          "exp_sot": 0.03,
-          "p_sot_1plus": 0.9,
-          "appearance_pct": 77.5,
-          "expected_minutes": 39.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Cagliari",
-          "player": "Daniel Maldini",
-          "position": "FW",
-          "lambda_goals": 0.1376055026434637,
-          "anytime_pct": 4.9,
-          "exp_shots": 0.57,
-          "p_shots_2plus": 2.5,
-          "exp_sot": 0.2,
-          "p_sot_1plus": 8.4,
-          "appearance_pct": 55.0,
-          "expected_minutes": 24.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.6,
-        "p_draw": 0.237,
-        "p_away": 0.163,
-        "odds": {
-          "home": 1.57,
-          "draw": 4.0,
-          "away": 6.0
-        },
-        "book": "bet365",
-        "edge": -0.017,
-        "pick_odds": 1.57,
-        "ev": -0.085
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 36,
       "matchweek": 4,
@@ -5791,6 +5625,17 @@
       "points": 9
     },
     {
+      "team": "Cagliari",
+      "played": 4,
+      "won": 3,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 4,
+      "ga": 2,
+      "gd": 2,
+      "points": 9
+    },
+    {
       "team": "Milan",
       "played": 4,
       "won": 2,
@@ -5836,24 +5681,13 @@
     },
     {
       "team": "Atalanta",
-      "played": 3,
+      "played": 4,
       "won": 2,
       "drawn": 0,
-      "lost": 1,
-      "gf": 4,
-      "ga": 3,
-      "gd": 1,
-      "points": 6
-    },
-    {
-      "team": "Cagliari",
-      "played": 3,
-      "won": 2,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 2,
-      "ga": 1,
-      "gd": 1,
+      "lost": 2,
+      "gf": 5,
+      "ga": 5,
+      "gd": 0,
       "points": 6
     },
     {
