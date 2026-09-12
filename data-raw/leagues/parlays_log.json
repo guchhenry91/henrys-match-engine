@@ -870,6 +870,29 @@
     "locked_at": "2026-09-10T20:54:12.084635+00:00",
     "tainted": false
   },
+  "BUNDESLIGA#19#goal#Harry Kane|LALIGA#44#shots#Lamine Yamal|SERIEA#32#sot#Nico Paz": {
+    "combined": 0.1818,
+    "earliest_kickoff": "2026-09-13T14:15:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#44#shots#Lamine Yamal",
+        "p": 0.823,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "SERIEA#32#sot#Nico Paz",
+        "p": 0.617,
+        "selection": "Nico Paz 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#19#goal#Harry Kane",
+        "p": 0.358,
+        "selection": "Harry Kane to score"
+      }
+    ],
+    "locked_at": "2026-09-12T21:48:11.655699+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#19#shots#Harry Kane|BUNDESLIGA#25#shots#Deniz Undav|BUNDESLIGA#27#shots#Serhou Guirassy|LALIGA#41#shots#Gorka Guruzeta|LALIGA#42#sot#Andr\u00e9s Anta\u00f1\u00f3n|LALIGA#44#shots#Lamine Yamal|LALIGA#45#shots#Ante Budimir|LALIGA#47#sot#Kylian Mbappe-Lottin|LALIGA#50#sot#Georges Mikautadze|LIGUE1#34#shots#Lassine Sinayoko|PL#31#shots#Evanilson|PL#37#sot#Alexander Isak|PL#38#sot#Erling Haaland|SERIEA#32#shots#Nico Paz": {
     "combined": 0.0005,
     "earliest_kickoff": "2026-09-12T13:30:00+00:00",
@@ -1048,6 +1071,44 @@
     ],
     "locked_at": "2026-09-12T19:31:12.758883+00:00",
     "tainted": true
+  },
+  "BUNDESLIGA#19#shots#Harry Kane|LALIGA#42#sot#Andr\u00e9s Anta\u00f1\u00f3n|LALIGA#44#shots#Lamine Yamal|LALIGA#50#sot#Georges Mikautadze|PL#38#sot#Erling Haaland|SERIEA#32#shots#Nico Paz": {
+    "combined": 0.0485,
+    "earliest_kickoff": "2026-09-13T12:00:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#44#shots#Lamine Yamal",
+        "p": 0.823,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "SERIEA#32#shots#Nico Paz",
+        "p": 0.686,
+        "selection": "Nico Paz 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#19#shots#Harry Kane",
+        "p": 0.561,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "PL#38#sot#Erling Haaland",
+        "p": 0.559,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#50#sot#Georges Mikautadze",
+        "p": 0.524,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#42#sot#Andr\u00e9s Anta\u00f1\u00f3n",
+        "p": 0.523,
+        "selection": "Andr\u00e9s Anta\u00f1\u00f3n 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-12T21:48:11.655699+00:00",
+    "tainted": false
   },
   "BUNDESLIGA#19#shots#Harry Kane|LALIGA#44#shots#Lamine Yamal|LIGUE1#32#w|PL#31#shots#Evanilson|SERIEA#32#shots#Nico Paz": {
     "combined": 0.1226,

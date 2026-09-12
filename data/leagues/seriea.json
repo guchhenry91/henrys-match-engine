@@ -1,7 +1,7 @@
 {
   "league": "Serie A",
-  "updated": "2026-09-12T20:40:00.302892+00:00",
-  "results_updated": "2026-09-12T21:41:54.792671+00:00",
+  "updated": "2026-09-12T21:47:51.684392+00:00",
+  "results_updated": "2026-09-12T21:47:51.684399+00:00",
   "record": {
     "correct": 9,
     "wrong": 7,
@@ -9,13 +9,13 @@
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 7,
-        "total": 11
-      },
       "3": {
         "correct": 2,
         "total": 3
+      },
+      "2": {
+        "correct": 7,
+        "total": 11
       },
       "1": {
         "correct": 0,
@@ -161,9 +161,9 @@
       "away": "Monza",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.383,
+        "p_home": 0.382,
         "p_draw": 0.289,
-        "p_away": 0.328,
+        "p_away": 0.329,
         "pick": "Lecce",
         "pick_type": "home",
         "score": "1-0",
@@ -189,13 +189,13 @@
         ],
         "confidence": 1,
         "provisional": true,
-        "p_pick": 0.3834,
+        "p_pick": 0.3822,
         "why": {
           "home_attack_pct": -22.8,
           "home_defence_pct": -12.3,
           "away_attack_pct": -19.4,
           "away_defence_pct": -18.1,
-          "home_advantage_pct": 7.9
+          "home_advantage_pct": 7.4
         },
         "best_pick": false,
         "reasons": [
@@ -212,8 +212,8 @@
           "team": "Lecce",
           "player": "Nikola Stulic",
           "position": "FW",
-          "lambda_goals": 0.34282297828959074,
-          "anytime_pct": 16.4,
+          "lambda_goals": 0.3424410941765401,
+          "anytime_pct": 16.3,
           "exp_shots": 1.26,
           "p_shots_2plus": 14.3,
           "exp_sot": 0.37,
@@ -227,7 +227,7 @@
           "team": "Lecce",
           "player": "Santiago Pierotti",
           "position": "FW",
-          "lambda_goals": 0.231376876991889,
+          "lambda_goals": 0.231024605594444,
           "anytime_pct": 10.3,
           "exp_shots": 1.44,
           "p_shots_2plus": 18.9,
@@ -242,8 +242,8 @@
           "team": "Lecce",
           "player": "Tiago Gabriel",
           "position": "DF",
-          "lambda_goals": 0.12633742532828407,
-          "anytime_pct": 4.7,
+          "lambda_goals": 0.1261450765424045,
+          "anytime_pct": 4.6,
           "exp_shots": 0.63,
           "p_shots_2plus": 2.1,
           "exp_sot": 0.14,
@@ -265,9 +265,9 @@
           "away": 2.8
         },
         "book": "bet365",
-        "edge": 0.023,
+        "edge": 0.022,
         "pick_odds": 2.7,
-        "ev": 0.035
+        "ev": 0.032
       },
       "result": null,
       "graded": null,
@@ -282,9 +282,9 @@
       "away": "Bologna",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.489,
+        "p_home": 0.487,
         "p_draw": 0.279,
-        "p_away": 0.232,
+        "p_away": 0.233,
         "pick": "Napoli",
         "pick_type": "home",
         "score": "1-0",
@@ -297,7 +297,7 @@
           },
           {
             "score": "1-1",
-            "pct": 12.6,
+            "pct": 12.7,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -310,13 +310,13 @@
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4887,
+        "p_pick": 0.4874,
         "why": {
-          "home_attack_pct": 20.4,
+          "home_attack_pct": 20.3,
           "home_defence_pct": 33.6,
           "away_attack_pct": 5.1,
           "away_defence_pct": 9.9,
-          "home_advantage_pct": 7.9
+          "home_advantage_pct": 7.4
         },
         "best_pick": false,
         "reasons": [
@@ -333,7 +333,7 @@
           "team": "Napoli",
           "player": "Rasmus H\u00f8jlund",
           "position": "FW",
-          "lambda_goals": 0.31335275959503156,
+          "lambda_goals": 0.31287696145700333,
           "anytime_pct": 14.6,
           "exp_shots": 1.41,
           "p_shots_2plus": 18.3,
@@ -348,7 +348,7 @@
           "team": "Napoli",
           "player": "Scott McTominay",
           "position": "MF",
-          "lambda_goals": 0.2332907499326674,
+          "lambda_goals": 0.23293651879527255,
           "anytime_pct": 10.2,
           "exp_shots": 1.73,
           "p_shots_2plus": 27.1,
@@ -363,7 +363,7 @@
           "team": "Napoli",
           "player": "Giovane",
           "position": "FW",
-          "lambda_goals": 0.12442291195204468,
+          "lambda_goals": 0.12423398688908578,
           "anytime_pct": 4.5,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.1,
@@ -378,8 +378,8 @@
           "team": "Bologna",
           "player": "Roberto Piccoli",
           "position": "FW",
-          "lambda_goals": 0.1767097754072981,
-          "anytime_pct": 7.1,
+          "lambda_goals": 0.17728198956413935,
+          "anytime_pct": 7.2,
           "exp_shots": 0.93,
           "p_shots_2plus": 7.0,
           "exp_sot": 0.31,
@@ -393,8 +393,8 @@
           "team": "Bologna",
           "player": "Jens Odgaard",
           "position": "FW",
-          "lambda_goals": 0.13635735172638178,
-          "anytime_pct": 4.9,
+          "lambda_goals": 0.13679889836333142,
+          "anytime_pct": 5.0,
           "exp_shots": 0.66,
           "p_shots_2plus": 3.2,
           "exp_sot": 0.25,
@@ -408,8 +408,8 @@
           "team": "Bologna",
           "player": "Nicol\u00f2 Cambiaghi",
           "position": "FW",
-          "lambda_goals": 0.10076516636742608,
-          "anytime_pct": 3.3,
+          "lambda_goals": 0.1010914598878553,
+          "anytime_pct": 3.4,
           "exp_shots": 0.65,
           "p_shots_2plus": 2.9,
           "exp_sot": 0.18,
@@ -431,9 +431,9 @@
           "away": 4.75
         },
         "book": "bet365",
-        "edge": -0.047,
+        "edge": -0.049,
         "pick_odds": 1.8,
-        "ev": -0.12
+        "ev": -0.123
       },
       "result": null,
       "graded": null,
@@ -448,22 +448,22 @@
       "away": "Juventus",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.186,
+        "p_home": 0.185,
         "p_draw": 0.234,
-        "p_away": 0.58,
+        "p_away": 0.582,
         "pick": "Juventus",
         "pick_type": "away",
         "score": "0-1",
         "top_scores": [
           {
             "score": "0-1",
-            "pct": 12.9,
+            "pct": 12.8,
             "outcome": "away",
             "agrees_with_pick": true
           },
           {
             "score": "0-2",
-            "pct": 11.1,
+            "pct": 11.2,
             "outcome": "away",
             "agrees_with_pick": true
           },
@@ -476,17 +476,17 @@
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.5799,
+        "p_pick": 0.5817,
         "why": {
           "home_attack_pct": 1.6,
           "home_defence_pct": -10.6,
           "away_attack_pct": 35.9,
           "away_defence_pct": 44.2,
-          "home_advantage_pct": 7.9
+          "home_advantage_pct": 7.4
         },
         "best_pick": false,
         "reasons": [
-          "Model: Sassuolo 19% / draw 23% / Juventus 58%",
+          "Model: Sassuolo 18% / draw 23% / Juventus 58%",
           "Expected goals: 0.87 - 1.74"
         ],
         "unmodeled_absences": {
@@ -499,8 +499,8 @@
           "team": "Sassuolo",
           "player": "Domenico Berardi",
           "position": "FW",
-          "lambda_goals": 0.19428791522583794,
-          "anytime_pct": 7.8,
+          "lambda_goals": 0.19404995377840767,
+          "anytime_pct": 7.7,
           "exp_shots": 1.4,
           "p_shots_2plus": 17.8,
           "exp_sot": 0.61,
@@ -514,7 +514,7 @@
           "team": "Sassuolo",
           "player": "Sebastiano Esposito",
           "position": "FW",
-          "lambda_goals": 0.1448670787554481,
+          "lambda_goals": 0.1445875384577343,
           "anytime_pct": 5.6,
           "exp_shots": 1.51,
           "p_shots_2plus": 21.0,
@@ -529,7 +529,7 @@
           "team": "Sassuolo",
           "player": "Armand Lauriente",
           "position": "FW",
-          "lambda_goals": 0.13245084904132778,
+          "lambda_goals": 0.13219526751037167,
           "anytime_pct": 5.0,
           "exp_shots": 1.69,
           "p_shots_2plus": 26.3,
@@ -544,8 +544,8 @@
           "team": "Juventus",
           "player": "Kenan Yildiz",
           "position": "FW",
-          "lambda_goals": 0.3449975611610569,
-          "anytime_pct": 16.7,
+          "lambda_goals": 0.34614415531698256,
+          "anytime_pct": 16.8,
           "exp_shots": 2.26,
           "p_shots_2plus": 42.8,
           "exp_sot": 0.88,
@@ -559,7 +559,7 @@
           "team": "Juventus",
           "player": "Francisco Concei\u00e7\u00e3o",
           "position": "DF",
-          "lambda_goals": 0.17721698168376057,
+          "lambda_goals": 0.17780595963144677,
           "anytime_pct": 7.1,
           "exp_shots": 1.58,
           "p_shots_2plus": 22.8,
@@ -574,7 +574,7 @@
           "team": "Juventus",
           "player": "Weston McKennie",
           "position": "DF",
-          "lambda_goals": 0.16316858374388454,
+          "lambda_goals": 0.16371087205433457,
           "anytime_pct": 6.5,
           "exp_shots": 0.86,
           "p_shots_2plus": 5.2,
@@ -597,9 +597,9 @@
           "away": 1.62
         },
         "book": "bet365",
-        "edge": 0.001,
+        "edge": 0.003,
         "pick_odds": 1.62,
-        "ev": -0.061
+        "ev": -0.058
       },
       "result": null,
       "graded": null,
@@ -614,9 +614,9 @@
       "away": "Parma",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.642,
-        "p_draw": 0.221,
-        "p_away": 0.137,
+        "p_home": 0.641,
+        "p_draw": 0.222,
+        "p_away": 0.138,
         "pick": "Como",
         "pick_type": "home",
         "score": "1-0",
@@ -629,26 +629,26 @@
           },
           {
             "score": "2-0",
-            "pct": 13.5,
+            "pct": 13.4,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "1-1",
-            "pct": 10.2,
+            "pct": 10.3,
             "outcome": "draw",
             "agrees_with_pick": false
           }
         ],
         "confidence": 4,
         "provisional": true,
-        "p_pick": 0.6419,
+        "p_pick": 0.6405,
         "why": {
-          "home_attack_pct": 32.8,
-          "home_defence_pct": 28.7,
+          "home_attack_pct": 32.7,
+          "home_defence_pct": 28.8,
           "away_attack_pct": -22.6,
           "away_defence_pct": -9.2,
-          "home_advantage_pct": 7.9
+          "home_advantage_pct": 7.4
         },
         "best_pick": false,
         "reasons": [
@@ -665,7 +665,7 @@
           "team": "Como",
           "player": "Tasos Douvikas",
           "position": "FW",
-          "lambda_goals": 0.3705268203212358,
+          "lambda_goals": 0.36982974556795395,
           "anytime_pct": 18.4,
           "exp_shots": 2.04,
           "p_shots_2plus": 37.1,
@@ -680,7 +680,7 @@
           "team": "Como",
           "player": "Assane Diao",
           "position": "FW",
-          "lambda_goals": 0.3073581939085448,
+          "lambda_goals": 0.3067799587432679,
           "anytime_pct": 14.8,
           "exp_shots": 2.29,
           "p_shots_2plus": 45.2,
@@ -695,7 +695,7 @@
           "team": "Como",
           "player": "Nico Paz",
           "position": "FW",
-          "lambda_goals": 0.2912347854797751,
+          "lambda_goals": 0.2906868833979247,
           "anytime_pct": 13.5,
           "exp_shots": 3.7,
           "p_shots_2plus": 68.6,
@@ -710,7 +710,7 @@
           "team": "Parma",
           "player": "Giovanni Fabbian",
           "position": "MF",
-          "lambda_goals": 0.11279277234158669,
+          "lambda_goals": 0.11317368584841743,
           "anytime_pct": 3.9,
           "exp_shots": 0.39,
           "p_shots_2plus": 0.6,
@@ -725,7 +725,7 @@
           "team": "Parma",
           "player": "Adri\u00e1n Bernab\u00e9",
           "position": "DF",
-          "lambda_goals": 0.09619917313515892,
+          "lambda_goals": 0.09652404824579242,
           "anytime_pct": 3.2,
           "exp_shots": 0.76,
           "p_shots_2plus": 4.1,
@@ -740,7 +740,7 @@
           "team": "Parma",
           "player": "Enrico Del Prato",
           "position": "DF",
-          "lambda_goals": 0.09636358559164271,
+          "lambda_goals": 0.09668901594109217,
           "anytime_pct": 3.2,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.1,
@@ -780,7 +780,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 0.025793438888888888,
+          "news_checked_hours_ago": 0.030761305555555556,
           "unavailable": false,
           "team_attribution": "Como"
         },
@@ -811,7 +811,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.511,
-          "news_checked_hours_ago": 0.025793464166666665,
+          "news_checked_hours_ago": 0.030761341666666667,
           "unavailable": false,
           "team_attribution": "Como"
         }
@@ -826,9 +826,9 @@
           "away": 15.0
         },
         "book": "bet365",
-        "edge": -0.127,
+        "edge": -0.128,
         "pick_odds": 1.22,
-        "ev": -0.217
+        "ev": -0.219
       },
       "result": null,
       "graded": null,
@@ -843,9 +843,9 @@
       "away": "Roma",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.223,
-        "p_draw": 0.247,
-        "p_away": 0.53,
+        "p_home": 0.222,
+        "p_draw": 0.246,
+        "p_away": 0.532,
         "pick": "Roma",
         "pick_type": "away",
         "score": "0-1",
@@ -871,13 +871,13 @@
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.5303,
+        "p_pick": 0.5317,
         "why": {
-          "home_attack_pct": -1.1,
+          "home_attack_pct": -1.2,
           "home_defence_pct": -7.3,
-          "away_attack_pct": 31.7,
+          "away_attack_pct": 31.6,
           "away_defence_pct": 27.3,
-          "home_advantage_pct": 7.9
+          "home_advantage_pct": 7.4
         },
         "best_pick": false,
         "reasons": [
@@ -894,7 +894,7 @@
           "team": "Torino",
           "player": "Giovanni Simeone",
           "position": "FW",
-          "lambda_goals": 0.22410701071558073,
+          "lambda_goals": 0.2237450704613452,
           "anytime_pct": 9.6,
           "exp_shots": 1.84,
           "p_shots_2plus": 29.9,
@@ -909,7 +909,7 @@
           "team": "Torino",
           "player": "Nikola Vlasic",
           "position": "FW",
-          "lambda_goals": 0.19749866951826084,
+          "lambda_goals": 0.19734101442778884,
           "anytime_pct": 8.4,
           "exp_shots": 1.3,
           "p_shots_2plus": 14.9,
@@ -924,7 +924,7 @@
           "team": "Torino",
           "player": "Che Adams",
           "position": "FW",
-          "lambda_goals": 0.13689413999076602,
+          "lambda_goals": 0.13667305141494057,
           "anytime_pct": 5.1,
           "exp_shots": 1.21,
           "p_shots_2plus": 13.2,
@@ -939,7 +939,7 @@
           "team": "Roma",
           "player": "Donyell Malen",
           "position": "FW",
-          "lambda_goals": 0.3608987762388926,
+          "lambda_goals": 0.361973376251584,
           "anytime_pct": 13.9,
           "exp_shots": 1.61,
           "p_shots_2plus": 17.1,
@@ -954,7 +954,7 @@
           "team": "Roma",
           "player": "Santiago Castro",
           "position": "FW",
-          "lambda_goals": 0.29007386579796257,
+          "lambda_goals": 0.29093757994827485,
           "anytime_pct": 13.5,
           "exp_shots": 1.65,
           "p_shots_2plus": 25.1,
@@ -969,7 +969,7 @@
           "team": "Roma",
           "player": "Paulo Dybala",
           "position": "FW",
-          "lambda_goals": 0.21325711500106084,
+          "lambda_goals": 0.21371209477374167,
           "anytime_pct": 8.4,
           "exp_shots": 1.19,
           "p_shots_2plus": 13.0,
@@ -992,9 +992,9 @@
           "away": 1.57
         },
         "book": "bet365",
-        "edge": -0.071,
+        "edge": -0.069,
         "pick_odds": 1.57,
-        "ev": -0.167
+        "ev": -0.165
       },
       "result": null,
       "graded": null,
@@ -1009,9 +1009,9 @@
       "away": "Udinese",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.677,
-        "p_draw": 0.19,
-        "p_away": 0.132,
+        "p_home": 0.676,
+        "p_draw": 0.191,
+        "p_away": 0.133,
         "pick": "Inter",
         "pick_type": "home",
         "score": "2-0",
@@ -1037,18 +1037,18 @@
         ],
         "confidence": 4,
         "provisional": true,
-        "p_pick": 0.6773,
+        "p_pick": 0.676,
         "why": {
           "home_attack_pct": 67.1,
-          "home_defence_pct": 35.0,
-          "away_attack_pct": -2.4,
+          "home_defence_pct": 35.1,
+          "away_attack_pct": -2.5,
           "away_defence_pct": -4.0,
-          "home_advantage_pct": 7.9
+          "home_advantage_pct": 7.4
         },
         "best_pick": true,
         "reasons": [
           "Model: Inter 68% / draw 19% / Udinese 13%",
-          "Expected goals: 2.15 - 0.83"
+          "Expected goals: 2.14 - 0.83"
         ],
         "unmodeled_absences": {
           "home": [],
@@ -1060,7 +1060,7 @@
           "team": "Inter",
           "player": "Lautaro Mart\u00ednez",
           "position": "FW",
-          "lambda_goals": 0.480099894900409,
+          "lambda_goals": 0.4793752364720899,
           "anytime_pct": 22.8,
           "exp_shots": 2.73,
           "p_shots_2plus": 46.0,
@@ -1075,8 +1075,8 @@
           "team": "Inter",
           "player": "Marcus Thuram",
           "position": "FW",
-          "lambda_goals": 0.3564353697117409,
-          "anytime_pct": 16.4,
+          "lambda_goals": 0.35589736939648103,
+          "anytime_pct": 16.3,
           "exp_shots": 1.84,
           "p_shots_2plus": 28.6,
           "exp_sot": 0.72,
@@ -1090,7 +1090,7 @@
           "team": "Inter",
           "player": "Francesco Pio Esposito",
           "position": "FW",
-          "lambda_goals": 0.2551829986798601,
+          "lambda_goals": 0.2547978277753852,
           "anytime_pct": 11.5,
           "exp_shots": 1.58,
           "p_shots_2plus": 22.9,
@@ -1105,7 +1105,7 @@
           "team": "Udinese",
           "player": "Keinan Davis",
           "position": "FW",
-          "lambda_goals": 0.2292778559797754,
+          "lambda_goals": 0.22976532657899107,
           "anytime_pct": 9.8,
           "exp_shots": 0.99,
           "p_shots_2plus": 8.5,
@@ -1120,8 +1120,8 @@
           "team": "Udinese",
           "player": "Nicolo Zaniolo",
           "position": "FW",
-          "lambda_goals": 0.13748967039498777,
-          "anytime_pct": 5.1,
+          "lambda_goals": 0.13794314906906166,
+          "anytime_pct": 5.2,
           "exp_shots": 1.31,
           "p_shots_2plus": 15.7,
           "exp_sot": 0.41,
@@ -1135,7 +1135,7 @@
           "team": "Udinese",
           "player": "Jurgen Ekkelenkamp",
           "position": "FW",
-          "lambda_goals": 0.1174937602450395,
+          "lambda_goals": 0.1178812869185329,
           "anytime_pct": 4.2,
           "exp_shots": 0.68,
           "p_shots_2plus": 3.0,
@@ -1158,9 +1158,9 @@
           "away": 12.0
         },
         "book": "bet365",
-        "edge": -0.077,
+        "edge": -0.078,
         "pick_odds": 1.27,
-        "ev": -0.14
+        "ev": -0.141
       },
       "result": null,
       "graded": null,
@@ -1636,9 +1636,12 @@
       "date": "2026-09-12T18:45:00+00:00",
       "home": "Atalanta",
       "away": "Cagliari",
-      "result": null,
+      "result": {
+        "home_goals": 1,
+        "away_goals": 2
+      },
       "pick": "Atalanta",
-      "graded": null,
+      "graded": "wrong",
       "void": false
     },
     {
@@ -5452,132 +5455,132 @@
     {
       "team": "Inter",
       "proj_points": 79.8,
-      "title_pct": 59.8,
-      "top4_pct": 95.4,
+      "title_pct": 60.8,
+      "top4_pct": 95.7,
       "relegation_pct": 0.0
     },
     {
       "team": "Juventus",
-      "proj_points": 71.8,
-      "title_pct": 14.7,
-      "top4_pct": 73.4,
+      "proj_points": 71.9,
+      "title_pct": 15.4,
+      "top4_pct": 75.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Roma",
-      "proj_points": 69.6,
-      "title_pct": 9.7,
-      "top4_pct": 62.7,
+      "proj_points": 69.5,
+      "title_pct": 9.8,
+      "top4_pct": 63.8,
       "relegation_pct": 0.0
     },
     {
       "team": "Como",
-      "proj_points": 68.7,
-      "title_pct": 8.0,
-      "top4_pct": 58.0,
-      "relegation_pct": 0.0
-    },
-    {
-      "team": "Atalanta",
-      "proj_points": 65.1,
-      "title_pct": 3.4,
-      "top4_pct": 37.5,
+      "proj_points": 68.5,
+      "title_pct": 7.9,
+      "top4_pct": 59.4,
       "relegation_pct": 0.0
     },
     {
       "team": "Milan",
       "proj_points": 63.7,
-      "title_pct": 2.2,
-      "top4_pct": 31.3,
+      "title_pct": 2.3,
+      "top4_pct": 31.9,
       "relegation_pct": 0.0
     },
     {
       "team": "Napoli",
       "proj_points": 62.8,
+      "title_pct": 1.6,
+      "top4_pct": 28.1,
+      "relegation_pct": 0.0
+    },
+    {
+      "team": "Atalanta",
+      "proj_points": 62.8,
       "title_pct": 1.7,
-      "top4_pct": 26.7,
+      "top4_pct": 29.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Lazio",
-      "proj_points": 58.4,
-      "title_pct": 0.4,
-      "top4_pct": 11.4,
+      "proj_points": 58.5,
+      "title_pct": 0.5,
+      "top4_pct": 12.6,
       "relegation_pct": 0.1
     },
     {
       "team": "Bologna",
-      "proj_points": 49.8,
+      "proj_points": 50.0,
       "title_pct": 0.0,
-      "top4_pct": 1.3,
-      "relegation_pct": 3.1
-    },
-    {
-      "team": "Frosinone",
-      "proj_points": 48.3,
-      "title_pct": 0.0,
-      "top4_pct": 0.8,
-      "relegation_pct": 3.8
-    },
-    {
-      "team": "Fiorentina",
-      "proj_points": 47.2,
-      "title_pct": 0.0,
-      "top4_pct": 0.4,
-      "relegation_pct": 5.8
-    },
-    {
-      "team": "Udinese",
-      "proj_points": 46.4,
-      "title_pct": 0.0,
-      "top4_pct": 0.4,
-      "relegation_pct": 7.2
+      "top4_pct": 1.4,
+      "relegation_pct": 2.8
     },
     {
       "team": "Cagliari",
-      "proj_points": 45.7,
+      "proj_points": 48.2,
       "title_pct": 0.0,
-      "top4_pct": 0.3,
-      "relegation_pct": 8.1
+      "top4_pct": 0.7,
+      "relegation_pct": 4.0
+    },
+    {
+      "team": "Frosinone",
+      "proj_points": 48.1,
+      "title_pct": 0.0,
+      "top4_pct": 0.8,
+      "relegation_pct": 4.3
+    },
+    {
+      "team": "Fiorentina",
+      "proj_points": 47.1,
+      "title_pct": 0.0,
+      "top4_pct": 0.5,
+      "relegation_pct": 6.3
+    },
+    {
+      "team": "Udinese",
+      "proj_points": 46.2,
+      "title_pct": 0.0,
+      "top4_pct": 0.5,
+      "relegation_pct": 7.7
     },
     {
       "team": "Sassuolo",
       "proj_points": 45.7,
       "title_pct": 0.0,
       "top4_pct": 0.2,
-      "relegation_pct": 8.3
+      "relegation_pct": 8.6
     },
     {
       "team": "Torino",
-      "proj_points": 44.9,
+      "proj_points": 44.8,
       "title_pct": 0.0,
-      "top4_pct": 0.2,
-      "relegation_pct": 10.1
+      "top4_pct": 0.3,
+      "relegation_pct": 11.2
     },
     {
       "team": "Genoa",
-      "proj_points": 41.8,
+      "proj_points": 41.9,
       "title_pct": 0.0,
-      "top4_pct": 0.0,
-      "relegation_pct": 19.3
+      "top4_pct": 0.1,
+      "relegation_pct": 19.1
     },
     {
       "team": "Lecce",
       "proj_points": 35.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 48.8
+      "relegation_pct": 48.9
     },
     {
       "team": "Parma",
       "proj_points": 34.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 54.2
+      "relegation_pct": 55.5
     },
     {
       "team": "Monza",
-      "proj_points": 33.2,
+      "proj_points": 33.3,
       "title_pct": 0.0,
       "top4_pct": 0.0,
       "relegation_pct": 64.8
@@ -6014,7 +6017,7 @@
     "Venezia"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 29.6,
+  "roster_snapshot_age_hours": 30.7,
   "roster_unmatched_count": 165,
   "data_warnings": [
     "165 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",

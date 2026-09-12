@@ -1,17 +1,17 @@
 {
-  "updated": "2026-09-12T20:40:02.523539+00:00",
+  "updated": "2026-09-12T21:47:54.132618+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
-    "correct": 5,
+    "correct": 6,
     "wrong": 2,
-    "total": 7,
+    "total": 8,
     "void": 2,
     "pending": 0,
     "by_confidence": {
       "4": {
-        "correct": 1,
-        "total": 3
+        "correct": 2,
+        "total": 4
       },
       "5": {
         "correct": 4,
@@ -30,7 +30,7 @@
       "away": "Udinese",
       "pick": "Inter",
       "confidence": 4,
-      "p_pick": 0.6773,
+      "p_pick": 0.676,
       "score": "2-0",
       "provisional": true,
       "odds": 1.27,
@@ -46,12 +46,14 @@
       "away": "Troyes",
       "pick": "Lille",
       "confidence": 4,
-      "p_pick": 0.6661,
+      "p_pick": 0.6653,
       "score": "2-0",
       "provisional": true,
       "odds": 1.4,
       "book": "bet365"
-    },
+    }
+  ],
+  "settled": [
     {
       "league": "La Liga",
       "league_key": "LALIGA",
@@ -63,13 +65,14 @@
       "pick": "Real Madrid",
       "confidence": 4,
       "p_pick": 0.6546,
-      "score": "2-0",
-      "provisional": false,
-      "odds": 1.13,
-      "book": "bet365"
-    }
-  ],
-  "settled": [
+      "board": true,
+      "result": {
+        "home_goals": 4,
+        "away_goals": 1
+      },
+      "graded": "correct",
+      "void": false
+    },
     {
       "league": "Bundesliga",
       "league_key": "BUNDESLIGA",

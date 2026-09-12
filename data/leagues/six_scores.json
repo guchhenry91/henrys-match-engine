@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-12T20:40:18.021293+00:00",
+  "updated": "2026-09-12T21:48:11.660708+00:00",
   "matchweek": 4,
   "selection_verified_on": "2026-09-11",
   "picks": [
@@ -9,37 +9,18 @@
       "home": "Coventry",
       "away": "Brighton",
       "score": "0-1",
-      "score_pct": 31.6,
+      "score_pct": 31.3,
       "alternatives": [
         {
           "score": "0-0",
-          "pct": 19.9
+          "pct": 19.8
         }
       ],
       "match_pick": "Brighton",
-      "gap_to_next_pp": 11.7,
+      "gap_to_next_pp": 11.5,
       "agrees_with_match_pick": true,
       "provisional": true,
       "rank": 1
-    },
-    {
-      "id": 39,
-      "date": "2026-09-12T19:00:00+00:00",
-      "home": "Sunderland",
-      "away": "Arsenal",
-      "score": "0-1",
-      "score_pct": 17.5,
-      "alternatives": [
-        {
-          "score": "0-2",
-          "pct": 13.5
-        }
-      ],
-      "match_pick": "Arsenal",
-      "gap_to_next_pp": 4.0,
-      "agrees_with_match_pick": true,
-      "provisional": false,
-      "rank": 2
     },
     {
       "id": 38,
@@ -51,22 +32,31 @@
       "alternatives": [
         {
           "score": "0-1",
-          "pct": 9.2
+          "pct": 9.1
         }
       ],
       "match_pick": "Manchester City",
-      "gap_to_next_pp": 3.9,
+      "gap_to_next_pp": 4.0,
       "agrees_with_match_pick": false,
       "provisional": true,
-      "rank": 3
+      "rank": 2
     }
   ],
   "missing_fixtures": [
     "Chelsea|Hull",
     "Liverpool|Fulham",
-    "Tottenham|Everton"
+    "Tottenham|Everton",
+    "Sunderland|Arsenal"
   ],
   "settled": [
+    {
+      "home": "Sunderland",
+      "away": "Arsenal",
+      "date": "2026-09-12T19:00:00+00:00",
+      "predicted": "0-1",
+      "actual": "0-2",
+      "graded": "wrong"
+    },
     {
       "home": "Tottenham",
       "away": "Everton",
@@ -214,7 +204,7 @@
   ],
   "record": {
     "correct": 3,
-    "total": 18
+    "total": 19
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,
