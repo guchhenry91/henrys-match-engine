@@ -1,25 +1,17 @@
 {
   "league": "Premier League",
   "updated": "2026-09-12T17:19:18.709863+00:00",
-  "results_updated": "2026-09-12T17:19:18.709869+00:00",
+  "results_updated": "2026-09-12T19:25:42.426875+00:00",
   "record": {
     "correct": 15,
-    "wrong": 17,
-    "total": 32,
+    "wrong": 18,
+    "total": 33,
     "void": 1,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
       "5": {
         "correct": 2,
         "total": 2
-      },
-      "3": {
-        "correct": 3,
-        "total": 7
-      },
-      "1": {
-        "correct": 4,
-        "total": 10
       },
       "2": {
         "correct": 4,
@@ -28,6 +20,14 @@
       "4": {
         "correct": 2,
         "total": 2
+      },
+      "1": {
+        "correct": 4,
+        "total": 11
+      },
+      "3": {
+        "correct": 3,
+        "total": 7
       }
     }
   },
@@ -48,172 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 40,
-      "matchweek": 4,
-      "date": "2026-09-12T16:30:00+00:00",
-      "venue": "Tottenham Hotspur Stadium",
-      "home": "Tottenham",
-      "away": "Everton",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.37,
-        "p_draw": 0.327,
-        "p_away": 0.303,
-        "pick": "Tottenham",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 14.1,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 12.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 10.7,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3709,
-        "why": {
-          "home_attack_pct": 3.0,
-          "home_defence_pct": -1.5,
-          "away_attack_pct": -1.6,
-          "away_defence_pct": 4.9,
-          "home_advantage_pct": 18.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Tottenham 37% / draw 33% / Everton 30%",
-          "Expected goals: 1.15 - 1.02"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Tottenham",
-          "player": "Mathys Tel",
-          "position": "FW",
-          "lambda_goals": 0.19638419084361977,
-          "anytime_pct": 8.4,
-          "exp_shots": 2.08,
-          "p_shots_2plus": 38.7,
-          "exp_sot": 0.61,
-          "p_sot_1plus": 33.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Tottenham",
-          "player": "Conor Gallagher",
-          "position": "MF",
-          "lambda_goals": 0.11002475146382346,
-          "anytime_pct": 3.9,
-          "exp_shots": 1.16,
-          "p_shots_2plus": 11.1,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 23.8,
-          "appearance_pct": 100.0,
-          "expected_minutes": 76.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Tottenham",
-          "player": "Xavi Simons",
-          "position": "FW",
-          "lambda_goals": 0.10010492269125973,
-          "anytime_pct": 3.3,
-          "exp_shots": 1.28,
-          "p_shots_2plus": 15.3,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 16.3,
-          "appearance_pct": 72.5,
-          "expected_minutes": 45.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Tyrique George",
-          "position": "FW",
-          "lambda_goals": 0.21454604560814194,
-          "anytime_pct": 9.4,
-          "exp_shots": 1.73,
-          "p_shots_2plus": 27.5,
-          "exp_sot": 0.72,
-          "p_sot_1plus": 39.7,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Brennan Johnson",
-          "position": "FW",
-          "lambda_goals": 0.18814542860319006,
-          "anytime_pct": 7.8,
-          "exp_shots": 0.81,
-          "p_shots_2plus": 4.6,
-          "exp_sot": 0.29,
-          "p_sot_1plus": 14.4,
-          "appearance_pct": 87.5,
-          "expected_minutes": 44.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Thierno Barry",
-          "position": "FW",
-          "lambda_goals": 0.17753374937826572,
-          "anytime_pct": 7.3,
-          "exp_shots": 0.97,
-          "p_shots_2plus": 6.9,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 17.5,
-          "appearance_pct": 97.5,
-          "expected_minutes": 49.3,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.467,
-        "p_draw": 0.267,
-        "p_away": 0.266,
-        "odds": {
-          "home": 2.0,
-          "draw": 3.6,
-          "away": 3.6
-        },
-        "book": "bet365",
-        "edge": -0.097,
-        "pick_odds": 2.0,
-        "ev": -0.26
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 39,
       "matchweek": 4,
@@ -5366,6 +5200,17 @@
       "points": 6
     },
     {
+      "team": "Everton",
+      "played": 4,
+      "won": 1,
+      "drawn": 3,
+      "lost": 0,
+      "gf": 5,
+      "ga": 3,
+      "gd": 2,
+      "points": 6
+    },
+    {
       "team": "Ipswich",
       "played": 4,
       "won": 2,
@@ -5384,17 +5229,6 @@
       "lost": 0,
       "gf": 6,
       "ga": 4,
-      "gd": 2,
-      "points": 5
-    },
-    {
-      "team": "Everton",
-      "played": 3,
-      "won": 1,
-      "drawn": 2,
-      "lost": 0,
-      "gf": 5,
-      "ga": 3,
       "gd": 2,
       "points": 5
     },
@@ -5476,6 +5310,17 @@
       "points": 3
     },
     {
+      "team": "Tottenham",
+      "played": 4,
+      "won": 0,
+      "drawn": 2,
+      "lost": 2,
+      "gf": 0,
+      "ga": 5,
+      "gd": -5,
+      "points": 2
+    },
+    {
       "team": "Fulham",
       "played": 4,
       "won": 0,
@@ -5484,17 +5329,6 @@
       "gf": 4,
       "ga": 7,
       "gd": -3,
-      "points": 1
-    },
-    {
-      "team": "Tottenham",
-      "played": 3,
-      "won": 0,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 0,
-      "ga": 5,
-      "gd": -5,
       "points": 1
     },
     {

@@ -1,14 +1,18 @@
 {
   "league": "Bundesliga",
   "updated": "2026-09-12T17:19:32.431578+00:00",
-  "results_updated": "2026-09-12T17:19:32.431583+00:00",
+  "results_updated": "2026-09-12T19:25:43.364720+00:00",
   "record": {
     "correct": 11,
-    "wrong": 12,
-    "total": 23,
+    "wrong": 13,
+    "total": 24,
     "void": 0,
     "pending": 0,
     "by_confidence": {
+      "2": {
+        "correct": 5,
+        "total": 12
+      },
       "4": {
         "correct": 2,
         "total": 5
@@ -20,10 +24,6 @@
       "3": {
         "correct": 3,
         "total": 3
-      },
-      "2": {
-        "correct": 5,
-        "total": 11
       }
     }
   },
@@ -37,172 +37,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 20,
-      "matchweek": 3,
-      "date": "2026-09-12T16:30:00+00:00",
-      "venue": "RheinEnergieSTADION",
-      "home": "FC Koln",
-      "away": "Werder Bremen",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.458,
-        "p_draw": 0.266,
-        "p_away": 0.276,
-        "pick": "FC Koln",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.3,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.452,
-        "why": {
-          "home_attack_pct": 6.1,
-          "home_defence_pct": -6.7,
-          "away_attack_pct": -7.3,
-          "away_defence_pct": -2.1,
-          "home_advantage_pct": 23.2
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: FC Koln 46% / draw 27% / Werder Bremen 28%",
-          "Expected goals: 1.57 - 1.17"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "FC Koln",
-          "player": "Said El Mala",
-          "position": "FW",
-          "lambda_goals": 0.48790870140291487,
-          "anytime_pct": 25.2,
-          "exp_shots": 2.18,
-          "p_shots_2plus": 41.6,
-          "exp_sot": 0.77,
-          "p_sot_1plus": 41.8,
-          "appearance_pct": 97.2,
-          "expected_minutes": 56.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "FC Koln",
-          "player": "Ragnar Ache",
-          "position": "FW",
-          "lambda_goals": 0.3648868043450272,
-          "anytime_pct": 17.3,
-          "exp_shots": 1.64,
-          "p_shots_2plus": 24.5,
-          "exp_sot": 0.57,
-          "p_sot_1plus": 29.7,
-          "appearance_pct": 83.3,
-          "expected_minutes": 50.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "FC Koln",
-          "player": "Marius B\u00fclter",
-          "position": "DF",
-          "lambda_goals": 0.15875281208238146,
-          "anytime_pct": 6.3,
-          "exp_shots": 1.05,
-          "p_shots_2plus": 8.9,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 19.4,
-          "appearance_pct": 91.7,
-          "expected_minutes": 45.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Werder Bremen",
-          "player": "Justin Njinmah",
-          "position": "FW",
-          "lambda_goals": 0.29688067269645285,
-          "anytime_pct": 14.0,
-          "exp_shots": 1.59,
-          "p_shots_2plus": 23.1,
-          "exp_sot": 0.56,
-          "p_sot_1plus": 30.8,
-          "appearance_pct": 94.4,
-          "expected_minutes": 56.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Werder Bremen",
-          "player": "Jens Stage",
-          "position": "MF",
-          "lambda_goals": 0.28420974054755105,
-          "anytime_pct": 12.9,
-          "exp_shots": 1.19,
-          "p_shots_2plus": 12.8,
-          "exp_sot": 0.42,
-          "p_sot_1plus": 21.6,
-          "appearance_pct": 83.3,
-          "expected_minutes": 71.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Werder Bremen",
-          "player": "Marco Gr\u00fcll",
-          "position": "FW",
-          "lambda_goals": 0.24535067244222108,
-          "anytime_pct": 11.1,
-          "exp_shots": 1.18,
-          "p_shots_2plus": 11.8,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 22.3,
-          "appearance_pct": 94.4,
-          "expected_minutes": 58.4,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.453,
-        "p_draw": 0.252,
-        "p_away": 0.295,
-        "odds": {
-          "home": 2.05,
-          "draw": 3.8,
-          "away": 3.3
-        },
-        "book": "bet365",
-        "edge": 0.005,
-        "pick_odds": 2.05,
-        "ev": -0.061
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 26,
       "matchweek": 3,
@@ -4204,6 +4038,17 @@
       "points": 4
     },
     {
+      "team": "Werder Bremen",
+      "played": 3,
+      "won": 1,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 5,
+      "ga": 6,
+      "gd": -1,
+      "points": 4
+    },
+    {
       "team": "Schalke 04",
       "played": 3,
       "won": 1,
@@ -4212,6 +4057,17 @@
       "gf": 3,
       "ga": 4,
       "gd": -1,
+      "points": 4
+    },
+    {
+      "team": "FC Koln",
+      "played": 3,
+      "won": 1,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 5,
+      "ga": 7,
+      "gd": -2,
       "points": 4
     },
     {
@@ -4237,17 +4093,6 @@
       "points": 3
     },
     {
-      "team": "Werder Bremen",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 4,
-      "ga": 5,
-      "gd": -1,
-      "points": 3
-    },
-    {
       "team": "Stuttgart",
       "played": 3,
       "won": 1,
@@ -4255,17 +4100,6 @@
       "lost": 2,
       "gf": 6,
       "ga": 8,
-      "gd": -2,
-      "points": 3
-    },
-    {
-      "team": "FC Koln",
-      "played": 2,
-      "won": 1,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 4,
-      "ga": 6,
       "gd": -2,
       "points": 3
     },
