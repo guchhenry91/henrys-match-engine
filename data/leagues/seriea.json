@@ -1,25 +1,25 @@
 {
   "league": "Serie A",
   "updated": "2026-09-12T14:16:18.966499+00:00",
-  "results_updated": "2026-09-12T14:16:18.966503+00:00",
+  "results_updated": "2026-09-12T15:34:12.420045+00:00",
   "record": {
     "correct": 9,
-    "wrong": 4,
-    "total": 13,
+    "wrong": 5,
+    "total": 14,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
-      "3": {
-        "correct": 2,
-        "total": 2
-      },
       "2": {
         "correct": 7,
         "total": 10
       },
+      "3": {
+        "correct": 2,
+        "total": 2
+      },
       "1": {
         "correct": 0,
-        "total": 1
+        "total": 2
       }
     }
   },
@@ -152,127 +152,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 33,
-      "matchweek": 4,
-      "date": "2026-09-12T13:00:00+00:00",
-      "venue": "Luigi Ferraris",
-      "home": "Genoa",
-      "away": "Frosinone",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.375,
-        "p_draw": 0.27,
-        "p_away": 0.355,
-        "pick": "Genoa",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.8,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 10.8,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 10.4,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3753,
-        "why": {
-          "home_attack_pct": -8.0,
-          "home_defence_pct": -0.9,
-          "away_attack_pct": 5.0,
-          "away_defence_pct": -9.6,
-          "home_advantage_pct": 7.8
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Genoa 38% / draw 27% / Frosinone 35%",
-          "Expected goals: 1.26 - 1.21"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Genoa",
-          "player": "Vitinha",
-          "position": "FW",
-          "lambda_goals": 0.44379238849074654,
-          "anytime_pct": 22.2,
-          "exp_shots": 1.83,
-          "p_shots_2plus": 30.2,
-          "exp_sot": 0.5,
-          "p_sot_1plus": 26.6,
-          "appearance_pct": 90.0,
-          "expected_minutes": 58.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Leo \u00d8stigard",
-          "position": "DF",
-          "lambda_goals": 0.20542778458073577,
-          "anytime_pct": 8.5,
-          "exp_shots": 0.52,
-          "p_shots_2plus": 1.4,
-          "exp_sot": 0.22,
-          "p_sot_1plus": 10.3,
-          "appearance_pct": 77.5,
-          "expected_minutes": 68.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Johan V\u00e1squez",
-          "position": "DF",
-          "lambda_goals": 0.12727447339418907,
-          "anytime_pct": 4.7,
-          "exp_shots": 0.82,
-          "p_shots_2plus": 4.5,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 9.8,
-          "appearance_pct": 92.5,
-          "expected_minutes": 82.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.448,
-        "p_draw": 0.279,
-        "p_away": 0.272,
-        "odds": {
-          "home": 2.1,
-          "draw": 3.3,
-          "away": 3.6
-        },
-        "book": "bet365",
-        "edge": -0.073,
-        "pick_odds": 2.1,
-        "ev": -0.212
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 35,
       "matchweek": 4,
@@ -6083,6 +5962,17 @@
       "points": 7
     },
     {
+      "team": "Frosinone",
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 7,
+      "ga": 4,
+      "gd": 3,
+      "points": 7
+    },
+    {
       "team": "Milan",
       "played": 3,
       "won": 2,
@@ -6103,17 +5993,6 @@
       "ga": 1,
       "gd": 3,
       "points": 7
-    },
-    {
-      "team": "Frosinone",
-      "played": 3,
-      "won": 2,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 6,
-      "ga": 3,
-      "gd": 3,
-      "points": 6
     },
     {
       "team": "Atalanta",
@@ -6238,14 +6117,14 @@
     },
     {
       "team": "Genoa",
-      "played": 3,
+      "played": 4,
       "won": 0,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 3,
-      "gf": 1,
-      "ga": 7,
+      "gf": 2,
+      "ga": 8,
       "gd": -6,
-      "points": 0
+      "points": 1
     },
     {
       "team": "Venezia",
