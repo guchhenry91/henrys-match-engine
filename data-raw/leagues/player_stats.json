@@ -1895,6 +1895,75 @@
           "minutes": 90
         }
       }
+    },
+    "2026-09-12|Ath Bilbao|Elche": {
+      "date": "2026-09-12",
+      "home": "Ath Bilbao",
+      "away": "Elche",
+      "api_fixture_id": 1570373,
+      "fetched_at": "2026-09-12T19:29:35.559713+00:00",
+      "api_squads": {
+        "Elche": [
+          "Matia Barzic Gutiérrez",
+          "Buba Sangaré",
+          "F. Buonanotte",
+          "Víctor Chust",
+          "Fer Niño",
+          "F. Redondo",
+          "R. Revivo",
+          "Tete Morente",
+          "Germán Valera",
+          "Gonzalo Villar",
+          "Marc Aguado",
+          "M. Dituro",
+          "Bigas",
+          "L. Cepeda",
+          "G. Diangana",
+          "Alejandro Iturbe",
+          "Josan",
+          "T. Lemar",
+          "Martim Neto",
+          "A. Osorio",
+          "E. Ponce",
+          "Rubén Sánchez",
+          "J. Morcillo"
+        ],
+        "Ath Bilbao": [
+          "Álvaro Djaló",
+          "Yeray",
+          "Jesús Areso",
+          "Yuri",
+          "Beñat Gerenabarrena",
+          "Aymeric Laporte",
+          "Robert Navarro",
+          "Ruíz de Galarreta",
+          "Oihan Sancet",
+          "I. Williams",
+          "Nico Williams",
+          "Álex Berenguer",
+          "Unai Simón",
+          "Mikel Jauregizar",
+          "J. Louis-Jean",
+          "Iker Monreal",
+          "Álex Padilla",
+          "Aitor Paredes",
+          "Beñat Prados",
+          "Alejandro Rego",
+          "Hugo Rincón",
+          "Maroan Sannadi",
+          "Nico Serrano"
+        ]
+      },
+      "players": {
+        "Iñaki Williams": {
+          "team": "Ath Bilbao",
+          "api_name": "I. Williams",
+          "goals": 1,
+          "shots": 4,
+          "sot": 1,
+          "minutes": 81
+        }
+      }
     }
   },
   "LIGUE1": {
@@ -2228,6 +2297,60 @@
           "minutes": 78
         }
       }
+    },
+    "2026-09-12|Strasbourg|Monaco": {
+      "date": "2026-09-12",
+      "home": "Strasbourg",
+      "away": "Monaco",
+      "api_fixture_id": 1552764,
+      "fetched_at": "2026-09-12T19:29:35.559713+00:00",
+      "api_squads": {
+        "Strasbourg": [
+          "G. Antwi",
+          "F. Jörgensen",
+          "Gessime Yassine",
+          "Diogo Sousa",
+          "G. Reyna",
+          "Oso",
+          "J. Ortega",
+          "S. Nanasi",
+          "J. Mitchell",
+          "I. Doukouré",
+          "P. Diop",
+          "M. Piekutowski",
+          "L. Høgsberg",
+          "Abdoul Karim Coulibaly",
+          "Tyrese Noubissie",
+          "Dário Essugo",
+          "S. El Mourabet",
+          "B. Brantlind",
+          "S. Amo-Ameyaw",
+          "C. Harder"
+        ],
+        "Monaco": [
+          "I. Touré",
+          "M. Salisu",
+          "C. Mawissa Elebi",
+          "P. Köhn",
+          "M. Detourbet",
+          "Pape Cabral",
+          "M. Biereth",
+          "S. Benzahra",
+          "M. Abline",
+          "D. Zakaria",
+          "Vanderson",
+          "A. Soubeir",
+          "Sadibou Sané",
+          "Flávio Nazinho",
+          "S. Idumbo-Muzambo",
+          "A. Golovin",
+          "E. Dier",
+          "L. Camara",
+          "Paris Josua  Brunner",
+          "L. Hrádecký"
+        ]
+      },
+      "players": {}
     }
   },
   "_note": "Per-match player goals/shots/SOT from API-Football, used ONLY where Understat has not published the fixture. Written by scripts/sync_player_stats.py -- never by hand. `players` is keyed by OUR player name; `api_squads` keeps the feed's own spelling so a join can be audited. Understat wins wherever it has the match.",

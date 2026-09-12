@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-12T17:20:10.846664+00:00",
+  "updated": "2026-09-12T19:31:12.764438+00:00",
   "matchweek": 4,
   "selection_verified_on": "2026-09-11",
   "picks": [
@@ -9,15 +9,15 @@
       "home": "Coventry",
       "away": "Brighton",
       "score": "0-1",
-      "score_pct": 31.3,
+      "score_pct": 31.6,
       "alternatives": [
         {
           "score": "0-0",
-          "pct": 19.7
+          "pct": 19.9
         }
       ],
       "match_pick": "Brighton",
-      "gap_to_next_pp": 11.6,
+      "gap_to_next_pp": 11.7,
       "agrees_with_match_pick": true,
       "provisional": true,
       "rank": 1
@@ -28,7 +28,7 @@
       "home": "Sunderland",
       "away": "Arsenal",
       "score": "0-1",
-      "score_pct": 17.6,
+      "score_pct": 17.5,
       "alternatives": [
         {
           "score": "0-2",
@@ -36,29 +36,10 @@
         }
       ],
       "match_pick": "Arsenal",
-      "gap_to_next_pp": 4.1,
+      "gap_to_next_pp": 4.0,
       "agrees_with_match_pick": true,
       "provisional": false,
       "rank": 2
-    },
-    {
-      "id": 40,
-      "date": "2026-09-12T16:30:00+00:00",
-      "home": "Tottenham",
-      "away": "Everton",
-      "score": "1-1",
-      "score_pct": 14.1,
-      "alternatives": [
-        {
-          "score": "1-0",
-          "pct": 12.4
-        }
-      ],
-      "match_pick": "Tottenham",
-      "gap_to_next_pp": 1.7,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 3
     },
     {
       "id": 38,
@@ -66,7 +47,7 @@
       "home": "Manchester United",
       "away": "Manchester City",
       "score": "1-1",
-      "score_pct": 13.0,
+      "score_pct": 13.1,
       "alternatives": [
         {
           "score": "0-1",
@@ -74,17 +55,26 @@
         }
       ],
       "match_pick": "Manchester City",
-      "gap_to_next_pp": 3.8,
+      "gap_to_next_pp": 3.9,
       "agrees_with_match_pick": false,
       "provisional": true,
-      "rank": 4
+      "rank": 3
     }
   ],
   "missing_fixtures": [
     "Chelsea|Hull",
-    "Liverpool|Fulham"
+    "Liverpool|Fulham",
+    "Tottenham|Everton"
   ],
   "settled": [
+    {
+      "home": "Tottenham",
+      "away": "Everton",
+      "date": "2026-09-12T16:30:00+00:00",
+      "predicted": "1-1",
+      "actual": "0-0",
+      "graded": "wrong"
+    },
     {
       "home": "Chelsea",
       "away": "Hull",
@@ -224,7 +214,7 @@
   ],
   "record": {
     "correct": 3,
-    "total": 17
+    "total": 18
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,
