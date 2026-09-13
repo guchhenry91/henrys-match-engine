@@ -2612,6 +2612,77 @@
           "minutes": 90
         }
       }
+    },
+    "2026-09-13|Lille|Troyes": {
+      "date": "2026-09-13",
+      "home": "Lille",
+      "away": "Troyes",
+      "api_fixture_id": 1552760,
+      "fetched_at": "2026-09-13T16:24:37.956513+00:00",
+      "api_squads": {
+        "Lille": [
+          "C. Verdonk",
+          "O. Sahraoui",
+          "G. Perrin",
+          "T. Nianzou",
+          "E. Mbappé",
+          "M. Kjærgaard",
+          "O. Giroud",
+          "O. Gill",
+          "B. André",
+          "B. Özer",
+          "Tiago Santos",
+          "N. Ngoy",
+          "Alexsandro Ribeiro",
+          "R. Perraud",
+          "N. Mukau",
+          "N. Bentaleb",
+          "D. Bakwa",
+          "H. Haraldsson",
+          "B. Önal",
+          "A. Ueda"
+        ],
+        "Troyes": [
+          "P. Beach",
+          "L. Maronnier",
+          "A. Monfray",
+          "M. Diaz",
+          "A. Ouzenadji",
+          "I. Soukouna",
+          "Enisio Carneiro",
+          "Noah Donkor",
+          "I. Gomis",
+          "H. Konaté",
+          "Y. Kone",
+          "T. Nkada",
+          "R. Ripart",
+          "Lassana Simakha",
+          "A. Mille",
+          "M. Diop",
+          "K. Diawara",
+          "D. Karim",
+          "H. Picard",
+          "J. Le Douaron"
+        ]
+      },
+      "players": {
+        "Hákon Haraldsson": {
+          "team": "Lille",
+          "api_name": "H. Haraldsson",
+          "goals": 0,
+          "shots": 0,
+          "sot": 0,
+          "minutes": 61
+        },
+        "Olivier Giroud": {
+          "team": "Lille",
+          "api_name": "O. Giroud",
+          "goals": 0,
+          "shots": 0,
+          "sot": 0,
+          "minutes": 19
+        }
+      }
     }
   },
   "_note": "Per-match player goals/shots/SOT from API-Football, used ONLY where Understat has not published the fixture. Written by scripts/sync_player_stats.py -- never by hand. `players` is keyed by OUR player name; `api_squads` keeps the feed's own spelling so a join can be audited. Understat wins wherever it has the match.",

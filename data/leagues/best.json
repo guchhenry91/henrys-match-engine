@@ -1,17 +1,17 @@
 {
-  "updated": "2026-09-13T15:01:22.645403+00:00",
+  "updated": "2026-09-13T16:26:04.268608+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
-    "correct": 6,
+    "correct": 7,
     "wrong": 2,
-    "total": 8,
+    "total": 9,
     "void": 2,
     "pending": 0,
     "by_confidence": {
       "4": {
-        "correct": 2,
-        "total": 4
+        "correct": 3,
+        "total": 5
       },
       "5": {
         "correct": 4,
@@ -30,12 +30,14 @@
       "away": "Udinese",
       "pick": "Inter",
       "confidence": 4,
-      "p_pick": 0.676,
+      "p_pick": 0.677,
       "score": "2-0",
       "provisional": true,
       "odds": 1.27,
       "book": "bet365"
-    },
+    }
+  ],
+  "settled": [
     {
       "league": "Ligue 1",
       "league_key": "LIGUE1",
@@ -47,13 +49,14 @@
       "pick": "Lille",
       "confidence": 4,
       "p_pick": 0.6652,
-      "score": "2-0",
-      "provisional": false,
-      "odds": 1.4,
-      "book": "bet365"
-    }
-  ],
-  "settled": [
+      "board": true,
+      "result": {
+        "home_goals": 2,
+        "away_goals": 0
+      },
+      "graded": "correct",
+      "void": false
+    },
     {
       "league": "La Liga",
       "league_key": "LALIGA",

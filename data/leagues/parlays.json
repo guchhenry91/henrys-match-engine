@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-13T15:01:41.872660+00:00",
+  "updated": "2026-09-13T16:26:23.817478+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -7,40 +7,10 @@
       "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
       "parlays": [
         {
-          "tier": "Banker",
-          "note": "Two safest calls, two leagues",
-          "feat": false,
-          "combined": 0.4497,
-          "legs": [
-            {
-              "selection": "Inter to win",
-              "match": "Inter v Udinese",
-              "league": "Serie A",
-              "league_key": "SERIEA",
-              "tag": "w",
-              "p": 0.676,
-              "id": "SERIEA#34#w",
-              "date": "2026-09-14T18:45:00+00:00"
-            },
-            {
-              "selection": "Lille to win",
-              "match": "Lille v Troyes",
-              "league": "Ligue 1",
-              "league_key": "LIGUE1",
-              "tag": "w",
-              "p": 0.6652,
-              "id": "LIGUE1#32#w",
-              "date": "2026-09-13T13:00:00+00:00"
-            }
-          ],
-          "provisional": false,
-          "locked_at": "2026-09-11T15:03:26.936523+00:00"
-        },
-        {
           "tier": "Balanced five-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.1178,
+          "combined": 0.0568,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -73,14 +43,14 @@
               "date": "2026-09-13T15:30:00+00:00"
             },
             {
-              "selection": "Lille to win",
-              "match": "Lille v Troyes",
+              "selection": "Odsonne Edouard to score",
+              "match": "Le Mans v Lens",
               "league": "Ligue 1",
               "league_key": "LIGUE1",
-              "tag": "w",
-              "p": 0.6652,
-              "id": "LIGUE1#32#w",
-              "date": "2026-09-13T13:00:00+00:00"
+              "tag": "g",
+              "p": 0.321,
+              "id": "LIGUE1#31#goal#Odsonne Edouard",
+              "date": "2026-09-13T15:15:00+00:00"
             },
             {
               "selection": "Nico Paz 2+ shot attempts",
@@ -94,7 +64,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-12T17:20:10.841278+00:00"
+          "locked_at": "2026-09-13T16:26:23.817478+00:00"
         },
         {
           "tier": "Props treble",
@@ -243,7 +213,7 @@
   "record": {
     "correct": 9,
     "wrong": 34,
-    "void": 53,
+    "void": 54,
     "total": 43,
     "pending": 15
   },
@@ -254,13 +224,45 @@
       "legs": [
         {
           "id": "LALIGA#44#shots#Lamine Yamal",
-          "selection": "Lamine Yamal 2+ shot attempts",
-          "p": 0.823
+          "p": 0.823,
+          "selection": "Lamine Yamal 2+ shot attempts"
         },
         {
           "id": "SERIEA#32#shots#Nico Paz",
-          "selection": "Nico Paz 2+ shot attempts",
-          "p": 0.686
+          "p": 0.686,
+          "selection": "Nico Paz 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#19#shots#Harry Kane",
+          "p": 0.561,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "PL#38#sot#Erling Haaland",
+          "p": 0.559,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "p": 0.524,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-13T14:15:00+00:00"
+    },
+    {
+      "combined": 0.0568,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#38#sot#Erling Haaland",
+          "selection": "Erling Haaland 1+ shot on target",
+          "p": 0.559
+        },
+        {
+          "id": "LALIGA#44#shots#Lamine Yamal",
+          "selection": "Lamine Yamal 2+ shot attempts",
+          "p": 0.823
         },
         {
           "id": "BUNDESLIGA#19#shots#Harry Kane",
@@ -268,14 +270,14 @@
           "p": 0.561
         },
         {
-          "id": "PL#38#sot#Erling Haaland",
-          "selection": "Erling Haaland 1+ shot on target",
-          "p": 0.559
+          "id": "LIGUE1#31#goal#Odsonne Edouard",
+          "selection": "Odsonne Edouard to score",
+          "p": 0.321
         },
         {
-          "id": "LALIGA#50#sot#Georges Mikautadze",
-          "selection": "Georges Mikautadze 1+ shot on target",
-          "p": 0.524
+          "id": "SERIEA#32#shots#Nico Paz",
+          "selection": "Nico Paz 2+ shot attempts",
+          "p": 0.686
         }
       ],
       "kickoff": "2026-09-13T14:15:00+00:00"
