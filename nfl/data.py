@@ -39,6 +39,8 @@ ROSTER_COLUMNS = ["season", "team", "position", "status", "full_name", "gsis_id"
 DEPTH_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
              "depth_charts/depth_charts_{season}.csv")
 DEPTH_COLUMNS = ["dt", "team", "player_name", "gsis_id", "pos_abb", "pos_rank"]
+# Depth-chart spots that take no offensive snaps (as nflverse abbreviates them).
+SPECIAL_TEAMS = {"KR", "PR", "PK", "K", "P", "H", "LS"}
 
 # Columns we actually use. Named explicitly so an upstream schema change fails
 # loudly here rather than silently producing a column of NaN three layers down.
@@ -245,9 +247,15 @@ def depth_charts(season=None, refresh: bool = False) -> pd.DataFrame:
     out = out[out["dt"] == out["dt"].max()].copy()
     out["gsis_id"] = out["gsis_id"].astype(str)
     out["pos_rank"] = pd.to_numeric(out["pos_rank"], errors="coerce")
-    # One row per player: a man can appear at more than one position (a returner
-    # listed at WR and KR), and his BEST rank is the one that decides whether he
-    # is a starter somewhere.
+    # One row per player: a man can appear at more than one position, and his
+    # best rank decides whether he is a starter somewhere -- but only among
+    # positions that take offensive snaps. Returner, kicking and snapping spots
+    # say nothing about yards or touchdowns: Brian Robinson is WAS KR1 and RB2,
+    # and was published as "KR1", which both mislabels him and would let a deep
+    # reserve back through the rushing cap on his returner rank. A player listed
+    # ONLY on special teams drops out of the index, which KEEPS him (absence from
+    # the chart never removes anyone).
+    out = out[~out["pos_abb"].isin(SPECIAL_TEAMS)]
     out = out.sort_values("pos_rank").drop_duplicates(subset=["gsis_id"], keep="first")
     return out.reset_index(drop=True)
 

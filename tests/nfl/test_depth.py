@@ -155,6 +155,32 @@ def test_a_player_listed_twice_keeps_his_best_rank(monkeypatch):
     assert len(out) == 1 and int(out.iloc[0]["pos_rank"]) == 1
 
 
+def test_a_returner_rank_never_stands_in_for_his_offensive_rank(monkeypatch):
+    """WAS listed Brian Robinson at KR1 and RB2, and the board called him "KR1".
+    A deep reserve back who returns kicks must be judged on his RB rank."""
+    frame = _chart([
+        ("2026-09-13T12:42:08Z", "WAS", "Brian Robinson", "00-0000060", "KR", 1),
+        ("2026-09-13T12:42:08Z", "WAS", "Brian Robinson", "00-0000060", "RB", 2),
+        ("2026-09-13T12:42:08Z", "ARI", "Deep Back", "00-0000061", "KR", 1),
+        ("2026-09-13T12:42:08Z", "ARI", "Deep Back", "00-0000061", "RB", 4),
+    ])
+    monkeypatch.setattr(data, "_read_csv", lambda *a, **k: frame)
+    index = depth.build_index(data.depth_charts(2026))
+    assert index["00-0000060"] == {"pos": "RB", "rank": 2}
+    ok, _ = depth.verdict("rushing_yards", index["00-0000061"])
+    assert not ok, "an RB4 must not pass the rushing cap on his KR1 rank"
+
+
+def test_a_pure_returner_is_kept_by_absence(monkeypatch):
+    """Listed only at KR, he has no offensive rank -- so he is absent from the
+    index, and absence keeps a player rather than removing him."""
+    frame = _chart([("2026-09-13T12:42:08Z", "ARI", "Only Returns", "00-0000062", "KR", 1)])
+    monkeypatch.setattr(data, "_read_csv", lambda *a, **k: frame)
+    index = depth.build_index(data.depth_charts(2026))
+    assert "00-0000062" not in index
+    assert depth.verdict("rushing_yards", index.get("00-0000062"))[0]
+
+
 def test_a_missing_depth_file_degrades_to_no_gate(monkeypatch):
     """No chart must mean no filtering, never an empty board."""
     def boom(*a, **k):
