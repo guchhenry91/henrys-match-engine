@@ -103,6 +103,24 @@ def book_props() -> dict:
         return {}
 
 
+def depth_population(roster_index: dict, rosters_complete: bool, known_ids: list) -> list:
+    """The players a depth chart must recognise before it is trusted.
+
+    PLAYERS CURRENTLY ON A ROSTER, not everyone who played last season. The old
+    population included retired, cut and unsigned players who will never appear
+    on a current depth chart, so a complete, same-day chart (32 teams, 1,962
+    players) "recognised" only 73.5% and was refused -- and the board published
+    21 backup quarterbacks, Marcus Mariota and Shedeur Sanders among them. Against
+    current rosters the same chart recognises 98.8%, and 99.6% of the board's own
+    candidates. The corroboration idea is unchanged: a chart that does not know
+    the players actually on teams is still refused. Only when the roster file is
+    itself untrusted does this fall back to last season's players.
+    """
+    if rosters_complete and roster_index:
+        return sorted(str(i) for i in roster_index)
+    return known_ids
+
+
 def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
     """The next slate: the earliest unplayed week."""
     future = schedule[~schedule["played"]].copy()
@@ -336,9 +354,11 @@ def build() -> dict:
     # Same corroboration discipline for the depth chart: it may only overrule the
     # board if it recognises the board's own players. A chart that does not is far
     # more likely to be broken than to be evidence the board is wrong.
-    depth_trusted, depth_coverage, depth_size = depth.usable(depth_index, known_ids)
+    depth_ids = depth_population(roster_index, rosters_complete, known_ids)
+    depth_trusted, depth_coverage, depth_size = depth.usable(depth_index, depth_ids)
     print(f"depth chart: {depth_size} players, recognises "
-          f"{depth_coverage:.1%} of known actives -> "
+          f"{depth_coverage:.1%} of {len(depth_ids)} "
+          f"{'current roster players' if depth_ids is not known_ids else 'last-season players'} -> "
           f"{'APPLIED' if depth_trusted else 'IGNORED (below the bar)'}")
     if not rosters_complete:
         print(f"WARNING: roster file recognises only {agreement:.0%} of known active "

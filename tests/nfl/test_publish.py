@@ -163,3 +163,19 @@ def test_a_doubtful_player_stays_but_carries_the_flag(monkeypatch):
 def test_a_missing_injury_file_means_not_reported_never_fit(monkeypatch, tmp_path):
     monkeypatch.setattr(publish, "ROOT", tmp_path)
     assert publish.availability() == {}
+
+
+# --- depth chart corroboration ------------------------------------------------
+
+def test_the_depth_chart_is_checked_against_current_rosters():
+    """Last season's players include the retired and the cut, who can never be
+    on a current chart -- measured against them, a complete chart failed the bar
+    and 21 backup quarterbacks reached the board."""
+    ids = publish.depth_population({"A": {}, "B": {}}, True, ["A", "B", "RETIRED"])
+    assert ids == ["A", "B"]
+
+
+def test_an_untrusted_roster_falls_back_to_last_seasons_players():
+    known = ["A", "RETIRED"]
+    assert publish.depth_population({"A": {}}, False, known) is known
+    assert publish.depth_population({}, True, known) is known

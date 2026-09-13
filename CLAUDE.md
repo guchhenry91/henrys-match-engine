@@ -442,6 +442,12 @@ republished continuously and only holds players a team is actually carrying.
 - **The corroboration gate applies** (`MIN_DEPTH_COVERAGE = 0.80`): a chart that
   does not recognise the board's own players is ignored wholesale, and
   `depth_check.applied` on the board says whether the filter actually ran.
+- **It is measured against CURRENT ROSTER players** (`publish.depth_population`),
+  not everyone who played last season. That older population includes the
+  retired, cut and unsigned, so on 2026-09-13 a complete same-day chart (32
+  teams) scored 73.5% and was refused, letting 21 backup QBs onto the board.
+  Against current rosters it scores 98.8% (99.6% of the board's own candidates).
+  Falls back to last season's players only when the roster file is untrusted.
 - Every card publishes `depth_label` ("QB1", "WR3"), which is the context that
   tells a reader whether a low line is a soft spot or a warning.
 
