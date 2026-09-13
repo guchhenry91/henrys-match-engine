@@ -253,3 +253,35 @@ def test_season_week_is_read_off_the_game_id():
     assert picks.season_week("2026_01_NE_SEA") == (2026, 1)
     assert picks.season_week("2026_14_KC_BUF") == (2026, 14)
     assert picks.season_week(None) == (None, None)
+
+
+# --- a frozen pick is shown as the bet it was -------------------------------------
+
+def test_a_frozen_prop_shows_its_frozen_line_not_todays():
+    """Frozen at the model's 21.5 before bookmaker lines were used, the card must
+    not show bet365's 25.5 beside the probability that was frozen at 21.5."""
+    pick = {"market": "rushing_yards", "line": 25.5, "line_source": "bet365",
+            "probability": 0.80, "book": "Bet365", "book_price": 1.86,
+            "book_p": 0.5, "edge": 0.30}
+    entry = {"p_pick": 0.69, "line": 21.5, "tainted": False}
+    picks._show_frozen_prop(pick, entry)
+    assert pick["line"] == 21.5 and pick["probability"] == 0.69
+    assert pick["line_source"] == "model"
+    assert pick["book_price"] is None and pick["edge"] is None
+
+
+def test_a_prop_frozen_on_the_book_line_keeps_its_price_and_edge():
+    pick = {"market": "rushing_yards", "line": 50.5, "line_source": "bet365",
+            "probability": 0.60, "book_p": 0.48, "book_price": 2.0, "edge": 0.12}
+    entry = {"p_pick": 0.53, "line": 50.5, "line_source": "bet365",
+             "book": "Bet365", "book_price": 1.9, "book_p": 0.5}
+    picks._show_frozen_prop(pick, entry)
+    assert pick["book_price"] == 1.9 and pick["edge"] == 0.03
+
+
+def test_the_edge_always_equals_probability_minus_book():
+    pick = {"market": "passing_yards", "line": 229.5, "probability": 0.7,
+            "book_p": 0.5, "book_price": 1.9}
+    entry = {"p_pick": 0.55, "line": 229.5}
+    picks._show_frozen_prop(pick, entry)
+    assert pick["edge"] == round(pick["probability"] - pick["book_p"], 4)

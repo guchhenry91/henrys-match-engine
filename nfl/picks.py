@@ -296,6 +296,12 @@ def _lock_props(payload, log, now):
                 # entering median and moves week to week, so grading against a
                 # later line would settle the bet nobody made.
                 entry["line"] = pick.get("line")
+                # Whose line it was, and the price it was made against, so the
+                # board can keep showing the bet as it was actually made.
+                entry["line_source"] = pick.get("line_source")
+                entry["book"] = pick.get("book")
+                entry["book_price"] = pick.get("book_price")
+                entry["book_p"] = pick.get("book_p")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the
@@ -304,9 +310,38 @@ def _lock_props(payload, log, now):
                 entry["away"] = pick.get("opponent")
             entry = log.get(key)
             if entry:
-                pick["probability"] = entry.get("p_pick", pick["probability"])
-                pick["locked"] = True
-                pick["tainted"] = bool(entry.get("tainted"))
+                _show_frozen_prop(pick, entry)
+
+
+def _show_frozen_prop(pick: dict, entry: dict) -> None:
+    """Make the card show the bet AS IT WAS FROZEN -- line, probability and price.
+
+    Overlaying only the probability put a probability frozen at one line beside a
+    different line: picks frozen at the model's own line before bookmaker lines
+    were used showed bet365's line with the old probability, and an edge that
+    matched neither. The line, the probability and the price are one bet; they are
+    shown together or not at all.
+    """
+    pick["probability"] = entry.get("p_pick", pick["probability"])
+    pick["locked"] = True
+    pick["tainted"] = bool(entry.get("tainted"))
+    if pick.get("market") == "anytime_touchdown" or "line" not in entry:
+        frozen_line = pick.get("line")
+    else:
+        frozen_line = entry.get("line")
+    same_line = frozen_line == pick.get("line")
+    pick["line"] = frozen_line
+    if pick.get("market") != "anytime_touchdown":
+        # Frozen before this field existed means frozen at the model's own line.
+        pick["line_source"] = entry.get("line_source") or "model"
+    if entry.get("book_p") is not None:
+        pick["book"], pick["book_price"], pick["book_p"] = (
+            entry.get("book"), entry.get("book_price"), entry.get("book_p"))
+    elif not same_line or pick.get("market") == "anytime_touchdown":
+        # The current price is for a different bet than the frozen one.
+        pick["book"] = pick["book_price"] = pick["book_p"] = None
+    pick["edge"] = (round(float(pick["probability"]) - float(pick["book_p"]), 4)
+                    if pick.get("book_p") is not None else None)
 
 
 def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
