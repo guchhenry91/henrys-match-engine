@@ -78,8 +78,11 @@ def probe() -> int:
                 mark = f"   <-- {WANTED[bid]}" if bid in WANTED else ""
                 print(f"     {str(bid):>5}  {name[:46]}{mark}")
 
-            # THE ACTUAL QUESTION: receiving and passing yards, by id.
-            for market in ("receiving_yards", "passing_yards"):
+            # THE ACTUAL QUESTION, for all four markets, by id. The raw values are
+            # printed because the parser that turns them into a line and a price
+            # must be written against the shape the API really sends.
+            for market in ("rushing_yards", "anytime_touchdown",
+                           "receiving_yards", "passing_yards"):
                 ids_for = odds.PLAYER_PROP_BETS[market]
                 hit = next((b for b in bets if b.get("id") in ids_for), None)
                 if not hit:
