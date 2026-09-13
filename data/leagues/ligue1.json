@@ -1,7 +1,7 @@
 {
   "league": "Ligue 1",
-  "updated": "2026-09-12T23:31:03.051362+00:00",
-  "results_updated": "2026-09-13T04:52:12.370589+00:00",
+  "updated": "2026-09-13T04:57:17.175503+00:00",
+  "results_updated": "2026-09-13T04:57:17.175507+00:00",
   "record": {
     "correct": 10,
     "wrong": 20,
@@ -13,6 +13,10 @@
         "correct": 3,
         "total": 7
       },
+      "4": {
+        "correct": 1,
+        "total": 3
+      },
       "2": {
         "correct": 4,
         "total": 11
@@ -20,10 +24,6 @@
       "1": {
         "correct": 2,
         "total": 9
-      },
-      "4": {
-        "correct": 1,
-        "total": 3
       }
     }
   },
@@ -88,7 +88,7 @@
         ],
         "confidence": 4,
         "provisional": true,
-        "p_pick": 0.6653,
+        "p_pick": 0.6652,
         "why": {
           "home_attack_pct": 13.8,
           "home_defence_pct": 36.7,
@@ -111,7 +111,7 @@
           "team": "Lille",
           "player": "H\u00e1kon Haraldsson",
           "position": "FW",
-          "lambda_goals": 0.586405531345292,
+          "lambda_goals": 0.5863951741046495,
           "anytime_pct": 30.1,
           "exp_shots": 1.56,
           "p_shots_2plus": 22.5,
@@ -126,7 +126,7 @@
           "team": "Lille",
           "player": "Olivier Giroud",
           "position": "FW",
-          "lambda_goals": 0.5543087373270345,
+          "lambda_goals": 0.5543168116149368,
           "anytime_pct": 27.6,
           "exp_shots": 1.34,
           "p_shots_2plus": 16.4,
@@ -141,7 +141,7 @@
           "team": "Lille",
           "player": "Romain Perraud",
           "position": "DF",
-          "lambda_goals": 0.1557263309791,
+          "lambda_goals": 0.15569742408702852,
           "anytime_pct": 6.1,
           "exp_shots": 0.86,
           "p_shots_2plus": 5.4,
@@ -181,7 +181,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.024186598055555557,
+          "news_checked_hours_ago": 0.0209799925,
           "unavailable": false,
           "team_attribution": "Lille"
         },
@@ -212,7 +212,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.02418662888888889,
+          "news_checked_hours_ago": 0.0209800325,
           "unavailable": false,
           "team_attribution": "Lille"
         }
@@ -295,7 +295,7 @@
           "team": "Lens",
           "player": "Odsonne Edouard",
           "position": "FW",
-          "lambda_goals": 0.655224842746851,
+          "lambda_goals": 0.6551990025493757,
           "anytime_pct": 32.1,
           "exp_shots": 1.5,
           "p_shots_2plus": 20.8,
@@ -310,7 +310,7 @@
           "team": "Lens",
           "player": "Florian Thauvin",
           "position": "MF",
-          "lambda_goals": 0.6001210195762965,
+          "lambda_goals": 0.6000565439202878,
           "anytime_pct": 31.2,
           "exp_shots": 1.64,
           "p_shots_2plus": 24.6,
@@ -325,7 +325,7 @@
           "team": "Lens",
           "player": "Abdallah Sima",
           "position": "FW",
-          "lambda_goals": 0.17885050644987896,
+          "lambda_goals": 0.17885747350339146,
           "anytime_pct": 6.9,
           "exp_shots": 0.57,
           "p_shots_2plus": 2.3,
@@ -365,7 +365,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.39081584722222223,
+          "news_checked_hours_ago": 0.02098132527777778,
           "unavailable": false,
           "team_attribution": "Lens"
         },
@@ -396,7 +396,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 0.3908157522222222,
+          "news_checked_hours_ago": 0.020981144722222223,
           "unavailable": false,
           "team_attribution": "Lens"
         }
@@ -479,7 +479,7 @@
           "team": "Brest",
           "player": "Ludovic Ajorque",
           "position": "FW",
-          "lambda_goals": 0.42061300381197725,
+          "lambda_goals": 0.42063203404325156,
           "anytime_pct": 21.0,
           "exp_shots": 1.38,
           "p_shots_2plus": 17.1,
@@ -494,7 +494,7 @@
           "team": "Brest",
           "player": "Kamory Doumbia",
           "position": "MF",
-          "lambda_goals": 0.1894605053390134,
+          "lambda_goals": 0.18944502180348552,
           "anytime_pct": 7.6,
           "exp_shots": 0.83,
           "p_shots_2plus": 5.9,
@@ -509,7 +509,7 @@
           "team": "Brest",
           "player": "Mama Bald\u00e9",
           "position": "FW",
-          "lambda_goals": 0.09894191247029983,
+          "lambda_goals": 0.09895077543524558,
           "anytime_pct": 3.2,
           "exp_shots": 0.5,
           "p_shots_2plus": 1.8,
@@ -524,7 +524,7 @@
           "team": "Paris SG",
           "player": "Ousmane Demb\u00e9l\u00e9",
           "position": "FW",
-          "lambda_goals": 0.39311233363644293,
+          "lambda_goals": 0.39308827487923914,
           "anytime_pct": 17.2,
           "exp_shots": 1.16,
           "p_shots_2plus": 12.6,
@@ -539,7 +539,7 @@
           "team": "Paris SG",
           "player": "Maghnes Akliouche",
           "position": "FW",
-          "lambda_goals": 0.29508980986614053,
+          "lambda_goals": 0.29510611563923833,
           "anytime_pct": 13.7,
           "exp_shots": 1.45,
           "p_shots_2plus": 19.2,
@@ -554,7 +554,7 @@
           "team": "Paris SG",
           "player": "Khvicha Kvaratskhelia",
           "position": "FW",
-          "lambda_goals": 0.29381233629408365,
+          "lambda_goals": 0.293807402699794,
           "anytime_pct": 13.3,
           "exp_shots": 1.5,
           "p_shots_2plus": 20.9,
@@ -4157,7 +4157,7 @@
       "proj_points": 36.7,
       "title_pct": 0.0,
       "top4_pct": 0.3,
-      "relegation_pct": 20.1
+      "relegation_pct": 20.0
     },
     {
       "team": "Le Havre",
@@ -4178,7 +4178,7 @@
       "proj_points": 31.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 52.2
+      "relegation_pct": 52.3
     }
   ],
   "standings": [
@@ -4433,7 +4433,7 @@
   ],
   "thin_squads": [],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 32.4,
+  "roster_snapshot_age_hours": 0.0,
   "roster_unmatched_count": 169,
   "data_warnings": [
     "169 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
