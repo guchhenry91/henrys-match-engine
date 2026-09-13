@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
-  "updated": "2026-09-13T04:57:27.498141+00:00",
-  "results_updated": "2026-09-13T11:56:11.319182+00:00",
+  "updated": "2026-09-13T12:01:21.776371+00:00",
+  "results_updated": "2026-09-13T12:01:21.776376+00:00",
   "record": {
     "correct": 9,
     "wrong": 7,
     "total": 16,
     "void": 0,
-    "pending": 3,
+    "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 7,
-        "total": 11
-      },
       "3": {
         "correct": 2,
         "total": 3
+      },
+      "2": {
+        "correct": 7,
+        "total": 11
       },
       "1": {
         "correct": 0,
@@ -188,13 +188,13 @@
           }
         ],
         "confidence": 1,
-        "provisional": true,
+        "provisional": false,
         "p_pick": 0.3822,
         "why": {
           "home_attack_pct": -22.8,
           "home_defence_pct": -12.3,
           "away_attack_pct": -19.4,
-          "away_defence_pct": -18.1,
+          "away_defence_pct": -18.0,
           "home_advantage_pct": 7.4
         },
         "best_pick": false,
@@ -212,7 +212,7 @@
           "team": "Lecce",
           "player": "Nikola Stulic",
           "position": "FW",
-          "lambda_goals": 0.3424596504913887,
+          "lambda_goals": 0.3424209145463617,
           "anytime_pct": 16.3,
           "exp_shots": 1.26,
           "p_shots_2plus": 14.3,
@@ -227,7 +227,7 @@
           "team": "Lecce",
           "player": "Santiago Pierotti",
           "position": "FW",
-          "lambda_goals": 0.23105684730795648,
+          "lambda_goals": 0.23102111275321047,
           "anytime_pct": 10.3,
           "exp_shots": 1.44,
           "p_shots_2plus": 18.9,
@@ -242,7 +242,7 @@
           "team": "Lecce",
           "player": "Tiago Gabriel",
           "position": "DF",
-          "lambda_goals": 0.12612360660525157,
+          "lambda_goals": 0.12610410070885633,
           "anytime_pct": 4.6,
           "exp_shots": 0.63,
           "p_shots_2plus": 2.1,
@@ -333,7 +333,7 @@
           "team": "Napoli",
           "player": "Rasmus H\u00f8jlund",
           "position": "FW",
-          "lambda_goals": 0.3128584109386806,
+          "lambda_goals": 0.31283531151384236,
           "anytime_pct": 14.6,
           "exp_shots": 1.41,
           "p_shots_2plus": 18.3,
@@ -348,7 +348,7 @@
           "team": "Napoli",
           "player": "Scott McTominay",
           "position": "MF",
-          "lambda_goals": 0.2329001715690587,
+          "lambda_goals": 0.23288297573918848,
           "anytime_pct": 10.2,
           "exp_shots": 1.73,
           "p_shots_2plus": 27.1,
@@ -363,7 +363,7 @@
           "team": "Napoli",
           "player": "Giovane",
           "position": "FW",
-          "lambda_goals": 0.12425245105922593,
+          "lambda_goals": 0.12424327706852005,
           "anytime_pct": 4.5,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.1,
@@ -378,7 +378,7 @@
           "team": "Bologna",
           "player": "Roberto Piccoli",
           "position": "FW",
-          "lambda_goals": 0.17729096896592147,
+          "lambda_goals": 0.17725857711268322,
           "anytime_pct": 7.2,
           "exp_shots": 0.93,
           "p_shots_2plus": 7.0,
@@ -393,7 +393,7 @@
           "team": "Bologna",
           "player": "Jens Odgaard",
           "position": "FW",
-          "lambda_goals": 0.13681219316393442,
+          "lambda_goals": 0.13678719696413916,
           "anytime_pct": 5.0,
           "exp_shots": 0.66,
           "p_shots_2plus": 3.2,
@@ -408,7 +408,7 @@
           "team": "Bologna",
           "player": "Nicol\u00f2 Cambiaghi",
           "position": "FW",
-          "lambda_goals": 0.1011110219958213,
+          "lambda_goals": 0.10109254855972716,
           "anytime_pct": 3.4,
           "exp_shots": 0.65,
           "p_shots_2plus": 2.9,
@@ -499,7 +499,7 @@
           "team": "Sassuolo",
           "player": "Domenico Berardi",
           "position": "FW",
-          "lambda_goals": 0.19405479787309074,
+          "lambda_goals": 0.1940483640551333,
           "anytime_pct": 7.7,
           "exp_shots": 1.4,
           "p_shots_2plus": 17.8,
@@ -514,7 +514,7 @@
           "team": "Sassuolo",
           "player": "Sebastiano Esposito",
           "position": "FW",
-          "lambda_goals": 0.14459739988307904,
+          "lambda_goals": 0.14458984167024078,
           "anytime_pct": 5.6,
           "exp_shots": 1.51,
           "p_shots_2plus": 21.0,
@@ -529,7 +529,7 @@
           "team": "Sassuolo",
           "player": "Armand Lauriente",
           "position": "FW",
-          "lambda_goals": 0.13220461586929177,
+          "lambda_goals": 0.13219770543642262,
           "anytime_pct": 5.0,
           "exp_shots": 1.69,
           "p_shots_2plus": 26.3,
@@ -544,7 +544,7 @@
           "team": "Juventus",
           "player": "Kenan Yildiz",
           "position": "FW",
-          "lambda_goals": 0.34615603666265266,
+          "lambda_goals": 0.3460959366649725,
           "anytime_pct": 16.8,
           "exp_shots": 2.26,
           "p_shots_2plus": 42.8,
@@ -559,7 +559,7 @@
           "team": "Juventus",
           "player": "Francisco Concei\u00e7\u00e3o",
           "position": "DF",
-          "lambda_goals": 0.17777402235029105,
+          "lambda_goals": 0.17774315702598859,
           "anytime_pct": 7.1,
           "exp_shots": 1.58,
           "p_shots_2plus": 22.8,
@@ -574,7 +574,7 @@
           "team": "Juventus",
           "player": "Weston McKennie",
           "position": "DF",
-          "lambda_goals": 0.1636937430853216,
+          "lambda_goals": 0.1636653223948303,
           "anytime_pct": 6.5,
           "exp_shots": 0.86,
           "p_shots_2plus": 5.2,
@@ -645,7 +645,7 @@
         "p_pick": 0.6405,
         "why": {
           "home_attack_pct": 32.7,
-          "home_defence_pct": 28.8,
+          "home_defence_pct": 28.7,
           "away_attack_pct": -22.6,
           "away_defence_pct": -9.2,
           "home_advantage_pct": 7.4
@@ -665,7 +665,7 @@
           "team": "Como",
           "player": "Tasos Douvikas",
           "position": "FW",
-          "lambda_goals": 0.36978941453515884,
+          "lambda_goals": 0.3697590265496618,
           "anytime_pct": 18.4,
           "exp_shots": 2.04,
           "p_shots_2plus": 37.1,
@@ -680,7 +680,7 @@
           "team": "Como",
           "player": "Assane Diao",
           "position": "FW",
-          "lambda_goals": 0.30677605945284825,
+          "lambda_goals": 0.3067508496818838,
           "anytime_pct": 14.8,
           "exp_shots": 2.29,
           "p_shots_2plus": 45.2,
@@ -695,7 +695,7 @@
           "team": "Como",
           "player": "Nico Paz",
           "position": "FW",
-          "lambda_goals": 0.29067770149016187,
+          "lambda_goals": 0.29065381462528683,
           "anytime_pct": 13.5,
           "exp_shots": 3.7,
           "p_shots_2plus": 68.6,
@@ -710,7 +710,7 @@
           "team": "Parma",
           "player": "Giovanni Fabbian",
           "position": "MF",
-          "lambda_goals": 0.11316790397948262,
+          "lambda_goals": 0.11315699882281552,
           "anytime_pct": 3.9,
           "exp_shots": 0.39,
           "p_shots_2plus": 0.6,
@@ -725,7 +725,7 @@
           "team": "Parma",
           "player": "Adri\u00e1n Bernab\u00e9",
           "position": "DF",
-          "lambda_goals": 0.09652438168327476,
+          "lambda_goals": 0.09651508034016035,
           "anytime_pct": 3.2,
           "exp_shots": 0.76,
           "p_shots_2plus": 4.1,
@@ -740,7 +740,7 @@
           "team": "Parma",
           "player": "Enrico Del Prato",
           "position": "DF",
-          "lambda_goals": 0.09669205674868378,
+          "lambda_goals": 0.09668273924795937,
           "anytime_pct": 3.2,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.1,
@@ -780,7 +780,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 0.023847491666666668,
+          "news_checked_hours_ago": 0.030144615555555556,
           "unavailable": false,
           "team_attribution": "Como"
         },
@@ -811,7 +811,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.511,
-          "news_checked_hours_ago": 0.023847519166666664,
+          "news_checked_hours_ago": 0.030144650555555555,
           "unavailable": false,
           "team_attribution": "Como"
         }
@@ -844,7 +844,7 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.222,
-        "p_draw": 0.246,
+        "p_draw": 0.247,
         "p_away": 0.532,
         "pick": "Roma",
         "pick_type": "away",
@@ -894,7 +894,7 @@
           "team": "Torino",
           "player": "Giovanni Simeone",
           "position": "FW",
-          "lambda_goals": 0.22373706968125756,
+          "lambda_goals": 0.22372947391977221,
           "anytime_pct": 9.6,
           "exp_shots": 1.84,
           "p_shots_2plus": 29.9,
@@ -909,7 +909,7 @@
           "team": "Torino",
           "player": "Nikola Vlasic",
           "position": "FW",
-          "lambda_goals": 0.1973563564692195,
+          "lambda_goals": 0.19735304724403363,
           "anytime_pct": 8.4,
           "exp_shots": 1.3,
           "p_shots_2plus": 14.9,
@@ -924,7 +924,7 @@
           "team": "Torino",
           "player": "Che Adams",
           "position": "FW",
-          "lambda_goals": 0.1366759750301538,
+          "lambda_goals": 0.13667133494923833,
           "anytime_pct": 5.1,
           "exp_shots": 1.21,
           "p_shots_2plus": 13.2,
@@ -939,7 +939,7 @@
           "team": "Roma",
           "player": "Donyell Malen",
           "position": "FW",
-          "lambda_goals": 0.36194150327184765,
+          "lambda_goals": 0.3618883976539529,
           "anytime_pct": 13.9,
           "exp_shots": 1.61,
           "p_shots_2plus": 17.1,
@@ -954,7 +954,7 @@
           "team": "Roma",
           "player": "Santiago Castro",
           "position": "FW",
-          "lambda_goals": 0.2909529902393598,
+          "lambda_goals": 0.2909103003621688,
           "anytime_pct": 13.5,
           "exp_shots": 1.65,
           "p_shots_2plus": 25.1,
@@ -969,7 +969,7 @@
           "team": "Roma",
           "player": "Paulo Dybala",
           "position": "FW",
-          "lambda_goals": 0.213722549444355,
+          "lambda_goals": 0.2137000613019845,
           "anytime_pct": 8.4,
           "exp_shots": 1.19,
           "p_shots_2plus": 13.0,
@@ -1040,7 +1040,7 @@
         "p_pick": 0.676,
         "why": {
           "home_attack_pct": 67.1,
-          "home_defence_pct": 35.1,
+          "home_defence_pct": 35.0,
           "away_attack_pct": -2.5,
           "away_defence_pct": -4.0,
           "home_advantage_pct": 7.4
@@ -1060,7 +1060,7 @@
           "team": "Inter",
           "player": "Lautaro Mart\u00ednez",
           "position": "FW",
-          "lambda_goals": 0.4793555049786307,
+          "lambda_goals": 0.4792751016830334,
           "anytime_pct": 22.8,
           "exp_shots": 2.73,
           "p_shots_2plus": 46.0,
@@ -1075,7 +1075,7 @@
           "team": "Inter",
           "player": "Marcus Thuram",
           "position": "FW",
-          "lambda_goals": 0.3558856458855241,
+          "lambda_goals": 0.35582595244612936,
           "anytime_pct": 16.3,
           "exp_shots": 1.84,
           "p_shots_2plus": 28.6,
@@ -1090,7 +1090,7 @@
           "team": "Inter",
           "player": "Francesco Pio Esposito",
           "position": "FW",
-          "lambda_goals": 0.25479031617126946,
+          "lambda_goals": 0.2547475796617401,
           "anytime_pct": 11.5,
           "exp_shots": 1.58,
           "p_shots_2plus": 22.9,
@@ -1105,7 +1105,7 @@
           "team": "Udinese",
           "player": "Keinan Davis",
           "position": "FW",
-          "lambda_goals": 0.22977338745492457,
+          "lambda_goals": 0.2297496925227622,
           "anytime_pct": 9.8,
           "exp_shots": 0.99,
           "p_shots_2plus": 8.5,
@@ -1120,7 +1120,7 @@
           "team": "Udinese",
           "player": "Nicolo Zaniolo",
           "position": "FW",
-          "lambda_goals": 0.13795449143949995,
+          "lambda_goals": 0.1379324481699808,
           "anytime_pct": 5.2,
           "exp_shots": 1.31,
           "p_shots_2plus": 15.7,
@@ -1135,7 +1135,7 @@
           "team": "Udinese",
           "player": "Jurgen Ekkelenkamp",
           "position": "FW",
-          "lambda_goals": 0.11789552185398902,
+          "lambda_goals": 0.11787668373762025,
           "anytime_pct": 4.2,
           "exp_shots": 0.68,
           "p_shots_2plus": 3.0,
@@ -1160,7 +1160,7 @@
         "book": "bet365",
         "edge": -0.078,
         "pick_odds": 1.27,
-        "ev": -0.141
+        "ev": -0.142
       },
       "result": null,
       "graded": null,
@@ -1651,7 +1651,7 @@
       "home": "Lecce",
       "away": "Monza",
       "result": null,
-      "pick": null,
+      "pick": "Lecce",
       "graded": null,
       "void": false
     },
@@ -1662,7 +1662,7 @@
       "home": "Napoli",
       "away": "Bologna",
       "result": null,
-      "pick": null,
+      "pick": "Napoli",
       "graded": null,
       "void": false
     },
@@ -1673,7 +1673,7 @@
       "home": "Sassuolo",
       "away": "Juventus",
       "result": null,
-      "pick": null,
+      "pick": "Juventus",
       "graded": null,
       "void": false
     },
@@ -5456,14 +5456,14 @@
       "team": "Inter",
       "proj_points": 79.8,
       "title_pct": 60.7,
-      "top4_pct": 95.7,
+      "top4_pct": 95.6,
       "relegation_pct": 0.0
     },
     {
       "team": "Juventus",
       "proj_points": 71.9,
       "title_pct": 15.4,
-      "top4_pct": 75.0,
+      "top4_pct": 75.1,
       "relegation_pct": 0.0
     },
     {
@@ -5477,7 +5477,7 @@
       "team": "Como",
       "proj_points": 68.5,
       "title_pct": 7.9,
-      "top4_pct": 59.4,
+      "top4_pct": 59.3,
       "relegation_pct": 0.0
     },
     {
@@ -5491,14 +5491,14 @@
       "team": "Napoli",
       "proj_points": 62.8,
       "title_pct": 1.6,
-      "top4_pct": 28.1,
+      "top4_pct": 28.2,
       "relegation_pct": 0.0
     },
     {
       "team": "Atalanta",
       "proj_points": 62.8,
       "title_pct": 1.7,
-      "top4_pct": 29.0,
+      "top4_pct": 28.9,
       "relegation_pct": 0.0
     },
     {
@@ -5512,7 +5512,7 @@
       "team": "Bologna",
       "proj_points": 50.0,
       "title_pct": 0.0,
-      "top4_pct": 1.4,
+      "top4_pct": 1.5,
       "relegation_pct": 2.7
     },
     {
@@ -5527,14 +5527,14 @@
       "proj_points": 48.1,
       "title_pct": 0.0,
       "top4_pct": 0.8,
-      "relegation_pct": 4.3
+      "relegation_pct": 4.4
     },
     {
       "team": "Fiorentina",
       "proj_points": 47.1,
       "title_pct": 0.0,
       "top4_pct": 0.5,
-      "relegation_pct": 6.3
+      "relegation_pct": 6.2
     },
     {
       "team": "Udinese",
@@ -5562,14 +5562,14 @@
       "proj_points": 41.9,
       "title_pct": 0.0,
       "top4_pct": 0.1,
-      "relegation_pct": 19.2
+      "relegation_pct": 19.1
     },
     {
       "team": "Lecce",
       "proj_points": 35.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 48.9
+      "relegation_pct": 49.0
     },
     {
       "team": "Parma",
@@ -5583,7 +5583,7 @@
       "proj_points": 33.3,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 64.8
+      "relegation_pct": 64.9
     },
     {
       "team": "Venezia",
@@ -6017,7 +6017,7 @@
     "Venezia"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 0.0,
+  "roster_snapshot_age_hours": 7.1,
   "roster_unmatched_count": 165,
   "data_warnings": [
     "165 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
