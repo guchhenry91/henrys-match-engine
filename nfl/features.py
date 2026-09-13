@@ -178,6 +178,43 @@ def team_form(games: pd.DataFrame) -> pd.DataFrame:
     return rows[["season", "week", "team", "team_scored5", "team_allowed5"]]
 
 
+def at_line(frame: pd.DataFrame, line) -> pd.DataFrame:
+    """The same rows, re-asked against a different line.
+
+    Every model input is expressed relative to the line (see
+    model.frame_features), so moving the line is all it takes to ask "will he beat
+    THIS number" -- a bookmaker's 50.5 rather than his own career median.
+    """
+    out = frame.copy()
+    out["line"] = line
+    return out
+
+
+def augment_lines(frame: pd.DataFrame, market: str) -> pd.DataFrame:
+    """Each game asked against a SPREAD of lines, for training and scoring.
+
+    WHY. A model fitted only at the player's own median has only ever seen one
+    question -- "better than his typical day?" -- and its probabilities are only
+    calibrated there. A bookmaker's line sits wherever the book thinks it should,
+    often well above a career median dragged down by backup seasons. Training on
+    lines from 0.75x to 2x the median teaches the same line-relative features
+    what beating a HIGHER or LOWER number looks like, so the model can be asked
+    about the book's line and mean it. The outcome is re-settled at each line;
+    nothing about the game itself changes.
+    """
+    if market == "anytime_touchdown" or frame.empty:
+        return frame
+    parts = []
+    for mult in config.LINE_MULTIPLIERS:
+        part = frame.copy()
+        part["line"] = (part["median"] * mult * 2).round() / 2 + 0.5
+        part["outcome"] = (part[MARKET_STAT[market]] > part["line"]).astype(float)
+        part["line_mult"] = mult
+        parts.append(part)
+    out = pd.concat(parts, ignore_index=True)
+    return out[out["line"] >= config.MIN_LINE[market]].reset_index(drop=True)
+
+
 def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -> pd.DataFrame:
     """Per-player-game rows with pre-game features and the settled outcome."""
     stat = MARKET_STAT[market]

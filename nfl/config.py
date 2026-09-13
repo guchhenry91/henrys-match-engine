@@ -69,6 +69,14 @@ MIN_OPPORTUNITY = {
 # uninformative, and not a bet any sportsbook offers. The backtest applies the
 # same floor, because a gate that validates lines the board will never publish is
 # measuring a different product from the one on screen.
+# THE SPREAD OF LINES THE MODEL IS TRAINED AND SCORED ON, as multiples of the
+# player's own entering median. A bookmaker's line is often well above a career
+# median dragged down by backup seasons (Parker Washington: median 26, recent
+# games 71-145), so a model that has only ever been asked about the median is
+# being asked something new when it meets the book's number. Training across this
+# spread is what lets it answer at the book's line honestly.
+LINE_MULTIPLIERS = (0.75, 1.0, 1.25, 1.5, 2.0)
+
 MIN_LINE = {
     "receiving_yards": 15.0,
     "rushing_yards": 20.0,

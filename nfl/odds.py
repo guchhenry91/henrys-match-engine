@@ -128,6 +128,97 @@ def moneyline(book: dict, home: str, away: str) -> dict | None:
     return None
 
 
+import re
+
+# "Bucky Irving - Over 50.5" -- the shape bet365 sends through API-NFL, read from
+# the live response on 2026-09-13 (scripts/probe_nfl_props.py), not assumed.
+_PROP_VALUE = re.compile(r"^(.*?)\s*-\s*(Over|Under)\s+(\d+(?:\.\d+)?)\s*$", re.I)
+
+
+def player_props(book: dict) -> dict:
+    """{market: {book_player_name: quote}} for every prop the book prices.
+
+    Yards markets need BOTH sides at the same line, so the pair can be de-vigged
+    into the book's fair over probability; a one-sided quote is refused. Where a
+    player carries several lines (alternates), the one nearest an even price is
+    kept -- that is the book's main line. Anytime TD is one-sided ("Bucky Irving"
+    at 2.10), so its probability is the RAW implied one, margin included, and is
+    flagged as such rather than dressed up as fair.
+    """
+    out = {}
+    if not book:
+        return out
+    ids = {bid: m for m, bids in PLAYER_PROP_BETS.items() for bid in bids}
+    for bet in book.get("bets") or []:
+        try:
+            market = ids.get(int(bet.get("id")))
+        except (TypeError, ValueError):
+            market = None
+        if not market:
+            continue
+        quotes = out.setdefault(market, {})
+        if market == "anytime_touchdown":
+            for value in bet.get("values") or []:
+                name = str(value.get("value") or "").strip()
+                prob = decimal_to_prob(value.get("odd"))
+                if name and prob is not None and name not in quotes:
+                    quotes[name] = {"_name": name, "raw_yes": round(prob, 4),
+                                    "odd": float(value["odd"]), "book": book.get("name")}
+            continue
+        sides = {}
+        for value in bet.get("values") or []:
+            match = _PROP_VALUE.match(str(value.get("value") or ""))
+            prob = decimal_to_prob(value.get("odd"))
+            if not match or prob is None:
+                continue
+            name, side, line = match.group(1).strip(), match.group(2).lower(), float(match.group(3))
+            sides.setdefault((name, line), {})[side] = (prob, float(value["odd"]))
+        for (name, line), pair in sides.items():
+            if "over" not in pair or "under" not in pair:
+                continue
+            fair = devig({"over": pair["over"][0], "under": pair["under"][0]})
+            quote = {"_name": name, "line": line, "over": round(fair["over"], 4),
+                     "under": round(fair["under"], 4), "odd_over": pair["over"][1],
+                     "odd_under": pair["under"][1], "book": book.get("name")}
+            held = quotes.get(name)
+            if held is None or abs(quote["over"] - 0.5) < abs(held["over"] - 0.5):
+                quotes[name] = quote
+    return {m: q for m, q in out.items() if q}
+
+
+_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def norm_name(name: str) -> str:
+    """A player's name in a form both feeds agree on.
+
+    The book writes "Kenneth Walker III" and "Marvin Harrison Jr."; nflverse
+    writes "Kenneth Walker" and "Marvin Harrison". Punctuation goes ("D.J." ->
+    "dj"), suffixes go, case goes. Nothing else is loosened -- a fuzzy match
+    settles a bet against a stranger's yards.
+    """
+    import re
+    import unicodedata
+    text = unicodedata.normalize("NFKD", str(name or "")).encode("ascii", "ignore").decode()
+    words = re.sub(r"[^a-z0-9 ]", "", text.lower().replace("-", " ")).split()
+    return " ".join(w for w in words if w not in _SUFFIXES)
+
+
+def match_player(quotes: dict, player_name: str):
+    """The book's quote for this player within ONE game, or None.
+
+    `quotes` is that game's quotes, keyed by the book's player name (or carrying
+    it as `_name`). None when nothing matches AND when more than one does:
+    ambiguity is refused, never resolved by picking one.
+    """
+    want = norm_name(player_name)
+    if not want:
+        return None
+    hits = [q for key, q in (quotes or {}).items()
+            if norm_name(q.get("_name", key) if isinstance(q, dict) else key) == want]
+    return hits[0] if len(hits) == 1 else None
+
+
 def edge(model_prob: float, book_prob: float) -> float:
     """How much more likely the model thinks this is than the fair price implies."""
     return round(float(model_prob) - float(book_prob), 4)

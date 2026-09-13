@@ -18,9 +18,12 @@ def main():
                   "hand-edit."),
         "seasons": list(config.SEASONS),
         "burn_in_seasons": config.BURN_IN_SEASONS,
-        "line_definition": ("player's own entering MEDIAN for yardage markets, so "
-                            "'over' means a better day than his typical one. Not a "
-                            "sportsbook line -- no price is available here."),
+        "line_definition": ("trained and scored across a spread of lines, "
+                            f"{list(config.LINE_MULTIPLIERS)} x the player's own "
+                            "entering median, so the released model is measured at "
+                            "lines like a bookmaker's rather than only at his median. "
+                            "The board asks it about bet365's line where bet365 "
+                            "quotes one."),
         "markets": {},
     }
     for market in config.MARKETS:

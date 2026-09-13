@@ -1341,10 +1341,16 @@ function nflPropTableRow(p, full){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)}${p.depth_label?` · ${esc(p.depth_label)}`:""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}</div>
-    <div class="bs"><b class="sel">${esc(sel)}</b>${status}</div>
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${
+      p.line_source==="bet365"?`<span class="bsn">bet365 line</span>`
+      :p.line_source==="model"?`<span class="bsn">Model line — bet365 has none</span>`:""}</div>
     ${probCell(p.probability)}
-    ${td?valCell("5-game avg",avg):valCell("Line",p.line!=null?p.line:"—")}
-    ${valCell("Price","—","off")}</div>`;
+    ${td?valCell("5-game avg",avg):valCell(p.line_source==="bet365"?"bet365 line":"Model line",p.line!=null?p.line:"—")}
+    ${p.book_price!=null
+      ? valCell(`${p.book||"Book"} ${Number(p.book_price).toFixed(2)}`,
+          p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
+          p.edge==null?"off":p.edge>=0?"pos":"neg")
+      : valCell("Price","—","off")}</div>`;
 }
 
 function uclTableRow(m){
@@ -1807,7 +1813,9 @@ function viewNFL(){
     const more = picks.length - shown.length;
     h+=sectHead("Live board",`${full} · ${picks.length} pick${picks.length===1?"":"s"}`,
       (e.n?`${e.n.toLocaleString()} backtested predictions on games the model never saw. `:"")
-      +"No bookmaker prop price is served, so Price shows —.");
+      +(m==="receiving_yards"
+        ?"bet365 posts no receiving-yards line through this API, so these use the model's own line and have no price."
+        :"Lines and prices are bet365's where bet365 quotes the player; edge is against bet365's price."));
     h+=shown.length?btable(PCOLS,shown.map(p=>nflPropTableRow(p,full)).join("")+(more>0
         ?`<div class="bmore" onclick="setFilter('${m}')">Show all ${picks.length} ${esc(full.toLowerCase())} picks →</div>`:""))
       :`<div class="glass rowc">${emptyRow("No picks match these filters")}</div>`;

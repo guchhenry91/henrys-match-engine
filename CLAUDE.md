@@ -464,8 +464,32 @@ because the previous answer was reached with a broken query.
   Player Passing Yards **210/336**, Player Rushing Yards **236/328**, Player
   Receiving Yards **266**, Anytime scorer **47** (the catalogue calls it "Anytime
   Goal Scorer"). Recorded in `odds.PLAYER_PROP_BETS` so nothing is guessed later.
-- **No prices are served.** Asking for the week-1 opener's odds BY GAME ID returned
-  zero records from bet365 and from every book.
+- **UPDATED 2026-09-13: bet365 DOES price props**, read from the live response for
+  TB @ CIN and NO @ DET: rushing yards (id 328) and passing yards (id 336) as
+  `"Bucky Irving - Over 50.5"` / `"... - Under 50.5"` pairs, and anytime TD (id 47)
+  as the bare player name with one price. **No book quotes receiving yards**
+  through API-NFL (checked across bet365, Pinnacle, Betfair, BetVictor, Marathon,
+  1xBet, Betano). The earlier "no prices" finding was taken before books posted.
+- **The board uses bet365's LINE where bet365 quotes a player** (`odds.player_props`
+  -> `odds.json["props"]` -> `publish.player_projections(book_quotes=...)`). The
+  prop quotes ride in the same odds response as the moneyline, so they cost no
+  extra requests. Names are joined within the player's own game only
+  (`odds.match_player`); an ambiguous name is refused. A book line below the
+  trained `MIN_LINE` floor is dropped, not extrapolated. Unquoted players and all
+  of receiving yards fall back to the player's own median, and every card
+  publishes `line_source` ("bet365" / "model") so the two are never confused.
+  Yards edges are against bet365's DE-VIGGED over price; anytime TD is one-sided,
+  so its edge is against the RAW price and understated rather than flattered.
+- **Why the model can be asked about the book's line at all:** it is now trained
+  AND gated across a spread of lines (`config.LINE_MULTIPLIERS`, 0.75x-2x the
+  median; `features.augment_lines`). Measured before the change, the old
+  median-only model asked about a line at 2x the median said 27% where 12% landed
+  (ECE 0.14); spread training brought every line to ECE <= 0.03 and improved
+  Brier at every line. All four prop markets passed the re-run gate.
+- **A whole-number book line can PUSH**: `grade_prop` voids a result landing
+  exactly on the line (stake returned), like a tied moneyline.
+- **When the API subscription ends, the replacement must quote receiving
+  yards** -- it is the one market this feed cannot supply a book line for.
 - The earlier "no odds" finding filtered on a **`date` parameter the endpoint does
   not have** — the API was answering "The Date field do not exist." So the absence
   is only now properly established, by game id.

@@ -136,7 +136,7 @@ def main():
     ids = upcoming_ids(client, upcoming)
     print(f"matched {len(ids)} of {len(upcoming)} fixtures to API game ids")
 
-    priced, unpriced = {}, 0
+    priced, unpriced, prop_quotes = {}, 0, {}
     for (home, away), gid in ids.items():
         try:
             rows = client.get("odds", game=gid, bookmaker=BET365_ID) \
@@ -151,6 +151,12 @@ def main():
             unpriced += 1
             continue
         book = odds.pick_bookmaker(rows[0].get("bookmakers") or [])
+        # PLAYER PROPS ride in the same response as the moneyline -- no extra
+        # request. These are the bookmaker's own lines, which the board uses in
+        # place of the model's median wherever the book quotes a player.
+        quotes = odds.player_props(book)
+        if quotes:
+            prop_quotes[f"{home}|{away}"] = quotes
         line = odds.moneyline(book, home, away)
         if not line:
             # Recognised nothing usable. Counted, never coerced -- a silent zero
@@ -160,7 +166,7 @@ def main():
             continue
         priced[f"{home}|{away}"] = line
 
-    if not priced:
+    if not priced and not prop_quotes:
         print(f"no prices available yet ({unpriced} fixture(s) returned none). "
               f"Leaving the existing file untouched.")
         print(client.report())
@@ -174,7 +180,14 @@ def main():
         "preferred_books": list(odds.PREFERRED_BOOKS),
         "games": priced,
         "unpriced": unpriced,
+        # {"HOME|AWAY": {market: {book player name: quote}}}, from odds.player_props.
+        "props": prop_quotes,
     }
+    counts = {}
+    for game in prop_quotes.values():
+        for market, quotes in game.items():
+            counts[market] = counts.get(market, 0) + len(quotes)
+    print(f"player-prop lines captured: {counts or 'none'}")
     OUT.parent.mkdir(parents=True, exist_ok=True)
     tmp = OUT.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

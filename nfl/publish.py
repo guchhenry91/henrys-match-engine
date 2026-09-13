@@ -90,6 +90,19 @@ def book_prices() -> dict:
         return {}
 
 
+def book_props() -> dict:
+    """{"HOME|AWAY": {market: {player: quote}}} -- the bookmaker's prop lines.
+
+    Empty means the book quoted nothing, and the board then falls back to each
+    player's own line and says so on the card; it never invents a book line.
+    """
+    path = ROOT / "data-raw" / "nfl" / "odds.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("props") or {}
+    except Exception:
+        return {}
+
+
 def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
     """The next slate: the earliest unplayed week."""
     future = schedule[~schedule["played"]].copy()
@@ -103,15 +116,23 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
 
 def player_projections(player_weeks, games, market, upcoming, injuries=None,
                        roster_index=None, rosters_complete=False,
-                       depth_index=None, depth_trusted=False) -> list:
-    """Project every eligible player in the upcoming slate for one market."""
+                       depth_index=None, depth_trusted=False,
+                       book_quotes=None) -> list:
+    """Project every eligible player in the upcoming slate for one market.
+
+    `book_quotes` is {"HOME|AWAY": {player: quote}} for this market. Where the
+    bookmaker quotes a player, the model is asked about THE BOOK'S LINE; only
+    where it does not is the player's own median used, and the card says which.
+    """
     injuries = injuries or {}
     roster_index = roster_index or {}
     depth_index = depth_index or {}
     frame = features.build(player_weeks, market, games=games)
     if frame.empty:
         return []
-    model = PropModel(market).fit(frame)
+    # Fitted across a spread of lines, so it can be asked about the book's number
+    # and mean it -- see features.augment_lines and config.LINE_MULTIPLIERS.
+    model = PropModel(market).fit(features.augment_lines(frame, market))
 
     latest = frame.sort_values(["season", "week"]).groupby("player_id").tail(1).copy()
 
@@ -153,10 +174,39 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     if playing.empty:
         return []
 
-    rows, dropped_depth = [], []
-    for (_, player), prob in zip(playing.iterrows(), model.predict(playing)):
+    # THE BOOKMAKER'S LINE, WHERE IT QUOTES ONE. Joined by name within the
+    # player's own game only; an ambiguous name is refused, never guessed.
+    book_quotes = book_quotes or {}
+    quoted, found = playing.copy(), {}
+    for idx, player in playing.iterrows():
+        game = fixtures[player["team"]][0]
+        quote = odds_mod.match_player(
+            book_quotes.get(f"{game['home_team']}|{game['away_team']}") or {},
+            player["player_display_name"])
+        if quote is None:
+            continue
+        found[idx] = quote
+        if market != "anytime_touchdown" and quote.get("line") is not None:
+            quoted.at[idx, "line"] = float(quote["line"])
+
+    rows, dropped_depth, below_floor = [], [], []
+    for (idx, player), prob in zip(quoted.iterrows(), model.predict(quoted)):
         game, opponent, is_home = fixtures[player["team"]]
         name = player["player_display_name"]
+        quote = found.get(idx)
+        from_book = (quote is not None and market != "anytime_touchdown"
+                     and quote.get("line") is not None)
+        # A book line below the lines the model was trained on is outside what it
+        # has been measured on, so the pick is dropped rather than extrapolated.
+        if from_book and float(quote["line"]) < config.MIN_LINE[market]:
+            below_floor.append(f"{name} {quote['line']}")
+            continue
+        book_p = book_price = None
+        if quote is not None:
+            if market == "anytime_touchdown":
+                book_p, book_price = quote.get("raw_yes"), quote.get("odd")
+            elif from_book:
+                book_p, book_price = quote.get("over"), quote.get("odd_over")
 
         # RULED OUT MEANS OFF THE BOARD. His last five games look exactly as good
         # as anyone's right up until he is inactive, which is precisely why a
@@ -192,7 +242,18 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             "game_id": game["game_id"],
             "kickoff": pd.Timestamp(game["kickoff"]).isoformat(),
             "line": None if pd.isna(player["line"]) else float(player["line"]),
+            # Whose line this is. "bet365" is the bookmaker's own number; "model"
+            # is the player's median, used only where the book quotes nobody.
+            "line_source": ("bet365" if from_book else
+                            None if market == "anytime_touchdown" else "model"),
             "probability": round(float(prob), 4),
+            "book": (quote or {}).get("book") if book_p is not None else None,
+            "book_price": book_price,
+            # De-vigged for yards (both sides quoted); RAW for anytime TD, which
+            # is one-sided, so its edge is understated rather than flattered.
+            "book_p": book_p,
+            "book_p_fair": market != "anytime_touchdown",
+            "edge": (round(float(prob) - float(book_p), 4) if book_p is not None else None),
             # THE LAST FIVE, as asked: the individual games, not an average, and
             # the same five the projection was computed from. A board that shows
             # one form window while the model used another is explaining itself
@@ -219,6 +280,11 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     if dropped_depth:
         print(f"  {market}: depth chart removed {len(dropped_depth)} -> "
               f"{dropped_depth[:6]}")
+    if below_floor:
+        print(f"  {market}: book line below the trained floor, dropped "
+              f"{len(below_floor)} -> {below_floor[:6]}")
+    sourced = sum(1 for r in rows if r.get("line_source") == "bet365")
+    print(f"  {market}: {sourced} of {len(rows)} on the bookmaker's line")
     rows.sort(key=lambda r: -r["probability"])
     return rows
 
@@ -252,6 +318,7 @@ def build() -> dict:
     released = _released()
     injuries = availability()
     prices = book_prices()
+    quotes = book_props()
     roster = data.rosters()
     roster_index = rosters.build_index(roster)
 
@@ -331,7 +398,9 @@ def build() -> dict:
                                          roster_index=roster_index,
                                          rosters_complete=rosters_complete,
                                          depth_index=depth_index,
-                                         depth_trusted=depth_trusted)
+                                         depth_trusted=depth_trusted,
+                                         book_quotes={k: (v or {}).get(market) or {}
+                                                      for k, v in quotes.items()})
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:
@@ -401,7 +470,8 @@ def build() -> dict:
             # between "not reported" and "confirmed fit".
             "checked_at": _odds_checked_at(),
             "player_props": {
-                "available": False,
+                "available": bool(quotes),
+                "markets_quoted": sorted({m for g in quotes.values() for m in (g or {})}),
                 "bet_type_ids": odds_mod.PLAYER_PROP_BETS,
                 # Established 2026-08-30 by scripts/probe_nfl_odds.py: bet365 IS a
                 # visible bookmaker (id 4) and all four markets exist as bet types,
@@ -410,11 +480,16 @@ def build() -> dict:
                 # conclusion had been reached with a broken query -- it filtered on
                 # a `date` parameter the endpoint does not have -- so this is the
                 # first properly established answer.
-                "note": ("bet365 is visible and every market exists in the API's "
-                         "catalogue, but this account returns no pre-match NFL "
-                         "prices. Verified by game id, not by the date filter that "
-                         "silently errored before. The ids are recorded so prices "
-                         "are picked up automatically if they appear."),
+                # Established 2026-09-13 from the live response: bet365 quotes
+                # rushing yards, passing yards and anytime TD through API-NFL, and
+                # no book there quotes receiving yards.
+                "note": ("Rushing, passing and anytime-TD picks use bet365's own "
+                         "line and price where bet365 quotes the player. No book "
+                         "quotes receiving yards through API-NFL, so that market "
+                         "and any unquoted player use the model's own line."
+                         if quotes else
+                         "No bookmaker prop lines were captured on the last sync, "
+                         "so every prop uses the model's own line."),
             },
         },
         "injury_report": {
@@ -429,8 +504,9 @@ def build() -> dict:
             "Clubs are reconciled against the current API-NFL rosters where those "
             "are complete; where a roster came back thin the club falls back to "
             "the player's last appearance and the card says so.",
-            "Lines are each player's own entering median, not a sportsbook price. "
-            "'Over' means a better day than his typical one.",
+            "Where bet365 quotes a player, his line is bet365's and the edge is "
+            "against bet365's de-vigged price. Receiving yards, and anyone bet365 "
+            "does not quote, use the player's own median -- each card says which.",
         ],
         "markets": {
             "anytime_touchdown": "Anytime touchdown",

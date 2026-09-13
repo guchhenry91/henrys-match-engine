@@ -119,8 +119,13 @@ def grade_prop(entry: dict, actual=None) -> dict:
         raw = actual.get(stat) if isinstance(actual, dict) else actual[stat]
         value = 0.0 if raw is None or pd.isna(raw) else float(raw)
     line = entry.get("line")
-    # Mirrored from nfl/features.py. Lines are quoted on the half yard, so no
-    # result can land exactly on one and there is no push to handle.
+    # A BOOKMAKER'S WHOLE-NUMBER LINE CAN PUSH. The model's own lines are always
+    # on the half yard, but a bet365 line of 65 against 65 yards returns the stake
+    # -- neither a win nor a loss -- so it is void, the way a tied moneyline is.
+    if line is not None and value == float(line):
+        out.update(void=True, graded="void", actual=value, void_reason="push")
+        return out
+    # Otherwise mirrored from nfl/features.py: strictly greater.
     hit = value > 0 if line is None else value > float(line)
     out["void"] = False
     out["actual"] = value

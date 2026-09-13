@@ -192,7 +192,9 @@ def test_a_touchdown_prop_with_no_touchdown_grades_wrong():
 @pytest.mark.parametrize("actual,line,expected", [
     (46.0, 45.5, "correct"),
     (45.0, 45.5, "wrong"),
-    (45.5, 45.5, "wrong"),      # strictly greater, mirroring features.py
+    (65.0, 65.0, "void"),       # a whole-number book line pushes: stake returned
+    (66.0, 65.0, "correct"),
+    (64.0, 65.0, "wrong"),
 ])
 def test_a_yards_prop_grades_strictly_over_the_line(actual, line, expected):
     entry = {"market": "receiving_yards", "line": line, "tainted": False}

@@ -82,13 +82,19 @@ def ece_null(prob, bins=10, draws=400, seed=20260826):
 
 
 def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
-    """Predict each scored season from the seasons before it."""
+    """Predict each scored season from the seasons before it.
+
+    Trained AND scored across the spread of lines (features.augment_lines), not
+    only at each player's median: the board now asks the model about the
+    bookmaker's line, so the gate must measure it at lines like the book's.
+    """
+    from nfl import features
     seasons = sorted(frame["season"].unique())
     scored = seasons[config.BURN_IN_SEASONS:]
     rows = []
     for season in scored:
-        train = frame[frame["season"] < season]
-        test = frame[frame["season"] == season]
+        train = features.augment_lines(frame[frame["season"] < season], market)
+        test = features.augment_lines(frame[frame["season"] == season], market)
         if train.empty or test.empty:
             continue
         model = PropModel(market).fit(train)

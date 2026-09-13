@@ -37,5 +37,7 @@ def test_nfl_tiles_use_the_graders_strict_line():
     assert "x>p.line" in _body("nflPropTableRow")
 
 
-def test_nfl_prop_price_is_never_invented():
-    assert 'valCell("Price","—","off")' in _body("nflPropTableRow")
+def test_nfl_prop_price_is_shown_only_when_the_book_quotes_one():
+    body = _body("nflPropTableRow")
+    assert "p.book_price!=null" in body
+    assert 'valCell("Price","—","off")' in body     # the no-quote branch
