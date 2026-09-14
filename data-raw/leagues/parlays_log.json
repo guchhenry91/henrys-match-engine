@@ -1359,6 +1359,54 @@
     "locked_at": "2026-09-14T21:03:11.613625+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#35#shots#Deniz Undav|BUNDESLIGA#36#shots#Harry Kane|LALIGA#55#sot#Kylian Mbappe-Lottin|LALIGA#56#shots#Lamine Yamal|LALIGA#57#shots#Gorka Guruzeta|LIGUE1#44#shots#Lassine Sinayoko|PL#44#sot#Tyrique George|PL#48#sot#William Osula": {
+    "combined": 0.0159,
+    "earliest_kickoff": "2026-09-15T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#56#shots#Lamine Yamal",
+        "p": 0.825,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#36#shots#Harry Kane",
+        "p": 0.659,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#55#sot#Kylian Mbappe-Lottin",
+        "p": 0.604,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#35#shots#Deniz Undav",
+        "p": 0.59,
+        "selection": "Deniz Undav 2+ shot attempts"
+      },
+      {
+        "id": "PL#44#sot#Tyrique George",
+        "p": 0.565,
+        "selection": "Tyrique George 1+ shot on target"
+      },
+      {
+        "id": "LIGUE1#44#shots#Lassine Sinayoko",
+        "p": 0.545,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "PL#48#sot#William Osula",
+        "p": 0.519,
+        "selection": "William Osula 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#57#shots#Gorka Guruzeta",
+        "p": 0.513,
+        "selection": "Gorka Guruzeta 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#36#goal#Harry Kane|LALIGA#50#sot#Georges Mikautadze|SERIEA#32#shots#Nico Paz": {
     "combined": 0.1308,
     "earliest_kickoff": "2026-09-14T16:30:00+00:00",
@@ -1382,6 +1430,29 @@
     "locked_at": "2026-09-14T16:58:27.076748+00:00",
     "tainted": true
   },
+  "BUNDESLIGA#36#goal#Harry Kane|LALIGA#55#sot#Kylian Mbappe-Lottin|LALIGA#56#shots#Lamine Yamal": {
+    "combined": 0.1814,
+    "earliest_kickoff": "2026-09-15T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#56#shots#Lamine Yamal",
+        "p": 0.825,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#55#sot#Kylian Mbappe-Lottin",
+        "p": 0.604,
+        "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#36#goal#Harry Kane",
+        "p": 0.364,
+        "selection": "Harry Kane to score"
+      }
+    ],
+    "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#36#shots#Harry Kane|LALIGA#50#sot#Georges Mikautadze|SERIEA#32#shots#Nico Paz": {
     "combined": 0.2369,
     "earliest_kickoff": "2026-09-14T16:30:00+00:00",
@@ -1404,6 +1475,24 @@
     ],
     "locked_at": "2026-09-14T16:58:27.076748+00:00",
     "tainted": true
+  },
+  "BUNDESLIGA#36#shots#Harry Kane|LALIGA#56#shots#Lamine Yamal": {
+    "combined": 0.5437,
+    "earliest_kickoff": "2026-09-16T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#56#shots#Lamine Yamal",
+        "p": 0.825,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#36#shots#Harry Kane",
+        "p": 0.659,
+        "selection": "Harry Kane 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
   },
   "BUNDESLIGA#36#shots#Harry Kane|SERIEA#32#shots#Nico Paz": {
     "combined": 0.4521,
@@ -1529,6 +1618,52 @@
     ],
     "locked_at": "2026-09-14T16:58:27.076748+00:00",
     "tainted": true
+  },
+  "BUNDESLIGA#36#w|LALIGA#56#shots#Lamine Yamal|LIGUE1#44#shots#Lassine Sinayoko|PL#49#w": {
+    "combined": 0.2578,
+    "earliest_kickoff": "2026-09-16T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#49#w",
+        "p": 0.7405,
+        "selection": "Nottingham Forest to win"
+      },
+      {
+        "id": "LALIGA#56#shots#Lamine Yamal",
+        "p": 0.825,
+        "selection": "Lamine Yamal 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#36#w",
+        "p": 0.7742,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "LIGUE1#44#shots#Lassine Sinayoko",
+        "p": 0.545,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
+  },
+  "BUNDESLIGA#36#w|LALIGA#56#w": {
+    "combined": 0.6175,
+    "earliest_kickoff": "2026-09-16T19:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#56#w",
+        "p": 0.7976,
+        "selection": "Barcelona to win"
+      },
+      {
+        "id": "BUNDESLIGA#36#w",
+        "p": 0.7742,
+        "selection": "Bayern Munich to win"
+      }
+    ],
+    "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
   },
   "BUNDESLIGA#36#w|SERIEA#34#w": {
     "combined": 0.5259,
