@@ -1242,6 +1242,39 @@
     "locked_at": "2026-09-12T17:20:10.841278+00:00",
     "tainted": false
   },
+  "BUNDESLIGA#35#shots#Deniz Undav|BUNDESLIGA#36#shots#Harry Kane|LALIGA#50#sot#Georges Mikautadze|LIGUE1#44#shots#Lassine Sinayoko|SERIEA#32#shots#Nico Paz": {
+    "combined": 0.0762,
+    "earliest_kickoff": "2026-09-14T16:30:00+00:00",
+    "legs": [
+      {
+        "id": "SERIEA#32#shots#Nico Paz",
+        "p": 0.686,
+        "selection": "Nico Paz 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#36#shots#Harry Kane",
+        "p": 0.659,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#35#shots#Deniz Undav",
+        "p": 0.59,
+        "selection": "Deniz Undav 2+ shot attempts"
+      },
+      {
+        "id": "LIGUE1#44#shots#Lassine Sinayoko",
+        "p": 0.545,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#50#sot#Georges Mikautadze",
+        "p": 0.524,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-14T19:51:21.809882+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#36#goal#Harry Kane|LALIGA#50#sot#Georges Mikautadze|SERIEA#32#shots#Nico Paz": {
     "combined": 0.1308,
     "earliest_kickoff": "2026-09-14T16:30:00+00:00",
@@ -1304,6 +1337,34 @@
       }
     ],
     "locked_at": "2026-09-14T16:58:27.076748+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#36#w|LALIGA#50#sot#Georges Mikautadze|LIGUE1#44#shots#Lassine Sinayoko|SERIEA#32#shots#Nico Paz": {
+    "combined": 0.1517,
+    "earliest_kickoff": "2026-09-14T16:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#50#sot#Georges Mikautadze",
+        "p": 0.524,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#36#w",
+        "p": 0.7745,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "LIGUE1#44#shots#Lassine Sinayoko",
+        "p": 0.545,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "SERIEA#32#shots#Nico Paz",
+        "p": 0.686,
+        "selection": "Nico Paz 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-14T19:51:21.809882+00:00",
     "tainted": true
   },
   "BUNDESLIGA#36#w|LALIGA#50#sot#Georges Mikautadze|SERIEA#32#shots#Nico Paz": {
