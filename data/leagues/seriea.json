@@ -1,29 +1,29 @@
 {
   "league": "Serie A",
   "updated": "2026-09-14T19:56:40.593527+00:00",
-  "results_updated": "2026-09-14T19:56:40.593533+00:00",
+  "results_updated": "2026-09-14T20:58:00.188004+00:00",
   "record": {
-    "correct": 13,
+    "correct": 14,
     "wrong": 8,
-    "total": 21,
+    "total": 22,
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "3": {
-        "correct": 3,
-        "total": 5
-      },
       "2": {
         "correct": 8,
         "total": 12
+      },
+      "3": {
+        "correct": 3,
+        "total": 5
       },
       "1": {
         "correct": 1,
         "total": 3
       },
       "4": {
-        "correct": 1,
-        "total": 1
+        "correct": 2,
+        "total": 2
       }
     }
   },
@@ -155,174 +155,7 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [
-    {
-      "id": 34,
-      "matchweek": 4,
-      "date": "2026-09-14T18:45:00+00:00",
-      "venue": "Giuseppe Meazza",
-      "home": "Inter",
-      "away": "Udinese",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.678,
-        "p_draw": 0.189,
-        "p_away": 0.133,
-        "pick": "Inter",
-        "pick_type": "home",
-        "score": "2-0",
-        "top_scores": [
-          {
-            "score": "2-0",
-            "pct": 11.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 11.0,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 4,
-        "provisional": false,
-        "p_pick": 0.6793,
-        "why": {
-          "home_attack_pct": 66.7,
-          "home_defence_pct": 35.2,
-          "away_attack_pct": -2.7,
-          "away_defence_pct": -3.8,
-          "home_advantage_pct": 7.8
-        },
-        "best_pick": true,
-        "reasons": [
-          "Model: Inter 68% / draw 19% / Udinese 13%",
-          "Expected goals: 2.15 - 0.83"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Inter",
-          "player": "Lautaro Mart\u00ednez",
-          "position": "FW",
-          "lambda_goals": 0.48177805931580814,
-          "anytime_pct": 22.9,
-          "exp_shots": 2.73,
-          "p_shots_2plus": 46.0,
-          "exp_sot": 1.09,
-          "p_sot_1plus": 47.7,
-          "appearance_pct": 77.5,
-          "expected_minutes": 57.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Marcus Thuram",
-          "position": "FW",
-          "lambda_goals": 0.35768715461017087,
-          "anytime_pct": 16.4,
-          "exp_shots": 1.84,
-          "p_shots_2plus": 28.6,
-          "exp_sot": 0.72,
-          "p_sot_1plus": 34.7,
-          "appearance_pct": 75.0,
-          "expected_minutes": 50.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Francesco Pio Esposito",
-          "position": "FW",
-          "lambda_goals": 0.25608096382831375,
-          "anytime_pct": 11.6,
-          "exp_shots": 1.58,
-          "p_shots_2plus": 22.9,
-          "exp_sot": 0.62,
-          "p_sot_1plus": 33.2,
-          "appearance_pct": 90.0,
-          "expected_minutes": 39.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Udinese",
-          "player": "Keinan Davis",
-          "position": "FW",
-          "lambda_goals": 0.22997247645360028,
-          "anytime_pct": 9.8,
-          "exp_shots": 0.99,
-          "p_shots_2plus": 8.5,
-          "exp_sot": 0.45,
-          "p_sot_1plus": 22.6,
-          "appearance_pct": 77.5,
-          "expected_minutes": 54.4,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Udinese",
-          "player": "Nicolo Zaniolo",
-          "position": "FW",
-          "lambda_goals": 0.138143554172631,
-          "anytime_pct": 5.2,
-          "exp_shots": 1.31,
-          "p_shots_2plus": 15.7,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 21.1,
-          "appearance_pct": 82.5,
-          "expected_minutes": 59.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Udinese",
-          "player": "Jurgen Ekkelenkamp",
-          "position": "FW",
-          "lambda_goals": 0.1180616445451452,
-          "anytime_pct": 4.2,
-          "exp_shots": 0.68,
-          "p_shots_2plus": 3.0,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.4,
-          "appearance_pct": 80.0,
-          "expected_minutes": 57.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.754,
-        "p_draw": 0.161,
-        "p_away": 0.085,
-        "odds": {
-          "home": 1.27,
-          "draw": 5.75,
-          "away": 12.0
-        },
-        "book": "bet365",
-        "edge": -0.076,
-        "pick_odds": 1.27,
-        "ev": -0.139
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    }
-  ],
+  "matches": [],
   "season": [
     {
       "id": 5,
@@ -4777,6 +4610,17 @@
       "points": 12
     },
     {
+      "team": "Inter",
+      "played": 4,
+      "won": 4,
+      "drawn": 0,
+      "lost": 0,
+      "gf": 13,
+      "ga": 6,
+      "gd": 7,
+      "points": 12
+    },
+    {
       "team": "Como",
       "played": 4,
       "won": 3,
@@ -4797,17 +4641,6 @@
       "ga": 3,
       "gd": 3,
       "points": 10
-    },
-    {
-      "team": "Inter",
-      "played": 3,
-      "won": 3,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 8,
-      "ga": 3,
-      "gd": 5,
-      "points": 9
     },
     {
       "team": "Cagliari",
@@ -4899,13 +4732,13 @@
     },
     {
       "team": "Udinese",
-      "played": 3,
+      "played": 4,
       "won": 1,
       "drawn": 1,
-      "lost": 1,
-      "gf": 5,
-      "ga": 5,
-      "gd": 0,
+      "lost": 2,
+      "gf": 8,
+      "ga": 10,
+      "gd": -2,
       "points": 4
     },
     {
