@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-14T17:04:59.318002+00:00",
+  "updated": "2026-09-14T19:57:01.946190+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Banker",
           "note": "Two safest calls, two leagues",
           "feat": false,
-          "combined": 0.5261,
+          "combined": 0.5259,
           "legs": [
             {
               "selection": "Bayern Munich to win",
@@ -18,7 +18,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.7745,
+              "p": 0.7742,
               "id": "BUNDESLIGA#36#w",
               "date": "2026-09-18T18:30:00+00:00"
             },
@@ -37,10 +37,10 @@
           "locked_at": "2026-09-14T16:58:27.076748+00:00"
         },
         {
-          "tier": "Balanced treble",
+          "tier": "Balanced four-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.2784,
+          "combined": 0.1502,
           "legs": [
             {
               "selection": "Georges Mikautadze 1+ shot on target",
@@ -58,39 +58,49 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.7745,
+              "p": 0.7742,
               "id": "BUNDESLIGA#36#w",
               "date": "2026-09-18T18:30:00+00:00"
             },
             {
-              "selection": "Nico Paz 2+ shot attempts",
-              "match": "Como v Parma",
+              "selection": "Lassine Sinayoko 2+ shot attempts",
+              "match": "Paris FC v Strasbourg",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "a",
+              "p": 0.545,
+              "id": "LIGUE1#44#shots#Lassine Sinayoko",
+              "date": "2026-09-19T15:15:00+00:00"
+            },
+            {
+              "selection": "Inter to win",
+              "match": "Inter v Udinese",
               "league": "Serie A",
               "league_key": "SERIEA",
-              "tag": "a",
-              "p": 0.686,
-              "id": "SERIEA#32#shots#Nico Paz",
-              "date": "2026-09-14T16:30:00+00:00"
+              "tag": "w",
+              "p": 0.6793,
+              "id": "SERIEA#34#w",
+              "date": "2026-09-14T18:45:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-14T16:58:27.076748+00:00"
+          "locked_at": "2026-09-14T19:57:01.946190+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1308,
+          "combined": 0.2037,
           "legs": [
             {
-              "selection": "Nico Paz 2+ shot attempts",
-              "match": "Como v Parma",
-              "league": "Serie A",
-              "league_key": "SERIEA",
+              "selection": "Harry Kane 2+ shot attempts",
+              "match": "Bayern Munich v Union Berlin",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
               "tag": "a",
-              "p": 0.686,
-              "id": "SERIEA#32#shots#Nico Paz",
-              "date": "2026-09-14T16:30:00+00:00"
+              "p": 0.659,
+              "id": "BUNDESLIGA#36#shots#Harry Kane",
+              "date": "2026-09-18T18:30:00+00:00"
             },
             {
               "selection": "Georges Mikautadze 1+ shot on target",
@@ -103,18 +113,18 @@
               "date": "2026-09-14T19:00:00+00:00"
             },
             {
-              "selection": "Harry Kane to score",
-              "match": "Bayern Munich v Union Berlin",
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v Dortmund",
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
-              "tag": "g",
-              "p": 0.364,
-              "id": "BUNDESLIGA#36#goal#Harry Kane",
-              "date": "2026-09-18T18:30:00+00:00"
+              "tag": "a",
+              "p": 0.59,
+              "id": "BUNDESLIGA#35#shots#Deniz Undav",
+              "date": "2026-09-19T16:30:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-14T16:58:27.076748+00:00"
+          "locked_at": "2026-09-14T19:57:01.946190+00:00"
         }
       ]
     },
@@ -126,18 +136,8 @@
           "tier": "Shots double",
           "note": "The two safest shot-volume calls",
           "feat": false,
-          "combined": 0.4521,
+          "combined": 0.3888,
           "legs": [
-            {
-              "selection": "Nico Paz 2+ shot attempts",
-              "match": "Como v Parma",
-              "league": "Serie A",
-              "league_key": "SERIEA",
-              "tag": "a",
-              "p": 0.686,
-              "id": "SERIEA#32#shots#Nico Paz",
-              "date": "2026-09-14T16:30:00+00:00"
-            },
             {
               "selection": "Harry Kane 2+ shot attempts",
               "match": "Bayern Munich v Union Berlin",
@@ -147,27 +147,26 @@
               "p": 0.659,
               "id": "BUNDESLIGA#36#shots#Harry Kane",
               "date": "2026-09-18T18:30:00+00:00"
+            },
+            {
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v Dortmund",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.59,
+              "id": "BUNDESLIGA#35#shots#Deniz Undav",
+              "date": "2026-09-19T16:30:00+00:00"
             }
           ],
-          "provisional": false,
-          "locked_at": "2026-09-14T16:58:27.076748+00:00"
+          "provisional": true
         },
         {
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.2369,
+          "combined": 0.111,
           "legs": [
-            {
-              "selection": "Nico Paz 2+ shot attempts",
-              "match": "Como v Parma",
-              "league": "Serie A",
-              "league_key": "SERIEA",
-              "tag": "a",
-              "p": 0.686,
-              "id": "SERIEA#32#shots#Nico Paz",
-              "date": "2026-09-14T16:30:00+00:00"
-            },
             {
               "selection": "Harry Kane 2+ shot attempts",
               "match": "Bayern Munich v Union Berlin",
@@ -177,6 +176,26 @@
               "p": 0.659,
               "id": "BUNDESLIGA#36#shots#Harry Kane",
               "date": "2026-09-18T18:30:00+00:00"
+            },
+            {
+              "selection": "Deniz Undav 2+ shot attempts",
+              "match": "Stuttgart v Dortmund",
+              "league": "Bundesliga",
+              "league_key": "BUNDESLIGA",
+              "tag": "a",
+              "p": 0.59,
+              "id": "BUNDESLIGA#35#shots#Deniz Undav",
+              "date": "2026-09-19T16:30:00+00:00"
+            },
+            {
+              "selection": "Lassine Sinayoko 2+ shot attempts",
+              "match": "Paris FC v Strasbourg",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "a",
+              "p": 0.545,
+              "id": "LIGUE1#44#shots#Lassine Sinayoko",
+              "date": "2026-09-19T15:15:00+00:00"
             },
             {
               "selection": "Georges Mikautadze 1+ shot on target",
@@ -190,7 +209,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-14T16:58:27.076748+00:00"
+          "locked_at": "2026-09-14T19:57:01.946190+00:00"
         }
       ]
     },
@@ -203,11 +222,119 @@
   "record": {
     "correct": 10,
     "wrong": 35,
-    "void": 58,
+    "void": 63,
     "total": 45,
     "pending": 15
   },
   "settled": [
+    {
+      "combined": 0.2037,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "BUNDESLIGA#36#shots#Harry Kane",
+          "selection": "Harry Kane 2+ shot attempts",
+          "p": 0.659
+        },
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "selection": "Georges Mikautadze 1+ shot on target",
+          "p": 0.524
+        },
+        {
+          "id": "BUNDESLIGA#35#shots#Deniz Undav",
+          "selection": "Deniz Undav 2+ shot attempts",
+          "p": 0.59
+        }
+      ],
+      "kickoff": "2026-09-14T19:00:00+00:00"
+    },
+    {
+      "combined": 0.111,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "BUNDESLIGA#36#shots#Harry Kane",
+          "selection": "Harry Kane 2+ shot attempts",
+          "p": 0.659
+        },
+        {
+          "id": "BUNDESLIGA#35#shots#Deniz Undav",
+          "selection": "Deniz Undav 2+ shot attempts",
+          "p": 0.59
+        },
+        {
+          "id": "LIGUE1#44#shots#Lassine Sinayoko",
+          "selection": "Lassine Sinayoko 2+ shot attempts",
+          "p": 0.545
+        },
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "selection": "Georges Mikautadze 1+ shot on target",
+          "p": 0.524
+        }
+      ],
+      "kickoff": "2026-09-14T19:00:00+00:00"
+    },
+    {
+      "combined": 0.1502,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "selection": "Georges Mikautadze 1+ shot on target",
+          "p": 0.524
+        },
+        {
+          "id": "BUNDESLIGA#36#w",
+          "selection": "Bayern Munich to win",
+          "p": 0.7742
+        },
+        {
+          "id": "LIGUE1#44#shots#Lassine Sinayoko",
+          "selection": "Lassine Sinayoko 2+ shot attempts",
+          "p": 0.545
+        },
+        {
+          "id": "SERIEA#34#w",
+          "selection": "Inter to win",
+          "p": 0.6793
+        }
+      ],
+      "kickoff": "2026-09-14T18:45:00+00:00"
+    },
+    {
+      "combined": 0.0762,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "SERIEA#32#shots#Nico Paz",
+          "p": 0.686,
+          "selection": "Nico Paz 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#36#shots#Harry Kane",
+          "p": 0.659,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#35#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#44#shots#Lassine Sinayoko",
+          "p": 0.545,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "p": 0.524,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-14T16:30:00+00:00"
+    },
     {
       "combined": 0.1308,
       "graded": "void",
@@ -265,6 +392,33 @@
           "id": "BUNDESLIGA#36#shots#Harry Kane",
           "p": 0.659,
           "selection": "Harry Kane 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-14T16:30:00+00:00"
+    },
+    {
+      "combined": 0.1517,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "p": 0.524,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#36#w",
+          "p": 0.7745,
+          "selection": "Bayern Munich to win"
+        },
+        {
+          "id": "LIGUE1#44#shots#Lassine Sinayoko",
+          "p": 0.545,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "SERIEA#32#shots#Nico Paz",
+          "p": 0.686,
+          "selection": "Nico Paz 2+ shot attempts"
         }
       ],
       "kickoff": "2026-09-14T16:30:00+00:00"
