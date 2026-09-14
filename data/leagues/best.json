@@ -1,17 +1,17 @@
 {
-  "updated": "2026-09-14T19:56:43.390917+00:00",
+  "updated": "2026-09-14T21:02:52.094782+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
-    "correct": 7,
+    "correct": 8,
     "wrong": 2,
-    "total": 9,
+    "total": 10,
     "void": 2,
     "pending": 0,
     "by_confidence": {
       "4": {
-        "correct": 3,
-        "total": 5
+        "correct": 4,
+        "total": 6
       },
       "5": {
         "correct": 4,
@@ -30,12 +30,14 @@
       "away": "Union Berlin",
       "pick": "Bayern Munich",
       "confidence": 5,
-      "p_pick": 0.7742,
+      "p_pick": 0.7741,
       "score": "2-0",
       "provisional": true,
       "odds": null,
       "book": null
-    },
+    }
+  ],
+  "settled": [
     {
       "league": "Serie A",
       "league_key": "SERIEA",
@@ -47,13 +49,14 @@
       "pick": "Inter",
       "confidence": 4,
       "p_pick": 0.6793,
-      "score": "2-0",
-      "provisional": false,
-      "odds": 1.27,
-      "book": "bet365"
-    }
-  ],
-  "settled": [
+      "board": true,
+      "result": {
+        "home_goals": 5,
+        "away_goals": 3
+      },
+      "graded": "correct",
+      "void": false
+    },
     {
       "league": "Ligue 1",
       "league_key": "LIGUE1",
