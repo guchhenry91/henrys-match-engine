@@ -115,6 +115,15 @@ jobs:
       - name: Freeze picks due to kick off
         run: python -m scripts.lock_picks
 
+      # NFL RESULTS BETWEEN FULL REFRESHES. nfl.yml grades only twice a day and
+      # starts hours late; on 2026-09-14 Sunday's games were still ungraded at
+      # 10:22 UTC although nflverse had every score by 04:47. Grading needs no
+      # model and no API key (nflverse CSVs), downloads nothing unless a finished
+      # game is waiting, and never fails this job.
+      - name: Grade finished NFL games
+        continue-on-error: true
+        run: python -m scripts.grade_nfl
+
       # RESULTS DO NOT NEED THE MODEL. Grading a played fixture and redrawing the
       # table is a file read plus a score, but both used to happen only inside the
       # eighteen-minute refit below -- so the visible results were only ever as
@@ -152,6 +161,8 @@ jobs:
           # The boards themselves, because applying results changes what a READER
           # sees -- unlike locking, which only changes the record.
           git add data/leagues data-raw/leagues/results_override.json 2>/dev/null || true
+          # The NFL board too: grade_nfl rewrites it when a result lands.
+          git add data/nfl/board.json 2>/dev/null || true
           # EVERYTHING ELSE THIS JOB WRITES, or `git pull --rebase` below refuses
           # on a dirty tree and the whole job fails. That is not hypothetical: the
           # runs at 05:21 and 11:52 on 2026-08-30 died exactly here, on
@@ -164,7 +175,7 @@ jobs:
           # to them so a stray file elsewhere can never be swept into a commit.
           git add -A data-raw/leagues data-raw/nfl 2>/dev/null || true
           # Did anything reader-visible change? Locking alone must not deploy.
-          if git diff --cached --quiet -- data/leagues; then
+          if git diff --cached --quiet -- data/leagues data/nfl; then
             echo "boards=false" >> "$GITHUB_OUTPUT"
           else
             echo "boards=true" >> "$GITHUB_OUTPUT"
