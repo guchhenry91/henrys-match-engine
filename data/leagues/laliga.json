@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-15T19:19:33.100867+00:00",
-  "results_updated": "2026-09-15T19:19:33.100873+00:00",
+  "results_updated": "2026-09-15T21:23:53.231562+00:00",
   "record": {
     "correct": 24,
-    "wrong": 20,
-    "total": 44,
+    "wrong": 21,
+    "total": 45,
     "void": 6,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
       "2": {
         "correct": 8,
-        "total": 16
-      },
-      "1": {
-        "correct": 5,
-        "total": 10
+        "total": 17
       },
       "3": {
         "correct": 8,
         "total": 12
+      },
+      "1": {
+        "correct": 5,
+        "total": 10
       },
       "5": {
         "correct": 2,
@@ -48,172 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 51,
-      "matchweek": 6,
-      "date": "2026-09-15T18:00:00+00:00",
-      "venue": "Mendizorroza",
-      "home": "Alaves",
-      "away": "Valencia",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.466,
-        "p_draw": 0.273,
-        "p_away": 0.261,
-        "pick": "Alaves",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 12.6,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-0",
-            "pct": 9.2,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4658,
-        "why": {
-          "home_attack_pct": 1.1,
-          "home_defence_pct": 7.2,
-          "away_attack_pct": -1.6,
-          "away_defence_pct": 3.9,
-          "home_advantage_pct": 35.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Alaves 47% / draw 27% / Valencia 26%",
-          "Expected goals: 1.42 - 0.99"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Alaves",
-          "player": "Lucas Boy\u00e9",
-          "position": "FW",
-          "lambda_goals": 0.49654417354848296,
-          "anytime_pct": 23.3,
-          "exp_shots": 1.44,
-          "p_shots_2plus": 19.2,
-          "exp_sot": 0.44,
-          "p_sot_1plus": 22.1,
-          "appearance_pct": 75.0,
-          "expected_minutes": 50.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Alaves",
-          "player": "Carles Ale\u00f1\u00e1",
-          "position": "FW",
-          "lambda_goals": 0.15629476235867715,
-          "anytime_pct": 6.1,
-          "exp_shots": 0.86,
-          "p_shots_2plus": 5.5,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 10.0,
-          "appearance_pct": 87.5,
-          "expected_minutes": 51.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Alaves",
-          "player": "Pablo Ib\u00e1\u00f1ez",
-          "position": "MF",
-          "lambda_goals": 0.15235218657788333,
-          "anytime_pct": 6.0,
-          "exp_shots": 1.09,
-          "p_shots_2plus": 9.7,
-          "exp_sot": 0.31,
-          "p_sot_1plus": 15.8,
-          "appearance_pct": 95.0,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Pepelu",
-          "position": "MF",
-          "lambda_goals": 0.15953205459561579,
-          "anytime_pct": 6.4,
-          "exp_shots": 0.6,
-          "p_shots_2plus": 1.6,
-          "exp_sot": 0.16,
-          "p_sot_1plus": 7.1,
-          "appearance_pct": 100.0,
-          "expected_minutes": 72.7,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Arnaut Danjuma Groeneveld",
-          "position": "FW",
-          "lambda_goals": 0.14282319523051804,
-          "anytime_pct": 5.4,
-          "exp_shots": 0.88,
-          "p_shots_2plus": 6.3,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 18.5,
-          "appearance_pct": 77.5,
-          "expected_minutes": 41.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Umar Sadiq",
-          "position": "FW",
-          "lambda_goals": 0.12984051917827907,
-          "anytime_pct": 4.6,
-          "exp_shots": 0.62,
-          "p_shots_2plus": 2.8,
-          "exp_sot": 0.2,
-          "p_sot_1plus": 8.9,
-          "appearance_pct": 65.0,
-          "expected_minutes": 26.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.546,
-        "p_draw": 0.271,
-        "p_away": 0.183,
-        "odds": {
-          "home": 1.7,
-          "draw": 3.5,
-          "away": 5.5
-        },
-        "book": "bet365",
-        "edge": -0.08,
-        "pick_odds": 1.7,
-        "ev": -0.207
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 55,
       "matchweek": 6,
@@ -6260,13 +6094,13 @@
     },
     {
       "team": "Alaves",
-      "played": 5,
+      "played": 6,
       "won": 3,
       "drawn": 1,
-      "lost": 1,
+      "lost": 2,
       "gf": 11,
-      "ga": 5,
-      "gd": 6,
+      "ga": 6,
+      "gd": 5,
       "points": 10
     },
     {
@@ -6402,6 +6236,17 @@
       "points": 4
     },
     {
+      "team": "Valencia",
+      "played": 6,
+      "won": 1,
+      "drawn": 1,
+      "lost": 4,
+      "gf": 2,
+      "ga": 10,
+      "gd": -8,
+      "points": 4
+    },
+    {
       "team": "Malaga",
       "played": 5,
       "won": 0,
@@ -6433,17 +6278,6 @@
       "ga": 13,
       "gd": -7,
       "points": 2
-    },
-    {
-      "team": "Valencia",
-      "played": 5,
-      "won": 0,
-      "drawn": 1,
-      "lost": 4,
-      "gf": 1,
-      "ga": 10,
-      "gd": -9,
-      "points": 1
     }
   ],
   "backtest": {},
