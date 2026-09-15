@@ -59,13 +59,18 @@ def main(now=None) -> int:
         return 0
     log = picks.core.load_log(picks.PICKS_LOG)
     waiting = due(log, now)
-    if not waiting:
-        print("NFL: no finished game awaiting a grade")
-        return 0
-
     payload = json.loads(BOARD.read_text(encoding="utf-8"))
     before = (payload.get("record"), payload.get("settled"))
-    payload["record"] = picks.freeze_and_grade(payload, now=now)
+    if waiting:
+        payload["record"] = picks.freeze_and_grade(payload, now=now)
+    else:
+        # NO NETWORK, but still refresh the record from the log. A pick frozen by
+        # this job's lock step never reached the board otherwise: DEN @ KC was
+        # locked at 23:52 on 2026-09-14 and the board still read 15 team-winner
+        # picks, 0 pending, until a full refresh -- it looked as if the game had
+        # no pick at all.
+        print("NFL: no finished game awaiting a grade")
+        payload["record"] = picks.record(log)
     payload["settled"] = picks.settled(picks.core.load_log(picks.PICKS_LOG))
     rec = payload["record"]
     print(f"NFL: {len(waiting)} finished pick(s) checked -> team winner "

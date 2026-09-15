@@ -36,16 +36,42 @@ def test_graded_and_void_picks_are_never_rechecked():
     assert grade_nfl.due(log, NOW) == []
 
 
-def test_nothing_due_means_no_download_and_no_write(tmp_path, monkeypatch):
-    """The common case must cost nothing: no network, no board rewrite."""
-    board = tmp_path / "board.json"
-    board.write_text(json.dumps({"record": {"x": 1}}), encoding="utf-8")
-    monkeypatch.setattr(grade_nfl, "BOARD", board)
-    monkeypatch.setattr(picks, "PICKS_LOG", tmp_path / "log.json")
+def _no_fetch(monkeypatch):
     monkeypatch.setattr(picks, "freeze_and_grade",
                         lambda *a, **k: (_ for _ in ()).throw(AssertionError("fetched")))
+
+
+def test_nothing_due_means_no_download_and_no_write(tmp_path, monkeypatch):
+    """The common case must cost nothing: no network, and no rewrite when the
+    record the log implies is already the one on the board."""
+    monkeypatch.setattr(picks, "PICKS_LOG", tmp_path / "log.json")
+    log = picks.core.load_log(picks.PICKS_LOG)
+    board = tmp_path / "board.json"
+    original = {"record": picks.record(log), "settled": picks.settled(log)}
+    board.write_text(json.dumps(original), encoding="utf-8")
+    stamp = board.stat().st_mtime_ns
+    monkeypatch.setattr(grade_nfl, "BOARD", board)
+    _no_fetch(monkeypatch)
     assert grade_nfl.main(now=NOW) == 0
-    assert json.loads(board.read_text(encoding="utf-8")) == {"record": {"x": 1}}
+    assert board.stat().st_mtime_ns == stamp
+
+
+def test_a_newly_frozen_pick_shows_as_pending_without_any_download(tmp_path, monkeypatch):
+    """DEN @ KC was frozen at 23:52 and the board still read 0 pending: a freeze
+    must reach the board's record even when nothing is ready to grade."""
+    log_path = tmp_path / "log.json"
+    log_path.write_text(json.dumps({"games": {"2026_01_DEN_KC": {
+        "pick": "DEN", "p_pick": 0.55, "kickoff": "2026-09-15T00:15:00+00:00",
+        "locked_at": "2026-09-14T23:52:58+00:00", "graded": None}}, "props": {}}),
+        encoding="utf-8")
+    board = tmp_path / "board.json"
+    board.write_text(json.dumps({"record": {"stale": True}, "settled": []}), encoding="utf-8")
+    monkeypatch.setattr(grade_nfl, "BOARD", board)
+    monkeypatch.setattr(picks, "PICKS_LOG", log_path)
+    _no_fetch(monkeypatch)
+    grade_nfl.main(now=pd.Timestamp("2026-09-15T01:00:00Z"))      # still in play
+    rec = json.loads(board.read_text(encoding="utf-8"))["record"]
+    assert rec["team_winner"]["pending"] == 1
 
 
 def test_a_changed_record_rewrites_the_board(tmp_path, monkeypatch):
