@@ -1,4 +1,38 @@
+import hashlib
+from pathlib import Path
+
+import pytest
+
 import leagues.publish as publish
+
+ROOT = Path(__file__).resolve().parents[2]
+REAL_DIRS = [ROOT / "data" / "leagues", ROOT / "data-raw" / "leagues"]
+
+
+def _snapshot():
+    out = {}
+    for base in REAL_DIRS:
+        for path in base.rglob("*.json"):
+            out[path] = hashlib.sha1(path.read_bytes()).hexdigest()
+    return out
+
+
+@pytest.fixture(autouse=True)
+def _isolated(tmp_path, monkeypatch):
+    """publish.main() here runs on EMPTY stub boards, so anything it writes to the
+    real data folders is a 0-0 record. PICKS_DIR was left pointing at the real
+    data-raw/leagues, and CI runs these tests after publishing and before
+    committing -- so every automated refresh committed a 0-0 row into
+    record_history.json, and the next publish read it back. Redirect it, and fail
+    loudly if any real file under data/ or data-raw/ changes."""
+    raw = tmp_path / "_raw"
+    raw.mkdir()
+    monkeypatch.setattr(publish, "PICKS_DIR", raw)
+    before = _snapshot()
+    yield
+    changed = sorted(str(p.relative_to(ROOT)) for p, h in _snapshot().items()
+                     if before.get(p) != h)
+    assert not changed, f"test wrote to real data files: {changed}"
 
 _EMPTY_BEST = {"record": {"correct": 0, "wrong": 0}, "upcoming": [], "settled": [],
                "_incomplete": []}

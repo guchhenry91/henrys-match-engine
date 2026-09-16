@@ -2242,6 +2242,39 @@ function everyPropBlock(){
     <p class="note">Markets are scored apart, never pooled: a 45% anytime pick and an 80% attempts pick are each near their own market's ceiling, so one combined number would describe neither. Tap a market to see every graded pick in it.</p>`;
 }
 
+// CALIBRATION WATCH. Does a stated probability still mean what it says? Per
+// market, the average stated chance against the actual hit rate. A gap is only
+// FLAGGED once it is bigger than sampling noise (two standard errors) on at least
+// 30 graded picks -- below that a streak reads as drift and invites retuning a
+// model on luck, which makes it worse.
+const WATCH_MIN=30;
+function calibWatch(){
+  const groups=new Map();
+  const add=(label,p,g)=>{
+    if(p==null||!(g==="correct"||g==="wrong")) return;
+    const x=groups.get(label)||{n:0,stated:0,hits:0};
+    x.n++; x.stated+=Number(p); x.hits+=g==="correct"?1:0; groups.set(label,x);
+  };
+  gradedMatches(gsport).forEach(m=>add(gsport==="nfl"?"Team winner":"Match picks",m.p_pick,m.graded));
+  gradedProps(gsport).forEach(p=>add(gradeName(p.market),p.p_pick,p.graded));
+  if(!groups.size) return "";
+  const rows=[...groups.entries()].map(([label,x])=>{
+    const s=x.stated/x.n, a=x.hits/x.n, se=Math.sqrt(s*(1-s)/x.n), gap=a-s;
+    const verdict=x.n<WATCH_MIN?["off",`Too few to judge (${x.n}/${WATCH_MIN})`]
+      :Math.abs(gap)<=2*se?["pos","On track"]
+      :gap>0?["amb","Under-confident — hits more than stated"]
+      :["neg","Over-confident — hits less than stated"];
+    return `<div class="srow"><div class="be"><b>${esc(label)}</b>
+      <span>stated ${Math.round(100*s)}% · actual ${Math.round(100*a)}% · ${x.n} graded</span></div>
+      <div class="sty"><small>Gap</small><b>${gap>0?"+":""}${Math.round(100*gap)} pts</b></div>
+      <span class="wv ${verdict[0]==="pos"?"win":verdict[0]==="neg"?"loss":"void"}" style="font-size:10px">${esc(verdict[1])}</span></div>`;
+  }).join("");
+  return `<section class="glass settled"><div class="sech"><div><div class="eb">Calibration watch</div>
+    <h2>Is the model's confidence honest?</h2>
+    <p>Average stated chance against the actual hit rate, per market. Flagged only when the gap beats sampling noise on ${WATCH_MIN}+ graded picks.</p></div></div>
+    <div class="slist">${rows}</div></section>`;
+}
+
 function viewGrades(){
   // ONE MARKET AT A TIME. Every settled pick on one page came to 133 rows and
   // was unreadable -- the completeness was real and the tab was still useless,
@@ -2249,7 +2282,7 @@ function viewGrades(){
   // picks are all still here; the chips decide which of them is on screen.
   const chips=gradeFilters();
   // Newest graded first, above every summary, so a result is never buried.
-  const latest=(filter==="all"&&gsport!=="nba")?latestSettled():"";
+  const latest=(filter==="all"&&gsport!=="nba")?latestSettled()+calibWatch():"";
   if(gsport==="nba") return chips+nbaGradeSummary()+archiveLink();
   if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
   if(filter&&filter!=="all"){
