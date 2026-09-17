@@ -1566,6 +1566,72 @@
     "locked_at": "2026-09-16T19:13:26.745273+00:00",
     "tainted": false
   },
+  "BUNDESLIGA#35#shots#Deniz Undav|BUNDESLIGA#36#shots#Harry Kane|LIGUE1#44#shots#Lassine Sinayoko|PL#44#sot#Tyrique George|PL#47#sot#Erling Haaland|PL#48#sot#William Osula|SERIEA#43#shots#Nico Paz": {
+    "combined": 0.023,
+    "earliest_kickoff": "2026-09-18T18:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#47#sot#Erling Haaland",
+        "p": 0.712,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#36#shots#Harry Kane",
+        "p": 0.659,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#35#shots#Deniz Undav",
+        "p": 0.59,
+        "selection": "Deniz Undav 2+ shot attempts"
+      },
+      {
+        "id": "PL#44#sot#Tyrique George",
+        "p": 0.565,
+        "selection": "Tyrique George 1+ shot on target"
+      },
+      {
+        "id": "LIGUE1#44#shots#Lassine Sinayoko",
+        "p": 0.545,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "SERIEA#43#shots#Nico Paz",
+        "p": 0.52,
+        "selection": "Nico Paz 2+ shot attempts"
+      },
+      {
+        "id": "PL#48#sot#William Osula",
+        "p": 0.519,
+        "selection": "William Osula 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-17T11:49:35.095920+00:00",
+    "tainted": false
+  },
+  "BUNDESLIGA#35#shots#Deniz Undav|BUNDESLIGA#36#shots#Harry Kane|PL#47#sot#Erling Haaland": {
+    "combined": 0.2768,
+    "earliest_kickoff": "2026-09-18T18:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#47#sot#Erling Haaland",
+        "p": 0.712,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#36#shots#Harry Kane",
+        "p": 0.659,
+        "selection": "Harry Kane 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#35#shots#Deniz Undav",
+        "p": 0.59,
+        "selection": "Deniz Undav 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-17T11:49:35.095920+00:00",
+    "tainted": false
+  },
   "BUNDESLIGA#36#goal#Harry Kane|LALIGA#50#sot#Georges Mikautadze|SERIEA#32#shots#Nico Paz": {
     "combined": 0.1308,
     "earliest_kickoff": "2026-09-14T16:30:00+00:00",
@@ -1674,6 +1740,24 @@
       }
     ],
     "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
+  },
+  "BUNDESLIGA#36#shots#Harry Kane|PL#47#sot#Erling Haaland": {
+    "combined": 0.4692,
+    "earliest_kickoff": "2026-09-18T18:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#47#sot#Erling Haaland",
+        "p": 0.712,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#36#shots#Harry Kane",
+        "p": 0.659,
+        "selection": "Harry Kane 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-17T11:49:35.095920+00:00",
     "tainted": false
   },
   "BUNDESLIGA#36#shots#Harry Kane|SERIEA#32#shots#Nico Paz": {
@@ -1878,6 +1962,52 @@
       }
     ],
     "locked_at": "2026-09-14T23:58:22.966055+00:00",
+    "tainted": false
+  },
+  "BUNDESLIGA#36#w|LIGUE1#44#shots#Lassine Sinayoko|PL#49#w|SERIEA#43#shots#Nico Paz": {
+    "combined": 0.1622,
+    "earliest_kickoff": "2026-09-18T18:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#49#w",
+        "p": 0.7394,
+        "selection": "Nottingham Forest to win"
+      },
+      {
+        "id": "BUNDESLIGA#36#w",
+        "p": 0.7741,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "LIGUE1#44#shots#Lassine Sinayoko",
+        "p": 0.545,
+        "selection": "Lassine Sinayoko 2+ shot attempts"
+      },
+      {
+        "id": "SERIEA#43#shots#Nico Paz",
+        "p": 0.52,
+        "selection": "Nico Paz 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-17T11:49:35.095920+00:00",
+    "tainted": false
+  },
+  "BUNDESLIGA#36#w|PL#49#w": {
+    "combined": 0.5724,
+    "earliest_kickoff": "2026-09-18T18:30:00+00:00",
+    "legs": [
+      {
+        "id": "BUNDESLIGA#36#w",
+        "p": 0.7741,
+        "selection": "Bayern Munich to win"
+      },
+      {
+        "id": "PL#49#w",
+        "p": 0.7394,
+        "selection": "Nottingham Forest to win"
+      }
+    ],
+    "locked_at": "2026-09-17T11:49:35.095920+00:00",
     "tainted": false
   },
   "BUNDESLIGA#36#w|SERIEA#34#w": {
