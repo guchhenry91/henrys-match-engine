@@ -31,7 +31,9 @@
       "edge": 0.0244,
       "verdict": "no edge",
       "book_price_overround": 1.0428,
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "tainted": false
     },
     {
       "game_id": "2026_02_CAR_ATL",
@@ -624,7 +626,9 @@
           "games_played": 48,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "anytime_touchdown",
@@ -845,7 +849,9 @@
           "games_played": 49,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -1421,7 +1427,9 @@
           "games_played": 48,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -1529,7 +1537,9 @@
           "games_played": 95,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -2506,7 +2516,9 @@
           "games_played": 65,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "rushing_yards",
@@ -3877,50 +3889,50 @@
   },
   "record": {
     "team_winner": {
-      "correct": 10,
+      "correct": 11,
       "wrong": 6,
       "void": 0,
-      "pending": 1,
+      "pending": 0,
       "total": 17,
-      "settled": 16,
-      "hit_rate": 0.625
+      "settled": 17,
+      "hit_rate": 0.6471
     },
     "props": {
-      "correct": 54,
-      "wrong": 56,
+      "correct": 57,
+      "wrong": 58,
       "void": 7,
-      "pending": 5,
+      "pending": 0,
       "total": 122,
-      "settled": 110,
-      "hit_rate": 0.4909
+      "settled": 115,
+      "hit_rate": 0.4957
     },
     "props_by_market": {
       "anytime_touchdown": {
-        "correct": 6,
+        "correct": 7,
         "wrong": 3,
         "void": 0,
-        "pending": 1,
+        "pending": 0,
         "total": 10,
-        "settled": 9,
-        "hit_rate": 0.6667
+        "settled": 10,
+        "hit_rate": 0.7
       },
       "receiving_yards": {
-        "correct": 24,
-        "wrong": 24,
+        "correct": 25,
+        "wrong": 26,
         "void": 3,
-        "pending": 3,
+        "pending": 0,
         "total": 54,
-        "settled": 48,
-        "hit_rate": 0.5
+        "settled": 51,
+        "hit_rate": 0.4902
       },
       "rushing_yards": {
-        "correct": 18,
+        "correct": 19,
         "wrong": 18,
         "void": 3,
-        "pending": 1,
+        "pending": 0,
         "total": 40,
-        "settled": 36,
-        "hit_rate": 0.5
+        "settled": 37,
+        "hit_rate": 0.5135
       },
       "passing_yards": {
         "correct": 6,
@@ -3934,6 +3946,111 @@
     }
   },
   "settled": [
+    {
+      "kind": "game",
+      "key": "2026_02_DET_BUF",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.6163,
+      "confidence": 4,
+      "kickoff": "2026-09-18T00:15:00+00:00",
+      "date": "2026-09-18T00:15:00+00:00",
+      "home": "BUF",
+      "away": "DET",
+      "tainted": false,
+      "pick": "BUF",
+      "result": "BUF 41-31 DET"
+    },
+    {
+      "kind": "prop",
+      "key": "2026_02_DET_BUF:anytime_touchdown:00-0039139",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5274,
+      "confidence": 3,
+      "kickoff": "2026-09-18T00:15:00+00:00",
+      "date": "2026-09-18T00:15:00+00:00",
+      "home": "DET",
+      "away": "BUF",
+      "tainted": false,
+      "market": "anytime_touchdown",
+      "player": "Jahmyr Gibbs",
+      "team": "DET",
+      "line": null,
+      "actual": 1.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_02_DET_BUF:receiving_yards:00-0035689",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.5609,
+      "confidence": 3,
+      "kickoff": "2026-09-18T00:15:00+00:00",
+      "date": "2026-09-18T00:15:00+00:00",
+      "home": true,
+      "away": "DET",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Dawson Knox",
+      "team": "BUF",
+      "line": 23.5,
+      "actual": 5.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_02_DET_BUF:receiving_yards:00-0037240",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.6537,
+      "confidence": 4,
+      "kickoff": "2026-09-18T00:15:00+00:00",
+      "date": "2026-09-18T00:15:00+00:00",
+      "home": "DET",
+      "away": "BUF",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Jameson Williams",
+      "team": "DET",
+      "line": 43.5,
+      "actual": 33.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_02_DET_BUF:receiving_yards:00-0039139",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5609,
+      "confidence": 3,
+      "kickoff": "2026-09-18T00:15:00+00:00",
+      "date": "2026-09-18T00:15:00+00:00",
+      "home": "DET",
+      "away": "BUF",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Jahmyr Gibbs",
+      "team": "DET",
+      "line": 26.0,
+      "actual": 61.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_02_DET_BUF:rushing_yards:00-0037248",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.6607,
+      "confidence": 4,
+      "kickoff": "2026-09-18T00:15:00+00:00",
+      "date": "2026-09-18T00:15:00+00:00",
+      "home": true,
+      "away": "DET",
+      "tainted": false,
+      "market": "rushing_yards",
+      "player": "James Cook",
+      "team": "BUF",
+      "line": 56.5,
+      "actual": 135.0
+    },
     {
       "kind": "game",
       "key": "2026_01_DEN_KC",

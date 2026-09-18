@@ -228,12 +228,15 @@
       "away": "DET",
       "board": true,
       "confidence": 4,
+      "graded": "correct",
       "home": "BUF",
       "kickoff": "2026-09-18T00:15:00+00:00",
       "locked_at": "2026-09-17T22:26:35.424903+00:00",
       "p_pick": 0.6163,
       "pick": "BUF",
-      "tainted": false
+      "result": "BUF 41-31 DET",
+      "tainted": false,
+      "void": false
     }
   },
   "props": {
@@ -3340,6 +3343,7 @@
       "void": false
     },
     "2026_02_DET_BUF:anytime_touchdown:00-0039139": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "BUF",
       "bar": null,
@@ -3350,6 +3354,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_DET_BUF",
+      "graded": "correct",
       "home": "DET",
       "kickoff": "2026-09-18T00:15:00+00:00",
       "line": null,
@@ -3364,9 +3369,11 @@
       "tainted": false,
       "team": "DET",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_DET_BUF:receiving_yards:00-0035689": {
+      "actual": 5.0,
       "appearance_pct": null,
       "away": "DET",
       "bar": null,
@@ -3377,6 +3384,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_DET_BUF",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-18T00:15:00+00:00",
       "line": 23.5,
@@ -3391,9 +3399,11 @@
       "tainted": false,
       "team": "BUF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_DET_BUF:receiving_yards:00-0037240": {
+      "actual": 33.0,
       "appearance_pct": null,
       "away": "BUF",
       "bar": null,
@@ -3404,6 +3414,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_DET_BUF",
+      "graded": "wrong",
       "home": "DET",
       "kickoff": "2026-09-18T00:15:00+00:00",
       "line": 43.5,
@@ -3418,9 +3429,11 @@
       "tainted": false,
       "team": "DET",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_DET_BUF:receiving_yards:00-0039139": {
+      "actual": 61.0,
       "appearance_pct": null,
       "away": "BUF",
       "bar": null,
@@ -3431,6 +3444,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_DET_BUF",
+      "graded": "correct",
       "home": "DET",
       "kickoff": "2026-09-18T00:15:00+00:00",
       "line": 26.0,
@@ -3445,9 +3459,11 @@
       "tainted": false,
       "team": "DET",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_DET_BUF:rushing_yards:00-0037248": {
+      "actual": 135.0,
       "appearance_pct": null,
       "away": "DET",
       "bar": null,
@@ -3458,6 +3474,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_DET_BUF",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-18T00:15:00+00:00",
       "line": 56.5,
@@ -3472,7 +3489,8 @@
       "tainted": false,
       "team": "BUF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     }
   }
 }
