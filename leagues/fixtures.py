@@ -187,3 +187,34 @@ def fetch_fixtures(league: str) -> pd.DataFrame:
     except Exception as exc:
         print(f"note: could not snapshot {league} fixtures ({exc})")
     return fx
+
+
+# A fixture more than this long past kickoff with no result is not "next up".
+IN_PLAY_HOURS = 3.5
+
+
+def upcoming_window(remaining: pd.DataFrame, now=None, ahead: int = 1,
+                    in_play_hours: float = IN_PLAY_HOURS) -> pd.DataFrame:
+    """The unplayed fixtures to present as the current matchweek.
+
+    Chosen from fixtures that are LIVE or STILL TO COME -- never from one that
+    kicked off long ago and has no result. A postponed match keeps its original
+    date in the feed with no score, so it used to be "the soonest unplayed
+    fixture": on 2026-09-16 Levante v Athletic Club was postponed (PST), La Liga's
+    board became that one stale round-6 game, the sanity check rightly refused a
+    finished-looking fixture as "next up", and the refresh for ALL FIVE leagues
+    failed for two days. An overdue fixture is left off the board, its frozen
+    pick still grades from the log when a score arrives, and a rescheduled date
+    brings it back automatically.
+    """
+    if remaining.empty:
+        return remaining
+    now = pd.Timestamp.now("UTC") if now is None else pd.Timestamp(now)
+    if now.tzinfo is None:
+        now = now.tz_localize("UTC")
+    kickoff = pd.to_datetime(remaining["date"], utc=True)
+    live = remaining[kickoff > now - pd.Timedelta(hours=in_play_hours)]
+    if live.empty:
+        return live
+    next_round = int(live.sort_values("date").iloc[0]["round"])
+    return live[live["round"] < next_round + ahead]

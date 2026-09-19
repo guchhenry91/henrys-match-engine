@@ -459,14 +459,10 @@ def build(league: str = "PL") -> dict:
     # match gets market: None; the card renders fine either way).
     market_odds = odds.fetch_fixture_odds(league)
 
-    if remaining.empty:
-        upcoming = remaining
-    else:
-        # The current matchweek is the round of the SOONEST unplayed fixture, not
-        # the lowest round number: a single postponed early-round game would
-        # otherwise make min() return that stale round and hide the imminent week.
-        next_round = int(remaining.sort_values("date").iloc[0]["round"])
-        upcoming = remaining[remaining["round"] < next_round + MATCHWEEKS_AHEAD]
+    # The current matchweek: the round of the soonest LIVE-OR-FUTURE unplayed
+    # fixture. Overdue fixtures with no result (postponed) are excluded -- see
+    # fixtures.upcoming_window for the two-day outage that caused.
+    upcoming = fixtures.upcoming_window(remaining, ahead=MATCHWEEKS_AHEAD)
 
     # A squad too thin to share out the team's goals sensibly is dropped entirely
     # (see MIN_SQUAD_FOR_PROPS) rather than allowed to concentrate the whole team
