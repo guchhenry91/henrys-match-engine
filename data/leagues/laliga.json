@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-19T13:46:53.995826+00:00",
-  "results_updated": "2026-09-19T13:46:53.995832+00:00",
+  "results_updated": "2026-09-19T14:20:01.653307+00:00",
   "record": {
     "correct": 29,
     "wrong": 22,
     "total": 51,
-    "void": 6,
-    "pending": 0,
+    "void": 7,
+    "pending": 2,
     "by_confidence": {
       "2": {
         "correct": 8,
         "total": 17
       },
-      "1": {
-        "correct": 5,
-        "total": 10
-      },
       "3": {
         "correct": 12,
         "total": 17
+      },
+      "1": {
+        "correct": 5,
+        "total": 10
       },
       "5": {
         "correct": 3,
@@ -55,266 +55,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 67,
-      "matchweek": 7,
-      "date": "2026-09-19T12:00:00+00:00",
-      "venue": "Estadio El Sadar",
-      "home": "Osasuna",
-      "away": "Vallecano",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.431,
-        "p_draw": 0.268,
-        "p_away": 0.301,
-        "pick": "Osasuna",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 11.6,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 9.3,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4314,
-        "why": {
-          "home_attack_pct": -2.2,
-          "home_defence_pct": 5.1,
-          "away_attack_pct": 4.9,
-          "away_defence_pct": 5.1,
-          "home_advantage_pct": 34.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Osasuna 43% / draw 27% / Vallecano 30%",
-          "Expected goals: 1.37 - 1.10"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Osasuna",
-          "player": "Ante Budimir",
-          "position": "FW",
-          "lambda_goals": 0.5568944528213574,
-          "anytime_pct": 28.9,
-          "exp_shots": 2.69,
-          "p_shots_2plus": 55.0,
-          "exp_sot": 1.07,
-          "p_sot_1plus": 54.4,
-          "appearance_pct": 95.0,
-          "expected_minutes": 76.9,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Raul Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.17425542345907122,
-          "anytime_pct": 7.1,
-          "exp_shots": 0.87,
-          "p_shots_2plus": 5.4,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 21.5,
-          "appearance_pct": 92.5,
-          "expected_minutes": 23.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Osasuna",
-          "player": "Rub\u00e9n Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.12764045940798474,
-          "anytime_pct": 4.7,
-          "exp_shots": 0.97,
-          "p_shots_2plus": 7.4,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 16.8,
-          "appearance_pct": 90.0,
-          "expected_minutes": 59.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "Jorge De Frutos",
-          "position": "FW",
-          "lambda_goals": 0.2038352770237564,
-          "anytime_pct": 8.7,
-          "exp_shots": 1.35,
-          "p_shots_2plus": 16.4,
-          "exp_sot": 0.53,
-          "p_sot_1plus": 28.9,
-          "appearance_pct": 92.5,
-          "expected_minutes": 64.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "Isi Palaz\u00f3n",
-          "position": "FW",
-          "lambda_goals": 0.20389080888278072,
-          "anytime_pct": 8.5,
-          "exp_shots": 1.38,
-          "p_shots_2plus": 17.6,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 22.1,
-          "appearance_pct": 80.0,
-          "expected_minutes": 59.2,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Vallecano",
-          "player": "\u00c1lvaro Garc\u00eda",
-          "position": "FW",
-          "lambda_goals": 0.12792907690198535,
-          "anytime_pct": 4.7,
-          "exp_shots": 1.11,
-          "p_shots_2plus": 10.8,
-          "exp_sot": 0.42,
-          "p_sot_1plus": 21.7,
-          "appearance_pct": 82.5,
-          "expected_minutes": 54.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Ante Budimir",
-          "team": "Osasuna",
-          "position": "FW",
-          "p_pick": 0.55,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 95.0,
-          "expected_minutes": 76.9,
-          "anytime_pct": 28.9,
-          "exp_shots": 2.69,
-          "exp_sot": 1.07,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            9,
-            5,
-            1,
-            4,
-            1
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 42.39777030861111,
-          "unavailable": false,
-          "team_attribution": "Osasuna"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Ante Budimir",
-          "team": "Osasuna",
-          "position": "FW",
-          "p_pick": 0.544,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 95.0,
-          "expected_minutes": 76.9,
-          "anytime_pct": 28.9,
-          "exp_shots": 2.69,
-          "exp_sot": 1.07,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            2,
-            2,
-            0,
-            2,
-            0
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 42.397771804722225,
-          "unavailable": false,
-          "team_attribution": "Osasuna"
-        },
-        {
-          "market": "goal",
-          "line": "Anytime goalscorer",
-          "player": "Ante Budimir",
-          "team": "Osasuna",
-          "position": "FW",
-          "p_pick": 0.289,
-          "confidence": 1,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 95.0,
-          "expected_minutes": 76.9,
-          "anytime_pct": 28.9,
-          "exp_shots": 2.69,
-          "exp_sot": 1.07,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            0,
-            0,
-            0,
-            0,
-            0
-          ],
-          "last_five_line": 1,
-          "bar": 0.276,
-          "news_checked_hours_ago": 42.397768819999996,
-          "unavailable": false,
-          "team_attribution": "Osasuna"
-        }
-      ],
-      "market": {
-        "p_home": 0.395,
-        "p_draw": 0.29,
-        "p_away": 0.315,
-        "odds": {
-          "home": 2.38,
-          "draw": 3.3,
-          "away": 3.0
-        },
-        "book": "bet365",
-        "edge": 0.036,
-        "pick_odds": 2.38,
-        "ev": 0.027
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 61,
       "matchweek": 7,
@@ -6342,6 +6082,28 @@
       "points": 9
     },
     {
+      "team": "Vallecano",
+      "played": 7,
+      "won": 2,
+      "drawn": 2,
+      "lost": 3,
+      "gf": 11,
+      "ga": 16,
+      "gd": -5,
+      "points": 8
+    },
+    {
+      "team": "Osasuna",
+      "played": 7,
+      "won": 2,
+      "drawn": 2,
+      "lost": 3,
+      "gf": 6,
+      "ga": 13,
+      "gd": -7,
+      "points": 8
+    },
+    {
       "team": "Ath Bilbao",
       "played": 5,
       "won": 2,
@@ -6375,17 +6137,6 @@
       "points": 7
     },
     {
-      "team": "Vallecano",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
-      "lost": 3,
-      "gf": 10,
-      "ga": 15,
-      "gd": -5,
-      "points": 7
-    },
-    {
       "team": "Sociedad",
       "played": 6,
       "won": 2,
@@ -6394,17 +6145,6 @@
       "gf": 6,
       "ga": 11,
       "gd": -5,
-      "points": 7
-    },
-    {
-      "team": "Osasuna",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
-      "lost": 3,
-      "gf": 5,
-      "ga": 12,
-      "gd": -7,
       "points": 7
     },
     {
