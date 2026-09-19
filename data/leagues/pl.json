@@ -1,33 +1,33 @@
 {
   "league": "Premier League",
   "updated": "2026-09-19T15:59:42.354034+00:00",
-  "results_updated": "2026-09-19T15:59:42.354038+00:00",
+  "results_updated": "2026-09-19T17:12:09.028187+00:00",
   "record": {
-    "correct": 21,
-    "wrong": 18,
-    "total": 39,
+    "correct": 22,
+    "wrong": 20,
+    "total": 42,
     "void": 1,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
       "5": {
         "correct": 2,
         "total": 2
       },
-      "3": {
-        "correct": 4,
-        "total": 8
-      },
-      "1": {
-        "correct": 8,
-        "total": 15
-      },
       "2": {
         "correct": 4,
-        "total": 11
+        "total": 12
       },
       "4": {
         "correct": 3,
         "total": 3
+      },
+      "1": {
+        "correct": 8,
+        "total": 16
+      },
+      "3": {
+        "correct": 5,
+        "total": 9
       }
     }
   },
@@ -48,482 +48,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 43,
-      "matchweek": 5,
-      "date": "2026-09-19T14:00:00+00:00",
-      "venue": "American Express Stadium",
-      "home": "Brighton",
-      "away": "Arsenal",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.229,
-        "p_draw": 0.31,
-        "p_away": 0.461,
-        "pick": "Arsenal",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "0-1",
-            "pct": 13.7,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 13.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-2",
-            "pct": 10.4,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4631,
-        "why": {
-          "home_attack_pct": 21.5,
-          "home_defence_pct": 9.3,
-          "away_attack_pct": 46.6,
-          "away_defence_pct": 67.2,
-          "home_advantage_pct": 18.5
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Brighton 23% / draw 31% / Arsenal 46%",
-          "Expected goals: 0.89 - 1.36"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": [
-            "Jurri\u00ebn Timber",
-            "William Saliba"
-          ]
-        }
-      },
-      "props": [
-        {
-          "team": "Brighton",
-          "player": "Diego G\u00f3mez",
-          "position": "FW",
-          "lambda_goals": 0.14916067999574453,
-          "anytime_pct": 5.7,
-          "exp_shots": 0.89,
-          "p_shots_2plus": 6.3,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 14.1,
-          "appearance_pct": 82.5,
-          "expected_minutes": 56.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brighton",
-          "player": "Georginio Rutter",
-          "position": "FW",
-          "lambda_goals": 0.11002067734019882,
-          "anytime_pct": 3.8,
-          "exp_shots": 0.91,
-          "p_shots_2plus": 6.5,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.0,
-          "appearance_pct": 82.5,
-          "expected_minutes": 46.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brighton",
-          "player": "Kaoru Mitoma",
-          "position": "DF",
-          "lambda_goals": 0.10679893417951908,
-          "anytime_pct": 3.6,
-          "exp_shots": 0.64,
-          "p_shots_2plus": 3.1,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 12.7,
-          "appearance_pct": 65.0,
-          "expected_minutes": 44.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Arsenal",
-          "player": "Viktor Gyokeres",
-          "position": "FW",
-          "lambda_goals": 0.25856926786369683,
-          "anytime_pct": 11.8,
-          "exp_shots": 1.15,
-          "p_shots_2plus": 11.2,
-          "exp_sot": 0.45,
-          "p_sot_1plus": 24.2,
-          "appearance_pct": 92.5,
-          "expected_minutes": 57.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Arsenal",
-          "player": "Bukayo Saka",
-          "position": "FW",
-          "lambda_goals": 0.2487270582849625,
-          "anytime_pct": 10.9,
-          "exp_shots": 1.48,
-          "p_shots_2plus": 20.4,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 26.3,
-          "appearance_pct": 80.0,
-          "expected_minutes": 57.8,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Arsenal",
-          "player": "Eberechi Eze",
-          "position": "FW",
-          "lambda_goals": 0.151926604002846,
-          "anytime_pct": 5.9,
-          "exp_shots": 1.32,
-          "p_shots_2plus": 15.9,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 22.6,
-          "appearance_pct": 85.0,
-          "expected_minutes": 49.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.197,
-        "p_draw": 0.242,
-        "p_away": 0.561,
-        "odds": {
-          "home": 5.0,
-          "draw": 3.9,
-          "away": 1.67
-        },
-        "book": "bet365",
-        "edge": -0.1,
-        "pick_odds": 1.67,
-        "ev": -0.23
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 44,
-      "matchweek": 5,
-      "date": "2026-09-19T14:00:00+00:00",
-      "venue": "Hill Dickinson Stadium",
-      "home": "Everton",
-      "away": "Ipswich",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.517,
-        "p_draw": 0.289,
-        "p_away": 0.193,
-        "pick": "Everton",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 13.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 12.5,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-0",
-            "pct": 10.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 3,
-        "provisional": false,
-        "p_pick": 0.5291,
-        "why": {
-          "home_attack_pct": -1.0,
-          "home_defence_pct": 6.5,
-          "away_attack_pct": -12.6,
-          "away_defence_pct": -23.1,
-          "home_advantage_pct": 18.5
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Everton 52% / draw 29% / Ipswich 19%",
-          "Expected goals: 1.52 - 0.85"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Everton",
-          "player": "Tyrique George",
-          "position": "FW",
-          "lambda_goals": 0.33439043128406887,
-          "anytime_pct": 16.4,
-          "exp_shots": 2.61,
-          "p_shots_2plus": 54.8,
-          "exp_sot": 1.08,
-          "p_sot_1plus": 56.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Thierno Barry",
-          "position": "FW",
-          "lambda_goals": 0.276418801438934,
-          "anytime_pct": 12.9,
-          "exp_shots": 1.46,
-          "p_shots_2plus": 19.2,
-          "exp_sot": 0.5,
-          "p_sot_1plus": 27.6,
-          "appearance_pct": 97.5,
-          "expected_minutes": 49.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Everton",
-          "player": "Brennan Johnson",
-          "position": "FW",
-          "lambda_goals": 0.2503416733917355,
-          "anytime_pct": 11.2,
-          "exp_shots": 1.22,
-          "p_shots_2plus": 13.2,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 22.8,
-          "appearance_pct": 87.5,
-          "expected_minutes": 44.0,
-          "penalty_taker": true,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Tyrique George",
-          "team": "Everton",
-          "position": "FW",
-          "p_pick": 0.565,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "anytime_pct": 16.4,
-          "exp_shots": 2.61,
-          "exp_sot": 1.08,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            0,
-            1,
-            1,
-            0,
-            1
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 1.8428617594444445,
-          "unavailable": false,
-          "team_attribution": "Everton"
-        },
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Tyrique George",
-          "team": "Everton",
-          "position": "FW",
-          "p_pick": 0.548,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "anytime_pct": 16.4,
-          "exp_shots": 2.61,
-          "exp_sot": 1.08,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            1,
-            2,
-            2,
-            1
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 1.8428617325,
-          "unavailable": false,
-          "team_attribution": "Everton"
-        }
-      ],
-      "market": {
-        "p_home": 0.535,
-        "p_draw": 0.249,
-        "p_away": 0.216,
-        "odds": {
-          "home": 1.75,
-          "draw": 3.8,
-          "away": 4.5
-        },
-        "book": "bet365",
-        "edge": -0.018,
-        "pick_odds": 1.75,
-        "ev": -0.095
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 48,
-      "matchweek": 5,
-      "date": "2026-09-19T14:00:00+00:00",
-      "venue": "St. James' Park",
-      "home": "Newcastle United",
-      "away": "Hull",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.261,
-        "p_draw": 0.358,
-        "p_away": 0.381,
-        "pick": "Hull",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "0-1",
-            "pct": 16.3,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 14.1,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-0",
-            "pct": 13.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3468,
-        "why": {
-          "home_attack_pct": 27.4,
-          "home_defence_pct": 2.4,
-          "away_attack_pct": 0.9,
-          "away_defence_pct": 59.6,
-          "home_advantage_pct": 18.5
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Newcastle United 26% / draw 36% / Hull 38%",
-          "Expected goals: 0.80 - 1.02"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Dan Burn"
-          ],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Newcastle United",
-          "player": "Yoane Wissa",
-          "position": "FW",
-          "lambda_goals": 0.2997853767950486,
-          "anytime_pct": 14.4,
-          "exp_shots": 2.13,
-          "p_shots_2plus": 40.4,
-          "exp_sot": 0.86,
-          "p_sot_1plus": 46.7,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Newcastle United",
-          "player": "Harvey Barnes",
-          "position": "FW",
-          "lambda_goals": 0.2463175822011815,
-          "anytime_pct": 11.2,
-          "exp_shots": 2.4,
-          "p_shots_2plus": 48.6,
-          "exp_sot": 0.89,
-          "p_sot_1plus": 48.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Newcastle United",
-          "player": "Malick Thiaw",
-          "position": "DF",
-          "lambda_goals": 0.09734048498885829,
-          "anytime_pct": 3.3,
-          "exp_shots": 0.8,
-          "p_shots_2plus": 3.9,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 15.8,
-          "appearance_pct": 100.0,
-          "expected_minutes": 84.8,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.595,
-        "p_draw": 0.221,
-        "p_away": 0.184,
-        "odds": {
-          "home": 1.6,
-          "draw": 4.33,
-          "away": 5.0
-        },
-        "book": "bet365",
-        "edge": 0.197,
-        "pick_odds": 5.0,
-        "ev": 0.904
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 49,
       "matchweek": 5,
@@ -5918,17 +5442,6 @@
   ],
   "standings": [
     {
-      "team": "Arsenal",
-      "played": 4,
-      "won": 4,
-      "drawn": 0,
-      "lost": 0,
-      "gf": 8,
-      "ga": 1,
-      "gd": 7,
-      "points": 12
-    },
-    {
       "team": "Manchester City",
       "played": 4,
       "won": 4,
@@ -5940,6 +5453,28 @@
       "points": 12
     },
     {
+      "team": "Arsenal",
+      "played": 5,
+      "won": 4,
+      "drawn": 0,
+      "lost": 1,
+      "gf": 8,
+      "ga": 4,
+      "gd": 4,
+      "points": 12
+    },
+    {
+      "team": "Brighton",
+      "played": 5,
+      "won": 3,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 16,
+      "ga": 5,
+      "gd": 11,
+      "points": 10
+    },
+    {
       "team": "Brentford",
       "played": 5,
       "won": 2,
@@ -5948,6 +5483,17 @@
       "gf": 10,
       "ga": 4,
       "gd": 6,
+      "points": 9
+    },
+    {
+      "team": "Everton",
+      "played": 5,
+      "won": 2,
+      "drawn": 3,
+      "lost": 0,
+      "gf": 6,
+      "ga": 3,
+      "gd": 3,
       "points": 9
     },
     {
@@ -5963,25 +5509,25 @@
     },
     {
       "team": "Hull",
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 2,
-      "lost": 0,
-      "gf": 5,
-      "ga": 2,
-      "gd": 3,
+      "lost": 1,
+      "gf": 6,
+      "ga": 4,
+      "gd": 2,
       "points": 8
     },
     {
-      "team": "Brighton",
-      "played": 4,
+      "team": "Newcastle United",
+      "played": 5,
       "won": 2,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 1,
-      "gf": 13,
-      "ga": 5,
-      "gd": 8,
-      "points": 7
+      "gf": 9,
+      "ga": 9,
+      "gd": 0,
+      "points": 8
     },
     {
       "team": "Chelsea",
@@ -6006,25 +5552,14 @@
       "points": 6
     },
     {
-      "team": "Everton",
-      "played": 4,
-      "won": 1,
-      "drawn": 3,
-      "lost": 0,
-      "gf": 5,
-      "ga": 3,
-      "gd": 2,
-      "points": 6
-    },
-    {
       "team": "Ipswich",
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "gf": 7,
-      "ga": 10,
-      "gd": -3,
+      "ga": 11,
+      "gd": -4,
       "points": 6
     },
     {
@@ -6036,17 +5571,6 @@
       "gf": 4,
       "ga": 4,
       "gd": 0,
-      "points": 5
-    },
-    {
-      "team": "Newcastle United",
-      "played": 4,
-      "won": 1,
-      "drawn": 2,
-      "lost": 1,
-      "gf": 7,
-      "ga": 8,
-      "gd": -1,
       "points": 5
     },
     {
