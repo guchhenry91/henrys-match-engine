@@ -1,25 +1,25 @@
 {
   "league": "Bundesliga",
   "updated": "2026-09-19T14:33:49.605252+00:00",
-  "results_updated": "2026-09-19T15:11:58.525320+00:00",
+  "results_updated": "2026-09-19T15:55:08.238392+00:00",
   "record": {
-    "correct": 14,
-    "wrong": 13,
-    "total": 27,
+    "correct": 16,
+    "wrong": 15,
+    "total": 31,
     "void": 0,
-    "pending": 5,
+    "pending": 1,
     "by_confidence": {
       "2": {
-        "correct": 5,
-        "total": 12
+        "correct": 6,
+        "total": 14
       },
       "4": {
         "correct": 4,
         "total": 7
       },
       "1": {
-        "correct": 1,
-        "total": 4
+        "correct": 2,
+        "total": 6
       },
       "3": {
         "correct": 3,
@@ -41,670 +41,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 30,
-      "matchweek": 4,
-      "date": "2026-09-19T13:30:00+00:00",
-      "venue": "Weserstadion",
-      "home": "Werder Bremen",
-      "away": "Augsburg",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.403,
-        "p_draw": 0.284,
-        "p_away": 0.313,
-        "pick": "Werder Bremen",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.5,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.8,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-0",
-            "pct": 8.7,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4008,
-        "why": {
-          "home_attack_pct": -7.6,
-          "home_defence_pct": -2.1,
-          "away_attack_pct": 1.1,
-          "away_defence_pct": -3.9,
-          "home_advantage_pct": 25.1
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Werder Bremen 40% / draw 28% / Augsburg 31%",
-          "Expected goals: 1.37 - 1.18"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Werder Bremen",
-          "player": "Justin Njinmah",
-          "position": "FW",
-          "lambda_goals": 0.354163183345752,
-          "anytime_pct": 17.3,
-          "exp_shots": 1.95,
-          "p_shots_2plus": 34.1,
-          "exp_sot": 0.69,
-          "p_sot_1plus": 37.6,
-          "appearance_pct": 94.4,
-          "expected_minutes": 56.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Werder Bremen",
-          "player": "Jens Stage",
-          "position": "MF",
-          "lambda_goals": 0.338756847770815,
-          "anytime_pct": 15.9,
-          "exp_shots": 1.47,
-          "p_shots_2plus": 19.9,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 26.7,
-          "appearance_pct": 83.3,
-          "expected_minutes": 71.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Werder Bremen",
-          "player": "Marco Gr\u00fcll",
-          "position": "FW",
-          "lambda_goals": 0.29283253189924696,
-          "anytime_pct": 13.8,
-          "exp_shots": 1.45,
-          "p_shots_2plus": 19.0,
-          "exp_sot": 0.51,
-          "p_sot_1plus": 27.7,
-          "appearance_pct": 94.4,
-          "expected_minutes": 58.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Augsburg",
-          "player": "Alexis Claude Maurice",
-          "position": "FW",
-          "lambda_goals": 0.22131532102741627,
-          "anytime_pct": 9.5,
-          "exp_shots": 1.68,
-          "p_shots_2plus": 25.6,
-          "exp_sot": 0.59,
-          "p_sot_1plus": 30.7,
-          "appearance_pct": 83.3,
-          "expected_minutes": 61.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Augsburg",
-          "player": "Anton Kade",
-          "position": "DF",
-          "lambda_goals": 0.16575594750614792,
-          "anytime_pct": 6.5,
-          "exp_shots": 0.94,
-          "p_shots_2plus": 7.4,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 16.7,
-          "appearance_pct": 80.6,
-          "expected_minutes": 50.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Augsburg",
-          "player": "Michael Gregoritsch",
-          "position": "FW",
-          "lambda_goals": 0.16062241948500472,
-          "anytime_pct": 5.8,
-          "exp_shots": 0.79,
-          "p_shots_2plus": 5.9,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 11.9,
-          "appearance_pct": 50.0,
-          "expected_minutes": 27.2,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.413,
-        "p_draw": 0.245,
-        "p_away": 0.342,
-        "odds": {
-          "home": 2.3,
-          "draw": 3.8,
-          "away": 2.8
-        },
-        "book": "bet365",
-        "edge": -0.01,
-        "pick_odds": 2.3,
-        "ev": -0.072
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 31,
-      "matchweek": 4,
-      "date": "2026-09-19T13:30:00+00:00",
-      "venue": "Volksparkstadion",
-      "home": "Hamburg",
-      "away": "FC Koln",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.355,
-        "p_draw": 0.276,
-        "p_away": 0.369,
-        "pick": "FC Koln",
-        "pick_type": "away",
-        "score": "1-2",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.2,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-2",
-            "pct": 8.4,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 8.3,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3715,
-        "why": {
-          "home_attack_pct": -12.9,
-          "home_defence_pct": -11.7,
-          "away_attack_pct": 5.5,
-          "away_defence_pct": -6.9,
-          "home_advantage_pct": 25.1
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Hamburg 35% / draw 28% / FC Koln 37%",
-          "Expected goals: 1.34 - 1.37"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Hamburg",
-          "player": "F\u00e1bio Vieira",
-          "position": "FW",
-          "lambda_goals": 0.5032849327629528,
-          "anytime_pct": 24.7,
-          "exp_shots": 1.9,
-          "p_shots_2plus": 31.6,
-          "exp_sot": 0.68,
-          "p_sot_1plus": 34.6,
-          "appearance_pct": 83.3,
-          "expected_minutes": 64.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Hamburg",
-          "player": "Albert Sambi Lokonga",
-          "position": "MF",
-          "lambda_goals": 0.2392130097095069,
-          "anytime_pct": 10.2,
-          "exp_shots": 0.59,
-          "p_shots_2plus": 2.2,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 9.9,
-          "appearance_pct": 75.0,
-          "expected_minutes": 49.7,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Hamburg",
-          "player": "Nicol\u00e1s Capaldo",
-          "position": "DF",
-          "lambda_goals": 0.11618993957440774,
-          "anytime_pct": 4.1,
-          "exp_shots": 0.6,
-          "p_shots_2plus": 2.2,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 9.9,
-          "appearance_pct": 75.0,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "FC Koln",
-          "player": "Said El Mala",
-          "position": "FW",
-          "lambda_goals": 0.42490887950901574,
-          "anytime_pct": 21.6,
-          "exp_shots": 1.78,
-          "p_shots_2plus": 29.0,
-          "exp_sot": 0.62,
-          "p_sot_1plus": 34.4,
-          "appearance_pct": 97.2,
-          "expected_minutes": 56.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "FC Koln",
-          "player": "Ragnar Ache",
-          "position": "FW",
-          "lambda_goals": 0.3178659889618339,
-          "anytime_pct": 14.8,
-          "exp_shots": 1.33,
-          "p_shots_2plus": 16.4,
-          "exp_sot": 0.47,
-          "p_sot_1plus": 24.2,
-          "appearance_pct": 83.3,
-          "expected_minutes": 50.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "FC Koln",
-          "player": "Marius B\u00fclter",
-          "position": "DF",
-          "lambda_goals": 0.13818868122187222,
-          "anytime_pct": 5.2,
-          "exp_shots": 0.85,
-          "p_shots_2plus": 5.1,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 15.3,
-          "appearance_pct": 91.7,
-          "expected_minutes": 45.2,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.355,
-        "p_draw": 0.259,
-        "p_away": 0.387,
-        "odds": {
-          "home": 2.7,
-          "draw": 3.6,
-          "away": 2.45
-        },
-        "book": "bet365",
-        "edge": -0.018,
-        "pick_odds": 2.45,
-        "ev": -0.096
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 32,
-      "matchweek": 4,
-      "date": "2026-09-19T13:30:00+00:00",
-      "venue": "ista-Borussia-Park",
-      "home": "M'gladbach",
-      "away": "Mainz",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.351,
-        "p_draw": 0.274,
-        "p_away": 0.376,
-        "pick": "Mainz",
-        "pick_type": "away",
-        "score": "1-2",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-2",
-            "pct": 8.5,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 8.1,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3788,
-        "why": {
-          "home_attack_pct": -3.1,
-          "home_defence_pct": -2.9,
-          "away_attack_pct": 18.8,
-          "away_defence_pct": 3.0,
-          "home_advantage_pct": 25.1
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: M'gladbach 35% / draw 27% / Mainz 38%",
-          "Expected goals: 1.34 - 1.40"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "M'gladbach",
-          "player": "Shuto Machino",
-          "position": "FW",
-          "lambda_goals": 0.2646576702010652,
-          "anytime_pct": 12.1,
-          "exp_shots": 0.85,
-          "p_shots_2plus": 5.1,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 15.3,
-          "appearance_pct": 91.7,
-          "expected_minutes": 30.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "M'gladbach",
-          "player": "Jens Castrop",
-          "position": "DF",
-          "lambda_goals": 0.1709285604366932,
-          "anytime_pct": 6.7,
-          "exp_shots": 0.74,
-          "p_shots_2plus": 4.0,
-          "exp_sot": 0.25,
-          "p_sot_1plus": 11.8,
-          "appearance_pct": 75.0,
-          "expected_minutes": 46.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "M'gladbach",
-          "player": "Franck Honorat",
-          "position": "DF",
-          "lambda_goals": 0.153203496482061,
-          "anytime_pct": 5.9,
-          "exp_shots": 0.72,
-          "p_shots_2plus": 3.6,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.4,
-          "appearance_pct": 80.6,
-          "expected_minutes": 58.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Mainz",
-          "player": "Ransford K\u00f6nigsd\u00f6rffer",
-          "position": "FW",
-          "lambda_goals": 0.20536450661231495,
-          "anytime_pct": 8.8,
-          "exp_shots": 1.69,
-          "p_shots_2plus": 26.3,
-          "exp_sot": 0.6,
-          "p_sot_1plus": 32.6,
-          "appearance_pct": 94.4,
-          "expected_minutes": 69.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Mainz",
-          "player": "Phillip Tietz",
-          "position": "FW",
-          "lambda_goals": 0.20543264561194766,
-          "anytime_pct": 8.6,
-          "exp_shots": 1.26,
-          "p_shots_2plus": 14.5,
-          "exp_sot": 0.44,
-          "p_sot_1plus": 23.0,
-          "appearance_pct": 83.3,
-          "expected_minutes": 52.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Mainz",
-          "player": "Jae-Sung Lee",
-          "position": "FW",
-          "lambda_goals": 0.16742908139059545,
-          "anytime_pct": 6.6,
-          "exp_shots": 0.96,
-          "p_shots_2plus": 7.6,
-          "exp_sot": 0.33,
-          "p_sot_1plus": 16.5,
-          "appearance_pct": 80.6,
-          "expected_minutes": 64.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.322,
-        "p_draw": 0.256,
-        "p_away": 0.421,
-        "odds": {
-          "home": 3.0,
-          "draw": 3.7,
-          "away": 2.2
-        },
-        "book": "bet365",
-        "edge": -0.045,
-        "pick_odds": 2.2,
-        "ev": -0.174
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 33,
-      "matchweek": 4,
-      "date": "2026-09-19T13:30:00+00:00",
-      "venue": "Deutsche Bank Park",
-      "home": "Ein Frankfurt",
-      "away": "Freiburg",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.439,
-        "p_draw": 0.272,
-        "p_away": 0.289,
-        "pick": "Ein Frankfurt",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.9,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.1,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4372,
-        "why": {
-          "home_attack_pct": 13.9,
-          "home_defence_pct": 1.7,
-          "away_attack_pct": 5.9,
-          "away_defence_pct": 7.2,
-          "home_advantage_pct": 25.1
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Ein Frankfurt 44% / draw 27% / Freiburg 29%",
-          "Expected goals: 1.52 - 1.19"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Ein Frankfurt",
-          "player": "Jonathan Burkardt",
-          "position": "FW",
-          "lambda_goals": 0.39714240407064044,
-          "anytime_pct": 17.4,
-          "exp_shots": 1.33,
-          "p_shots_2plus": 16.2,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 21.5,
-          "appearance_pct": 63.9,
-          "expected_minutes": 39.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ein Frankfurt",
-          "player": "Ritsu Doan",
-          "position": "DF",
-          "lambda_goals": 0.28109778542268693,
-          "anytime_pct": 12.9,
-          "exp_shots": 1.35,
-          "p_shots_2plus": 16.5,
-          "exp_sot": 0.47,
-          "p_sot_1plus": 24.8,
-          "appearance_pct": 88.9,
-          "expected_minutes": 69.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Ein Frankfurt",
-          "player": "Can Uzun",
-          "position": "MF",
-          "lambda_goals": 0.23254886657826956,
-          "anytime_pct": 9.4,
-          "exp_shots": 1.09,
-          "p_shots_2plus": 11.2,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 17.2,
-          "appearance_pct": 61.1,
-          "expected_minutes": 34.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Freiburg",
-          "player": "Igor Matanovic",
-          "position": "FW",
-          "lambda_goals": 0.23888746153112875,
-          "anytime_pct": 10.6,
-          "exp_shots": 1.28,
-          "p_shots_2plus": 14.7,
-          "exp_sot": 0.45,
-          "p_sot_1plus": 24.0,
-          "appearance_pct": 88.9,
-          "expected_minutes": 44.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Freiburg",
-          "player": "Lucas H\u00f6ler",
-          "position": "FW",
-          "lambda_goals": 0.17796040600699084,
-          "anytime_pct": 7.3,
-          "exp_shots": 0.99,
-          "p_shots_2plus": 7.6,
-          "exp_sot": 0.35,
-          "p_sot_1plus": 18.4,
-          "appearance_pct": 94.4,
-          "expected_minutes": 59.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Freiburg",
-          "player": "Vincenzo Grifo",
-          "position": "FW",
-          "lambda_goals": 0.11306641539124995,
-          "anytime_pct": 4.0,
-          "exp_shots": 1.03,
-          "p_shots_2plus": 8.4,
-          "exp_sot": 0.36,
-          "p_sot_1plus": 18.8,
-          "appearance_pct": 94.4,
-          "expected_minutes": 49.6,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.396,
-        "p_draw": 0.247,
-        "p_away": 0.357,
-        "odds": {
-          "home": 2.4,
-          "draw": 3.9,
-          "away": 2.63
-        },
-        "book": "bet365",
-        "edge": 0.043,
-        "pick_odds": 2.4,
-        "ev": 0.055
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 35,
       "matchweek": 4,
@@ -4862,14 +4198,14 @@
     },
     {
       "team": "Freiburg",
-      "played": 3,
+      "played": 4,
       "won": 3,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
-      "gf": 10,
-      "ga": 1,
+      "gf": 12,
+      "ga": 3,
       "gd": 9,
-      "points": 9
+      "points": 10
     },
     {
       "team": "Dortmund",
@@ -4884,13 +4220,35 @@
     },
     {
       "team": "Augsburg",
-      "played": 3,
+      "played": 4,
       "won": 2,
       "drawn": 1,
-      "lost": 0,
-      "gf": 9,
-      "ga": 3,
-      "gd": 6,
+      "lost": 1,
+      "gf": 11,
+      "ga": 6,
+      "gd": 5,
+      "points": 7
+    },
+    {
+      "team": "Mainz",
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 10,
+      "ga": 6,
+      "gd": 4,
+      "points": 7
+    },
+    {
+      "team": "Werder Bremen",
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 8,
+      "ga": 8,
+      "gd": 0,
       "points": 7
     },
     {
@@ -4916,6 +4274,17 @@
       "points": 6
     },
     {
+      "team": "Ein Frankfurt",
+      "played": 4,
+      "won": 1,
+      "drawn": 2,
+      "lost": 1,
+      "gf": 9,
+      "ga": 10,
+      "gd": -1,
+      "points": 5
+    },
+    {
       "team": "Leverkusen",
       "played": 3,
       "won": 1,
@@ -4924,39 +4293,6 @@
       "gf": 8,
       "ga": 5,
       "gd": 3,
-      "points": 4
-    },
-    {
-      "team": "Mainz",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "gf": 6,
-      "ga": 3,
-      "gd": 3,
-      "points": 4
-    },
-    {
-      "team": "Ein Frankfurt",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "gf": 7,
-      "ga": 8,
-      "gd": -1,
-      "points": 4
-    },
-    {
-      "team": "Werder Bremen",
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "gf": 5,
-      "ga": 6,
-      "gd": -1,
       "points": 4
     },
     {
@@ -4972,13 +4308,13 @@
     },
     {
       "team": "FC Koln",
-      "played": 3,
+      "played": 4,
       "won": 1,
       "drawn": 1,
-      "lost": 1,
-      "gf": 5,
-      "ga": 7,
-      "gd": -2,
+      "lost": 2,
+      "gf": 6,
+      "ga": 9,
+      "gd": -3,
       "points": 4
     },
     {
@@ -5001,6 +4337,17 @@
       "gf": 6,
       "ga": 8,
       "gd": -2,
+      "points": 3
+    },
+    {
+      "team": "Hamburg",
+      "played": 4,
+      "won": 1,
+      "drawn": 0,
+      "lost": 3,
+      "gf": 2,
+      "ga": 13,
+      "gd": -11,
       "points": 3
     },
     {
@@ -5027,24 +4374,13 @@
     },
     {
       "team": "M'gladbach",
-      "played": 3,
+      "played": 4,
       "won": 0,
       "drawn": 0,
-      "lost": 3,
-      "gf": 3,
-      "ga": 12,
-      "gd": -9,
-      "points": 0
-    },
-    {
-      "team": "Hamburg",
-      "played": 3,
-      "won": 0,
-      "drawn": 0,
-      "lost": 3,
-      "gf": 0,
-      "ga": 12,
-      "gd": -12,
+      "lost": 4,
+      "gf": 6,
+      "ga": 16,
+      "gd": -10,
       "points": 0
     }
   ],
