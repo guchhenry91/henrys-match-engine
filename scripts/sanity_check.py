@@ -53,9 +53,15 @@ def check_league(fn, key, n_teams, releg):
         if m["home"] == m["away"]:
             fail(tag, "team plays itself")
 
-        # pick must BE the most likely outcome
+        # pick must BE the most likely outcome -- while it is still PROVISIONAL.
+        # A FROZEN pick is shown as it was made (publish derives pick_type from
+        # the locked side), while the probabilities are recomputed every run, so
+        # after a lock the two can legitimately part company. On 2026-09-19
+        # Newcastle v Hull was frozen as Hull at 34.7% vs a 34.3% draw; a later
+        # refit put the draw a fraction ahead, and this rule failed the refresh
+        # of all five leagues over a pick nobody could change any more.
         best = max((p["p_home"], "home"), (p["p_draw"], "draw"), (p["p_away"], "away"))[1]
-        if p["pick_type"] != best:
+        if p["pick_type"] != best and p.get("provisional", True):
             fail(tag, f"pick_type={p['pick_type']} but {best} is most likely")
         # pick name must match pick_type
         expect = {"home": m["home"], "away": m["away"], "draw": "Draw"}[p["pick_type"]]

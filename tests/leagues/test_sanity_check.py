@@ -38,3 +38,40 @@ def test_a_match_finished_hours_ago_is_stale():
 def test_a_future_fixture_obviously_counts():
     later = dt.datetime(2026, 8, 24, 18, 45, tzinfo=dt.timezone.utc)
     assert _current([later], NOW) == 1
+
+
+# --- a frozen pick may trail the fresh argmax -----------------------------------
+# On 2026-09-19 Newcastle v Hull was frozen as Hull (34.7% vs a 34.3% draw). A
+# later refit put the draw a fraction ahead, and the "pick must be the most likely
+# outcome" rule failed the whole refresh over a pick that could no longer change.
+
+import json
+
+import pytest
+
+from scripts import sanity_check
+
+
+def _league(tmp_path, monkeypatch, provisional):
+    match = {"home": "Newcastle United", "away": "Hull", "date": "2026-09-19T14:00:00+00:00",
+             "prediction": {"p_home": 0.31, "p_draw": 0.346, "p_away": 0.344,
+                            "pick": "Hull", "pick_type": "away",
+                            "provisional": provisional}}
+    payload = {"matches": [match], "table": [], "backtest": {"rps": 0.2}}
+    monkeypatch.setattr(sanity_check, "load", lambda path: json.loads(json.dumps(payload)))
+    failures = []
+    monkeypatch.setattr(sanity_check, "fail", lambda where, msg: failures.append(msg))
+    monkeypatch.setattr(sanity_check, "warn", lambda where, msg: None)
+    try:
+        sanity_check.check_league("pl", "PL", 0, 0)
+    except Exception:
+        pass                      # only the argmax rule is under test here
+    return [f for f in failures if "most likely" in f]
+
+
+def test_a_frozen_pick_may_trail_the_fresh_probabilities(tmp_path, monkeypatch):
+    assert _league(tmp_path, monkeypatch, provisional=False) == []
+
+
+def test_a_provisional_pick_must_still_be_the_most_likely(tmp_path, monkeypatch):
+    assert _league(tmp_path, monkeypatch, provisional=True)
