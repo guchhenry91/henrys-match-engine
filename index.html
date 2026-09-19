@@ -1353,6 +1353,18 @@ function nflPropTableRow(p, full){
       : valCell("Price","—","off")}</div>`;
 }
 
+// Team news from the cloud routine (data-raw/ucl/news.json). Shown, not modelled:
+// the Champions League model has no player data to measure an absence against.
+function uclNews(m){
+  const n=m.news||{}, bits=[];
+  for(const side of ["home","away"]){
+    const e=n[side]; if(!e) continue;
+    if((e.out||[]).length) bits.push(`${esc(m[side])} out: ${esc(e.out.join(", "))}`);
+    if((e.doubt||[]).length) bits.push(`${esc(m[side])} doubt: ${esc(e.doubt.join(", "))}`);
+  }
+  return bits.length?`<span class="bsn" style="margin-top:4px">Team news · ${bits.join(" · ")}</span>`:"";
+}
+
 function uclTableRow(m){
   const t=nflTier(m.p_pick);
   const status=m.graded?winChip(m):`<span class="tier ${t.cls}">${t.label}</span>`;
@@ -1360,7 +1372,7 @@ function uclTableRow(m){
     <div class="be"><div class="beb">Champions League · Match winner</div>
       <b>${esc(m.home)} vs ${esc(m.away)}</b>
       <span>Model selection: <em>${esc(m.pick)}</em> · pot ${m.home_pot} v pot ${m.away_pot} · ${
-        m.home_matches}/${m.away_matches} prior matches${(m.thin||[]).length?" · thin history":""}</span></div>
+        m.home_matches}/${m.away_matches} prior matches${(m.thin||[]).length?" · thin history":""}</span>${uclNews(m)}</div>
     <div class="bs">${status}${m.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(m.p_pick)}
     ${valCell("Home · draw · away",`<span style="font-size:14px">${pc(m.p_home)} · ${pc(m.p_draw)} · ${pc(m.p_away)}</span>`)}

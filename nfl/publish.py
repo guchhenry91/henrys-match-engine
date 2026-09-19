@@ -21,6 +21,7 @@ import pandas as pd
 from nfl import (config, data, depth, features, games_model,
                  odds as odds_mod, rosters)
 from nfl import picks
+from nfl import news as player_news
 from nfl.model import PropModel
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -70,10 +71,13 @@ def availability() -> dict:
     """
     path = ROOT / "data-raw" / "nfl" / "injuries.json"
     try:
-        raw = json.loads(path.read_text(encoding="utf-8"))
+        api = json.loads(path.read_text(encoding="utf-8")).get("players") or {}
     except Exception:
-        return {}
-    return raw.get("players") or {}
+        api = {}
+    # Manual news from the cloud team-news routine (nfl/news.py): late scratches
+    # and inactives the API report has not caught. Only ever more cautious.
+    return player_news.merge(api, player_news.load_player_news(
+        ROOT / "data-raw" / "nfl" / "news.json"))
 
 
 def book_prices() -> dict:

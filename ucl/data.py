@@ -7,6 +7,7 @@ import pandas as pd
 from ucl import config
 
 ROOT = Path(__file__).resolve().parent.parent
+OVERRIDE = ROOT / "data-raw" / "ucl" / "results_override.json"
 HISTORY = ROOT / "data-raw" / "ucl" / "history.json"
 
 
@@ -99,4 +100,19 @@ def results_by_id(season=None) -> dict:
             "home_goals": int(game["home_goals"]),
             "away_goals": int(game["away_goals"]),
         }
+    # RESULTS THE FEED MISSED, from the cloud team-news routine. Keyed by the same
+    # fixture id, so the join stays exact. The feed ALWAYS wins where it has the
+    # match; an override needs full time and two sources, or it is ignored.
+    try:
+        extra = json.loads(OVERRIDE.read_text(encoding="utf-8")).get("results") or {}
+    except Exception:
+        extra = {}
+    for fixture_id, r in extra.items():
+        if str(fixture_id) in out or not isinstance(r, dict):
+            continue
+        if r.get("status") != "FT" or len(r.get("sources") or []) < 2:
+            continue
+        out[str(fixture_id)] = {"home": r.get("home"), "away": r.get("away"),
+                                "home_goals": int(r["home_goals"]),
+                                "away_goals": int(r["away_goals"])}
     return out

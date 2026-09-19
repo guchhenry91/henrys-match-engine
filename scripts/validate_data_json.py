@@ -44,6 +44,10 @@ TRACKED = [
     "data-raw/leagues/results_override.json",
     "data-raw/leagues/fixture_times.json",
     "data-raw/leagues/six_scores.json",
+    "data-raw/nfl/news.json",
+    "data-raw/nba/news.json",
+    "data-raw/ucl/news.json",
+    "data-raw/ucl/results_override.json",
     # PUBLISHED PAYLOADS. Machine-written, and checked anyway -- see the module
     # docstring. These are what the site actually serves, so a broken one is not a
     # failed publish, it is an empty page.

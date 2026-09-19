@@ -19,10 +19,31 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from nba import config
+from nfl.news import load_player_news
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "nba"
 REPORT = ROOT / "data-raw" / "nba" / "backtest_report.json"
+NEWS = ROOT / "data-raw" / "nba" / "news.json"
+
+
+def apply_news(picks: list, news: dict) -> list:
+    """Remove players ruled OUT and flag doubts, from data-raw/nba/news.json.
+
+    Written by the cloud team-news routine. It has nothing to act on until the
+    fixture feed exists and props are published, but it is wired in now so the
+    first priced slate is already filtered -- a ruled-out star on the first NBA
+    board would be the worst possible debut.
+    """
+    kept = []
+    for pick in picks:
+        entry = news.get(pick.get("player"))
+        if entry and entry["status"] == "out":
+            continue
+        if entry and entry["status"] == "doubt":
+            pick = {**pick, "availability": "doubt", "injury_note": entry["detail"]}
+        kept.append(pick)
+    return kept
 
 
 def evidence() -> dict:
@@ -53,6 +74,7 @@ def evidence() -> dict:
 
 def build() -> dict:
     ev = evidence()
+    news = load_player_news(NEWS)
     released = sorted(m for m, v in ev.items()
                       if v.get("released") and m != "team_winner")
     withheld = sorted(m for m, v in ev.items()
@@ -72,7 +94,11 @@ def build() -> dict:
         # Empty until a fixture feed exists. Shape kept so nothing about the
         # payload changes when it does.
         "games": [],
-        "props": {m: {"released": m in released, "picks": []} for m in config.MARKETS},
+        "props": {m: {"released": m in released,
+                      "picks": apply_news([], news)} for m in config.MARKETS},
+        "news": {"players_flagged": len(news),
+                 "source": "data-raw/nba/news.json (cloud team-news routine)",
+                 "applied_to": "player props, once the fixture feed publishes them"},
         "evidence": ev,
         "caveats": [
             "Lines are each player's own entering median, floored at what a book "

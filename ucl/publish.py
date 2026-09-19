@@ -27,6 +27,43 @@ OUT = ROOT / "data" / "ucl"
 REPORT = ROOT / "data-raw" / "ucl" / "backtest_report.json"
 FIXTURES = ROOT / "data-raw" / "ucl" / "fixtures.json"
 PICKS_LOG = ROOT / "data-raw" / "ucl" / "picks_log.json"
+NEWS = ROOT / "data-raw" / "ucl" / "news.json"
+NEWS_MAX_AGE_DAYS = 8
+
+
+def club_news(now=None) -> dict:
+    """club -> {"out", "doubt", "note", "checked"} from data-raw/ucl/news.json.
+
+    Kept by the cloud team-news routine and SHOWN on each match card. It does
+    not move the probabilities: this model is fitted on team results only and
+    has no player data, so there is no measured basis for an absence penalty,
+    and an invented one would be a number the backtest never checked.
+    """
+    now = pd.Timestamp(now) if now is not None else pd.Timestamp.now("UTC")
+    if now.tzinfo is None:
+        now = now.tz_localize("UTC")
+    try:
+        raw = json.loads(NEWS.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for club, entry in (raw.get("clubs") or {}).items():
+        if not isinstance(entry, dict):
+            continue
+        try:
+            checked = pd.Timestamp(entry.get("checked"))
+        except Exception:
+            continue
+        if pd.isna(checked):
+            continue                          # undated news is not trusted
+        if checked.tzinfo is None:
+            checked = checked.tz_localize("UTC")
+        if (now - checked).days > NEWS_MAX_AGE_DAYS:
+            continue                          # stale
+        out[club] = {"out": list(entry.get("out") or []),
+                     "doubt": list(entry.get("doubt") or []),
+                     "note": entry.get("note"), "checked": entry.get("checked")}
+    return out
 
 BEST_PICK_MIN_PROB = 0.65      # same bar the soccer board uses
 
@@ -264,6 +301,10 @@ def build() -> dict:
             "thin": sorted({t for t in (home, away)
                             if depth.get(t, 0) < config.THIN_HISTORY}),
         })
+    news = club_news()
+    for m in matches:
+        m["news"] = {side: news[m[side]] for side in ("home", "away")
+                     if m[side] in news} or None
     matches.sort(key=lambda m: (m.get("date") or "", -m["p_pick"]))
     log, rec = freeze_and_grade(matches)
 

@@ -11,6 +11,12 @@ name: NFL refresh
 # which is why the six-season backfill lives here and not on the API-NFL key.
 
 on:
+  # Late scratches and inactives from the cloud team-news routine: rebuild the
+  # board as soon as they land (see the same note in leagues.yml).
+  push:
+    branches: [main]
+    paths:
+      - "data-raw/nfl/news.json"
   schedule:
     # Daily at 09:00 UTC. Ratings only move when games are played, but the slate
     # rolls over mid-week and a stale "week 1" board after week 1 has started
