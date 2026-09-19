@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-19T17:33:16.555888+00:00",
-  "results_updated": "2026-09-19T17:33:16.555893+00:00",
+  "results_updated": "2026-09-19T19:18:36.084366+00:00",
   "record": {
-    "correct": 29,
+    "correct": 30,
     "wrong": 23,
-    "total": 52,
+    "total": 53,
     "void": 7,
-    "pending": 0,
+    "pending": 2,
     "by_confidence": {
       "2": {
         "correct": 8,
         "total": 18
       },
+      "3": {
+        "correct": 13,
+        "total": 18
+      },
       "1": {
         "correct": 5,
         "total": 10
-      },
-      "3": {
-        "correct": 12,
-        "total": 17
       },
       "5": {
         "correct": 3,
@@ -55,127 +55,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 63,
-      "matchweek": 7,
-      "date": "2026-09-19T16:30:00+00:00",
-      "venue": "Estadio ABANCA Bala\u00eddos",
-      "home": "Celta",
-      "away": "Racing Santander",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.507,
-        "p_draw": 0.22,
-        "p_away": 0.273,
-        "pick": "Celta",
-        "pick_type": "home",
-        "score": "2-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 9.5,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-1",
-            "pct": 9.3,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 6.6,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 3,
-        "provisional": false,
-        "p_pick": 0.5087,
-        "why": {
-          "home_attack_pct": 3.1,
-          "home_defence_pct": 4.7,
-          "away_attack_pct": 33.9,
-          "away_defence_pct": -28.5,
-          "home_advantage_pct": 34.0
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Celta 51% / draw 22% / Racing Santander 27%",
-          "Expected goals: 1.98 - 1.41"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Celta",
-          "player": "Ferr\u00e1n Jutgl\u00e0",
-          "position": "FW",
-          "lambda_goals": 0.5689866715326203,
-          "anytime_pct": 27.1,
-          "exp_shots": 1.32,
-          "p_shots_2plus": 16.1,
-          "exp_sot": 0.69,
-          "p_sot_1plus": 34.2,
-          "appearance_pct": 77.5,
-          "expected_minutes": 44.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Celta",
-          "player": "Williot Swedberg",
-          "position": "FW",
-          "lambda_goals": 0.3849829360933954,
-          "anytime_pct": 17.8,
-          "exp_shots": 0.81,
-          "p_shots_2plus": 5.2,
-          "exp_sot": 0.38,
-          "p_sot_1plus": 19.0,
-          "appearance_pct": 75.0,
-          "expected_minutes": 32.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Celta",
-          "player": "Miguel Rom\u00e1n",
-          "position": "MF",
-          "lambda_goals": 0.17238018758887988,
-          "anytime_pct": 7.1,
-          "exp_shots": 0.62,
-          "p_shots_2plus": 1.8,
-          "exp_sot": 0.18,
-          "p_sot_1plus": 8.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.521,
-        "p_draw": 0.245,
-        "p_away": 0.234,
-        "odds": {
-          "home": 1.8,
-          "draw": 3.8,
-          "away": 4.2
-        },
-        "book": "bet365",
-        "edge": -0.014,
-        "pick_odds": 1.8,
-        "ev": -0.087
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 68,
       "matchweek": 7,
@@ -5930,6 +5809,17 @@
       "points": 8
     },
     {
+      "team": "Celta",
+      "played": 7,
+      "won": 1,
+      "drawn": 4,
+      "lost": 2,
+      "gf": 8,
+      "ga": 6,
+      "gd": 2,
+      "points": 7
+    },
+    {
       "team": "Espanol",
       "played": 7,
       "won": 2,
@@ -5941,17 +5831,6 @@
       "points": 7
     },
     {
-      "team": "Racing Santander",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
-      "lost": 3,
-      "gf": 11,
-      "ga": 16,
-      "gd": -5,
-      "points": 7
-    },
-    {
       "team": "Sociedad",
       "played": 6,
       "won": 2,
@@ -5960,6 +5839,17 @@
       "gf": 6,
       "ga": 11,
       "gd": -5,
+      "points": 7
+    },
+    {
+      "team": "Racing Santander",
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "gf": 11,
+      "ga": 21,
+      "gd": -10,
       "points": 7
     },
     {
@@ -6005,17 +5895,6 @@
       "ga": 17,
       "gd": -6,
       "points": 5
-    },
-    {
-      "team": "Celta",
-      "played": 6,
-      "won": 0,
-      "drawn": 4,
-      "lost": 2,
-      "gf": 3,
-      "ga": 6,
-      "gd": -3,
-      "points": 4
     },
     {
       "team": "Valencia",

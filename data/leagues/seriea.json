@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
   "updated": "2026-09-19T17:33:50.957866+00:00",
-  "results_updated": "2026-09-19T17:33:50.957870+00:00",
+  "results_updated": "2026-09-19T19:18:37.476909+00:00",
   "record": {
     "correct": 14,
-    "wrong": 11,
-    "total": 25,
+    "wrong": 12,
+    "total": 26,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
+      "2": {
+        "correct": 8,
+        "total": 16
+      },
       "3": {
         "correct": 3,
         "total": 5
-      },
-      "2": {
-        "correct": 8,
-        "total": 15
       },
       "1": {
         "correct": 1,
@@ -156,235 +156,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 48,
-      "matchweek": 5,
-      "date": "2026-09-19T16:00:00+00:00",
-      "venue": "Olimpico",
-      "home": "Roma",
-      "away": "Inter",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.311,
-        "p_draw": 0.25,
-        "p_away": 0.439,
-        "pick": "Inter",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 11.8,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 9.9,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-2",
-            "pct": 9.1,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4395,
-        "why": {
-          "home_attack_pct": 31.4,
-          "home_defence_pct": 28.4,
-          "away_attack_pct": 68.2,
-          "away_defence_pct": 33.1,
-          "home_advantage_pct": 7.9
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Roma 31% / draw 25% / Inter 44%",
-          "Expected goals: 1.23 - 1.51"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Roma",
-          "player": "Donyell Malen",
-          "position": "FW",
-          "lambda_goals": 0.48111499105308253,
-          "anytime_pct": 25.1,
-          "exp_shots": 2.95,
-          "p_shots_2plus": 63.6,
-          "exp_sot": 1.27,
-          "p_sot_1plus": 63.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 83.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Roma",
-          "player": "Paulo Dybala",
-          "position": "FW",
-          "lambda_goals": 0.29589405062127994,
-          "anytime_pct": 14.1,
-          "exp_shots": 2.04,
-          "p_shots_2plus": 37.5,
-          "exp_sot": 0.78,
-          "p_sot_1plus": 42.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Roma",
-          "player": "Mat\u00ecas Soul\u00e8 Malvano",
-          "position": "DF",
-          "lambda_goals": 0.10243981756582526,
-          "anytime_pct": 3.5,
-          "exp_shots": 1.09,
-          "p_shots_2plus": 10.4,
-          "exp_sot": 0.36,
-          "p_sot_1plus": 18.4,
-          "appearance_pct": 85.0,
-          "expected_minutes": 56.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Lautaro Mart\u00ednez",
-          "position": "FW",
-          "lambda_goals": 0.3759563320829736,
-          "anytime_pct": 18.9,
-          "exp_shots": 2.32,
-          "p_shots_2plus": 46.2,
-          "exp_sot": 0.92,
-          "p_sot_1plus": 49.8,
-          "appearance_pct": 100.0,
-          "expected_minutes": 73.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Marcus Thuram",
-          "position": "FW",
-          "lambda_goals": 0.30291185563999756,
-          "anytime_pct": 14.5,
-          "exp_shots": 1.69,
-          "p_shots_2plus": 26.3,
-          "exp_sot": 0.66,
-          "p_sot_1plus": 37.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Inter",
-          "player": "Francesco Pio Esposito",
-          "position": "FW",
-          "lambda_goals": 0.15487983557509682,
-          "anytime_pct": 6.1,
-          "exp_shots": 1.04,
-          "p_shots_2plus": 8.8,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 21.6,
-          "appearance_pct": 90.0,
-          "expected_minutes": 39.5,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Donyell Malen",
-          "team": "Roma",
-          "position": "FW",
-          "p_pick": 0.636,
-          "confidence": 4,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 83.3,
-          "anytime_pct": 25.1,
-          "exp_shots": 2.95,
-          "exp_sot": 1.27,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            3,
-            4,
-            5,
-            2,
-            3
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 1.591964493611111,
-          "unavailable": false,
-          "team_attribution": "Roma"
-        },
-        {
-          "market": "sot",
-          "line": "1+ shot on target",
-          "player": "Donyell Malen",
-          "team": "Roma",
-          "position": "FW",
-          "p_pick": 0.635,
-          "confidence": 4,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 100.0,
-          "expected_minutes": 83.3,
-          "anytime_pct": 25.1,
-          "exp_shots": 2.95,
-          "exp_sot": 1.27,
-          "lineup_confirmed": true,
-          "gradeable": true,
-          "last_five": [
-            1,
-            2,
-            4,
-            1,
-            2
-          ],
-          "last_five_line": 1,
-          "bar": 0.511,
-          "news_checked_hours_ago": 1.591964535,
-          "unavailable": false,
-          "team_attribution": "Roma"
-        }
-      ],
-      "market": {
-        "p_home": 0.36,
-        "p_draw": 0.27,
-        "p_away": 0.37,
-        "odds": {
-          "home": 2.7,
-          "draw": 3.4,
-          "away": 2.55
-        },
-        "book": "bet365",
-        "edge": 0.069,
-        "pick_odds": 2.55,
-        "ev": 0.121
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 50,
       "matchweek": 5,
@@ -5780,25 +5551,25 @@
   "standings": [
     {
       "team": "Roma",
-      "played": 4,
+      "played": 5,
       "won": 4,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
-      "gf": 12,
-      "ga": 1,
+      "gf": 14,
+      "ga": 3,
       "gd": 11,
-      "points": 12
+      "points": 13
     },
     {
       "team": "Inter",
-      "played": 4,
+      "played": 5,
       "won": 4,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
-      "gf": 13,
-      "ga": 6,
+      "gf": 15,
+      "ga": 8,
       "gd": 7,
-      "points": 12
+      "points": 13
     },
     {
       "team": "Cagliari",
