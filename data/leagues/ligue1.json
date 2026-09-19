@@ -1,21 +1,21 @@
 {
   "league": "Ligue 1",
   "updated": "2026-09-19T15:59:59.721666+00:00",
-  "results_updated": "2026-09-19T17:12:11.851499+00:00",
+  "results_updated": "2026-09-19T17:28:28.991458+00:00",
   "record": {
-    "correct": 13,
+    "correct": 14,
     "wrong": 21,
-    "total": 34,
+    "total": 35,
     "void": 0,
-    "pending": 5,
+    "pending": 4,
     "by_confidence": {
       "3": {
         "correct": 3,
         "total": 8
       },
       "2": {
-        "correct": 4,
-        "total": 11
+        "correct": 5,
+        "total": 12
       },
       "1": {
         "correct": 3,
@@ -51,204 +51,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 44,
-      "matchweek": 5,
-      "date": "2026-09-19T15:15:00+00:00",
-      "venue": "Stade Jean-Bouin",
-      "home": "Paris FC",
-      "away": "Strasbourg",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.412,
-        "p_draw": 0.261,
-        "p_away": 0.327,
-        "pick": "Paris FC",
-        "pick_type": "home",
-        "score": "2-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.3,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "2-1",
-            "pct": 8.9,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 7.9,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4115,
-        "why": {
-          "home_attack_pct": 4.8,
-          "home_defence_pct": 3.0,
-          "away_attack_pct": 15.1,
-          "away_defence_pct": 3.0,
-          "home_advantage_pct": 19.4
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Paris FC 41% / draw 26% / Strasbourg 33%",
-          "Expected goals: 1.54 - 1.35"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Paris FC",
-          "player": "Lassine Sinayoko",
-          "position": "FW",
-          "lambda_goals": 0.40297299515346935,
-          "anytime_pct": 20.0,
-          "exp_shots": 2.74,
-          "p_shots_2plus": 54.5,
-          "exp_sot": 1.01,
-          "p_sot_1plus": 50.8,
-          "appearance_pct": 91.7,
-          "expected_minutes": 80.5,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Paris FC",
-          "player": "Pablo Pagis",
-          "position": "FW",
-          "lambda_goals": 0.24196662883609815,
-          "anytime_pct": 10.5,
-          "exp_shots": 1.82,
-          "p_shots_2plus": 29.0,
-          "exp_sot": 0.59,
-          "p_sot_1plus": 30.3,
-          "appearance_pct": 80.6,
-          "expected_minutes": 51.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Paris FC",
-          "player": "Ilan Kebbal",
-          "position": "FW",
-          "lambda_goals": 0.18421121885027295,
-          "anytime_pct": 7.5,
-          "exp_shots": 1.65,
-          "p_shots_2plus": 24.9,
-          "exp_sot": 0.62,
-          "p_sot_1plus": 32.0,
-          "appearance_pct": 83.3,
-          "expected_minutes": 64.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Strasbourg",
-          "player": "Martial Godo",
-          "position": "MF",
-          "lambda_goals": 0.5241586177865178,
-          "anytime_pct": 25.4,
-          "exp_shots": 0.85,
-          "p_shots_2plus": 5.6,
-          "exp_sot": 0.34,
-          "p_sot_1plus": 17.2,
-          "appearance_pct": 80.6,
-          "expected_minutes": 46.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Strasbourg",
-          "player": "Sebastian Nanasi",
-          "position": "FW",
-          "lambda_goals": 0.3308769586549004,
-          "anytime_pct": 13.6,
-          "exp_shots": 0.49,
-          "p_shots_2plus": 1.6,
-          "exp_sot": 0.22,
-          "p_sot_1plus": 9.8,
-          "appearance_pct": 55.6,
-          "expected_minutes": 30.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Strasbourg",
-          "player": "Samuel Amo-Ameyaw",
-          "position": "DF",
-          "lambda_goals": 0.12377195323034546,
-          "anytime_pct": 4.4,
-          "exp_shots": 0.35,
-          "p_shots_2plus": 0.5,
-          "exp_sot": 0.14,
-          "p_sot_1plus": 6.0,
-          "appearance_pct": 72.2,
-          "expected_minutes": 29.2,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Lassine Sinayoko",
-          "team": "Paris FC",
-          "position": "FW",
-          "p_pick": 0.545,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": true,
-          "appearance_pct": 91.7,
-          "expected_minutes": 80.5,
-          "anytime_pct": 20.0,
-          "exp_shots": 2.74,
-          "exp_sot": 1.01,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            6,
-            4,
-            3,
-            3,
-            2
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 1.4759696169444445,
-          "unavailable": false,
-          "team_attribution": "Paris FC"
-        }
-      ],
-      "market": {
-        "p_home": 0.469,
-        "p_draw": 0.255,
-        "p_away": 0.276,
-        "odds": {
-          "home": 1.95,
-          "draw": 3.75,
-          "away": 3.6
-        },
-        "book": "bet365",
-        "edge": -0.057,
-        "pick_odds": 1.95,
-        "ev": -0.196
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 37,
       "matchweek": 5,
@@ -4942,6 +4744,17 @@
       "points": 13
     },
     {
+      "team": "Paris FC",
+      "played": 5,
+      "won": 3,
+      "drawn": 2,
+      "lost": 0,
+      "gf": 8,
+      "ga": 3,
+      "gd": 5,
+      "points": 11
+    },
+    {
       "team": "Lille",
       "played": 4,
       "won": 3,
@@ -4975,25 +4788,14 @@
       "points": 8
     },
     {
-      "team": "Paris FC",
-      "played": 4,
-      "won": 2,
-      "drawn": 2,
-      "lost": 0,
-      "gf": 6,
-      "ga": 2,
-      "gd": 4,
-      "points": 8
-    },
-    {
       "team": "Strasbourg",
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 1,
-      "lost": 1,
-      "gf": 9,
-      "ga": 8,
-      "gd": 1,
+      "lost": 2,
+      "gf": 10,
+      "ga": 10,
+      "gd": 0,
       "points": 7
     },
     {
