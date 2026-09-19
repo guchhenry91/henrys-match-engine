@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-19T14:34:29.147835+00:00",
+  "updated": "2026-09-19T16:00:27.469857+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -10,7 +10,7 @@
           "tier": "Balanced five-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.0791,
+          "combined": 0.0968,
           "legs": [
             {
               "selection": "Nottingham Forest to win",
@@ -53,24 +53,24 @@
               "date": "2026-09-19T15:15:00+00:00"
             },
             {
-              "selection": "Nico Paz 2+ shot attempts",
-              "match": "Frosinone v Como",
+              "selection": "Donyell Malen 2+ shot attempts",
+              "match": "Roma v Inter",
               "league": "Serie A",
               "league_key": "SERIEA",
               "tag": "a",
-              "p": 0.52,
-              "id": "SERIEA#43#shots#Nico Paz",
-              "date": "2026-09-20T13:00:00+00:00"
+              "p": 0.636,
+              "id": "SERIEA#48#shots#Donyell Malen",
+              "date": "2026-09-19T16:00:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-19T13:47:46.218830+00:00"
+          "locked_at": "2026-09-19T16:00:27.469857+00:00"
         },
         {
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.137,
+          "combined": 0.1435,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -83,14 +83,14 @@
               "date": "2026-09-20T13:00:00+00:00"
             },
             {
-              "selection": "Georges Mikautadze 2+ shot attempts",
-              "match": "Villarreal v Levante",
-              "league": "La Liga",
-              "league_key": "LALIGA",
+              "selection": "Donyell Malen 2+ shot attempts",
+              "match": "Roma v Inter",
+              "league": "Serie A",
+              "league_key": "SERIEA",
               "tag": "a",
-              "p": 0.609,
-              "id": "LALIGA#70#shots#Georges Mikautadze",
-              "date": "2026-09-20T16:30:00+00:00"
+              "p": 0.636,
+              "id": "SERIEA#48#shots#Donyell Malen",
+              "date": "2026-09-19T16:00:00+00:00"
             },
             {
               "selection": "Raphinha to score",
@@ -98,13 +98,13 @@
               "league": "La Liga",
               "league_key": "LALIGA",
               "tag": "g",
-              "p": 0.316,
+              "p": 0.317,
               "id": "LALIGA#68#goal#Raphinha",
               "date": "2026-09-19T19:00:00+00:00"
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-19T13:47:46.218830+00:00"
+          "locked_at": "2026-09-19T16:00:27.469857+00:00"
         }
       ]
     },
@@ -146,7 +146,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0255,
+          "combined": 0.0162,
           "legs": [
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -167,6 +167,16 @@
               "p": 0.64,
               "id": "LALIGA#70#sot#Georges Mikautadze",
               "date": "2026-09-20T16:30:00+00:00"
+            },
+            {
+              "selection": "Donyell Malen 2+ shot attempts",
+              "match": "Roma v Inter",
+              "league": "Serie A",
+              "league_key": "SERIEA",
+              "tag": "a",
+              "p": 0.636,
+              "id": "SERIEA#48#shots#Donyell Malen",
+              "date": "2026-09-19T16:00:00+00:00"
             },
             {
               "selection": "Lamine Yamal 2+ shot attempts",
@@ -220,7 +230,7 @@
             }
           ],
           "provisional": false,
-          "locked_at": "2026-09-19T14:34:29.147835+00:00"
+          "locked_at": "2026-09-19T16:00:27.469857+00:00"
         }
       ]
     },
@@ -304,13 +314,109 @@
   "record": {
     "correct": 14,
     "wrong": 29,
-    "void": 68,
+    "void": 71,
     "total": 43,
     "pending": 37
   },
   "settled": [
     {
+      "combined": 0.1435,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#47#sot#Erling Haaland",
+          "selection": "Erling Haaland 1+ shot on target",
+          "p": 0.712
+        },
+        {
+          "id": "SERIEA#48#shots#Donyell Malen",
+          "selection": "Donyell Malen 2+ shot attempts",
+          "p": 0.636
+        },
+        {
+          "id": "LALIGA#68#goal#Raphinha",
+          "selection": "Raphinha to score",
+          "p": 0.317
+        }
+      ],
+      "kickoff": "2026-09-19T16:00:00+00:00"
+    },
+    {
+      "combined": 0.0968,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#49#w",
+          "selection": "Nottingham Forest to win",
+          "p": 0.7393
+        },
+        {
+          "id": "LALIGA#70#sot#Georges Mikautadze",
+          "selection": "Georges Mikautadze 1+ shot on target",
+          "p": 0.64
+        },
+        {
+          "id": "BUNDESLIGA#35#shots#Deniz Undav",
+          "selection": "Deniz Undav 2+ shot attempts",
+          "p": 0.59
+        },
+        {
+          "id": "LIGUE1#44#shots#Lassine Sinayoko",
+          "selection": "Lassine Sinayoko 2+ shot attempts",
+          "p": 0.545
+        },
+        {
+          "id": "SERIEA#48#shots#Donyell Malen",
+          "selection": "Donyell Malen 2+ shot attempts",
+          "p": 0.636
+        }
+      ],
+      "kickoff": "2026-09-19T15:15:00+00:00"
+    },
+    {
       "combined": 0.0255,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#47#sot#Erling Haaland",
+          "p": 0.712,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#70#sot#Georges Mikautadze",
+          "p": 0.64,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#68#shots#Lamine Yamal",
+          "p": 0.592,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#35#shots#Deniz Undav",
+          "p": 0.59,
+          "selection": "Deniz Undav 2+ shot attempts"
+        },
+        {
+          "id": "PL#44#sot#Tyrique George",
+          "p": 0.565,
+          "selection": "Tyrique George 1+ shot on target"
+        },
+        {
+          "id": "LIGUE1#44#shots#Lassine Sinayoko",
+          "p": 0.545,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        },
+        {
+          "id": "SERIEA#43#shots#Nico Paz",
+          "p": 0.52,
+          "selection": "Nico Paz 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-19T14:00:00+00:00"
+    },
+    {
+      "combined": 0.0162,
       "graded": "void",
       "legs": [
         {
@@ -322,6 +428,11 @@
           "id": "LALIGA#70#sot#Georges Mikautadze",
           "selection": "Georges Mikautadze 1+ shot on target",
           "p": 0.64
+        },
+        {
+          "id": "SERIEA#48#shots#Donyell Malen",
+          "selection": "Donyell Malen 2+ shot attempts",
+          "p": 0.636
         },
         {
           "id": "LALIGA#68#shots#Lamine Yamal",
