@@ -1,7 +1,7 @@
 {
   "league": "Bundesliga",
-  "updated": "2026-09-19T17:33:34.054666+00:00",
-  "results_updated": "2026-09-19T19:36:46.031908+00:00",
+  "updated": "2026-09-19T19:41:40.317734+00:00",
+  "results_updated": "2026-09-19T19:41:40.317738+00:00",
   "record": {
     "correct": 16,
     "wrong": 16,
@@ -9,10 +9,6 @@
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 6,
-        "total": 14
-      },
       "4": {
         "correct": 4,
         "total": 7
@@ -24,6 +20,10 @@
       "3": {
         "correct": 3,
         "total": 3
+      },
+      "2": {
+        "correct": 6,
+        "total": 14
       },
       "5": {
         "correct": 1,
@@ -50,49 +50,52 @@
       "away": "RB Leipzig",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.504,
-        "p_draw": 0.238,
-        "p_away": 0.258,
+        "p_home": 0.51,
+        "p_draw": 0.24,
+        "p_away": 0.25,
         "pick": "Leverkusen",
         "pick_type": "home",
         "score": "2-1",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 10.8,
+            "pct": 11.1,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "2-1",
-            "pct": 9.5,
+            "pct": 9.7,
             "outcome": "home",
             "agrees_with_pick": true
           },
           {
             "score": "2-0",
-            "pct": 7.2,
+            "pct": 7.8,
             "outcome": "home",
             "agrees_with_pick": true
           }
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.5038,
+        "p_pick": 0.51,
         "why": {
-          "home_attack_pct": 41.0,
-          "home_defence_pct": 18.9,
-          "away_attack_pct": 35.8,
-          "away_defence_pct": 6.9,
-          "home_advantage_pct": 25.1
+          "home_attack_pct": 41.2,
+          "home_defence_pct": 18.8,
+          "away_attack_pct": 36.0,
+          "away_defence_pct": 6.8,
+          "home_advantage_pct": 24.9
         },
         "best_pick": false,
         "reasons": [
-          "Model: Leverkusen 50% / draw 24% / RB Leipzig 26%",
-          "Expected goals: 1.90 - 1.32"
+          "Model: Leverkusen 51% / draw 24% / RB Leipzig 25%",
+          "Expected goals: 1.85 - 1.24"
         ],
         "unmodeled_absences": {
-          "home": [],
+          "home": [
+            "Montrell Culbreath",
+            "Nathan Tella"
+          ],
           "away": []
         }
       },
@@ -101,8 +104,8 @@
           "team": "Leverkusen",
           "player": "Patrik Schick",
           "position": "FW",
-          "lambda_goals": 0.5307417192487442,
-          "anytime_pct": 25.7,
+          "lambda_goals": 0.5482010676270239,
+          "anytime_pct": 26.6,
           "exp_shots": 2.35,
           "p_shots_2plus": 41.1,
           "exp_sot": 0.82,
@@ -116,8 +119,8 @@
           "team": "Leverkusen",
           "player": "Christian Kofane",
           "position": "FW",
-          "lambda_goals": 0.22299476670722534,
-          "anytime_pct": 9.6,
+          "lambda_goals": 0.23033043145200105,
+          "anytime_pct": 10.0,
           "exp_shots": 1.33,
           "p_shots_2plus": 16.2,
           "exp_sot": 0.46,
@@ -131,8 +134,8 @@
           "team": "Leverkusen",
           "player": "Malik Tillman",
           "position": "MF",
-          "lambda_goals": 0.1618930986236739,
-          "anytime_pct": 6.4,
+          "lambda_goals": 0.16721875497665636,
+          "anytime_pct": 6.6,
           "exp_shots": 0.92,
           "p_shots_2plus": 6.7,
           "exp_sot": 0.32,
@@ -144,25 +147,10 @@
         },
         {
           "team": "RB Leipzig",
-          "player": "Christoph Baumgartner",
-          "position": "FW",
-          "lambda_goals": 0.3159719665213265,
-          "anytime_pct": 15.1,
-          "exp_shots": 1.95,
-          "p_shots_2plus": 34.1,
-          "exp_sot": 0.68,
-          "p_sot_1plus": 37.0,
-          "appearance_pct": 94.4,
-          "expected_minutes": 80.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "RB Leipzig",
           "player": "R\u00f4mulo",
           "position": "FW",
-          "lambda_goals": 0.31143276816672116,
-          "anytime_pct": 14.5,
+          "lambda_goals": 0.41785036984048735,
+          "anytime_pct": 20.4,
           "exp_shots": 1.63,
           "p_shots_2plus": 24.4,
           "exp_sot": 0.57,
@@ -176,14 +164,29 @@
           "team": "RB Leipzig",
           "player": "Assan Ou\u00e9draogo",
           "position": "FW",
-          "lambda_goals": 0.10789458190157519,
-          "anytime_pct": 3.6,
+          "lambda_goals": 0.144762515571974,
+          "anytime_pct": 5.2,
           "exp_shots": 0.71,
           "p_shots_2plus": 4.4,
           "exp_sot": 0.24,
           "p_sot_1plus": 10.3,
           "appearance_pct": 55.6,
           "expected_minutes": 28.4,
+          "penalty_taker": false,
+          "doubt": false
+        },
+        {
+          "team": "RB Leipzig",
+          "player": "Antonio Nusa",
+          "position": "DF",
+          "lambda_goals": 0.13044337857807559,
+          "anytime_pct": 4.8,
+          "exp_shots": 1.12,
+          "p_shots_2plus": 10.7,
+          "exp_sot": 0.38,
+          "p_sot_1plus": 20.1,
+          "appearance_pct": 88.9,
+          "expected_minutes": 58.7,
           "penalty_taker": false,
           "doubt": false
         }
@@ -199,9 +202,9 @@
           "away": 3.25
         },
         "book": "bet365",
-        "edge": 0.028,
+        "edge": 0.034,
         "pick_odds": 1.95,
-        "ev": -0.018
+        "ev": -0.005
       },
       "result": null,
       "graded": null,
@@ -217,15 +220,15 @@
       "time_suspect": false,
       "prediction": {
         "p_home": 0.295,
-        "p_draw": 0.251,
-        "p_away": 0.454,
+        "p_draw": 0.249,
+        "p_away": 0.457,
         "pick": "Elversberg",
         "pick_type": "away",
         "score": "1-2",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 11.5,
+            "pct": 11.4,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -236,26 +239,26 @@
             "agrees_with_pick": true
           },
           {
-            "score": "2-1",
+            "score": "0-1",
             "pct": 7.3,
-            "outcome": "home",
-            "agrees_with_pick": false
+            "outcome": "away",
+            "agrees_with_pick": true
           }
         ],
         "confidence": 2,
         "provisional": true,
-        "p_pick": 0.4539,
+        "p_pick": 0.4567,
         "why": {
-          "home_attack_pct": -11.0,
+          "home_attack_pct": -10.9,
           "home_defence_pct": 0.3,
-          "away_attack_pct": 50.2,
+          "away_attack_pct": 50.9,
           "away_defence_pct": -5.6,
-          "home_advantage_pct": 25.1
+          "home_advantage_pct": 24.9
         },
         "best_pick": false,
         "reasons": [
-          "Model: Schalke 04 30% / draw 25% / Elversberg 45%",
-          "Expected goals: 1.36 - 1.72"
+          "Model: Schalke 04 29% / draw 25% / Elversberg 46%",
+          "Expected goals: 1.35 - 1.72"
         ],
         "unmodeled_absences": {
           "home": [],
@@ -274,9 +277,9 @@
           "away": 3.5
         },
         "book": "bet365",
-        "edge": 0.172,
+        "edge": 0.175,
         "pick_odds": 3.5,
-        "ev": 0.589
+        "ev": 0.598
       },
       "result": null,
       "graded": null,
@@ -291,46 +294,46 @@
       "away": "Hoffenheim",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.076,
-        "p_draw": 0.328,
-        "p_away": 0.596,
+        "p_home": 0.075,
+        "p_draw": 0.326,
+        "p_away": 0.6,
         "pick": "Hoffenheim",
         "pick_type": "away",
         "score": "0-1",
         "top_scores": [
           {
             "score": "0-1",
-            "pct": 27.5,
+            "pct": 27.8,
             "outcome": "away",
             "agrees_with_pick": true
           },
           {
             "score": "0-0",
-            "pct": 24.4,
+            "pct": 24.5,
             "outcome": "draw",
             "agrees_with_pick": false
           },
           {
             "score": "0-2",
-            "pct": 16.4,
+            "pct": 16.6,
             "outcome": "away",
             "agrees_with_pick": true
           }
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.5963,
+        "p_pick": 0.5996,
         "why": {
-          "home_attack_pct": -81.9,
-          "home_defence_pct": 16.1,
-          "away_attack_pct": 18.3,
-          "away_defence_pct": 0.4,
-          "home_advantage_pct": 25.1
+          "home_attack_pct": -82.3,
+          "home_defence_pct": 15.6,
+          "away_attack_pct": 18.5,
+          "away_defence_pct": 0.3,
+          "home_advantage_pct": 24.9
         },
         "best_pick": false,
         "reasons": [
-          "Model: Paderborn 8% / draw 33% / Hoffenheim 60%",
-          "Expected goals: 0.26 - 1.17"
+          "Model: Paderborn 7% / draw 33% / Hoffenheim 60%",
+          "Expected goals: 0.25 - 1.17"
         ],
         "unmodeled_absences": {
           "home": [],
@@ -342,7 +345,7 @@
           "team": "Hoffenheim",
           "player": "Andrej Kramaric",
           "position": "FW",
-          "lambda_goals": 0.26373911534946765,
+          "lambda_goals": 0.2639948429380832,
           "anytime_pct": 12.2,
           "exp_shots": 1.64,
           "p_shots_2plus": 24.6,
@@ -357,7 +360,7 @@
           "team": "Hoffenheim",
           "player": "Fisnik Asllani",
           "position": "MF",
-          "lambda_goals": 0.25529303373487194,
+          "lambda_goals": 0.2555405718060483,
           "anytime_pct": 11.6,
           "exp_shots": 1.64,
           "p_shots_2plus": 24.7,
@@ -372,7 +375,7 @@
           "team": "Hoffenheim",
           "player": "Tim Lemperle",
           "position": "MF",
-          "lambda_goals": 0.20141990915008948,
+          "lambda_goals": 0.20161521058498608,
           "anytime_pct": 8.4,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.3,
@@ -395,9 +398,9 @@
           "away": 1.67
         },
         "book": "bet365",
-        "edge": 0.029,
+        "edge": 0.033,
         "pick_odds": 1.67,
-        "ev": -0.004
+        "ev": 0.001
       },
       "result": null,
       "graded": null,
@@ -859,9 +862,12 @@
       "date": "2026-09-19T16:30:00+00:00",
       "home": "Stuttgart",
       "away": "Dortmund",
-      "result": null,
+      "result": {
+        "home_goals": 0,
+        "away_goals": 1
+      },
       "pick": "Stuttgart",
-      "graded": null,
+      "graded": "wrong",
       "void": false
     },
     {
@@ -3871,126 +3877,126 @@
   "table": [
     {
       "team": "Bayern Munich",
-      "proj_points": 76.6,
-      "title_pct": 88.0,
+      "proj_points": 76.4,
+      "title_pct": 85.5,
       "top4_pct": 99.8,
       "relegation_pct": 0.0
     },
     {
       "team": "Dortmund",
-      "proj_points": 63.4,
-      "title_pct": 7.4,
-      "top4_pct": 81.9,
+      "proj_points": 65.4,
+      "title_pct": 10.2,
+      "top4_pct": 88.2,
       "relegation_pct": 0.0
     },
     {
       "team": "Leverkusen",
-      "proj_points": 58.2,
-      "title_pct": 1.7,
-      "top4_pct": 56.5,
+      "proj_points": 58.1,
+      "title_pct": 2.0,
+      "top4_pct": 56.4,
       "relegation_pct": 0.0
     },
     {
       "team": "Elversberg",
-      "proj_points": 56.6,
-      "title_pct": 1.2,
-      "top4_pct": 46.0,
+      "proj_points": 57.0,
+      "title_pct": 1.1,
+      "top4_pct": 48.5,
       "relegation_pct": 0.0
     },
     {
       "team": "RB Leipzig",
-      "proj_points": 54.9,
-      "title_pct": 0.7,
-      "top4_pct": 37.3,
-      "relegation_pct": 0.1
+      "proj_points": 55.0,
+      "title_pct": 0.6,
+      "top4_pct": 38.0,
+      "relegation_pct": 0.0
     },
     {
       "team": "Stuttgart",
-      "proj_points": 54.7,
-      "title_pct": 0.6,
-      "top4_pct": 36.2,
+      "proj_points": 53.3,
+      "title_pct": 0.3,
+      "top4_pct": 28.2,
       "relegation_pct": 0.0
     },
     {
       "team": "Freiburg",
       "proj_points": 49.4,
       "title_pct": 0.1,
-      "top4_pct": 12.9,
-      "relegation_pct": 0.4
+      "top4_pct": 12.6,
+      "relegation_pct": 0.3
     },
     {
       "team": "Mainz",
-      "proj_points": 48.8,
+      "proj_points": 49.0,
       "title_pct": 0.1,
-      "top4_pct": 11.4,
-      "relegation_pct": 0.5
+      "top4_pct": 11.3,
+      "relegation_pct": 0.4
     },
     {
       "team": "Hoffenheim",
-      "proj_points": 46.9,
+      "proj_points": 46.7,
       "title_pct": 0.0,
-      "top4_pct": 7.2,
-      "relegation_pct": 1.1
+      "top4_pct": 6.3,
+      "relegation_pct": 1.3
     },
     {
       "team": "Ein Frankfurt",
-      "proj_points": 46.0,
-      "title_pct": 0.0,
-      "top4_pct": 5.5,
-      "relegation_pct": 1.4
+      "proj_points": 46.1,
+      "title_pct": 0.1,
+      "top4_pct": 5.6,
+      "relegation_pct": 1.3
     },
     {
       "team": "Augsburg",
-      "proj_points": 43.3,
+      "proj_points": 43.2,
       "title_pct": 0.0,
-      "top4_pct": 2.3,
-      "relegation_pct": 2.8
+      "top4_pct": 2.1,
+      "relegation_pct": 2.9
     },
     {
       "team": "Werder Bremen",
-      "proj_points": 41.4,
+      "proj_points": 41.6,
       "title_pct": 0.0,
-      "top4_pct": 1.1,
-      "relegation_pct": 5.4
+      "top4_pct": 1.0,
+      "relegation_pct": 4.9
     },
     {
       "team": "FC Koln",
       "proj_points": 40.3,
       "title_pct": 0.0,
       "top4_pct": 0.9,
-      "relegation_pct": 7.5
+      "relegation_pct": 7.4
     },
     {
       "team": "Schalke 04",
       "proj_points": 39.8,
       "title_pct": 0.0,
-      "top4_pct": 0.6,
-      "relegation_pct": 8.1
+      "top4_pct": 0.7,
+      "relegation_pct": 8.7
     },
     {
       "team": "Union Berlin",
-      "proj_points": 37.0,
+      "proj_points": 37.1,
       "title_pct": 0.0,
-      "top4_pct": 0.3,
-      "relegation_pct": 17.5
+      "top4_pct": 0.4,
+      "relegation_pct": 17.3
     },
     {
       "team": "M'gladbach",
-      "proj_points": 35.8,
+      "proj_points": 35.9,
       "title_pct": 0.0,
       "top4_pct": 0.1,
       "relegation_pct": 21.4
     },
     {
       "team": "Hamburg",
-      "proj_points": 33.9,
+      "proj_points": 33.8,
       "title_pct": 0.0,
       "top4_pct": 0.0,
       "relegation_pct": 34.2
     },
     {
       "team": "Paderborn",
-      "proj_points": 16.2,
+      "proj_points": 16.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
       "relegation_pct": 99.7
@@ -4251,7 +4257,7 @@
     "Schalke 04"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 3.8,
+  "roster_snapshot_age_hours": 6.0,
   "roster_unmatched_count": 120,
   "data_warnings": [
     "120 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
