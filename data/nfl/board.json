@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-19T17:13:48.664752+00:00",
+  "updated": "2026-09-19T18:11:09.937822+00:00",
   "season": 2026,
   "week": 2,
   "elo": {
@@ -132,10 +132,10 @@
       "rating_away": 1501.1,
       "gradeable": true,
       "book": "Bet365",
-      "book_p_pick": 0.6311,
-      "edge": -0.0581,
+      "book_p_pick": 0.6173,
+      "edge": -0.0443,
       "verdict": "book favours",
-      "book_price_overround": 1.0425,
+      "book_price_overround": 1.0452,
       "lockable": true
     },
     {
@@ -453,10 +453,10 @@
           "line_source": null,
           "probability": 0.5274,
           "book": "Bet365",
-          "book_price": 1.43,
-          "book_p": 0.6993,
+          "book_price": 1.44,
+          "book_p": 0.6944,
           "book_p_fair": false,
-          "edge": -0.1719,
+          "edge": -0.167,
           "last_five": [
             1.0,
             0.0,
@@ -1485,42 +1485,6 @@
           "depth_rank": 3,
           "depth_label": "WR3",
           "games_played": 13,
-          "as_of_season": 2025,
-          "as_of_week": 18,
-          "lockable": true
-        },
-        {
-          "market": "receiving_yards",
-          "player": "Jauan Jennings",
-          "player_id": "00-0036259",
-          "team": "MIN",
-          "opponent": "CHI",
-          "home": false,
-          "game_id": "2026_02_MIN_CHI",
-          "kickoff": "2026-09-20T17:00:00+00:00",
-          "line": 31.5,
-          "line_source": "model",
-          "probability": 0.5355,
-          "book": null,
-          "book_price": null,
-          "book_p": null,
-          "book_p_fair": true,
-          "edge": null,
-          "last_five": [
-            41.0,
-            39.0,
-            37.0,
-            71.0,
-            42.0
-          ],
-          "last_five_average": 46.0,
-          "availability": "not reported",
-          "club_source": "moved: SF -> MIN",
-          "injury_note": null,
-          "depth_pos": "WR",
-          "depth_rank": 3,
-          "depth_label": "WR3",
-          "games_played": 71,
           "as_of_season": 2025,
           "as_of_week": 18,
           "lockable": true
@@ -3614,7 +3578,7 @@
     "fixtures_priced": 15,
     "source": "API-NFL, bet365 preferred",
     "note": "Edges are model probability minus the de-vigged book price.",
-    "checked_at": "2026-09-19T17:12:47.824824+00:00",
+    "checked_at": "2026-09-19T18:10:10.042321+00:00",
     "player_props": {
       "available": true,
       "markets_quoted": [
@@ -3642,7 +3606,7 @@
     }
   },
   "injury_report": {
-    "players_listed": 99,
+    "players_listed": 100,
     "source": "API-NFL"
   },
   "caveats": [
