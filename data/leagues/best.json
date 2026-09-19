@@ -1,17 +1,17 @@
 {
-  "updated": "2026-09-17T19:25:36.267752+00:00",
+  "updated": "2026-09-19T13:47:26.906022+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
-    "correct": 9,
+    "correct": 10,
     "wrong": 2,
-    "total": 11,
+    "total": 12,
     "void": 2,
     "pending": 0,
     "by_confidence": {
       "5": {
-        "correct": 5,
-        "total": 5
+        "correct": 6,
+        "total": 6
       },
       "4": {
         "correct": 4,
@@ -20,6 +20,24 @@
     }
   },
   "upcoming": [
+    {
+      "league": "Premier League",
+      "league_key": "PL",
+      "id": 49,
+      "matchweek": 5,
+      "date": "2026-09-19T16:30:00+00:00",
+      "home": "Nottingham Forest",
+      "away": "Coventry",
+      "pick": "Nottingham Forest",
+      "confidence": 5,
+      "p_pick": 0.7416,
+      "score": "1-0",
+      "provisional": true,
+      "odds": 1.57,
+      "book": "bet365"
+    }
+  ],
+  "settled": [
     {
       "league": "Bundesliga",
       "league_key": "BUNDESLIGA",
@@ -31,29 +49,14 @@
       "pick": "Bayern Munich",
       "confidence": 5,
       "p_pick": 0.7741,
-      "score": "2-0",
-      "provisional": true,
-      "odds": null,
-      "book": null
+      "board": true,
+      "result": {
+        "home_goals": 7,
+        "away_goals": 0
+      },
+      "graded": "correct",
+      "void": false
     },
-    {
-      "league": "Premier League",
-      "league_key": "PL",
-      "id": 49,
-      "matchweek": 5,
-      "date": "2026-09-19T16:30:00+00:00",
-      "home": "Nottingham Forest",
-      "away": "Coventry",
-      "pick": "Nottingham Forest",
-      "confidence": 5,
-      "p_pick": 0.7393,
-      "score": "1-0",
-      "provisional": true,
-      "odds": null,
-      "book": null
-    }
-  ],
-  "settled": [
     {
       "league": "La Liga",
       "league_key": "LALIGA",
