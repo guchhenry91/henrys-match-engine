@@ -1,18 +1,14 @@
 {
   "league": "Bundesliga",
-  "updated": "2026-09-19T15:59:54.531034+00:00",
-  "results_updated": "2026-09-19T17:28:28.522756+00:00",
+  "updated": "2026-09-19T17:33:34.054666+00:00",
+  "results_updated": "2026-09-19T17:33:34.054671+00:00",
   "record": {
     "correct": 16,
     "wrong": 15,
     "total": 31,
     "void": 0,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
-      "2": {
-        "correct": 6,
-        "total": 14
-      },
       "4": {
         "correct": 4,
         "total": 7
@@ -24,6 +20,10 @@
       "3": {
         "correct": 3,
         "total": 3
+      },
+      "2": {
+        "correct": 6,
+        "total": 14
       },
       "5": {
         "correct": 1,
@@ -106,7 +106,7 @@
           "team": "Stuttgart",
           "player": "Deniz Undav",
           "position": "FW",
-          "lambda_goals": 0.439514526383663,
+          "lambda_goals": 0.43951115376698463,
           "anytime_pct": 21.4,
           "exp_shots": 3.42,
           "p_shots_2plus": 59.0,
@@ -121,7 +121,7 @@
           "team": "Stuttgart",
           "player": "Ermedin Demirovic",
           "position": "FW",
-          "lambda_goals": 0.22362211706606838,
+          "lambda_goals": 0.22362040110075573,
           "anytime_pct": 9.4,
           "exp_shots": 1.41,
           "p_shots_2plus": 18.4,
@@ -136,7 +136,7 @@
           "team": "Stuttgart",
           "player": "Jamie Leweling",
           "position": "DF",
-          "lambda_goals": 0.13205826366045123,
+          "lambda_goals": 0.13205725031077606,
           "anytime_pct": 4.9,
           "exp_shots": 1.45,
           "p_shots_2plus": 19.3,
@@ -151,7 +151,7 @@
           "team": "Dortmund",
           "player": "Serhou Guirassy",
           "position": "FW",
-          "lambda_goals": 0.530254780761704,
+          "lambda_goals": 0.530249756142898,
           "anytime_pct": 27.4,
           "exp_shots": 2.12,
           "p_shots_2plus": 39.2,
@@ -166,7 +166,7 @@
           "team": "Dortmund",
           "player": "Maximilian Beier",
           "position": "FW",
-          "lambda_goals": 0.3151194064329682,
+          "lambda_goals": 0.31511642040633886,
           "anytime_pct": 15.0,
           "exp_shots": 1.46,
           "p_shots_2plus": 19.6,
@@ -181,7 +181,7 @@
           "team": "Dortmund",
           "player": "Carney Chukwuemeka",
           "position": "FW",
-          "lambda_goals": 0.09758820965089063,
+          "lambda_goals": 0.09758728491891037,
           "anytime_pct": 3.2,
           "exp_shots": 0.56,
           "p_shots_2plus": 1.7,
@@ -218,7 +218,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 0.02630333277777778,
+          "news_checked_hours_ago": 1.5872753902777776,
           "unavailable": false,
           "team_attribution": "Stuttgart"
         }
@@ -301,7 +301,7 @@
           "team": "Leverkusen",
           "player": "Patrik Schick",
           "position": "FW",
-          "lambda_goals": 0.5307468947534266,
+          "lambda_goals": 0.5307417192487442,
           "anytime_pct": 25.7,
           "exp_shots": 2.35,
           "p_shots_2plus": 41.1,
@@ -316,7 +316,7 @@
           "team": "Leverkusen",
           "player": "Christian Kofane",
           "position": "FW",
-          "lambda_goals": 0.2229969412309483,
+          "lambda_goals": 0.22299476670722534,
           "anytime_pct": 9.6,
           "exp_shots": 1.33,
           "p_shots_2plus": 16.2,
@@ -331,7 +331,7 @@
           "team": "Leverkusen",
           "player": "Malik Tillman",
           "position": "MF",
-          "lambda_goals": 0.16189467731715057,
+          "lambda_goals": 0.1618930986236739,
           "anytime_pct": 6.4,
           "exp_shots": 0.92,
           "p_shots_2plus": 6.7,
@@ -346,7 +346,7 @@
           "team": "RB Leipzig",
           "player": "Christoph Baumgartner",
           "position": "FW",
-          "lambda_goals": 0.31597394329943124,
+          "lambda_goals": 0.3159719665213265,
           "anytime_pct": 15.1,
           "exp_shots": 1.95,
           "p_shots_2plus": 34.1,
@@ -361,7 +361,7 @@
           "team": "RB Leipzig",
           "player": "R\u00f4mulo",
           "position": "FW",
-          "lambda_goals": 0.31143471654677524,
+          "lambda_goals": 0.31143276816672116,
           "anytime_pct": 14.5,
           "exp_shots": 1.63,
           "p_shots_2plus": 24.4,
@@ -376,7 +376,7 @@
           "team": "RB Leipzig",
           "player": "Assan Ou\u00e9draogo",
           "position": "FW",
-          "lambda_goals": 0.10789525690970794,
+          "lambda_goals": 0.10789458190157519,
           "anytime_pct": 3.6,
           "exp_shots": 0.71,
           "p_shots_2plus": 4.4,
@@ -521,7 +521,7 @@
         "provisional": true,
         "p_pick": 0.5963,
         "why": {
-          "home_attack_pct": -82.0,
+          "home_attack_pct": -81.9,
           "home_defence_pct": 16.1,
           "away_attack_pct": 18.3,
           "away_defence_pct": 0.4,
@@ -542,7 +542,7 @@
           "team": "Hoffenheim",
           "player": "Andrej Kramaric",
           "position": "FW",
-          "lambda_goals": 0.2637381869191868,
+          "lambda_goals": 0.26373911534946765,
           "anytime_pct": 12.2,
           "exp_shots": 1.64,
           "p_shots_2plus": 24.6,
@@ -557,7 +557,7 @@
           "team": "Hoffenheim",
           "player": "Fisnik Asllani",
           "position": "MF",
-          "lambda_goals": 0.2552921350369951,
+          "lambda_goals": 0.25529303373487194,
           "anytime_pct": 11.6,
           "exp_shots": 1.64,
           "p_shots_2plus": 24.7,
@@ -572,7 +572,7 @@
           "team": "Hoffenheim",
           "player": "Tim Lemperle",
           "position": "MF",
-          "lambda_goals": 0.20141920009962283,
+          "lambda_goals": 0.20141990915008948,
           "anytime_pct": 8.4,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.3,
@@ -4079,7 +4079,7 @@
     {
       "team": "Dortmund",
       "proj_points": 63.4,
-      "title_pct": 7.5,
+      "title_pct": 7.4,
       "top4_pct": 81.9,
       "relegation_pct": 0.0
     },
@@ -4108,7 +4108,7 @@
       "team": "Stuttgart",
       "proj_points": 54.7,
       "title_pct": 0.6,
-      "top4_pct": 36.3,
+      "top4_pct": 36.2,
       "relegation_pct": 0.0
     },
     {
@@ -4136,7 +4136,7 @@
       "team": "Ein Frankfurt",
       "proj_points": 46.0,
       "title_pct": 0.0,
-      "top4_pct": 5.4,
+      "top4_pct": 5.5,
       "relegation_pct": 1.4
     },
     {
@@ -4158,7 +4158,7 @@
       "proj_points": 40.3,
       "title_pct": 0.0,
       "top4_pct": 0.9,
-      "relegation_pct": 7.4
+      "relegation_pct": 7.5
     },
     {
       "team": "Schalke 04",
@@ -4451,7 +4451,7 @@
     "Schalke 04"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 2.3,
+  "roster_snapshot_age_hours": 3.8,
   "roster_unmatched_count": 120,
   "data_warnings": [
     "120 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",

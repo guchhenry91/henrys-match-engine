@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-19T16:00:27.474693+00:00",
+  "updated": "2026-09-19T17:34:12.595296+00:00",
   "matchweek": 5,
   "selection_verified_on": "2026-09-19",
   "picks": [
@@ -9,15 +9,15 @@
       "home": "Nottingham Forest",
       "away": "Coventry",
       "score": "1-0",
-      "score_pct": 30.0,
+      "score_pct": 29.7,
       "alternatives": [
         {
           "score": "2-0",
-          "pct": 21.5
+          "pct": 21.4
         }
       ],
       "match_pick": "Nottingham Forest",
-      "gap_to_next_pp": 8.5,
+      "gap_to_next_pp": 8.3,
       "agrees_with_match_pick": true,
       "provisional": false,
       "rank": 1
@@ -28,7 +28,7 @@
       "home": "Manchester City",
       "away": "Sunderland",
       "score": "1-0",
-      "score_pct": 16.1,
+      "score_pct": 15.8,
       "alternatives": [
         {
           "score": "2-0",
@@ -36,48 +36,10 @@
         }
       ],
       "match_pick": "Manchester City",
-      "gap_to_next_pp": 2.6,
+      "gap_to_next_pp": 2.3,
       "agrees_with_match_pick": true,
       "provisional": true,
       "rank": 2
-    },
-    {
-      "id": 43,
-      "date": "2026-09-19T14:00:00+00:00",
-      "home": "Brighton",
-      "away": "Arsenal",
-      "score": "0-1",
-      "score_pct": 13.7,
-      "alternatives": [
-        {
-          "score": "1-1",
-          "pct": 13.4
-        }
-      ],
-      "match_pick": "Arsenal",
-      "gap_to_next_pp": 0.3,
-      "agrees_with_match_pick": true,
-      "provisional": false,
-      "rank": 3
-    },
-    {
-      "id": 44,
-      "date": "2026-09-19T14:00:00+00:00",
-      "home": "Everton",
-      "away": "Ipswich",
-      "score": "1-0",
-      "score_pct": 13.7,
-      "alternatives": [
-        {
-          "score": "1-1",
-          "pct": 12.5
-        }
-      ],
-      "match_pick": "Everton",
-      "gap_to_next_pp": 1.2,
-      "agrees_with_match_pick": true,
-      "provisional": false,
-      "rank": 4
     },
     {
       "id": 45,
@@ -85,18 +47,18 @@
       "home": "Fulham",
       "away": "Manchester United",
       "score": "1-1",
-      "score_pct": 13.4,
+      "score_pct": 13.3,
       "alternatives": [
         {
           "score": "0-1",
-          "pct": 10.3
+          "pct": 10.2
         }
       ],
       "match_pick": "Manchester United",
       "gap_to_next_pp": 3.1,
       "agrees_with_match_pick": false,
       "provisional": true,
-      "rank": 5
+      "rank": 3
     },
     {
       "id": 41,
@@ -104,22 +66,41 @@
       "home": "Bournemouth",
       "away": "Liverpool",
       "score": "1-1",
-      "score_pct": 12.5,
+      "score_pct": 12.3,
       "alternatives": [
         {
           "score": "2-1",
-          "pct": 8.3
+          "pct": 8.4
         }
       ],
       "match_pick": "Liverpool",
-      "gap_to_next_pp": 4.2,
+      "gap_to_next_pp": 3.9,
       "agrees_with_match_pick": false,
       "provisional": true,
-      "rank": 6
+      "rank": 4
     }
   ],
-  "missing_fixtures": [],
+  "missing_fixtures": [
+    "Brighton|Arsenal",
+    "Everton|Ipswich"
+  ],
   "settled": [
+    {
+      "home": "Brighton",
+      "away": "Arsenal",
+      "date": "2026-09-19T14:00:00+00:00",
+      "predicted": "0-1",
+      "actual": "3-0",
+      "graded": "wrong"
+    },
+    {
+      "home": "Everton",
+      "away": "Ipswich",
+      "date": "2026-09-19T14:00:00+00:00",
+      "predicted": "1-0",
+      "actual": "1-0",
+      "graded": "correct"
+    },
     {
       "home": "Manchester United",
       "away": "Manchester City",
@@ -290,8 +271,8 @@
     }
   ],
   "record": {
-    "correct": 3,
-    "total": 21
+    "correct": 4,
+    "total": 23
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,
