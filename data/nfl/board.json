@@ -3540,12 +3540,12 @@
   "record": {
     "team_winner": {
       "correct": 14,
-      "wrong": 11,
+      "wrong": 13,
       "void": 0,
-      "pending": 6,
+      "pending": 4,
       "total": 31,
-      "settled": 25,
-      "hit_rate": 0.56
+      "settled": 27,
+      "hit_rate": 0.5185
     },
     "props": {
       "correct": 72,
@@ -3596,6 +3596,36 @@
     }
   },
   "settled": [
+    {
+      "kind": "game",
+      "key": "2026_02_JAX_DEN",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.5009,
+      "confidence": 3,
+      "kickoff": "2026-09-20T20:05:00+00:00",
+      "date": "2026-09-20T20:05:00+00:00",
+      "home": "DEN",
+      "away": "JAX",
+      "tainted": false,
+      "pick": "JAX",
+      "result": "DEN 20-13 JAX"
+    },
+    {
+      "kind": "game",
+      "key": "2026_02_LV_LAC",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.6574,
+      "confidence": 4,
+      "kickoff": "2026-09-20T20:05:00+00:00",
+      "date": "2026-09-20T20:05:00+00:00",
+      "home": "LAC",
+      "away": "LV",
+      "tainted": false,
+      "pick": "LAC",
+      "result": "LAC 14-26 LV"
+    },
     {
       "kind": "game",
       "key": "2026_02_CAR_ATL",
