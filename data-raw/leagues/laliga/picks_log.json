@@ -549,15 +549,6 @@
     "tainted": false,
     "void": false
   },
-  "2026:57": {
-    "board": false,
-    "confidence": 1,
-    "kickoff": "2026-09-16T19:30:00+00:00",
-    "locked_at": "2026-09-16T19:07:22.278295+00:00",
-    "p_pick": 0.3928,
-    "pick": "Levante",
-    "tainted": false
-  },
   "2026:58": {
     "board": false,
     "confidence": 3,
@@ -704,6 +695,23 @@
         "reason": "kickoff moved after this pick locked; re-locked against the real time (match unplayed and still in the future)",
         "released_at": "2026-08-15T10:46:51.820065+00:00",
         "was_kickoff": "2026-08-15T07:30:00+00:00"
+      }
+    ],
+    "2026:57": [
+      {
+        "entry": {
+          "board": false,
+          "confidence": 1,
+          "kickoff": "2026-09-16T19:30:00+00:00",
+          "locked_at": "2026-09-16T19:07:22.278295+00:00",
+          "p_pick": 0.3928,
+          "pick": "Levante",
+          "tainted": false
+        },
+        "now_kickoff": "2026-10-21T18:00:00+00:00",
+        "reason": "kickoff moved after this pick locked; re-locked against the real time (match unplayed and still in the future)",
+        "released_at": "2026-09-20T11:20:03.024481+00:00",
+        "was_kickoff": "2026-09-16T19:30:00+00:00"
       }
     ],
     "2026:9": [
