@@ -1,29 +1,29 @@
 {
   "league": "Serie A",
   "updated": "2026-09-20T20:55:22.744066+00:00",
-  "results_updated": "2026-09-20T20:55:22.744070+00:00",
+  "results_updated": "2026-09-20T21:10:30.713079+00:00",
   "record": {
-    "correct": 16,
+    "correct": 17,
     "wrong": 15,
-    "total": 31,
+    "total": 32,
     "void": 0,
     "pending": 0,
     "by_confidence": {
-      "3": {
-        "correct": 3,
-        "total": 6
-      },
       "2": {
         "correct": 10,
         "total": 20
+      },
+      "3": {
+        "correct": 3,
+        "total": 6
       },
       "1": {
         "correct": 1,
         "total": 3
       },
       "4": {
-        "correct": 2,
-        "total": 2
+        "correct": 3,
+        "total": 3
       }
     }
   },
@@ -155,174 +155,7 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [
-    {
-      "id": 45,
-      "matchweek": 5,
-      "date": "2026-09-20T18:45:00+00:00",
-      "venue": "Giuseppe Meazza",
-      "home": "Milan",
-      "away": "Lecce",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.626,
-        "p_draw": 0.219,
-        "p_away": 0.155,
-        "pick": "Milan",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-0",
-            "pct": 13.4,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-0",
-            "pct": 12.2,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 10.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 4,
-        "provisional": false,
-        "p_pick": 0.6243,
-        "why": {
-          "home_attack_pct": 29.1,
-          "home_defence_pct": 13.6,
-          "away_attack_pct": -21.7,
-          "away_defence_pct": -12.8,
-          "home_advantage_pct": 9.2
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Milan 63% / draw 22% / Lecce 16%",
-          "Expected goals: 1.85 - 0.79"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Milan",
-          "player": "Christian Pulisic",
-          "position": "FW",
-          "lambda_goals": 0.3678703101857431,
-          "anytime_pct": 17.1,
-          "exp_shots": 1.32,
-          "p_shots_2plus": 16.1,
-          "exp_sot": 0.58,
-          "p_sot_1plus": 29.0,
-          "appearance_pct": 77.5,
-          "expected_minutes": 41.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Milan",
-          "player": "Alexis Saelemaekers",
-          "position": "DF",
-          "lambda_goals": 0.24624732663133292,
-          "anytime_pct": 11.0,
-          "exp_shots": 1.31,
-          "p_shots_2plus": 15.4,
-          "exp_sot": 0.41,
-          "p_sot_1plus": 21.7,
-          "appearance_pct": 90.0,
-          "expected_minutes": 72.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Milan",
-          "player": "Adrien Rabiot",
-          "position": "MF",
-          "lambda_goals": 0.2540352866886647,
-          "anytime_pct": 11.0,
-          "exp_shots": 1.2,
-          "p_shots_2plus": 13.4,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 20.1,
-          "appearance_pct": 75.0,
-          "expected_minutes": 65.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Lecce",
-          "player": "Nikola Stulic",
-          "position": "FW",
-          "lambda_goals": 0.25494982419249884,
-          "anytime_pct": 11.4,
-          "exp_shots": 0.79,
-          "p_shots_2plus": 4.3,
-          "exp_sot": 0.23,
-          "p_sot_1plus": 11.1,
-          "appearance_pct": 87.5,
-          "expected_minutes": 44.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Lecce",
-          "player": "Santiago Pierotti",
-          "position": "FW",
-          "lambda_goals": 0.1503967688090488,
-          "anytime_pct": 5.9,
-          "exp_shots": 0.9,
-          "p_shots_2plus": 5.8,
-          "exp_sot": 0.21,
-          "p_sot_1plus": 10.2,
-          "appearance_pct": 95.0,
-          "expected_minutes": 68.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Lecce",
-          "player": "Tiago Gabriel",
-          "position": "DF",
-          "lambda_goals": 0.0819167172898895,
-          "anytime_pct": 2.6,
-          "exp_shots": 0.39,
-          "p_shots_2plus": 0.4,
-          "exp_sot": 0.09,
-          "p_sot_1plus": 3.3,
-          "appearance_pct": 95.0,
-          "expected_minutes": 82.8,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.75,
-        "p_draw": 0.168,
-        "p_away": 0.082,
-        "odds": {
-          "home": 1.27,
-          "draw": 5.75,
-          "away": 11.0
-        },
-        "book": "bet365",
-        "edge": -0.124,
-        "pick_odds": 1.27,
-        "ev": -0.206
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    }
-  ],
+  "matches": [],
   "season": [
     {
       "id": 5,
@@ -4840,6 +4673,17 @@
       "points": 12
     },
     {
+      "team": "Milan",
+      "played": 5,
+      "won": 3,
+      "drawn": 2,
+      "lost": 0,
+      "gf": 10,
+      "ga": 4,
+      "gd": 6,
+      "points": 11
+    },
+    {
       "team": "Frosinone",
       "played": 5,
       "won": 3,
@@ -4871,17 +4715,6 @@
       "ga": 6,
       "gd": 3,
       "points": 10
-    },
-    {
-      "team": "Milan",
-      "played": 4,
-      "won": 2,
-      "drawn": 2,
-      "lost": 0,
-      "gf": 7,
-      "ga": 4,
-      "gd": 3,
-      "points": 8
     },
     {
       "team": "Napoli",
@@ -4918,13 +4751,13 @@
     },
     {
       "team": "Lecce",
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "gf": 5,
-      "ga": 7,
-      "gd": -2,
+      "ga": 10,
+      "gd": -5,
       "points": 6
     },
     {

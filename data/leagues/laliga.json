@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-20T20:54:58.237387+00:00",
-  "results_updated": "2026-09-20T20:54:58.237392+00:00",
+  "results_updated": "2026-09-20T21:10:29.436916+00:00",
   "record": {
     "correct": 34,
-    "wrong": 24,
-    "total": 58,
+    "wrong": 25,
+    "total": 59,
     "void": 7,
     "pending": 0,
     "by_confidence": {
       "2": {
         "correct": 9,
+        "total": 21
+      },
+      "3": {
+        "correct": 15,
         "total": 20
       },
       "1": {
         "correct": 6,
         "total": 11
-      },
-      "3": {
-        "correct": 15,
-        "total": 20
       },
       "5": {
         "correct": 3,
@@ -204,176 +204,6 @@
       ],
       "player_picks": [],
       "market": null,
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 69,
-      "matchweek": 7,
-      "date": "2026-09-20T19:00:00+00:00",
-      "venue": "Camp de Mestalla",
-      "home": "Valencia",
-      "away": "Sociedad",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.427,
-        "p_draw": 0.273,
-        "p_away": 0.3,
-        "pick": "Valencia",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 11.3,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 9.0,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4273,
-        "why": {
-          "home_attack_pct": -0.9,
-          "home_defence_pct": 5.4,
-          "away_attack_pct": 9.0,
-          "away_defence_pct": -0.6,
-          "home_advantage_pct": 35.3
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Valencia 43% / draw 27% / Sociedad 30%",
-          "Expected goals: 1.37 - 1.11"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Mouctar Diakhaby"
-          ],
-          "away": [
-            "Igor Zubeldia"
-          ]
-        }
-      },
-      "props": [
-        {
-          "team": "Valencia",
-          "player": "Arnaut Danjuma Groeneveld",
-          "position": "FW",
-          "lambda_goals": 0.2615461693574031,
-          "anytime_pct": 11.5,
-          "exp_shots": 1.17,
-          "p_shots_2plus": 12.4,
-          "exp_sot": 0.49,
-          "p_sot_1plus": 24.7,
-          "appearance_pct": 77.5,
-          "expected_minutes": 41.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Diego L\u00f3pez",
-          "position": "FW",
-          "lambda_goals": 0.2058016908558104,
-          "anytime_pct": 8.7,
-          "exp_shots": 0.76,
-          "p_shots_2plus": 3.9,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.4,
-          "appearance_pct": 87.5,
-          "expected_minutes": 45.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Valencia",
-          "player": "Javier Guerra",
-          "position": "FW",
-          "lambda_goals": 0.19172671645585243,
-          "anytime_pct": 8.0,
-          "exp_shots": 1.06,
-          "p_shots_2plus": 9.2,
-          "exp_sot": 0.34,
-          "p_sot_1plus": 17.5,
-          "appearance_pct": 92.5,
-          "expected_minutes": 53.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sociedad",
-          "player": "Mikel Oyarzabal",
-          "position": "FW",
-          "lambda_goals": 0.39496231147668354,
-          "anytime_pct": 20.0,
-          "exp_shots": 1.58,
-          "p_shots_2plus": 22.7,
-          "exp_sot": 0.68,
-          "p_sot_1plus": 37.9,
-          "appearance_pct": 100.0,
-          "expected_minutes": 80.2,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Sociedad",
-          "player": "Orri \u00d3skarsson",
-          "position": "FW",
-          "lambda_goals": 0.14596651197986837,
-          "anytime_pct": 5.2,
-          "exp_shots": 0.49,
-          "p_shots_2plus": 1.8,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 11.1,
-          "appearance_pct": 52.5,
-          "expected_minutes": 21.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Sociedad",
-          "player": "Ander Barrenetxea",
-          "position": "FW",
-          "lambda_goals": 0.1113934962427879,
-          "anytime_pct": 3.9,
-          "exp_shots": 0.83,
-          "p_shots_2plus": 5.5,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 13.5,
-          "appearance_pct": 77.5,
-          "expected_minutes": 46.3,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.349,
-        "p_draw": 0.279,
-        "p_away": 0.371,
-        "odds": {
-          "home": 2.7,
-          "draw": 3.4,
-          "away": 2.6
-        },
-        "book": "bet365",
-        "edge": 0.078,
-        "pick_odds": 2.7,
-        "ev": 0.154
-      },
       "result": null,
       "graded": null,
       "void": false
@@ -4986,6 +4816,17 @@
       "points": 10
     },
     {
+      "team": "Sociedad",
+      "played": 7,
+      "won": 3,
+      "drawn": 1,
+      "lost": 3,
+      "gf": 9,
+      "ga": 13,
+      "gd": -4,
+      "points": 10
+    },
+    {
       "team": "Villarreal",
       "played": 7,
       "won": 2,
@@ -5063,17 +4904,6 @@
       "points": 7
     },
     {
-      "team": "Sociedad",
-      "played": 6,
-      "won": 2,
-      "drawn": 1,
-      "lost": 3,
-      "gf": 6,
-      "ga": 11,
-      "gd": -5,
-      "points": 7
-    },
-    {
       "team": "Racing Santander",
       "played": 7,
       "won": 2,
@@ -5108,13 +4938,13 @@
     },
     {
       "team": "Valencia",
-      "played": 6,
+      "played": 7,
       "won": 1,
       "drawn": 1,
-      "lost": 4,
-      "gf": 2,
-      "ga": 10,
-      "gd": -8,
+      "lost": 5,
+      "gf": 4,
+      "ga": 13,
+      "gd": -9,
       "points": 4
     },
     {
