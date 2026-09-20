@@ -228,23 +228,29 @@
       "away": "CAR",
       "board": true,
       "confidence": 4,
+      "graded": "wrong",
       "home": "ATL",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.6016,
       "pick": "ATL",
-      "tainted": false
+      "result": "ATL 3-34 CAR",
+      "tainted": false,
+      "void": false
     },
     "2026_02_CIN_HOU": {
       "away": "CIN",
       "board": true,
       "confidence": 4,
+      "graded": "wrong",
       "home": "HOU",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.6333,
       "pick": "HOU",
-      "tainted": false
+      "result": "HOU 6-20 CIN",
+      "tainted": false,
+      "void": false
     },
     "2026_02_CLE_TB": {
       "away": "CLE",
@@ -275,12 +281,15 @@
       "away": "GB",
       "board": true,
       "confidence": 3,
+      "graded": "correct",
       "home": "NYJ",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.573,
       "pick": "GB",
-      "tainted": false
+      "result": "NYJ 17-20 GB",
+      "tainted": false,
+      "void": false
     },
     "2026_02_JAX_DEN": {
       "away": "JAX",
@@ -319,45 +328,57 @@
       "away": "MIN",
       "board": true,
       "confidence": 3,
+      "graded": "wrong",
       "home": "CHI",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.5243,
       "pick": "CHI",
-      "tainted": false
+      "result": "CHI 3-9 MIN",
+      "tainted": false,
+      "void": false
     },
     "2026_02_NO_BAL": {
       "away": "NO",
       "board": true,
       "confidence": 4,
+      "graded": "wrong",
       "home": "BAL",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.6902,
       "pick": "BAL",
-      "tainted": false
+      "result": "BAL 17-24 NO",
+      "tainted": false,
+      "void": false
     },
     "2026_02_PHI_TEN": {
       "away": "PHI",
       "board": true,
       "confidence": 5,
+      "graded": "correct",
       "home": "TEN",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.7102,
       "pick": "PHI",
-      "tainted": false
+      "result": "TEN 20-24 PHI",
+      "tainted": false,
+      "void": false
     },
     "2026_02_PIT_NE": {
       "away": "PIT",
       "board": true,
       "confidence": 3,
+      "graded": "correct",
       "home": "NE",
       "kickoff": "2026-09-20T17:00:00+00:00",
       "locked_at": "2026-09-20T15:18:58.674555+00:00",
       "p_pick": 0.5659,
       "pick": "NE",
-      "tainted": false
+      "result": "NE 20-3 PIT",
+      "tainted": false,
+      "void": false
     },
     "2026_02_SEA_ARI": {
       "away": "SEA",
