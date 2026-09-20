@@ -1,6 +1,6 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-09-19",
+  "_verified_on": "2026-09-20",
   "players": {
     "Nico Collins": {
       "status": "out",
@@ -19,6 +19,12 @@
       "team": "MIN",
       "note": "Ruled out for Week 2 at Chicago for personal reasons (grieving the death of a close relative); did not practice this week. Board's receiving_yards props showed him 'not reported' as of this check -- API-NFL's injury feed only tracks physical injuries, so a personal-reasons absence like this falls outside its coverage. Sources: Vikings.com final injury report, NBC Sports/PFT (KOC), RotoWire, Star Tribune, Yahoo Sports, 18-19 Sep.",
       "checked": "2026-09-19T18:35:00Z"
+    },
+    "RJ Harvey": {
+      "status": "out",
+      "team": "DEN",
+      "note": "Officially inactive for Week 2 vs Jacksonville (hamstring, listed questionable Friday). Tyler Badie replaces him on the active roster. On the board's anytime_touchdown, receiving_yards and rushing_yards props as DEN's RB1 -- was already shown 'doubt' there. Sources: Denver Gazette, denverbroncos.com official inactives, RotoWire, CBS Sports, Yahoo Sports, 20 Sep.",
+      "checked": "2026-09-20T19:35:00Z"
     },
     "Sam Darnold": {
       "status": "out",
