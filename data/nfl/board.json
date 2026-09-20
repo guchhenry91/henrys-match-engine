@@ -330,7 +330,9 @@
       "edge": -0.0703,
       "verdict": "book favours",
       "book_price_overround": 1.046,
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "tainted": false
     },
     {
       "game_id": "2026_02_NYG_LA",
@@ -542,7 +544,9 @@
           "games_played": 83,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "anytime_touchdown",
@@ -1827,7 +1831,9 @@
           "games_played": 36,
           "as_of_season": 2025,
           "as_of_week": 15,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -2051,7 +2057,9 @@
           "games_played": 63,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ]
     },
@@ -3155,7 +3163,9 @@
           "games_played": 82,
           "as_of_season": 2025,
           "as_of_week": 14,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "passing_yards",
@@ -3191,7 +3201,9 @@
           "games_played": 124,
           "as_of_season": 2025,
           "as_of_week": 15,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "passing_yards",
@@ -3528,19 +3540,19 @@
   "record": {
     "team_winner": {
       "correct": 14,
-      "wrong": 10,
+      "wrong": 11,
       "void": 0,
       "pending": 6,
-      "total": 30,
-      "settled": 24,
-      "hit_rate": 0.5833
+      "total": 31,
+      "settled": 25,
+      "hit_rate": 0.56
     },
     "props": {
       "correct": 72,
       "wrong": 76,
       "void": 7,
-      "pending": 35,
-      "total": 190,
+      "pending": 40,
+      "total": 195,
       "settled": 148,
       "hit_rate": 0.4865
     },
@@ -3549,8 +3561,8 @@
         "correct": 8,
         "wrong": 4,
         "void": 0,
-        "pending": 3,
-        "total": 15,
+        "pending": 4,
+        "total": 16,
         "settled": 12,
         "hit_rate": 0.6667
       },
@@ -3558,8 +3570,8 @@
         "correct": 33,
         "wrong": 35,
         "void": 3,
-        "pending": 15,
-        "total": 86,
+        "pending": 17,
+        "total": 88,
         "settled": 68,
         "hit_rate": 0.4853
       },
@@ -3576,8 +3588,8 @@
         "correct": 7,
         "wrong": 13,
         "void": 1,
-        "pending": 4,
-        "total": 25,
+        "pending": 6,
+        "total": 27,
         "settled": 20,
         "hit_rate": 0.35
       }
@@ -3613,6 +3625,21 @@
       "tainted": false,
       "pick": "HOU",
       "result": "HOU 6-20 CIN"
+    },
+    {
+      "kind": "game",
+      "key": "2026_02_CLE_TB",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.6016,
+      "confidence": 4,
+      "kickoff": "2026-09-20T17:00:00+00:00",
+      "date": "2026-09-20T17:00:00+00:00",
+      "home": "TB",
+      "away": "CLE",
+      "tainted": false,
+      "pick": "TB",
+      "result": "TB 19-23 CLE"
     },
     {
       "kind": "game",
