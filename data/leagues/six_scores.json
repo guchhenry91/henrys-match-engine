@@ -1,36 +1,25 @@
 {
-  "updated": "2026-09-20T17:17:35.268100+00:00",
+  "updated": "2026-09-20T17:47:04.699550+00:00",
   "matchweek": 5,
   "selection_verified_on": "2026-09-19",
-  "picks": [
-    {
-      "id": 45,
-      "date": "2026-09-20T15:30:00+00:00",
-      "home": "Fulham",
-      "away": "Manchester United",
-      "score": "1-1",
-      "score_pct": 13.0,
-      "alternatives": [
-        {
-          "score": "0-1",
-          "pct": 10.2
-        }
-      ],
-      "match_pick": "Manchester United",
-      "gap_to_next_pp": 2.8,
-      "agrees_with_match_pick": false,
-      "provisional": false,
-      "rank": 1
-    }
-  ],
+  "picks": [],
   "missing_fixtures": [
     "Brighton|Arsenal",
     "Everton|Ipswich",
     "Nottingham Forest|Coventry",
     "Bournemouth|Liverpool",
-    "Manchester City|Sunderland"
+    "Manchester City|Sunderland",
+    "Fulham|Manchester United"
   ],
   "settled": [
+    {
+      "home": "Fulham",
+      "away": "Manchester United",
+      "date": "2026-09-20T15:30:00+00:00",
+      "predicted": "1-1",
+      "actual": "1-1",
+      "graded": "correct"
+    },
     {
       "home": "Bournemouth",
       "away": "Liverpool",
@@ -214,19 +203,11 @@
       "predicted": "1-1",
       "actual": "2-1",
       "graded": "wrong"
-    },
-    {
-      "home": "Brentford",
-      "away": "Tottenham",
-      "date": "2026-08-22T16:30:00+00:00",
-      "predicted": "1-1",
-      "actual": "3-0",
-      "graded": "wrong"
     }
   ],
   "record": {
-    "correct": 4,
-    "total": 26
+    "correct": 5,
+    "total": 27
   },
   "outlook": "Expect 0-1 correct. Two or more lands in about 15% of weeks -- correct score is the hardest market there is, and this board is measured at 11.84% a fixture.",
   "odds_of_none_pct": 46.9,

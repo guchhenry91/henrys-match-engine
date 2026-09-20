@@ -4380,6 +4380,70 @@
     "locked_at": "2026-09-19T19:42:18.069244+00:00",
     "tainted": false
   },
+  "LALIGA#70#sot#Georges Mikautadze|PL#58#goal#Erling Haaland|PL#59#shots#Matheus Cunha": {
+    "combined": 0.1188,
+    "earliest_kickoff": "2026-09-20T16:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#70#sot#Georges Mikautadze",
+        "p": 0.64,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "PL#59#shots#Matheus Cunha",
+        "p": 0.629,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "PL#58#goal#Erling Haaland",
+        "p": 0.295,
+        "selection": "Erling Haaland to score"
+      }
+    ],
+    "locked_at": "2026-09-20T17:47:04.693670+00:00",
+    "tainted": true
+  },
+  "LALIGA#70#sot#Georges Mikautadze|PL#58#sot#Erling Haaland|PL#59#shots#Matheus Cunha": {
+    "combined": 0.2186,
+    "earliest_kickoff": "2026-09-20T16:30:00+00:00",
+    "legs": [
+      {
+        "id": "LALIGA#70#sot#Georges Mikautadze",
+        "p": 0.64,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "PL#59#shots#Matheus Cunha",
+        "p": 0.629,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "PL#58#sot#Erling Haaland",
+        "p": 0.543,
+        "selection": "Erling Haaland 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-20T17:47:04.693670+00:00",
+    "tainted": true
+  },
+  "LALIGA#70#sot#Georges Mikautadze|PL#59#shots#Matheus Cunha": {
+    "combined": 0.4026,
+    "earliest_kickoff": "2026-09-20T16:30:00+00:00",
+    "legs": [
+      {
+        "id": "PL#59#shots#Matheus Cunha",
+        "p": 0.629,
+        "selection": "Matheus Cunha 2+ shot attempts"
+      },
+      {
+        "id": "LALIGA#70#sot#Georges Mikautadze",
+        "p": 0.64,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      }
+    ],
+    "locked_at": "2026-09-20T17:47:04.693670+00:00",
+    "tainted": true
+  },
   "LALIGA#8#sot#Kylian Mbappe-Lottin|PL#18#shots#Matheus Cunha": {
     "combined": 0.4831,
     "earliest_kickoff": "2026-08-26T19:00:00+00:00",
