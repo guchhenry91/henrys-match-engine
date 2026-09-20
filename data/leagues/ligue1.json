@@ -1,17 +1,21 @@
 {
   "league": "Ligue 1",
-  "updated": "2026-09-20T17:46:31.854034+00:00",
-  "results_updated": "2026-09-20T19:48:07.923082+00:00",
+  "updated": "2026-09-20T19:52:40.055175+00:00",
+  "results_updated": "2026-09-20T19:52:40.055180+00:00",
   "record": {
     "correct": 19,
     "wrong": 22,
     "total": 41,
     "void": 0,
-    "pending": 1,
+    "pending": 0,
     "by_confidence": {
       "3": {
         "correct": 4,
         "total": 9
+      },
+      "4": {
+        "correct": 3,
+        "total": 5
       },
       "2": {
         "correct": 8,
@@ -20,10 +24,6 @@
       "1": {
         "correct": 4,
         "total": 11
-      },
-      "4": {
-        "correct": 3,
-        "total": 5
       }
     }
   },
@@ -115,7 +115,7 @@
           "team": "Marseille",
           "player": "Amine Gouiri",
           "position": "FW",
-          "lambda_goals": 0.38093309954743454,
+          "lambda_goals": 0.380933619049989,
           "anytime_pct": 16.6,
           "exp_shots": 0.97,
           "p_shots_2plus": 8.6,
@@ -130,7 +130,7 @@
           "team": "Marseille",
           "player": "Igor Paix\u00e3o",
           "position": "DF",
-          "lambda_goals": 0.3313195939839519,
+          "lambda_goals": 0.3313200458254317,
           "anytime_pct": 16.2,
           "exp_shots": 1.23,
           "p_shots_2plus": 12.8,
@@ -145,7 +145,7 @@
           "team": "Marseille",
           "player": "Pierre-Emile H\u00f8jbjerg",
           "position": "DF",
-          "lambda_goals": 0.18203657844260224,
+          "lambda_goals": 0.18203682669739454,
           "anytime_pct": 7.5,
           "exp_shots": 0.83,
           "p_shots_2plus": 4.7,
@@ -160,7 +160,7 @@
           "team": "Paris SG",
           "player": "Ousmane Demb\u00e9l\u00e9",
           "position": "FW",
-          "lambda_goals": 0.33201423067083724,
+          "lambda_goals": 0.33201291797318155,
           "anytime_pct": 14.3,
           "exp_shots": 0.9,
           "p_shots_2plus": 7.4,
@@ -175,7 +175,7 @@
           "team": "Paris SG",
           "player": "Maghnes Akliouche",
           "position": "FW",
-          "lambda_goals": 0.2359801099401638,
+          "lambda_goals": 0.2359788331235492,
           "anytime_pct": 10.4,
           "exp_shots": 1.12,
           "p_shots_2plus": 10.8,
@@ -190,7 +190,7 @@
           "team": "Paris SG",
           "player": "Khvicha Kvaratskhelia",
           "position": "FW",
-          "lambda_goals": 0.2348228164783808,
+          "lambda_goals": 0.2348215459235292,
           "anytime_pct": 10.2,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.3,
@@ -3740,7 +3740,7 @@
     {
       "team": "Lille",
       "proj_points": 58.0,
-      "title_pct": 8.6,
+      "title_pct": 8.5,
       "top4_pct": 58.3,
       "relegation_pct": 0.0
     },
@@ -3748,7 +3748,7 @@
       "team": "Lyon",
       "proj_points": 55.0,
       "title_pct": 4.1,
-      "top4_pct": 41.4,
+      "top4_pct": 41.5,
       "relegation_pct": 0.0
     },
     {
@@ -3847,7 +3847,7 @@
       "proj_points": 27.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 72.8
+      "relegation_pct": 72.7
     }
   ],
   "standings": [
@@ -4102,7 +4102,7 @@
   ],
   "thin_squads": [],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 28.0,
+  "roster_snapshot_age_hours": 30.1,
   "roster_unmatched_count": 175,
   "data_warnings": [
     "175 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
