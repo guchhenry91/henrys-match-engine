@@ -1,11 +1,11 @@
 {
   "league": "Premier League",
   "updated": "2026-09-20T17:16:42.674824+00:00",
-  "results_updated": "2026-09-20T17:16:42.674829+00:00",
+  "results_updated": "2026-09-20T17:42:00.935807+00:00",
   "record": {
     "correct": 24,
-    "wrong": 22,
-    "total": 46,
+    "wrong": 23,
+    "total": 47,
     "void": 1,
     "pending": 0,
     "by_confidence": {
@@ -13,21 +13,21 @@
         "correct": 2,
         "total": 3
       },
-      "3": {
-        "correct": 5,
-        "total": 9
+      "2": {
+        "correct": 4,
+        "total": 14
+      },
+      "4": {
+        "correct": 4,
+        "total": 4
       },
       "1": {
         "correct": 9,
         "total": 17
       },
-      "2": {
-        "correct": 4,
-        "total": 13
-      },
-      "4": {
-        "correct": 4,
-        "total": 4
+      "3": {
+        "correct": 5,
+        "total": 9
       }
     }
   },
@@ -47,176 +47,7 @@
       "reason": "no locking run happened before kickoff"
     }
   ],
-  "matches": [
-    {
-      "id": 45,
-      "matchweek": 5,
-      "date": "2026-09-20T15:30:00+00:00",
-      "venue": "Craven Cottage",
-      "home": "Fulham",
-      "away": "Manchester United",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.303,
-        "p_draw": 0.296,
-        "p_away": 0.401,
-        "pick": "Manchester United",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-1",
-            "pct": 10.2,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-0",
-            "pct": 8.5,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4028,
-        "why": {
-          "home_attack_pct": -2.0,
-          "home_defence_pct": 3.0,
-          "away_attack_pct": 25.7,
-          "away_defence_pct": 9.9,
-          "home_advantage_pct": 19.3
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Fulham 30% / draw 30% / Manchester United 40%",
-          "Expected goals: 1.15 - 1.36"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Kenny Tete"
-          ],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Fulham",
-          "player": "Joshua King",
-          "position": "FW",
-          "lambda_goals": 0.3086805860393371,
-          "anytime_pct": 14.9,
-          "exp_shots": 1.5,
-          "p_shots_2plus": 20.4,
-          "exp_sot": 0.53,
-          "p_sot_1plus": 29.5,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fulham",
-          "player": "Emile Smith-Rowe",
-          "position": "MF",
-          "lambda_goals": 0.17961811659969046,
-          "anytime_pct": 7.4,
-          "exp_shots": 0.86,
-          "p_shots_2plus": 5.1,
-          "exp_sot": 0.29,
-          "p_sot_1plus": 15.0,
-          "appearance_pct": 95.0,
-          "expected_minutes": 49.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Fulham",
-          "player": "Alex Iwobi",
-          "position": "DF",
-          "lambda_goals": 0.16502820860291656,
-          "anytime_pct": 6.4,
-          "exp_shots": 1.03,
-          "p_shots_2plus": 9.4,
-          "exp_sot": 0.39,
-          "p_sot_1plus": 19.6,
-          "appearance_pct": 75.0,
-          "expected_minutes": 64.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Bruno Fernandes",
-          "position": "FW",
-          "lambda_goals": 0.2371935920059341,
-          "anytime_pct": 10.7,
-          "exp_shots": 2.04,
-          "p_shots_2plus": 37.6,
-          "exp_sot": 0.67,
-          "p_sot_1plus": 37.4,
-          "appearance_pct": 100.0,
-          "expected_minutes": 88.1,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Matheus Cunha",
-          "position": "FW",
-          "lambda_goals": 0.22888316951979962,
-          "anytime_pct": 10.2,
-          "exp_shots": 2.13,
-          "p_shots_2plus": 40.1,
-          "exp_sot": 0.84,
-          "p_sot_1plus": 46.0,
-          "appearance_pct": 100.0,
-          "expected_minutes": 75.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Manchester United",
-          "player": "Bryan Mbeumo",
-          "position": "FW",
-          "lambda_goals": 0.22555573744801227,
-          "anytime_pct": 10.0,
-          "exp_shots": 1.7,
-          "p_shots_2plus": 26.4,
-          "exp_sot": 0.7,
-          "p_sot_1plus": 39.1,
-          "appearance_pct": 100.0,
-          "expected_minutes": 81.1,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.279,
-        "p_draw": 0.253,
-        "p_away": 0.469,
-        "odds": {
-          "home": 3.5,
-          "draw": 3.8,
-          "away": 2.0
-        },
-        "book": "bet365",
-        "edge": -0.068,
-        "pick_odds": 2.0,
-        "ev": -0.197
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    }
-  ],
+  "matches": [],
   "season": [
     {
       "id": 1,
@@ -4822,6 +4653,17 @@
       "points": 6
     },
     {
+      "team": "Manchester United",
+      "played": 5,
+      "won": 1,
+      "drawn": 2,
+      "lost": 2,
+      "gf": 8,
+      "ga": 8,
+      "gd": 0,
+      "points": 5
+    },
+    {
       "team": "Nottingham Forest",
       "played": 5,
       "won": 1,
@@ -4831,17 +4673,6 @@
       "ga": 5,
       "gd": -1,
       "points": 5
-    },
-    {
-      "team": "Manchester United",
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "gf": 7,
-      "ga": 7,
-      "gd": 0,
-      "points": 4
     },
     {
       "team": "Sunderland",
@@ -4888,6 +4719,17 @@
       "points": 3
     },
     {
+      "team": "Fulham",
+      "played": 5,
+      "won": 0,
+      "drawn": 2,
+      "lost": 3,
+      "gf": 5,
+      "ga": 8,
+      "gd": -3,
+      "points": 2
+    },
+    {
       "team": "Tottenham",
       "played": 5,
       "won": 0,
@@ -4897,17 +4739,6 @@
       "ga": 8,
       "gd": -6,
       "points": 2
-    },
-    {
-      "team": "Fulham",
-      "played": 4,
-      "won": 0,
-      "drawn": 1,
-      "lost": 3,
-      "gf": 4,
-      "ga": 7,
-      "gd": -3,
-      "points": 1
     }
   ],
   "backtest": {},

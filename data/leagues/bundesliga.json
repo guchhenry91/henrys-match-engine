@@ -1,14 +1,18 @@
 {
   "league": "Bundesliga",
   "updated": "2026-09-20T17:16:56.833070+00:00",
-  "results_updated": "2026-09-20T17:16:56.833075+00:00",
+  "results_updated": "2026-09-20T17:42:01.818737+00:00",
   "record": {
     "correct": 17,
-    "wrong": 16,
-    "total": 33,
+    "wrong": 17,
+    "total": 34,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
+      "2": {
+        "correct": 6,
+        "total": 15
+      },
       "4": {
         "correct": 4,
         "total": 7
@@ -20,10 +24,6 @@
       "3": {
         "correct": 4,
         "total": 4
-      },
-      "2": {
-        "correct": 6,
-        "total": 14
       },
       "5": {
         "correct": 1,
@@ -41,81 +41,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 29,
-      "matchweek": 4,
-      "date": "2026-09-20T15:30:00+00:00",
-      "venue": "VELTINS-Arena",
-      "home": "Schalke 04",
-      "away": "Elversberg",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.295,
-        "p_draw": 0.248,
-        "p_away": 0.457,
-        "pick": "Elversberg",
-        "pick_type": "away",
-        "score": "1-2",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 11.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-2",
-            "pct": 9.3,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 7.3,
-            "outcome": "home",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.456,
-        "why": {
-          "home_attack_pct": -10.9,
-          "home_defence_pct": 0.2,
-          "away_attack_pct": 51.6,
-          "away_defence_pct": -5.6,
-          "home_advantage_pct": 25.4
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Schalke 04 29% / draw 25% / Elversberg 46%",
-          "Expected goals: 1.35 - 1.73"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.463,
-        "p_draw": 0.255,
-        "p_away": 0.282,
-        "odds": {
-          "home": 2.0,
-          "draw": 3.7,
-          "away": 3.5
-        },
-        "book": "bet365",
-        "edge": 0.175,
-        "pick_odds": 3.5,
-        "ev": 0.601
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 28,
       "matchweek": 4,
@@ -3904,6 +3829,17 @@
       "points": 7
     },
     {
+      "team": "Elversberg",
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 8,
+      "ga": 7,
+      "gd": 1,
+      "points": 7
+    },
+    {
       "team": "Werder Bremen",
       "played": 4,
       "won": 2,
@@ -3926,17 +3862,6 @@
       "points": 6
     },
     {
-      "team": "Elversberg",
-      "played": 3,
-      "won": 2,
-      "drawn": 0,
-      "lost": 1,
-      "gf": 8,
-      "ga": 7,
-      "gd": 1,
-      "points": 6
-    },
-    {
       "team": "Ein Frankfurt",
       "played": 4,
       "won": 1,
@@ -3949,14 +3874,14 @@
     },
     {
       "team": "Schalke 04",
-      "played": 3,
+      "played": 4,
       "won": 1,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 1,
       "gf": 3,
       "ga": 4,
       "gd": -1,
-      "points": 4
+      "points": 5
     },
     {
       "team": "FC Koln",
