@@ -1,25 +1,25 @@
 {
   "league": "La Liga",
   "updated": "2026-09-20T13:17:59.215310+00:00",
-  "results_updated": "2026-09-20T13:17:59.215316+00:00",
+  "results_updated": "2026-09-20T14:43:09.640730+00:00",
   "record": {
-    "correct": 31,
+    "correct": 32,
     "wrong": 23,
-    "total": 54,
+    "total": 55,
     "void": 7,
-    "pending": 0,
+    "pending": 3,
     "by_confidence": {
       "2": {
-        "correct": 8,
-        "total": 18
-      },
-      "1": {
-        "correct": 5,
-        "total": 10
+        "correct": 9,
+        "total": 19
       },
       "3": {
         "correct": 14,
         "total": 19
+      },
+      "1": {
+        "correct": 5,
+        "total": 10
       },
       "5": {
         "correct": 3,
@@ -204,127 +204,6 @@
       ],
       "player_picks": [],
       "market": null,
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 66,
-      "matchweek": 7,
-      "date": "2026-09-20T12:00:00+00:00",
-      "venue": "Coliseum",
-      "home": "Getafe",
-      "away": "Malaga",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.461,
-        "p_draw": 0.351,
-        "p_away": 0.187,
-        "pick": "Getafe",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "0-0",
-            "pct": 22.0,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 21.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 11.5,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4613,
-        "why": {
-          "home_attack_pct": -28.2,
-          "home_defence_pct": 20.0,
-          "away_attack_pct": -42.9,
-          "away_defence_pct": -2.7,
-          "home_advantage_pct": 34.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Getafe 46% / draw 35% / Malaga 19%",
-          "Expected goals: 1.00 - 0.52"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Getafe",
-          "player": "Mart\u00edn Satriano",
-          "position": "FW",
-          "lambda_goals": 0.49612966324147145,
-          "anytime_pct": 26.0,
-          "exp_shots": 2.34,
-          "p_shots_2plus": 46.7,
-          "exp_sot": 0.86,
-          "p_sot_1plus": 46.7,
-          "appearance_pct": 100.0,
-          "expected_minutes": 89.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Getafe",
-          "player": "Ram\u00f3n Terrats",
-          "position": "FW",
-          "lambda_goals": 0.22108871277696096,
-          "anytime_pct": 9.8,
-          "exp_shots": 1.36,
-          "p_shots_2plus": 16.1,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 21.6,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Getafe",
-          "player": "Zaid Romero",
-          "position": "DF",
-          "lambda_goals": 0.087054575132423,
-          "anytime_pct": 2.8,
-          "exp_shots": 0.64,
-          "p_shots_2plus": 2.0,
-          "exp_sot": 0.18,
-          "p_sot_1plus": 8.2,
-          "appearance_pct": 100.0,
-          "expected_minutes": 90.0,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.462,
-        "p_draw": 0.308,
-        "p_away": 0.23,
-        "odds": {
-          "home": 2.0,
-          "draw": 3.1,
-          "away": 4.2
-        },
-        "book": "bet365",
-        "edge": -0.001,
-        "pick_odds": 2.0,
-        "ev": -0.077
-      },
       "result": null,
       "graded": null,
       "void": false
@@ -5720,6 +5599,17 @@
       "points": 8
     },
     {
+      "team": "Getafe",
+      "played": 7,
+      "won": 2,
+      "drawn": 2,
+      "lost": 3,
+      "gf": 4,
+      "ga": 7,
+      "gd": -3,
+      "points": 8
+    },
+    {
       "team": "Vallecano",
       "played": 7,
       "won": 2,
@@ -5808,17 +5698,6 @@
       "points": 5
     },
     {
-      "team": "Getafe",
-      "played": 6,
-      "won": 1,
-      "drawn": 2,
-      "lost": 3,
-      "gf": 3,
-      "ga": 7,
-      "gd": -4,
-      "points": 5
-    },
-    {
       "team": "Elche",
       "played": 7,
       "won": 1,
@@ -5842,13 +5721,13 @@
     },
     {
       "team": "Malaga",
-      "played": 6,
+      "played": 7,
       "won": 0,
       "drawn": 3,
-      "lost": 3,
+      "lost": 4,
       "gf": 3,
-      "ga": 11,
-      "gd": -8,
+      "ga": 12,
+      "gd": -9,
       "points": 3
     }
   ],
