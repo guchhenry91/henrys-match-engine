@@ -1242,6 +1242,57 @@
     "locked_at": "2026-09-12T17:20:10.841278+00:00",
     "tainted": false
   },
+  "BUNDESLIGA#34#goal#Patrik Schick|LALIGA#70#shots#Georges Mikautadze|PL#47#sot#Erling Haaland": {
+    "combined": 0.127,
+    "earliest_kickoff": "2026-09-20T13:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#47#sot#Erling Haaland",
+        "p": 0.712,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#70#shots#Georges Mikautadze",
+        "p": 0.609,
+        "selection": "Georges Mikautadze 2+ shot attempts"
+      },
+      {
+        "id": "BUNDESLIGA#34#goal#Patrik Schick",
+        "p": 0.293,
+        "selection": "Patrik Schick to score"
+      }
+    ],
+    "locked_at": "2026-09-20T13:18:40.102827+00:00",
+    "tainted": true
+  },
+  "BUNDESLIGA#34#goal#Patrik Schick|LALIGA#70#sot#Georges Mikautadze|PL#47#sot#Erling Haaland|SERIEA#43#shots#Nico Paz": {
+    "combined": 0.0694,
+    "earliest_kickoff": "2026-09-20T13:00:00+00:00",
+    "legs": [
+      {
+        "id": "PL#47#sot#Erling Haaland",
+        "p": 0.712,
+        "selection": "Erling Haaland 1+ shot on target"
+      },
+      {
+        "id": "LALIGA#70#sot#Georges Mikautadze",
+        "p": 0.64,
+        "selection": "Georges Mikautadze 1+ shot on target"
+      },
+      {
+        "id": "BUNDESLIGA#34#goal#Patrik Schick",
+        "p": 0.293,
+        "selection": "Patrik Schick to score"
+      },
+      {
+        "id": "SERIEA#43#shots#Nico Paz",
+        "p": 0.52,
+        "selection": "Nico Paz 2+ shot attempts"
+      }
+    ],
+    "locked_at": "2026-09-20T13:18:40.102827+00:00",
+    "tainted": true
+  },
   "BUNDESLIGA#35#shots#Deniz Undav|BUNDESLIGA#36#shots#Harry Kane|LALIGA#50#sot#Georges Mikautadze": {
     "combined": 0.2037,
     "earliest_kickoff": "2026-09-14T19:00:00+00:00",
