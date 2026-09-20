@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
   "updated": "2026-09-20T17:46:43.084979+00:00",
-  "results_updated": "2026-09-20T17:46:43.084986+00:00",
+  "results_updated": "2026-09-20T19:09:55.541032+00:00",
   "record": {
-    "correct": 15,
+    "correct": 16,
     "wrong": 15,
-    "total": 30,
+    "total": 31,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
+      "2": {
+        "correct": 10,
+        "total": 20
+      },
       "3": {
         "correct": 3,
         "total": 6
-      },
-      "2": {
-        "correct": 9,
-        "total": 19
       },
       "1": {
         "correct": 1,
@@ -156,176 +156,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 44,
-      "matchweek": 5,
-      "date": "2026-09-20T16:00:00+00:00",
-      "venue": "Allianz Stadium",
-      "home": "Juventus",
-      "away": "Atalanta",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.452,
-        "p_draw": 0.261,
-        "p_away": 0.287,
-        "pick": "Juventus",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 12.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 11.5,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "2-1",
-            "pct": 9.0,
-            "outcome": "home",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4492,
-        "why": {
-          "home_attack_pct": 36.0,
-          "home_defence_pct": 42.1,
-          "away_attack_pct": 36.6,
-          "away_defence_pct": 11.7,
-          "home_advantage_pct": 8.7
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Juventus 45% / draw 26% / Atalanta 29%",
-          "Expected goals: 1.44 - 1.09"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Andrea Cambiaso"
-          ],
-          "away": [
-            "Odilon Kossounou"
-          ]
-        }
-      },
-      "props": [
-        {
-          "team": "Juventus",
-          "player": "Francisco Concei\u00e7\u00e3o",
-          "position": "DF",
-          "lambda_goals": 0.20568762287581926,
-          "anytime_pct": 8.6,
-          "exp_shots": 1.51,
-          "p_shots_2plus": 20.9,
-          "exp_sot": 0.47,
-          "p_sot_1plus": 24.1,
-          "appearance_pct": 80.0,
-          "expected_minutes": 54.8,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Juventus",
-          "player": "Weston McKennie",
-          "position": "DF",
-          "lambda_goals": 0.18949622185000697,
-          "anytime_pct": 7.9,
-          "exp_shots": 0.82,
-          "p_shots_2plus": 4.6,
-          "exp_sot": 0.27,
-          "p_sot_1plus": 13.7,
-          "appearance_pct": 92.5,
-          "expected_minutes": 73.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Juventus",
-          "player": "Teun Koopmeiners",
-          "position": "FW",
-          "lambda_goals": 0.17599147888845756,
-          "anytime_pct": 7.1,
-          "exp_shots": 0.9,
-          "p_shots_2plus": 6.2,
-          "exp_sot": 0.28,
-          "p_sot_1plus": 13.9,
-          "appearance_pct": 85.0,
-          "expected_minutes": 46.4,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Atalanta",
-          "player": "Nikola Krstovic",
-          "position": "FW",
-          "lambda_goals": 0.23172222637674586,
-          "anytime_pct": 10.1,
-          "exp_shots": 1.53,
-          "p_shots_2plus": 21.6,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 24.3,
-          "appearance_pct": 85.0,
-          "expected_minutes": 45.9,
-          "penalty_taker": true,
-          "doubt": false
-        },
-        {
-          "team": "Atalanta",
-          "player": "Gianluca Scamacca",
-          "position": "FW",
-          "lambda_goals": 0.1432338502391434,
-          "anytime_pct": 5.2,
-          "exp_shots": 0.99,
-          "p_shots_2plus": 9.2,
-          "exp_sot": 0.4,
-          "p_sot_1plus": 18.7,
-          "appearance_pct": 62.5,
-          "expected_minutes": 34.3,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Atalanta",
-          "player": "Charles De Ketelaere",
-          "position": "FW",
-          "lambda_goals": 0.11692558778828818,
-          "anytime_pct": 4.1,
-          "exp_shots": 0.95,
-          "p_shots_2plus": 7.5,
-          "exp_sot": 0.37,
-          "p_sot_1plus": 18.5,
-          "appearance_pct": 80.0,
-          "expected_minutes": 56.9,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.556,
-        "p_draw": 0.249,
-        "p_away": 0.194,
-        "odds": {
-          "home": 1.7,
-          "draw": 3.9,
-          "away": 4.75
-        },
-        "book": "bet365",
-        "edge": -0.104,
-        "pick_odds": 1.7,
-        "ev": -0.231
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 45,
       "matchweek": 5,
@@ -5018,6 +4848,17 @@
       "points": 10
     },
     {
+      "team": "Juventus",
+      "played": 5,
+      "won": 3,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 8,
+      "ga": 4,
+      "gd": 4,
+      "points": 10
+    },
+    {
       "team": "Como",
       "played": 5,
       "won": 3,
@@ -5038,17 +4879,6 @@
       "ga": 4,
       "gd": 3,
       "points": 8
-    },
-    {
-      "team": "Juventus",
-      "played": 4,
-      "won": 2,
-      "drawn": 1,
-      "lost": 1,
-      "gf": 6,
-      "ga": 4,
-      "gd": 2,
-      "points": 7
     },
     {
       "team": "Napoli",
@@ -5074,13 +4904,13 @@
     },
     {
       "team": "Atalanta",
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "gf": 5,
-      "ga": 5,
-      "gd": 0,
+      "ga": 7,
+      "gd": -2,
       "points": 6
     },
     {
