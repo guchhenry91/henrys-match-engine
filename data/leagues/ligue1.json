@@ -1,17 +1,21 @@
 {
   "league": "Ligue 1",
-  "updated": "2026-09-20T16:15:27.075921+00:00",
-  "results_updated": "2026-09-20T17:12:21.163905+00:00",
+  "updated": "2026-09-20T17:17:02.542330+00:00",
+  "results_updated": "2026-09-20T17:17:02.542335+00:00",
   "record": {
     "correct": 19,
     "wrong": 21,
     "total": 40,
     "void": 0,
-    "pending": 2,
+    "pending": 0,
     "by_confidence": {
       "3": {
         "correct": 4,
         "total": 9
+      },
+      "4": {
+        "correct": 3,
+        "total": 5
       },
       "2": {
         "correct": 8,
@@ -20,10 +24,6 @@
       "1": {
         "correct": 4,
         "total": 11
-      },
-      "4": {
-        "correct": 3,
-        "total": 5
       }
     }
   },
@@ -111,7 +111,7 @@
           "team": "Nice",
           "player": "Sofiane Diop",
           "position": "FW",
-          "lambda_goals": 0.5082298515390953,
+          "lambda_goals": 0.5082307500590113,
           "anytime_pct": 26.1,
           "exp_shots": 1.25,
           "p_shots_2plus": 13.6,
@@ -126,7 +126,7 @@
           "team": "Nice",
           "player": "Ali Abdi",
           "position": "DF",
-          "lambda_goals": 0.13639577260129926,
+          "lambda_goals": 0.13639609848343434,
           "anytime_pct": 4.9,
           "exp_shots": 0.38,
           "p_shots_2plus": 0.7,
@@ -141,7 +141,7 @@
           "team": "Nice",
           "player": "Jonathan Clauss",
           "position": "DF",
-          "lambda_goals": 0.11386409609535224,
+          "lambda_goals": 0.11386436814392117,
           "anytime_pct": 4.0,
           "exp_shots": 0.67,
           "p_shots_2plus": 2.8,
@@ -156,7 +156,7 @@
           "team": "Lille",
           "player": "Olivier Giroud",
           "position": "FW",
-          "lambda_goals": 0.3948634682929228,
+          "lambda_goals": 0.3948627346800409,
           "anytime_pct": 19.2,
           "exp_shots": 1.22,
           "p_shots_2plus": 13.4,
@@ -171,7 +171,7 @@
           "team": "Lille",
           "player": "H\u00e1kon Haraldsson",
           "position": "FW",
-          "lambda_goals": 0.3707667144522953,
+          "lambda_goals": 0.37076572307239947,
           "anytime_pct": 18.1,
           "exp_shots": 1.43,
           "p_shots_2plus": 18.7,
@@ -186,7 +186,7 @@
           "team": "Lille",
           "player": "Romain Perraud",
           "position": "DF",
-          "lambda_goals": 0.0983285936010444,
+          "lambda_goals": 0.09832833068372447,
           "anytime_pct": 3.3,
           "exp_shots": 0.78,
           "p_shots_2plus": 4.2,
@@ -226,16 +226,16 @@
       "away": "Paris SG",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.292,
+        "p_home": 0.294,
         "p_draw": 0.238,
-        "p_away": 0.471,
+        "p_away": 0.468,
         "pick": "Paris SG",
         "pick_type": "away",
         "score": "1-2",
         "top_scores": [
           {
             "score": "1-1",
-            "pct": 10.5,
+            "pct": 10.6,
             "outcome": "draw",
             "agrees_with_pick": false
           },
@@ -253,7 +253,7 @@
           }
         ],
         "confidence": 2,
-        "provisional": true,
+        "provisional": false,
         "p_pick": 0.4705,
         "why": {
           "home_attack_pct": 35.5,
@@ -265,13 +265,15 @@
         "best_pick": false,
         "reasons": [
           "Model: Marseille 29% / draw 24% / Paris SG 47%",
-          "Expected goals: 1.43 - 1.85"
+          "Expected goals: 1.43 - 1.84"
         ],
         "unmodeled_absences": {
           "home": [
             "Geoffrey Kondogbia"
           ],
-          "away": []
+          "away": [
+            "Achraf Hakimi"
+          ]
         }
       },
       "props": [
@@ -279,7 +281,7 @@
           "team": "Marseille",
           "player": "Amine Gouiri",
           "position": "FW",
-          "lambda_goals": 0.3799335750458566,
+          "lambda_goals": 0.37993925823906316,
           "anytime_pct": 16.6,
           "exp_shots": 0.97,
           "p_shots_2plus": 8.6,
@@ -294,7 +296,7 @@
           "team": "Marseille",
           "player": "Igor Paix\u00e3o",
           "position": "DF",
-          "lambda_goals": 0.3304502495966218,
+          "lambda_goals": 0.3304551925991279,
           "anytime_pct": 16.2,
           "exp_shots": 1.23,
           "p_shots_2plus": 12.8,
@@ -309,7 +311,7 @@
           "team": "Marseille",
           "player": "Pierre-Emile H\u00f8jbjerg",
           "position": "DF",
-          "lambda_goals": 0.1815589354639455,
+          "lambda_goals": 0.1815616512926492,
           "anytime_pct": 7.5,
           "exp_shots": 0.83,
           "p_shots_2plus": 4.7,
@@ -324,8 +326,8 @@
           "team": "Paris SG",
           "player": "Ousmane Demb\u00e9l\u00e9",
           "position": "FW",
-          "lambda_goals": 0.32859541898372574,
-          "anytime_pct": 14.2,
+          "lambda_goals": 0.33246984526849943,
+          "anytime_pct": 14.4,
           "exp_shots": 0.9,
           "p_shots_2plus": 7.4,
           "exp_sot": 0.4,
@@ -339,8 +341,8 @@
           "team": "Paris SG",
           "player": "Maghnes Akliouche",
           "position": "FW",
-          "lambda_goals": 0.2326547474354771,
-          "anytime_pct": 10.2,
+          "lambda_goals": 0.2364232708505366,
+          "anytime_pct": 10.4,
           "exp_shots": 1.12,
           "p_shots_2plus": 10.8,
           "exp_sot": 0.44,
@@ -354,8 +356,8 @@
           "team": "Paris SG",
           "player": "Khvicha Kvaratskhelia",
           "position": "FW",
-          "lambda_goals": 0.23151376221376446,
-          "anytime_pct": 10.0,
+          "lambda_goals": 0.23526380403938016,
+          "anytime_pct": 10.2,
           "exp_shots": 1.17,
           "p_shots_2plus": 12.3,
           "exp_sot": 0.47,
@@ -377,9 +379,9 @@
           "away": 1.4
         },
         "book": "bet365",
-        "edge": -0.208,
+        "edge": -0.211,
         "pick_odds": 1.4,
-        "ev": -0.341
+        "ev": -0.345
       },
       "result": null,
       "graded": null,
@@ -1007,7 +1009,7 @@
       "home": "Marseille",
       "away": "Paris SG",
       "result": null,
-      "pick": null,
+      "pick": "Paris SG",
       "graded": null,
       "void": false
     },
@@ -3888,14 +3890,14 @@
       "team": "Paris SG",
       "proj_points": 67.6,
       "title_pct": 57.5,
-      "top4_pct": 94.9,
+      "top4_pct": 95.0,
       "relegation_pct": 0.0
     },
     {
       "team": "Monaco",
       "proj_points": 61.7,
       "title_pct": 17.8,
-      "top4_pct": 76.6,
+      "top4_pct": 76.5,
       "relegation_pct": 0.0
     },
     {
@@ -4008,7 +4010,7 @@
       "proj_points": 27.9,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 72.2
+      "relegation_pct": 72.1
     }
   ],
   "standings": [
@@ -4263,7 +4265,7 @@
   ],
   "thin_squads": [],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 26.5,
+  "roster_snapshot_age_hours": 27.5,
   "roster_unmatched_count": 175,
   "data_warnings": [
     "175 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
