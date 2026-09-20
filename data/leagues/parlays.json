@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-20T20:55:38.775903+00:00",
+  "updated": "2026-09-20T21:15:41.442427+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -7,10 +7,39 @@
       "sub": "Legs spread across the Premier League, La Liga, Bundesliga and Ligue 1",
       "parlays": [
         {
-          "tier": "Balanced double",
+          "tier": "Banker",
+          "note": "Two safest calls, two leagues",
+          "feat": false,
+          "combined": 0.5601,
+          "legs": [
+            {
+              "selection": "Barcelona to win",
+              "match": "Barcelona v Getafe",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "w",
+              "p": 0.751,
+              "id": "LALIGA#74#w",
+              "date": "2026-10-10T16:30:00+00:00"
+            },
+            {
+              "selection": "Inter to win",
+              "match": "Inter v Parma",
+              "league": "Serie A",
+              "league_key": "SERIEA",
+              "tag": "w",
+              "p": 0.7458,
+              "id": "SERIEA#55#w",
+              "date": "2026-10-10T16:00:00+00:00"
+            }
+          ],
+          "provisional": true
+        },
+        {
+          "tier": "Balanced five-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.418,
+          "combined": 0.1814,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -20,6 +49,16 @@
               "tag": "a",
               "p": 0.629,
               "id": "PL#59#shots#Matheus Cunha",
+              "date": "2026-10-10T16:30:00+00:00"
+            },
+            {
+              "selection": "Barcelona to win",
+              "match": "Barcelona v Getafe",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "w",
+              "p": 0.751,
+              "id": "LALIGA#74#w",
               "date": "2026-10-10T16:30:00+00:00"
             },
             {
@@ -31,6 +70,26 @@
               "p": 0.6646,
               "id": "BUNDESLIGA#41#w",
               "date": "2026-10-09T00:00:00+00:00"
+            },
+            {
+              "selection": "Paris SG to win",
+              "match": "Paris SG v Le Mans",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "w",
+              "p": 0.7231,
+              "id": "LIGUE1#52#w",
+              "date": "2026-10-10T18:45:00+00:00"
+            },
+            {
+              "selection": "Lautaro Mart\u00ednez 2+ shot attempts",
+              "match": "Inter v Parma",
+              "league": "Serie A",
+              "league_key": "SERIEA",
+              "tag": "a",
+              "p": 0.799,
+              "id": "SERIEA#55#shots#Lautaro Mart\u00ednez",
+              "date": "2026-10-10T16:00:00+00:00"
             }
           ],
           "provisional": true
@@ -39,27 +98,27 @@
           "tier": "Props treble",
           "note": "Three player-prop legs, distinct markets where the board allows",
           "feat": false,
-          "combined": 0.1394,
+          "combined": 0.2135,
           "legs": [
             {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Tottenham",
-              "league": "Premier League",
-              "league_key": "PL",
+              "selection": "Lautaro Mart\u00ednez 2+ shot attempts",
+              "match": "Inter v Parma",
+              "league": "Serie A",
+              "league_key": "SERIEA",
               "tag": "a",
-              "p": 0.629,
-              "id": "PL#59#shots#Matheus Cunha",
-              "date": "2026-10-10T16:30:00+00:00"
+              "p": 0.799,
+              "id": "SERIEA#55#shots#Lautaro Mart\u00ednez",
+              "date": "2026-10-10T16:00:00+00:00"
             },
             {
-              "selection": "Erling Haaland 1+ shot on target",
-              "match": "Liverpool v Manchester City",
-              "league": "Premier League",
-              "league_key": "PL",
+              "selection": "Vin\u00edcius J\u00fanior 1+ shot on target",
+              "match": "Real Madrid v Villarreal",
+              "league": "La Liga",
+              "league_key": "LALIGA",
               "tag": "o",
-              "p": 0.543,
-              "id": "PL#58#sot#Erling Haaland",
-              "date": "2026-10-11T15:30:00+00:00"
+              "p": 0.655,
+              "id": "LALIGA#79#sot#Vin\u00edcius J\u00fanior",
+              "date": "2026-10-10T19:00:00+00:00"
             },
             {
               "selection": "Serhou Guirassy to score",
@@ -84,27 +143,27 @@
           "tier": "Shots double",
           "note": "The two safest shot-volume calls",
           "feat": false,
-          "combined": 0.3529,
+          "combined": 0.5689,
           "legs": [
             {
-              "selection": "Matheus Cunha 2+ shot attempts",
-              "match": "Manchester United v Tottenham",
-              "league": "Premier League",
-              "league_key": "PL",
+              "selection": "Lautaro Mart\u00ednez 2+ shot attempts",
+              "match": "Inter v Parma",
+              "league": "Serie A",
+              "league_key": "SERIEA",
               "tag": "a",
-              "p": 0.629,
-              "id": "PL#59#shots#Matheus Cunha",
-              "date": "2026-10-10T16:30:00+00:00"
+              "p": 0.799,
+              "id": "SERIEA#55#shots#Lautaro Mart\u00ednez",
+              "date": "2026-10-10T16:00:00+00:00"
             },
             {
-              "selection": "Harry Kane 2+ shot attempts",
-              "match": "Augsburg v Bayern Munich",
-              "league": "Bundesliga",
-              "league_key": "BUNDESLIGA",
+              "selection": "Lamine Yamal 2+ shot attempts",
+              "match": "Barcelona v Getafe",
+              "league": "La Liga",
+              "league_key": "LALIGA",
               "tag": "a",
-              "p": 0.561,
-              "id": "BUNDESLIGA#41#shots#Harry Kane",
-              "date": "2026-10-09T00:00:00+00:00"
+              "p": 0.712,
+              "id": "LALIGA#74#shots#Lamine Yamal",
+              "date": "2026-10-10T16:30:00+00:00"
             }
           ],
           "provisional": true
@@ -113,8 +172,38 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0508,
+          "combined": 0.0029,
           "legs": [
+            {
+              "selection": "Lautaro Mart\u00ednez 2+ shot attempts",
+              "match": "Inter v Parma",
+              "league": "Serie A",
+              "league_key": "SERIEA",
+              "tag": "a",
+              "p": 0.799,
+              "id": "SERIEA#55#shots#Lautaro Mart\u00ednez",
+              "date": "2026-10-10T16:00:00+00:00"
+            },
+            {
+              "selection": "Lamine Yamal 2+ shot attempts",
+              "match": "Barcelona v Getafe",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.712,
+              "id": "LALIGA#74#shots#Lamine Yamal",
+              "date": "2026-10-10T16:30:00+00:00"
+            },
+            {
+              "selection": "Vin\u00edcius J\u00fanior 2+ shot attempts",
+              "match": "Real Madrid v Villarreal",
+              "league": "La Liga",
+              "league_key": "LALIGA",
+              "tag": "a",
+              "p": 0.666,
+              "id": "LALIGA#79#shots#Vin\u00edcius J\u00fanior",
+              "date": "2026-10-10T19:00:00+00:00"
+            },
             {
               "selection": "Matheus Cunha 2+ shot attempts",
               "match": "Manchester United v Tottenham",
@@ -134,6 +223,26 @@
               "p": 0.561,
               "id": "BUNDESLIGA#41#shots#Harry Kane",
               "date": "2026-10-09T00:00:00+00:00"
+            },
+            {
+              "selection": "Nico Paz 2+ shot attempts",
+              "match": "Como v Roma",
+              "league": "Serie A",
+              "league_key": "SERIEA",
+              "tag": "a",
+              "p": 0.545,
+              "id": "SERIEA#53#shots#Nico Paz",
+              "date": "2026-10-11T10:30:00+00:00"
+            },
+            {
+              "selection": "Esteban Lepaul 1+ shot on target",
+              "match": "Rennes v Auxerre",
+              "league": "Ligue 1",
+              "league_key": "LIGUE1",
+              "tag": "o",
+              "p": 0.545,
+              "id": "LIGUE1#53#sot#Esteban Lepaul",
+              "date": "2026-10-11T15:15:00+00:00"
             },
             {
               "selection": "Erling Haaland 1+ shot on target",
@@ -164,6 +273,16 @@
               "p": 0.506,
               "id": "BUNDESLIGA#37#shots#Deniz Undav",
               "date": "2026-10-09T00:00:00+00:00"
+            },
+            {
+              "selection": "Nikola Krstovic 2+ shot attempts",
+              "match": "Atalanta v Venezia",
+              "league": "Serie A",
+              "league_key": "SERIEA",
+              "tag": "a",
+              "p": 0.499,
+              "id": "SERIEA#51#shots#Nikola Krstovic",
+              "date": "2026-10-12T16:30:00+00:00"
             }
           ],
           "provisional": true
