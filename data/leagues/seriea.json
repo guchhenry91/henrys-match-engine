@@ -1,21 +1,21 @@
 {
   "league": "Serie A",
   "updated": "2026-09-20T14:48:11.467593+00:00",
-  "results_updated": "2026-09-20T14:48:11.467599+00:00",
+  "results_updated": "2026-09-20T15:19:05.143726+00:00",
   "record": {
     "correct": 15,
-    "wrong": 13,
-    "total": 28,
+    "wrong": 15,
+    "total": 30,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
-      "3": {
-        "correct": 3,
-        "total": 5
-      },
       "2": {
         "correct": 9,
-        "total": 18
+        "total": 19
+      },
+      "3": {
+        "correct": 3,
+        "total": 6
       },
       "1": {
         "correct": 1,
@@ -156,325 +156,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 43,
-      "matchweek": 5,
-      "date": "2026-09-20T13:00:00+00:00",
-      "venue": "Benito Stirpe",
-      "home": "Frosinone",
-      "away": "Como",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.226,
-        "p_draw": 0.239,
-        "p_away": 0.535,
-        "pick": "Como",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "0-1",
-            "pct": 11.5,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 11.4,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-2",
-            "pct": 9.7,
-            "outcome": "away",
-            "agrees_with_pick": true
-          }
-        ],
-        "confidence": 3,
-        "provisional": false,
-        "p_pick": 0.5368,
-        "why": {
-          "home_attack_pct": 4.3,
-          "home_defence_pct": -9.8,
-          "away_attack_pct": 32.7,
-          "away_defence_pct": 28.5,
-          "home_advantage_pct": 7.9
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Frosinone 23% / draw 24% / Como 54%",
-          "Expected goals: 1.01 - 1.69"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Como",
-          "player": "Tasos Douvikas",
-          "position": "FW",
-          "lambda_goals": 0.3463357398735682,
-          "anytime_pct": 17.0,
-          "exp_shots": 1.47,
-          "p_shots_2plus": 19.5,
-          "exp_sot": 0.62,
-          "p_sot_1plus": 34.3,
-          "appearance_pct": 97.5,
-          "expected_minutes": 58.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Como",
-          "player": "Assane Diao",
-          "position": "FW",
-          "lambda_goals": 0.28751314971245107,
-          "anytime_pct": 13.6,
-          "exp_shots": 1.65,
-          "p_shots_2plus": 24.8,
-          "exp_sot": 0.61,
-          "p_sot_1plus": 34.2,
-          "appearance_pct": 100.0,
-          "expected_minutes": 70.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Como",
-          "player": "Nico Paz",
-          "position": "FW",
-          "lambda_goals": 0.2723897022352372,
-          "anytime_pct": 12.5,
-          "exp_shots": 2.67,
-          "p_shots_2plus": 52.0,
-          "exp_sot": 0.99,
-          "p_sot_1plus": 49.5,
-          "appearance_pct": 90.0,
-          "expected_minutes": 74.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [
-        {
-          "market": "shots",
-          "line": "2+ shot attempts",
-          "player": "Nico Paz",
-          "team": "Como",
-          "position": "FW",
-          "p_pick": 0.52,
-          "confidence": 3,
-          "provisional": false,
-          "doubt": false,
-          "penalty_taker": false,
-          "appearance_pct": 90.0,
-          "expected_minutes": 74.7,
-          "anytime_pct": 12.5,
-          "exp_shots": 2.67,
-          "exp_sot": 0.99,
-          "lineup_confirmed": false,
-          "gradeable": true,
-          "last_five": [
-            6,
-            5,
-            2,
-            2,
-            1
-          ],
-          "last_five_line": 2,
-          "bar": 0.497,
-          "news_checked_hours_ago": 3.4851968969444442,
-          "unavailable": false,
-          "team_attribution": "Como"
-        }
-      ],
-      "market": {
-        "p_home": 0.165,
-        "p_draw": 0.212,
-        "p_away": 0.624,
-        "odds": {
-          "home": 6.0,
-          "draw": 4.5,
-          "away": 1.5
-        },
-        "book": "bet365",
-        "edge": -0.089,
-        "pick_odds": 1.5,
-        "ev": -0.197
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
-    {
-      "id": 47,
-      "matchweek": 5,
-      "date": "2026-09-20T13:00:00+00:00",
-      "venue": "Ennio Tardini",
-      "home": "Parma",
-      "away": "Genoa",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.304,
-        "p_draw": 0.293,
-        "p_away": 0.403,
-        "pick": "Genoa",
-        "pick_type": "away",
-        "score": "0-1",
-        "top_scores": [
-          {
-            "score": "0-1",
-            "pct": 13.9,
-            "outcome": "away",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "1-1",
-            "pct": 13.3,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "0-0",
-            "pct": 11.8,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 2,
-        "provisional": false,
-        "p_pick": 0.4044,
-        "why": {
-          "home_attack_pct": -22.5,
-          "home_defence_pct": -9.1,
-          "away_attack_pct": -8.3,
-          "away_defence_pct": -0.4,
-          "home_advantage_pct": 7.9
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Parma 30% / draw 29% / Genoa 40%",
-          "Expected goals: 0.97 - 1.16"
-        ],
-        "unmodeled_absences": {
-          "home": [],
-          "away": []
-        }
-      },
-      "props": [
-        {
-          "team": "Parma",
-          "player": "Giovanni Fabbian",
-          "position": "MF",
-          "lambda_goals": 0.15859938103343144,
-          "anytime_pct": 6.1,
-          "exp_shots": 0.63,
-          "p_shots_2plus": 2.6,
-          "exp_sot": 0.19,
-          "p_sot_1plus": 8.4,
-          "appearance_pct": 75.0,
-          "expected_minutes": 30.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Parma",
-          "player": "Enrico Del Prato",
-          "position": "DF",
-          "lambda_goals": 0.1355877749133692,
-          "anytime_pct": 5.1,
-          "exp_shots": 0.44,
-          "p_shots_2plus": 0.7,
-          "exp_sot": 0.19,
-          "p_sot_1plus": 8.9,
-          "appearance_pct": 90.0,
-          "expected_minutes": 76.1,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Parma",
-          "player": "Adri\u00e1n Bernab\u00e9",
-          "position": "DF",
-          "lambda_goals": 0.13532606001615527,
-          "anytime_pct": 5.0,
-          "exp_shots": 1.24,
-          "p_shots_2plus": 13.9,
-          "exp_sot": 0.3,
-          "p_sot_1plus": 15.0,
-          "appearance_pct": 82.5,
-          "expected_minutes": 65.5,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Vitinha",
-          "position": "FW",
-          "lambda_goals": 0.4218799048105337,
-          "anytime_pct": 20.9,
-          "exp_shots": 1.68,
-          "p_shots_2plus": 25.9,
-          "exp_sot": 0.46,
-          "p_sot_1plus": 24.4,
-          "appearance_pct": 90.0,
-          "expected_minutes": 58.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Leo \u00d8stigard",
-          "position": "DF",
-          "lambda_goals": 0.1949634867253211,
-          "anytime_pct": 8.0,
-          "exp_shots": 0.48,
-          "p_shots_2plus": 1.1,
-          "exp_sot": 0.2,
-          "p_sot_1plus": 9.3,
-          "appearance_pct": 77.5,
-          "expected_minutes": 68.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Genoa",
-          "player": "Johan V\u00e1squez",
-          "position": "DF",
-          "lambda_goals": 0.12086254142260719,
-          "anytime_pct": 4.4,
-          "exp_shots": 0.75,
-          "p_shots_2plus": 3.5,
-          "exp_sot": 0.19,
-          "p_sot_1plus": 8.9,
-          "appearance_pct": 92.5,
-          "expected_minutes": 82.7,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.307,
-        "p_draw": 0.311,
-        "p_away": 0.381,
-        "odds": {
-          "home": 3.1,
-          "draw": 3.1,
-          "away": 2.45
-        },
-        "book": "bet365",
-        "edge": 0.022,
-        "pick_odds": 2.45,
-        "ev": -0.013
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 44,
       "matchweek": 5,
@@ -5320,14 +5001,25 @@
       "points": 12
     },
     {
-      "team": "Como",
-      "played": 4,
+      "team": "Frosinone",
+      "played": 5,
       "won": 3,
       "drawn": 1,
-      "lost": 0,
+      "lost": 1,
       "gf": 9,
       "ga": 4,
       "gd": 5,
+      "points": 10
+    },
+    {
+      "team": "Como",
+      "played": 5,
+      "won": 3,
+      "drawn": 1,
+      "lost": 1,
+      "gf": 9,
+      "ga": 6,
+      "gd": 3,
       "points": 10
     },
     {
@@ -5340,17 +5032,6 @@
       "ga": 4,
       "gd": 3,
       "points": 8
-    },
-    {
-      "team": "Frosinone",
-      "played": 4,
-      "won": 2,
-      "drawn": 1,
-      "lost": 1,
-      "gf": 7,
-      "ga": 4,
-      "gd": 3,
-      "points": 7
     },
     {
       "team": "Juventus",
@@ -5430,6 +5111,17 @@
       "points": 4
     },
     {
+      "team": "Parma",
+      "played": 5,
+      "won": 1,
+      "drawn": 1,
+      "lost": 3,
+      "gf": 4,
+      "ga": 7,
+      "gd": -3,
+      "points": 4
+    },
+    {
       "team": "Monza",
       "played": 5,
       "won": 1,
@@ -5463,25 +5155,14 @@
       "points": 2
     },
     {
-      "team": "Parma",
-      "played": 4,
-      "won": 0,
-      "drawn": 1,
-      "lost": 3,
-      "gf": 2,
-      "ga": 6,
-      "gd": -4,
-      "points": 1
-    },
-    {
       "team": "Genoa",
-      "played": 4,
+      "played": 5,
       "won": 0,
       "drawn": 1,
-      "lost": 3,
-      "gf": 2,
-      "ga": 8,
-      "gd": -6,
+      "lost": 4,
+      "gf": 3,
+      "ga": 10,
+      "gd": -7,
       "points": 1
     },
     {

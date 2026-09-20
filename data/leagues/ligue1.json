@@ -1,29 +1,29 @@
 {
   "league": "Ligue 1",
   "updated": "2026-09-20T14:47:57.752862+00:00",
-  "results_updated": "2026-09-20T14:47:57.752868+00:00",
+  "results_updated": "2026-09-20T15:19:03.929966+00:00",
   "record": {
-    "correct": 18,
+    "correct": 19,
     "wrong": 21,
-    "total": 39,
+    "total": 40,
     "void": 0,
-    "pending": 0,
+    "pending": 1,
     "by_confidence": {
       "3": {
         "correct": 4,
         "total": 9
-      },
-      "4": {
-        "correct": 3,
-        "total": 5
       },
       "2": {
         "correct": 8,
         "total": 15
       },
       "1": {
+        "correct": 4,
+        "total": 11
+      },
+      "4": {
         "correct": 3,
-        "total": 10
+        "total": 5
       }
     }
   },
@@ -51,177 +51,6 @@
     }
   ],
   "matches": [
-    {
-      "id": 38,
-      "matchweek": 5,
-      "date": "2026-09-20T13:00:00+00:00",
-      "venue": "Stade de l'Abb\u00e9-Deschamps",
-      "home": "Auxerre",
-      "away": "Brest",
-      "time_suspect": false,
-      "prediction": {
-        "p_home": 0.384,
-        "p_draw": 0.282,
-        "p_away": 0.334,
-        "pick": "Auxerre",
-        "pick_type": "home",
-        "score": "1-0",
-        "top_scores": [
-          {
-            "score": "1-1",
-            "pct": 13.5,
-            "outcome": "draw",
-            "agrees_with_pick": false
-          },
-          {
-            "score": "1-0",
-            "pct": 9.7,
-            "outcome": "home",
-            "agrees_with_pick": true
-          },
-          {
-            "score": "0-1",
-            "pct": 8.9,
-            "outcome": "away",
-            "agrees_with_pick": false
-          }
-        ],
-        "confidence": 1,
-        "provisional": false,
-        "p_pick": 0.3836,
-        "why": {
-          "home_attack_pct": -13.5,
-          "home_defence_pct": 0.6,
-          "away_attack_pct": -0.9,
-          "away_defence_pct": -5.0,
-          "home_advantage_pct": 21.5
-        },
-        "best_pick": false,
-        "reasons": [
-          "Model: Auxerre 38% / draw 28% / Brest 33%",
-          "Expected goals: 1.32 - 1.22"
-        ],
-        "unmodeled_absences": {
-          "home": [
-            "Bryan Okoh",
-            "Marvin Senaya"
-          ],
-          "away": [
-            "Brendan Chardonnet"
-          ]
-        }
-      },
-      "props": [
-        {
-          "team": "Auxerre",
-          "player": "Danny Namaso",
-          "position": "FW",
-          "lambda_goals": 0.4555328389245373,
-          "anytime_pct": 22.5,
-          "exp_shots": 2.05,
-          "p_shots_2plus": 36.0,
-          "exp_sot": 0.57,
-          "p_sot_1plus": 29.8,
-          "appearance_pct": 86.1,
-          "expected_minutes": 73.0,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Auxerre",
-          "player": "Remy Labeau Lascary",
-          "position": "FW",
-          "lambda_goals": 0.3684265804113345,
-          "anytime_pct": 17.2,
-          "exp_shots": 1.05,
-          "p_shots_2plus": 9.8,
-          "exp_sot": 0.43,
-          "p_sot_1plus": 21.7,
-          "appearance_pct": 77.8,
-          "expected_minutes": 33.9,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Auxerre",
-          "player": "K\u00e9vin Danois",
-          "position": "MF",
-          "lambda_goals": 0.16240658127938856,
-          "anytime_pct": 6.5,
-          "exp_shots": 0.87,
-          "p_shots_2plus": 5.4,
-          "exp_sot": 0.26,
-          "p_sot_1plus": 12.9,
-          "appearance_pct": 94.4,
-          "expected_minutes": 81.6,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brest",
-          "player": "Ludovic Ajorque",
-          "position": "FW",
-          "lambda_goals": 0.5074841641917404,
-          "anytime_pct": 25.8,
-          "exp_shots": 1.58,
-          "p_shots_2plus": 23.0,
-          "exp_sot": 0.61,
-          "p_sot_1plus": 32.6,
-          "appearance_pct": 91.7,
-          "expected_minutes": 81.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brest",
-          "player": "Kamory Doumbia",
-          "position": "MF",
-          "lambda_goals": 0.22835798352973025,
-          "anytime_pct": 9.5,
-          "exp_shots": 0.96,
-          "p_shots_2plus": 8.2,
-          "exp_sot": 0.35,
-          "p_sot_1plus": 16.7,
-          "appearance_pct": 69.4,
-          "expected_minutes": 52.2,
-          "penalty_taker": false,
-          "doubt": false
-        },
-        {
-          "team": "Brest",
-          "player": "Mama Bald\u00e9",
-          "position": "FW",
-          "lambda_goals": 0.11941924806827861,
-          "anytime_pct": 4.0,
-          "exp_shots": 0.58,
-          "p_shots_2plus": 2.7,
-          "exp_sot": 0.16,
-          "p_sot_1plus": 6.8,
-          "appearance_pct": 52.8,
-          "expected_minutes": 20.9,
-          "penalty_taker": false,
-          "doubt": false
-        }
-      ],
-      "player_picks": [],
-      "market": {
-        "p_home": 0.336,
-        "p_draw": 0.268,
-        "p_away": 0.397,
-        "odds": {
-          "home": 2.88,
-          "draw": 3.5,
-          "away": 2.45
-        },
-        "book": "bet365",
-        "edge": 0.048,
-        "pick_odds": 2.88,
-        "ev": 0.105
-      },
-      "result": null,
-      "graded": null,
-      "void": false
-    },
     {
       "id": 43,
       "matchweek": 5,
@@ -4269,15 +4098,15 @@
       "points": 6
     },
     {
-      "team": "Brest",
-      "played": 4,
-      "won": 1,
-      "drawn": 2,
-      "lost": 1,
-      "gf": 6,
-      "ga": 6,
-      "gd": 0,
-      "points": 5
+      "team": "Auxerre",
+      "played": 5,
+      "won": 2,
+      "drawn": 0,
+      "lost": 3,
+      "gf": 7,
+      "ga": 12,
+      "gd": -5,
+      "points": 6
     },
     {
       "team": "Paris SG",
@@ -4288,6 +4117,17 @@
       "gf": 6,
       "ga": 6,
       "gd": 0,
+      "points": 5
+    },
+    {
+      "team": "Brest",
+      "played": 5,
+      "won": 1,
+      "drawn": 2,
+      "lost": 2,
+      "gf": 7,
+      "ga": 8,
+      "gd": -1,
       "points": 5
     },
     {
@@ -4343,17 +4183,6 @@
       "gf": 6,
       "ga": 6,
       "gd": 0,
-      "points": 3
-    },
-    {
-      "team": "Auxerre",
-      "played": 4,
-      "won": 1,
-      "drawn": 0,
-      "lost": 3,
-      "gf": 5,
-      "ga": 11,
-      "gd": -6,
       "points": 3
     },
     {
