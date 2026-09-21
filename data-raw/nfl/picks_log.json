@@ -298,12 +298,15 @@
       "away": "IND",
       "board": true,
       "confidence": 4,
+      "graded": "correct",
       "home": "KC",
       "kickoff": "2026-09-21T00:20:00+00:00",
       "locked_at": "2026-09-20T22:29:18.475559+00:00",
       "p_pick": 0.6485,
       "pick": "KC",
-      "tainted": false
+      "result": "KC 33-30 IND",
+      "tainted": false,
+      "void": false
     },
     "2026_02_JAX_DEN": {
       "away": "JAX",
@@ -4166,6 +4169,7 @@
       "void": false
     },
     "2026_02_IND_KC:anytime_touchdown:00-0036223": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "KC",
       "bar": null,
@@ -4176,6 +4180,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_IND_KC",
+      "graded": "correct",
       "home": "IND",
       "kickoff": "2026-09-21T00:20:00+00:00",
       "line": null,
@@ -4190,9 +4195,11 @@
       "tainted": false,
       "team": "IND",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_IND_KC:passing_yards:00-0033873": {
+      "actual": 382.0,
       "appearance_pct": null,
       "away": "IND",
       "bar": null,
@@ -4203,6 +4210,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_IND_KC",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-21T00:20:00+00:00",
       "line": 223.5,
@@ -4217,9 +4225,11 @@
       "tainted": false,
       "team": "KC",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_IND_KC:passing_yards:00-0035710": {
+      "actual": 210.0,
       "appearance_pct": null,
       "away": "KC",
       "bar": null,
@@ -4230,6 +4240,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_IND_KC",
+      "graded": "wrong",
       "home": "IND",
       "kickoff": "2026-09-21T00:20:00+00:00",
       "line": 216.5,
@@ -4244,9 +4255,11 @@
       "tainted": false,
       "team": "IND",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_IND_KC:receiving_yards:00-0037664": {
+      "actual": 11.0,
       "appearance_pct": null,
       "away": "KC",
       "bar": null,
@@ -4257,6 +4270,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_IND_KC",
+      "graded": "wrong",
       "home": "IND",
       "kickoff": "2026-09-21T00:20:00+00:00",
       "line": 39.5,
@@ -4271,9 +4285,11 @@
       "tainted": false,
       "team": "IND",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_IND_KC:receiving_yards:00-0038104": {
+      "actual": 86.0,
       "appearance_pct": null,
       "away": "IND",
       "bar": null,
@@ -4284,6 +4300,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_IND_KC",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-21T00:20:00+00:00",
       "line": 15.5,
@@ -4298,7 +4315,8 @@
       "tainted": false,
       "team": "KC",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_JAX_DEN:anytime_touchdown:00-0040730": {
       "actual": 0.0,
