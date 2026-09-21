@@ -1,7 +1,13 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-09-20",
+  "_verified_on": "2026-09-21",
   "players": {
+    "Puka Nacua": {
+      "status": "out",
+      "team": "LA",
+      "note": "Officially inactive for Monday Night Football vs. NY Giants (hip/groin), after missing practice Friday and Saturday and being listed questionable. On the board's receiving_yards props for this game (already shown as doubt there, now confirmed out). Sources: ESPN ('Rams WR Puka Nacua (hip) inactive for MNF vs. Giants'), NFL.com ('Rams WR Puka Nacua (hip) inactive for Monday's game vs. Giants'), Yahoo Sports live blog, 21 Sep.",
+      "checked": "2026-09-21T23:20:00Z"
+    },
     "Nico Collins": {
       "status": "out",
       "team": "HOU",
