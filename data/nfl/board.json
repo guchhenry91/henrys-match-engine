@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-21T15:51:59.563791+00:00",
+  "updated": "2026-09-21T23:18:02.727387+00:00",
   "season": 2026,
   "week": 2,
   "elo": {
@@ -31,7 +31,9 @@
       "edge": -0.07,
       "verdict": "book favours",
       "book_price_overround": 1.045,
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "tainted": false
     }
   ],
   "props": {
@@ -72,7 +74,9 @@
           "games_played": 7,
           "as_of_season": 2025,
           "as_of_week": 8,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "anytime_touchdown",
@@ -108,7 +112,9 @@
           "games_played": 52,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ]
     },
@@ -149,7 +155,9 @@
           "games_played": 64,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -185,7 +193,9 @@
           "games_played": 54,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -221,7 +231,9 @@
           "games_played": 25,
           "as_of_season": 2025,
           "as_of_week": 16,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -257,43 +269,9 @@
           "games_played": 18,
           "as_of_season": 2025,
           "as_of_week": 4,
-          "lockable": true
-        },
-        {
-          "market": "receiving_yards",
-          "player": "Puka Nacua",
-          "player_id": "00-0039075",
-          "team": "LA",
-          "opponent": "NYG",
-          "home": true,
-          "game_id": "2026_02_NYG_LA",
-          "kickoff": "2026-09-22T00:15:00+00:00",
-          "line": 95.5,
-          "line_source": "model",
-          "probability": 0.5075,
-          "book": null,
-          "book_price": null,
-          "book_p": null,
-          "book_p_fair": true,
-          "edge": null,
-          "last_five": [
-            72.0,
-            167.0,
-            181.0,
-            225.0,
-            47.0
-          ],
-          "last_five_average": 138.4,
-          "availability": "doubt",
-          "club_source": "confirmed",
-          "injury_note": "Hip - Did Not Practice on Saturday. Questionable for Week 2 vs. N.Y. Giants",
-          "depth_pos": "WR",
-          "depth_rank": 1,
-          "depth_label": "WR1",
-          "games_played": 43,
-          "as_of_season": 2025,
-          "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ]
     },
@@ -334,7 +312,9 @@
           "games_played": 31,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ]
     },
@@ -375,7 +355,9 @@
           "games_played": 113,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ]
     }
@@ -524,8 +506,8 @@
       "correct": 18,
       "wrong": 13,
       "void": 0,
-      "pending": 0,
-      "total": 31,
+      "pending": 1,
+      "total": 32,
       "settled": 31,
       "hit_rate": 0.5806
     },
@@ -533,8 +515,8 @@
       "correct": 89,
       "wrong": 98,
       "void": 8,
-      "pending": 0,
-      "total": 195,
+      "pending": 8,
+      "total": 203,
       "settled": 187,
       "hit_rate": 0.4759
     },
@@ -543,8 +525,8 @@
         "correct": 10,
         "wrong": 6,
         "void": 0,
-        "pending": 0,
-        "total": 16,
+        "pending": 2,
+        "total": 18,
         "settled": 16,
         "hit_rate": 0.625
       },
@@ -552,8 +534,8 @@
         "correct": 39,
         "wrong": 46,
         "void": 3,
-        "pending": 0,
-        "total": 88,
+        "pending": 4,
+        "total": 92,
         "settled": 85,
         "hit_rate": 0.4588
       },
@@ -561,8 +543,8 @@
         "correct": 30,
         "wrong": 30,
         "void": 4,
-        "pending": 0,
-        "total": 64,
+        "pending": 1,
+        "total": 65,
         "settled": 60,
         "hit_rate": 0.5
       },
@@ -570,8 +552,8 @@
         "correct": 10,
         "wrong": 16,
         "void": 1,
-        "pending": 0,
-        "total": 27,
+        "pending": 1,
+        "total": 28,
         "settled": 26,
         "hit_rate": 0.3846
       }
