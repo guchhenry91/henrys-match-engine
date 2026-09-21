@@ -1,15 +1,8 @@
 {
   "_note": "bet365's 6 Scores Challenge selection. bet365 PRE-SELECT the six Premier League fixtures each week -- you cannot choose them -- and there is no feed for them, so this file is filled in from their published list. Keys are 'Home|Away' in CANONICAL club names as they appear in data/leagues/pl.json. Leave `fixtures` empty when the week's six are not published yet: the board then says so rather than inventing a selection.",
   "_expectation": "MEASURED, not hoped for. On the held-out season the model's correct-score accuracy in the Premier League is 11.84% per fixture, against 12.37% for simply writing 1-1 on every line (scripts/correct_score_check.py). Expect ~0.7 correct out of 6, with 3+ correct in roughly 3% of weeks. This board is published as an honest test of that, not as a tip sheet.",
-  "_verified_on": "2026-09-19",
-  "matchweek": 5,
-  "fixtures": [
-    "Brighton|Arsenal",
-    "Everton|Ipswich",
-    "Nottingham Forest|Coventry",
-    "Bournemouth|Liverpool",
-    "Manchester City|Sunderland",
-    "Fulham|Manchester United"
-  ],
-  "_source": "bettingodds.com bet365 6 Scores Challenge article for Premier League Gameweek 5 2026/27, published 17 Sep 2026 -- the ONLY source found listing this week's six (aceodds still showed matchweek 4 on 19 Sep). All six cross-checked against our own matchweek-5 pl.json schedule and all present. The article's kick-off times are unreliable (it lists Bournemouth v Liverpool as Saturday; our fixture feed has it Sunday 20 Sep 13:00 UTC) -- our feed's dates are used."
+  "_verified_on": "2026-09-21",
+  "matchweek": 6,
+  "fixtures": [],
+  "_source": "Matchweek 5 fixtures (Brighton v Arsenal etc.) have all been played, and pl.json's soonest unplayed fixture is now matchweek 6 (Arsenal v Leeds, 10 Oct 2026) -- an 18+ day gap for an international break. Checked bettingodds.com, aceodds.com and general search for a Gameweek 6 2026/27 6 Scores article: none found -- the latest published round is still Gameweek 5 (bettingodds.com's .../gwk5-2026-27 article). bet365 has evidently not selected/published week 6's six yet, this far out. Left empty rather than carrying over the played week 5 selection; will recheck next run."
 }
