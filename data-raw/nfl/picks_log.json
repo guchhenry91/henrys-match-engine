@@ -382,12 +382,15 @@
       "away": "NYG",
       "board": true,
       "confidence": 4,
+      "graded": "correct",
       "home": "LA",
       "kickoff": "2026-09-22T00:15:00+00:00",
       "locked_at": "2026-09-21T23:18:02.732208+00:00",
       "p_pick": 0.6605,
       "pick": "LA",
-      "tainted": false
+      "result": "LA 28-6 NYG",
+      "tainted": false,
+      "void": false
     },
     "2026_02_PHI_TEN": {
       "away": "PHI",
@@ -5320,6 +5323,7 @@
       "void": false
     },
     "2026_02_NYG_LA:anytime_touchdown:00-0037840": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "NYG",
       "bar": null,
@@ -5330,6 +5334,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": null,
@@ -5344,9 +5349,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:anytime_touchdown:00-0040715": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -5357,6 +5364,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "wrong",
       "home": "NYG",
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": null,
@@ -5371,9 +5379,11 @@
       "tainted": false,
       "team": "NYG",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:passing_yards:00-0026498": {
+      "actual": 327.0,
       "appearance_pct": null,
       "away": "NYG",
       "bar": null,
@@ -5384,6 +5394,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": 249.5,
@@ -5398,9 +5409,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:receiving_yards:00-0036244": {
+      "actual": 15.0,
       "appearance_pct": null,
       "away": "NYG",
       "bar": null,
@@ -5411,6 +5424,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": 15.5,
@@ -5425,9 +5439,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:receiving_yards:00-0037838": {
+      "actual": 33.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -5438,6 +5454,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "correct",
       "home": "NYG",
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": 19.5,
@@ -5452,9 +5469,11 @@
       "tainted": false,
       "team": "NYG",
       "team_attribution": "moved: BAL -> NYG",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:receiving_yards:00-0039337": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -5465,6 +5484,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "wrong",
       "home": "NYG",
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": 70.5,
@@ -5479,9 +5499,11 @@
       "tainted": false,
       "team": "NYG",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:receiving_yards:00-0039847": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -5492,6 +5514,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "wrong",
       "home": "NYG",
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": 33.5,
@@ -5506,9 +5529,11 @@
       "tainted": false,
       "team": "NYG",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_NYG_LA:rushing_yards:00-0039738": {
+      "actual": 79.0,
       "appearance_pct": null,
       "away": "NYG",
       "bar": null,
@@ -5519,6 +5544,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_02_NYG_LA",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-22T00:15:00+00:00",
       "line": 21.5,
@@ -5533,7 +5559,8 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_02_PHI_TEN:receiving_yards:00-0038117": {
       "actual": 9.0,
