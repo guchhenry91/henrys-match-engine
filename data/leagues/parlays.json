@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-21T21:10:58.365753+00:00",
+  "updated": "2026-09-22T00:13:47.171550+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -39,7 +39,7 @@
           "tier": "Balanced five-fold",
           "note": "One leg from every league with a pick this round",
           "feat": true,
-          "combined": 0.1814,
+          "combined": 0.1813,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -67,7 +67,7 @@
               "league": "Bundesliga",
               "league_key": "BUNDESLIGA",
               "tag": "w",
-              "p": 0.6647,
+              "p": 0.6646,
               "id": "BUNDESLIGA#41#w",
               "date": "2026-10-09T00:00:00+00:00"
             },
@@ -172,7 +172,7 @@
           "tier": "Shots accumulator",
           "note": "Best shot-volume leg from every available match, drawn from both 2+ attempts and 1+ on target",
           "feat": true,
-          "combined": 0.0029,
+          "combined": 0.0028,
           "legs": [
             {
               "selection": "Lautaro Mart\u00ednez 2+ shot attempts",
@@ -280,7 +280,7 @@
               "league": "Serie A",
               "league_key": "SERIEA",
               "tag": "a",
-              "p": 0.499,
+              "p": 0.498,
               "id": "SERIEA#51#shots#Nikola Krstovic",
               "date": "2026-10-12T16:30:00+00:00"
             }
@@ -326,7 +326,7 @@
           "tier": "PL Acca",
           "note": "The model's Premier League treble",
           "feat": true,
-          "combined": 0.3415,
+          "combined": 0.0943,
           "legs": [
             {
               "selection": "Matheus Cunha 2+ shot attempts",
@@ -347,6 +347,45 @@
               "p": 0.543,
               "id": "PL#58#sot#Erling Haaland",
               "date": "2026-10-11T15:30:00+00:00"
+            },
+            {
+              "selection": "Yoane Wissa to score",
+              "match": "Coventry v Newcastle United",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "g",
+              "p": 0.276,
+              "id": "PL#54#goal#Yoane Wissa",
+              "date": "2026-10-12T19:00:00+00:00"
+            }
+          ],
+          "provisional": true
+        },
+        {
+          "tier": "PL Goals double",
+          "note": "Two Premier League scorers",
+          "feat": false,
+          "combined": 0.0803,
+          "legs": [
+            {
+              "selection": "Erling Haaland to score",
+              "match": "Liverpool v Manchester City",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "g",
+              "p": 0.291,
+              "id": "PL#58#goal#Erling Haaland",
+              "date": "2026-10-11T15:30:00+00:00"
+            },
+            {
+              "selection": "Yoane Wissa to score",
+              "match": "Coventry v Newcastle United",
+              "league": "Premier League",
+              "league_key": "PL",
+              "tag": "g",
+              "p": 0.276,
+              "id": "PL#54#goal#Yoane Wissa",
+              "date": "2026-10-12T19:00:00+00:00"
             }
           ],
           "provisional": true
