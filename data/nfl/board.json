@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22T13:38:31.311692+00:00",
+  "updated": "2026-09-23T14:12:59.532290+00:00",
   "season": 2026,
   "week": 3,
   "elo": {
@@ -3162,6 +3162,42 @@
         },
         {
           "market": "passing_yards",
+          "player": "Jameis Winston",
+          "player_id": "00-0031503",
+          "team": "NYG",
+          "opponent": "TEN",
+          "home": true,
+          "game_id": "2026_03_TEN_NYG",
+          "kickoff": "2026-09-27T17:00:00+00:00",
+          "line": 222.5,
+          "line_source": "model",
+          "probability": 0.5878,
+          "book": null,
+          "book_price": null,
+          "book_p": null,
+          "book_p_fair": true,
+          "edge": null,
+          "last_five": [
+            497.0,
+            212.0,
+            146.0,
+            201.0,
+            366.0
+          ],
+          "last_five_average": 284.4,
+          "availability": "not reported",
+          "club_source": "confirmed",
+          "injury_note": null,
+          "depth_pos": "QB",
+          "depth_rank": 1,
+          "depth_label": "QB1",
+          "games_played": 59,
+          "as_of_season": 2025,
+          "as_of_week": 15,
+          "lockable": true
+        },
+        {
+          "market": "passing_yards",
           "player": "Bryce Young",
           "player_id": "00-0039150",
           "team": "CAR",
@@ -3489,8 +3525,8 @@
   },
   "depth_check": {
     "source": "nflverse depth charts",
-    "players": 1879,
-    "coverage_of_known_actives": 0.941,
+    "players": 1856,
+    "coverage_of_known_actives": 0.94,
     "applied": true,
     "caps": {
       "anytime_touchdown": 3,
@@ -3502,7 +3538,7 @@
   },
   "roster_check": {
     "source": "nflverse rosters",
-    "players_placed": 1695,
+    "players_placed": 1693,
     "teams": 32,
     "agreement_with_known_players": 0.656,
     "trusted": true
