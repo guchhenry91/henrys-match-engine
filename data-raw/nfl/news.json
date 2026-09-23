@@ -1,42 +1,5 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-09-21",
-  "players": {
-    "Puka Nacua": {
-      "status": "out",
-      "team": "LA",
-      "note": "Officially inactive for Monday Night Football vs. NY Giants (hip/groin), after missing practice Friday and Saturday and being listed questionable. On the board's receiving_yards props for this game (already shown as doubt there, now confirmed out). Sources: ESPN ('Rams WR Puka Nacua (hip) inactive for MNF vs. Giants'), NFL.com ('Rams WR Puka Nacua (hip) inactive for Monday's game vs. Giants'), Yahoo Sports live blog, 21 Sep.",
-      "checked": "2026-09-21T23:20:00Z"
-    },
-    "Nico Collins": {
-      "status": "out",
-      "team": "HOU",
-      "note": "Officially ruled out for Week 2 vs Cincinnati with a Grade 1 hamstring injury suffered in Wednesday practice; did not practice Thu/Fri. On the board's receiving_yards props (WR1). Sources: ESPN, Yahoo Sports (x2), RotoWire, CBS Sports, NBC Sports, 18-19 Sep.",
-      "checked": "2026-09-19T15:10:15Z"
-    },
-    "Michael Penix Jr.": {
-      "status": "out",
-      "team": "ATL",
-      "note": "Officially ruled out for Week 2 vs Carolina (knee, still recovering from in-season reconstructive surgery) despite practicing in full Friday -- 'a couple of technical things' left before a return, per the player. Cooper Rush confirmed starting at QB. On the board's passing_yards props. Sources: NBC Sports/ProFootballTalk, Yahoo Sports (x3), NFL.com, 19 Sep.",
-      "checked": "2026-09-19T17:09:33Z"
-    },
-    "Jauan Jennings": {
-      "status": "out",
-      "team": "MIN",
-      "note": "Ruled out for Week 2 at Chicago for personal reasons (grieving the death of a close relative); did not practice this week. Board's receiving_yards props showed him 'not reported' as of this check -- API-NFL's injury feed only tracks physical injuries, so a personal-reasons absence like this falls outside its coverage. Sources: Vikings.com final injury report, NBC Sports/PFT (KOC), RotoWire, Star Tribune, Yahoo Sports, 18-19 Sep.",
-      "checked": "2026-09-19T18:35:00Z"
-    },
-    "RJ Harvey": {
-      "status": "out",
-      "team": "DEN",
-      "note": "Officially inactive for Week 2 vs Jacksonville (hamstring, listed questionable Friday). Tyler Badie replaces him on the active roster. On the board's anytime_touchdown, receiving_yards and rushing_yards props as DEN's RB1 -- was already shown 'doubt' there. Sources: Denver Gazette, denverbroncos.com official inactives, RotoWire, CBS Sports, Yahoo Sports, 20 Sep.",
-      "checked": "2026-09-20T19:35:00Z"
-    },
-    "Sam Darnold": {
-      "status": "out",
-      "team": "SEA",
-      "note": "Ruled out for Week 2 at Arizona with a glute injury suffered in the Week 1 win over New England; Drew Lock confirmed starting, team does not anticipate IR. On the board's passing_yards props, not yet flagged there. Sources: ESPN, CBS Sports, NFL.com, Seahawks.com official injury report, Fox Sports, 19 Sep.",
-      "checked": "2026-09-19T19:21:00Z"
-    }
-  }
+  "_verified_on": "2026-09-23",
+  "players": {}
 }
