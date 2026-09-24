@@ -55,12 +55,49 @@ LEAGUES_ORDER = ["PL", "LALIGA", "BUNDESLIGA", "LIGUE1", "SERIEA"]
 # 1 September. Capping the span bounds how stale the freshest-frozen leg can be.
 MAX_LEG_SPAN_HOURS = 96.0
 
+# A leg whose OWN pick was never frozen can never settle: picks freeze before
+# kickoff, so once every leg has kicked off (all fall within MAX_LEG_SPAN_HOURS of
+# the earliest) and a grace for late runs has passed, a missing freeze is final.
+# Such a parlay is VOID, not "pending" forever -- 45 August parlays sat pending
+# because their legs predate the locking runs and could never be graded.
+DEAD_LEG_AFTER_HOURS = MAX_LEG_SPAN_HOURS + 24.0
+
 
 def _leg_id(lk: str, mid, mkt: str, player: str | None) -> str:
     """Stable identity for a leg, used to freeze it and to look up its result.
     A match-winner leg is one-per-match (`mkt='w'`, no player); a prop leg is
     keyed by its market and player so it grades against the right line."""
     return f"{lk}#{int(mid)}#{mkt}" + (f"#{player}" if player else "")
+
+
+def frozen_leg_ids(picks_dir: str | Path) -> set | None:
+    """Every leg id whose underlying pick was actually frozen, read from the
+    per-league logs (<dir>/<league>/picks_log.json, player_picks_log.json).
+    None when no league log exists at all, so the never-frozen rule is skipped
+    rather than voiding everything against an empty set."""
+    picks_dir = Path(picks_dir)
+    out: set = set()
+    found = False
+    for lk in LEAGUES_ORDER:
+        d = picks_dir / lk.lower()
+        for name in ("picks_log.json", "player_picks_log.json"):
+            f = d / name
+            if not f.exists():
+                continue
+            found = True
+            try:
+                keys = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                return None               # unreadable: do not guess
+            for k in keys:
+                parts = str(k).split(":", 3)
+                if k.startswith("_") or not parts[1:2] or not parts[1].isdigit():
+                    continue
+                if name == "picks_log.json" and len(parts) == 2:
+                    out.add(_leg_id(lk, parts[1], "w", None))
+                elif name == "player_picks_log.json" and len(parts) == 4:
+                    out.add(_leg_id(lk, parts[1], parts[2], parts[3]))
+    return out if found else None
 
 
 def _match_leg(u: dict) -> dict:
@@ -266,19 +303,28 @@ def lock_parlay(log: dict, legs: list[dict], now=None) -> dict:
     return log[key]
 
 
-def grade_parlay(entry: dict, outcomes: dict) -> str:
+def grade_parlay(entry: dict, outcomes: dict, frozen: set | None = None,
+                 now=None) -> str:
     """All-or-nothing. `outcomes` maps leg id -> 'correct'/'wrong'/'void'.
     A parlay is void if it locked late or any leg voided; wrong the moment a leg
-    is wrong; correct only when EVERY leg is correct; else still pending."""
+    is wrong; correct only when EVERY leg is correct; else still pending --
+    unless a still-open leg's pick was never frozen (`frozen`, the ids that
+    were) and every leg is long played, in which case it can never settle: void."""
     if entry.get("tainted"):
         return "void"
-    grades = [outcomes.get(l["id"]) for l in entry["legs"]]
+    grades = [outcomes.get(l["id"]) or (entry.get("leg_grades") or {}).get(l["id"])
+              for l in entry["legs"]]
     if any(g == "void" for g in grades):
         return "void"
     if any(g == "wrong" for g in grades):
         return "wrong"
     if all(g == "correct" for g in grades):
         return "correct"
+    if frozen is not None and now is not None and entry.get("earliest_kickoff"):
+        age = (picks._utc(now) - picks._utc(entry["earliest_kickoff"])).total_seconds() / 3600.0
+        open_ids = [l["id"] for l, g in zip(entry["legs"], grades) if g is None]
+        if age > DEAD_LEG_AFTER_HOURS and any(i not in frozen for i in open_ids):
+            return "void"
     return "pending"
 
 
@@ -309,7 +355,8 @@ def _within_window(team_legs: list[dict], prop_legs: list[dict], now) -> tuple:
     return keep(team_legs), keep(prop_legs)
 
 
-def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
+def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None,
+                  frozen: set | None = None) -> dict:
     """Assemble, freeze and grade the model's parlays. `best`/`pp` are the freshly
     built cross-league board dicts (build_best_picks / build_player_picks)."""
     now = picks._utc(now if now is not None else pd.Timestamp.now("UTC"))
@@ -328,6 +375,11 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
     # (see build_player_picks) -- so no SOT leg arises there anyway.
     prop_legs = [_prop_leg(u) for u in pp.get("upcoming", [])
                  if u.get("p_pick") and u.get("gradeable") is not False]
+    # Only legs that have NOT kicked off. The boards keep a started match listed
+    # for a few hours (in-play window), and a parlay built from it locks late and
+    # is voided on the spot -- 53 of 58 voids were exactly that, pure noise.
+    team_legs = [l for l in team_legs if picks._utc(l["date"]) > now]
+    prop_legs = [l for l in prop_legs if picks._utc(l["date"]) > now]
     team_legs, prop_legs = _within_window(team_legs, prop_legs, now)
     sections = _build_sections(team_legs, prop_legs)
 
@@ -349,9 +401,23 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
 
     # Grade every FROZEN parlay against the settled boards.
     outcomes = _outcome_lookup(best, pp)
+    # REMEMBER every leg grade once seen. The published boards keep only their
+    # newest settled picks, so a leg can scroll out of `outcomes` -- and without
+    # this its parlay would fall back to "pending" and silently leave the record.
+    # A fresh grade still wins, so a corrected result flows through.
+    for entry in log.values():
+        if not isinstance(entry, dict) or "legs" not in entry:
+            continue
+        seen = entry.setdefault("leg_grades", {})
+        for l in entry["legs"]:
+            if outcomes.get(l["id"]) is not None:
+                seen[l["id"]] = outcomes[l["id"]]
+    picks.save_log(log, log_path)
+    if frozen is None:
+        frozen = frozen_leg_ids(Path(log_path).parent)
     settled = []
     for key, entry in log.items():
-        g = grade_parlay(entry, outcomes)
+        g = grade_parlay(entry, outcomes, frozen, now)
         if g in ("correct", "wrong", "void"):
             settled.append({"combined": entry["combined"], "graded": g,
                             "legs": entry["legs"], "kickoff": entry["earliest_kickoff"]})
@@ -364,7 +430,7 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None) -> dict:
             rec[s["graded"]] += 1
     # Parlays still open (locked, not yet fully settled).
     for key, entry in log.items():
-        if grade_parlay(entry, outcomes) == "pending":
+        if grade_parlay(entry, outcomes, frozen, now) == "pending":
             rec["pending"] += 1
 
     return {"updated": now.isoformat(), "method": "one leg per match; combined = product of legs",

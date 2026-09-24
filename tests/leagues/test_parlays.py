@@ -202,3 +202,74 @@ def test_window_covers_a_normal_weekend_round():
 
 def test_empty_input_is_safe():
     assert parlays._within_window([], [], pd.Timestamp("2026-08-18T04:00:00Z")) == ([], [])
+
+
+# --- audit fixes, 2026-09-24 ---------------------------------------------------
+
+def test_a_match_that_has_kicked_off_never_joins_a_new_parlay(tmp_path):
+    """The boards list a started match for a few hours. A parlay built from it
+    locks late and is voided on the spot -- 53 of 58 voids were exactly that."""
+    now = pd.Timestamp("2099-08-20T19:00:00+00:00")
+    started = _m("PL", 1, "A", "B", "A", 0.9, date="2099-08-20T18:00:00+00:00")
+    ahead = [_m("LALIGA", 2, "C", "D", "C", 0.8, date="2099-08-21T18:00:00+00:00"),
+             _m("LIGUE1", 3, "E", "F", "E", 0.75, date="2099-08-21T18:00:00+00:00")]
+    log_path = tmp_path / "parlays_log.json"
+    out = parlays.build_parlays(_best([started] + ahead), _pp([]), log_path, now=now)
+    legs = [l for s in out["sections"] for pa in s["parlays"] for l in pa["legs"]]
+    assert legs and all(l["id"] != "PL#1#w" for l in legs)
+    log = parlays.picks.load_log(log_path)
+    assert log and not any(e["tainted"] for e in log.values())
+
+
+def _entry(ids, kickoff="2099-08-20T18:00:00+00:00"):
+    return {"legs": [{"id": i, "selection": i, "p": 0.7} for i in ids],
+            "combined": 0.49, "tainted": False, "earliest_kickoff": kickoff,
+            "locked_at": "2099-08-19T18:00:00+00:00"}
+
+
+def test_a_leg_whose_pick_was_never_frozen_voids_the_parlay_once_played():
+    e = _entry(["PL#1#w", "PL#2#w"])
+    out = {"PL#1#w": "correct"}
+    later = pd.Timestamp("2099-08-30T00:00:00+00:00")
+    assert parlays.grade_parlay(e, out, frozen={"PL#1#w"}, now=later) == "void"
+    # Frozen but not yet graded: still honestly pending.
+    assert parlays.grade_parlay(e, out, frozen={"PL#1#w", "PL#2#w"}, now=later) == "pending"
+    # Too soon to call it dead: pending.
+    soon = pd.Timestamp("2099-08-21T00:00:00+00:00")
+    assert parlays.grade_parlay(e, out, frozen={"PL#1#w"}, now=soon) == "pending"
+
+
+def test_a_leg_grade_is_remembered_after_it_scrolls_off_the_board(tmp_path):
+    """The boards publish only their newest settled picks. A parlay must not fall
+    back to pending when an old leg drops off that list."""
+    log_path = tmp_path / "parlays_log.json"
+    parlays.picks.save_log({"k": _entry(["PL#1#w", "PL#2#w"])}, log_path)
+    now = pd.Timestamp("2099-08-22T00:00:00+00:00")
+    settled = [{"league_key": "PL", "id": 1, "graded": "correct"},
+               {"league_key": "PL", "id": 2, "graded": "correct"}]
+    first = parlays.build_parlays(_best([], settled), _pp([]), log_path, now=now)
+    assert first["record"]["correct"] == 1
+    again = parlays.build_parlays(_best([], settled[:1]), _pp([]), log_path, now=now)
+    assert again["record"]["correct"] == 1 and again["record"]["pending"] == 0
+
+
+def test_frozen_leg_ids_reads_both_league_logs(tmp_path):
+    (tmp_path / "pl").mkdir()
+    (tmp_path / "pl" / "picks_log.json").write_text('{"2026:7": {}}', encoding="utf-8")
+    (tmp_path / "pl" / "player_picks_log.json").write_text(
+        '{"2026:8:sot:Erling Haaland": {}}', encoding="utf-8")
+    assert parlays.frozen_leg_ids(tmp_path) == {"PL#7#w", "PL#8#sot#Erling Haaland"}
+    assert parlays.frozen_leg_ids(tmp_path / "nowhere") is None
+
+
+def test_the_published_boards_keep_the_full_settled_list_for_parlays():
+    import pathlib, re
+    src = (pathlib.Path(__file__).resolve().parents[2] / "leagues" / "publish.py").read_text(encoding="utf-8")
+    assert src.count('"_all_settled": settled') == 2
+    assert 'best.pop("_all_settled"' in src and 'pp.pop("_all_settled"' in src
+    assert re.search(r'build_parlays\(\{\*\*best, "settled": best_all\}', src)
+
+
+def test_serie_a_has_a_player_stat_fallback():
+    from scripts import sync_player_stats
+    assert "SERIEA" in sync_player_stats.LEAGUES

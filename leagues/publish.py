@@ -994,6 +994,9 @@ def build_best_picks() -> dict:
         "record": picks.record(settled),
         "upcoming": upcoming,
         "settled": settled[:60],
+        # The FULL list, for parlay grading only; publish() pops it before writing.
+        # A parlay leg that scrolled off the 60 shown could otherwise never grade.
+        "_all_settled": settled,
         # Backtested expectation for this tier, so the page can state what the
         # board is worth rather than implying certainty. READ from the gate's
         # pooled walk-forward, not pasted: these were the literals 77.4 and 53.2,
@@ -1252,6 +1255,7 @@ def build_player_picks() -> dict:
         "_incomplete": incomplete,     # non-empty -> caller must NOT publish
         "upcoming": upcoming,
         "settled": settled[:120],
+        "_all_settled": settled,       # parlay grading only; popped before writing
     }
 
 
@@ -1291,6 +1295,7 @@ def main(argv=None):
     boards_safe = full_refresh and ok == attempted
     if boards_safe:
         best = build_best_picks()
+        best_all = best.pop("_all_settled", best["settled"])
         bp = OUT / "best.json"
         if best["_incomplete"]:
             # Refuse rather than publish a record with a league's graded history
@@ -1308,6 +1313,7 @@ def main(argv=None):
                   f"picks, record {r['correct']}-{r['wrong']}")
 
         pp = build_player_picks()
+        pp_all = pp.pop("_all_settled", pp["settled"])
         ppath = OUT / "player_picks.json"
         if pp["_incomplete"]:
             print(f"  SKIPPED player_picks.json: could not grade "
@@ -1327,7 +1333,9 @@ def main(argv=None):
         # a parlay can never stack a leg from a league whose record we could not
         # grade this run.
         if not best["_incomplete"] and not pp["_incomplete"]:
-            par = parlays.build_parlays(best, pp, PICKS_DIR / "parlays_log.json")
+            par = parlays.build_parlays({**best, "settled": best_all},
+                                        {**pp, "settled": pp_all},
+                                        PICKS_DIR / "parlays_log.json")
             parpath = OUT / "parlays.json"
             tmp = parpath.with_suffix(".json.tmp")
             tmp.write_text(json.dumps(par, indent=2, default=str), encoding="utf-8")

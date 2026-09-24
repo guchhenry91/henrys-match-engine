@@ -43,7 +43,10 @@ from scripts.sync_rosters import API_LEAGUES
 ROOT = Path(__file__).resolve().parents[1]
 PICKS_DIR = ROOT / "data-raw" / "leagues"
 CACHE = PICKS_DIR / "player_stats.json"
-LEAGUES = ("PL", "LALIGA", "LIGUE1", "BUNDESLIGA")
+# Every league with a player board. Serie A was missing, so when Understat had not
+# filed a Serie A fixture nothing else could settle it: all seven Serie A picks
+# (Nico Paz, Malen, Njie) sat "awaiting data" from 4 September onward.
+LEAGUES = ("PL", "LALIGA", "LIGUE1", "BUNDESLIGA", "SERIEA")
 # One call per fixture. Keep well inside the free tier, which the lineup ladder
 # and the result sync also draw on.
 RUN_BUDGET = 25
