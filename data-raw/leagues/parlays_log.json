@@ -3236,6 +3236,7 @@
     "leg_grades": {
       "BUNDESLIGA#9#w": "correct",
       "LALIGA#2#w": "correct",
+      "LIGUE1#7#w": "wrong",
       "PL#1#w": "correct"
     },
     "legs": [
@@ -3915,6 +3916,7 @@
     "earliest_kickoff": "2026-08-21T19:00:00+00:00",
     "leg_grades": {
       "LALIGA#18#shots#Ante Budimir": "void",
+      "LIGUE1#7#w": "wrong",
       "PL#1#w": "correct"
     },
     "legs": [
@@ -3942,6 +3944,7 @@
     "earliest_kickoff": "2026-08-23T13:00:00+00:00",
     "leg_grades": {
       "LALIGA#18#shots#Ante Budimir": "void",
+      "LIGUE1#7#w": "wrong",
       "PL#8#sot#Erling Haaland": "correct"
     },
     "legs": [
@@ -4123,6 +4126,7 @@
     "earliest_kickoff": "2026-08-19T19:00:00+00:00",
     "leg_grades": {
       "LALIGA#2#w": "correct",
+      "LIGUE1#7#w": "wrong",
       "PL#1#w": "correct"
     },
     "legs": [
@@ -4420,7 +4424,9 @@
   "LALIGA#28#w|PL#18#w": {
     "combined": 0.4901,
     "earliest_kickoff": "2026-08-30T15:00:00+00:00",
-    "leg_grades": {},
+    "leg_grades": {
+      "PL#18#w": "correct"
+    },
     "legs": [
       {
         "id": "LALIGA#28#w",
@@ -5354,7 +5360,8 @@
     "combined": 0.4566,
     "earliest_kickoff": "2026-08-23T18:45:00+00:00",
     "leg_grades": {
-      "LALIGA#8#w": "void"
+      "LALIGA#8#w": "void",
+      "LIGUE1#7#w": "wrong"
     },
     "legs": [
       {
@@ -5397,6 +5404,7 @@
     "combined": 0.5355,
     "earliest_kickoff": "2026-08-21T19:00:00+00:00",
     "leg_grades": {
+      "LIGUE1#7#w": "wrong",
       "PL#1#w": "correct"
     },
     "legs": [
