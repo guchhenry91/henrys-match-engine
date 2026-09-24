@@ -100,6 +100,27 @@ def frozen_leg_ids(picks_dir: str | Path) -> set | None:
     return out if found else None
 
 
+def match_log_grades(picks_dir: str | Path) -> dict:
+    """leg id -> (picked team, grade) from each league's own match-pick log.
+
+    A match-winner leg is published from Best Picks, but by kickoff the pick can
+    slip under that board's bar -- it is still frozen and graded in the league
+    log, just never listed in best.json's settled. Without this such a leg (e.g.
+    LIGUE1#7, frozen at 55.7%) could never settle its parlays."""
+    out = {}
+    for lk in LEAGUES_ORDER:
+        f = Path(picks_dir) / lk.lower() / "picks_log.json"
+        try:
+            log = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for k, e in log.items():
+            parts = str(k).split(":")
+            if len(parts) == 2 and parts[1].isdigit() and isinstance(e, dict)                     and e.get("graded") in ("correct", "wrong", "void"):
+                out[_leg_id(lk, parts[1], "w", None)] = (e.get("pick"), e["graded"])
+    return out
+
+
 def _match_leg(u: dict) -> dict:
     return {"id": _leg_id(u["league_key"], u["id"], "w", None),
             "kind": "match", "tag": "w",
@@ -401,6 +422,7 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None,
 
     # Grade every FROZEN parlay against the settled boards.
     outcomes = _outcome_lookup(best, pp)
+    match_logs = match_log_grades(Path(log_path).parent)
     # REMEMBER every leg grade once seen. The published boards keep only their
     # newest settled picks, so a leg can scroll out of `outcomes` -- and without
     # this its parlay would fall back to "pending" and silently leave the record.
@@ -412,6 +434,12 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None,
         for l in entry["legs"]:
             if outcomes.get(l["id"]) is not None:
                 seen[l["id"]] = outcomes[l["id"]]
+            elif l["id"] in match_logs and l["id"] not in seen:
+                # Only when the frozen pick is the SAME team the leg backed; a
+                # flipped pick says nothing about this leg, so it stays open.
+                team, grade = match_logs[l["id"]]
+                if l.get("selection") == f"{team} to win":
+                    seen[l["id"]] = grade
     picks.save_log(log, log_path)
     if frozen is None:
         frozen = frozen_leg_ids(Path(log_path).parent)

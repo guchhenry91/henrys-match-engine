@@ -273,3 +273,18 @@ def test_the_published_boards_keep_the_full_settled_list_for_parlays():
 def test_serie_a_has_a_player_stat_fallback():
     from scripts import sync_player_stats
     assert "SERIEA" in sync_player_stats.LEAGUES
+
+
+def test_a_match_leg_below_the_best_bar_grades_from_the_league_log(tmp_path):
+    (tmp_path / "ligue1").mkdir()
+    (tmp_path / "ligue1" / "picks_log.json").write_text(
+        '{"2026:7": {"pick": "Lens", "graded": "wrong"},'
+        ' "2026:8": {"pick": "Nice", "graded": "correct"}}', encoding="utf-8")
+    log_path = tmp_path / "parlays_log.json"
+    e = _entry(["LIGUE1#7#w"]); e["legs"][0]["selection"] = "Lens to win"
+    flipped = _entry(["LIGUE1#8#w"]); flipped["legs"][0]["selection"] = "Lyon to win"
+    parlays.picks.save_log({"a": e, "b": flipped}, log_path)
+    out = parlays.build_parlays(_best([]), _pp([]), log_path,
+                                now=pd.Timestamp("2099-08-21T00:00:00+00:00"))
+    assert out["record"]["wrong"] == 1          # same team: graded from the log
+    assert out["record"]["pending"] == 1        # flipped pick: not guessed
