@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T15:55:51.509383+00:00",
+  "updated": "2026-09-24T16:13:29.026356+00:00",
   "method": "one leg per match; combined = product of legs",
   "sections": [
     {
@@ -355,11 +355,11 @@
     }
   ],
   "record": {
-    "correct": 16,
-    "wrong": 46,
-    "void": 58,
-    "total": 62,
-    "pending": 45
+    "correct": 24,
+    "wrong": 50,
+    "void": 88,
+    "total": 74,
+    "pending": 3
   },
   "settled": [
     {
@@ -590,6 +590,28 @@
           "id": "LALIGA#70#sot#Georges Mikautadze",
           "p": 0.64,
           "selection": "Georges Mikautadze 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-09-20T13:00:00+00:00"
+    },
+    {
+      "combined": 0.237,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#47#sot#Erling Haaland",
+          "p": 0.712,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#70#sot#Georges Mikautadze",
+          "p": 0.64,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#43#shots#Nico Paz",
+          "p": 0.52,
+          "selection": "Nico Paz 2+ shot attempts"
         }
       ],
       "kickoff": "2026-09-20T13:00:00+00:00"
@@ -1760,6 +1782,45 @@
       "kickoff": "2026-09-14T16:30:00+00:00"
     },
     {
+      "combined": 0.3595,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "LALIGA#50#sot#Georges Mikautadze",
+          "p": 0.524,
+          "selection": "Georges Mikautadze 1+ shot on target"
+        },
+        {
+          "id": "SERIEA#32#shots#Nico Paz",
+          "p": 0.686,
+          "selection": "Nico Paz 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-14T16:30:00+00:00"
+    },
+    {
+      "combined": 0.1818,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "LALIGA#44#shots#Lamine Yamal",
+          "p": 0.823,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "SERIEA#32#sot#Nico Paz",
+          "p": 0.617,
+          "selection": "Nico Paz 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#19#goal#Harry Kane",
+          "p": 0.358,
+          "selection": "Harry Kane to score"
+        }
+      ],
+      "kickoff": "2026-09-13T14:15:00+00:00"
+    },
+    {
       "combined": 0.0928,
       "graded": "void",
       "legs": [
@@ -1822,6 +1883,55 @@
         }
       ],
       "kickoff": "2026-09-13T14:15:00+00:00"
+    },
+    {
+      "combined": 0.5646,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "LALIGA#44#shots#Lamine Yamal",
+          "p": 0.823,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "SERIEA#32#shots#Nico Paz",
+          "p": 0.686,
+          "selection": "Nico Paz 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-13T14:15:00+00:00"
+    },
+    {
+      "combined": 0.1179,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#38#sot#Erling Haaland",
+          "p": 0.559,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#44#shots#Lamine Yamal",
+          "p": 0.823,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#19#shots#Harry Kane",
+          "p": 0.561,
+          "selection": "Harry Kane 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#32#w",
+          "p": 0.666,
+          "selection": "Lille to win"
+        },
+        {
+          "id": "SERIEA#32#shots#Nico Paz",
+          "p": 0.686,
+          "selection": "Nico Paz 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-09-13T13:00:00+00:00"
     },
     {
       "combined": 0.4513,
@@ -2964,6 +3074,45 @@
       "kickoff": "2026-08-30T15:30:00+00:00"
     },
     {
+      "combined": 0.1726,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#sot#Matheus Cunha",
+          "p": 0.684,
+          "selection": "Matheus Cunha 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#28#goal#Kylian Mbappe-Lottin",
+          "p": 0.31,
+          "selection": "Kylian Mbappe-Lottin to score"
+        }
+      ],
+      "kickoff": "2026-08-30T15:00:00+00:00"
+    },
+    {
+      "combined": 0.4901,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#28#w",
+          "p": 0.7538,
+          "selection": "Real Madrid to win"
+        },
+        {
+          "id": "PL#18#w",
+          "p": 0.6502,
+          "selection": "Manchester United to win"
+        }
+      ],
+      "kickoff": "2026-08-30T15:00:00+00:00"
+    },
+    {
       "combined": 0.0777,
       "graded": "wrong",
       "legs": [
@@ -3001,6 +3150,28 @@
       "kickoff": "2026-08-30T13:00:00+00:00"
     },
     {
+      "combined": 0.3732,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-30T13:00:00+00:00"
+    },
+    {
       "combined": 0.4654,
       "graded": "wrong",
       "legs": [
@@ -3016,6 +3187,72 @@
         }
       ],
       "kickoff": "2026-08-30T13:00:00+00:00"
+    },
+    {
+      "combined": 0.2266,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "PL#18#sot#Matheus Cunha",
+          "p": 0.684,
+          "selection": "Matheus Cunha 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+          "p": 0.407,
+          "selection": "Serhou Guirassy to score"
+        }
+      ],
+      "kickoff": "2026-08-29T16:30:00+00:00"
+    },
+    {
+      "combined": 0.2567,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#24#shots#Lamine Yamal",
+          "p": 0.814,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#9#w",
+          "p": 0.6879,
+          "selection": "Dortmund to win"
+        },
+        {
+          "id": "LIGUE1#16#shots#Lassine Sinayoko",
+          "p": 0.597,
+          "selection": "Lassine Sinayoko 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-29T16:30:00+00:00"
+    },
+    {
+      "combined": 0.5138,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#28#w",
+          "p": 0.7469,
+          "selection": "Real Madrid to win"
+        },
+        {
+          "id": "BUNDESLIGA#9#w",
+          "p": 0.6879,
+          "selection": "Dortmund to win"
+        }
+      ],
+      "kickoff": "2026-08-29T16:30:00+00:00"
     },
     {
       "combined": 0.2402,
@@ -3147,6 +3384,28 @@
         }
       ],
       "kickoff": "2026-08-29T15:00:00+00:00"
+    },
+    {
+      "combined": 0.1894,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+          "p": 0.407,
+          "selection": "Serhou Guirassy to score"
+        }
+      ],
+      "kickoff": "2026-08-29T11:30:00+00:00"
     },
     {
       "combined": 0.005,
@@ -3290,6 +3549,23 @@
       "kickoff": "2026-08-29T11:30:00+00:00"
     },
     {
+      "combined": 0.4654,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "PL#17#sot#Alexander Isak",
+          "p": 0.606,
+          "selection": "Alexander Isak 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-29T11:30:00+00:00"
+    },
+    {
       "combined": 0.002,
       "graded": "wrong",
       "legs": [
@@ -3362,8 +3638,25 @@
       "kickoff": "2026-08-28T18:30:00+00:00"
     },
     {
+      "combined": 0.5069,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "BUNDESLIGA#1#shots#Harry Kane",
+          "p": 0.66,
+          "selection": "Harry Kane 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-28T18:30:00+00:00"
+    },
+    {
       "combined": 0.0061,
-      "graded": "wrong",
+      "graded": "void",
       "legs": [
         {
           "id": "PL#18#shots#Matheus Cunha",
@@ -3550,7 +3843,7 @@
     },
     {
       "combined": 0.0038,
-      "graded": "wrong",
+      "graded": "void",
       "legs": [
         {
           "id": "PL#18#shots#Matheus Cunha",
@@ -3611,6 +3904,28 @@
       "kickoff": "2026-08-26T19:00:00+00:00"
     },
     {
+      "combined": 0.1923,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "BUNDESLIGA#9#goal#Serhou Guirassy",
+          "p": 0.398,
+          "selection": "Serhou Guirassy to score"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
       "combined": 0.4475,
       "graded": "void",
       "legs": [
@@ -3655,8 +3970,30 @@
       "kickoff": "2026-08-26T19:00:00+00:00"
     },
     {
+      "combined": 0.158,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#goal#Raphinha",
+          "p": 0.327,
+          "selection": "Raphinha to score"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
       "combined": 0.0111,
-      "graded": "wrong",
+      "graded": "void",
       "legs": [
         {
           "id": "PL#18#shots#Matheus Cunha",
@@ -3702,6 +4039,45 @@
           "id": "PL#20#sot#Richarlison",
           "p": 0.516,
           "selection": "Richarlison 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.3039,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#shots#Lamine Yamal",
+          "p": 0.629,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-26T19:00:00+00:00"
+    },
+    {
+      "combined": 0.4831,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#18#shots#Matheus Cunha",
+          "p": 0.768,
+          "selection": "Matheus Cunha 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
         }
       ],
       "kickoff": "2026-08-26T19:00:00+00:00"
@@ -3926,6 +4302,67 @@
       "kickoff": "2026-08-24T17:30:00+00:00"
     },
     {
+      "combined": 0.1314,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#goal#Raphinha",
+          "p": 0.304,
+          "selection": "Raphinha to score"
+        }
+      ],
+      "kickoff": "2026-08-24T17:30:00+00:00"
+    },
+    {
+      "combined": 0.2718,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#shots#Lamine Yamal",
+          "p": 0.629,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-24T17:30:00+00:00"
+    },
+    {
+      "combined": 0.4321,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-24T17:30:00+00:00"
+    },
+    {
       "combined": 0.5276,
       "graded": "void",
       "legs": [
@@ -3943,6 +4380,72 @@
       "kickoff": "2026-08-24T17:30:00+00:00"
     },
     {
+      "combined": 0.5242,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#14#shots#Lamine Yamal",
+          "p": 0.763,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-23T19:30:00+00:00"
+    },
+    {
+      "combined": 0.2074,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#14#shots#Lamine Yamal",
+          "p": 0.763,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#shots#Lamine Yamal",
+          "p": 0.629,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        }
+      ],
+      "kickoff": "2026-08-23T19:30:00+00:00"
+    },
+    {
+      "combined": 0.1475,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#14#shots#Lamine Yamal",
+          "p": 0.763,
+          "selection": "Lamine Yamal 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#18#sot#Ante Budimir",
+          "p": 0.634,
+          "selection": "Ante Budimir 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#6#goal#Raphinha",
+          "p": 0.305,
+          "selection": "Raphinha to score"
+        }
+      ],
+      "kickoff": "2026-08-23T19:30:00+00:00"
+    },
+    {
       "combined": 0.4566,
       "graded": "void",
       "legs": [
@@ -3958,6 +4461,116 @@
         }
       ],
       "kickoff": "2026-08-23T18:45:00+00:00"
+    },
+    {
+      "combined": 0.131,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#8#goal#Kylian Mbappe-Lottin",
+          "p": 0.282,
+          "selection": "Kylian Mbappe-Lottin to score"
+        }
+      ],
+      "kickoff": "2026-08-23T13:00:00+00:00"
+    },
+    {
+      "combined": 0.2921,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-23T13:00:00+00:00"
+    },
+    {
+      "combined": 0.3225,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#7#w",
+          "p": 0.6944,
+          "selection": "Paris SG to win"
+        }
+      ],
+      "kickoff": "2026-08-23T13:00:00+00:00"
+    },
+    {
+      "combined": 0.4644,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-23T13:00:00+00:00"
+    },
+    {
+      "combined": 0.1791,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#8#sot#Kylian Mbappe-Lottin",
+          "p": 0.629,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+          "p": 0.613,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T19:30:00+00:00"
     },
     {
       "combined": 0.1046,
@@ -3982,6 +4595,89 @@
           "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
           "p": 0.613,
           "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T16:30:00+00:00"
+    },
+    {
+      "combined": 0.1663,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+          "p": 0.613,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T16:30:00+00:00"
+    },
+    {
+      "combined": 0.1421,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "PL#6#goal#Thiago",
+          "p": 0.306,
+          "selection": "Thiago to score"
+        }
+      ],
+      "kickoff": "2026-08-22T16:30:00+00:00"
+    },
+    {
+      "combined": 0.0942,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#goal#Erling Haaland",
+          "p": 0.308,
+          "selection": "Erling Haaland to score"
+        },
+        {
+          "id": "PL#6#goal#Thiago",
+          "p": 0.306,
+          "selection": "Thiago to score"
+        }
+      ],
+      "kickoff": "2026-08-22T16:30:00+00:00"
+    },
+    {
+      "combined": 0.3948,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
         },
         {
           "id": "PL#6#sot#Thiago",
@@ -4049,6 +4745,219 @@
         }
       ],
       "kickoff": "2026-08-22T11:30:00+00:00"
+    },
+    {
+      "combined": 0.085,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+          "p": 0.613,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#2#sot#Matheus Cunha",
+          "p": 0.511,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T11:30:00+00:00"
+    },
+    {
+      "combined": 0.2017,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        },
+        {
+          "id": "PL#2#sot#Matheus Cunha",
+          "p": 0.511,
+          "selection": "Matheus Cunha 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-22T11:30:00+00:00"
+    },
+    {
+      "combined": 0.1032,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#13#shots#Antony",
+          "p": 0.621,
+          "selection": "Antony 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#15#sot#Kylian Mbappe-Lottin",
+          "p": 0.613,
+          "selection": "Kylian Mbappe-Lottin 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-21T19:00:00+00:00"
+    },
+    {
+      "combined": 0.3679,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#1#w",
+          "p": 0.7741,
+          "selection": "Arsenal to win"
+        },
+        {
+          "id": "LALIGA#18#shots#Ante Budimir",
+          "p": 0.687,
+          "selection": "Ante Budimir 2+ shot attempts"
+        },
+        {
+          "id": "LIGUE1#7#w",
+          "p": 0.6918,
+          "selection": "Paris SG to win"
+        }
+      ],
+      "kickoff": "2026-08-21T19:00:00+00:00"
+    },
+    {
+      "combined": 0.305,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#1#w",
+          "p": 0.7727,
+          "selection": "Arsenal to win"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-21T19:00:00+00:00"
+    },
+    {
+      "combined": 0.5223,
+      "graded": "correct",
+      "legs": [
+        {
+          "id": "PL#1#w",
+          "p": 0.7727,
+          "selection": "Arsenal to win"
+        },
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-21T19:00:00+00:00"
+    },
+    {
+      "combined": 0.1496,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#2#goal#Ademola Lookman",
+          "p": 0.379,
+          "selection": "Ademola Lookman to score"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-19T19:00:00+00:00"
+    },
+    {
+      "combined": 0.125,
+      "graded": "void",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#8#shots#Kylian Mbappe-Lottin",
+          "p": 0.589,
+          "selection": "Kylian Mbappe-Lottin 2+ shot attempts"
+        },
+        {
+          "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+          "p": 0.314,
+          "selection": "Alexander S\u00f8rloth to score"
+        }
+      ],
+      "kickoff": "2026-08-19T19:00:00+00:00"
+    },
+    {
+      "combined": 0.124,
+      "graded": "wrong",
+      "legs": [
+        {
+          "id": "PL#8#sot#Erling Haaland",
+          "p": 0.676,
+          "selection": "Erling Haaland 1+ shot on target"
+        },
+        {
+          "id": "LALIGA#2#goal#Alexander S\u00f8rloth",
+          "p": 0.314,
+          "selection": "Alexander S\u00f8rloth to score"
+        },
+        {
+          "id": "PL#6#sot#Thiago",
+          "p": 0.584,
+          "selection": "Thiago 1+ shot on target"
+        }
+      ],
+      "kickoff": "2026-08-19T19:00:00+00:00"
     },
     {
       "combined": 0.5688,
