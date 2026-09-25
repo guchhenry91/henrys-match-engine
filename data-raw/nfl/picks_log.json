@@ -452,12 +452,15 @@
       "away": "ATL",
       "board": true,
       "confidence": 4,
+      "graded": "wrong",
       "home": "GB",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "locked_at": "2026-09-24T23:14:11.304291+00:00",
       "p_pick": 0.672,
       "pick": "GB",
-      "tainted": false
+      "result": "GB 14-35 ATL",
+      "tainted": false,
+      "void": false
     }
   },
   "props": {
@@ -6145,6 +6148,7 @@
       "void": false
     },
     "2026_03_ATL_GB:anytime_touchdown:00-0038542": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "GB",
       "bar": null,
@@ -6155,6 +6159,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "correct",
       "home": "ATL",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": null,
@@ -6169,9 +6174,11 @@
       "tainted": false,
       "team": "ATL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:passing_yards:00-0039917": {
+      "actual": 256.0,
       "appearance_pct": null,
       "away": "GB",
       "bar": null,
@@ -6182,6 +6189,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "correct",
       "home": "ATL",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 221.5,
@@ -6196,9 +6204,11 @@
       "tainted": false,
       "team": "ATL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:receiving_yards:00-0036970": {
+      "actual": 5.0,
       "appearance_pct": null,
       "away": "GB",
       "bar": null,
@@ -6209,6 +6219,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "wrong",
       "home": "ATL",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 39.5,
@@ -6223,9 +6234,11 @@
       "tainted": false,
       "team": "ATL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:receiving_yards:00-0037238": {
+      "actual": 194.0,
       "appearance_pct": null,
       "away": "GB",
       "bar": null,
@@ -6236,6 +6249,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "correct",
       "home": "ATL",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 55.5,
@@ -6250,9 +6264,11 @@
       "tainted": false,
       "team": "ATL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:receiving_yards:00-0038542": {
+      "actual": 19.0,
       "appearance_pct": null,
       "away": "GB",
       "bar": null,
@@ -6263,6 +6279,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "wrong",
       "home": "ATL",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 30.5,
@@ -6277,9 +6294,11 @@
       "tainted": false,
       "team": "ATL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:receiving_yards:00-0038996": {
+      "actual": 26.0,
       "appearance_pct": null,
       "away": "ATL",
       "bar": null,
@@ -6290,6 +6309,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 35.5,
@@ -6304,9 +6324,11 @@
       "tainted": false,
       "team": "GB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:receiving_yards:00-0040667": {
+      "actual": 100.0,
       "appearance_pct": null,
       "away": "ATL",
       "bar": null,
@@ -6317,6 +6339,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 16.5,
@@ -6331,9 +6354,11 @@
       "tainted": false,
       "team": "GB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:rushing_yards:00-0038542": {
+      "actual": 194.0,
       "appearance_pct": null,
       "away": "GB",
       "bar": null,
@@ -6344,6 +6369,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ATL_GB",
+      "graded": "correct",
       "home": "ATL",
       "kickoff": "2026-09-25T00:15:00+00:00",
       "line": 75.5,
@@ -6358,7 +6384,8 @@
       "tainted": false,
       "team": "ATL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     }
   }
 }

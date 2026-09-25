@@ -30,7 +30,9 @@
       "book_p_pick": null,
       "edge": null,
       "verdict": null,
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "tainted": false
     },
     {
       "game_id": "2026_03_LAC_BUF",
@@ -587,7 +589,9 @@
           "games_played": 50,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "anytime_touchdown",
@@ -988,7 +992,9 @@
           "games_played": 77,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -1096,7 +1102,9 @@
           "games_played": 38,
           "as_of_season": 2025,
           "as_of_week": 9,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -1276,7 +1284,9 @@
           "games_played": 50,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -1636,7 +1646,9 @@
           "games_played": 13,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -1888,7 +1900,9 @@
           "games_played": 61,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -2829,7 +2843,9 @@
           "games_played": 50,
           "as_of_season": 2025,
           "as_of_week": 18,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "rushing_yards",
@@ -3518,7 +3534,9 @@
           "games_played": 13,
           "as_of_season": 2025,
           "as_of_week": 11,
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "passing_yards",
@@ -3809,62 +3827,221 @@
   "record": {
     "team_winner": {
       "correct": 19,
-      "wrong": 13,
+      "wrong": 14,
       "void": 0,
-      "pending": 1,
+      "pending": 0,
       "total": 33,
-      "settled": 32,
-      "hit_rate": 0.5938
+      "settled": 33,
+      "hit_rate": 0.5758
     },
     "props": {
-      "correct": 93,
-      "wrong": 102,
+      "correct": 98,
+      "wrong": 105,
       "void": 8,
-      "pending": 8,
+      "pending": 0,
       "total": 211,
-      "settled": 195,
-      "hit_rate": 0.4769
+      "settled": 203,
+      "hit_rate": 0.4828
     },
     "props_by_market": {
       "anytime_touchdown": {
-        "correct": 11,
+        "correct": 12,
         "wrong": 7,
         "void": 0,
-        "pending": 1,
+        "pending": 0,
         "total": 19,
-        "settled": 18,
-        "hit_rate": 0.6111
+        "settled": 19,
+        "hit_rate": 0.6316
       },
       "receiving_yards": {
-        "correct": 40,
-        "wrong": 49,
+        "correct": 42,
+        "wrong": 52,
         "void": 3,
-        "pending": 5,
+        "pending": 0,
         "total": 97,
-        "settled": 89,
-        "hit_rate": 0.4494
+        "settled": 94,
+        "hit_rate": 0.4468
       },
       "rushing_yards": {
-        "correct": 31,
+        "correct": 32,
         "wrong": 30,
         "void": 4,
-        "pending": 1,
+        "pending": 0,
         "total": 66,
-        "settled": 61,
-        "hit_rate": 0.5082
+        "settled": 62,
+        "hit_rate": 0.5161
       },
       "passing_yards": {
-        "correct": 11,
+        "correct": 12,
         "wrong": 16,
         "void": 1,
-        "pending": 1,
+        "pending": 0,
         "total": 29,
-        "settled": 27,
-        "hit_rate": 0.4074
+        "settled": 28,
+        "hit_rate": 0.4286
       }
     }
   },
   "settled": [
+    {
+      "kind": "game",
+      "key": "2026_03_ATL_GB",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.672,
+      "confidence": 4,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "GB",
+      "away": "ATL",
+      "tainted": false,
+      "pick": "GB",
+      "result": "GB 14-35 ATL"
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:anytime_touchdown:00-0038542",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5274,
+      "confidence": 3,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "ATL",
+      "away": "GB",
+      "tainted": false,
+      "market": "anytime_touchdown",
+      "player": "Bijan Robinson",
+      "team": "ATL",
+      "line": null,
+      "actual": 1.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:passing_yards:00-0039917",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5248,
+      "confidence": 3,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "ATL",
+      "away": "GB",
+      "tainted": false,
+      "market": "passing_yards",
+      "player": "Michael Penix Jr.",
+      "team": "ATL",
+      "line": 221.5,
+      "actual": 256.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:receiving_yards:00-0036970",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.6274,
+      "confidence": 4,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "ATL",
+      "away": "GB",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Kyle Pitts",
+      "team": "ATL",
+      "line": 39.5,
+      "actual": 5.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:receiving_yards:00-0037238",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5276,
+      "confidence": 3,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "ATL",
+      "away": "GB",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Drake London",
+      "team": "ATL",
+      "line": 55.5,
+      "actual": 194.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:receiving_yards:00-0038542",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.5772,
+      "confidence": 3,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "ATL",
+      "away": "GB",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Bijan Robinson",
+      "team": "ATL",
+      "line": 30.5,
+      "actual": 19.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:receiving_yards:00-0038996",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.6149,
+      "confidence": 4,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": true,
+      "away": "ATL",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Tucker Kraft",
+      "team": "GB",
+      "line": 35.5,
+      "actual": 26.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:receiving_yards:00-0040667",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5355,
+      "confidence": 3,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": true,
+      "away": "ATL",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Matthew Golden",
+      "team": "GB",
+      "line": 16.5,
+      "actual": 100.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_ATL_GB:rushing_yards:00-0038542",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5885,
+      "confidence": 3,
+      "kickoff": "2026-09-25T00:15:00+00:00",
+      "date": "2026-09-25T00:15:00+00:00",
+      "home": "ATL",
+      "away": "GB",
+      "tainted": false,
+      "market": "rushing_yards",
+      "player": "Bijan Robinson",
+      "team": "ATL",
+      "line": 75.5,
+      "actual": 194.0
+    },
     {
       "kind": "game",
       "key": "2026_02_NYG_LA",
