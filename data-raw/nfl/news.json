@@ -1,5 +1,18 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-09-23",
-  "players": {}
+  "_verified_on": "2026-09-26",
+  "players": {
+    "Nico Collins": {
+      "status": "out",
+      "team": "HOU",
+      "note": "Ruled out for Week 3 vs. Colts with a hamstring injury. Sources: cw39.com (\"Texans rule out Nico Collins, Jadeveon Clowney for Sunday vs. Colts\"), si.com/nfl/texans (\"Texans-Colts Week 3 Injury Report: Houston Rules Out 5 Players, 2 Starters\").",
+      "checked": "2026-09-26T15:30:00Z"
+    },
+    "Rico Dowdle": {
+      "status": "out",
+      "team": "PIT",
+      "note": "Ruled out for Week 3 vs. Bengals with a toe injury. Sources: steelers.com (\"Week 3 Injury Report (Bengals)\"), si.com/nfl/steelers (\"Pittsburgh Steelers Week 3 Injury Report vs. Bengals\").",
+      "checked": "2026-09-26T15:30:00Z"
+    }
+  }
 }
