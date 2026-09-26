@@ -24,6 +24,9 @@ from pathlib import Path
 BASE = "https://v1.american-football.api-sports.io"
 ROOT = Path(__file__).resolve().parent.parent
 BREAKER = ROOT / "data-raw" / "nfl" / "_quota.json"
+# Stop once the ACCOUNT reports fewer than this many calls left today (of
+# 7,500): about 20% kept back for emergencies. Agreed budget plan, 2026-09-26.
+ACCOUNT_FLOOR = 1500
 
 
 class QuotaExhausted(RuntimeError):
@@ -45,6 +48,12 @@ class Client:
     def get(self, path: str, **params):
         if self.used >= self.budget:
             raise QuotaExhausted(f"this run's budget of {self.budget} is spent")
+        if self.remaining is not None and self.remaining < ACCOUNT_FLOOR:
+            # Tripped for the day: the allowance only goes down until it resets.
+            reason = (f"account floor reached: {self.remaining} left today, below "
+                      f"the {ACCOUNT_FLOOR} kept in reserve")
+            trip_breaker(reason)
+            raise QuotaExhausted(reason)
         query = urllib.parse.urlencode({k: v for k, v in params.items() if v is not None})
         url = f"{BASE}/{path.lstrip('/')}" + (f"?{query}" if query else "")
         request = urllib.request.Request(

@@ -130,3 +130,13 @@ def test_classification_is_case_and_spacing_insensitive():
     """Status strings vary by source; a new spelling must not become 'fit'."""
     assert sync.classify("  OUT  ") == "out"
     assert sync.classify("doubtful") == "doubt"
+
+
+def test_it_stops_at_the_account_floor_and_trips_the_breaker():
+    """Budget plan 2026-09-26: keep 1,500 of the 7,500 daily calls in reserve."""
+    client = api.Client(opener=_opener(
+        {"response": []}, {"x-ratelimit-requests-remaining": "1499"}))
+    client.get("teams")                          # learns the account is low
+    with pytest.raises(api.QuotaExhausted, match="floor"):
+        client.get("teams")
+    assert client.used == 1 and api.breaker_tripped()

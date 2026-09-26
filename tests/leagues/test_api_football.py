@@ -33,3 +33,20 @@ def test_client_stops_at_its_run_budget():
     client = Client(key="x", limit=0, opener=lambda *_a, **_k: None)
     with pytest.raises(RuntimeError, match="budget exhausted"):
         client.get("teams")
+
+
+def test_client_stops_at_the_account_floor():
+    """Budget plan 2026-09-26: keep 1,500 of the 7,500 daily calls in reserve."""
+    calls = []
+
+    def opener(request, timeout):
+        calls.append(1)
+        r = _Response(json.dumps({"errors": [], "response": []}).encode())
+        r.headers = {"x-ratelimit-requests-remaining": "1400"}
+        return r
+
+    client = Client(key="x", opener=opener, pace=0)
+    client.get("teams")
+    with pytest.raises(RuntimeError, match="floor"):
+        client.get("teams")
+    assert len(calls) == 1

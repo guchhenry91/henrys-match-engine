@@ -1039,3 +1039,31 @@ that is the guard doing its job, not a failure.
 
 Both abort rather than deploy if a fetch fails — never ship a stale-but-fresh-
 looking file.
+
+---
+
+# API credit budget (agreed with the owner 2026-09-26 -- do not raise without asking)
+
+Three paid APIs. Every limit is enforced in code BEFORE a request is sent.
+
+- **API-Football / API-NFL** (7,500 a day each): both clients refuse to send once
+  the account reports fewer than **1,500** left today (`ACCOUNT_FLOOR` in
+  `leagues/api_football.py` and `nfl/api.py`). Per-run caps stay as they were.
+- **The Odds API** (50,000 credits a month) -- `oddsapi/client.py`:
+  - OFF until the repo variable `ODDS_API_ENABLED` is `true` (and `ODDS_API_KEY` set).
+  - **200 credits a run, 1,000 a day, hard stop at 40,000 used a month** (read from
+    the API's own `x-requests-used`, refreshed with a FREE `/sports` call before the
+    first paid call of every run, so a billing reset is seen).
+  - Warnings (`::warning::`, relayed to Telegram once wired) at 10,000 and 30,000
+    used and on any day over 600.
+  - Historical endpoints (10x cost) are refused unless a job passes an explicit
+    approved `historical_allowance`.
+  - The key travels in the URL, so URLs are never logged; everything printable
+    goes through `_scrub`. Every call is logged to `data-raw/odds_api/ledger.json`.
+- **Source priority: free first.** football-data.co.uk (bet365 1X2) and API-NFL
+  (bet365 props) stay primary. The Odds API only fills gaps: NFL props bet365 did
+  not price, soccer player props (unless API-Football's own odds carry them), and
+  NBA/MLB lines. At most TWO odds checks per game -- board build and 60-90 min
+  before the lock -- never live odds.
+- Rollout: phase 0 (client, no credits) done; phase 1 coverage probe (<= 60
+  credits) next, then NFL gap-fill, soccer props, NBA board, MLB (spring 2027).

@@ -25,6 +25,12 @@ BASE = "https://v3.football.api-sports.io"
 # five-league roster refresh spent 94 of 7,500 and still tripped the per-minute
 # ceiling by firing them in ten seconds.
 PACE_SECONDS = 0.35
+
+# THE ACCOUNT FLOOR. Stop spending once the account itself reports fewer than
+# this many calls left today (of 7,500), keeping about 20% back for emergencies
+# and manual fixes. Separate from each run's own `limit`, which knows nothing
+# about what every OTHER run has spent. Agreed budget plan, 2026-09-26.
+ACCOUNT_FLOOR = 1500
 RATE_LIMIT_PAUSE_SECONDS = 20.0
 
 
@@ -66,6 +72,10 @@ class Client:
         """
         if self.used >= self.limit:
             raise RuntimeError(f"API-Football run budget exhausted ({self.limit})")
+        if self.remaining is not None and self.remaining < ACCOUNT_FLOOR:
+            raise RuntimeError(
+                f"API-Football account floor reached: {self.remaining} left today, "
+                f"below the {ACCOUNT_FLOOR} kept in reserve")
         query = urllib.parse.urlencode({k: v for k, v in params.items()
                                        if v is not None})
         url = f"{BASE}/{path.lstrip('/')}" + (f"?{query}" if query else "")
