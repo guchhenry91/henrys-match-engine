@@ -31,7 +31,12 @@ MARKETS = {"player_pass_yds": "passing_yards",
 BOOK_ORDER = ("pinnacle", "draftkings", "fanduel")
 BOOK_LABEL = {"pinnacle": "Pinnacle", "draftkings": "DraftKings", "fanduel": "FanDuel"}
 
-BOARD_HOURS = 30.0          # first check once a game is this close
+# First check once a game is this close. Wide enough that a Thursday game's
+# props reach the board days ahead -- the board now publishes ONLY book lines,
+# so an unchecked game shows no yardage picks at all. Widening costs nothing:
+# the cap is two PAID checks a game wherever they fall, and a check that comes
+# back empty (lines not posted yet) is free and is not counted.
+BOARD_HOURS = 72.0
 MIN_LEAD_HOURS = 0.5        # never spend on a game about to kick off
 MAX_CHECKS = 2
 

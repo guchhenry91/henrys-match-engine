@@ -73,8 +73,13 @@ def run(client, now=None, store=None) -> dict:
         except RuntimeError as exc:
             print(f"  {key}: {exc}")
             continue
-        entry["checks"].append(now.isoformat(timespec="seconds"))
         props = bl.parse_event(payload)
+        if not props:
+            # Nothing posted yet. An empty reply costs no credits, so it is not
+            # counted against the game's two checks.
+            print(f"  {key} ({why}): no lines posted yet (free)")
+            continue
+        entry["checks"].append(now.isoformat(timespec="seconds"))
         if props:
             # A later check replaces the earlier lines wholesale: the freshest
             # quote is the one a pick should freeze on.

@@ -25,7 +25,7 @@ def test_next_scheduled_run_follows_the_workflow_crons():
 
 def test_a_sunday_1pm_game_is_checked_on_saturday_then_at_the_last_run():
     kick = "2026-09-27T17:00:00+00:00"
-    assert bl.due([], kick, _t("2026-09-26T09:05")) is None           # 32h out
+    assert bl.due([], kick, _t("2026-09-24T09:05")) is None           # 80h out
     assert bl.due([], kick, _t("2026-09-26T16:05")) == "board"        # 25h out
     checks = ["2026-09-26T16:05:00+00:00"]
     assert bl.due(checks, kick, _t("2026-09-27T09:05")) is None       # not the last run
@@ -102,7 +102,7 @@ def test_sync_spends_only_on_due_games_and_asks_three_books_three_markets():
         {"id": "e1", "home_team": "Buffalo Bills", "away_team": "Los Angeles Chargers",
          "commence_time": "2026-09-27T17:00:00Z"},
         {"id": "e2", "home_team": "Denver Broncos", "away_team": "Los Angeles Rams",
-         "commence_time": "2026-10-02T00:15:00Z"},                       # too far out
+         "commence_time": "2026-10-05T00:15:00Z"},                       # too far out
     ]
     payload = {"bookmakers": [_book("pinnacle", "player_reception_yds", [
         ("Khalil Shakir", "Over", 47.5, 1.93), ("Khalil Shakir", "Under", 47.5, 1.93)])]}
@@ -140,3 +140,16 @@ def test_the_card_names_the_book_whose_line_it_is():
     from pathlib import Path
     html = (Path(__file__).resolve().parents[2] / "index.html").read_text(encoding="utf-8")
     assert "pinnacle:\"Pinnacle\"" in html and "function lineBook(p)" in html
+
+
+def test_an_empty_reply_is_free_and_does_not_use_up_a_check():
+    events = [{"id": "e1", "home_team": "Buffalo Bills", "away_team": "Los Angeles Chargers",
+               "commence_time": "2026-09-27T17:00:00Z"}]
+    client = FakeClient(events, {"bookmakers": []})
+    store = sync.run(client, now=_t("2026-09-26T16:05"), store={})
+    assert store["games"]["BUF|LAC"]["checks"] == []
+
+
+def test_the_board_publishes_yardage_picks_on_book_lines_only():
+    from nfl import publish
+    assert publish.REQUIRE_BOOK_LINE is True

@@ -31,6 +31,12 @@ REPORT = ROOT / "data-raw" / "nfl" / "backtest_report.json"
 
 TOP_PER_MARKET = 3          # a shortlist, not a database
 MIN_PROBABILITY = 0.50      # never publish a leg the model itself makes a dog
+# BOOKMAKER LINES ONLY (owner's instruction, 2026-09-27). A yardage prop is
+# published only where a bookmaker quotes that player's line -- bet365, or the
+# Pinnacle / DraftKings / FanDuel gap-fill. The player's own median is still how
+# the model is TRAINED, but it is never the line a published pick stands on: a
+# line no one offers is not a bet anyone can make. Anytime TD has no line.
+REQUIRE_BOOK_LINE = True
 
 
 def _report() -> dict:
@@ -424,7 +430,7 @@ def build() -> dict:
             entry["edge"] = gap
             entry["verdict"] = verdict
 
-    props = {}
+    props, awaiting_book = {}, {}
     for market in config.MARKETS:
         if market not in released:
             props[market] = {"released": False, "picks": []}
@@ -437,6 +443,11 @@ def build() -> dict:
                                          depth_trusted=depth_trusted,
                                          book_quotes={k: (v or {}).get(market) or {}
                                                       for k, v in quotes.items()})
+        if REQUIRE_BOOK_LINE and market != "anytime_touchdown":
+            waiting = sum(1 for p in projections if p.get("line_source") == "model")
+            projections = [p for p in projections if p.get("line_source") != "model"]
+            awaiting_book[market] = waiting
+            print(f"  {market}: {waiting} projection(s) held back -- no bookmaker line yet")
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:
@@ -446,7 +457,8 @@ def build() -> dict:
         for picks_for_game in by_game.values():
             trimmed.extend(picks_for_game[:TOP_PER_MARKET])
         trimmed.sort(key=lambda p: -p["probability"])
-        props[market] = {"released": True, "picks": trimmed}
+        props[market] = {"released": True, "picks": trimmed,
+                         "awaiting_book_line": awaiting_book.get(market, 0)}
 
     last_season = int(player_weeks["season"].max())
     last_week = int(player_weeks[player_weeks["season"] == last_season]["week"].max())
@@ -540,9 +552,10 @@ def build() -> dict:
             "Clubs are reconciled against the current API-NFL rosters where those "
             "are complete; where a roster came back thin the club falls back to "
             "the player's last appearance and the card says so.",
-            "Where bet365 quotes a player, his line is bet365's and the edge is "
-            "against bet365's de-vigged price. Receiving yards, and anyone bet365 "
-            "does not quote, use the player's own median -- each card says which.",
+            "Every yardage pick stands on a bookmaker's line: bet365 first, then "
+            "Pinnacle, DraftKings or FanDuel for players bet365 does not quote. A "
+            "player no book quotes yet is held back, not given a made-up line. "
+            "The edge is against that book's de-vigged price.",
         ],
         "markets": {
             "anytime_touchdown": "Anytime touchdown",
