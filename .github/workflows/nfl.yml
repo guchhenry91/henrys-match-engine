@@ -110,6 +110,17 @@ jobs:
           API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
         run: python -m scripts.sync_nfl_odds
 
+      - name: Refresh gap-fill book lines (The Odds API)
+        # Pinnacle / DraftKings / FanDuel yardage lines for players bet365 does
+        # not quote -- receiving yards above all. At most two checks per game, 3
+        # credits each, under every cap in oddsapi/client.py. Spends NOTHING
+        # unless the repo variable ODDS_API_ENABLED is "true".
+        continue-on-error: true
+        env:
+          ODDS_API_ENABLED: ${{ vars.ODDS_API_ENABLED }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m scripts.sync_nfl_book_lines
+
       - name: Refresh the injury report
         # The one thing nflverse cannot supply. 32 requests -- one per team --
         # against an allowance in the thousands, and it degrades to the previous
@@ -130,11 +141,23 @@ jobs:
         run: |
           git config user.name "leagues-bot"
           git config user.email "leagues-bot@users.noreply.github.com"
+          # THE CREDIT LEDGER IS ALWAYS KEPT, deploy or not. It is how the daily
+          # cap counts every run's spend; dropping it on a no-deploy run would
+          # let the next run spend as if this one never happened.
+          git add data-raw/odds_api data-raw/nfl/odds_api_props.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "auto: Odds API ledger $(date -u +%Y-%m-%d)"
+            ledger_committed=true
+          fi
           git add data/nfl data-raw/nfl
           if git diff --cached --quiet || ! python -m scripts.deploy_needed; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No meaningful NFL changes to publish."
             git reset -q
+            if [ "${ledger_committed:-}" = true ]; then
+              git pull --rebase --autostash origin main
+              git push
+            fi
           else
             git commit -m "auto: NFL board $(date -u +%Y-%m-%d)"
             git pull --rebase --autostash origin main

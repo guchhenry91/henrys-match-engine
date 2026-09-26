@@ -21,6 +21,7 @@ import pandas as pd
 from nfl import (config, data, depth, features, games_model,
                  odds as odds_mod, rosters)
 from nfl import picks
+from nfl import book_lines
 from nfl import news as player_news
 from nfl.model import PropModel
 
@@ -102,9 +103,19 @@ def book_props() -> dict:
     """
     path = ROOT / "data-raw" / "nfl" / "odds.json"
     try:
-        return json.loads(path.read_text(encoding="utf-8")).get("props") or {}
+        bet365 = json.loads(path.read_text(encoding="utf-8")).get("props") or {}
     except Exception:
-        return {}
+        bet365 = {}
+    # GAP-FILL from The Odds API (Pinnacle, DraftKings, FanDuel) for players
+    # bet365 does not quote -- receiving yards above all, which API-NFL never
+    # carries. bet365 is never overwritten (nfl/book_lines.py).
+    try:
+        extra = json.loads((ROOT / "data-raw" / "nfl" / "odds_api_props.json")
+                           .read_text(encoding="utf-8")).get("games") or {}
+    except Exception:
+        extra = {}
+    return book_lines.merge(bet365, {k: (g or {}).get("props") or {}
+                                     for k, g in extra.items()})
 
 
 def depth_population(roster_index: dict, rosters_complete: bool, known_ids: list) -> list:
@@ -264,9 +275,10 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             "game_id": game["game_id"],
             "kickoff": pd.Timestamp(game["kickoff"]).isoformat(),
             "line": None if pd.isna(player["line"]) else float(player["line"]),
-            # Whose line this is. "bet365" is the bookmaker's own number; "model"
-            # is the player's median, used only where the book quotes nobody.
-            "line_source": ("bet365" if from_book else
+            # Whose line this is: the bookmaker that quoted it ("bet365", or a
+            # gap-fill book -- "pinnacle", "draftkings", "fanduel"), or "model",
+            # the player's own median, used only where no book quotes him.
+            "line_source": ((quote.get("source") or "bet365") if from_book else
                             None if market == "anytime_touchdown" else "model"),
             "probability": round(float(prob), 4),
             "book": (quote or {}).get("book") if book_p is not None else None,
@@ -305,7 +317,7 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     if below_floor:
         print(f"  {market}: book line below the trained floor, dropped "
               f"{len(below_floor)} -> {below_floor[:6]}")
-    sourced = sum(1 for r in rows if r.get("line_source") == "bet365")
+    sourced = sum(1 for r in rows if r.get("line_source") not in (None, "model"))
     print(f"  {market}: {sourced} of {len(rows)} on the bookmaker's line")
     rows.sort(key=lambda r: -r["probability"])
     return rows

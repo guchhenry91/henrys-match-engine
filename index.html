@@ -1327,6 +1327,11 @@ function nflGameTableRow(g){
 
 // NFL player prop. A tile is green where that game beat the line, strictly --
 // the same `yards > line` the grader and the release gate use.
+// Whose line the card is on: bet365 (via API-NFL) or the gap-fill book from The
+// Odds API (Pinnacle, DraftKings, FanDuel) for players bet365 does not quote.
+const LINE_BOOKS={bet365:"bet365",pinnacle:"Pinnacle",draftkings:"DraftKings",fanduel:"FanDuel"};
+function lineBook(p){return LINE_BOOKS[p.line_source]||p.book||"Book";}
+
 function nflPropTableRow(p, full){
   const td=p.market==="anytime_touchdown";
   const t=nflTier(p.probability);
@@ -1342,10 +1347,10 @@ function nflPropTableRow(p, full){
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}</div>
     <div class="bs"><b class="sel">${esc(sel)}</b>${status}${
-      p.line_source==="bet365"?`<span class="bsn">bet365 line</span>`
-      :p.line_source==="model"?`<span class="bsn">Model line — bet365 has none</span>`:""}</div>
+      p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
+      :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}</div>
     ${probCell(p.probability)}
-    ${td?valCell("5-game avg",avg):valCell(p.line_source==="bet365"?"bet365 line":"Model line",p.line!=null?p.line:"—")}
+    ${td?valCell("5-game avg",avg):valCell(p.line_source&&p.line_source!=="model"?`${lineBook(p)} line`:"Model line",p.line!=null?p.line:"—")}
     ${p.book_price!=null
       ? valCell(`${p.book||"Book"} ${Number(p.book_price).toFixed(2)}`,
           p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
