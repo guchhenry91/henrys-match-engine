@@ -190,7 +190,12 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
         built = features.build(allrows, market)
         is_synth = built["GAME_ID"] < 0
         train = built[~is_synth & (built["season"] >= config.CURRENT_SEASON - config.TRAIN_SEASONS)]
-        model = PropModel(market).fit(features.augment_lines(train, market))
+        spread = features.augment_lines(train, market)
+        per_step = market in config.PER_STEP_MODELS
+        # One model per line step where the gate needed it (config.PER_STEP_MODELS).
+        models = ({int(s): PropModel(market).fit(spread[spread["line_step"] == s])
+                   for s in config.LINE_STEPS[market]} if per_step
+                  else {None: PropModel(market).fit(spread)})
         ask = built[is_synth].copy()
         picks, below = [], 0
         for idx, r in ask.iterrows():
@@ -204,6 +209,10 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 below += 1
                 continue
             row = features.at_line(ask.loc[[idx]], float(quote["line"]))
+            step = int(round(float(quote["line"]) - float(r["base_line"]))) if per_step else None
+            if step not in models:
+                continue                  # a line outside the steps the gate tested
+            model = models[step]
             prob = float(model.predict(row)[0])
             picks.extend(selection.sides({
                 "market": market, "player": m["name"], "player_id": int(r["PLAYER_ID"]),

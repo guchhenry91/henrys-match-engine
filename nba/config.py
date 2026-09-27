@@ -131,6 +131,11 @@ LINE_STEPS = {
     "threes": (-1, 0, 1, 2),
 }
 
+# ONE MODEL PER LINE STEP for these markets (nfl.model.fit_predict). Threes is a
+# low integer count; with the training-frozen feature scaling (2026-09-27) one
+# shared model overrated the over at +2 (25.8% predicted, 20.8% landed).
+PER_STEP_MODELS = {"threes"}
+
 # A ROLE, NOT AN APPEARANCE. Minutes are the opportunity that every one of these
 # markets runs through, so a player has to be playing real ones before his line
 # means anything. Without it the board fills with benchwarmers whose entering

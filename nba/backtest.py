@@ -27,7 +27,7 @@ import pandas as pd
 
 from nba import config
 from nfl.backtest import brier, ece, ece_null
-from nfl.model import PropModel, empirical_baseline
+from nfl.model import PropModel, empirical_baseline, fit_predict
 
 
 def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
@@ -47,8 +47,9 @@ def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
         test = frame[frame["season"] == season]
         if train.empty or test.empty:
             continue
-        model = PropModel(market).fit(train)
-        predicted = model.predict(test)
+        predicted = (fit_predict(train, test, market, per_step=True)
+                     if market in config.PER_STEP_MODELS
+                     else PropModel(market).fit(train).predict(test))
         out.append(pd.DataFrame({
             "season": season,
             "group": (test["GAME_ID"].to_numpy() if "GAME_ID" in test.columns

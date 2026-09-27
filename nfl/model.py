@@ -91,7 +91,9 @@ def frame_stats(frame: pd.DataFrame) -> dict:
     everyone. Measured on 16,405 NBA predictions: up to 4.7pt of difference from
     the batch alone. Freezing the training figures makes the live board ask the
     model exactly what the gate measured."""
-    allowed = pd.to_numeric(frame.get("opp_allowed"), errors="coerce")
+    if "opp_allowed" not in frame.columns:
+        return {"allowed_mean": 0.0, "allowed_std": 1.0}
+    allowed = pd.to_numeric(frame["opp_allowed"], errors="coerce")
     std = float(allowed.std()) if allowed.notna().sum() > 1 else 0.0
     return {"allowed_mean": float(allowed.mean()) if allowed.notna().any() else 0.0,
             "allowed_std": std if std > 0 else 1.0}
@@ -273,3 +275,21 @@ class PropModel:
             return np.clip(self.calibrator.predict(raw), 0.01, 0.99)
         return np.clip(self.calibrator.predict_proba(raw.reshape(-1, 1))[:, 1],
                        0.01, 0.99)
+
+
+def fit_predict(train: pd.DataFrame, test: pd.DataFrame, market: str,
+                per_step: bool = False) -> np.ndarray:
+    """Fit on `train`, predict `test`. With `per_step`, one model per line step
+    (`line_step`), each fitted and applied only to its own step's rows -- for
+    lumpy count markets where one model shared across the whole line spread
+    under-reacts to the line (MLB hits+runs+RBIs, NBA threes)."""
+    if not per_step or "line_step" not in test.columns:
+        return PropModel(market).fit(train).predict(test)
+    prob = np.full(len(test), np.nan)
+    steps = test["line_step"].to_numpy()
+    for step in np.unique(steps):
+        mask = steps == step
+        rows = train[train["line_step"] == step]
+        if not rows.empty:
+            prob[mask] = PropModel(market).fit(rows).predict(test[mask])
+    return prob

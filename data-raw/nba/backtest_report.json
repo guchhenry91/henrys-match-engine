@@ -138,9 +138,9 @@
       "floor_share": 0.0649,
       "above_floor": {
         "n": 602300,
-        "brier": 0.1958,
+        "brier": 0.1949,
         "baseline_brier": 0.2175,
-        "accuracy": 0.7012,
+        "accuracy": 0.7025,
         "base_rate": 0.4599
       },
       "failures": [],
@@ -158,121 +158,128 @@
         2025,
         2026
       ],
-      "brier": 0.1958,
+      "brier": 0.1949,
       "baseline_brier": 0.2163,
-      "accuracy": 0.7013,
+      "accuracy": 0.7025,
       "base_rate": 0.4734,
-      "ece": 0.0062,
+      "ece": 0.0031,
       "ece_bar": 0.04,
       "per_season": {
         "2016": {
           "n": 58428,
-          "brier": 0.1921,
+          "brier": 0.1917,
           "baseline": 0.2164,
-          "accuracy": 0.7089
+          "accuracy": 0.7092
         },
         "2017": {
           "n": 58680,
-          "brier": 0.193,
+          "brier": 0.1918,
           "baseline": 0.2151,
-          "accuracy": 0.7075
+          "accuracy": 0.7072
         },
         "2018": {
           "n": 58205,
-          "brier": 0.1968,
+          "brier": 0.1958,
           "baseline": 0.2175,
-          "accuracy": 0.6982
+          "accuracy": 0.6994
         },
         "2019": {
           "n": 59851,
-          "brier": 0.1986,
+          "brier": 0.1969,
           "baseline": 0.2171,
-          "accuracy": 0.6954
+          "accuracy": 0.6981
         },
         "2020": {
           "n": 51613,
-          "brier": 0.1968,
+          "brier": 0.1948,
           "baseline": 0.2156,
-          "accuracy": 0.6984
+          "accuracy": 0.7004
         },
         "2021": {
           "n": 52549,
-          "brier": 0.1914,
+          "brier": 0.1915,
           "baseline": 0.2137,
-          "accuracy": 0.7097
+          "accuracy": 0.7102
         },
         "2022": {
           "n": 59797,
-          "brier": 0.1954,
+          "brier": 0.1953,
           "baseline": 0.2159,
-          "accuracy": 0.702
+          "accuracy": 0.7024
         },
         "2023": {
           "n": 60969,
-          "brier": 0.1964,
+          "brier": 0.194,
           "baseline": 0.2145,
-          "accuracy": 0.6996
+          "accuracy": 0.7047
         },
         "2024": {
           "n": 62083,
-          "brier": 0.1952,
+          "brier": 0.1941,
           "baseline": 0.2158,
-          "accuracy": 0.704
+          "accuracy": 0.7054
         },
         "2025": {
           "n": 61164,
-          "brier": 0.1998,
+          "brier": 0.1997,
           "baseline": 0.2194,
-          "accuracy": 0.6925
+          "accuracy": 0.6927
         },
         "2026": {
           "n": 60744,
           "brier": 0.1974,
           "baseline": 0.2178,
-          "accuracy": 0.6998
+          "accuracy": 0.6993
         }
       },
       "by_line_step": {
         "-6": {
           "n": 65366,
-          "brier": 0.1488,
+          "brier": 0.1483,
           "baseline": 0.1698,
-          "ece": 0.0271,
-          "predicted": 0.7655,
+          "ece": 0.0223,
+          "predicted": 0.7703,
           "landed": 0.7926
         },
         "-3": {
           "n": 98695,
-          "brier": 0.1939,
+          "brier": 0.193,
           "baseline": 0.2069,
-          "ece": 0.023,
-          "predicted": 0.6619,
+          "ece": 0.0159,
+          "predicted": 0.6695,
           "landed": 0.6835
         },
         "0": {
           "n": 139052,
-          "brier": 0.2232,
+          "brier": 0.222,
           "baseline": 0.2298,
-          "ece": 0.0262,
-          "predicted": 0.5287,
+          "ece": 0.0181,
+          "predicted": 0.5388,
           "landed": 0.5445
         },
         "3": {
           "n": 167886,
-          "brier": 0.2159,
+          "brier": 0.2148,
           "baseline": 0.2312,
-          "ece": 0.0208,
-          "predicted": 0.3863,
+          "ece": 0.0152,
+          "predicted": 0.3964,
           "landed": 0.3935
         },
         "6": {
           "n": 173084,
-          "brier": 0.173,
+          "brier": 0.1724,
           "baseline": 0.2139,
-          "ece": 0.0193,
-          "predicted": 0.2727,
+          "ece": 0.0269,
+          "predicted": 0.2803,
           "landed": 0.2534
         }
+      },
+      "selection": {
+        "n": 39257,
+        "predicted": 0.7318,
+        "landed": 0.7172,
+        "shrink": 0.92,
+        "after_shrink": 0.7133
       }
     },
     "rebounds": {
@@ -281,9 +288,9 @@
       "floor_share": 0.2727,
       "above_floor": {
         "n": 365518,
-        "brier": 0.2135,
+        "brier": 0.213,
         "baseline_brier": 0.2267,
-        "accuracy": 0.6618,
+        "accuracy": 0.6634,
         "base_rate": 0.4951
       },
       "failures": [],
@@ -301,121 +308,128 @@
         2025,
         2026
       ],
-      "brier": 0.2123,
+      "brier": 0.2118,
       "baseline_brier": 0.2241,
-      "accuracy": 0.6645,
+      "accuracy": 0.6658,
       "base_rate": 0.5139,
-      "ece": 0.0039,
+      "ece": 0.0027,
       "ece_bar": 0.04,
       "per_season": {
         "2016": {
           "n": 46393,
-          "brier": 0.2138,
+          "brier": 0.2127,
           "baseline": 0.2247,
-          "accuracy": 0.6623
+          "accuracy": 0.6645
         },
         "2017": {
           "n": 46009,
-          "brier": 0.2124,
+          "brier": 0.2121,
           "baseline": 0.2244,
-          "accuracy": 0.6645
+          "accuracy": 0.6664
         },
         "2018": {
           "n": 45516,
-          "brier": 0.2119,
+          "brier": 0.2118,
           "baseline": 0.2239,
-          "accuracy": 0.6667
+          "accuracy": 0.667
         },
         "2019": {
           "n": 45819,
-          "brier": 0.2118,
+          "brier": 0.2116,
           "baseline": 0.2223,
-          "accuracy": 0.6637
+          "accuracy": 0.6638
         },
         "2020": {
           "n": 39580,
           "brier": 0.2118,
           "baseline": 0.2229,
-          "accuracy": 0.6635
+          "accuracy": 0.6631
         },
         "2021": {
           "n": 41788,
-          "brier": 0.2103,
+          "brier": 0.2102,
           "baseline": 0.2229,
-          "accuracy": 0.6692
+          "accuracy": 0.6694
         },
         "2022": {
           "n": 46685,
-          "brier": 0.2116,
+          "brier": 0.2107,
           "baseline": 0.2228,
-          "accuracy": 0.6659
+          "accuracy": 0.6679
         },
         "2023": {
           "n": 47776,
-          "brier": 0.2132,
+          "brier": 0.212,
           "baseline": 0.2241,
-          "accuracy": 0.6605
+          "accuracy": 0.666
         },
         "2024": {
           "n": 47964,
-          "brier": 0.2135,
+          "brier": 0.2123,
           "baseline": 0.2256,
-          "accuracy": 0.6628
+          "accuracy": 0.6645
         },
         "2025": {
           "n": 46861,
           "brier": 0.2122,
           "baseline": 0.2246,
-          "accuracy": 0.6648
+          "accuracy": 0.6649
         },
         "2026": {
           "n": 48178,
-          "brier": 0.2121,
+          "brier": 0.212,
           "baseline": 0.226,
-          "accuracy": 0.6656
+          "accuracy": 0.6661
         }
       },
       "by_line_step": {
         "-2": {
           "n": 43390,
-          "brier": 0.1538,
+          "brier": 0.1536,
           "baseline": 0.1721,
-          "ece": 0.0308,
-          "predicted": 0.7628,
+          "ece": 0.0293,
+          "predicted": 0.7643,
           "landed": 0.7936
         },
         "-1": {
           "n": 62662,
-          "brier": 0.1919,
+          "brier": 0.1916,
           "baseline": 0.2037,
-          "ece": 0.0206,
-          "predicted": 0.6921,
+          "ece": 0.0189,
+          "predicted": 0.6938,
           "landed": 0.7118
         },
         "0": {
           "n": 94706,
-          "brier": 0.2239,
+          "brier": 0.2234,
           "baseline": 0.2286,
-          "ece": 0.0227,
-          "predicted": 0.5959,
+          "ece": 0.0201,
+          "predicted": 0.5976,
           "landed": 0.6094
         },
         "1": {
           "n": 136737,
-          "brier": 0.2343,
+          "brier": 0.2337,
           "baseline": 0.2391,
-          "ece": 0.0199,
-          "predicted": 0.4708,
+          "ece": 0.0177,
+          "predicted": 0.4722,
           "landed": 0.4755
         },
         "2": {
           "n": 165074,
-          "brier": 0.2104,
+          "brier": 0.2099,
           "baseline": 0.2304,
-          "ece": 0.0153,
-          "predicted": 0.3575,
+          "ece": 0.0164,
+          "predicted": 0.3586,
           "landed": 0.3422
         }
+      },
+      "selection": {
+        "n": 38912,
+        "predicted": 0.717,
+        "landed": 0.7113,
+        "shrink": 0.95,
+        "after_shrink": 0.7062
       }
     },
     "assists": {
@@ -424,9 +438,9 @@
       "floor_share": 0.3969,
       "above_floor": {
         "n": 226581,
-        "brier": 0.2045,
+        "brier": 0.2026,
         "baseline_brier": 0.2191,
-        "accuracy": 0.6815,
+        "accuracy": 0.686,
         "base_rate": 0.4777
       },
       "failures": [],
@@ -444,121 +458,128 @@
         2025,
         2026
       ],
-      "brier": 0.1969,
+      "brier": 0.1953,
       "baseline_brier": 0.2124,
-      "accuracy": 0.6992,
+      "accuracy": 0.7026,
       "base_rate": 0.4719,
-      "ece": 0.0062,
+      "ece": 0.0024,
       "ece_bar": 0.04,
       "per_season": {
         "2016": {
           "n": 33425,
-          "brier": 0.1913,
+          "brier": 0.1912,
           "baseline": 0.2132,
-          "accuracy": 0.7142
+          "accuracy": 0.7128
         },
         "2017": {
           "n": 32628,
-          "brier": 0.1883,
+          "brier": 0.188,
           "baseline": 0.2096,
-          "accuracy": 0.7175
+          "accuracy": 0.7182
         },
         "2018": {
           "n": 32680,
-          "brier": 0.1947,
+          "brier": 0.1942,
           "baseline": 0.2133,
-          "accuracy": 0.7048
+          "accuracy": 0.7052
         },
         "2019": {
           "n": 34421,
-          "brier": 0.1997,
+          "brier": 0.198,
           "baseline": 0.2142,
-          "accuracy": 0.6921
+          "accuracy": 0.6961
         },
         "2020": {
           "n": 29316,
-          "brier": 0.1953,
+          "brier": 0.1937,
           "baseline": 0.2111,
-          "accuracy": 0.7028
+          "accuracy": 0.709
         },
         "2021": {
           "n": 30806,
-          "brier": 0.1956,
+          "brier": 0.1914,
           "baseline": 0.2098,
-          "accuracy": 0.7021
+          "accuracy": 0.7122
         },
         "2022": {
           "n": 34653,
-          "brier": 0.1967,
+          "brier": 0.1966,
           "baseline": 0.2121,
-          "accuracy": 0.6978
+          "accuracy": 0.6981
         },
         "2023": {
           "n": 36070,
           "brier": 0.1956,
           "baseline": 0.2112,
-          "accuracy": 0.6987
+          "accuracy": 0.698
         },
         "2024": {
           "n": 36979,
-          "brier": 0.2042,
+          "brier": 0.1961,
           "baseline": 0.2109,
-          "accuracy": 0.6831
+          "accuracy": 0.7002
         },
         "2025": {
           "n": 37286,
-          "brier": 0.2026,
+          "brier": 0.2012,
           "baseline": 0.216,
-          "accuracy": 0.6887
+          "accuracy": 0.6904
         },
         "2026": {
           "n": 37413,
-          "brier": 0.2001,
+          "brier": 0.1998,
           "baseline": 0.2141,
-          "accuracy": 0.6944
+          "accuracy": 0.6942
         }
       },
       "by_line_step": {
         "-2": {
           "n": 20563,
-          "brier": 0.1374,
+          "brier": 0.1363,
           "baseline": 0.1519,
-          "ece": 0.0307,
-          "predicted": 0.7886,
+          "ece": 0.0252,
+          "predicted": 0.7941,
           "landed": 0.8193
         },
         "-1": {
           "n": 36335,
-          "brier": 0.1727,
+          "brier": 0.1714,
           "baseline": 0.1832,
-          "ece": 0.0233,
-          "predicted": 0.7248,
+          "ece": 0.0167,
+          "predicted": 0.7314,
           "landed": 0.7467
         },
         "0": {
           "n": 58890,
-          "brier": 0.2075,
+          "brier": 0.206,
           "baseline": 0.213,
-          "ece": 0.0219,
-          "predicted": 0.6253,
+          "ece": 0.0142,
+          "predicted": 0.6326,
           "landed": 0.6409
         },
         "1": {
           "n": 98142,
-          "brier": 0.2245,
+          "brier": 0.2225,
           "baseline": 0.2306,
-          "ece": 0.0247,
-          "predicted": 0.4734,
+          "ece": 0.016,
+          "predicted": 0.4807,
           "landed": 0.4814
         },
         "2": {
           "n": 161747,
-          "brier": 0.1894,
+          "brier": 0.1877,
           "baseline": 0.2154,
-          "ece": 0.0176,
-          "predicted": 0.3101,
+          "ece": 0.0155,
+          "predicted": 0.3136,
           "landed": 0.2987
         }
+      },
+      "selection": {
+        "n": 35007,
+        "predicted": 0.7318,
+        "landed": 0.7369,
+        "shrink": 0.99,
+        "after_shrink": 0.7295
       }
     },
     "threes": {
@@ -567,9 +588,9 @@
       "floor_share": 0.3416,
       "above_floor": {
         "n": 325285,
-        "brier": 0.1908,
+        "brier": 0.1872,
         "baseline_brier": 0.2111,
-        "accuracy": 0.7072,
+        "accuracy": 0.7124,
         "base_rate": 0.3442
       },
       "failures": [],
@@ -587,113 +608,120 @@
         2025,
         2026
       ],
-      "brier": 0.1821,
+      "brier": 0.1792,
       "baseline_brier": 0.2034,
-      "accuracy": 0.726,
+      "accuracy": 0.7301,
       "base_rate": 0.4431,
-      "ece": 0.0037,
+      "ece": 0.0048,
       "ece_bar": 0.04,
       "per_season": {
         "2016": {
           "n": 41753,
-          "brier": 0.1646,
+          "brier": 0.1628,
           "baseline": 0.1933,
-          "accuracy": 0.7553
+          "accuracy": 0.7574
         },
         "2017": {
           "n": 42540,
-          "brier": 0.1744,
+          "brier": 0.1722,
           "baseline": 0.2,
-          "accuracy": 0.7391
+          "accuracy": 0.7401
         },
         "2018": {
           "n": 43729,
-          "brier": 0.1806,
+          "brier": 0.1778,
           "baseline": 0.2032,
-          "accuracy": 0.7294
+          "accuracy": 0.7318
         },
         "2019": {
           "n": 44745,
-          "brier": 0.1836,
+          "brier": 0.1807,
           "baseline": 0.2053,
-          "accuracy": 0.7236
+          "accuracy": 0.7283
         },
         "2020": {
           "n": 39455,
-          "brier": 0.1861,
+          "brier": 0.1821,
           "baseline": 0.2046,
-          "accuracy": 0.7185
+          "accuracy": 0.7261
         },
         "2021": {
           "n": 41018,
-          "brier": 0.1824,
+          "brier": 0.1803,
           "baseline": 0.2021,
-          "accuracy": 0.7252
+          "accuracy": 0.7287
         },
         "2022": {
           "n": 47605,
-          "brier": 0.1877,
+          "brier": 0.183,
           "baseline": 0.2064,
-          "accuracy": 0.7156
+          "accuracy": 0.7245
         },
         "2023": {
           "n": 47656,
-          "brier": 0.183,
+          "brier": 0.1802,
           "baseline": 0.2049,
-          "accuracy": 0.7253
+          "accuracy": 0.7297
         },
         "2024": {
           "n": 47674,
-          "brier": 0.1839,
+          "brier": 0.1809,
           "baseline": 0.2033,
-          "accuracy": 0.7226
+          "accuracy": 0.7275
         },
         "2025": {
           "n": 48631,
-          "brier": 0.1875,
+          "brier": 0.1849,
           "baseline": 0.2058,
-          "accuracy": 0.7163
+          "accuracy": 0.7198
         },
         "2026": {
           "n": 49247,
-          "brier": 0.1863,
+          "brier": 0.184,
           "baseline": 0.2069,
-          "accuracy": 0.719
+          "accuracy": 0.7217
         }
       },
       "by_line_step": {
         "-1": {
           "n": 34458,
-          "brier": 0.1169,
+          "brier": 0.1151,
           "baseline": 0.1218,
-          "ece": 0.0232,
-          "predicted": 0.8442,
+          "ece": 0.0077,
+          "predicted": 0.8705,
           "landed": 0.8642
         },
         "0": {
           "n": 113169,
-          "brier": 0.1961,
+          "brier": 0.1941,
           "baseline": 0.211,
-          "ece": 0.0289,
-          "predicted": 0.6875,
+          "ece": 0.0054,
+          "predicted": 0.718,
           "landed": 0.7158
         },
         "1": {
           "n": 173213,
-          "brier": 0.2138,
+          "brier": 0.2108,
           "baseline": 0.2296,
-          "ece": 0.0363,
-          "predicted": 0.3916,
+          "ece": 0.0056,
+          "predicted": 0.421,
           "landed": 0.4166
         },
         "2": {
           "n": 173213,
-          "brier": 0.1541,
+          "brier": 0.1507,
           "baseline": 0.1885,
-          "ece": 0.0386,
-          "predicted": 0.2461,
+          "ece": 0.0048,
+          "predicted": 0.2123,
           "landed": 0.2076
         }
+      },
+      "selection": {
+        "n": 39568,
+        "predicted": 0.8084,
+        "landed": 0.8051,
+        "shrink": 0.98,
+        "after_shrink": 0.8023
       }
     }
   },

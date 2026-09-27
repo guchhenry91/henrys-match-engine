@@ -41,7 +41,16 @@ def main():
 
     player = data.player_games(seasons)
     print(f"player rows: {len(player)}")
+    only = set(sys.argv[sys.argv.index("--only") + 1].split(",")) if "--only" in sys.argv else None
+    try:
+        previous = json.loads(OUT.read_text(encoding="utf-8")).get("markets") or {}
+    except Exception:
+        previous = {}
     for market in config.MARKETS:
+        if only is not None and market not in only:
+            if market in previous:
+                report["markets"][market] = previous[market]
+            continue
         # Asked across a SPREAD of lines, because the board stands every pick on a
         # bookmaker's line, not the player's own median (features.augment_lines).
         frame = features.augment_lines(features.build(player, market), market)
