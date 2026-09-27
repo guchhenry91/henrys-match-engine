@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T03:44:06.533061+00:00",
+  "updated": "2026-09-27T09:16:15.425708+00:00",
   "status": "evidence_only",
   "status_note": "MLB is backtested, not yet live. Every number below is what the model scored on seasons it never saw (Retrosheet game logs, 2011-2025). Live picks -- team winners, team totals and player props on bookmakers' lines -- start with the 2027 season.",
   "seasons_loaded": [
@@ -43,14 +43,13 @@
   "markets_released": [
     "hits",
     "hr",
+    "hrr",
     "rbi",
     "strikeouts",
     "team_runs",
     "team_winner"
   ],
-  "markets_withheld": [
-    "hrr"
-  ],
+  "markets_withheld": [],
   "evidence": {
     "team_winner": {
       "released": true,
@@ -124,16 +123,13 @@
       "base_rate": 0.4429
     },
     "hrr": {
-      "released": false,
-      "n": 1996063,
-      "brier": 0.2186,
-      "baseline_brier": 0.248,
-      "accuracy": 0.6587,
-      "ece": 0.0026,
-      "failures": [
-        "line step +1: ECE 0.043 above the bar 0.040",
-        "line step +2: ECE 0.050 above the bar 0.040"
-      ],
+      "released": true,
+      "n": 1992966,
+      "brier": 0.2154,
+      "baseline_brier": 0.2478,
+      "accuracy": 0.6635,
+      "ece": 0.0023,
+      "failures": [],
       "seasons_scored": [
         2011,
         2012,
@@ -154,38 +150,38 @@
       "by_line_step": {
         "-1": {
           "n": 281851,
-          "ece": 0.0166,
-          "predicted": 0.7183,
+          "ece": 0.0037,
+          "predicted": 0.7354,
           "landed": 0.7328,
-          "brier": 0.1966,
+          "brier": 0.1954,
           "baseline": 0.2358
         },
         "0": {
           "n": 571405,
-          "ece": 0.0392,
-          "predicted": 0.568,
+          "ece": 0.0024,
+          "predicted": 0.5947,
           "landed": 0.5925,
-          "brier": 0.2396,
+          "brier": 0.2366,
           "baseline": 0.2767
         },
         "1": {
-          "n": 571405,
-          "ece": 0.0429,
-          "predicted": 0.3804,
-          "landed": 0.3942,
-          "brier": 0.2397,
-          "baseline": 0.2578
+          "n": 568308,
+          "ece": 0.0024,
+          "predicted": 0.3929,
+          "landed": 0.3934,
+          "brier": 0.2364,
+          "baseline": 0.2575
         },
         "2": {
           "n": 571402,
-          "ece": 0.0499,
-          "predicted": 0.294,
+          "ece": 0.0029,
+          "predicted": 0.2422,
           "landed": 0.2441,
-          "brier": 0.1874,
+          "brier": 0.1834,
           "baseline": 0.2154
         }
       },
-      "base_rate": 0.4558
+      "base_rate": 0.4557
     },
     "hr": {
       "released": true,

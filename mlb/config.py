@@ -60,6 +60,13 @@ LINE_STEPS = {
     "team_runs": (-2, -1, 0, 1, 2),
 }
 
+# ONE MODEL PER LINE STEP for these markets. Hits+runs+RBIs is lumpy -- a hit
+# often brings a run or an RBI with it -- and a single model shared across the
+# whole line spread under-reacted to the line: 56.8% predicted at the median
+# where 59.3% landed, 29.4% at +2 where 24.4% landed. A model per step learns
+# each question's own base rate; the gate is unchanged and still tests every step.
+PER_STEP_MODELS = {"hrr"}
+
 # A ROLE, NOT AN APPEARANCE. A batter must be a regular (a starter averaging 3+
 # plate appearances); a pitcher must be a starter with a few starts behind him.
 MIN_GAMES = {"batter": 20, "pitcher": 5, "team": 10}

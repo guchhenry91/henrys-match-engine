@@ -1126,6 +1126,8 @@ once the schedule / probable pitchers / lineups (MLB StatsAPI) and bookmakers' l
 - **Team winner**: Elo (`nfl.games_model`), parameters fitted ONCE on 2007-2010 and held
   (k=2, home edge 40, regression 0.2 -- inside the widened grid).
 - **First gate run**: team winner 56.1% over 34,909 games, beats home field every season;
-  hits, HR, strikeouts and team runs released; hits+runs+RBIs WITHHELD (overrates the over
-  at +1/+2 steps: predicted 29%, landed 24%). HR sits near a 12% base rate, so a live HR
+  hits, HR, strikeouts and team runs released. Hits+runs+RBIs was first WITHHELD (one
+  shared model under-reacted to the line: 29% predicted at +2 where 24% landed); with
+  one model PER LINE STEP (`config.PER_STEP_MODELS`) it passes -- every step within
+  0.3pt (73.5/73.3, 59.5/59.3, 39.3/39.3, 24.2/24.4), 66.4% accuracy. HR sits near a 12% base rate, so a live HR
   board must be judged against the price, not a 50% bar.

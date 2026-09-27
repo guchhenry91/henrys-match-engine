@@ -47,3 +47,7 @@ def test_a_floored_median_never_counts_one_game_twice():
     rows = rows.rename(columns={"H": "RBI"})
     built = features.augment_lines(features.build(rows, "rbi"), "rbi")
     assert not built.duplicated(subset=["PLAYER_ID", "GAME_ID", "line"]).any()
+
+
+def test_hrr_gets_one_model_per_line_step():
+    assert "hrr" in config.PER_STEP_MODELS

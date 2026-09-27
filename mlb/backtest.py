@@ -18,6 +18,22 @@ from nfl.games_model import fit_parameters, run_elo
 from nfl.model import PropModel, empirical_baseline
 
 
+def predict(train: pd.DataFrame, test: pd.DataFrame, market: str) -> np.ndarray:
+    """Fit on `train`, predict `test`. Markets in config.PER_STEP_MODELS get one
+    model per line step, each fitted and applied only to its own step's rows."""
+    if market not in config.PER_STEP_MODELS or "line_step" not in test:
+        return PropModel(market).fit(train).predict(test)
+    prob = np.full(len(test), np.nan)
+    steps = test["line_step"].to_numpy()
+    for step in np.unique(steps):
+        mask = steps == step
+        rows = train[train["line_step"] == step]
+        if rows.empty:
+            continue
+        prob[mask] = PropModel(market).fit(rows).predict(test[mask])
+    return prob
+
+
 def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
     out = []
     for season in config.SCORED_SEASONS:
@@ -26,10 +42,10 @@ def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
         test = frame[frame["season"] == season]
         if train.empty or test.empty:
             continue
-        model = PropModel(market).fit(train)
+        prob = predict(train, test, market)
         out.append(pd.DataFrame({
             "season": season,
-            "prob": model.predict(test),
+            "prob": prob,
             "outcome": test["outcome"].to_numpy(),
             "baseline": empirical_baseline(test, market),
             "line_step": test["line_step"].to_numpy() if "line_step" in test else 0,
