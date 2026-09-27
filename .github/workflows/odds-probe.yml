@@ -14,7 +14,7 @@ on:
       script:
         description: "Which probe to run (scripts/<name>.py)"
         type: choice
-        options: [probe_odds_api, probe_alt_lines]
+        options: [probe_odds_api, probe_alt_lines, probe_mlb_odds]
         default: probe_odds_api
 
 concurrency:
