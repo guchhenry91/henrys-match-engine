@@ -18,7 +18,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from nba import config
+from nba import board, book_lines, config, current
+from nba import picks as picks_mod
 from nfl.news import load_player_news
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -72,45 +73,117 @@ def evidence() -> dict:
     return out
 
 
-def build() -> dict:
+def build(now=None, sched=None) -> dict:
+    """The board: the live slate when the NBA's schedule feed answers, and the
+    gate's evidence always."""
+    now = now or picks_mod.now_utc()
     ev = evidence()
     news = load_player_news(NEWS)
     released = sorted(m for m, v in ev.items()
                       if v.get("released") and m != "team_winner")
     withheld = sorted(m for m, v in ev.items()
                       if not v.get("released") and m != "team_winner")
+    if sched is None:
+        try:
+            sched = current.schedule()
+        except Exception as exc:
+            print(f"NBA schedule unavailable ({exc}); publishing evidence only")
+    live = board.build(sched, now, released) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},
+         "odds_checked_at": None}
+    season_started = sched is not None and bool(
+        ((sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)).any())
+    status = "live" if sched is not None else "evidence_only"
+    note = (
+        "Live board. Team-winner picks are the Elo model's; every player prop "
+        "stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the "
+        "probability is the model's for THAT line. A player no book quotes is not "
+        "priced." if status == "live" else
+        "The NBA schedule feed did not answer this run, so no games are priced. "
+        "The numbers below are what the model scored on seasons it never saw.")
+    if status == "live" and not season_started:
+        note += (" The regular season has not tipped off yet: the first slate is "
+                 "shown as soon as it is within a week, and player props appear once "
+                 "the books post lines, usually on game day.")
     return {
-        "updated": datetime.now(timezone.utc).isoformat(),
+        "updated": now.isoformat(),
         "season": config.CURRENT_SEASON,
         "seasons_backtested": list(config.SEASONS),
-        "status": "evidence_only",
-        "status_note": (
-            "The model and its fifteen-season backtest are live; no fixtures are "
-            "priced yet because the NBA data feed for upcoming games is not wired "
-            "in. No pick on this tab is a prediction about a future game -- the "
-            "numbers below are what the model scored on seasons it never saw."),
+        "status": status,
+        "status_note": note,
         "markets_released": released,
         "markets_withheld": withheld,
-        # Empty until a fixture feed exists. Shape kept so nothing about the
-        # payload changes when it does.
-        "games": [],
+        "games": live["games"],
         "props": {m: {"released": m in released,
-                      "picks": apply_news([], news)} for m in config.MARKETS},
+                      "picks": apply_news(live["props"].get(m) or [], news),
+                      "below_trained_floor": (live.get("held_back") or {}).get(m, 0)}
+                  for m in config.MARKETS},
+        "odds": {"checked_at": live.get("odds_checked_at"),
+                 "books": ["Pinnacle", "DraftKings", "FanDuel"],
+                 "source": "The Odds API"},
         "news": {"players_flagged": len(news),
                  "source": "data-raw/nba/news.json (cloud team-news routine)",
-                 "applied_to": "player props, once the fixture feed publishes them"},
+                 "applied_to": "player props: OUT removed, doubtful flagged"},
         "evidence": ev,
         "caveats": [
-            "Lines are each player's own entering median, floored at what a book "
-            "would actually quote -- not a sportsbook price. No NBA odds have been "
-            "fetched, so the board makes NO claim to beat a bookmaker.",
-            "Where that floor binds, the line is a CONSTANT rather than the "
-            "player's median, and the market becomes 'will a rotation player clear "
-            "a fixed number' -- far more predictable than a balanced prop. It binds "
-            "on 79% of assists rows and 80% of threes rows, so each market "
-            "publishes both its headline and its above-the-floor number.",
+            "Player props are asked at the BOOKMAKER'S line. The model is trained "
+            "across a spread of lines around each player's median and was gated at "
+            "every step of that spread (calibration within 0.04 at each), so it can "
+            "be asked about the book's number and mean it.",
+            "Edges are against the book's de-vigged price. A large edge against a "
+            "sharp book such as Pinnacle is more often the model's error than the "
+            "market's -- the record, not the edge, is the test.",
+            "A player's team is his newest box score this season, preseason "
+            "included. A player whose known team is not in the game the book lists "
+            "him for is skipped rather than guessed onto a side.",
         ] + withheld_caveat(ev, withheld),
     }
+
+
+def _show_frozen(payload: dict, log: dict) -> None:
+    """Once frozen, the board shows the FROZEN pick -- the one the record grades."""
+    for g in payload["games"]:
+        entry = log.get(picks_mod.game_key(g))
+        if entry:
+            g.update({"pick": entry["pick"], "p_pick": entry["p_pick"], "locked": True})
+    for block in payload["props"].values():
+        for p in block["picks"]:
+            entry = log.get(picks_mod.prop_key(p))
+            if entry:
+                p.update({"line": entry["line"], "probability": entry["probability"],
+                          "line_source": entry["line_source"], "book": entry["book"],
+                          "book_p": entry["book_p"], "book_price": entry["book_price"],
+                          "edge": entry["edge"], "locked": True})
+
+
+def freeze_and_grade(payload: dict, sched, now=None) -> dict:
+    now = now or picks_mod.now_utc()
+    log = picks_mod.load_log()
+    frozen = picks_mod.freeze(payload, log, now, book_lines.is_last_run_before)
+    finals, box, covered = {}, {}, set()
+    if sched is not None:
+        done = sched[(sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)]
+        for g in done.itertuples():
+            try:
+                h, a = float(g.home_score), float(g.away_score)
+            except (TypeError, ValueError):
+                continue
+            if h != a:
+                finals[str(g.game_id)] = "home" if h > a else "away"
+    rows = current.player_games()
+    if not rows.empty:
+        covered = set(rows["GAME_ID"].astype(str))
+        for r in rows.itertuples():
+            box[(str(r.GAME_ID), int(r.PLAYER_ID))] = {
+                "PTS": r.PTS, "REB": r.REB, "AST": r.AST, "FG3M": r.FG3M}
+    picks_mod.grade(log, finals, box, covered)
+    picks_mod.save_log(log)
+    _show_frozen(payload, log)
+    payload["record"] = picks_mod.record(log)
+    payload["settled"] = picks_mod.settled(log)
+    print(f"  froze {frozen} pick(s); record {payload['record']['team_winner']['correct']}-"
+          f"{payload['record']['team_winner']['wrong']} winners, "
+          f"{payload['record']['props']['correct']}-{payload['record']['props']['wrong']} props")
+    return payload
 
 
 def withheld_caveat(ev: dict, withheld: list) -> list:
@@ -133,7 +206,13 @@ def withheld_caveat(ev: dict, withheld: list) -> list:
 
 
 def main() -> int:
-    payload = build()
+    now = picks_mod.now_utc()
+    try:
+        sched = current.schedule()
+    except Exception as exc:
+        print(f"NBA schedule unavailable ({exc})")
+        sched = None
+    payload = freeze_and_grade(build(now, sched), sched, now)
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")

@@ -1,0 +1,104 @@
+name: NBA refresh
+
+# The live NBA board. Separate from the soccer and NFL jobs for the same reason
+# they are separate from each other: a failure in one sport must not take another
+# down, and the NBA's slate is nightly.
+#
+# DATA: completed seasons are committed (data-raw/nba/history); this season comes
+# from the NBA's own CDN (schedule + box scores, free); bookmaker lines and match
+# odds from The Odds API -- at most two checks a game, under every cap in
+# oddsapi/client.py, and nothing at all unless ODDS_API_ENABLED is "true".
+
+on:
+  # Team news from the cloud routine: rebuild as soon as it lands.
+  push:
+    branches: [main]
+    paths:
+      - "data-raw/nba/news.json"
+  schedule:
+    # 15:00 UTC covers weekend matinees; 21:30 UTC is the last run before the
+    # usual 23:00-03:30 UTC tip-offs, so it takes the second bookmaker check and
+    # freezes the night's picks. Keep in step with nba/book_lines.RUN_SLOTS.
+    - cron: "0 15 * * *"
+    - cron: "30 21 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: nba-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: nba-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: python -m pip install -q -r requirements.txt
+
+      - name: Box scores (NBA CDN) and bookmaker lines (The Odds API)
+        continue-on-error: true
+        env:
+          ODDS_API_ENABLED: ${{ vars.ODDS_API_ENABLED }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m scripts.sync_nba_odds
+
+      - name: Publish the NBA board
+        run: python -m nba.publish
+
+      - name: Tests
+        run: python -m pytest tests/nba tests/oddsapi -q
+
+      - name: Commit the refreshed board
+        id: commit
+        run: |
+          git config user.name "leagues-bot"
+          git config user.email "leagues-bot@users.noreply.github.com"
+          # THE CREDIT LEDGER AND THE FROZEN PICKS ARE ALWAYS KEPT, deploy or not:
+          # the ledger is how the daily cap counts every run, and a frozen pick
+          # that is not committed was never frozen.
+          git add data-raw/odds_api data-raw/nba/odds_api.json data-raw/nba/picks_log.json data-raw/nba/current 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "auto: NBA ledger, box scores and frozen picks $(date -u +%Y-%m-%d)"
+            kept=true
+          fi
+          git add data/nba
+          if git diff --cached --quiet || ! python -m scripts.deploy_needed; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No meaningful NBA board changes to publish."
+            git reset -q
+            if [ "${kept:-}" = true ]; then
+              git pull --rebase --autostash origin main
+              git push
+            fi
+          else
+            git commit -m "auto: NBA board $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash origin main
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Render deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          HOOK="$(printf '%s' "$HOOK" | tr -d '[:space:]')"
+          if [ -z "$HOOK" ]; then
+            echo "::warning::RENDER_DEPLOY_HOOK not set; board pushed but not deployed"
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$HOOK")
+          echo "deploy hook responded $code"

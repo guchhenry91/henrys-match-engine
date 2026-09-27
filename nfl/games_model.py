@@ -71,6 +71,7 @@ def run_elo(games: pd.DataFrame, k: float, home_edge: float,
         prob_home = expected(rating_home + edge, rating_away)
         # `week` is the NFL's ordering key and simply absent for the NBA.
         rows.append({"season": game["season"], "week": game.get("week"),
+                     "game_id": game.get("game_id"),
                      "home_team": home, "away_team": away,
                      "prob_home": prob_home, "winner": game["winner"],
                      "played": bool(game["played"]),

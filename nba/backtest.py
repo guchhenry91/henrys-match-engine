@@ -61,6 +61,10 @@ def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
             # question than a balanced prop. Carried through so the report can
             # separate the two rather than publish one flattering average.
             "at_floor": (test["line"] <= config.MIN_LINE[market] + 1e-9).to_numpy(),
+            # Which rung of the line spread this row was asked at (0 = his own
+            # median). Absent when the frame was not augmented.
+            "line_step": (test["line_step"].to_numpy() if "line_step" in test.columns
+                          else 0),
         }))
     return pd.concat(out, ignore_index=True) if out else pd.DataFrame()
 
@@ -103,6 +107,27 @@ def evaluate(predictions: pd.DataFrame, market: str) -> dict:
     if len(predictions) < config.MIN_PREDICTIONS_TOTAL:
         failures.append(f"only {len(predictions)} predictions in total")
 
+    # CALIBRATED AT EVERY LINE, not just on average. The board asks the model
+    # about a bookmaker's number, which can sit a few points either side of the
+    # player's median; a model calibrated overall but 8 points off at +2 would
+    # be wrong exactly where the book puts its line.
+    by_step = {}
+    if "line_step" in predictions.columns and predictions["line_step"].nunique() > 1:
+        for step, block in predictions.groupby("line_step"):
+            p = block["prob"].to_numpy(dtype=float)
+            o = block["outcome"].to_numpy(dtype=float)
+            b = block["baseline"].to_numpy(dtype=float)
+            step_ece = ece(p, o)
+            step_bar = max(config.MAX_ECE, ece_null(p))
+            by_step[str(int(step))] = {
+                "n": int(len(block)), "brier": round(brier(p, o), 4),
+                "baseline": round(brier(b, o), 4), "ece": round(step_ece, 4),
+                "predicted": round(float(p.mean()), 4),
+                "landed": round(float(o.mean()), 4)}
+            if step_ece > step_bar:
+                failures.append(f"line step {int(step):+d}: ECE {step_ece:.3f} "
+                                f"above the bar {step_bar:.3f}")
+
     # The honest split: how the model does where the line is genuinely the
     # player's own median, which is the only part comparable to a book's number.
     above = predictions[~predictions["at_floor"]]
@@ -132,4 +157,5 @@ def evaluate(predictions: pd.DataFrame, market: str) -> dict:
         "ece": round(calibration, 4),
         "ece_bar": round(bar, 4),
         "per_season": per_season,
+        "by_line_step": by_step,
     }

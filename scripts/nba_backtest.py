@@ -41,7 +41,9 @@ def main():
     player = data.player_games(seasons)
     print(f"player rows: {len(player)}")
     for market in config.MARKETS:
-        frame = features.build(player, market)
+        # Asked across a SPREAD of lines, because the board stands every pick on a
+        # bookmaker's line, not the player's own median (features.augment_lines).
+        frame = features.augment_lines(features.build(player, market), market)
         result = backtest.evaluate(backtest.walk_forward(frame, market), market)
         report["markets"][market] = result
         print(f"  {market:11s}  n={result['n']:6d}  brier {result['brier']}  "
@@ -53,6 +55,9 @@ def main():
             print(f"     where the line is his own median (n={sub['n']}): "
                   f"brier {sub['brier']} vs {sub['baseline_brier']}, "
                   f"acc {sub['accuracy']}, base rate {sub['base_rate']}")
+        for step, s in (result.get("by_line_step") or {}).items():
+            print(f"     line step {int(step):+d}: n={s['n']} predicted {s['predicted']} "
+                  f"landed {s['landed']} ECE {s['ece']} brier {s['brier']} vs {s['baseline']}")
         if result.get("failures"):
             print(f"     withheld because: {result['failures'][:3]}")
 

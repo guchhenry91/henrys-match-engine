@@ -110,8 +110,8 @@ def build(player_games: pd.DataFrame, market: str) -> pd.DataFrame:
     # the tie cannot arise. The bias was small -- 0.23% of rows, all in the same
     # direction -- but it was a silent thumb on the scale against every over.
     median = _prior_median(frame, stat)
-    frame["line"] = np.floor(median + 0.5) + config.LINE_OFFSET[market]
-    frame["line"] = frame["line"].clip(lower=config.MIN_LINE[market])
+    frame["base_line"] = np.floor(median + 0.5) + config.LINE_OFFSET[market]
+    frame["line"] = frame["base_line"].clip(lower=config.MIN_LINE[market])
     frame["outcome"] = (frame[stat] > frame["line"]).astype(float)
 
     # A ROLE, not an appearance. See config.MIN_MINUTES.
@@ -119,3 +119,34 @@ def build(player_games: pd.DataFrame, market: str) -> pd.DataFrame:
     frame = frame[frame["min5"] >= config.MIN_MINUTES]
     frame = frame.dropna(subset=["hist_rate", "form5", "form10", "line"])
     return frame.sort_values("game_date").reset_index(drop=True)
+
+
+def at_line(frame: pd.DataFrame, line) -> pd.DataFrame:
+    """The same rows re-asked against another line -- a bookmaker's 22.5 rather
+    than the player's own median. Every model input is line-relative
+    (nfl.model.frame_features), so moving the line is the whole change."""
+    out = frame.copy()
+    out["line"] = line
+    return out
+
+
+def augment_lines(frame: pd.DataFrame, market: str) -> pd.DataFrame:
+    """Each game asked against a SPREAD of lines (config.LINE_STEPS).
+
+    The outcome is re-settled at each line; nothing about the game changes. A
+    step that would fall below MIN_LINE is dropped rather than clipped, so the
+    floor never manufactures duplicate rows at one constant line. Lines stay on
+    the half point (integer median + half offset + integer step), so there is
+    still never a push."""
+    if frame.empty:
+        return frame
+    stat = config.MARKETS[market]
+    parts = []
+    for step in config.LINE_STEPS[market]:
+        part = frame.copy()
+        part["line"] = part["base_line"] + step
+        part = part[part["line"] >= config.MIN_LINE[market]]
+        part["outcome"] = (part[stat] > part["line"]).astype(float)
+        part["line_step"] = step
+        parts.append(part)
+    return pd.concat(parts, ignore_index=True)

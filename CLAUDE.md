@@ -1067,3 +1067,38 @@ Three paid APIs. Every limit is enforced in code BEFORE a request is sent.
   before the lock -- never live odds.
 - Rollout: phase 0 (client, no credits) done; phase 1 coverage probe (<= 60
   credits) next, then NFL gap-fill, soccer props, NBA board, MLB (spring 2027).
+
+## NBA live board (added 2026-09-27)
+The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nba.yml`
+(15:00 and 21:30 UTC, plus on a news push).
+
+- **Data without stats.nba.com.** It timed out from home and refuses cloud IPs, so:
+  completed seasons are COMMITTED (`data-raw/nba/history/*.csv.gz`, ~6 MB, made once by
+  `scripts/export_nba_history.py`; `nba.data` reads them before the network), and the
+  season being played comes from the NBA's CDN (`nba/current.py`: the full schedule in
+  one file, one box score per finished game, kept in `data-raw/nba/current/`). The CDN's
+  personId IS stats.nba's PLAYER_ID. `config.CURRENT_SEASON` is now 2027 (2026-27).
+- **Props stand on a BOOKMAKER'S line only** (Pinnacle > DraftKings > FanDuel via The
+  Odds API, `nba/book_lines.py`, `scripts/sync_nba_odds.py`). A player no book quotes
+  is not priced. The model is trained AND gated across a spread of lines around each
+  player's median (`config.LINE_STEPS`, `features.augment_lines`); the gate now fails a
+  market that is miscalibrated at ANY line step. 2026-09-27 run: all four markets
+  released, worst step ECE 0.039 (threes +2), every step beating its baseline.
+- **Who plays for whom**: newest box score this season, preseason included
+  (`current.current_teams`). A player whose known team is not in the game the book
+  lists him for is skipped, not guessed onto a side.
+- **Team winner**: Elo with parameters fitted once on all completed seasons
+  (`data-raw/nba/elo_params.json`, k=8 -- the grid's lower edge, worth widening at the
+  next refit). Match odds from one 1-credit `/odds` call per run.
+- **Freezing and grading** (`nba/picks.py`, `data-raw/nba/picks_log.json`): a pick
+  freezes on the last scheduled run before tip-off (the same run that takes the second
+  bookmaker check) or within 2h; props grade from the box score -- over wins on
+  stat > line, a whole line landing exactly is a push, a player with no row in a box
+  score we hold did not play (void), and a game whose box score we do not hold stays
+  pending.
+- Odds API spend: 4 credits a check, at most two checks a game, plus 1 credit a run for
+  match odds -- about 55 a day in season. Shared scheduling/parsing lives in
+  `oddsapi/props.py`, also used by the NFL gap-fill.
+
+NFL yardage props are likewise published on bookmaker lines only
+(`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.

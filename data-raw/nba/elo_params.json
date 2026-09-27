@@ -1,0 +1,12 @@
+{
+  "k": 8.0,
+  "home_edge": 55.0,
+  "regression": 0.33,
+  "log_loss": 0.615415,
+  "fitted_on_seasons": [
+    2012,
+    2026
+  ],
+  "games": 17888,
+  "_note": "Elo parameters for the live NBA board, grid-searched by log-loss on every completed season (nfl.games_model.fit_parameters). Regenerate after each season; never hand-edit."
+}

@@ -18,7 +18,9 @@ thirty requests, cached to disk.
 # FIFTEEN SEASONS, ending with the one that just finished. NBA seasons are named
 # by their end year here (2026 == 2025-26, which ran October 2025 to June 2026).
 SEASONS = tuple(range(2012, 2027))
-CURRENT_SEASON = 2026
+# The season being PLAYED (2027 == 2026-27, from October 2026). Completed seasons
+# above come from the committed history; this one from the NBA's CDN box scores.
+CURRENT_SEASON = 2027
 
 # 2011-12 was the LOCKOUT season: 66 games a team, not 82, so its 1,980 team rows
 # are correct rather than a truncated download. Noted because a row-count sanity
@@ -113,6 +115,20 @@ LINE_OFFSET = {
     "rebounds": -0.5,
     "assists": -0.5,
     "threes": -0.5,
+}
+
+# A SPREAD OF LINES AROUND THE MEDIAN, for training and gating (features.
+# augment_lines). The board now stands every pick on a BOOKMAKER'S line, which
+# sits near a player's recent average rather than exactly on his career median.
+# A model only ever asked "better than his median?" is calibrated there and
+# nowhere else -- the NFL measured this: asked at 2x the median, the median-only
+# model said 27% where 12% landed. Steps are in the stat's own units: points move
+# in threes, the three count markets in ones.
+LINE_STEPS = {
+    "points": (-6, -3, 0, 3, 6),
+    "rebounds": (-2, -1, 0, 1, 2),
+    "assists": (-2, -1, 0, 1, 2),
+    "threes": (-1, 0, 1, 2),
 }
 
 # A ROLE, NOT AN APPEARANCE. Minutes are the opportunity that every one of these

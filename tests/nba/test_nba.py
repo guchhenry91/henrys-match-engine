@@ -219,10 +219,11 @@ def test_burn_in_seasons_are_never_scored():
     assert seasons[:config.BURN_IN_SEASONS] == [2012, 2013, 2014, 2015]
 
 
-def test_fifteen_seasons_are_configured_ending_with_the_current_one():
+def test_fifteen_completed_seasons_then_the_one_being_played():
     assert len(config.SEASONS) == 15
-    assert config.SEASONS[-1] == config.CURRENT_SEASON == 2026
+    assert config.SEASONS[-1] == 2026 and config.CURRENT_SEASON == 2027
     assert data.season_label(2026) == "2025-26"
+    assert data.season_label(2027) == "2026-27"
 
 
 def test_the_lockout_season_is_documented_as_short():

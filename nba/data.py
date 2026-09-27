@@ -29,6 +29,18 @@ from nba import config
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "data-raw" / "nba" / "_cache"
+# COMPLETED SEASONS, COMMITTED. stats.nba.com times out from home and is known to
+# refuse cloud IPs, so GitHub Actions cannot be relied on to fetch it. A finished
+# season never changes, so its game log is exported once
+# (scripts/export_nba_history.py) as trimmed, gzipped CSV and read from the repo.
+# The live season comes from the NBA's CDN instead (nba/current.py).
+HISTORY = ROOT / "data-raw" / "nba" / "history"
+HISTORY_COLUMNS = {
+    "P": ["SEASON_ID", "PLAYER_ID", "PLAYER_NAME", "TEAM_ID", "TEAM_ABBREVIATION",
+          "GAME_ID", "GAME_DATE", "MATCHUP", "WL", "MIN", "PTS", "REB", "AST", "FG3M"],
+    "T": ["SEASON_ID", "TEAM_ID", "TEAM_ABBREVIATION", "GAME_ID", "GAME_DATE",
+          "MATCHUP", "WL", "MIN", "PTS", "REB", "AST", "FG3M"],
+}
 
 BASE = "https://stats.nba.com/stats/leaguegamelog"
 HEADERS = {
@@ -84,6 +96,9 @@ def _cached(season: int, side: str, refresh: bool = False) -> pd.DataFrame:
             refresh = True
     if path.exists() and not refresh:
         return pd.read_csv(path, low_memory=False)
+    committed = HISTORY / f"{path.stem}.csv.gz"
+    if committed.exists() and not refresh:
+        return pd.read_csv(committed, low_memory=False)
     try:
         payload = _fetch(season, side)
     except Exception as exc:

@@ -20,9 +20,10 @@ no line to replace, and bet365 already prices it.
 """
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 
 from nfl import odds
+from oddsapi import props as shared
 
 SPORT_KEY = "americanfootball_nfl"
 MARKETS = {"player_pass_yds": "passing_yards",
@@ -65,89 +66,24 @@ TEAM_CODES = {
 
 
 def _utc(value) -> datetime:
-    if isinstance(value, datetime):
-        return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
-    return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    return shared.utc(value)
 
 
 def next_scheduled_run(now: datetime) -> datetime:
     """The next time nfl.yml is scheduled to start, strictly after `now`."""
-    now = _utc(now)
-    best = None
-    for day in range(0, 9):
-        base = (now + timedelta(days=day)).replace(second=0, microsecond=0)
-        for weekday, hour, minute in RUN_SLOTS:
-            slot = base.replace(hour=hour, minute=minute)
-            if weekday is not None and slot.weekday() != weekday:
-                continue
-            if slot > now and (best is None or slot < best):
-                best = slot
-    return best
+    return shared.next_scheduled_run(now, RUN_SLOTS)
 
 
 def due(checks: list, kickoff, now) -> str | None:
-    """"board", "lock" or None: whether this run should spend on this game.
-
-    At most MAX_CHECKS per game, ever. The second is taken only on the last
-    scheduled run before kickoff, so the line a pick freezes against is the
-    freshest one the budget allows."""
-    kickoff, now = _utc(kickoff), _utc(now)
-    hours = (kickoff - now).total_seconds() / 3600.0
-    if hours <= MIN_LEAD_HOURS or hours > BOARD_HOURS or len(checks) >= MAX_CHECKS:
-        return None
-    if not checks:
-        return "board"
-    last = _utc(checks[-1])
-    if (now - last) < timedelta(hours=1):
-        return None
-    if next_scheduled_run(now) >= kickoff - timedelta(hours=MIN_LEAD_HOURS):
-        return "lock"
-    return None
+    """"board", "lock" or None -- see oddsapi.props.due. At most MAX_CHECKS per
+    game; the second only on the last scheduled run before kickoff."""
+    return shared.due(checks, kickoff, now, RUN_SLOTS, BOARD_HOURS,
+                      MIN_LEAD_HOURS, MAX_CHECKS)
 
 
 def parse_event(payload) -> dict:
-    """{market: {player: quote}} in the same shape as odds.player_props.
-
-    Both sides at the same line are required, so the pair de-vigs into the
-    book's fair over probability; a one-sided quote is refused. Where a book
-    lists alternates, the line nearest an even price is its main line. Books are
-    read in BOOK_ORDER and the first to quote a player wins."""
-    out = {}
-    books = {b.get("key"): b for b in (payload or {}).get("bookmakers") or []}
-    for key in BOOK_ORDER:
-        book = books.get(key)
-        if not book:
-            continue
-        for market_row in book.get("markets") or []:
-            market = MARKETS.get(market_row.get("key"))
-            if not market:
-                continue
-            sides = {}
-            for o in market_row.get("outcomes") or []:
-                name = str(o.get("description") or "").strip()
-                side = str(o.get("name") or "").lower()
-                prob = odds.decimal_to_prob(o.get("price"))
-                if not name or side not in ("over", "under") or prob is None \
-                        or o.get("point") is None:
-                    continue
-                sides.setdefault((name, float(o["point"])), {})[side] = (prob, float(o["price"]))
-            best = {}
-            for (name, line), pair in sides.items():
-                if "over" not in pair or "under" not in pair:
-                    continue
-                fair = odds.devig({"over": pair["over"][0], "under": pair["under"][0]})
-                quote = {"_name": name, "line": line, "over": round(fair["over"], 4),
-                         "under": round(fair["under"], 4), "odd_over": pair["over"][1],
-                         "odd_under": pair["under"][1], "book": BOOK_LABEL[key],
-                         "source": key}
-                held = best.get(name)
-                if held is None or abs(quote["over"] - 0.5) < abs(held["over"] - 0.5):
-                    best[name] = quote
-            quotes = out.setdefault(market, {})
-            for name, quote in best.items():
-                if odds.match_player(quotes, name) is None:
-                    quotes[name] = quote
-    return {m: q for m, q in out.items() if q}
+    """{market: {player: quote}} in the same shape as odds.player_props."""
+    return shared.parse_event(payload, MARKETS, BOOK_ORDER, BOOK_LABEL)
 
 
 def merge(primary: dict, extra: dict) -> dict:

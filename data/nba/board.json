@@ -1,6 +1,6 @@
 {
-  "updated": "2026-09-04T20:17:12.292640+00:00",
-  "season": 2026,
+  "updated": "2026-09-27T00:10:53.976598+00:00",
+  "season": 2027,
   "seasons_backtested": [
     2012,
     2013,
@@ -18,8 +18,8 @@
     2025,
     2026
   ],
-  "status": "evidence_only",
-  "status_note": "The model and its fifteen-season backtest are live; no fixtures are priced yet because the NBA data feed for upcoming games is not wired in. No pick on this tab is a prediction about a future game -- the numbers below are what the model scored on seasons it never saw.",
+  "status": "live",
+  "status_note": "Live board. Team-winner picks are the Elo model's; every player prop stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. A player no book quotes is not priced. The regular season has not tipped off yet: the first slate is shown as soon as it is within a week, and player props appear once the books post lines, usually on game day.",
   "markets_released": [
     "assists",
     "points",
@@ -31,20 +31,38 @@
   "props": {
     "points": {
       "released": true,
-      "picks": []
+      "picks": [],
+      "below_trained_floor": 0
     },
     "rebounds": {
       "released": true,
-      "picks": []
+      "picks": [],
+      "below_trained_floor": 0
     },
     "assists": {
       "released": true,
-      "picks": []
+      "picks": [],
+      "below_trained_floor": 0
     },
     "threes": {
       "released": true,
-      "picks": []
+      "picks": [],
+      "below_trained_floor": 0
     }
+  },
+  "odds": {
+    "checked_at": null,
+    "books": [
+      "Pinnacle",
+      "DraftKings",
+      "FanDuel"
+    ],
+    "source": "The Odds API"
+  },
+  "news": {
+    "players_flagged": 0,
+    "source": "data-raw/nba/news.json (cloud team-news routine)",
+    "applied_to": "player props: OUT removed, doubtful flagged"
   },
   "evidence": {
     "team_winner": {
@@ -73,11 +91,11 @@
     },
     "points": {
       "released": true,
-      "n": 173213,
-      "brier": 0.2258,
-      "baseline_brier": 0.2311,
-      "accuracy": 0.6299,
-      "ece": 0.0121,
+      "n": 644083,
+      "brier": 0.1958,
+      "baseline_brier": 0.2163,
+      "accuracy": 0.7013,
+      "ece": 0.0062,
       "seasons_scored": [
         2016,
         2017,
@@ -92,22 +110,22 @@
         2026
       ],
       "failures": [],
-      "floor_share": 0.2726,
+      "floor_share": 0.0649,
       "above_floor": {
-        "n": 125996,
-        "brier": 0.2235,
-        "baseline_brier": 0.2301,
-        "accuracy": 0.6346,
-        "base_rate": 0.5397
+        "n": 602300,
+        "brier": 0.1958,
+        "baseline_brier": 0.2175,
+        "accuracy": 0.7012,
+        "base_rate": 0.4599
       }
     },
     "rebounds": {
       "released": true,
-      "n": 173213,
-      "brier": 0.2226,
-      "baseline_brier": 0.231,
-      "accuracy": 0.6386,
-      "ece": 0.0053,
+      "n": 502569,
+      "brier": 0.2123,
+      "baseline_brier": 0.2241,
+      "accuracy": 0.6645,
+      "ece": 0.0039,
       "seasons_scored": [
         2016,
         2017,
@@ -122,22 +140,22 @@
         2026
       ],
       "failures": [],
-      "floor_share": 0.6382,
+      "floor_share": 0.2727,
       "above_floor": {
-        "n": 62662,
-        "brier": 0.224,
-        "baseline_brier": 0.2298,
-        "accuracy": 0.6353,
-        "base_rate": 0.5972
+        "n": 365518,
+        "brier": 0.2135,
+        "baseline_brier": 0.2267,
+        "accuracy": 0.6618,
+        "base_rate": 0.4951
       }
     },
     "assists": {
       "released": true,
-      "n": 173213,
-      "brier": 0.1918,
-      "baseline_brier": 0.2111,
-      "accuracy": 0.7105,
-      "ece": 0.0056,
+      "n": 375677,
+      "brier": 0.1969,
+      "baseline_brier": 0.2124,
+      "accuracy": 0.6992,
+      "ece": 0.0062,
       "seasons_scored": [
         2016,
         2017,
@@ -152,22 +170,22 @@
         2026
       ],
       "failures": [],
-      "floor_share": 0.7902,
+      "floor_share": 0.3969,
       "above_floor": {
-        "n": 36335,
-        "brier": 0.2142,
-        "baseline_brier": 0.2209,
-        "accuracy": 0.6587,
-        "base_rate": 0.614
+        "n": 226581,
+        "brier": 0.2045,
+        "baseline_brier": 0.2191,
+        "accuracy": 0.6815,
+        "base_rate": 0.4777
       }
     },
     "threes": {
       "released": true,
-      "n": 173213,
-      "brier": 0.1857,
-      "baseline_brier": 0.2087,
-      "accuracy": 0.7218,
-      "ece": 0.008,
+      "n": 494053,
+      "brier": 0.1821,
+      "baseline_brier": 0.2034,
+      "accuracy": 0.726,
+      "ece": 0.0037,
       "seasons_scored": [
         2016,
         2017,
@@ -182,18 +200,72 @@
         2026
       ],
       "failures": [],
-      "floor_share": 0.8011,
+      "floor_share": 0.3416,
       "above_floor": {
-        "n": 34458,
-        "brier": 0.223,
-        "baseline_brier": 0.2271,
-        "accuracy": 0.6506,
-        "base_rate": 0.6492
+        "n": 325285,
+        "brier": 0.1908,
+        "baseline_brier": 0.2111,
+        "accuracy": 0.7072,
+        "base_rate": 0.3442
       }
     }
   },
   "caveats": [
-    "Lines are each player's own entering median, floored at what a book would actually quote -- not a sportsbook price. No NBA odds have been fetched, so the board makes NO claim to beat a bookmaker.",
-    "Where that floor binds, the line is a CONSTANT rather than the player's median, and the market becomes 'will a rotation player clear a fixed number' -- far more predictable than a balanced prop. It binds on 79% of assists rows and 80% of threes rows, so each market publishes both its headline and its above-the-floor number."
-  ]
+    "Player props are asked at the BOOKMAKER'S line. The model is trained across a spread of lines around each player's median and was gated at every step of that spread (calibration within 0.04 at each), so it can be asked about the book's number and mean it.",
+    "Edges are against the book's de-vigged price. A large edge against a sharp book such as Pinnacle is more often the model's error than the market's -- the record, not the edge, is the test.",
+    "A player's team is his newest box score this season, preseason included. A player whose known team is not in the game the book lists him for is skipped rather than guessed onto a side."
+  ],
+  "record": {
+    "team_winner": {
+      "correct": 0,
+      "wrong": 0,
+      "void": 0,
+      "pending": 0,
+      "settled": 0,
+      "hit_rate": null
+    },
+    "props": {
+      "correct": 0,
+      "wrong": 0,
+      "void": 0,
+      "pending": 0,
+      "settled": 0,
+      "hit_rate": null
+    },
+    "props_by_market": {
+      "points": {
+        "correct": 0,
+        "wrong": 0,
+        "void": 0,
+        "pending": 0,
+        "settled": 0,
+        "hit_rate": null
+      },
+      "rebounds": {
+        "correct": 0,
+        "wrong": 0,
+        "void": 0,
+        "pending": 0,
+        "settled": 0,
+        "hit_rate": null
+      },
+      "assists": {
+        "correct": 0,
+        "wrong": 0,
+        "void": 0,
+        "pending": 0,
+        "settled": 0,
+        "hit_rate": null
+      },
+      "threes": {
+        "correct": 0,
+        "wrong": 0,
+        "void": 0,
+        "pending": 0,
+        "settled": 0,
+        "hit_rate": null
+      }
+    }
+  },
+  "settled": []
 }
