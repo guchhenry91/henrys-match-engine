@@ -41,10 +41,11 @@ BOARD_HOURS = 72.0
 MIN_LEAD_HOURS = 0.5        # never spend on a game about to kick off
 MAX_CHECKS = 2
 
-# When .github/workflows/nfl.yml is SCHEDULED to run (UTC): daily 09:00 and
-# 16:00, plus Tuesday 08:30. Used to recognise the LAST run before a kickoff,
+# When .github/workflows/nfl.yml is SCHEDULED to run (UTC): daily 05:00, 09:00
+# and 16:00, plus Tuesday 08:30. 05:00 is the grading pass after the night games;
+# no NFL game kicks off between 05:00 and 09:00, so it never takes a lock check. Used to recognise the LAST run before a kickoff,
 # which takes the second (lock) check. Keep in step with the workflow's crons.
-RUN_SLOTS = ((None, 9, 0), (None, 16, 0), (1, 8, 30))   # (weekday Mon=0 or None, h, m)
+RUN_SLOTS = ((None, 5, 0), (None, 9, 0), (None, 16, 0), (1, 8, 30))   # (weekday Mon=0 or None, h, m)
 
 # The Odds API's team names -> the nflverse codes the board uses.
 TEAM_CODES = {

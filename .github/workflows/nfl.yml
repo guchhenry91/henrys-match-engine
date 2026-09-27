@@ -18,6 +18,10 @@ on:
     paths:
       - "data-raw/nfl/news.json"
   schedule:
+    # 05:00 UTC -- after the night games (SNF, MNF, TNF end around 03:30 UTC).
+    # Grades the day's finished games the same night instead of waiting until
+    # 09:00. Keep in step with RUN_SLOTS in nfl/book_lines.py.
+    - cron: "0 5 * * *"
     # Daily at 09:00 UTC. Ratings only move when games are played, but the slate
     # rolls over mid-week and a stale "week 1" board after week 1 has started
     # would be worse than a slightly early one.

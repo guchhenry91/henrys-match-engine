@@ -18,9 +18,22 @@ def _t(s):
 
 def test_next_scheduled_run_follows_the_workflow_crons():
     assert bl.next_scheduled_run(_t("2026-09-27T10:00")) == _t("2026-09-27T16:00")
-    assert bl.next_scheduled_run(_t("2026-09-27T16:05")) == _t("2026-09-28T09:00")
-    # Monday 16:05 -> Tuesday 08:30 (the backtest run)
-    assert bl.next_scheduled_run(_t("2026-09-28T16:05")) == _t("2026-09-29T08:30")
+    assert bl.next_scheduled_run(_t("2026-09-27T16:05")) == _t("2026-09-28T05:00")
+    assert bl.next_scheduled_run(_t("2026-09-28T05:05")) == _t("2026-09-28T09:00")
+    # Tuesday 05:05 -> Tuesday 08:30 (the backtest run)
+    assert bl.next_scheduled_run(_t("2026-09-29T05:05")) == _t("2026-09-29T08:30")
+
+
+def test_the_overnight_grading_run_never_spends_a_lock_check():
+    # Sunday 1pm: board Saturday, lock at 16:00 Sunday -- as before.
+    kick = "2026-09-27T17:00:00+00:00"
+    checks = ["2026-09-26T16:05:00+00:00"]
+    assert bl.due(checks, kick, _t("2026-09-27T05:05")) is None
+    assert bl.due(checks, kick, _t("2026-09-27T16:05")) == "lock"
+    # Monday night: 05:00 Monday is not the last run before a 00:15 Tuesday kickoff.
+    mnf = "2026-09-29T00:15:00+00:00"
+    assert bl.due(["2026-09-27T09:05:00+00:00"], mnf, _t("2026-09-28T05:05")) is None
+    assert bl.due(["2026-09-27T09:05:00+00:00"], mnf, _t("2026-09-28T16:05")) == "lock"
 
 
 def test_a_sunday_1pm_game_is_checked_on_saturday_then_at_the_last_run():
