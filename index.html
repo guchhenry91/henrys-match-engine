@@ -647,7 +647,7 @@ function tabsFor(s){
   const props=v=>PROPS.filter(p=>p.view===v).map(p=>({k:v,f:p.filter,t:propLabel(p),ic:"+"}));
   if(s==="nfl") return [{k:"NFL",t:"Board",ic:"⌂"},...props("NFL"),{k:"grades",gs:"nfl",t:"Results",ic:"✓"}];
   if(s==="nba") return [{k:"NBA",t:"Board",ic:"⌂"},...props("NBA"),{k:"grades",gs:"nba",t:"Results",ic:"✓"}];
-  if(s==="mlb") return [{k:"MLB",t:"Evidence",ic:"⌂"}];
+  if(s==="mlb") return [{k:"MLB",t:"Board",ic:"⌂"}];
   if(s==="ucl") return [{k:"UCL",t:"Today",ic:"⌂",loose:1},{k:"grades",gs:"ucl",t:"Results",ic:"✓"}];
   return [{k:"today",t:"Today",ic:"⌂",loose:1},{k:"best",t:"Best Picks",ic:"★",loose:1},
     {k:"players",t:"Player Props",ic:"+",loose:1},{k:"six",t:"Correct Scores",ic:"#",loose:1},
@@ -743,7 +743,7 @@ function feedBadge(s){
     if(!LGSLUGS.some(n=>DATA[n])){c="b-off";t="No feed";}
     else if(FRESH.stale){c="b-stale";t="Stale";}
   } else if(s==="nba"){ if(!DATA.nba||DATA.nba.status==="evidence_only"){c="b-off";t="No feed";} }
-  else if(s==="mlb"){ if(!DATA.mlb||DATA.mlb.status==="evidence_only"){c="b-off";t="Evidence";} }
+  else if(s==="mlb"){ if(!DATA.mlb||DATA.mlb.status!=="live"){c="b-off";t="Evidence";} }
   else if(!DATA[s]){c="b-off";t="No feed";}
   return `<span class="badge ${c}">${t}</span>`;
 }
@@ -822,9 +822,10 @@ function feedBanner(s){
       :ok?`NBA schedule and box scores from the NBA · lines from Pinnacle, DraftKings, FanDuel · Board updated ${agoOf(stampOf(DATA.nba))||"—"}`
       :"NBA schedule feed did not answer · showing the model's backtest evidence, not picks";
   } else if(s==="mlb"){
-    ok=false;
-    txt=DATA.mlb?"MLB · fifteen seasons backtested · live picks start with the 2027 season"
-      :"MLB board did not load";
+    ok=!!DATA.mlb&&DATA.mlb.status==="live";
+    txt=!DATA.mlb?"MLB board did not load"
+      :ok?`MLB schedule and box scores from MLB · lines from Pinnacle, DraftKings, FanDuel · Board updated ${agoOf(stampOf(DATA.mlb))||"—"}`
+      :"MLB schedule feed did not answer · showing the model's backtest evidence";
   } else {
     ok=!!DATA.ucl;
     txt=ok?`Champions League board · updated ${agoOf(stampOf(DATA.ucl))||"—"}`:"Champions League board did not load";
@@ -1360,7 +1361,8 @@ function lineBook(p){return LINE_BOOKS[p.line_source]||p.book||"Book";}
 function nflPropTableRow(p, full){
   const td=p.market==="anytime_touchdown";
   const t=nflTier(p.probability);
-  const sel=td?"Anytime TD":`Over ${p.line} yds`;
+  const under=p.side==="under";
+  const sel=td?"Anytime TD":`${under?"Under":"Over"} ${p.line} yds`;
   const status=p.availability==="doubt"
     ? `<span class="mk w" title="${esc(p.injury_note||"")}">Doubt</span>`
     : `<span class="tier ${t.cls}">${t.label}</span>`;
@@ -1370,7 +1372,7 @@ function nflPropTableRow(p, full){
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)}${p.depth_label?` · ${esc(p.depth_label)}`:""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
-      ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
+      ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
     <div class="bs"><b class="sel">${esc(sel)}</b>${status}${
@@ -1926,7 +1928,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span></div>
-    <div class="bs"><b class="sel">Over ${p.line} ${NBAUNIT[p.market]||""}</b>${status}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -1939,13 +1941,77 @@ function nbaPropTableRow(p){
 const MLBMK={team_winner:"Team winner",hits:"Hits",hrr:"Hits + runs + RBIs",hr:"Home runs",
   rbi:"RBIs",strikeouts:"Pitcher strikeouts",team_runs:"Team total runs"};
 
-// MLB: the gate's evidence, market by market. No picks until the 2027 season,
-// when the schedule and bookmaker lines are wired in -- said first, not buried.
+const MLBUNIT={hits:"hits",hrr:"H+R+RBI",hr:"HR",rbi:"RBI",strikeouts:"Ks",team_runs:"runs"};
+
+function mlbGameTableRow(g){
+  const t=nflTier(g.p_pick);
+  const edge=g.edge!=null?g.edge*100:null, bp=g.book_p_pick;
+  const bk=LINE_BOOKS[g.book]||g.book||"Book";
+  const sp=(g.away_pitcher||g.home_pitcher)?` · ${esc(g.away_pitcher||"TBD")} v ${esc(g.home_pitcher||"TBD")}`:"";
+  return `<div class="brow">${timeCell(g.tipoff)}
+    <div class="be"><div class="beb">MLB · Team winner</div>
+      <b>${esc(g.away_name||g.away)} @ ${esc(g.home_name||g.home)}</b>
+      <span>Model selection: <em>${esc(g.pick===g.home?(g.home_name||g.home):(g.away_name||g.away))}</em>${sp}</span></div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    ${probCell(g.p_pick)}
+    ${valCell(bp!=null?`${bk} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
+    ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
+}
+
+function mlbPropTableRow(p){
+  const t=nflTier(p.probability);
+  const u=MLBUNIT[p.market]||"";
+  return `<div class="brow">${timeCell(p.tipoff)}
+    <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
+      <b>${esc(p.player)}</b>
+      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span></div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span><span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    ${probCell(p.probability)}
+    ${valCell(`${lineBook(p)} line`, p.line)}
+    ${p.book_price!=null
+      ? valCell(`${lineBook(p)} ${Number(p.book_price).toFixed(2)}`,
+          p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
+          p.edge==null?"off":p.edge>=0?"pos":"neg")
+      : valCell("Price","—","off")}</div>`;
+}
+
+// MLB: the live slate first (when the schedule feed answered), then the gate's
+// fifteen-season evidence, market by market.
 function viewMLB(){
   const d=DATA.mlb;
   if(!d) return emptyState();
   const ev=d.evidence||{};
-  let h=`<div class="glass warnbox">${esc(d.status_note||"")}</div>`;
+  let h="";
+  if(d.status==="live"){
+    const all=(d.games||[]).concat(Object.values(d.props||{}).flatMap(b=>(b&&b.released&&b.picks)||[]));
+    h+=boardFilters(all, tierChips(all));
+    h+=`<p class="note">${esc(d.status_note||"")}</p>`;
+    const rec=d.record||{}, rw=rec.team_winner||{}, rp=rec.props||{};
+    const recLine=(label,r)=>!r||!(r.settled||r.pending)?"":
+      `<div class="rw static"><div class="info"><b>${label}</b><span>${
+        r.settled?`${Math.round(100*r.hit_rate)}% of ${r.settled} graded`:"nothing graded yet"}${
+        r.pending?` · ${r.pending} pending`:""}${r.void?` · ${r.void} void`:""}</span></div>
+        <div class="conf" style="min-width:78px"><b>${r.correct}–${r.wrong}</b><span>frozen</span></div></div>`;
+    if((rw.settled||rw.pending)||(rp.settled||rp.pending))
+      h+=`<div class="eyebrow" style="margin-top:18px">Live record · frozen picks</div>
+        <div class="glass rowc">${recLine("Team winner",rw)}${recLine("Props and team totals",rp)}</div>`;
+    const games=(d.games||[]).filter(inBoard).sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)));
+    h+=sectHead("Henry's live model",`Team winner · ${games.length} game${games.length===1?"":"s"}`,
+      "Edge is the model's probability minus the book's de-vigged probability for the same side.");
+    h+=games.length?btable(PCOLS,games.map(mlbGameTableRow).join(""))
+      :`<div class="glass rowc">${emptyRow("No MLB games in the next day and a half")}</div>`;
+    for(const m of ["team_runs","hits","hrr","rbi","hr","strikeouts"]){
+      const block=(d.props||{})[m]; if(!block||!block.released) continue;
+      const picks=(block.picks||[]).filter(inBoard).sort(strongFirst((a,b)=>b.probability-a.probability));
+      h+=sectHead("Live board",`${MLBMK[m]} · ${picks.length} pick${picks.length===1?"":"s"}`,
+        m==="hr"?"Home runs are a ~12% event: shown where the model rates the player above the book's own price."
+        :"Every line is a bookmaker's (Pinnacle, DraftKings or FanDuel); the probability is the model's for that exact line.");
+      h+=picks.length?btable(PCOLS,picks.slice(0,filter==="all"?12:99).map(mlbPropTableRow).join(""))
+        :`<div class="glass rowc">${emptyRow("No lines posted yet — books post MLB props on game day")}</div>`;
+    }
+  } else {
+    h+=`<div class="glass warnbox">${esc(d.status_note||"")}</div>`;
+  }
   h+=`<div class="eyebrow" style="margin-top:18px">Backtest · ${(d.seasons_scored||[]).length} seasons scored on games the model never saw</div><div class="glass rowc">`;
   for(const mk of Object.keys(MLBMK)){
     const v=ev[mk]; if(!v) continue;

@@ -3,6 +3,7 @@ import json
 import sys
 from pathlib import Path
 
+from nfl import selection
 from nfl import backtest, config, data, features, games_backtest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,7 +29,11 @@ def main():
     }
     for market in config.MARKETS:
         frame = features.build(player_weeks, market, games=games)
-        result = backtest.evaluate(backtest.walk_forward(frame, market), market)
+        wf = backtest.walk_forward(frame, market)
+        result = backtest.evaluate(wf, market)
+        # How the PUBLISHED picks fare (top 3 per team-game, 50%+, main line).
+        main = wf[wf["line_mult"] == 1.0] if "line_mult" in wf.columns else wf
+        result["selection"] = selection.evaluate(main, ["season", "week", "team"])
         report["markets"][market] = result
         o = result.get("overall", {})
         print(f"{market:20s} n={o.get('n'):6}  Brier {o.get('brier')} vs "

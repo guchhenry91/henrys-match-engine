@@ -45,6 +45,8 @@ def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
         prob = predict(train, test, market)
         out.append(pd.DataFrame({
             "season": season,
+            "group": (test["GAME_ID"].to_numpy() if "GAME_ID" in test.columns
+                      else np.arange(len(test))),
             "prob": prob,
             "outcome": test["outcome"].to_numpy(),
             "baseline": empirical_baseline(test, market),

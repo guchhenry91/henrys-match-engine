@@ -3,6 +3,7 @@ import json
 import sys
 from pathlib import Path
 
+from nfl import selection
 from nba import backtest, config, data, features, games_backtest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,7 +45,9 @@ def main():
         # Asked across a SPREAD of lines, because the board stands every pick on a
         # bookmaker's line, not the player's own median (features.augment_lines).
         frame = features.augment_lines(features.build(player, market), market)
-        result = backtest.evaluate(backtest.walk_forward(frame, market), market)
+        wf = backtest.walk_forward(frame, market)
+        result = backtest.evaluate(wf, market)
+        result["selection"] = selection.evaluate(wf[wf["line_step"] == 0], ["group"])
         report["markets"][market] = result
         print(f"  {market:11s}  n={result['n']:6d}  brier {result['brier']}  "
               f"vs baseline {result['baseline_brier']}  acc {result['accuracy']}  "

@@ -125,3 +125,14 @@ MAX_DEPTH_RANK = {
 # Mahomes. Below this share of the board's own players, the chart is ignored
 # entirely and the gate is reported as not applied.
 MIN_DEPTH_COVERAGE = 0.80
+
+
+# HOW MANY SEASONS A PROP MODEL TRAINS ON (None = every loaded season). The NBA
+# and MLB cap theirs at 5 because an unbounded window anchored calibration to an
+# old scoring environment (nba/config.py). Whether the NFL should too is decided
+# by the gate, not by analogy: NFL_TRAIN_SEASONS overrides it for a comparison run.
+import os as _os
+# DECIDED 2026-09-27 by running the gate both ways: capped at 5, calibration was
+# better in all four prop markets (receiving ECE 0.0085 -> 0.0063, rushing 0.0066
+# -> 0.0051, TD 0.0144 -> 0.0124, passing 0.0093 -> 0.0091) and Brier in three.
+TRAIN_SEASONS = int(_os.environ.get("NFL_TRAIN_SEASONS") or 5)

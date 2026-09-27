@@ -23,6 +23,7 @@ from nfl import (config, data, depth, features, games_model,
 from nfl import picks
 from nfl import book_lines
 from nfl import market_blend
+from nfl import selection
 from nfl import news as player_news
 from nfl.model import PropModel
 
@@ -125,6 +126,13 @@ def book_props() -> dict:
                                      for k, g in extra.items()})
 
 
+def _released_report() -> dict:
+    try:
+        return json.loads((ROOT / "data-raw" / "nfl" / "backtest_report.json").read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
 def book_alts() -> dict:
     """{"HOME|AWAY": {market: {player: ladder}}} -- bookmakers' ALTERNATE lines
     (DraftKings / FanDuel via The Odds API), for the "70%+ line" on each card."""
@@ -165,6 +173,45 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
     return future.sort_values("gameday")
 
 
+def next_game_frame(player_weeks, games, upcoming, fixtures, market,
+                    roster_index, rosters_complete):
+    """One built row per active player whose CURRENT team plays in `upcoming`,
+    with that game's week, opponent, venue and rest -- see player_projections."""
+    last = player_weeks.sort_values(["season", "week"]).groupby("player_id").tail(1)
+    newest = int(player_weeks["season"].max())
+    last = last[last["season"] >= newest - (config.ACTIVE_WITHIN_SEASONS - 1)]
+    synth = []
+    numeric = [c for c in player_weeks.columns
+               if c not in ("player_id", "player_display_name", "position", "team",
+                            "season", "week", "season_type", "opponent_team")
+               and pd.api.types.is_numeric_dtype(player_weeks[c])]
+    for _, row in last.iterrows():
+        team, why = rosters.reconcile(row["player_id"], row["team"],
+                                      roster_index, rosters_complete)
+        if team not in fixtures:
+            continue
+        game, opponent, _ = fixtures[team]
+        new = row.copy()
+        new["team"], new["opponent_team"] = team, opponent
+        new["season"], new["week"] = int(game["season"]), int(game["week"])
+        new["season_type"] = "REG"
+        new[numeric] = 0.0
+        new["_next"] = True
+        new["_why"] = why
+        synth.append(new)
+    if not synth:
+        return None
+    rows = pd.concat([player_weeks.assign(_next=False), pd.DataFrame(synth)],
+                     ignore_index=True)
+    context = None
+    if games is not None:
+        context = pd.concat([games, upcoming[[c for c in games.columns if c in upcoming.columns]]],
+                            ignore_index=True).drop_duplicates(
+            subset=["season", "week", "home_team", "away_team"], keep="first")
+    built = features.build(rows, market, games=context)
+    return built[built["_next"].fillna(False).astype(bool)].copy()
+
+
 def player_projections(player_weeks, games, market, upcoming, injuries=None,
                        roster_index=None, rosters_complete=False,
                        depth_index=None, depth_trusted=False,
@@ -183,27 +230,30 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
         return []
     # Fitted across a spread of lines, so it can be asked about the book's number
     # and mean it -- see features.augment_lines and config.LINE_MULTIPLIERS.
-    model = PropModel(market).fit(features.augment_lines(frame, market))
-
-    latest = frame.sort_values(["season", "week"]).groupby("player_id").tail(1).copy()
-
-    # STILL PLAYING. A player's club is taken from his last appearance, so without
-    # a recency test the week 1 board fills with men who retired years ago --
-    # Alfred Blue projected onto Houston, C.J. Anderson onto Detroit, Colt McCoy
-    # onto Arizona, each carried forward from a final season half a decade back.
-    # Appearing in the most recent completed season is the weakest test that
-    # excludes them, and it is deliberately weak: it will still wrongly attribute
-    # a player who moved this offseason, which the card says out loud rather than
-    # pretending otherwise.
-    newest = int(frame["season"].max())
-    latest = latest[latest["season"] >= newest - (config.ACTIVE_WITHIN_SEASONS - 1)]
-    if latest.empty:
-        return []
+    fit_on = frame
+    if config.TRAIN_SEASONS:
+        fit_on = frame[frame["season"] > int(frame["season"].max()) - config.TRAIN_SEASONS]
+    model = PropModel(market).fit(features.augment_lines(fit_on, market))
 
     fixtures = {}
     for _, game in upcoming.iterrows():
         fixtures[game["home_team"]] = (game, game["away_team"], True)
         fixtures[game["away_team"]] = (game, game["home_team"], False)
+
+    # THE NEXT GAME'S OWN ROW. The board used to price each player from the row
+    # of his LAST game -- inputs describing the moment before that game: form
+    # missing his most recent game, and LAST WEEK'S opponent, venue and rest.
+    # Measured on the 2025 walk-forward, that cost the published picks 2-4.5pt
+    # of hit rate against the same model given the right inputs (receiving 56.9%
+    # -> 54.8%, rushing 59.7% -> 56.5%, passing 59.3% -> 54.9%). The gate scores
+    # each game with that game's own entering inputs; the board now does too: a
+    # placeholder row for the upcoming game (outcome columns zero -- every input
+    # is ENTERING, shift(1), so a row never reads its own values) goes through the
+    # same build, and the model is still trained only on real games.
+    latest = next_game_frame(player_weeks, games, upcoming, fixtures, market,
+                             roster_index, rosters_complete)
+    if latest is None or latest.empty:
+        return []
 
     # RECONCILE THE CLUB BEFORE choosing who is playing. nflverse says where a man
     # last PLAYED; the roster snapshot says where he IS, and through an offseason
@@ -326,6 +376,7 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             "probability": round(float(prob), 4),
             "book": (quote or {}).get("book") if book_p is not None else None,
             "book_price": book_price,
+            "book_price_under": (quote or {}).get("odd_under") if book_p is not None else None,
             # De-vigged for yards (both sides quoted); RAW for anytime TD, which
             # is one-sided, so its edge is understated rather than flattered.
             "book_p": book_p,
@@ -493,6 +544,15 @@ def build() -> dict:
         # overconfident on yardage in the live record, so only the fitted share w
         # of its disagreement with the book's de-vigged price is kept. The raw
         # number is published alongside as p_model, never hidden.
+        if market == "anytime_touchdown":
+            # The gate's correction for publishing only the top picks
+            # (nfl/selection.py), from backtest_report.json. Yardage needs none
+            # here: its market blend is fitted on the published picks themselves.
+            s_td = float(((((_released_report().get("markets") or {})
+                            .get(market) or {}).get("selection") or {}).get("shrink") or 1.0))
+            for p in projections:
+                p["p_model"] = p["probability"]
+                p["probability"] = round(selection.apply(p["probability"], s_td), 4)
         if market in market_blend.YARDAGE:
             w = blend_w.get(market, 0.0)
             for p in projections:
@@ -506,16 +566,29 @@ def build() -> dict:
                 p["ladder_up"] = market_blend.ladder_up(p.get("ladder"), p, w)
                 p.pop("ladder", None)
             # A PICK IS THE MODEL'S VIEW, NOT THE BOOK'S. Where the raw model rates
-            # the over BELOW the book's own price, the blend can still clear 50%
-            # purely because the book favours him -- publishing that would be
-            # passing the book's opinion off as a model selection.
-            against = [p for p in projections
-                       if p.get("p_model") is not None and p["p_model"] < p["book_p"]]
-            if against:
-                print(f"  {market}: {len(against)} dropped -- the raw model rates the "
-                      f"over below the book's own price")
-            projections = [p for p in projections if p not in against]
-            projections.sort(key=lambda p: -p["probability"])
+            # the over BELOW the book's own price it leans UNDER -- so the bet it
+            # actually supports is the under, priced at the book's under. Books
+            # tend to shade overs (the public backs them), so a board of overs
+            # only sat in the worst part of the market.
+            overs, unders = [], []
+            for p in projections:
+                if p.get("p_model") is None or p["p_model"] >= p["book_p"]:
+                    overs.append(p)
+                    continue
+                if p["probability"] > 0.5 or not p.get("book_price_under"):
+                    continue          # leans under, but not enough to make it the bet
+                u = dict(p)
+                u["side"] = "under"
+                u["probability"] = round(1.0 - p["probability"], 4)
+                u["p_model"] = round(1.0 - p["p_model"], 4)
+                u["book_p"] = round(1.0 - p["book_p"], 4)
+                u["book_price"] = p["book_price_under"]
+                u["edge"] = round(u["probability"] - u["book_p"], 4)
+                u["ladder_up"] = []
+                unders.append(u)
+            print(f"  {market}: {len(overs)} over(s), {len(unders)} under(s) where the model "
+                  f"leans under against the book")
+            projections = sorted(overs + unders, key=lambda p: -p["probability"])
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:

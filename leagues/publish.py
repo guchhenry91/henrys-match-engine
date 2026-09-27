@@ -20,6 +20,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 # dozen call sites and several tests reference publish.actual_standings.
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
 from leagues import prop_odds
+from leagues import prop_calibration
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -1317,6 +1318,9 @@ def main(argv=None):
         pp_all = pp.pop("_all_settled", pp["settled"])
         # bet365's anytime-scorer price and the edge against it, where fetched
         # (leagues/prop_odds.py). Shots and SOT have no usable bet365 market.
+        # Recalibrated from the props' own graded record FIRST, so the edge against
+        # bet365 is computed on the corrected number (leagues/prop_calibration.py).
+        pp["calibration"] = prop_calibration.apply(pp["upcoming"], pp_all)
         n_priced = prop_odds.attach(pp["upcoming"])
         print(f"  bet365 scorer prices attached to {n_priced} pick(s)")
         ppath = OUT / "player_picks.json"

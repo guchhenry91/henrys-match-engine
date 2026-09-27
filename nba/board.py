@@ -27,6 +27,7 @@ import pandas as pd
 from nba import config, current, data, features
 from nfl import odds as odds_mod
 from nfl.games_model import run_elo
+from nfl import selection
 from nfl.model import PropModel
 from oddsapi import props as shared
 
@@ -115,6 +116,13 @@ def team_picks(history_games, sched, games_ahead, odds_store) -> list:
     return out
 
 
+def published_shrink() -> dict:
+    """market -> the gate's fitted correction for publishing only top picks."""
+    raw = _read(ROOT / "data-raw" / "nba" / "backtest_report.json")
+    return {m: float(((v or {}).get("selection") or {}).get("shrink") or 1.0)
+            for m, v in (raw.get("markets") or {}).items()}
+
+
 def _name_index(rows: pd.DataFrame) -> dict:
     """norm name -> PLAYER_ID, newest season first; a name two players share is
     dropped rather than resolved by guessing."""
@@ -174,6 +182,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
         return {m: [] for m in config.MARKETS}, {}
     allrows = pd.concat([rows, pd.DataFrame(synth)], ignore_index=True)
     out, held = {}, {}
+    shrink = published_shrink()
     for market in config.MARKETS:
         if market not in released:
             out[market] = []
@@ -196,7 +205,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 continue
             row = features.at_line(ask.loc[[idx]], float(quote["line"]))
             prob = float(model.predict(row)[0])
-            picks.append({
+            picks.extend(selection.sides({
                 "market": market, "player": m["name"], "player_id": int(r["PLAYER_ID"]),
                 "team": m["team"], "opponent": m["opponent"], "home": m["home"],
                 "game_id": m["game"].game_id, "tipoff": m["game"].tipoff,
@@ -207,7 +216,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 "edge": round(prob - float(quote["over"]), 4) if quote.get("over") else None,
                 "form5": round(float(r["form5"]), 1), "min5": round(float(r["min5"]), 1),
                 "games_before": int(r["games_before"]), "club_source": m["club_source"],
-            })
+            }, quote, shrink.get(market, 1.0)))
         held[market] = below
         shortlist = [p for p in picks if p["probability"] >= MIN_PROBABILITY]
         by_game = {}

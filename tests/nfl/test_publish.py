@@ -179,3 +179,25 @@ def test_an_untrusted_roster_falls_back_to_last_seasons_players():
     known = ["A", "RETIRED"]
     assert publish.depth_population({"A": {}}, False, known) is known
     assert publish.depth_population({}, True, known) is known
+
+
+def test_the_next_game_row_has_this_weeks_opponent_and_last_weeks_game_in_its_form():
+    """The board used to price a player from his LAST game's row: form missing
+    that game, and last week's opponent. The gate never did that."""
+    import pandas as pd
+    from nfl import publish
+    weeks = pd.DataFrame([{
+        "player_id": "P1", "player_display_name": "Receiver", "position": "WR",
+        "team": "AAA", "season": 2025, "week": w, "season_type": "REG",
+        "opponent_team": "OLD", "passing_yards": 0.0, "rushing_yards": 0.0,
+        "receiving_yards": 100.0 if w == 13 else 40.0, "receptions": 5.0,
+        "carries": 0.0, "targets": 8.0, "attempts": 0.0, "completions": 0.0,
+        "passing_tds": 0.0, "rushing_tds": 0.0, "receiving_tds": 0.0,
+        "touchdowns": 0, "touches": 5.0} for w in range(1, 14)])
+    upcoming = pd.DataFrame([{"season": 2026, "week": 1, "home_team": "AAA",
+                              "away_team": "NEW", "gameday": pd.Timestamp("2026-09-13")}])
+    fixtures = {"AAA": (upcoming.iloc[0], "NEW", True), "NEW": (upcoming.iloc[0], "AAA", False)}
+    row = publish.next_game_frame(weeks, None, upcoming, fixtures, "receiving_yards",
+                                  {}, False).iloc[0]
+    assert row["opponent_team"] == "NEW" and row["season"] == 2026
+    assert row["form5"] == (40 * 4 + 100) / 5          # week 13's 100 is in his form

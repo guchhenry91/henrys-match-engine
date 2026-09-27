@@ -54,8 +54,10 @@ def _confidence(p: float) -> int:
 
 
 def prop_key(pick: dict) -> str:
-    """One prop per player per market per game."""
-    return f"{pick.get('game_id')}:{pick['market']}:{pick.get('player_id')}"
+    """One prop per player per market per game -- and per SIDE, since an under
+    on the same player and line is a different bet."""
+    key = f"{pick.get('game_id')}:{pick['market']}:{pick.get('player_id')}"
+    return key + ":under" if pick.get("side") == "under" else key
 
 
 def season_week(game_id):
@@ -125,8 +127,14 @@ def grade_prop(entry: dict, actual=None) -> dict:
     if line is not None and value == float(line):
         out.update(void=True, graded="void", actual=value, void_reason="push")
         return out
-    # Otherwise mirrored from nfl/features.py: strictly greater.
-    hit = value > 0 if line is None else value > float(line)
+    # Otherwise mirrored from nfl/features.py: strictly greater for an over,
+    # strictly less for an under (the push is already void above).
+    if line is None:
+        hit = value > 0
+    elif entry.get("side") == "under":
+        hit = value < float(line)
+    else:
+        hit = value > float(line)
     out["void"] = False
     out["actual"] = value
     out["graded"] = "correct" if hit else "wrong"
@@ -302,6 +310,7 @@ def _lock_props(payload, log, now):
                 entry["book"] = pick.get("book")
                 entry["book_price"] = pick.get("book_price")
                 entry["book_p"] = pick.get("book_p")
+                entry["side"] = pick.get("side", "over")
                 # The model's own number before it was pulled toward the book, so
                 # nfl/market_blend.py can keep re-fitting how far to trust it.
                 entry["p_model"] = pick.get("p_model")

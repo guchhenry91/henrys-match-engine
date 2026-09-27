@@ -72,10 +72,32 @@ MIN_ROWS_FOR_PLATT = 300
 # calibrator sees the whole window and the logistic is then refitted on all of it.
 # Both stages use 100% of the data and neither ever sees its own prediction.
 CALIBRATION_FOLDS = 5
+# Markets calibrated with Platt (a smooth curve) even when isotonic has enough
+# rows. Isotonic is a step function, and for anytime TD its top step swallowed
+# every leading back: all eight TD picks on the 2026-09-27 board read exactly
+# 53%, so McCaffrey and a committee back were indistinguishable. A smooth map
+# keeps the model's ORDER at the top, which is the whole point of a shortlist.
+SMOOTH_CALIBRATION = {"anytime_touchdown"}
 MIN_CALIBRATION_ROWS = 200
 
 
-def frame_features(frame: pd.DataFrame, market: str) -> pd.DataFrame:
+def frame_stats(frame: pd.DataFrame) -> dict:
+    """The population figures a feature is scaled by, learned ONCE from training.
+
+    `opp_allowed_edge` standardises the opponent's allowance. It used to use the
+    mean and spread of WHATEVER BATCH was being priced: a full season in the gate,
+    one slate on the live board, a single row when a board asked about one player
+    -- where the spread is undefined and the feature silently became 0 for
+    everyone. Measured on 16,405 NBA predictions: up to 4.7pt of difference from
+    the batch alone. Freezing the training figures makes the live board ask the
+    model exactly what the gate measured."""
+    allowed = pd.to_numeric(frame.get("opp_allowed"), errors="coerce")
+    std = float(allowed.std()) if allowed.notna().sum() > 1 else 0.0
+    return {"allowed_mean": float(allowed.mean()) if allowed.notna().any() else 0.0,
+            "allowed_std": std if std > 0 else 1.0}
+
+
+def frame_features(frame: pd.DataFrame, market: str, stats: dict | None = None) -> pd.DataFrame:
     """Model inputs, expressed RELATIVE TO THE LINE wherever a line exists.
 
     A receiver's 60-yard form means nothing on its own; it means everything
@@ -89,14 +111,15 @@ def frame_features(frame: pd.DataFrame, market: str) -> pd.DataFrame:
         out["hist_edge"] = frame["hist_rate"]
         out["form5_edge"] = frame["form5"]
         out["form10_edge"] = frame["form10"]
-        out["opp_allowed_edge"] = frame["opp_allowed"].fillna(frame["opp_allowed"].mean())
+        fill = (stats or frame_stats(frame))["allowed_mean"]
+        out["opp_allowed_edge"] = frame["opp_allowed"].fillna(fill)
     else:
         line = frame["line"].replace(0, np.nan)
         out["hist_edge"] = (frame["hist_rate"] - frame["line"]) / line
         out["form5_edge"] = (frame["form5"] - frame["line"]) / line
         out["form10_edge"] = (frame["form10"] - frame["line"]) / line
-        allowed = frame["opp_allowed"]
-        out["opp_allowed_edge"] = ((allowed - allowed.mean()) / (allowed.std() or 1.0))
+        st = stats or frame_stats(frame)
+        out["opp_allowed_edge"] = (frame["opp_allowed"] - st["allowed_mean"]) / st["allowed_std"]
     out["opp5"] = frame["opp5"]
     out["games_before"] = frame["games_before"]
     out["is_home"] = frame.get("is_home", 0.5)
@@ -130,6 +153,7 @@ class PropModel:
         self.calibrator = None
         self.sets, self.scalers, self.models = [list(CORE)], [], []
         self.fitted = False
+        self.stats = None
 
     # NO SELECTION. Every candidate set is fitted and their probabilities are
     # AVERAGED.
@@ -152,7 +176,7 @@ class PropModel:
         base = empirical_baseline(frame, self.market)
         if not self.fitted:
             return base
-        built = frame_features(frame, self.market)
+        built = frame_features(frame, self.market, self.stats)
         modelled = np.mean([
             clf.predict_proba(scaler.transform(built[columns].to_numpy()))[:, 1]
             for columns, scaler, clf in zip(self.sets, self.scalers, self.models)
@@ -184,7 +208,8 @@ class PropModel:
         # ordering is byte-identical to before.
         order = ["season", "week"] if "week" in frame.columns else ["season", "game_date"]
         ordered = frame.sort_values(order).reset_index(drop=True)
-        built = frame_features(ordered, self.market)
+        self.stats = frame_stats(ordered)
+        built = frame_features(ordered, self.market, self.stats)
         self.sets = [list(c) for _, c in sorted(CANDIDATES.items())]
         y = ordered["outcome"].to_numpy()
         # A fold with one class in it cannot be fitted and must not be faked --
@@ -231,7 +256,8 @@ class PropModel:
             return self
         raw = oof[usable]
         truth = y[usable]
-        if len(raw) >= MIN_ROWS_FOR_ISOTONIC and len(np.unique(truth)) > 1:
+        if (len(raw) >= MIN_ROWS_FOR_ISOTONIC and len(np.unique(truth)) > 1
+                and self.market not in SMOOTH_CALIBRATION):
             self.calibrator = IsotonicRegression(out_of_bounds="clip",
                                                  y_min=0.01, y_max=0.99).fit(raw, truth)
         elif len(raw) >= MIN_ROWS_FOR_PLATT and len(np.unique(truth)) > 1:

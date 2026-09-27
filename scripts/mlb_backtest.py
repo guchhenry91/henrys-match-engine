@@ -9,6 +9,7 @@ import sys
 import time
 from pathlib import Path
 
+from nfl import selection
 from mlb import backtest, config, data, features
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,7 +59,9 @@ def main() -> int:
             loaded[kind] = sources[kind]()
         frame = features.augment_lines(features.build(loaded[kind], market), market)
         print(f"{market}: {len(frame)} rows across the line spread", flush=True)
-        result = backtest.evaluate(backtest.walk_forward(frame, market), market)
+        wf = backtest.walk_forward(frame, market)
+        result = backtest.evaluate(wf, market)
+        result["selection"] = selection.evaluate(wf[wf["line_step"] == 0], ["group"])
         markets[market] = result
         save(report)
         print(f"{market} n={result['n']} acc {result['accuracy']} brier {result['brier']} "

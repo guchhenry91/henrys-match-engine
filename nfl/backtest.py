@@ -93,13 +93,17 @@ def walk_forward(frame: pd.DataFrame, market: str) -> pd.DataFrame:
     scored = seasons[config.BURN_IN_SEASONS:]
     rows = []
     for season in scored:
-        train = features.augment_lines(frame[frame["season"] < season], market)
+        window = frame[frame["season"] < season]
+        if config.TRAIN_SEASONS:
+            window = window[window["season"] >= season - config.TRAIN_SEASONS]
+        train = features.augment_lines(window, market)
         test = features.augment_lines(frame[frame["season"] == season], market)
         if train.empty or test.empty:
             continue
         model = PropModel(market).fit(train)
         out = test[["season", "week", "player_id", "player_display_name", "team",
-                    "opponent_team", "line", "outcome"]].copy()
+                    "opponent_team", "line", "outcome"]
+                   + [c for c in ("line_mult",) if c in test.columns]].copy()
         out["prob"] = model.predict(test)
         out["baseline"] = empirical_baseline(test, market)
         rows.append(out)

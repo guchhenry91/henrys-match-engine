@@ -52,7 +52,8 @@ def game_key(g: dict) -> str:
 
 
 def prop_key(p: dict) -> str:
-    return f"{p['game_id']}:{p['market']}:{p['player_id']}"
+    key = f"{p['game_id']}:{p['market']}:{p['player_id']}"
+    return key + ":under" if p.get("side") == "under" else key
 
 
 def should_freeze(tipoff, now, last_run_before) -> bool:
@@ -86,7 +87,8 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
                 "line_source": p["line_source"], "book": p.get("book"),
                 "probability": p["probability"], "book_p": p.get("book_p"),
                 "book_price": p.get("book_price"), "edge": p.get("edge"),
-                "availability": p.get("availability"), "locked_at": stamp}
+                "availability": p.get("availability"), "side": p.get("side", "over"),
+                "p_model": p.get("p_model"), "locked_at": stamp}
             frozen += 1
     return frozen
 
@@ -122,8 +124,8 @@ def grade(log: dict, finals: dict, box: dict, covered: set) -> None:
         actual = float(row[STAT[entry["market"]]])
         entry["actual"] = actual
         line = float(entry["line"])
-        entry["graded"] = ("void" if actual == line else
-                           "correct" if actual > line else "wrong")
+        hit = actual < line if entry.get("side") == "under" else actual > line
+        entry["graded"] = "void" if actual == line else "correct" if hit else "wrong"
 
 
 def record(log: dict) -> dict:
