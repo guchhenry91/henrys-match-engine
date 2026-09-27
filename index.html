@@ -576,14 +576,16 @@ async function boot(){
   catch(e){DATA.ucl=null;}
   try{const r=await fetch("data/nba/board.json",{cache:"no-cache"});DATA.nba=r.ok?await r.json():null;}
   catch(e){DATA.nba=null;}
+  try{const r=await fetch("data/mlb/board.json",{cache:"no-cache"});DATA.mlb=r.ok?await r.json():null;}
+  catch(e){DATA.mlb=null;}
   FRESH=computeFreshness(); updateLivePill();
   buildNav(); go("today");
   startLive();      // no-ops unless a fixture could actually be in play
 }
 
-const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"NBA",t:"NBA"},{k:"UCL",t:"Champions League"},
+const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"NBA",t:"NBA"},{k:"MLB",t:"MLB"},{k:"UCL",t:"Champions League"},
   {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"},{k:"SERIEA",t:"Serie A"}];
-const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",NBA:"NBA · model evidence",UCL:"Champions League · league phase",
+const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",NBA:"NBA · model evidence",MLB:"MLB · model evidence",UCL:"Champions League · league phase",
   PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1",SERIEA:"Serie A"};
 
 // ONE SOURCE OF TRUTH FOR EVERY NAVIGATION. The bottom nav, the sidebar and the
@@ -592,7 +594,7 @@ const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Pic
 // -- which is exactly what the NFL chips were when setFilter rendered a hardcoded
 // tab.
 const ICON={today:"⚡",best:"★",players:"👤",six:"🎯",parlay:"🧩",tables:"📊",grades:"✅",
-  NFL:"🏈",NBA:"🏀",UCL:"🏆",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷",SERIEA:"🇮🇹"};
+  NFL:"🏈",NBA:"🏀",MLB:"⚾",UCL:"🏆",PL:"🦁",LALIGA:"🇪🇸",BUNDESLIGA:"🇩🇪",LIGUE1:"🇫🇷",SERIEA:"🇮🇹"};
 // EVERY PROP MARKET, ONE CLICK. Reaching a single market used to mean opening a
 // board and then finding its chip row; these land straight on it. `view` is the
 // board to open and `filter` the market to select there -- the same value the
@@ -630,9 +632,9 @@ const PROPS=[
 // sidebar lists the sports, and both the sidebar's Markets list and the tab row
 // under the header show only that sport's boards. Pooling NFL props beside
 // Premier League fixtures in one flat list described neither sport.
-const SPORTS=[["soccer","Soccer"],["nfl","NFL"],["nba","NBA"],["ucl","Champions League"]];
+const SPORTS=[["soccer","Soccer"],["nfl","NFL"],["nba","NBA"],["mlb","MLB"],["ucl","Champions League"]];
 const SPORT_NAME=Object.fromEntries(SPORTS);
-const SPORT_OF={NFL:"nfl",NBA:"nba",UCL:"ucl"};
+const SPORT_OF={NFL:"nfl",NBA:"nba",MLB:"mlb",UCL:"ucl"};
 const sportOf=k=>SPORT_OF[k]||"soccer";
 function curSport(){ return cur==="grades" ? (gsport||"soccer") : sportOf(cur); }
 const propLabel=p=>{const t=p.t.replace(/^(NFL|NBA) /,""); return t[0].toUpperCase()+t.slice(1);};
@@ -645,6 +647,7 @@ function tabsFor(s){
   const props=v=>PROPS.filter(p=>p.view===v).map(p=>({k:v,f:p.filter,t:propLabel(p),ic:"+"}));
   if(s==="nfl") return [{k:"NFL",t:"Board",ic:"⌂"},...props("NFL"),{k:"grades",gs:"nfl",t:"Results",ic:"✓"}];
   if(s==="nba") return [{k:"NBA",t:"Board",ic:"⌂"},...props("NBA"),{k:"grades",gs:"nba",t:"Results",ic:"✓"}];
+  if(s==="mlb") return [{k:"MLB",t:"Evidence",ic:"⌂"}];
   if(s==="ucl") return [{k:"UCL",t:"Today",ic:"⌂",loose:1},{k:"grades",gs:"ucl",t:"Results",ic:"✓"}];
   return [{k:"today",t:"Today",ic:"⌂",loose:1},{k:"best",t:"Best Picks",ic:"★",loose:1},
     {k:"players",t:"Player Props",ic:"+",loose:1},{k:"six",t:"Correct Scores",ic:"#",loose:1},
@@ -657,7 +660,7 @@ const SIDE_EXTRA={soccer:[{name:"Player props", props:true},
   {name:"Leagues", keys:["PL","LALIGA","BUNDESLIGA","LIGUE1","SERIEA"]}]};
 const TITLE={today:"Today's markets",best:"Best picks",players:"Player props",six:"Correct scores",
   parlay:"Model parlays",tables:"League tables",grades:"Results & grading",NFL:"NFL board",
-  NBA:"NBA board",UCL:"Champions League"};
+  NBA:"NBA board",MLB:"MLB board",UCL:"Champions League"};
 
 function openTab(t){
   go(t.k,t.f);
@@ -722,6 +725,7 @@ function countFor(k){
   // NBA counts RELEASED MARKETS, not picks: there are no picks yet and a "0"
   // beside the tab would read as a broken board rather than an honest state.
   if(k==="NBA")     return DATA.nba ? (DATA.nba.markets_released||[]).length : null;
+  if(k==="MLB")     return DATA.mlb ? (DATA.mlb.markets_released||[]).length : null;
   if(FILES[k])      return n((DATA[FILES[k]]||{}).matches);
   return null;
 }
@@ -739,6 +743,7 @@ function feedBadge(s){
     if(!LGSLUGS.some(n=>DATA[n])){c="b-off";t="No feed";}
     else if(FRESH.stale){c="b-stale";t="Stale";}
   } else if(s==="nba"){ if(!DATA.nba||DATA.nba.status==="evidence_only"){c="b-off";t="No feed";} }
+  else if(s==="mlb"){ if(!DATA.mlb||DATA.mlb.status==="evidence_only"){c="b-off";t="Evidence";} }
   else if(!DATA[s]){c="b-off";t="No feed";}
   return `<span class="badge ${c}">${t}</span>`;
 }
@@ -816,6 +821,10 @@ function feedBanner(s){
     txt=!DATA.nba?"NBA board did not load"
       :ok?`NBA schedule and box scores from the NBA · lines from Pinnacle, DraftKings, FanDuel · Board updated ${agoOf(stampOf(DATA.nba))||"—"}`
       :"NBA schedule feed did not answer · showing the model's backtest evidence, not picks";
+  } else if(s==="mlb"){
+    ok=false;
+    txt=DATA.mlb?"MLB · fifteen seasons backtested · live picks start with the 2027 season"
+      :"MLB board did not load";
   } else {
     ok=!!DATA.ucl;
     txt=ok?`Champions League board · updated ${agoOf(stampOf(DATA.ucl))||"—"}`:"Champions League board did not load";
@@ -830,7 +839,7 @@ let showDetails=false;
 function detailsHtml(){
   const rows=[["Best picks","best"],["Player picks","player_picks"],["Parlays","parlays"],["Correct scores","six_scores"],
     ...LGSLUGS.map(n=>[LG[Object.keys(FILES).find(k=>FILES[k]===n)]||n,n]),
-    ["NFL","nfl"],["Champions League","ucl"],["NBA","nba"]];
+    ["NFL","nfl"],["Champions League","ucl"],["NBA","nba"],["MLB","mlb"]];
   return `<div class="dgrid">`+rows.map(([t,n])=>{
     const a=agoOf(stampOf(DATA[n]));
     return `<span>${esc(t)}</span><b class="${DATA[n]?"":"off"}">${DATA[n]?(a?"updated "+a:"loaded"):"not loaded"}</b>`;
@@ -932,6 +941,7 @@ function render(k){
   else if(k==="grades") h=viewGrades();
   else if(k==="NFL") h=viewNFL();
   else if(k==="NBA") h=viewNBA();
+  else if(k==="MLB") h=viewMLB();
   else if(k==="UCL") h=viewUCL();
   else h=viewLeague(k);
   app.innerHTML=h; chrome(); window.scrollTo(0,0);
@@ -1924,6 +1934,37 @@ function nbaPropTableRow(p){
           p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
           p.edge==null?"off":p.edge>=0?"pos":"neg")
       : valCell("Price","—","off")}</div>`;
+}
+
+const MLBMK={team_winner:"Team winner",hits:"Hits",hrr:"Hits + runs + RBIs",hr:"Home runs",
+  rbi:"RBIs",strikeouts:"Pitcher strikeouts",team_runs:"Team total runs"};
+
+// MLB: the gate's evidence, market by market. No picks until the 2027 season,
+// when the schedule and bookmaker lines are wired in -- said first, not buried.
+function viewMLB(){
+  const d=DATA.mlb;
+  if(!d) return emptyState();
+  const ev=d.evidence||{};
+  let h=`<div class="glass warnbox">${esc(d.status_note||"")}</div>`;
+  h+=`<div class="eyebrow" style="margin-top:18px">Backtest · ${(d.seasons_scored||[]).length} seasons scored on games the model never saw</div><div class="glass rowc">`;
+  for(const mk of Object.keys(MLBMK)){
+    const v=ev[mk]; if(!v) continue;
+    const base=mk==="team_winner"?"home field":"baseline";
+    h+=`<div class="rw static">
+      <div class="av" style="background:${v.released?"#00b767":"#7a3b3b"};font-size:13px">${v.released?"OK":"—"}</div>
+      <div class="info"><b>${esc(MLBMK[mk])}</b>
+        <span>${(v.n||0).toLocaleString()} predictions · Brier ${v.brier} vs ${v.baseline_brier} ${base}${v.ece!=null?` · calibration error ${v.ece}`:""}</span></div>
+      ${v.released
+        ? `<span class="tier ${nflTier(v.accuracy).cls}">${pc(v.accuracy)}%</span>`
+        : `<span class="mk w" title="${esc((v.failures||[]).join('; '))}">withheld</span>`}
+    </div>`;
+  }
+  h+=`</div>`;
+  if((d.markets_withheld||[]).length)
+    h+=`<p class="note">Withheld: ${d.markets_withheld.map(m=>esc(MLBMK[m]||m)).join(", ")} — a market must beat its baseline in every scored season and stay calibrated at every line; hover “withheld” for the gate’s reason.</p>`;
+  if((d.caveats||[]).length)
+    h+=`<div class="glass warnbox" style="margin-top:10px">${d.caveats.map(c=>`<div>· ${esc(c)}</div>`).join("")}</div>`;
+  return h+archiveLink();
 }
 
 function viewNBA(){

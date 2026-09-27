@@ -1102,3 +1102,30 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
 
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.
+
+---
+
+# MLB engine (`mlb/`, tab: MLB) -- added 2026-09-27
+
+Evidence board for now (`status: evidence_only`); live picks start Opening Day 2027,
+once the schedule / probable pitchers / lineups (MLB StatsAPI) and bookmakers' lines
+(The Odds API) are wired.
+
+- **Data: Retrosheet game-level CSVs** (`https://www.retrosheet.org/downloads/{y}/{y}csvs.zip`):
+  player-by-game batting and pitching lines, gameinfo and teamstats. Trimmed to the
+  columns used and committed as `data-raw/mlb/history/*.csv.gz` (~15 MB); the raw
+  zips are cached in the gitignored `data-raw/mlb/_cache/`. Regular season only.
+- **19 seasons load (2007-2025), 15 are scored (2011-2025)**; each scored season is
+  predicted by a model trained only on the five before it. 2020 (60 games) is scored.
+- `python -m scripts.mlb_backtest` runs the gate (`--only a,b` for a subset; the report
+  is saved after every market). `python -m mlb.publish` writes `data/mlb/board.json`.
+- **Markets** (`mlb/config.MARKETS`): hits, hits+runs+RBIs, home runs, RBIs (starting
+  batters), strikeouts (starting pitchers), team total runs (the team is the "player").
+  All trained and gated across a spread of lines (`LINE_STEPS`), and a market must be
+  calibrated at EVERY step. RBI and HR are 0.5-only markets, as books price them.
+- **Team winner**: Elo (`nfl.games_model`), parameters fitted ONCE on 2007-2010 and held
+  (k=2, home edge 40, regression 0.2 -- inside the widened grid).
+- **First gate run**: team winner 56.1% over 34,909 games, beats home field every season;
+  hits, HR, strikeouts and team runs released; hits+runs+RBIs WITHHELD (overrates the over
+  at +1/+2 steps: predicted 29%, landed 24%). HR sits near a 12% base rate, so a live HR
+  board must be judged against the price, not a 50% bar.

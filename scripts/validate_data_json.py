@@ -61,6 +61,7 @@ TRACKED = [
     "data/leagues/ligue1.json",
     "data/nfl/board.json",
     "data/nba/board.json",
+    "data/mlb/board.json",
     "data/ucl/board.json",
 ]
 

@@ -1,0 +1,390 @@
+{
+  "updated": "2026-09-27T03:44:06.533061+00:00",
+  "status": "evidence_only",
+  "status_note": "MLB is backtested, not yet live. Every number below is what the model scored on seasons it never saw (Retrosheet game logs, 2011-2025). Live picks -- team winners, team totals and player props on bookmakers' lines -- start with the 2027 season.",
+  "seasons_loaded": [
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "seasons_scored": [
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "markets_released": [
+    "hits",
+    "hr",
+    "rbi",
+    "strikeouts",
+    "team_runs",
+    "team_winner"
+  ],
+  "markets_withheld": [
+    "hrr"
+  ],
+  "evidence": {
+    "team_winner": {
+      "released": true,
+      "n": 34909,
+      "brier": 0.2442,
+      "baseline_brier": 0.2489,
+      "accuracy": 0.5609,
+      "failures": [],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "home_win_rate": 0.533
+    },
+    "hits": {
+      "released": true,
+      "n": 1142810,
+      "brier": 0.2083,
+      "baseline_brier": 0.2376,
+      "accuracy": 0.6918,
+      "ece": 0.0038,
+      "failures": [],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "by_line_step": {
+        "0": {
+          "n": 571405,
+          "ece": 0.0107,
+          "predicted": 0.6335,
+          "landed": 0.6357,
+          "brier": 0.2311,
+          "baseline": 0.26
+        },
+        "1": {
+          "n": 571405,
+          "ece": 0.0095,
+          "predicted": 0.2596,
+          "landed": 0.25,
+          "brier": 0.1855,
+          "baseline": 0.2151
+        }
+      },
+      "base_rate": 0.4429
+    },
+    "hrr": {
+      "released": false,
+      "n": 1996063,
+      "brier": 0.2186,
+      "baseline_brier": 0.248,
+      "accuracy": 0.6587,
+      "ece": 0.0026,
+      "failures": [
+        "line step +1: ECE 0.043 above the bar 0.040",
+        "line step +2: ECE 0.050 above the bar 0.040"
+      ],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "by_line_step": {
+        "-1": {
+          "n": 281851,
+          "ece": 0.0166,
+          "predicted": 0.7183,
+          "landed": 0.7328,
+          "brier": 0.1966,
+          "baseline": 0.2358
+        },
+        "0": {
+          "n": 571405,
+          "ece": 0.0392,
+          "predicted": 0.568,
+          "landed": 0.5925,
+          "brier": 0.2396,
+          "baseline": 0.2767
+        },
+        "1": {
+          "n": 571405,
+          "ece": 0.0429,
+          "predicted": 0.3804,
+          "landed": 0.3942,
+          "brier": 0.2397,
+          "baseline": 0.2578
+        },
+        "2": {
+          "n": 571402,
+          "ece": 0.0499,
+          "predicted": 0.294,
+          "landed": 0.2441,
+          "brier": 0.1874,
+          "baseline": 0.2154
+        }
+      },
+      "base_rate": 0.4558
+    },
+    "hr": {
+      "released": true,
+      "n": 571405,
+      "brier": 0.1026,
+      "baseline_brier": 0.1457,
+      "accuracy": 0.8821,
+      "ece": 0.0024,
+      "failures": [],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "by_line_step": {},
+      "base_rate": 0.1179
+    },
+    "rbi": {
+      "released": true,
+      "n": 571405,
+      "brier": 0.2114,
+      "baseline_brier": 0.2707,
+      "accuracy": 0.6943,
+      "ece": 0.0044,
+      "failures": [],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "by_line_step": {},
+      "base_rate": 0.3056
+    },
+    "strikeouts": {
+      "released": true,
+      "n": 289770,
+      "brier": 0.2033,
+      "baseline_brier": 0.2183,
+      "accuracy": 0.6881,
+      "ece": 0.0167,
+      "failures": [],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "by_line_step": {
+        "-2": {
+          "n": 39699,
+          "ece": 0.0176,
+          "predicted": 0.8095,
+          "landed": 0.8268,
+          "brier": 0.1394,
+          "baseline": 0.1563
+        },
+        "-1": {
+          "n": 57501,
+          "ece": 0.0262,
+          "predicted": 0.6992,
+          "landed": 0.7189,
+          "brier": 0.1953,
+          "baseline": 0.2077
+        },
+        "0": {
+          "n": 64202,
+          "ece": 0.0363,
+          "predicted": 0.5391,
+          "landed": 0.5704,
+          "brier": 0.2364,
+          "baseline": 0.2391
+        },
+        "1": {
+          "n": 64167,
+          "ece": 0.031,
+          "predicted": 0.3824,
+          "landed": 0.4081,
+          "brier": 0.2328,
+          "baseline": 0.241
+        },
+        "2": {
+          "n": 64201,
+          "ece": 0.0161,
+          "predicted": 0.2729,
+          "landed": 0.263,
+          "brier": 0.1872,
+          "baseline": 0.2224
+        }
+      },
+      "base_rate": 0.5309
+    },
+    "team_runs": {
+      "released": true,
+      "n": 276170,
+      "brier": 0.2305,
+      "baseline_brier": 0.2427,
+      "accuracy": 0.6227,
+      "ece": 0.0053,
+      "failures": [],
+      "seasons_scored": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "by_line_step": {
+        "-2": {
+          "n": 2322,
+          "ece": 0.0282,
+          "predicted": 0.7179,
+          "landed": 0.7313,
+          "brier": 0.1954,
+          "baseline": 0.2083
+        },
+        "-1": {
+          "n": 64448,
+          "ece": 0.0242,
+          "predicted": 0.6739,
+          "landed": 0.6931,
+          "brier": 0.2131,
+          "baseline": 0.2269
+        },
+        "0": {
+          "n": 69800,
+          "ece": 0.0387,
+          "predicted": 0.5435,
+          "landed": 0.5596,
+          "brier": 0.2475,
+          "baseline": 0.2539
+        },
+        "1": {
+          "n": 69800,
+          "ece": 0.0329,
+          "predicted": 0.4203,
+          "landed": 0.4289,
+          "brier": 0.2452,
+          "baseline": 0.2532
+        },
+        "2": {
+          "n": 69800,
+          "ece": 0.0303,
+          "predicted": 0.342,
+          "landed": 0.3148,
+          "brier": 0.2162,
+          "baseline": 0.2368
+        }
+      },
+      "base_rate": 0.4973
+    }
+  },
+  "caveats": [
+    "Player props and team totals are trained and gated across a SPREAD of lines around each player's median, and must be calibrated at every step, because live picks will stand on bookmakers' lines.",
+    "The team-winner Elo's settings are fitted on 2007-2010 only and then held, so no scored season influenced them.",
+    "2020 was a 60-game season; it is scored like any other."
+  ]
+}
