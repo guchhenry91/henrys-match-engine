@@ -125,6 +125,17 @@ def book_props() -> dict:
                                      for k, g in extra.items()})
 
 
+def book_alts() -> dict:
+    """{"HOME|AWAY": {market: {player: ladder}}} -- bookmakers' ALTERNATE lines
+    (DraftKings / FanDuel via The Odds API), for the "70%+ line" on each card."""
+    try:
+        games = json.loads((ROOT / "data-raw" / "nfl" / "odds_api_props.json")
+                           .read_text(encoding="utf-8")).get("games") or {}
+    except Exception:
+        return {}
+    return {k: (g or {}).get("alt") or {} for k, g in games.items() if (g or {}).get("alt")}
+
+
 def depth_population(roster_index: dict, rosters_complete: bool, known_ids: list) -> list:
     """The players a depth chart must recognise before it is trusted.
 
@@ -157,7 +168,7 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
 def player_projections(player_weeks, games, market, upcoming, injuries=None,
                        roster_index=None, rosters_complete=False,
                        depth_index=None, depth_trusted=False,
-                       book_quotes=None) -> list:
+                       book_quotes=None, alt_quotes=None) -> list:
     """Project every eligible player in the upcoming slate for one market.
 
     `book_quotes` is {"HOME|AWAY": {player: quote}} for this market. Where the
@@ -268,8 +279,33 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
                 dropped_depth.append(f"{name} ({why})")
                 continue
 
+        # THE BOOKMAKER'S ALTERNATE LADDER, each rung asked of the model. Only
+        # rungs inside the line range the model was trained on get a model
+        # number (config.LINE_MULTIPLIERS x his median); others carry None and
+        # are judged on the book's price alone. See nfl/market_blend.safest.
+        ladder = None
+        alt = odds_mod.match_player(
+            (alt_quotes or {}).get(f"{game['home_team']}|{game['away_team']}") or {}, name)
+        if alt and market != "anytime_touchdown":
+            try:
+                median = float(player.get("median") or 0.0)
+                lo = median * min(config.LINE_MULTIPLIERS)
+                hi = median * max(config.LINE_MULTIPLIERS) + 1.0
+                rungs = [(float(l), float(pr)) for l, pr in alt["ladder"]]
+                inside = [l for l, _ in rungs if lo <= l <= hi and l >= config.MIN_LINE[market]]
+                raw = {}
+                if inside:
+                    asked = pd.concat([features.at_line(quoted.loc[[idx]], l) for l in inside])
+                    raw = dict(zip(inside, (float(x) for x in model.predict(asked))))
+                ladder = {"book": alt["book"], "source": alt["source"],
+                          "rungs": [{"line": l, "price": pr, "raw": raw.get(l)} for l, pr in rungs]}
+            except Exception as exc:      # never let a ladder take the board down
+                print(f"  {market}: ladder for {name} skipped ({type(exc).__name__}: {exc})")
+                ladder = None
+
         last_five = [float(v) for v in (player["last_five"] or [])]
         rows.append({
+            "ladder": ladder,
             "market": market,
             "player": name,
             "player_id": player["player_id"],
@@ -360,6 +396,7 @@ def build() -> dict:
     injuries = availability()
     prices = book_prices()
     quotes = book_props()
+    alts = book_alts()
     roster = data.rosters()
     roster_index = rosters.build_index(roster)
 
@@ -444,7 +481,9 @@ def build() -> dict:
                                          depth_index=depth_index,
                                          depth_trusted=depth_trusted,
                                          book_quotes={k: (v or {}).get(market) or {}
-                                                      for k, v in quotes.items()})
+                                                      for k, v in quotes.items()},
+                                         alt_quotes={k: (v or {}).get(market) or {}
+                                                     for k, v in alts.items()})
         if REQUIRE_BOOK_LINE and market != "anytime_touchdown":
             waiting = sum(1 for p in projections if p.get("line_source") == "model")
             projections = [p for p in projections if p.get("line_source") != "model"]
@@ -463,6 +502,9 @@ def build() -> dict:
                 p["probability"] = round(market_blend.blend(p["probability"], p["book_p"], w), 4)
                 p["edge"] = round(p["probability"] - p["book_p"], 4)
                 p["blend_w"] = w
+            for p in projections:
+                p["safe_line"] = market_blend.safest(p.get("ladder"), p, w)
+                p.pop("ladder", None)
             # A PICK IS THE MODEL'S VIEW, NOT THE BOOK'S. Where the raw model rates
             # the over BELOW the book's own price, the blend can still clear 50%
             # purely because the book favours him -- publishing that would be

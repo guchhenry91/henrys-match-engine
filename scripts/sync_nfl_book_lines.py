@@ -61,12 +61,13 @@ def run(client, now=None, store=None) -> dict:
         why = bl.due(entry["checks"], ev["commence_time"], now)
         if why is None:
             continue
-        est = oc.cost(len(bl.MARKETS), bookmakers=len(bl.BOOK_ORDER))
+        markets = list(bl.MARKETS) + list(bl.ALT_MARKETS)
+        est = oc.cost(len(markets), bookmakers=len(bl.BOOK_ORDER))
         try:
             payload = client.get(f"sports/{bl.SPORT_KEY}/events/{ev['id']}/odds",
                                  sport="nfl", purpose=f"nfl {why} check {key}", est=est,
                                  bookmakers=",".join(bl.BOOK_ORDER),
-                                 markets=",".join(bl.MARKETS), oddsFormat="decimal")
+                                 markets=",".join(markets), oddsFormat="decimal")
         except oc.BudgetExceeded as exc:
             print(f"  budget stop: {exc}")
             break
@@ -74,6 +75,9 @@ def run(client, now=None, store=None) -> dict:
             print(f"  {key}: {exc}")
             continue
         props = bl.parse_event(payload)
+        alts = bl.parse_alternates(payload)
+        if alts:
+            entry["alt"] = alts
         if not props:
             # Nothing posted yet. An empty reply costs no credits, so it is not
             # counted against the game's two checks.

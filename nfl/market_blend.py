@@ -104,3 +104,35 @@ def weights() -> dict:
     except Exception:
         return {m: 0.0 for m in YARDAGE}
     return {m: float((raw.get(m) or {}).get("w_used") or 0.0) for m in YARDAGE}
+
+
+# THE "70%+ LINE" on each card: the highest rung of the bookmaker's alternate
+# ladder that the (blended) probability still rates at SAFE_P or better.
+SAFE_P = 0.70
+# A ladder is over-only, so each rung's 1/price still carries the book's margin.
+# It is removed with the overround of the player's main line (both sides quoted);
+# failing that, a typical ladder margin. Never below MIN_OVERROUND, so a rung
+# can only be made to look LESS likely than its raw price, not more.
+DEFAULT_OVERROUND = 1.06
+MIN_OVERROUND = 1.03
+
+
+def safest(ladder, pick: dict, w: float, threshold: float = SAFE_P) -> dict | None:
+    """{"line", "price", "book", "p"} for the highest rung at >= threshold, or None."""
+    if not ladder or not ladder.get("rungs"):
+        return None
+    over, under = pick.get("book_price"), None
+    main = DEFAULT_OVERROUND
+    if pick.get("book_p") and over:
+        # book_p is the de-vigged over; odd_over the raw price, so the main
+        # line's overround is (1/odd_over) / book_p.
+        main = (1.0 / float(over)) / float(pick["book_p"])
+    overround = max(main, MIN_OVERROUND)
+    best = None
+    for r in ladder["rungs"]:
+        anchor = min((1.0 / r["price"]) / overround, 0.99)
+        p = anchor if r.get("raw") is None else blend(r["raw"], anchor, w)
+        if p >= threshold and (best is None or r["line"] > best["line"]):
+            best = {"line": r["line"], "price": r["price"], "book": ladder["book"],
+                    "p": round(p, 4)}
+    return best
