@@ -10,6 +10,12 @@ name: Odds API coverage probe
 
 on:
   workflow_dispatch:
+    inputs:
+      script:
+        description: "Which probe to run (scripts/<name>.py)"
+        type: choice
+        options: [probe_odds_api, probe_alt_lines]
+        default: probe_odds_api
 
 concurrency:
   group: odds-api            # one spender at a time, so the ledger can't race
@@ -38,7 +44,7 @@ jobs:
           ODDS_API_ENABLED: "true"
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-        run: python -m scripts.probe_odds_api
+        run: python -m scripts.${{ inputs.script || 'probe_odds_api' }}
 
       - name: Commit the probe result and ledger
         run: |
