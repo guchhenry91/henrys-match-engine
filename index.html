@@ -1157,7 +1157,7 @@ function viewToday(){
     }
     h+=`<div class="eyebrow mt">${esc(c.name)}${c.rows.length?` · ${c.rows.length} game${c.rows.length===1?"":"s"}`:""}</div>`;
     if(c.blocked){ h+=`<div class="glass rowc">${emptyRow(c.blocked)}</div>`; continue; }
-    h+=btable(TCOLS, c.rows.sort((a,b)=>new Date(a.date)-new Date(b.date))
+    h+=btable(TCOLS, c.rows.sort(strongFirst((a,b)=>new Date(a.date)-new Date(b.date)))
       .map(r=>todayTableRow({...r, comp:c.name})).join(""));
   }
 
@@ -1202,6 +1202,15 @@ function bandOf(p){
   if(c!=null&&c>=1&&c<=5) return c;
   return confOf(p&&(p.p_pick!=null?p.p_pick:p.probability));
 }
+// STRONG AND SOLID FIRST (owner's request, 2026-09-27). Every board lists its
+// Strong picks (70%+), then Solid (60-70%), then the rest; within each group the
+// board keeps its own order (by time, or by probability).
+function tierRank(x){
+  const b=x&&x.conf!=null?x.conf:bandOf(x);
+  return b>=5?0:b===4?1:2;
+}
+function strongFirst(then){ return (a,b)=>tierRank(a)-tierRank(b)||(then?then(a,b):0); }
+
 function inTier(p){
   if(tier==="all") return true;
   const row=TIERS.find(t=>t[0]===tier);
@@ -1510,7 +1519,7 @@ function viewBest(){
   // Counts come from the UNFILTERED list so the chips do not renumber
   // themselves as the reader moves between them.
   let h=boardFilters(all, tierChips(all));
-  const up=all.filter(inBoard).sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const up=all.filter(inBoard).sort(strongFirst((a,b)=>new Date(a.date)-new Date(b.date)));
   h+=sectHead("Henry's live model",`Strongest model picks · p ≥ ${pc(best.min_probability||.65)}%`,
     "Edge is the model's probability minus the bookmaker's implied probability, shown only where a price is published.");
   h+=up.length?btable(PCOLS,up.map(bestTableRow).join(""))
@@ -1559,7 +1568,7 @@ function viewPlayers(){
   // probability buries every goalscorer under every shots pick.
   const markets=(filter==="all")?["sot","shots","goal"]:[filter];
   for(const mk of markets){
-    const list=up.filter(p=>p.market===mk&&inBoard(p)).sort((a,b)=>b.p_pick-a.p_pick);
+    const list=up.filter(p=>p.market===mk&&inBoard(p)).sort(strongFirst((a,b)=>b.p_pick-a.p_pick));
     const r=rbm[mk]||{};
     h+=sectHead("Live board",`${NAME[mk]||mk} · ${list.length} pick${list.length===1?"":"s"}`,
       (r.total?`${r.correct}–${r.wrong} graded in this market. `:"")
@@ -1812,7 +1821,7 @@ function viewNFL(){
 
   if(filter==="all"||filter==="team_winner"){
     const games=(d.games||[]).filter(inBoard)
-      .sort((a,b)=>new Date(a.kickoff)-new Date(b.kickoff)||b.p_pick-a.p_pick);
+      .sort(strongFirst((a,b)=>new Date(a.kickoff)-new Date(b.kickoff)||b.p_pick-a.p_pick));
     h+=sectHead("Henry's live model",`Team winner · ${d.season?`week ${d.week} · `:""}${games.length} game${games.length===1?"":"s"}`,
       "Edge is the model's probability minus bet365's de-vigged probability for the same side.");
     h+=games.length?btable(PCOLS,games.map(nflGameTableRow).join(""))
@@ -1830,7 +1839,7 @@ function viewNFL(){
       h+=sectHead("Live board",full)+`<div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
       continue;
     }
-    const picks=(block.picks||[]).filter(inBoard);
+    const picks=(block.picks||[]).filter(inBoard).sort(strongFirst((a,b)=>b.probability-a.probability));
     // "All" is an overview: the top few per market, the full list behind that
     // market's own chip.
     const overview = filter==="all";
@@ -1946,7 +1955,7 @@ function viewNBA(){
 
     if(filter==="all"||filter==="team_winner"){
       const games=(d.games||[]).filter(inBoard)
-        .sort((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)||b.p_pick-a.p_pick);
+        .sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)||b.p_pick-a.p_pick));
       h+=sectHead("Henry's live model",`Team winner · ${games.length} game${games.length===1?"":"s"}`,
         "Edge is the model's probability minus the book's de-vigged probability for the same side.");
       h+=games.length?btable(PCOLS,games.map(nbaGameTableRow).join(""))
@@ -1959,7 +1968,7 @@ function viewNBA(){
         h+=sectHead("Live board",NBAMK[m])+`<div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
         continue;
       }
-      const picks=(block.picks||[]).filter(inBoard);
+      const picks=(block.picks||[]).filter(inBoard).sort(strongFirst((a,b)=>b.probability-a.probability));
       const shown=filter==="all"?picks.slice(0,NFL_OVERVIEW):picks;
       const more=picks.length-shown.length;
       h+=sectHead("Live board",`${NBAMK[m]} · ${picks.length} pick${picks.length===1?"":"s"}`,
@@ -2025,7 +2034,7 @@ function viewUCL(){
       <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
 
   const ms=(d.matches||[]).filter(inBoard)
-    .sort((x,y)=>new Date(x.kickoff||x.date)-new Date(y.kickoff||y.date));
+    .sort(strongFirst((x,y)=>new Date(x.kickoff||x.date)-new Date(y.kickoff||y.date)));
   h+=sectHead("Henry's live model",`League phase · ${ms.length} fixture${ms.length===1?"":"s"}`,
     ms.length>40?"Showing the first 40 — pick a match date above to narrow the list.":"");
   h+=ms.length?btable(PCOLS,ms.slice(0,40).map(uclTableRow).join(""))
