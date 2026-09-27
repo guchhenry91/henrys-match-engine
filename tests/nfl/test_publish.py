@@ -201,3 +201,9 @@ def test_the_next_game_row_has_this_weeks_opponent_and_last_weeks_game_in_its_fo
                                   {}, False).iloc[0]
     assert row["opponent_team"] == "NEW" and row["season"] == 2026
     assert row["form5"] == (40 * 4 + 100) / 5          # week 13's 100 is in his form
+
+
+def test_only_players_who_carry_the_offence_are_published():
+    from nfl import config
+    assert config.WORKLOAD_RULES["receiving_yards"] == {"max_rank": 3, "min_share": 0.10}
+    assert config.WORKLOAD_RULES["rushing_yards"]["max_rank"] == 1

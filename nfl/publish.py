@@ -257,6 +257,27 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     if latest is None or latest.empty:
         return []
 
+    # WHO CARRIES THE OFFENCE (config.WORKLOAD_RULES): rank each team's players
+    # by their entering share of this market's opportunity and keep only the
+    # ones the offence actually runs through.
+    # Players ruled OUT are dropped BEFORE ranking, so the next man up moves into
+    # the top group when the lead option is inactive.
+    out_names = {n for n, r in (injuries or {}).items() if (r or {}).get("status") == "out"}
+    latest = latest[~latest["player_display_name"].isin(out_names)].copy()
+    if latest.empty:
+        return []
+    latest["workload_rank"] = (latest.groupby("team")["share5"]
+                               .rank(ascending=False, method="first").astype(int))
+    rule = config.WORKLOAD_RULES.get(market)
+    if rule:
+        before = len(latest)
+        latest = latest[(latest["workload_rank"] <= rule["max_rank"])
+                        & (latest["share5"] >= rule["min_share"])].copy()
+        print(f"  {market}: workload rule kept {len(latest)} of {before} "
+              f"(top {rule['max_rank']} per team, {rule['min_share']:.0%}+ share)")
+        if latest.empty:
+            return []
+
     # RECONCILE THE CLUB BEFORE choosing who is playing. nflverse says where a man
     # last PLAYED; the roster snapshot says where he IS, and through an offseason
     # those differ. Doing this after the fixture lookup would project a moved
@@ -400,6 +421,8 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             # confirmed roster spot from an inference off last season.
             "club_source": player.get("_why", "unknown"),
             "injury_note": report.get("detail") or None,
+            "workload_share": round(float(player.get("share5") or 0.0), 3),
+            "workload_rank": int(player.get("workload_rank") or 0),
             "depth_pos": (entry or {}).get("pos"),
             "depth_rank": (entry or {}).get("rank"),
             "depth_label": (f"{entry['pos']}{entry['rank']}" if entry else None),

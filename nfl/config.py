@@ -136,3 +136,21 @@ import os as _os
 # better in all four prop markets (receiving ECE 0.0085 -> 0.0063, rushing 0.0066
 # -> 0.0051, TD 0.0144 -> 0.0124, passing 0.0093 -> 0.0091) and Brier in three.
 TRAIN_SEASONS = int(_os.environ.get("NFL_TRAIN_SEASONS") or 5)
+
+
+# WHO CARRIES THE OFFENCE. A prop is published only for a player among his team's
+# top `max_rank` by entering share of the market's opportunity (targets, carries,
+# attempts) and holding at least `min_share` of it. The old rule was a median of
+# just 2 targets / 4 carries a game, so fringe players qualified whenever a book
+# posted a low line on them -- and those are the picks that missed. Measured on the
+# 2025 walk-forward (board-style picks): receivers under a 10% target share landed
+# 34% against 56% predicted, a team's 4th+ option 43% against 58%, its No.1 target
+# 63% against 56%; a No.2 back 51% against 62%, the lead back 61% against 59%.
+# Checked out of sample before adoption -- published hit rate with the rule vs
+# without: receiving 2023 54.0 vs 53.2, 2024 62.2 vs 60.3; rushing 2023 61.7 vs
+# 58.2, 2024 64.1 vs 57.1.
+WORKLOAD_RULES = {
+    "receiving_yards": {"max_rank": 3, "min_share": 0.10},
+    "rushing_yards": {"max_rank": 1, "min_share": 0.30},
+    "passing_yards": {"max_rank": 1, "min_share": 0.50},
+}

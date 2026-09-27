@@ -1414,6 +1414,7 @@ function nflPropTableRow(p, full){
     <div class="be"><div class="beb">NFL · ${esc(full||p.market)}</div>
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)}${p.depth_label?` · ${esc(p.depth_label)}`:""}${
+        p.workload_share?` · No.${p.workload_rank} on his team · ${Math.round(p.workload_share*100)}% of ${({receiving_yards:"targets",rushing_yards:"carries",passing_yards:"attempts",anytime_touchdown:"touches"})[p.market]||"volume"}`:""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
