@@ -56,3 +56,61 @@ def test_grading_void_for_a_non_starter_and_pending_without_a_box_score():
     mp.grade(log, {}, {("G1", "NYA"): {"RUNS": 6}}, {"G1"})
     assert log["G1:hits:abc"]["graded"] == "void"
     assert log["G1:team_runs:NYA"]["graded"] == "correct"
+
+
+# --- who can actually play -------------------------------------------------------
+
+def test_availability_drops_inactive_benched_and_non_starting_players():
+    from types import SimpleNamespace
+    from mlb import board
+    g = SimpleNamespace(game_pk=7, home_team="NYA", away_team="BAL",
+                        home_pitcher=None, away_pitcher=None)
+    avail = {"active": {"NYA": {"judga001", "ricbe001", "colega001"}},
+             "lineups": {(7, "NYA"): {"judga001"}}}
+    assert board.unavailable("batter", "stanc001", "NYA", g, avail) == "not on the active roster"
+    assert board.unavailable("batter", "ricbe001", "NYA", g, avail) == "not in the posted lineup"
+    assert board.unavailable("batter", "judga001", "NYA", g, avail) is None
+    # BAL: roster not fetched and no lineup yet -> not filtered, never guessed
+    assert board.unavailable("batter", "anyone01", "BAL", g, avail) is None
+    assert board.unavailable("batter", "stanc001", "NYA", g, None) is None
+
+
+def test_only_the_probable_starter_gets_a_strikeout_prop(monkeypatch):
+    from types import SimpleNamespace
+    from mlb import board, current
+    monkeypatch.setattr(current, "retro_id", lambda m: {1: "colega001"}.get(m, f"mlbam:{m}"))
+    avail = {"active": {"NYA": {"colega001", "rodoc001"}}, "lineups": {}}
+    g = SimpleNamespace(game_pk=7, home_team="NYA", away_team="BAL",
+                        home_pitcher=1, away_pitcher=None)
+    assert board.unavailable("pitcher", "colega001", "NYA", g, avail) is None
+    assert board.unavailable("pitcher", "rodoc001", "NYA", g, avail) == "not the probable starter"
+
+
+def test_availability_reads_rosters_and_posted_lineups(monkeypatch):
+    import io
+    import json as _json
+    import pandas as pd
+    from mlb import current
+    monkeypatch.setattr(current, "retro_id", lambda m: f"r{m}")
+    monkeypatch.setattr(current, "PAUSE", 0)
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def opener(req, timeout=None):
+        url = req.full_url
+        if "teams/147/roster" in url:
+            body = {"roster": [{"person": {"id": 1}}, {"person": {"id": 2}}]}
+        elif "teams/110/roster" in url:
+            raise OSError("down")
+        else:
+            body = {"dates": [{"games": [{"gamePk": 7, "lineups": {"homePlayers": [{"id": 1}]}}]}]}
+        return R(_json.dumps(body).encode())
+    games = pd.DataFrame([{"game_pk": 7, "home_team": "NYA", "away_team": "BAL"}])
+    got = current.availability(games, opener)
+    assert got["active"] == {"NYA": {"r1", "r2"}}             # BAL failed: not filtered
+    assert got["lineups"] == {(7, "NYA"): {"r1"}}

@@ -1118,6 +1118,10 @@ for match odds). Picks stand on bookmakers' lines only, either side (unders wher
 model leans under), published only where the model is at least as sure as the book;
 home runs are published where the model rates the player above the book's price.
 Frozen before first pitch, graded from the box score (`mlb/picks.py`).
+Availability (`current.availability`, `board.unavailable`, free StatsAPI): a player
+must be on his team's ACTIVE roster, a batter in the posted lineup once there is one,
+a strikeouts prop only for the probable starter. A failed roster call leaves that team
+unfiltered. On 2026-09-27 this would have removed 6 of 179 picks, all benched or absent.
 
 - **Data: Retrosheet game-level CSVs** (`https://www.retrosheet.org/downloads/{y}/{y}csvs.zip`):
   player-by-game batting and pitching lines, gameinfo and teamstats. Trimmed to the

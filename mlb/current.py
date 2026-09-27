@@ -87,6 +87,53 @@ def schedule(start: str, end: str, opener=urllib.request.urlopen) -> pd.DataFram
     return pd.DataFrame(rows)
 
 
+def availability(games: pd.DataFrame, opener=urllib.request.urlopen) -> dict:
+    """Who can actually play: each team's ACTIVE roster and, once posted, each
+    game's starting lineup -- both from MLB's own feed, free.
+
+    {"active": {team: {player ids}}, "lineups": {(game_pk, team): {player ids}}}
+    with ids in the same Retrosheet form as the box-score rows. A team whose roster
+    call fails is simply absent, so it is not filtered (the board is no worse than
+    before); a lineup not yet posted is absent too.
+    """
+    out = {"active": {}, "lineups": {}}
+    if games is None or games.empty:
+        return out
+    code_to_id = {code: tid for tid, code in TEAM_CODES.items()}
+    for team in sorted(set(games["home_team"]) | set(games["away_team"])):
+        tid = code_to_id.get(team)
+        if tid is None:
+            continue
+        try:
+            roster = _get(f"teams/{tid}/roster?rosterType=active", opener).get("roster") or []
+            time.sleep(PAUSE)
+        except Exception as exc:
+            print(f"  roster {team}: not fetched ({exc}); not filtered")
+            continue
+        ids = {retro_id(p["person"]["id"]) for p in roster if (p.get("person") or {}).get("id")}
+        if ids:
+            out["active"][team] = ids
+    pks = ",".join(str(int(pk)) for pk in games["game_pk"])
+    try:
+        raw = _get(f"schedule?sportId=1&gamePks={pks}&hydrate=lineups", opener)
+    except Exception as exc:
+        print(f"  lineups: not fetched ({exc}); not filtered")
+        return out
+    by_pk = {int(r.game_pk): r for r in games.itertuples()}
+    for day in raw.get("dates", []):
+        for g in day.get("games", []):
+            row = by_pk.get(int(g["gamePk"]))
+            if row is None:
+                continue
+            lineups = g.get("lineups") or {}
+            for side in ("home", "away"):
+                players = lineups.get(f"{side}Players") or []
+                if players:
+                    out["lineups"][(int(row.game_pk), getattr(row, f"{side}_team"))] = {
+                        retro_id(p["id"]) for p in players if p.get("id")}
+    return out
+
+
 def box_rows(g: dict, opener=urllib.request.urlopen) -> dict:
     """{"batting", "pitching", "team"} rows for one finished game, history-shaped."""
     box = _get(f"game/{g['game_pk']}/boxscore", opener)

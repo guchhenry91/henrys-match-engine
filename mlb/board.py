@@ -113,7 +113,34 @@ def _price(prob, quote):
             "edge": round(prob - float(quote["over"]), 4) if quote.get("over") else None}
 
 
-def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list) -> dict:
+def unavailable(kind: str, pid, team: str, g, avail: dict | None) -> str | None:
+    """Why this player should NOT be priced for game `g`, or None if he can play.
+
+    The books' listings alone used to decide who appears, so a player on the
+    injured list, sent down or resting could still carry a prop. Checked against
+    MLB's own feed: on the team's active roster; in the posted lineup once there is
+    one (batters); the announced probable starter (pitchers).
+    """
+    if not avail:
+        return None
+    active = (avail.get("active") or {}).get(team)
+    if active is not None and pid not in active:
+        return "not on the active roster"
+    if kind == "batter":
+        lineup = (avail.get("lineups") or {}).get((int(g.game_pk), team))
+        if lineup and pid not in lineup:
+            return "not in the posted lineup"
+    if kind == "pitcher":
+        side = "home" if team == g.home_team else "away"
+        probable = getattr(g, f"{side}_pitcher", None)
+        if probable is not None and not pd.isna(probable) \
+                and current.retro_id(int(probable)) != pid:
+            return "not the probable starter"
+    return None
+
+
+def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list,
+                     avail: dict | None = None) -> dict:
     odds_games = odds_store.get("games") or {}
     out = {m: [] for m in config.MARKETS}
     # The gate's fitted correction for publishing only the top picks (nfl/selection.py).
@@ -131,7 +158,7 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
             for r in latest.itertuples():
                 names.setdefault(odds_mod.norm_name(r.NAME), set()).add(r.PLAYER_ID)
         team_of = dict(zip(latest["PLAYER_ID"], latest["TEAM"])) if not latest.empty else {}
-        synth, meta = [], {}
+        synth, meta, dropped = [], {}, {}
         for g in games_ahead.itertuples():
             og = odds_games.get(str(g.game_pk)) or {}
             if kind == "team":
@@ -153,9 +180,15 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
                 team = team_of.get(pid)
                 if team not in (g.home_team, g.away_team):
                     continue
+                reason = unavailable(kind, pid, team, g, avail)
+                if reason:
+                    dropped[reason] = dropped.get(reason, 0) + 1
+                    continue
                 opp = g.away_team if team == g.home_team else g.home_team
                 synth.append(_synth(pid, team, opp, team == g.home_team, g, spec))
                 meta[(pid, synth[-1]["GAME_ID"])] = (g, team, opp, team == g.home_team, q, name)
+        if dropped:
+            print(f"  {market}: dropped " + ", ".join(f"{n} {r}" for r, n in dropped.items()))
         if not synth:
             continue
         allrows = pd.concat([rows, pd.DataFrame(synth)], ignore_index=True)
@@ -243,5 +276,6 @@ def build(sched: pd.DataFrame, now, released: list) -> dict:
         return {"games": [], "props": {m: [] for m in config.MARKETS},
                 "odds_checked_at": odds_store.get("updated")}
     return {"games": team_picks(sched, games_ahead, odds_store),
-            "props": props_and_totals(games_ahead, odds_store, released),
+            "props": props_and_totals(games_ahead, odds_store, released,
+                                      current.availability(games_ahead)),
             "odds_checked_at": odds_store.get("updated")}
