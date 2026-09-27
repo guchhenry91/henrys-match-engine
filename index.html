@@ -1415,7 +1415,11 @@ function propTableRow(p){
         p.doubt?" · fitness doubt":""}${p.penalty_taker?" · takes penalties":""}</span>
       ${lastFiveTiles(p)}</div>
     <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}</div>
-    ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${valCell("Price","—","off")}</div>`;
+    ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${p.book_price!=null
+      ? valCell(`bet365 ${Number(p.book_price).toFixed(2)}`,
+          p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
+          p.edge==null?"off":p.edge>=0?"pos":"neg")
+      : valCell("Price",p.market==="goal"?"—":"no bet365 market","off")}</div>`;
 }
 
 // Edge = model probability minus the book's implied probability (1/odds). The

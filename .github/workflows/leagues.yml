@@ -439,6 +439,14 @@ jobs:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.sync_player_stats
 
+      # bet365's anytime-goalscorer prices (API-Football, bookmaker 8), for
+      # fixtures with a scorer pick in the next 72h, rechecked at most every 12h.
+      - name: Fetch bet365 scorer prices
+        continue-on-error: true
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.sync_soccer_prop_odds
+
       - name: Refresh confirmed pre-match lineups
         id: lineups
         continue-on-error: true

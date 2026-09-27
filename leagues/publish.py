@@ -19,6 +19,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 # without importing this module's model stack. Re-exported here because a
 # dozen call sites and several tests reference publish.actual_standings.
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
+from leagues import prop_odds
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -1314,6 +1315,10 @@ def main(argv=None):
 
         pp = build_player_picks()
         pp_all = pp.pop("_all_settled", pp["settled"])
+        # bet365's anytime-scorer price and the edge against it, where fetched
+        # (leagues/prop_odds.py). Shots and SOT have no usable bet365 market.
+        n_priced = prop_odds.attach(pp["upcoming"])
+        print(f"  bet365 scorer prices attached to {n_priced} pick(s)")
         ppath = OUT / "player_picks.json"
         if pp["_incomplete"]:
             print(f"  SKIPPED player_picks.json: could not grade "
