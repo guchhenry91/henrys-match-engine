@@ -1264,6 +1264,15 @@ function tierEmpty(){
 // columns on every board so a reader learns the layout once.
 let fdate="all", fleague="all", rkind="all", rall=false;
 function setFDate(d){ fdate=(fdate===d?"all":d); render(cur); }
+// OVERS / UNDERS, one tap, on every board that publishes both (NFL, NBA, MLB).
+// A prop with no side (anytime TD, home runs) is a yes/over bet.
+let fside="all";
+function setFSide(v){ fside=(fside===v?"all":v); render(cur); }
+const inSide=p=>fside==="all"||(p.side||"over")===fside;
+function sideChips(){
+  const c=(v,l)=>`<button class="chip ${fside===v?"on":""}" type="button" onclick="setFSide('${v}')">${l}</button>`;
+  return `<div class="chips">${c("all","All sides")}${c("over","Overs")}${c("under","Unders")}</div>`;
+}
 function setFLeague(l){ fleague=l; render(cur); }
 function setRKind(k){ rkind=k; rall=false; render(cur); }
 function showAllSettled(){ rall=true; render(cur); }
@@ -1814,7 +1823,7 @@ function viewNFL(){
   const nflAll=(d.games||[]).concat(
     Object.values(d.props||{}).flatMap(b=>(b&&b.released&&b.picks)||[]));
   const mchips=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
-  let h=boardFilters(nflAll, tierChips(nflAll), mchips);
+  let h=boardFilters(nflAll, tierChips(nflAll), mchips+sideChips());
 
   const tw=ev.team_winner||{};
   if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
@@ -1856,7 +1865,7 @@ function viewNFL(){
       h+=sectHead("Live board",full)+`<div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
       continue;
     }
-    const picks=(block.picks||[]).filter(inBoard).sort(strongFirst((a,b)=>b.probability-a.probability));
+    const picks=(block.picks||[]).filter(inBoard).filter(inSide).sort(strongFirst((a,b)=>b.probability-a.probability));
     // "All" is an overview: the top few per market, the full list behind that
     // market's own chip.
     const overview = filter==="all";
@@ -1984,7 +1993,7 @@ function viewMLB(){
   let h="";
   if(d.status==="live"){
     const all=(d.games||[]).concat(Object.values(d.props||{}).flatMap(b=>(b&&b.released&&b.picks)||[]));
-    h+=boardFilters(all, tierChips(all));
+    h+=boardFilters(all, tierChips(all), sideChips());
     h+=`<p class="note">${esc(d.status_note||"")}</p>`;
     const rec=d.record||{}, rw=rec.team_winner||{}, rp=rec.props||{};
     const recLine=(label,r)=>!r||!(r.settled||r.pending)?"":
@@ -2002,7 +2011,7 @@ function viewMLB(){
       :`<div class="glass rowc">${emptyRow("No MLB games in the next day and a half")}</div>`;
     for(const m of ["team_runs","hits","hrr","rbi","hr","strikeouts"]){
       const block=(d.props||{})[m]; if(!block||!block.released) continue;
-      const picks=(block.picks||[]).filter(inBoard).sort(strongFirst((a,b)=>b.probability-a.probability));
+      const picks=(block.picks||[]).filter(inBoard).filter(inSide).sort(strongFirst((a,b)=>b.probability-a.probability));
       h+=sectHead("Live board",`${MLBMK[m]} · ${picks.length} pick${picks.length===1?"":"s"}`,
         m==="hr"?"Home runs are a ~12% event: shown where the model rates the player above the book's own price."
         :"Every line is a bookmaker's (Pinnacle, DraftKings or FanDuel); the probability is the model's for that exact line.");
@@ -2051,7 +2060,7 @@ function viewNBA(){
     const chips=[["all","All"],["team_winner","Winners"],["points","Points"],
                  ["rebounds","Rebounds"],["assists","Assists"],["threes","Threes"]];
     const mchips=`<div class="chips">${chips.map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
-    h+=boardFilters(nbaAll, tierChips(nbaAll), mchips);
+    h+=boardFilters(nbaAll, tierChips(nbaAll), mchips+sideChips());
     h+=`<p class="note">${esc(d.status_note||"")}</p>`;
 
     // THE LIVE RECORD, from the frozen picks log -- kept apart from the backtest.
@@ -2080,7 +2089,7 @@ function viewNBA(){
         h+=sectHead("Live board",NBAMK[m])+`<div class="glass rowc">${emptyRow("Withheld — did not clear the release gate")}</div>`;
         continue;
       }
-      const picks=(block.picks||[]).filter(inBoard).sort(strongFirst((a,b)=>b.probability-a.probability));
+      const picks=(block.picks||[]).filter(inBoard).filter(inSide).sort(strongFirst((a,b)=>b.probability-a.probability));
       const shown=filter==="all"?picks.slice(0,NFL_OVERVIEW):picks;
       const more=picks.length-shown.length;
       h+=sectHead("Live board",`${NBAMK[m]} · ${picks.length} pick${picks.length===1?"":"s"}`,
