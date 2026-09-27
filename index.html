@@ -626,6 +626,12 @@ const PROPS=[
   {id:"nba:rebounds", view:"NBA", filter:"rebounds", ic:"🙌", t:"NBA rebounds"},
   {id:"nba:assists", view:"NBA", filter:"assists", ic:"🎯", t:"NBA assists"},
   {id:"nba:threes", view:"NBA", filter:"threes", ic:"🏹", t:"NBA threes"},
+  {id:"mlb:hits", view:"MLB", filter:"hits", ic:"🏏", t:"MLB hits"},
+  {id:"mlb:hrr", view:"MLB", filter:"hrr", ic:"➕", t:"MLB hits + runs + RBIs"},
+  {id:"mlb:hr", view:"MLB", filter:"hr", ic:"💥", t:"MLB home runs"},
+  {id:"mlb:rbi", view:"MLB", filter:"rbi", ic:"🏃", t:"MLB RBIs"},
+  {id:"mlb:strikeouts", view:"MLB", filter:"strikeouts", ic:"🔥", t:"MLB strikeouts"},
+  {id:"mlb:team_runs", view:"MLB", filter:"team_runs", ic:"📈", t:"MLB team totals"},
 ];
 
 // SPORT FIRST, THEN MARKET. The page is scoped to one sport at a time: the
@@ -637,7 +643,7 @@ const SPORT_NAME=Object.fromEntries(SPORTS);
 const SPORT_OF={NFL:"nfl",NBA:"nba",MLB:"mlb",UCL:"ucl"};
 const sportOf=k=>SPORT_OF[k]||"soccer";
 function curSport(){ return cur==="grades" ? (gsport||"soccer") : sportOf(cur); }
-const propLabel=p=>{const t=p.t.replace(/^(NFL|NBA) /,""); return t[0].toUpperCase()+t.slice(1);};
+const propLabel=p=>{const t=p.t.replace(/^(NFL|NBA|MLB) /,""); return t[0].toUpperCase()+t.slice(1);};
 
 // Every tab is a real board. NFL and NBA markets are built from PROPS, so the tab
 // row and the sidebar links cannot disagree about which markets exist. `loose`
@@ -645,9 +651,11 @@ const propLabel=p=>{const t=p.t.replace(/^(NFL|NBA) /,""); return t[0].toUpperCa
 // already scoped to that sport.
 function tabsFor(s){
   const props=v=>PROPS.filter(p=>p.view===v).map(p=>({k:v,f:p.filter,t:propLabel(p),ic:"+"}));
-  if(s==="nfl") return [{k:"NFL",t:"Board",ic:"⌂"},...props("NFL"),{k:"grades",gs:"nfl",t:"Results",ic:"✓"}];
-  if(s==="nba") return [{k:"NBA",t:"Board",ic:"⌂"},...props("NBA"),{k:"grades",gs:"nba",t:"Results",ic:"✓"}];
-  if(s==="mlb") return [{k:"MLB",t:"Board",ic:"⌂"},{k:"grades",gs:"mlb",t:"Results",ic:"✓"}];
+  // Overs / Unders in the rail: one tap for every over (or under) on the board.
+  const sides=v=>[{k:v,side:"over",t:"Overs",ic:"▲"},{k:v,side:"under",t:"Unders",ic:"▼"}];
+  if(s==="nfl") return [{k:"NFL",t:"Board",ic:"⌂"},...props("NFL"),...sides("NFL"),{k:"grades",gs:"nfl",t:"Results",ic:"✓"}];
+  if(s==="nba") return [{k:"NBA",t:"Board",ic:"⌂"},...props("NBA"),...sides("NBA"),{k:"grades",gs:"nba",t:"Results",ic:"✓"}];
+  if(s==="mlb") return [{k:"MLB",t:"Board",ic:"⌂"},...props("MLB"),...sides("MLB"),{k:"grades",gs:"mlb",t:"Results",ic:"✓"}];
   if(s==="ucl") return [{k:"UCL",t:"Today",ic:"⌂",loose:1},{k:"grades",gs:"ucl",t:"Results",ic:"✓"}];
   return [{k:"today",t:"Today",ic:"⌂",loose:1},{k:"best",t:"Best Picks",ic:"★",loose:1},
     {k:"players",t:"Player Props",ic:"+",loose:1},{k:"six",t:"Correct Scores",ic:"#",loose:1},
@@ -663,6 +671,8 @@ const TITLE={today:"Today's markets",best:"Best picks",players:"Player props",si
   NBA:"NBA board",MLB:"MLB board",UCL:"Champions League"};
 
 function openTab(t){
+  if(t.side) fside=t.side;
+  else if(!t.f&&!t.gs&&(t.k==="NFL"||t.k==="NBA"||t.k==="MLB")) fside="all";
   go(t.k,t.f);
   if(t.gs&&t.gs!==gsport){ gsport=t.gs; render(cur); }
 }
@@ -680,7 +690,10 @@ function isOn(d){
   if(d.k!==cur) return false;
   if(d.k==="grades") return !d.gs||d.gs===gsport;
   if(d.loose) return true;
-  return (d.f||"all")===filter;
+  // An Overs / Unders entry is lit when that side is the one showing; the Board
+  // and market entries stay lit alongside it only when no side is chosen.
+  if(d.side) return d.side===fside;
+  return (d.f||"all")===filter && (fside==="all"||!!d.f);
 }
 // Marks the active target everywhere at once, so the sidebar and the tab row can
 // never disagree about where the reader is.
@@ -705,6 +718,11 @@ function propCount(item){
     const ev=((DATA.nba||{}).evidence||{})[item.filter];
     return ev&&ev.n!=null?ev.n:null;
   }
+  if(item.view==="MLB"){
+    if(!DATA.mlb) return null;
+    const b=(DATA.mlb.props||{})[item.filter];
+    return b?(b.picks||[]).length:null;
+  }
   if(item.view==="NFL"){
     if(!DATA.nfl) return null;
     if(item.filter==="team_winner") return (DATA.nfl.games||[]).length;
@@ -712,6 +730,12 @@ function propCount(item){
     return b?(b.picks||[]).length:null;
   }
   return null;
+}
+
+function sideCount(view,side){
+  const d=DATA[{NFL:"nfl",NBA:"nba",MLB:"mlb"}[view]];
+  if(!d) return null;
+  return Object.values(d.props||{}).flatMap(b=>(b&&b.picks)||[]).filter(p=>(p.side||"over")===side).length;
 }
 
 function countFor(k){
@@ -750,7 +774,7 @@ function feedBadge(s){
 
 function navBtn(cls,t,withIcon){
   const b=document.createElement("button"); b.type="button"; b.className=cls;
-  b.dataset.k=t.k; if(t.f) b.dataset.f=t.f; if(t.gs) b.dataset.gs=t.gs; if(t.loose) b.dataset.loose="1";
+  b.dataset.k=t.k; if(t.f) b.dataset.f=t.f; if(t.side) b.dataset.side=t.side; if(t.gs) b.dataset.gs=t.gs; if(t.loose) b.dataset.loose="1";
   b.innerHTML=(withIcon?`<span class="gl">${esc(t.ic||"•")}</span>`:"")+`<span>${esc(t.t)}</span>`
     +(t.ct!=null?`<span class="ct">${t.ct}</span>`:"");
   b.onclick=()=>openTab(t);
@@ -782,7 +806,7 @@ function buildSidebar(){
   SPORTS.forEach(([k,t])=>side.append(sportBtn("sitem",k,t,true)));
   group(side,"Markets");
   for(const t of tabsFor(s)){
-    const ct=t.k==="grades"?null:t.f?propCount({view:t.k,filter:t.f}):countFor(t.k);
+    const ct=t.k==="grades"?null:t.side?sideCount(t.k,t.side):t.f?propCount({view:t.k,filter:t.f}):countFor(t.k);
     side.append(navBtn("sitem",{...t,ct},true));
   }
   for(const g of SIDE_EXTRA[s]||[]){
@@ -2014,12 +2038,14 @@ function viewMLB(){
     if((rw.settled||rw.pending)||(rp.settled||rp.pending))
       h+=`<div class="eyebrow" style="margin-top:18px">Live record · frozen picks</div>
         <div class="glass rowc">${recLine("Team winner",rw)}${recLine("Props and team totals",rp)}</div>`;
-    const games=(d.games||[]).filter(inBoard).sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)));
-    h+=sectHead("Henry's live model",`Team winner · ${games.length} game${games.length===1?"":"s"}`,
-      "Edge is the model's probability minus the book's de-vigged probability for the same side.");
-    h+=games.length?btable(PCOLS,games.map(mlbGameTableRow).join(""))
-      :`<div class="glass rowc">${emptyRow("No MLB games in the next day and a half")}</div>`;
-    for(const m of ["team_runs","hits","hrr","rbi","hr","strikeouts"]){
+    if(filter==="all"||filter==="team_winner"){
+      const games=(d.games||[]).filter(inBoard).sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)));
+      h+=sectHead("Henry's live model",`Team winner · ${games.length} game${games.length===1?"":"s"}`,
+        "Edge is the model's probability minus the book's de-vigged probability for the same side.");
+      h+=games.length?btable(PCOLS,games.map(mlbGameTableRow).join(""))
+        :`<div class="glass rowc">${emptyRow("No MLB games in the next day and a half")}</div>`;
+    }
+    for(const m of ["team_runs","hits","hrr","rbi","hr","strikeouts"].filter(x=>filter==="all"||filter==="team_winner"?filter==="all":x===filter)){
       const block=(d.props||{})[m]; if(!block||!block.released) continue;
       const picks=(block.picks||[]).filter(inBoard).filter(inSide).sort(strongFirst((a,b)=>b.probability-a.probability));
       h+=sectHead("Live board",`${MLBMK[m]} · ${picks.length} pick${picks.length===1?"":"s"}`,
