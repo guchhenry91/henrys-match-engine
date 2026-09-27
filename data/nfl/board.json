@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T02:25:45.235081+00:00",
+  "updated": "2026-09-27T09:16:36.111265+00:00",
   "season": 2026,
   "week": 3,
   "elo": {
@@ -321,10 +321,10 @@
       "rating_away": 1556.4,
       "gradeable": true,
       "book": "Bet365",
-      "book_p_pick": 0.3357,
-      "edge": 0.173,
+      "book_p_pick": 0.3765,
+      "edge": 0.1322,
       "verdict": "value",
-      "book_price_overround": 1.0453,
+      "book_price_overround": 1.0415,
       "lockable": true
     }
   ],
@@ -799,9 +799,9 @@
             16.0
           ],
           "last_five_average": 33.2,
-          "availability": "not reported",
+          "availability": "doubt",
           "club_source": "moved: IND -> PIT",
-          "injury_note": null,
+          "injury_note": "manual: Questionable (foot) for Week 3 vs. Bengals; missed Week 2 with the same injury and was limited in practice all week, status still cloudy for Sunday. Sources: steelersdepot.com (\"Steelers' Week 3 Friday Injury Report: Two Players Ruled Out, Four Others Questionable\"), rotoballer.com (\"Michael Pittman Jr. Enters Week 3 Matchup With Bengals With a Questionable Tag\").",
           "depth_pos": "WR",
           "depth_rank": 2,
           "depth_label": "WR2",
@@ -2799,7 +2799,7 @@
           "lockable": true
         }
       ],
-      "awaiting_book_line": 14
+      "awaiting_book_line": 13
     },
     "rushing_yards": {
       "released": true,
@@ -4778,7 +4778,7 @@
   },
   "depth_check": {
     "source": "nflverse depth charts",
-    "players": 1864,
+    "players": 1914,
     "coverage_of_known_actives": 0.939,
     "applied": true,
     "caps": {
@@ -4791,16 +4791,16 @@
   },
   "roster_check": {
     "source": "nflverse rosters",
-    "players_placed": 1682,
+    "players_placed": 1724,
     "teams": 32,
-    "agreement_with_known_players": 0.651,
+    "agreement_with_known_players": 0.664,
     "trusted": true
   },
   "odds": {
     "fixtures_priced": 15,
     "source": "API-NFL, bet365 preferred",
     "note": "Edges are model probability minus the de-vigged book price.",
-    "checked_at": "2026-09-27T02:24:43.064861+00:00",
+    "checked_at": "2026-09-27T09:15:31.875241+00:00",
     "player_props": {
       "available": true,
       "markets_quoted": [
@@ -4829,7 +4829,7 @@
     }
   },
   "injury_report": {
-    "players_listed": 77,
+    "players_listed": 78,
     "source": "API-NFL"
   },
   "caveats": [
