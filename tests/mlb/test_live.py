@@ -114,3 +114,19 @@ def test_availability_reads_rosters_and_posted_lineups(monkeypatch):
     got = current.availability(games, opener)
     assert got["active"] == {"NYA": {"r1", "r2"}}             # BAL failed: not filtered
     assert got["lineups"] == {(7, "NYA"): {"r1"}}
+
+
+def test_sync_keeps_one_date_format_so_the_next_load_parses(tmp_path, monkeypatch):
+    import pandas as pd
+    from mlb import current
+    monkeypatch.setattr(current, "DIR", tmp_path)
+    for k in ("batting", "pitching", "team"):
+        pd.DataFrame([{"GAME_ID": "MLB1", "game_date": "2026-09-26", "PLAYER_ID": "a"}]).to_csv(
+            current._path(k), index=False, compression="gzip")
+    sched = pd.DataFrame([{"game_pk": 2, "status": "Final", "start": "2026-09-27T17:00:00Z"}])
+    monkeypatch.setattr(current, "box_rows", lambda g, opener=None: {
+        k: [{"GAME_ID": "MLB2", "game_date": "2026-09-27", "PLAYER_ID": "b"}]
+        for k in ("batting", "pitching", "team")})
+    assert current.sync(sched, sleeper=lambda s: None)["fetched"] == 1
+    got = current.load("team")
+    assert list(got["game_date"].dt.strftime("%Y-%m-%d")) == ["2026-09-26", "2026-09-27"]

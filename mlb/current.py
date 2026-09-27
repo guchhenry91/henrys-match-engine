@@ -184,7 +184,9 @@ def load(kind: str) -> pd.DataFrame:
         frame = pd.read_csv(_path(kind), low_memory=False)
     except Exception:
         return pd.DataFrame()
-    frame["game_date"] = pd.to_datetime(frame["game_date"])
+    # "mixed": files written before 2026-09-27 hold both "2026-09-26" and
+    # "2026-09-26 00:00:00", which a single inferred format rejects.
+    frame["game_date"] = pd.to_datetime(frame["game_date"], format="mixed")
     return frame
 
 
@@ -212,5 +214,7 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen, sleeper=time.sleep)
             old = load(k)
             frame = pd.concat([old, pd.DataFrame(rows)], ignore_index=True) if not old.empty \
                 else pd.DataFrame(rows)
+            # One date format on disk: loaded rows are Timestamps, new rows strings.
+            frame["game_date"] = pd.to_datetime(frame["game_date"], format="mixed").dt.strftime("%Y-%m-%d")
             frame.to_csv(_path(k), index=False, compression="gzip")
     return {"fetched": fetched, "failed": failed, "pending": max(len(todo) - fetched - failed, 0)}
