@@ -463,6 +463,16 @@ def build() -> dict:
                 p["probability"] = round(market_blend.blend(p["probability"], p["book_p"], w), 4)
                 p["edge"] = round(p["probability"] - p["book_p"], 4)
                 p["blend_w"] = w
+            # A PICK IS THE MODEL'S VIEW, NOT THE BOOK'S. Where the raw model rates
+            # the over BELOW the book's own price, the blend can still clear 50%
+            # purely because the book favours him -- publishing that would be
+            # passing the book's opinion off as a model selection.
+            against = [p for p in projections
+                       if p.get("p_model") is not None and p["p_model"] < p["book_p"]]
+            if against:
+                print(f"  {market}: {len(against)} dropped -- the raw model rates the "
+                      f"over below the book's own price")
+            projections = [p for p in projections if p not in against]
             projections.sort(key=lambda p: -p["probability"])
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
