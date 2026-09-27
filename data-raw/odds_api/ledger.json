@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 99629,
-  "account_used": 371,
+  "account_remaining": 99539,
+  "account_used": 461,
   "alerts": [],
   "calls": [
     {
@@ -831,6 +831,60 @@
       "path": "sports/baseball_mlb/events/f915dd93e407b20c3b8693fa226d6bf6/odds",
       "purpose": "mlb lock check NYN@WAS",
       "sport": "mlb"
+    },
+    {
+      "account_remaining": 99569,
+      "account_used": 431,
+      "at": "2026-09-27T17:15:05+00:00",
+      "credits": 0,
+      "path": "sports/americanfootball_nfl/events",
+      "purpose": "nfl: list events",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99563,
+      "account_used": 437,
+      "at": "2026-09-27T17:15:05+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/9d2b09e0f9b6dd5ce0d985894f4f98fa/odds",
+      "purpose": "nfl lock check SF|ARI",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99557,
+      "account_used": 443,
+      "at": "2026-09-27T17:15:05+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/f1724dead3eab61546033032fc782375/odds",
+      "purpose": "nfl lock check TB|MIN",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99551,
+      "account_used": 449,
+      "at": "2026-09-27T17:15:05+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/84cfca14efc21363fd605508404cf1ff/odds",
+      "purpose": "nfl lock check DAL|BAL",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99545,
+      "account_used": 455,
+      "at": "2026-09-27T17:15:05+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/2e523fcb0497aa689473e290eb2b97de/odds",
+      "purpose": "nfl lock check NO|LV",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99539,
+      "account_used": 461,
+      "at": "2026-09-27T17:15:05+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/3bfd8bfb4b8e9a365a0877879b73b16b/odds",
+      "purpose": "nfl lock check DEN|LA",
+      "sport": "nfl"
     }
   ],
   "days": {
@@ -851,10 +905,10 @@
     "2026-09-27": {
       "by_sport": {
         "mlb": 98,
-        "nfl": 48
+        "nfl": 78
       },
-      "credits": 146
+      "credits": 176
     }
   },
-  "updated": "2026-09-27T16:21:24.666884+00:00"
+  "updated": "2026-09-27T17:15:05.567766+00:00"
 }
