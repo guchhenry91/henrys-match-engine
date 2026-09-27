@@ -194,7 +194,9 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
         # Home runs: a ~12% event, so the bar is the PRICE, not 50% -- publish
         # where the model rates him above the book's own view.
         keep = [p for p in picks if (p["edge"] or 0) > 0] if market == "hr" else \
-            [p for p in picks if p["probability"] >= MIN_PROBABILITY]
+            [p for p in picks if p["probability"] >= MIN_PROBABILITY
+             # The MODEL'S side, not the book's: at least as sure as the book is.
+             and (p.get("edge") is None or p["edge"] >= 0)]
         by_game = {}
         for p in sorted(keep, key=lambda p: -p["probability"]):
             by_game.setdefault(p["game_id"], []).append(p)

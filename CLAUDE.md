@@ -1107,9 +1107,17 @@ NFL yardage props are likewise published on bookmaker lines only
 
 # MLB engine (`mlb/`, tab: MLB) -- added 2026-09-27
 
-Evidence board for now (`status: evidence_only`); live picks start Opening Day 2027,
-once the schedule / probable pitchers / lineups (MLB StatsAPI) and bookmakers' lines
-(The Odds API) are wired.
+LIVE since 2026-09-27 (the last day of the regular season; the postseason follows),
+run by `.github/workflows/mlb.yml` (14:00, 17:30, 22:00 UTC). The live season comes
+from MLB's free StatsAPI (`mlb/current.py`: schedule with probable pitchers, one box
+score per finished game kept in `data-raw/mlb/current/`), players joined to their
+Retrosheet history through the Chadwick register (`data-raw/mlb/id_register.csv.gz`).
+Lines, team totals and match odds from The Odds API (`mlb/book_lines.py`,
+`scripts/sync_mlb_odds.py`: <= 6 credits a check, <= 2 checks a game, 1 credit a run
+for match odds). Picks stand on bookmakers' lines only, either side (unders where the
+model leans under), published only where the model is at least as sure as the book;
+home runs are published where the model rates the player above the book's price.
+Frozen before first pitch, graded from the box score (`mlb/picks.py`).
 
 - **Data: Retrosheet game-level CSVs** (`https://www.retrosheet.org/downloads/{y}/{y}csvs.zip`):
   player-by-game batting and pitching lines, gameinfo and teamstats. Trimmed to the
@@ -1131,3 +1139,21 @@ once the schedule / probable pitchers / lineups (MLB StatsAPI) and bookmakers' l
   one model PER LINE STEP (`config.PER_STEP_MODELS`) it passes -- every step within
   0.3pt (73.5/73.3, 59.5/59.3, 39.3/39.3, 24.2/24.4), 66.4% accuracy. HR sits near a 12% base rate, so a live HR
   board must be judged against the price, not a 50% bar.
+
+
+## Model audit, 2026-09-27 (all sports) -- what was fixed and why
+- **Live NFL rows were one game stale** (priced from the LAST game's row: form missing
+  that game, last week's opponent/venue/rest). Now `publish.next_game_frame` builds a
+  proper next-game row through the same build as the gate. Measured cost before: 2-4.5pt
+  of published hit rate on the 2025 walk-forward.
+- **Feature scaling came from the batch being priced** (`opp_allowed_edge`); a single row
+  silently scaled to 0. Now `model.frame_stats` freezes it at fit time.
+- **Publishing only the top picks overstates them** (winner's curse). Every gate now scores
+  the published subset (`nfl/selection.py`) and fits a `shrink` the NBA/MLB boards and NFL
+  TD apply. NFL yardage is covered by the live market blend instead.
+- **Unders**: where the model leans under against the book, the under is the pick.
+- **NFL TD** calibrated with Platt (`SMOOTH_CALIBRATION`); isotonic had flattened the top.
+- **NFL training capped at 5 seasons** (`config.TRAIN_SEASONS`) after running the gate both
+  ways (calibration better in all four markets).
+- **Soccer props recalibrated** from their own record, penalised toward no change
+  (`leagues/prop_calibration.py`); raw kept as `p_model`.

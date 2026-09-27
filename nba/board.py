@@ -218,7 +218,10 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 "games_before": int(r["games_before"]), "club_source": m["club_source"],
             }, quote, shrink.get(market, 1.0)))
         held[market] = below
-        shortlist = [p for p in picks if p["probability"] >= MIN_PROBABILITY]
+        # The MODEL'S side, not the book's: 50%+ AND at least as sure as the book,
+        # or the board would be publishing the book's favourite as a model pick.
+        shortlist = [p for p in picks if p["probability"] >= MIN_PROBABILITY
+                     and (p.get("edge") is None or p["edge"] >= 0)]
         by_game = {}
         for p in sorted(shortlist, key=lambda p: -p["probability"]):
             by_game.setdefault(p["game_id"], []).append(p)
