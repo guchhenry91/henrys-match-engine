@@ -60,6 +60,32 @@ def run(client, now=None, store=None) -> dict:
         entry["event_id"], entry["kickoff"] = ev["id"], ev["commence_time"]
         why = bl.due(entry["checks"], ev["commence_time"], now)
         if why is None:
+            # LADDER BACKFILL: a game checked before alternate lines were fetched
+            # has main lines but no ladder, so its cards cannot show a 70%+ line.
+            # One alternates-only call (3 credits), once per game, inside the
+            # same window a normal check would use.
+            hours = (bl._utc(ev["commence_time"]) - now).total_seconds() / 3600.0
+            if entry["checks"] and not entry.get("alt") and not entry.get("alt_checked") \
+                    and bl.MIN_LEAD_HOURS < hours <= bl.BOARD_HOURS:
+                try:
+                    payload = client.get(
+                        f"sports/{bl.SPORT_KEY}/events/{ev['id']}/odds", sport="nfl",
+                        purpose=f"nfl ladder backfill {key}",
+                        est=oc.cost(len(bl.ALT_MARKETS), bookmakers=len(bl.ALT_BOOKS)),
+                        bookmakers=",".join(bl.ALT_BOOKS),
+                        markets=",".join(bl.ALT_MARKETS), oddsFormat="decimal")
+                except oc.BudgetExceeded as exc:
+                    print(f"  budget stop: {exc}")
+                    break
+                except RuntimeError as exc:
+                    print(f"  {key}: {exc}")
+                    continue
+                entry["alt_checked"] = now.isoformat(timespec="seconds")
+                alts = bl.parse_alternates(payload)
+                if alts:
+                    entry["alt"] = alts
+                print(f"  {key} (ladder backfill): "
+                      f"{ {m: len(q) for m, q in alts.items()} or 'no ladders quoted'}")
             continue
         markets = list(bl.MARKETS) + list(bl.ALT_MARKETS)
         est = oc.cost(len(markets), bookmakers=len(bl.BOOK_ORDER))
@@ -76,6 +102,8 @@ def run(client, now=None, store=None) -> dict:
             continue
         props = bl.parse_event(payload)
         alts = bl.parse_alternates(payload)
+        # This check asked for the ladders too, so no backfill is ever owed for it.
+        entry["alt_checked"] = now.isoformat(timespec="seconds")
         if alts:
             entry["alt"] = alts
         if not props:
