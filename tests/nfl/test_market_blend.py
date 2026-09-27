@@ -56,23 +56,19 @@ def test_parse_alternates_keeps_one_books_over_ladder_per_player():
     assert got["source"] == "draftkings" and got["ladder"] == [[49.5, 1.17], [59.5, 1.32]]
 
 
-def test_safest_is_the_highest_rung_still_at_seventy_percent():
+def test_ladder_up_lists_higher_rungs_with_falling_chances():
     ladder = {"book": "DraftKings", "rungs": [
-        {"line": 39.5, "price": 1.08, "raw": 0.95},
-        {"line": 49.5, "price": 1.17, "raw": 0.90},
-        {"line": 59.5, "price": 1.32, "raw": 0.80},
-        {"line": 69.5, "price": 1.54, "raw": 0.70}]}
-    pick = {"book_price": 1.91, "book_p": 0.5}          # main overround ~1.047
-    s = mb.safest(ladder, pick, w=0.1)
-    # 1/1.32/1.047 = 0.72 anchor -> blended 0.73 >= 0.70; 69.5 -> 0.62 < 0.70
-    assert s["line"] == 59.5 and s["book"] == "DraftKings" and 0.70 <= s["p"] < 0.75
+        {"line": 39.5, "price": 1.30, "raw": 0.80},
+        {"line": 55.5, "price": 2.30, "raw": 0.45},
+        {"line": 65.5, "price": 3.05, "raw": 0.30},
+        {"line": 75.5, "price": 4.10, "raw": None},
+        {"line": 150.5, "price": 60.0, "raw": None}]}
+    pick = {"line": 46.5, "probability": 0.52, "book_price": 1.91, "book_p": 0.5}
+    up = mb.ladder_up(ladder, pick, w=0.1)
+    assert [r["line"] for r in up] == [55.5, 65.5, 75.5]      # none below, 1.6% one cut
+    assert up[0]["p"] > up[1]["p"] > up[2]["p"] and up[0]["book"] == "DraftKings"
+    assert all(r["p"] <= 0.52 for r in up)
 
 
-def test_a_rung_outside_the_trained_range_is_judged_on_the_price_alone():
-    ladder = {"book": "FanDuel", "rungs": [{"line": 14.5, "price": 1.07, "raw": None}]}
-    s = mb.safest(ladder, {"book_price": 1.9, "book_p": 0.5}, w=1.0)
-    assert s["p"] == round(min((1 / 1.07) / ((1 / 1.9) / 0.5), 0.99), 4)
-
-
-def test_no_ladder_means_no_safe_line():
-    assert mb.safest(None, {}, 0.1) is None
+def test_no_ladder_means_nothing_to_show():
+    assert mb.ladder_up(None, {"line": 20.5}, 0.1) == []

@@ -394,7 +394,11 @@
   .l5h{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:10.5px;font-weight:800;
     letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
   .l5h span+span{letter-spacing:0;text-transform:none;font-weight:650}
-  .l5t{display:flex;gap:6px;margin-top:6px}
+  .lup{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:12px}
+.lup>span{color:var(--mute,#9aa);margin-right:2px}
+.lup i{font-style:normal;padding:3px 7px;border-radius:8px;background:rgba(255,255,255,.06);white-space:nowrap}
+.lup i b{font-weight:700}.lup i small{opacity:.65;margin-left:2px}
+.l5t{display:flex;gap:6px;margin-top:6px}
   .l5t i{font-style:normal;flex:1;max-width:58px;text-align:center;padding:8px 0;border-radius:6px;font-weight:850;
     font-size:14px;background:rgba(255,255,255,.06);color:var(--sub)}
   .l5t i.hit{background:rgba(0,183,103,.3);color:#b8ffd8}
@@ -1356,12 +1360,13 @@ function nflPropTableRow(p, full){
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)}${p.depth_label?` · ${esc(p.depth_label)}`:""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
-      ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}</div>
+      ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
+      (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
+        <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
     <div class="bs"><b class="sel">${esc(sel)}</b>${status}${
       p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
-      p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}${
-      p.safe_line?`<span class="bsn" title="The highest rung of the bookmaker's alternate-line ladder still rated at 70% or better">70%+ line: Over ${p.safe_line.line} · ${pc(p.safe_line.p)}% · ${esc(p.safe_line.book)} ${Number(p.safe_line.price).toFixed(2)}</span>`:""}</div>
+      p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
     ${probCell(p.probability)}
     ${td?valCell("5-game avg",avg):valCell(p.line_source&&p.line_source!=="model"?`${lineBook(p)} line`:"Model line",p.line!=null?p.line:"—")}
     ${p.book_price!=null

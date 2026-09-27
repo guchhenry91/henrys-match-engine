@@ -282,7 +282,7 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
         # THE BOOKMAKER'S ALTERNATE LADDER, each rung asked of the model. Only
         # rungs inside the line range the model was trained on get a model
         # number (config.LINE_MULTIPLIERS x his median); others carry None and
-        # are judged on the book's price alone. See nfl/market_blend.safest.
+        # are judged on the book's price alone. See nfl/market_blend.ladder_up.
         ladder = None
         alt = odds_mod.match_player(
             (alt_quotes or {}).get(f"{game['home_team']}|{game['away_team']}") or {}, name)
@@ -503,7 +503,7 @@ def build() -> dict:
                 p["edge"] = round(p["probability"] - p["book_p"], 4)
                 p["blend_w"] = w
             for p in projections:
-                p["safe_line"] = market_blend.safest(p.get("ladder"), p, w)
+                p["ladder_up"] = market_blend.ladder_up(p.get("ladder"), p, w)
                 p.pop("ladder", None)
             # A PICK IS THE MODEL'S VIEW, NOT THE BOOK'S. Where the raw model rates
             # the over BELOW the book's own price, the blend can still clear 50%
