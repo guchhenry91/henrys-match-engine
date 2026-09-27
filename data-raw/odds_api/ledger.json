@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 99898,
-  "account_used": 102,
+  "account_remaining": 99844,
+  "account_used": 156,
   "alerts": [],
   "calls": [
     {
@@ -408,6 +408,150 @@
       "path": "sports/americanfootball_nfl/events/b225458a282e140c44c45651255f2f6c/odds",
       "purpose": "probe: alternate lines",
       "sport": "nfl"
+    },
+    {
+      "account_remaining": 99889,
+      "account_used": 111,
+      "at": "2026-09-27T02:06:34+00:00",
+      "credits": 0,
+      "path": "sports/americanfootball_nfl/events",
+      "purpose": "nfl: list events",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99886,
+      "account_used": 114,
+      "at": "2026-09-27T02:06:34+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/b225458a282e140c44c45651255f2f6c/odds",
+      "purpose": "nfl ladder backfill BUF|LAC",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99883,
+      "account_used": 117,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/613b8cd3a5fab58f7be4e3fd6f76223e/odds",
+      "purpose": "nfl ladder backfill CLE|CAR",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99880,
+      "account_used": 120,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/71123be049587b6facce3a20c53e5d09/odds",
+      "purpose": "nfl ladder backfill PIT|CIN",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99877,
+      "account_used": 123,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/07f552badfa8a565d1be22123713e4da/odds",
+      "purpose": "nfl ladder backfill DET|NYJ",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99874,
+      "account_used": 126,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/17a730b7d399feeab6a78c30767c29d2/odds",
+      "purpose": "nfl ladder backfill IND|HOU",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99871,
+      "account_used": 129,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/1f3cfd315a24d1a7dd5859a8e6b88e18/odds",
+      "purpose": "nfl ladder backfill JAX|NE",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99868,
+      "account_used": 132,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/0339a0e41bcee12820eb3e64bb5fadb4/odds",
+      "purpose": "nfl ladder backfill MIA|KC",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99865,
+      "account_used": 135,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/555afd4a27aaa392662881cffa8f2eef/odds",
+      "purpose": "nfl ladder backfill NYG|TEN",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99862,
+      "account_used": 138,
+      "at": "2026-09-27T02:06:35+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/2a529c108305ffa049d8b6cfdbaa4d36/odds",
+      "purpose": "nfl ladder backfill WAS|SEA",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99859,
+      "account_used": 141,
+      "at": "2026-09-27T02:06:36+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/9d2b09e0f9b6dd5ce0d985894f4f98fa/odds",
+      "purpose": "nfl ladder backfill SF|ARI",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99856,
+      "account_used": 144,
+      "at": "2026-09-27T02:06:36+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/f1724dead3eab61546033032fc782375/odds",
+      "purpose": "nfl ladder backfill TB|MIN",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99853,
+      "account_used": 147,
+      "at": "2026-09-27T02:06:36+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/84cfca14efc21363fd605508404cf1ff/odds",
+      "purpose": "nfl ladder backfill DAL|BAL",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99850,
+      "account_used": 150,
+      "at": "2026-09-27T02:06:36+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/2e523fcb0497aa689473e290eb2b97de/odds",
+      "purpose": "nfl ladder backfill NO|LV",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99847,
+      "account_used": 153,
+      "at": "2026-09-27T02:06:36+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/3bfd8bfb4b8e9a365a0877879b73b16b/odds",
+      "purpose": "nfl ladder backfill DEN|LA",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99844,
+      "account_used": 156,
+      "at": "2026-09-27T02:06:36+00:00",
+      "credits": 3,
+      "path": "sports/americanfootball_nfl/events/47dc7baa254659f3beb2ed2b38c207b6/odds",
+      "purpose": "nfl ladder backfill CHI|PHI",
+      "sport": "nfl"
     }
   ],
   "days": {
@@ -427,10 +571,10 @@
     },
     "2026-09-27": {
       "by_sport": {
-        "nfl": 3
+        "nfl": 48
       },
-      "credits": 3
+      "credits": 48
     }
   },
-  "updated": "2026-09-27T01:19:32.642774+00:00"
+  "updated": "2026-09-27T02:06:36.887841+00:00"
 }
