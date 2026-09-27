@@ -11,6 +11,8 @@ seeded from none render identically unless the board distinguishes them, and the
 second is the one a reader would most want to discount.
 """
 import json
+
+from scripts import json_safe
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -349,7 +351,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    tmp.write_text(json_safe.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
     rec = payload["record"]
     print(f"UCL board: {len(payload['matches'])} fixtures, "

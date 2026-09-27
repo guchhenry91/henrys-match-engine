@@ -7,6 +7,8 @@ winners from the Elo, and every player prop and team total on a BOOKMAKER'S line
 the schedule feed does not answer, the board falls back to evidence only.
 """
 import json
+
+from scripts import json_safe
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -124,7 +126,7 @@ def main() -> int:
     payload = freeze_and_grade(payload, sched, now) if sched is not None else payload
     OUT.parent.mkdir(parents=True, exist_ok=True)
     tmp = OUT.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    tmp.write_text(json_safe.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(OUT)
     print(f"MLB board: released={payload['markets_released']} "
           f"withheld={payload['markets_withheld']}")

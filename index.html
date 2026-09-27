@@ -2563,7 +2563,7 @@ function viewGrades(){
   const br=best.record||{correct:0,wrong:0,total:0};
   const total=br.total||0;
   let h=chips+latest+`<div class="eyebrow">Track record</div>
-    <div class="glass stat"><div class="k">${br.correct}–${br.wrong}</div><div class="l">${total?`Best Picks · ${Math.round(100*br.correct/total)}% of ${total} graded`:"Graded picks · season starts 15 Aug"}</div></div>`;
+    <div class="glass stat"><div class="k">${br.correct}–${br.wrong}</div><div class="l">${total?`Best Picks · ${Math.round(100*br.correct/total)}% of ${total} graded`:"Graded picks · nothing settled yet"}</div></div>`;
   const rbm=pp.record_by_market||{};
   h+=`<div class="glass rowc">${tierRow("Best Picks","Match-winner board",best.record)}
     ${tierRow("Player · Anytime","Goalscorer market",rbm.goal)}
@@ -2808,7 +2808,7 @@ function setFilter(f){filter=f;render(cur);}
 function daysToKickoff(up){const ds=up.map(u=>new Date(u.date)).filter(d=>!isNaN(d));if(!ds.length)return null;
   const first=new Date(Math.min(...ds));const diff=Math.ceil((first-new Date())/864e5);return diff>0?diff:0;}
 function emptyRow(t){return `<div class="rw static"><div class="info"><span>${esc(t)}</span></div></div>`;}
-function emptyState(){return `<div class="glass stat"><div class="k">Soon</div><div class="l">The board fills as fixtures approach — season starts 15 August.</div></div>${archiveLink()}`;}
+function emptyState(){return `<div class="glass stat"><div class="k">—</div><div class="l">This board did not load. Refresh in a minute — if it stays empty, its data file is being rebuilt.</div></div>${archiveLink()}`;}
 function archiveLink(){return `<div class="arch"><a href="worldcup.html">World Cup 2026 archive — final record 64-26 (71%), champion Spain →</a></div>`;}
 
 boot();

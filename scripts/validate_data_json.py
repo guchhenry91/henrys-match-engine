@@ -85,6 +85,10 @@ def conflict_line(text: str):
     return None
 
 
+def _reject_constant(name):
+    raise ValueError(f"contains {name}, which browsers reject as invalid JSON")
+
+
 def check(paths=None) -> int:
     paths = paths or TRACKED
     bad = []
@@ -103,9 +107,14 @@ def check(paths=None) -> int:
                              f"file carries conflict markers"))
             continue
         try:
-            json.loads(text)
+            # parse_constant: Python's json accepts NaN/Infinity, a BROWSER does
+            # not -- on 2026-09-27 an MLB board with "pitcher": NaN parsed here and
+            # failed on the site, so the whole MLB tab fell back to its empty state.
+            json.loads(text, parse_constant=_reject_constant)
         except json.JSONDecodeError as exc:
             bad.append((rel, f"line {exc.lineno} column {exc.colno}: {exc.msg}"))
+        except ValueError as exc:
+            bad.append((rel, str(exc)))
     if bad:
         print("INVALID DATA JSON -- publish would abort:", file=sys.stderr)
         for rel, why in bad:

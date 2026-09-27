@@ -15,6 +15,8 @@ the payload's shape changes -- the UI already renders empty sections with their
 reason, so a board with picks needs no second design.
 """
 import json
+
+from scripts import json_safe
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -216,7 +218,7 @@ def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    tmp.write_text(json_safe.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
     print(f"NBA board: status={payload['status']}, "
           f"released={payload['markets_released']}, "

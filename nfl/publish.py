@@ -13,6 +13,8 @@ last appearance. That is stated on the card rather than hidden, because a
 projection attached to the wrong club is worse than no projection at all.
 """
 import json
+
+from scripts import json_safe
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -724,7 +726,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    tmp.write_text(json_safe.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
     counts = {m: len(v["picks"]) for m, v in payload["props"].items()}
     print(f"season {payload['season']} week {payload['week']}: "
