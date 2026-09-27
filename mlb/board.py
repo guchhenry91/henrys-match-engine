@@ -22,6 +22,8 @@ from nfl import odds as odds_mod
 from nfl import selection
 from nfl.games_model import run_elo
 from oddsapi import props as shared
+from oddsapi import props as shared_props
+from nfl.model import PropModel
 
 ROOT = Path(__file__).resolve().parent.parent
 ODDS = ROOT / "data-raw" / "mlb" / "odds_api.json"
@@ -161,36 +163,55 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
         is_synth = built["GAME_ID"].astype(str).str.startswith("NEXT")
         train = features.augment_lines(built[~is_synth], market)
         ask = built[is_synth]
-        # Each asked row re-set to its BOOK line, then priced in one batch -- one
-        # model per market (one per line step where config.PER_STEP_MODELS says).
-        asked, info = [], []
+        # FIT ONCE, reuse for the main line and every ladder rung: one model per
+        # market, or one per line step where config.PER_STEP_MODELS says.
+        per_step = market in config.PER_STEP_MODELS
+        models = ({int(st): PropModel(market).fit(train[train["line_step"] == st])
+                   for st in config.LINE_STEPS[market]} if per_step
+                  else {None: PropModel(market).fit(train)})
+        steps = config.LINE_STEPS[market]
+
+        def prob_at(row_frame, base_line, line):
+            """The model's over probability at `line`, or None where the line is
+            outside the range it was trained and gated on."""
+            if not config.MIN_LINE[market] <= line <= config.MAX_LINE[market]:
+                return None
+            step = int(round(line - base_line))
+            if not min(steps) <= step <= max(steps):
+                return None
+            model = models.get(step if per_step else None)
+            if model is None:
+                return None
+            asked = features.at_line(row_frame, line)
+            asked["line_step"] = step
+            value = float(model.predict(asked)[0])
+            return value if np.isfinite(value) else None
+
+        alts = {str(k): (v or {}).get("alt") or {} for k, v in odds_games.items()}
+        picks = []
         for idx, r in ask.iterrows():
             g, team, opp, home, q, name = meta[(r["PLAYER_ID"], r["GAME_ID"])]
             line = float(q["line"])
-            if not config.MIN_LINE[market] <= line <= config.MAX_LINE[market]:
-                continue
-            step = int(round(line - float(r["base_line"])))
-            if market in config.PER_STEP_MODELS and step not in config.LINE_STEPS[market]:
-                continue                      # outside the steps the model was gated on
-            row = features.at_line(ask.loc[[idx]], line)
-            row["line_step"] = step
-            asked.append(row)
-            info.append((r, g, team, opp, home, q, name, line))
-        picks = []
-        if asked:
-            probs = model_predict(train, pd.concat(asked), market)
-            for prob, (r, g, team, opp, home, q, name, line) in zip(probs, info):
-                if not np.isfinite(prob):
-                    continue
-                prob = float(prob)
-                picks.extend(selection.sides(
-                    {"market": market, "player": name, "player_id": r["PLAYER_ID"],
-                     "team": team, "opponent": opp, "home": bool(home),
-                     "game_id": str(g.game_pk), "tipoff": g.start, "kickoff": g.start,
-                     "line": line, "probability": round(prob, 4),
-                     "form5": round(float(r["form5"]), 2),
-                     "games_before": int(r["games_before"]), **_price(prob, q)},
-                    q, shrink.get(market, 1.0), allow_under=(market != "hr")))
+            row_frame = ask.loc[[idx]]
+            prob = prob_at(row_frame, float(r["base_line"]), line)
+            if prob is None:
+                continue                      # outside what the model was gated on
+            sides = selection.sides(
+                {"market": market, "player": name, "player_id": r["PLAYER_ID"],
+                 "team": team, "opponent": opp, "home": bool(home),
+                 "game_id": str(g.game_pk), "tipoff": g.start, "kickoff": g.start,
+                 "line": line, "probability": round(prob, 4),
+                 "form5": round(float(r["form5"]), 2),
+                 "games_before": int(r["games_before"]), **_price(prob, q)},
+                q, shrink.get(market, 1.0), allow_under=(market != "hr"))
+            # THE LADDER UP: the book's higher lines for this player, each with its
+            # chance of hitting (model where gated, the book's price elsewhere).
+            alt = odds_mod.match_player(alts.get(str(g.game_pk), {}).get(market) or {}, name)
+            for pick in sides:
+                pick["ladder_up"] = shared_props.ladder_up(
+                    alt, pick, lambda l, rf=row_frame, bl=float(r["base_line"]): prob_at(rf, bl, l),
+                    shrink=shrink.get(market, 1.0))
+            picks.extend(sides)
         # Home runs: a ~12% event, so the bar is the PRICE, not 50% -- publish
         # where the model rates him above the book's own view.
         keep = [p for p in picks if (p["edge"] or 0) > 0] if market == "hr" else \

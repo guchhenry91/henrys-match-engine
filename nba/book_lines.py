@@ -20,6 +20,11 @@ SPORT_KEY = "basketball_nba"
 MARKETS = {"player_points": "points", "player_rebounds": "rebounds",
            "player_assists": "assists", "player_threes": "threes"}
 BOOK_ORDER = ("pinnacle", "draftkings", "fanduel")
+# The books' ALTERNATE ladders for the "higher lines" on each card (DraftKings,
+# FanDuel). Fetched in the same call; an empty market costs nothing.
+ALT_MARKETS = {"player_points_alternate": "points", "player_rebounds_alternate": "rebounds",
+               "player_assists_alternate": "assists", "player_threes_alternate": "threes"}
+ALT_BOOKS = ("draftkings", "fanduel")
 BOOK_LABEL = {"pinnacle": "Pinnacle", "draftkings": "DraftKings", "fanduel": "FanDuel"}
 
 # NBA props post on the day of the game, so the first check opens 30h out.
@@ -56,6 +61,10 @@ def due(checks: list, tipoff, now) -> str | None:
 
 def is_last_run_before(tipoff, now) -> bool:
     return shared.is_last_run_before(tipoff, now, RUN_SLOTS, MIN_LEAD_HOURS)
+
+
+def parse_alternates(payload) -> dict:
+    return shared.parse_alternates(payload, ALT_MARKETS, ALT_BOOKS, BOOK_LABEL)
 
 
 def parse_event(payload) -> dict:

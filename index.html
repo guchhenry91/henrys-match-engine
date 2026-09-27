@@ -1971,7 +1971,7 @@ function nbaPropTableRow(p){
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
-        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span></div>
+        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
     <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
@@ -1984,6 +1984,14 @@ function nbaPropTableRow(p){
 
 const MLBMK={team_winner:"Team winner",hits:"Hits",hrr:"Hits + runs + RBIs",hr:"Home runs",
   rbi:"RBIs",strikeouts:"Pitcher strikeouts",team_runs:"Team total runs"};
+
+// The bookmaker's HIGHER LINES for a player, each with its chance of hitting and
+// its price -- one strip shared by every sport's prop card.
+function ladderStrip(p){
+  const r=p.ladder_up||[]; if(!r.length) return "";
+  return `<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
+    <span>Higher lines · ${esc(r[0].book)}</span>${r.map(x=>`<i>${x.line}+ <b>${pc(x.p)}%</b> <small>${Number(x.price).toFixed(2)}</small></i>`).join("")}</div>`;
+}
 
 const MLBUNIT={hits:"hits",hrr:"H+R+RBI",hr:"HR",rbi:"RBI",strikeouts:"Ks",team_runs:"runs"};
 
@@ -2008,7 +2016,7 @@ function mlbPropTableRow(p){
   return `<div class="brow">${timeCell(p.tipoff)}
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
-      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span></div>
+      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${ladderStrip(p)}</div>
     <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span><span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}

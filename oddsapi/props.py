@@ -122,3 +122,67 @@ def parse_moneyline(event, book_order, home_name, away_name) -> dict | None:
                     "away": round(fair["away"], 4),
                     "overround": round(h + a - 1.0, 4)}
     return None
+
+
+def parse_alternates(payload, alt_map: dict, books, book_label: dict) -> dict:
+    """{our market: {player: {"book", "source", "ladder": [[line, price], ...]}}}.
+
+    A bookmaker's ALTERNATE ladder ("20+ at 1.30, 30+ at 1.85 ..."), over side
+    only. One book per player -- the first in `books` that ladders him -- so every
+    rung of one ladder carries the same book's margin."""
+    out = {}
+    by_key = {b.get("key"): b for b in (payload or {}).get("bookmakers") or []}
+    for key in books:
+        for row in (by_key.get(key) or {}).get("markets") or []:
+            market = alt_map.get(row.get("key"))
+            if not market:
+                continue
+            ladders = {}
+            for o in row.get("outcomes") or []:
+                name = str(o.get("description") or "").strip()
+                if str(o.get("name") or "").lower() != "over" or not name:
+                    continue
+                try:
+                    line, price = float(o["point"]), float(o["price"])
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if price > 1.0:
+                    ladders.setdefault(name, {})[line] = price
+            have = out.setdefault(market, {})
+            for name, rungs in ladders.items():
+                if odds.match_player(have, name) is None:
+                    have[name] = {"_name": name, "book": book_label.get(key, key), "source": key,
+                                  "ladder": [[l, p] for l, p in sorted(rungs.items())]}
+    return {m: q for m, q in out.items() if q}
+
+
+def ladder_up(alt: dict | None, pick: dict, prob_at, shrink: float = 1.0,
+              max_rungs: int = 5, min_p: float = 0.05,
+              default_overround: float = 1.06, min_overround: float = 1.03) -> list:
+    """The bookmaker's rungs ABOVE the pick's line, each with its chance of hitting.
+
+    `prob_at(line)` returns the model's over probability at that line, or None
+    where the line is outside what the model was trained and gated on -- there
+    the rung is judged on the book's own price, de-margined with the main line's
+    overround. Never above the main line's own chance: a higher line cannot be
+    likelier."""
+    if not alt or not alt.get("ladder") or pick.get("line") is None or pick.get("side") == "under":
+        return []
+    main = default_overround
+    if pick.get("book_p") and pick.get("book_price"):
+        main = (1.0 / float(pick["book_price"])) / float(pick["book_p"])
+    overround = max(main, min_overround)
+    out = []
+    for line, price in sorted(alt["ladder"]):
+        if line <= float(pick["line"]):
+            continue
+        model = prob_at(line)
+        p = model if model is not None else min((1.0 / price) / overround, 0.99)
+        p = 0.5 + shrink * (p - 0.5)
+        p = min(p, float(pick["probability"]))
+        if p < min_p:
+            break
+        out.append({"line": line, "price": price, "book": alt["book"], "p": round(p, 4)})
+        if len(out) == max_rungs:
+            break
+    return out

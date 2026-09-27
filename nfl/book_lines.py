@@ -113,32 +113,4 @@ ALT_BOOKS = ("draftkings", "fanduel")
 
 
 def parse_alternates(payload) -> dict:
-    """{market: {player: {"book", "source", "ladder": [[line, price], ...]}}}.
-
-    One book per player, the first in ALT_BOOKS that ladders him, so every rung
-    of one player's ladder carries the same book's margin."""
-    out = {}
-    books = {b.get("key"): b for b in (payload or {}).get("bookmakers") or []}
-    for key in ALT_BOOKS:
-        for market_row in (books.get(key) or {}).get("markets") or []:
-            market = ALT_MARKETS.get(market_row.get("key"))
-            if not market:
-                continue
-            ladders = {}
-            for o in market_row.get("outcomes") or []:
-                name = str(o.get("description") or "").strip()
-                if str(o.get("name") or "").lower() != "over" or not name:
-                    continue
-                try:
-                    line, price = float(o["point"]), float(o["price"])
-                except (KeyError, TypeError, ValueError):
-                    continue
-                if price > 1.0:
-                    ladders.setdefault(name, {})[line] = price
-            have = out.setdefault(market, {})
-            for name, rungs in ladders.items():
-                if odds.match_player(have, name) is None:
-                    have[name] = {"_name": name, "book": BOOK_LABEL.get(key, key),
-                                  "source": key,
-                                  "ladder": [[l, p] for l, p in sorted(rungs.items())]}
-    return {m: q for m, q in out.items() if q}
+    return shared.parse_alternates(payload, ALT_MARKETS, ALT_BOOKS, BOOK_LABEL)

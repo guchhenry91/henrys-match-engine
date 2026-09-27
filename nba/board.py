@@ -214,7 +214,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 continue                  # a line outside the steps the gate tested
             model = models[step]
             prob = float(model.predict(row)[0])
-            picks.extend(selection.sides({
+            sides = selection.sides({
                 "market": market, "player": m["name"], "player_id": int(r["PLAYER_ID"]),
                 "team": m["team"], "opponent": m["opponent"], "home": m["home"],
                 "game_id": m["game"].game_id, "tipoff": m["game"].tipoff,
@@ -225,7 +225,27 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 "edge": round(prob - float(quote["over"]), 4) if quote.get("over") else None,
                 "form5": round(float(r["form5"]), 1), "min5": round(float(r["min5"]), 1),
                 "games_before": int(r["games_before"]), "club_source": m["club_source"],
-            }, quote, shrink.get(market, 1.0)))
+            }, quote, shrink.get(market, 1.0))
+            # THE LADDER UP: the book's higher lines, each with its chance of hitting.
+            base = float(r["base_line"])
+            steps = config.LINE_STEPS[market]
+
+            def prob_at(line, rf=ask.loc[[idx]], base=base):
+                step = line - base
+                if not (min(steps) <= step <= max(steps)) or line < config.MIN_LINE[market]:
+                    return None                   # outside what the model was gated on
+                key = int(round(step)) if per_step else None
+                if key not in models:
+                    return None
+                return float(models[key].predict(features.at_line(rf, line))[0])
+
+            alt = odds_mod.match_player(
+                ((odds_games.get(m["game"].game_id) or {}).get("alt") or {}).get(market) or {},
+                m["name"])
+            for pick in sides:
+                pick["ladder_up"] = shared.ladder_up(alt, pick, prob_at,
+                                                     shrink=shrink.get(market, 1.0))
+            picks.extend(sides)
         held[market] = below
         # The MODEL'S side, not the book's: 50%+ AND at least as sure as the book,
         # or the board would be publishing the book's favourite as a model pick.

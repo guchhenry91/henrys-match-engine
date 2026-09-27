@@ -211,3 +211,14 @@ def test_warnings_fire_once_at_10k_and_30k_and_for_a_heavy_day(tmp_path):
 def test_the_limits_are_the_agreed_ones():
     assert (oc.RUN_CAP, oc.DAY_CAP, oc.MONTH_HARD_STOP) == (200, 1_000, 40_000)
     assert oc.MONTH_WARN_AT == (10_000, 30_000) and oc.DAY_WARN_AT == 600
+
+
+def test_ladder_up_climbs_from_the_main_line_and_never_beats_it():
+    from oddsapi import props
+    alt = {"book": "DraftKings", "ladder": [[0.5, 1.30], [1.5, 3.2], [2.5, 9.0], [3.5, 40.0]]}
+    pick = {"line": 0.5, "probability": 0.66, "book_p": 0.64, "book_price": 1.48, "side": "over"}
+    model = {1.5: 0.24, 2.5: 0.06}
+    up = props.ladder_up(alt, pick, lambda line: model.get(line))
+    assert [r["line"] for r in up] == [1.5, 2.5]          # 3.5 is ~2%, below the floor
+    assert up[0]["p"] == 0.24 and all(r["p"] <= 0.66 for r in up)
+    assert props.ladder_up(alt, dict(pick, side="under"), lambda l: 0.2) == []

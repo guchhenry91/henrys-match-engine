@@ -104,8 +104,9 @@ def run(client, sched_rows, now=None, store=None) -> dict:
             payload = client.get(
                 f"sports/{bl.SPORT_KEY}/events/{ev['id']}/odds", sport="nba",
                 purpose=f"nba {why} check {g['away_team']}@{g['home_team']}",
-                est=oc.cost(len(bl.MARKETS), bookmakers=len(bl.BOOK_ORDER)),
-                bookmakers=",".join(bl.BOOK_ORDER), markets=",".join(bl.MARKETS),
+                est=oc.cost(len(bl.MARKETS) + len(bl.ALT_MARKETS), bookmakers=len(bl.BOOK_ORDER)),
+                bookmakers=",".join(bl.BOOK_ORDER),
+                markets=",".join(list(bl.MARKETS) + list(bl.ALT_MARKETS)),
                 oddsFormat="decimal")
         except oc.BudgetExceeded as exc:
             print(f"  budget stop: {exc}")
@@ -119,6 +120,7 @@ def run(client, sched_rows, now=None, store=None) -> dict:
             continue
         entry["checks"].append(now.isoformat(timespec="seconds"))
         entry["props"] = props
+        entry["alt"] = bl.parse_alternates(payload)
         print(f"  {g['away_team']}@{g['home_team']} ({why}): "
               f"{ {m: len(q) for m, q in props.items()} }")
     store["updated"] = now.isoformat(timespec="seconds")

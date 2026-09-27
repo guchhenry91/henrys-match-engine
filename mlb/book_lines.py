@@ -16,7 +16,15 @@ MARKETS = {"batter_hits": "hits", "batter_hits_runs_rbis": "hrr",
            "batter_home_runs": "hr", "batter_rbis": "rbi",
            "pitcher_strikeouts": "strikeouts"}
 TEAM_TOTALS = "team_totals"
-ALL_MARKETS = list(MARKETS) + [TEAM_TOTALS]
+# The books' ALTERNATE ladders ("1+ hit, 2+ hits, 3+ hits ...") for the "higher
+# lines" on each card. Only DraftKings and FanDuel ladder them; an empty market
+# costs nothing, so asking for one a book does not carry is free.
+ALT_MARKETS = {"batter_hits_alternate": "hits", "batter_rbis_alternate": "rbi",
+               "batter_home_runs_alternate": "hr",
+               "batter_hits_runs_rbis_alternate": "hrr",
+               "pitcher_strikeouts_alternate": "strikeouts"}
+ALT_BOOKS = ("draftkings", "fanduel")
+ALL_MARKETS = list(MARKETS) + [TEAM_TOTALS] + list(ALT_MARKETS)
 BOOK_ORDER = ("pinnacle", "draftkings", "fanduel")
 BOOK_LABEL = {"pinnacle": "Pinnacle", "draftkings": "DraftKings", "fanduel": "FanDuel"}
 
@@ -73,6 +81,10 @@ def parse_event(payload) -> dict:
                             "odd_over": float(o["price"]), "book": BOOK_LABEL[key],
                             "source": key, "fair": False}
     return {m: q for m, q in out.items() if q}
+
+
+def parse_alternates(payload) -> dict:
+    return shared.parse_alternates(payload, ALT_MARKETS, ALT_BOOKS, BOOK_LABEL)
 
 
 def parse_team_totals(payload, home_name, away_name) -> dict:

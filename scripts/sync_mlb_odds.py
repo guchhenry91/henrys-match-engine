@@ -109,6 +109,7 @@ def run(client, games, now=None, store=None) -> dict:
             continue
         entry["checks"].append(now.isoformat(timespec="seconds"))
         entry["props"], entry["team_totals"] = props, totals
+        entry["alt"] = bl.parse_alternates(payload)
         print(f"  {g['away_team']}@{g['home_team']} ({why}): "
               f"{ {m: len(q) for m, q in props.items()} } totals={list(totals)}")
     store["updated"] = now.isoformat(timespec="seconds")
