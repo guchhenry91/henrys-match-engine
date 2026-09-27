@@ -130,6 +130,9 @@ jobs:
           API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
         run: python -m scripts.sync_nfl_injuries
 
+      - name: Re-fit how far to trust the model over the book
+        run: python -m scripts.fit_nfl_blend
+
       - name: Publish the NFL board
         run: python -m nfl.publish
 

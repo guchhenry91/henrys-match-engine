@@ -1350,7 +1350,8 @@ function nflPropTableRow(p, full){
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?x>p.line:null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}</div>
     <div class="bs"><b class="sel">${esc(sel)}</b>${status}${
       p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
-      :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}</div>
+      :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
+      p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
     ${probCell(p.probability)}
     ${td?valCell("5-game avg",avg):valCell(p.line_source&&p.line_source!=="model"?`${lineBook(p)} line`:"Model line",p.line!=null?p.line:"—")}
     ${p.book_price!=null

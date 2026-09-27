@@ -22,6 +22,7 @@ from nfl import (config, data, depth, features, games_model,
                  odds as odds_mod, rosters)
 from nfl import picks
 from nfl import book_lines
+from nfl import market_blend
 from nfl import news as player_news
 from nfl.model import PropModel
 
@@ -431,6 +432,7 @@ def build() -> dict:
             entry["verdict"] = verdict
 
     props, awaiting_book = {}, {}
+    blend_w = market_blend.weights()
     for market in config.MARKETS:
         if market not in released:
             props[market] = {"released": False, "picks": []}
@@ -448,6 +450,20 @@ def build() -> dict:
             projections = [p for p in projections if p.get("line_source") != "model"]
             awaiting_book[market] = waiting
             print(f"  {market}: {waiting} projection(s) held back -- no bookmaker line yet")
+        # PULLED TOWARD THE BOOK (nfl/market_blend.py). The raw model is
+        # overconfident on yardage in the live record, so only the fitted share w
+        # of its disagreement with the book's de-vigged price is kept. The raw
+        # number is published alongside as p_model, never hidden.
+        if market in market_blend.YARDAGE:
+            w = blend_w.get(market, 0.0)
+            for p in projections:
+                if p.get("book_p") is None:
+                    continue
+                p["p_model"] = p["probability"]
+                p["probability"] = round(market_blend.blend(p["probability"], p["book_p"], w), 4)
+                p["edge"] = round(p["probability"] - p["book_p"], 4)
+                p["blend_w"] = w
+            projections.sort(key=lambda p: -p["probability"])
         shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
         by_game = {}
         for pick in shortlist:
@@ -552,6 +568,11 @@ def build() -> dict:
             "Clubs are reconciled against the current API-NFL rosters where those "
             "are complete; where a roster came back thin the club falls back to "
             "the player's last appearance and the card says so.",
+            "Yardage probabilities are pulled toward the book's de-vigged price: "
+            "only a fitted share of the model's disagreement with the book is kept "
+            "(nfl/market_blend.py, re-fitted each run on the graded record -- 10% as "
+            "of 27 Sep 2026), because the live record showed the raw model "
+            "overconfident. Each card still shows the raw model's number.",
             "Every yardage pick stands on a bookmaker's line: bet365 first, then "
             "Pinnacle, DraftKings or FanDuel for players bet365 does not quote. A "
             "player no book quotes yet is held back, not given a made-up line. "

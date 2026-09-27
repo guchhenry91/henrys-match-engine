@@ -302,6 +302,10 @@ def _lock_props(payload, log, now):
                 entry["book"] = pick.get("book")
                 entry["book_price"] = pick.get("book_price")
                 entry["book_p"] = pick.get("book_p")
+                # The model's own number before it was pulled toward the book, so
+                # nfl/market_blend.py can keep re-fitting how far to trust it.
+                entry["p_model"] = pick.get("p_model")
+                entry["blend_w"] = pick.get("blend_w")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the
