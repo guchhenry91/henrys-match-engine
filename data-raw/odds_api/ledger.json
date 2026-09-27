@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 99796,
-  "account_used": 204,
+  "account_remaining": 99718,
+  "account_used": 282,
   "alerts": [],
   "calls": [
     {
@@ -597,6 +597,159 @@
       "path": "sports/americanfootball_nfl/events",
       "purpose": "nfl: list events",
       "sport": "nfl"
+    },
+    {
+      "account_remaining": 99796,
+      "account_used": 204,
+      "at": "2026-09-27T10:49:08+00:00",
+      "credits": 0,
+      "path": "sports/baseball_mlb/events",
+      "purpose": "mlb: events",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99795,
+      "account_used": 205,
+      "at": "2026-09-27T10:49:08+00:00",
+      "credits": 1,
+      "path": "sports/baseball_mlb/odds",
+      "purpose": "mlb: match odds",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99789,
+      "account_used": 211,
+      "at": "2026-09-27T10:49:09+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/8d968b3a9346c52d763b36a57a1cb74a/odds",
+      "purpose": "mlb board check BAL@NYA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99783,
+      "account_used": 217,
+      "at": "2026-09-27T10:49:09+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/f915dd93e407b20c3b8693fa226d6bf6/odds",
+      "purpose": "mlb board check NYN@WAS",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99777,
+      "account_used": 223,
+      "at": "2026-09-27T10:49:09+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/7b589a322a1e421d031d8b1abb24d911/odds",
+      "purpose": "mlb board check TBA@PHI",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99772,
+      "account_used": 228,
+      "at": "2026-09-27T10:49:09+00:00",
+      "credits": 5,
+      "path": "sports/baseball_mlb/events/d7e09d96fa17b2224743a3a15f5562c7/odds",
+      "purpose": "mlb board check HOU@ATH",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99771,
+      "account_used": 229,
+      "at": "2026-09-27T10:49:10+00:00",
+      "credits": 1,
+      "path": "sports/baseball_mlb/events/eb299a5d0d8335166d9e1e71c9f27482/odds",
+      "purpose": "mlb board check CHN@BOS",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99767,
+      "account_used": 233,
+      "at": "2026-09-27T10:49:10+00:00",
+      "credits": 4,
+      "path": "sports/baseball_mlb/events/25a8aaae97deb4871e535ab5842a6aae/odds",
+      "purpose": "mlb board check LAN@SFN",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99762,
+      "account_used": 238,
+      "at": "2026-09-27T10:49:10+00:00",
+      "credits": 5,
+      "path": "sports/baseball_mlb/events/9f490d6bcfb661b6a7b1114e80646d4b/odds",
+      "purpose": "mlb board check CIN@TOR",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99756,
+      "account_used": 244,
+      "at": "2026-09-27T10:49:10+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/f4a70a1cc28098ce3bd4a521555ad809/odds",
+      "purpose": "mlb board check ATL@MIA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99750,
+      "account_used": 250,
+      "at": "2026-09-27T10:49:10+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/febfe492bcd191327b90c25777e21db4/odds",
+      "purpose": "mlb board check COL@CHA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99745,
+      "account_used": 255,
+      "at": "2026-09-27T10:49:10+00:00",
+      "credits": 5,
+      "path": "sports/baseball_mlb/events/f55ce2717fb90929c3519929cc3263f0/odds",
+      "purpose": "mlb board check PIT@DET",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99739,
+      "account_used": 261,
+      "at": "2026-09-27T10:49:11+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/3d109aae107e7d5306d828f3004dbb9d/odds",
+      "purpose": "mlb board check ANA@SEA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99733,
+      "account_used": 267,
+      "at": "2026-09-27T10:49:11+00:00",
+      "credits": 6,
+      "path": "sports/baseball_mlb/events/f8c336fa447564a17616c2127dc61bf7/odds",
+      "purpose": "mlb board check SLN@MIL",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99728,
+      "account_used": 272,
+      "at": "2026-09-27T10:49:11+00:00",
+      "credits": 5,
+      "path": "sports/baseball_mlb/events/a30b8084ec3236e2dfd36571563a17b8/odds",
+      "purpose": "mlb board check ARI@SDN",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99723,
+      "account_used": 277,
+      "at": "2026-09-27T10:49:11+00:00",
+      "credits": 5,
+      "path": "sports/baseball_mlb/events/145cdebdd889acf475c53aec610bd845/odds",
+      "purpose": "mlb board check CLE@KCA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99718,
+      "account_used": 282,
+      "at": "2026-09-27T10:49:11+00:00",
+      "credits": 5,
+      "path": "sports/baseball_mlb/events/b399c26bfec19fedbe59553718bf1c7a/odds",
+      "purpose": "mlb board check TEX@MIN",
+      "sport": "mlb"
     }
   ],
   "days": {
@@ -616,11 +769,11 @@
     },
     "2026-09-27": {
       "by_sport": {
-        "mlb": 6,
+        "mlb": 84,
         "nfl": 48
       },
-      "credits": 54
+      "credits": 132
     }
   },
-  "updated": "2026-09-27T10:43:47.981734+00:00"
+  "updated": "2026-09-27T10:49:11.854965+00:00"
 }
