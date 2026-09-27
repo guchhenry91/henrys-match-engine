@@ -37,3 +37,8 @@ jobs:
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.check_odds_coverage
+
+      - name: bet365 player-market shapes (anytime scorer, shots, SOT)
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: python -m scripts.probe_soccer_player_odds
