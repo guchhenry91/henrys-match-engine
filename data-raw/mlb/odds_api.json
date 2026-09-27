@@ -2,7 +2,8 @@
   "games": {
     "823490": {
       "checks": [
-        "2026-09-27T10:49:08+00:00"
+        "2026-09-27T10:49:08+00:00",
+        "2026-09-27T16:21:24+00:00"
       ],
       "props": {
         "hr": {
@@ -99,10 +100,82 @@
           "Spencer Jones": {
             "_name": "Spencer Jones",
             "line": 0.5,
-            "over": 0.1337,
-            "under": 0.8663,
-            "odd_over": 7.0,
+            "over": 0.1345,
+            "under": 0.8655,
+            "odd_over": 6.95,
             "odd_under": 1.08,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Austin Wells": {
+            "_name": "Austin Wells",
+            "line": 0.5,
+            "over": 0.0946,
+            "under": 0.9054,
+            "odd_over": 9.86,
+            "odd_under": 1.03,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Cody Bellinger": {
+            "_name": "Cody Bellinger",
+            "line": 0.5,
+            "over": 0.1157,
+            "under": 0.8843,
+            "odd_over": 8.1,
+            "odd_under": 1.06,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Jazz Chisholm Jr.": {
+            "_name": "Jazz Chisholm Jr.",
+            "line": 0.5,
+            "over": 0.1088,
+            "under": 0.8912,
+            "odd_over": 8.6,
+            "odd_under": 1.05,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Jeremiah Jackson": {
+            "_name": "Jeremiah Jackson",
+            "line": 0.5,
+            "over": 0.0996,
+            "under": 0.9004,
+            "odd_over": 9.4,
+            "odd_under": 1.04,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Ryan McMahon": {
+            "_name": "Ryan McMahon",
+            "line": 0.5,
+            "over": 0.0942,
+            "under": 0.9058,
+            "odd_over": 9.9,
+            "odd_under": 1.03,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          }
+        },
+        "strikeouts": {
+          "Elmer Rodriguez": {
+            "_name": "Elmer Rodriguez",
+            "line": 5.5,
+            "over": 0.4212,
+            "under": 0.5788,
+            "odd_over": 2.24,
+            "odd_under": 1.63,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Shane Baz": {
+            "_name": "Shane Baz",
+            "line": 5.5,
+            "over": 0.4219,
+            "under": 0.5781,
+            "odd_over": 2.22,
+            "odd_under": 1.62,
             "book": "Pinnacle",
             "source": "pinnacle"
           }
@@ -111,40 +184,30 @@
           "Cody Bellinger": {
             "_name": "Cody Bellinger",
             "line": 0.5,
-            "over": 0.6538,
-            "under": 0.3462,
-            "odd_over": 1.43,
-            "odd_under": 2.7,
+            "over": 0.6455,
+            "under": 0.3545,
+            "odd_over": 1.45,
+            "odd_under": 2.64,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Luis Garcia Jr.": {
             "_name": "Luis Garcia Jr.",
             "line": 0.5,
-            "over": 0.6505,
-            "under": 0.3495,
-            "odd_over": 1.44,
-            "odd_under": 2.68,
+            "over": 0.6422,
+            "under": 0.3578,
+            "odd_over": 1.46,
+            "odd_under": 2.62,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Heliot Ramos": {
             "_name": "Heliot Ramos",
             "line": 0.5,
-            "over": 0.6472,
-            "under": 0.3528,
-            "odd_over": 1.45,
-            "odd_under": 2.66,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Ben Rice": {
-            "_name": "Ben Rice",
-            "line": 0.5,
-            "over": 0.6337,
-            "under": 0.3663,
+            "over": 0.6328,
+            "under": 0.3672,
             "odd_over": 1.48,
-            "odd_under": 2.56,
+            "odd_under": 2.55,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -158,6 +221,26 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
+          "Christian Encarnacion-Strand": {
+            "_name": "Christian Encarnacion-Strand",
+            "line": 0.5,
+            "over": 0.6187,
+            "under": 0.3813,
+            "odd_over": 1.51,
+            "odd_under": 2.45,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Ben Rice": {
+            "_name": "Ben Rice",
+            "line": 0.5,
+            "over": 0.6162,
+            "under": 0.3838,
+            "odd_over": 1.52,
+            "odd_under": 2.44,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
           "Gunnar Henderson": {
             "_name": "Gunnar Henderson",
             "line": 0.5,
@@ -165,26 +248,6 @@
             "under": 0.3919,
             "odd_over": 1.54,
             "odd_under": 2.39,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Christian Encarnacion-Strand": {
-            "_name": "Christian Encarnacion-Strand",
-            "line": 0.5,
-            "over": 0.6036,
-            "under": 0.3964,
-            "odd_over": 1.55,
-            "odd_under": 2.36,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "George Lombard Jr.": {
-            "_name": "George Lombard Jr.",
-            "line": 0.5,
-            "over": 0.5881,
-            "under": 0.4119,
-            "odd_over": 1.59,
-            "odd_under": 2.27,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -198,83 +261,53 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
+          "George Lombard Jr.": {
+            "_name": "George Lombard Jr.",
+            "line": 0.5,
+            "over": 0.5807,
+            "under": 0.4193,
+            "odd_over": 1.61,
+            "odd_under": 2.23,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
           "Jeremiah Jackson": {
             "_name": "Jeremiah Jackson",
             "line": 0.5,
-            "over": 0.577,
-            "under": 0.423,
-            "odd_over": 1.62,
-            "odd_under": 2.21,
+            "over": 0.5696,
+            "under": 0.4304,
+            "odd_over": 1.64,
+            "odd_under": 2.17,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Dylan Beavers": {
             "_name": "Dylan Beavers",
             "line": 0.5,
-            "over": 0.5722,
-            "under": 0.4278,
-            "odd_over": 1.63,
-            "odd_under": 2.18,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Jazz Chisholm Jr.": {
-            "_name": "Jazz Chisholm Jr.",
-            "line": 0.5,
-            "over": 0.5556,
-            "under": 0.4444,
-            "odd_over": 1.68,
-            "odd_under": 2.1,
+            "over": 0.5632,
+            "under": 0.4368,
+            "odd_over": 1.66,
+            "odd_under": 2.14,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Spencer Jones": {
             "_name": "Spencer Jones",
             "line": 0.5,
-            "over": 0.5529,
-            "under": 0.4471,
+            "over": 0.5517,
+            "under": 0.4483,
             "odd_over": 1.69,
-            "odd_under": 2.09,
+            "odd_under": 2.08,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Christian Franklin": {
-            "_name": "Christian Franklin",
+          "Jazz Chisholm Jr.": {
+            "_name": "Jazz Chisholm Jr.",
             "line": 0.5,
-            "over": 0.5346,
-            "under": 0.4654,
-            "odd_over": 1.75,
-            "odd_under": 2.01,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Ryan McMahon": {
-            "_name": "Ryan McMahon",
-            "line": 0.5,
-            "over": 0.4947,
-            "under": 0.5053,
-            "odd_over": 1.89,
-            "odd_under": 1.85,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Austin Wells": {
-            "_name": "Austin Wells",
-            "line": 0.5,
-            "over": 0.4906,
-            "under": 0.5094,
-            "odd_over": 1.9,
-            "odd_under": 1.83,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Carlos Narvaez": {
-            "_name": "Carlos Narvaez",
-            "line": 0.5,
-            "over": 0.488,
-            "under": 0.512,
-            "odd_over": 1.92,
-            "odd_under": 1.83,
+            "over": 0.5464,
+            "under": 0.4536,
+            "odd_over": 1.71,
+            "odd_under": 2.06,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -287,56 +320,106 @@
             "odd_under": 1.8,
             "book": "DraftKings",
             "source": "draftkings"
+          },
+          "Ryan McMahon": {
+            "_name": "Ryan McMahon",
+            "line": 0.5,
+            "over": 0.4813,
+            "under": 0.5187,
+            "odd_over": 1.94,
+            "odd_under": 1.8,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Heston Kjerstad": {
+            "_name": "Heston Kjerstad",
+            "line": 0.5,
+            "over": 0.4786,
+            "under": 0.5214,
+            "odd_over": 1.95,
+            "odd_under": 1.79,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Austin Wells": {
+            "_name": "Austin Wells",
+            "line": 0.5,
+            "over": 0.472,
+            "under": 0.528,
+            "odd_over": 1.98,
+            "odd_under": 1.77,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Carlos Narvaez": {
+            "_name": "Carlos Narvaez",
+            "line": 0.5,
+            "over": 0.4693,
+            "under": 0.5307,
+            "odd_over": 1.99,
+            "odd_under": 1.76,
+            "book": "DraftKings",
+            "source": "draftkings"
           }
         },
         "hrr": {
-          "Ben Rice": {
-            "_name": "Ben Rice",
-            "line": 1.5,
-            "over": 0.5053,
-            "under": 0.4947,
-            "odd_over": 1.85,
-            "odd_under": 1.89,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
           "Cody Bellinger": {
             "_name": "Cody Bellinger",
             "line": 1.5,
-            "over": 0.496,
-            "under": 0.504,
-            "odd_over": 1.88,
-            "odd_under": 1.85,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Luis Garcia Jr.": {
-            "_name": "Luis Garcia Jr.",
-            "line": 1.5,
-            "over": 0.496,
-            "under": 0.504,
-            "odd_over": 1.88,
-            "odd_under": 1.85,
+            "over": 0.4866,
+            "under": 0.5134,
+            "odd_over": 1.92,
+            "odd_under": 1.82,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Pete Alonso": {
             "_name": "Pete Alonso",
             "line": 1.5,
-            "over": 0.4893,
-            "under": 0.5107,
-            "odd_over": 1.91,
-            "odd_under": 1.83,
+            "over": 0.4866,
+            "under": 0.5134,
+            "odd_over": 1.92,
+            "odd_under": 1.82,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Luis Garcia Jr.": {
+            "_name": "Luis Garcia Jr.",
+            "line": 1.5,
+            "over": 0.4853,
+            "under": 0.5147,
+            "odd_over": 1.93,
+            "odd_under": 1.82,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Ben Rice": {
+            "_name": "Ben Rice",
+            "line": 1.5,
+            "over": 0.484,
+            "under": 0.516,
+            "odd_over": 1.93,
+            "odd_under": 1.81,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Heliot Ramos": {
             "_name": "Heliot Ramos",
             "line": 1.5,
-            "over": 0.484,
-            "under": 0.516,
-            "odd_over": 1.93,
-            "odd_under": 1.81,
+            "over": 0.4693,
+            "under": 0.5307,
+            "odd_over": 1.99,
+            "odd_under": 1.76,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Christian Encarnacion-Strand": {
+            "_name": "Christian Encarnacion-Strand",
+            "line": 1.5,
+            "over": 0.4601,
+            "under": 0.5399,
+            "odd_over": 2.03,
+            "odd_under": 1.73,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -347,16 +430,6 @@
             "under": 0.5438,
             "odd_over": 2.05,
             "odd_under": 1.72,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Christian Encarnacion-Strand": {
-            "_name": "Christian Encarnacion-Strand",
-            "line": 1.5,
-            "over": 0.4483,
-            "under": 0.5517,
-            "odd_over": 2.08,
-            "odd_under": 1.69,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -373,75 +446,65 @@
           "Dylan Beavers": {
             "_name": "Dylan Beavers",
             "line": 1.5,
-            "over": 0.4406,
-            "under": 0.5594,
-            "odd_over": 2.12,
-            "odd_under": 1.67,
+            "over": 0.438,
+            "under": 0.562,
+            "odd_over": 2.13,
+            "odd_under": 1.66,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "George Lombard Jr.": {
             "_name": "George Lombard Jr.",
             "line": 1.5,
-            "over": 0.4293,
-            "under": 0.5707,
-            "odd_over": 2.18,
-            "odd_under": 1.64,
+            "over": 0.4145,
+            "under": 0.5855,
+            "odd_over": 2.26,
+            "odd_under": 1.6,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Spencer Jones": {
             "_name": "Spencer Jones",
             "line": 1.5,
-            "over": 0.4193,
-            "under": 0.5807,
-            "odd_over": 2.23,
-            "odd_under": 1.61,
+            "over": 0.4119,
+            "under": 0.5881,
+            "odd_over": 2.27,
+            "odd_under": 1.59,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Jazz Chisholm Jr.": {
             "_name": "Jazz Chisholm Jr.",
             "line": 1.5,
-            "over": 0.4156,
-            "under": 0.5844,
-            "odd_over": 2.25,
-            "odd_under": 1.6,
+            "over": 0.399,
+            "under": 0.601,
+            "odd_over": 2.35,
+            "odd_under": 1.56,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Jeremiah Jackson": {
             "_name": "Jeremiah Jackson",
             "line": 1.5,
-            "over": 0.4046,
-            "under": 0.5954,
-            "odd_over": 2.31,
-            "odd_under": 1.57,
+            "over": 0.3964,
+            "under": 0.6036,
+            "odd_over": 2.36,
+            "odd_under": 1.55,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Christian Franklin": {
-            "_name": "Christian Franklin",
+          "Colton Cowser": {
+            "_name": "Colton Cowser",
             "line": 0.5,
-            "over": 0.6046,
-            "under": 0.3954,
-            "odd_over": 1.55,
-            "odd_under": 2.37,
+            "over": 0.5567,
+            "under": 0.4433,
+            "odd_over": 1.68,
+            "odd_under": 2.11,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Austin Wells": {
             "_name": "Austin Wells",
-            "line": 0.5,
-            "over": 0.5658,
-            "under": 0.4342,
-            "odd_over": 1.65,
-            "odd_under": 2.15,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Carlos Narvaez": {
-            "_name": "Carlos Narvaez",
             "line": 0.5,
             "over": 0.5491,
             "under": 0.4509,
@@ -450,23 +513,33 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Colton Cowser": {
-            "_name": "Colton Cowser",
-            "line": 0.5,
-            "over": 0.5503,
-            "under": 0.4497,
-            "odd_over": 1.7,
-            "odd_under": 2.08,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
           "Ryan McMahon": {
             "_name": "Ryan McMahon",
             "line": 0.5,
-            "over": 0.5438,
-            "under": 0.4562,
+            "over": 0.5426,
+            "under": 0.4574,
             "odd_over": 1.72,
-            "odd_under": 2.05,
+            "odd_under": 2.04,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Carlos Narvaez": {
+            "_name": "Carlos Narvaez",
+            "line": 0.5,
+            "over": 0.5307,
+            "under": 0.4693,
+            "odd_over": 1.76,
+            "odd_under": 1.99,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Heston Kjerstad": {
+            "_name": "Heston Kjerstad",
+            "line": 0.5,
+            "over": 0.5241,
+            "under": 0.4759,
+            "odd_over": 1.78,
+            "odd_under": 1.96,
             "book": "DraftKings",
             "source": "draftkings"
           }
@@ -475,40 +548,30 @@
           "Luis Garcia Jr.": {
             "_name": "Luis Garcia Jr.",
             "line": 0.5,
-            "over": 0.3357,
-            "under": 0.6643,
-            "odd_over": 2.77,
-            "odd_under": 1.4,
+            "over": 0.3278,
+            "under": 0.6722,
+            "odd_over": 2.83,
+            "odd_under": 1.38,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Coby Mayo": {
             "_name": "Coby Mayo",
             "line": 0.5,
-            "over": 0.3193,
-            "under": 0.6807,
-            "odd_over": 2.92,
-            "odd_under": 1.37,
+            "over": 0.3255,
+            "under": 0.6745,
+            "odd_over": 2.86,
+            "odd_under": 1.38,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Christian Encarnacion-Strand": {
             "_name": "Christian Encarnacion-Strand",
             "line": 0.5,
-            "over": 0.3103,
-            "under": 0.6897,
-            "odd_over": 3.0,
-            "odd_under": 1.35,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Ben Rice": {
-            "_name": "Ben Rice",
-            "line": 0.5,
-            "over": 0.3096,
-            "under": 0.6904,
-            "odd_over": 3.01,
-            "odd_under": 1.35,
+            "over": 0.3216,
+            "under": 0.6784,
+            "odd_over": 2.89,
+            "odd_under": 1.37,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -525,152 +588,140 @@
           "Heliot Ramos": {
             "_name": "Heliot Ramos",
             "line": 0.5,
-            "over": 0.3089,
-            "under": 0.6911,
-            "odd_over": 3.02,
-            "odd_under": 1.35,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Cody Bellinger": {
-            "_name": "Cody Bellinger",
-            "line": 0.5,
-            "over": 0.2933,
-            "under": 0.7067,
-            "odd_over": 3.18,
-            "odd_under": 1.32,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Gunnar Henderson": {
-            "_name": "Gunnar Henderson",
-            "line": 0.5,
-            "over": 0.2927,
-            "under": 0.7073,
-            "odd_over": 3.19,
-            "odd_under": 1.32,
+            "over": 0.3002,
+            "under": 0.6998,
+            "odd_over": 3.1,
+            "odd_under": 1.33,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Spencer Jones": {
             "_name": "Spencer Jones",
             "line": 0.5,
-            "over": 0.2892,
-            "under": 0.7108,
-            "odd_over": 3.22,
+            "over": 0.286,
+            "under": 0.714,
+            "odd_over": 3.27,
             "odd_under": 1.31,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Jazz Chisholm Jr.": {
-            "_name": "Jazz Chisholm Jr.",
+          "Cody Bellinger": {
+            "_name": "Cody Bellinger",
             "line": 0.5,
-            "over": 0.2718,
-            "under": 0.7282,
-            "odd_over": 3.43,
-            "odd_under": 1.28,
+            "over": 0.2838,
+            "under": 0.7162,
+            "odd_over": 3.28,
+            "odd_under": 1.3,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Gunnar Henderson": {
+            "_name": "Gunnar Henderson",
+            "line": 0.5,
+            "over": 0.2838,
+            "under": 0.7162,
+            "odd_over": 3.28,
+            "odd_under": 1.3,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Ben Rice": {
+            "_name": "Ben Rice",
+            "line": 0.5,
+            "over": 0.2832,
+            "under": 0.7168,
+            "odd_over": 3.29,
+            "odd_under": 1.3,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "George Lombard Jr.": {
             "_name": "George Lombard Jr.",
             "line": 0.5,
-            "over": 0.2689,
-            "under": 0.7311,
-            "odd_over": 3.48,
-            "odd_under": 1.28,
+            "over": 0.2551,
+            "under": 0.7449,
+            "odd_over": 3.68,
+            "odd_under": 1.26,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Jazz Chisholm Jr.": {
+            "_name": "Jazz Chisholm Jr.",
+            "line": 0.5,
+            "over": 0.252,
+            "under": 0.748,
+            "odd_over": 3.71,
+            "odd_under": 1.25,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Jeremiah Jackson": {
             "_name": "Jeremiah Jackson",
             "line": 0.5,
-            "over": 0.2577,
-            "under": 0.7423,
-            "odd_over": 3.63,
-            "odd_under": 1.26,
+            "over": 0.2515,
+            "under": 0.7485,
+            "odd_over": 3.72,
+            "odd_under": 1.25,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Dylan Beavers": {
             "_name": "Dylan Beavers",
             "line": 0.5,
-            "over": 0.2525,
-            "under": 0.7475,
-            "odd_over": 3.7,
+            "over": 0.249,
+            "under": 0.751,
+            "odd_over": 3.77,
             "odd_under": 1.25,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Christian Franklin": {
-            "_name": "Christian Franklin",
-            "line": 0.5,
-            "over": 0.2446,
-            "under": 0.7554,
-            "odd_over": 3.83,
-            "odd_under": 1.24,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Austin Wells": {
-            "_name": "Austin Wells",
-            "line": 0.5,
-            "over": 0.2407,
-            "under": 0.7593,
-            "odd_over": 3.88,
-            "odd_under": 1.23,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Ryan McMahon": {
-            "_name": "Ryan McMahon",
-            "line": 0.5,
-            "over": 0.237,
-            "under": 0.763,
-            "odd_over": 3.96,
-            "odd_under": 1.23,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Colton Cowser": {
             "_name": "Colton Cowser",
             "line": 0.5,
-            "over": 0.2333,
-            "under": 0.7667,
-            "odd_over": 4.01,
+            "over": 0.2337,
+            "under": 0.7663,
+            "odd_over": 4.0,
             "odd_under": 1.22,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Ryan McMahon": {
+            "_name": "Ryan McMahon",
+            "line": 0.5,
+            "over": 0.2302,
+            "under": 0.7698,
+            "odd_over": 4.08,
+            "odd_under": 1.22,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Austin Wells": {
+            "_name": "Austin Wells",
+            "line": 0.5,
+            "over": 0.2232,
+            "under": 0.7768,
+            "odd_over": 4.21,
+            "odd_under": 1.21,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Heston Kjerstad": {
+            "_name": "Heston Kjerstad",
+            "line": 0.5,
+            "over": 0.2151,
+            "under": 0.7849,
+            "odd_over": 4.38,
+            "odd_under": 1.2,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Carlos Narvaez": {
             "_name": "Carlos Narvaez",
             "line": 0.5,
-            "over": 0.2174,
-            "under": 0.7826,
-            "odd_over": 4.32,
-            "odd_under": 1.2,
-            "book": "DraftKings",
-            "source": "draftkings"
-          }
-        },
-        "strikeouts": {
-          "Elmer Rodriguez": {
-            "_name": "Elmer Rodriguez",
-            "line": 5.5,
-            "over": 0.4275,
-            "under": 0.5725,
-            "odd_over": 2.21,
-            "odd_under": 1.65,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Shane Baz": {
-            "_name": "Shane Baz",
-            "line": 4.5,
-            "over": 0.5788,
-            "under": 0.4212,
-            "odd_over": 1.63,
-            "odd_under": 2.24,
+            "over": 0.2031,
+            "under": 0.7969,
+            "odd_over": 4.63,
+            "odd_under": 1.18,
             "book": "DraftKings",
             "source": "draftkings"
           }
@@ -684,26 +735,26 @@
       "away_name": "Baltimore Orioles",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.5544,
-        "away": 0.4456,
-        "overround": 0.0248
+        "home": 0.5228,
+        "away": 0.4772,
+        "overround": 0.0174
       },
       "team_totals": {
         "away": {
           "line": 3.5,
-          "over": 0.5065,
-          "under": 0.4935,
-          "odd_over": 1.89,
-          "odd_under": 1.94,
+          "over": 0.4935,
+          "under": 0.5065,
+          "odd_over": 1.95,
+          "odd_under": 1.9,
           "book": "Pinnacle",
           "source": "pinnacle"
         },
         "home": {
           "line": 3.5,
-          "over": 0.5604,
-          "under": 0.4396,
-          "odd_over": 1.71,
-          "odd_under": 2.18,
+          "over": 0.5181,
+          "under": 0.4819,
+          "odd_over": 1.86,
+          "odd_under": 2.0,
           "book": "Pinnacle",
           "source": "pinnacle"
         }
@@ -711,7 +762,8 @@
     },
     "822679": {
       "checks": [
-        "2026-09-27T10:49:08+00:00"
+        "2026-09-27T10:49:08+00:00",
+        "2026-09-27T16:21:24+00:00"
       ],
       "props": {
         "hr": {
@@ -728,9 +780,9 @@
           "Bo Bichette": {
             "_name": "Bo Bichette",
             "line": 0.5,
-            "over": 0.1278,
-            "under": 0.8722,
-            "odd_over": 7.3,
+            "over": 0.1286,
+            "under": 0.8714,
+            "odd_over": 7.25,
             "odd_under": 1.07,
             "book": "Pinnacle",
             "source": "pinnacle"
@@ -778,9 +830,9 @@
           "Francisco Lindor": {
             "_name": "Francisco Lindor",
             "line": 0.5,
-            "over": 0.1798,
-            "under": 0.8202,
-            "odd_over": 5.2,
+            "over": 0.181,
+            "under": 0.819,
+            "odd_over": 5.16,
             "odd_under": 1.14,
             "book": "Pinnacle",
             "source": "pinnacle"
@@ -824,16 +876,88 @@
             "odd_under": 1.13,
             "book": "Pinnacle",
             "source": "pinnacle"
+          },
+          "Carson Benge": {
+            "_name": "Carson Benge",
+            "line": 0.5,
+            "over": 0.1036,
+            "under": 0.8964,
+            "odd_over": 9.0,
+            "odd_under": 1.04,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Harry Ford": {
+            "_name": "Harry Ford",
+            "line": 0.5,
+            "over": 0.1157,
+            "under": 0.8843,
+            "odd_over": 8.1,
+            "odd_under": 1.06,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Jacob Young": {
+            "_name": "Jacob Young",
+            "line": 0.5,
+            "over": 0.096,
+            "under": 0.904,
+            "odd_over": 9.7,
+            "odd_under": 1.03,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "Marcus Semien": {
+            "_name": "Marcus Semien",
+            "line": 0.5,
+            "over": 0.1196,
+            "under": 0.8804,
+            "odd_over": 7.8,
+            "odd_under": 1.06,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          }
+        },
+        "strikeouts": {
+          "Sean Manaea": {
+            "_name": "Sean Manaea",
+            "line": 5.5,
+            "over": 0.4893,
+            "under": 0.5107,
+            "odd_over": 1.91,
+            "odd_under": 1.83,
+            "book": "Pinnacle",
+            "source": "pinnacle"
+          },
+          "DJ Herz": {
+            "_name": "DJ Herz",
+            "line": 4.5,
+            "over": 0.4788,
+            "under": 0.5212,
+            "odd_over": 1.97,
+            "odd_under": 1.81,
+            "book": "DraftKings",
+            "source": "draftkings"
           }
         },
         "hits": {
           "Bo Bichette": {
             "_name": "Bo Bichette",
-            "line": 1.5,
-            "over": 0.3357,
-            "under": 0.6643,
-            "odd_over": 2.79,
-            "odd_under": 1.41,
+            "line": 0.5,
+            "over": 0.6836,
+            "under": 0.3164,
+            "odd_over": 1.37,
+            "odd_under": 2.96,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Juan Soto": {
+            "_name": "Juan Soto",
+            "line": 0.5,
+            "over": 0.6595,
+            "under": 0.3405,
+            "odd_over": 1.42,
+            "odd_under": 2.75,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -850,40 +974,60 @@
           "Carson Benge": {
             "_name": "Carson Benge",
             "line": 0.5,
-            "over": 0.6505,
-            "under": 0.3495,
-            "odd_over": 1.44,
-            "odd_under": 2.68,
+            "over": 0.6404,
+            "under": 0.3596,
+            "odd_over": 1.46,
+            "odd_under": 2.6,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Marcus Semien": {
             "_name": "Marcus Semien",
             "line": 0.5,
-            "over": 0.625,
-            "under": 0.375,
-            "odd_over": 1.5,
-            "odd_under": 2.5,
+            "over": 0.6328,
+            "under": 0.3672,
+            "odd_over": 1.48,
+            "odd_under": 2.55,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "James Wood": {
             "_name": "James Wood",
             "line": 0.5,
-            "over": 0.6241,
-            "under": 0.3759,
-            "odd_over": 1.5,
-            "odd_under": 2.49,
+            "over": 0.6318,
+            "under": 0.3682,
+            "odd_over": 1.48,
+            "odd_under": 2.54,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Dylan Crews": {
             "_name": "Dylan Crews",
             "line": 0.5,
-            "over": 0.6127,
-            "under": 0.3873,
-            "odd_over": 1.53,
-            "odd_under": 2.42,
+            "over": 0.6206,
+            "under": 0.3794,
+            "odd_over": 1.51,
+            "odd_under": 2.47,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Luis Torrens": {
+            "_name": "Luis Torrens",
+            "line": 0.5,
+            "over": 0.6196,
+            "under": 0.3804,
+            "odd_over": 1.51,
+            "odd_under": 2.46,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "CJ Abrams": {
+            "_name": "CJ Abrams",
+            "line": 0.5,
+            "over": 0.6081,
+            "under": 0.3919,
+            "odd_over": 1.54,
+            "odd_under": 2.39,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -897,48 +1041,18 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "CJ Abrams": {
-            "_name": "CJ Abrams",
+          "Jacob Young": {
+            "_name": "Jacob Young",
             "line": 0.5,
-            "over": 0.6,
-            "under": 0.4,
-            "odd_over": 1.56,
-            "odd_under": 2.34,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Luis Torrens": {
-            "_name": "Luis Torrens",
-            "line": 0.5,
-            "over": 0.6,
-            "under": 0.4,
-            "odd_over": 1.56,
-            "odd_under": 2.34,
+            "over": 0.5881,
+            "under": 0.4119,
+            "odd_over": 1.59,
+            "odd_under": 2.27,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "A.J. Ewing": {
             "_name": "A.J. Ewing",
-            "line": 0.5,
-            "over": 0.5928,
-            "under": 0.4072,
-            "odd_over": 1.58,
-            "odd_under": 2.3,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Mark Vientos": {
-            "_name": "Mark Vientos",
-            "line": 0.5,
-            "over": 0.5855,
-            "under": 0.4145,
-            "odd_over": 1.6,
-            "odd_under": 2.26,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Yohandy Morales": {
-            "_name": "Yohandy Morales",
             "line": 0.5,
             "over": 0.577,
             "under": 0.423,
@@ -947,12 +1061,22 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Francisco Alvarez": {
-            "_name": "Francisco Alvarez",
+          "Brett Baty": {
+            "_name": "Brett Baty",
             "line": 0.5,
-            "over": 0.5707,
-            "under": 0.4293,
-            "odd_over": 1.64,
+            "over": 0.577,
+            "under": 0.423,
+            "odd_over": 1.62,
+            "odd_under": 2.21,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Daylen Lile": {
+            "_name": "Daylen Lile",
+            "line": 0.5,
+            "over": 0.5722,
+            "under": 0.4278,
+            "odd_over": 1.63,
             "odd_under": 2.18,
             "book": "DraftKings",
             "source": "draftkings"
@@ -967,23 +1091,13 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Jacob Young": {
-            "_name": "Jacob Young",
+          "Ronny Mauricio": {
+            "_name": "Ronny Mauricio",
             "line": 0.5,
-            "over": 0.5452,
-            "under": 0.4548,
-            "odd_over": 1.71,
-            "odd_under": 2.05,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Nick Morabito": {
-            "_name": "Nick Morabito",
-            "line": 0.5,
-            "over": 0.5294,
-            "under": 0.4706,
-            "odd_over": 1.76,
-            "odd_under": 1.98,
+            "over": 0.5491,
+            "under": 0.4509,
+            "odd_over": 1.7,
+            "odd_under": 2.07,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -1000,52 +1114,72 @@
           "Harry Ford": {
             "_name": "Harry Ford",
             "line": 0.5,
-            "over": 0.496,
-            "under": 0.504,
-            "odd_over": 1.88,
-            "odd_under": 1.85,
+            "over": 0.4693,
+            "under": 0.5307,
+            "odd_over": 1.99,
+            "odd_under": 1.76,
             "book": "DraftKings",
             "source": "draftkings"
           }
         },
         "hrr": {
-          "Bo Bichette": {
-            "_name": "Bo Bichette",
-            "line": 1.5,
-            "over": 0.5399,
-            "under": 0.4601,
-            "odd_over": 1.73,
-            "odd_under": 2.03,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
           "Francisco Lindor": {
             "_name": "Francisco Lindor",
             "line": 1.5,
-            "over": 0.516,
-            "under": 0.484,
-            "odd_over": 1.81,
-            "odd_under": 1.93,
+            "over": 0.5253,
+            "under": 0.4747,
+            "odd_over": 1.78,
+            "odd_under": 1.97,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Juan Soto": {
+            "_name": "Juan Soto",
+            "line": 1.5,
+            "over": 0.5253,
+            "under": 0.4747,
+            "odd_over": 1.78,
+            "odd_under": 1.97,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Bo Bichette": {
+            "_name": "Bo Bichette",
+            "line": 1.5,
+            "over": 0.5214,
+            "under": 0.4786,
+            "odd_over": 1.79,
+            "odd_under": 1.95,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "James Wood": {
             "_name": "James Wood",
             "line": 1.5,
-            "over": 0.4906,
-            "under": 0.5094,
-            "odd_over": 1.9,
-            "odd_under": 1.83,
+            "over": 0.5027,
+            "under": 0.4973,
+            "odd_over": 1.86,
+            "odd_under": 1.88,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Carson Benge": {
             "_name": "Carson Benge",
             "line": 1.5,
-            "over": 0.4893,
-            "under": 0.5107,
-            "odd_over": 1.91,
-            "odd_under": 1.83,
+            "over": 0.4947,
+            "under": 0.5053,
+            "odd_over": 1.89,
+            "odd_under": 1.85,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Marcus Semien": {
+            "_name": "Marcus Semien",
+            "line": 1.5,
+            "over": 0.4866,
+            "under": 0.5134,
+            "odd_over": 1.92,
+            "odd_under": 1.82,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -1059,16 +1193,6 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Marcus Semien": {
-            "_name": "Marcus Semien",
-            "line": 1.5,
-            "over": 0.4693,
-            "under": 0.5307,
-            "odd_over": 1.99,
-            "odd_under": 1.76,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
           "CJ Abrams": {
             "_name": "CJ Abrams",
             "line": 1.5,
@@ -1079,23 +1203,13 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Mark Vientos": {
-            "_name": "Mark Vientos",
+          "Luis Torrens": {
+            "_name": "Luis Torrens",
             "line": 1.5,
-            "over": 0.4536,
-            "under": 0.5464,
-            "odd_over": 2.06,
-            "odd_under": 1.71,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Francisco Alvarez": {
-            "_name": "Francisco Alvarez",
-            "line": 1.5,
-            "over": 0.4509,
-            "under": 0.5491,
-            "odd_over": 2.07,
-            "odd_under": 1.7,
+            "over": 0.4615,
+            "under": 0.5385,
+            "odd_over": 2.03,
+            "odd_under": 1.74,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -1109,73 +1223,63 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Luis Torrens": {
-            "_name": "Luis Torrens",
+          "Brett Baty": {
+            "_name": "Brett Baty",
             "line": 1.5,
-            "over": 0.4406,
-            "under": 0.5594,
-            "odd_over": 2.12,
-            "odd_under": 1.67,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Yohandy Morales": {
-            "_name": "Yohandy Morales",
-            "line": 1.5,
-            "over": 0.4406,
-            "under": 0.5594,
-            "odd_over": 2.12,
-            "odd_under": 1.67,
+            "over": 0.4319,
+            "under": 0.5681,
+            "odd_over": 2.17,
+            "odd_under": 1.65,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "A.J. Ewing": {
             "_name": "A.J. Ewing",
             "line": 1.5,
-            "over": 0.4368,
-            "under": 0.5632,
-            "odd_over": 2.14,
-            "odd_under": 1.66,
+            "over": 0.4267,
+            "under": 0.5733,
+            "odd_over": 2.19,
+            "odd_under": 1.63,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Andr\u00e9s Chaparro": {
             "_name": "Andr\u00e9s Chaparro",
             "line": 1.5,
-            "over": 0.4241,
-            "under": 0.5759,
-            "odd_over": 2.2,
-            "odd_under": 1.62,
+            "over": 0.4267,
+            "under": 0.5733,
+            "odd_over": 2.19,
+            "odd_under": 1.63,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Jacob Young": {
             "_name": "Jacob Young",
-            "line": 0.5,
-            "over": 0.5964,
-            "under": 0.4036,
-            "odd_over": 1.57,
-            "odd_under": 2.32,
+            "line": 1.5,
+            "over": 0.4267,
+            "under": 0.5733,
+            "odd_over": 2.19,
+            "odd_under": 1.63,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Nick Morabito": {
-            "_name": "Nick Morabito",
-            "line": 0.5,
-            "over": 0.5891,
-            "under": 0.4109,
-            "odd_over": 1.59,
-            "odd_under": 2.28,
+          "Daylen Lile": {
+            "_name": "Daylen Lile",
+            "line": 1.5,
+            "over": 0.423,
+            "under": 0.577,
+            "odd_over": 2.21,
+            "odd_under": 1.62,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Harry Ford": {
-            "_name": "Harry Ford",
-            "line": 0.5,
-            "over": 0.5605,
-            "under": 0.4395,
-            "odd_over": 1.67,
-            "odd_under": 2.13,
+          "Ronny Mauricio": {
+            "_name": "Ronny Mauricio",
+            "line": 1.5,
+            "over": 0.4083,
+            "under": 0.5917,
+            "odd_over": 2.29,
+            "odd_under": 1.58,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -1188,31 +1292,61 @@
             "odd_under": 2.12,
             "book": "DraftKings",
             "source": "draftkings"
+          },
+          "Harry Ford": {
+            "_name": "Harry Ford",
+            "line": 0.5,
+            "over": 0.5307,
+            "under": 0.4693,
+            "odd_over": 1.76,
+            "odd_under": 1.99,
+            "book": "DraftKings",
+            "source": "draftkings"
           }
         },
         "rbi": {
-          "Francisco Lindor": {
-            "_name": "Francisco Lindor",
+          "Juan Soto": {
+            "_name": "Juan Soto",
             "line": 0.5,
-            "over": 0.3262,
-            "under": 0.6738,
-            "odd_over": 2.85,
-            "odd_under": 1.38,
+            "over": 0.3373,
+            "under": 0.6627,
+            "odd_over": 2.75,
+            "odd_under": 1.4,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Dylan Crews": {
-            "_name": "Dylan Crews",
+          "Francisco Lindor": {
+            "_name": "Francisco Lindor",
             "line": 0.5,
-            "over": 0.3224,
-            "under": 0.6776,
-            "odd_over": 2.88,
-            "odd_under": 1.37,
+            "over": 0.3341,
+            "under": 0.6659,
+            "odd_over": 2.79,
+            "odd_under": 1.4,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Marcus Semien": {
+            "_name": "Marcus Semien",
+            "line": 0.5,
+            "over": 0.3294,
+            "under": 0.6706,
+            "odd_over": 2.83,
+            "odd_under": 1.39,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Bo Bichette": {
             "_name": "Bo Bichette",
+            "line": 0.5,
+            "over": 0.3216,
+            "under": 0.6784,
+            "odd_over": 2.89,
+            "odd_under": 1.37,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "James Wood": {
+            "_name": "James Wood",
             "line": 0.5,
             "over": 0.3208,
             "under": 0.6792,
@@ -1221,63 +1355,33 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Francisco Alvarez": {
-            "_name": "Francisco Alvarez",
+          "Dylan Crews": {
+            "_name": "Dylan Crews",
             "line": 0.5,
-            "over": 0.3193,
-            "under": 0.6807,
-            "odd_over": 2.92,
-            "odd_under": 1.37,
+            "over": 0.3155,
+            "under": 0.6845,
+            "odd_over": 2.95,
+            "odd_under": 1.36,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Mark Vientos": {
-            "_name": "Mark Vientos",
+          "Carson Benge": {
+            "_name": "Carson Benge",
             "line": 0.5,
-            "over": 0.3193,
-            "under": 0.6807,
-            "odd_over": 2.92,
-            "odd_under": 1.37,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "James Wood": {
-            "_name": "James Wood",
-            "line": 0.5,
-            "over": 0.3118,
-            "under": 0.6882,
-            "odd_over": 2.98,
+            "over": 0.3111,
+            "under": 0.6889,
+            "odd_over": 2.99,
             "odd_under": 1.35,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Marcus Semien": {
-            "_name": "Marcus Semien",
-            "line": 0.5,
-            "over": 0.3082,
-            "under": 0.6918,
-            "odd_over": 3.03,
-            "odd_under": 1.35,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Yohandy Morales": {
-            "_name": "Yohandy Morales",
-            "line": 0.5,
-            "over": 0.3059,
-            "under": 0.6941,
-            "odd_over": 3.04,
-            "odd_under": 1.34,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Andr\u00e9s Chaparro": {
             "_name": "Andr\u00e9s Chaparro",
             "line": 0.5,
-            "over": 0.3009,
-            "under": 0.6991,
-            "odd_over": 3.09,
-            "odd_under": 1.33,
+            "over": 0.3039,
+            "under": 0.6961,
+            "odd_over": 3.07,
+            "odd_under": 1.34,
             "book": "DraftKings",
             "source": "draftkings"
           },
@@ -1291,105 +1395,93 @@
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Carson Benge": {
-            "_name": "Carson Benge",
+          "Brett Baty": {
+            "_name": "Brett Baty",
             "line": 0.5,
-            "over": 0.2975,
-            "under": 0.7025,
-            "odd_over": 3.14,
-            "odd_under": 1.33,
+            "over": 0.2927,
+            "under": 0.7073,
+            "odd_over": 3.19,
+            "odd_under": 1.32,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "Brady House": {
-            "_name": "Brady House",
+          "Daylen Lile": {
+            "_name": "Daylen Lile",
             "line": 0.5,
-            "over": 0.2873,
-            "under": 0.7127,
-            "odd_over": 3.25,
-            "odd_under": 1.31,
+            "over": 0.2832,
+            "under": 0.7168,
+            "odd_over": 3.29,
+            "odd_under": 1.3,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Luis Torrens": {
             "_name": "Luis Torrens",
             "line": 0.5,
-            "over": 0.2774,
-            "under": 0.7226,
-            "odd_over": 3.36,
-            "odd_under": 1.29,
+            "over": 0.2826,
+            "under": 0.7174,
+            "odd_over": 3.3,
+            "odd_under": 1.3,
             "book": "DraftKings",
             "source": "draftkings"
           },
-          "A.J. Ewing": {
-            "_name": "A.J. Ewing",
+          "Brady House": {
+            "_name": "Brady House",
             "line": 0.5,
-            "over": 0.2683,
-            "under": 0.7317,
-            "odd_over": 3.49,
+            "over": 0.2814,
+            "under": 0.7186,
+            "odd_over": 3.32,
+            "odd_under": 1.3,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "Ronny Mauricio": {
+            "_name": "Ronny Mauricio",
+            "line": 0.5,
+            "over": 0.2695,
+            "under": 0.7305,
+            "odd_over": 3.47,
             "odd_under": 1.28,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "Nick Morabito": {
-            "_name": "Nick Morabito",
-            "line": 0.5,
-            "over": 0.2566,
-            "under": 0.7434,
-            "odd_over": 3.65,
-            "odd_under": 1.26,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Jacob Young": {
             "_name": "Jacob Young",
             "line": 0.5,
-            "over": 0.2505,
-            "under": 0.7495,
-            "odd_over": 3.74,
-            "odd_under": 1.25,
+            "over": 0.2646,
+            "under": 0.7354,
+            "odd_over": 3.53,
+            "odd_under": 1.27,
+            "book": "DraftKings",
+            "source": "draftkings"
+          },
+          "A.J. Ewing": {
+            "_name": "A.J. Ewing",
+            "line": 0.5,
+            "over": 0.2587,
+            "under": 0.7413,
+            "odd_over": 3.61,
+            "odd_under": 1.26,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Harry Ford": {
             "_name": "Harry Ford",
             "line": 0.5,
-            "over": 0.2495,
-            "under": 0.7505,
-            "odd_over": 3.76,
-            "odd_under": 1.25,
+            "over": 0.2436,
+            "under": 0.7564,
+            "odd_over": 3.85,
+            "odd_under": 1.24,
             "book": "DraftKings",
             "source": "draftkings"
           },
           "Nasim Nunez": {
             "_name": "Nasim Nunez",
             "line": 0.5,
-            "over": 0.2245,
-            "under": 0.7755,
-            "odd_over": 4.18,
-            "odd_under": 1.21,
-            "book": "DraftKings",
-            "source": "draftkings"
-          }
-        },
-        "strikeouts": {
-          "Sean Manaea": {
-            "_name": "Sean Manaea",
-            "line": 5.5,
-            "over": 0.5291,
-            "under": 0.4709,
-            "odd_over": 1.78,
-            "odd_under": 2.0,
-            "book": "DraftKings",
-            "source": "draftkings"
-          },
-          "DJ Herz": {
-            "_name": "DJ Herz",
-            "line": 4.5,
-            "over": 0.4947,
-            "under": 0.5053,
-            "odd_over": 1.91,
-            "odd_under": 1.87,
+            "over": 0.2182,
+            "under": 0.7818,
+            "odd_over": 4.3,
+            "odd_under": 1.2,
             "book": "DraftKings",
             "source": "draftkings"
           }
@@ -1403,25 +1495,25 @@
       "away_name": "New York Mets",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.5,
-        "away": 0.5,
-        "overround": 0.0256
+        "home": 0.4911,
+        "away": 0.5089,
+        "overround": 0.0181
       },
       "team_totals": {
         "away": {
           "line": 4.5,
-          "over": 0.4396,
-          "under": 0.5604,
-          "odd_over": 2.18,
-          "odd_under": 1.71,
+          "over": 0.4436,
+          "under": 0.5564,
+          "odd_over": 2.17,
+          "odd_under": 1.73,
           "book": "Pinnacle",
           "source": "pinnacle"
         },
         "home": {
           "line": 3.5,
-          "over": 0.5452,
-          "under": 0.4548,
-          "odd_over": 1.76,
+          "over": 0.5424,
+          "under": 0.4576,
+          "odd_over": 1.78,
           "odd_under": 2.11,
           "book": "Pinnacle",
           "source": "pinnacle"
@@ -2034,7 +2126,7 @@
           }
         }
       },
-      "start": "2026-09-27T19:05:00Z",
+      "start": "2026-09-27T18:30:00Z",
       "home": "PHI",
       "away": "TBA",
       "event_id": "7b589a322a1e421d031d8b1abb24d911",
@@ -2042,9 +2134,9 @@
       "away_name": "Tampa Bay Rays",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.58,
-        "away": 0.42,
-        "overround": 0.0263
+        "home": 0.6159,
+        "away": 0.3841,
+        "overround": 0.0211
       },
       "team_totals": {
         "home": {
@@ -2638,10 +2730,10 @@
       "home_name": "Athletics",
       "away_name": "Houston Astros",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.3905,
-        "away": 0.6095,
-        "overround": 0.0451
+        "book": "pinnacle",
+        "home": 0.3608,
+        "away": 0.6392,
+        "overround": 0.0226
       },
       "team_totals": {
         "home": {
@@ -2676,10 +2768,10 @@
       "home_name": "Boston Red Sox",
       "away_name": "Chicago Cubs",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.4714,
-        "away": 0.5286,
-        "overround": 0.0451
+        "book": "pinnacle",
+        "home": 0.4631,
+        "away": 0.5369,
+        "overround": 0.0234
       },
       "team_totals": {
         "home": {
@@ -3261,10 +3353,10 @@
       "home_name": "San Francisco Giants",
       "away_name": "Los Angeles Dodgers",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.3087,
-        "away": 0.6913,
-        "overround": 0.0483
+        "book": "pinnacle",
+        "home": 0.3106,
+        "away": 0.6894,
+        "overround": 0.0287
       },
       "team_totals": {
         "away": {
@@ -3868,10 +3960,10 @@
       "home_name": "Toronto Blue Jays",
       "away_name": "Cincinnati Reds",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.6163,
-        "away": 0.3837,
-        "overround": 0.0468
+        "book": "pinnacle",
+        "home": 0.6083,
+        "away": 0.3917,
+        "overround": 0.0211
       },
       "team_totals": {
         "away": {
@@ -4588,9 +4680,9 @@
       "away_name": "Atlanta Braves",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.4949,
-        "away": 0.5051,
-        "overround": 0.0257
+        "home": 0.5305,
+        "away": 0.4695,
+        "overround": 0.019
       },
       "team_totals": {
         "away": {
@@ -5297,9 +5389,9 @@
       "away_name": "Colorado Rockies",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.6464,
-        "away": 0.3536,
-        "overround": 0.0246
+        "home": 0.5911,
+        "away": 0.4089,
+        "overround": 0.0191
       },
       "team_totals": {
         "home": {
@@ -5904,9 +5996,9 @@
       "away_name": "Pittsburgh Pirates",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.4467,
-        "away": 0.5533,
-        "overround": 0.0269
+        "home": 0.486,
+        "away": 0.514,
+        "overround": 0.0186
       },
       "team_totals": {
         "home": {
@@ -6583,9 +6675,9 @@
       "away_name": "Los Angeles Angels",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.6217,
-        "away": 0.3783,
-        "overround": 0.0245
+        "home": 0.5946,
+        "away": 0.4054,
+        "overround": 0.0193
       },
       "team_totals": {
         "away": {
@@ -7062,9 +7154,9 @@
       "away_name": "St. Louis Cardinals",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.6794,
-        "away": 0.3206,
-        "overround": 0.0293
+        "home": 0.6392,
+        "away": 0.3608,
+        "overround": 0.0226
       },
       "team_totals": {
         "home": {
@@ -7388,10 +7480,10 @@
       "home_name": "San Diego Padres",
       "away_name": "Arizona Diamondbacks",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.4508,
-        "away": 0.5492,
-        "overround": 0.0464
+        "book": "pinnacle",
+        "home": 0.4089,
+        "away": 0.5911,
+        "overround": 0.0191
       },
       "team_totals": {
         "away": {
@@ -7995,10 +8087,10 @@
       "home_name": "Kansas City Royals",
       "away_name": "Cleveland Guardians",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.4246,
-        "away": 0.5754,
-        "overround": 0.0469
+        "book": "pinnacle",
+        "home": 0.4974,
+        "away": 0.5026,
+        "overround": 0.0204
       },
       "team_totals": {
         "away": {
@@ -8602,10 +8694,10 @@
       "home_name": "Minnesota Twins",
       "away_name": "Texas Rangers",
       "moneyline": {
-        "book": "draftkings",
-        "home": 0.4661,
-        "away": 0.5339,
-        "overround": 0.0465
+        "book": "pinnacle",
+        "home": 0.486,
+        "away": 0.514,
+        "overround": 0.0186
       },
       "team_totals": {
         "home": {
@@ -8629,6 +8721,6 @@
       }
     }
   },
-  "updated": "2026-09-27T11:24:02+00:00",
+  "updated": "2026-09-27T16:21:24+00:00",
   "_note": "MLB bookmaker lines, team totals and match odds (Pinnacle, DraftKings, FanDuel via The Odds API), keyed by MLB gamePk. Written by scripts/sync_mlb_odds.py -- never by hand."
 }
