@@ -371,7 +371,10 @@ def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
     log.setdefault(PROPS_KEY, {})
 
     if results is None:
-        frame = data.games([season])
+        # FRESH, not the 3-hour cache: a run 30 minutes after the last one would
+        # otherwise grade against a copy fetched before the final whistle. On
+        # 2026-09-27 seven finished games sat pending that way. One free CSV.
+        frame = data.games([season], refresh=True)
         results = {row["game_id"]: {"home": row["home_team"], "away": row["away_team"],
                                     "home_score": row["home_score"],
                                     "away_score": row["away_score"],
