@@ -452,12 +452,15 @@
       "away": "ARI",
       "board": true,
       "confidence": 5,
+      "graded": "correct",
       "home": "SF",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "locked_at": "2026-09-27T19:12:10.134943+00:00",
       "p_pick": 0.7546,
       "pick": "SF",
-      "tainted": false
+      "result": "SF 36-30 ARI",
+      "tainted": false,
+      "void": false
     },
     "2026_03_ATL_GB": {
       "away": "ATL",
@@ -477,12 +480,15 @@
       "away": "BAL",
       "board": true,
       "confidence": 3,
+      "graded": "correct",
       "home": "DAL",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "locked_at": "2026-09-27T19:12:10.134943+00:00",
       "p_pick": 0.5817,
       "pick": "BAL",
-      "tainted": false
+      "result": "DAL 31-34 BAL",
+      "tainted": false,
+      "void": false
     },
     "2026_03_CAR_CLE": {
       "away": "CAR",
@@ -569,23 +575,29 @@
       "away": "LV",
       "board": true,
       "confidence": 3,
+      "graded": "wrong",
       "home": "NO",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "locked_at": "2026-09-27T19:12:10.134943+00:00",
       "p_pick": 0.5911,
       "pick": "NO",
-      "tainted": false
+      "result": "NO 27-35 LV",
+      "tainted": false,
+      "void": false
     },
     "2026_03_MIN_TB": {
       "away": "MIN",
       "board": true,
       "confidence": 4,
+      "graded": "correct",
       "home": "TB",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "locked_at": "2026-09-27T19:12:10.134943+00:00",
       "p_pick": 0.6563,
       "pick": "MIN",
-      "tainted": false
+      "result": "TB 16-23 MIN",
+      "tainted": false,
+      "void": false
     },
     "2026_03_NE_JAX": {
       "away": "NE",
@@ -6329,6 +6341,7 @@
       "void": false
     },
     "2026_03_ARI_SF:anytime_touchdown:00-0033280": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "ARI",
       "bar": null,
@@ -6340,6 +6353,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": null,
@@ -6356,9 +6370,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:passing_yards:00-0033119:under": {
+      "actual": 280.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -6370,6 +6386,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "wrong",
       "home": "ARI",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 226.5,
@@ -6386,9 +6403,11 @@
       "tainted": false,
       "team": "ARI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:passing_yards:00-0037834": {
+      "actual": 297.0,
       "appearance_pct": null,
       "away": "ARI",
       "bar": null,
@@ -6400,6 +6419,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 237.5,
@@ -6416,9 +6436,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:receiving_yards:00-0031408:under": {
+      "actual": 34.0,
       "appearance_pct": null,
       "away": "ARI",
       "bar": null,
@@ -6430,6 +6452,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 55.5,
@@ -6446,9 +6469,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:receiving_yards:00-0033280:under": {
+      "actual": 41.0,
       "appearance_pct": null,
       "away": "ARI",
       "bar": null,
@@ -6460,6 +6485,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 38.5,
@@ -6476,9 +6502,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:receiving_yards:00-0033288": {
+      "actual": 82.0,
       "appearance_pct": null,
       "away": "ARI",
       "bar": null,
@@ -6490,6 +6518,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 44.5,
@@ -6506,9 +6535,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:receiving_yards:00-0033307:under": {
+      "actual": 22.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -6520,6 +6551,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": "ARI",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 23.5,
@@ -6536,7 +6568,8 @@
       "tainted": false,
       "team": "ARI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:receiving_yards:00-0035719:under": {
       "appearance_pct": null,
@@ -6550,6 +6583,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "void",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 40.5,
@@ -6566,9 +6600,12 @@
       "tainted": true,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": true,
+      "void_reason": "locked after kickoff"
     },
     "2026_03_ARI_SF:receiving_yards:00-0037744:under": {
+      "actual": 75.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -6580,6 +6617,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "wrong",
       "home": "ARI",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 67.5,
@@ -6596,9 +6634,11 @@
       "tainted": false,
       "team": "ARI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:receiving_yards:00-0038559": {
+      "actual": 89.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -6610,6 +6650,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": "ARI",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 44.5,
@@ -6626,9 +6667,11 @@
       "tainted": false,
       "team": "ARI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:rushing_yards:00-0033280": {
+      "actual": 75.0,
       "appearance_pct": null,
       "away": "ARI",
       "bar": null,
@@ -6640,6 +6683,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 56.5,
@@ -6656,9 +6700,11 @@
       "tainted": false,
       "team": "SF",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ARI_SF:rushing_yards:00-0037263:under": {
+      "actual": -1.0,
       "appearance_pct": null,
       "away": "SF",
       "bar": null,
@@ -6670,6 +6716,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_ARI_SF",
+      "graded": "correct",
       "home": "ARI",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 30.5,
@@ -6686,7 +6733,8 @@
       "tainted": false,
       "team": "ARI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_ATL_GB:anytime_touchdown:00-0038542": {
       "actual": 1.0,
@@ -6929,6 +6977,7 @@
       "void": false
     },
     "2026_03_BAL_DAL:anytime_touchdown:00-0032764": {
+      "actual": 1.0,
       "appearance_pct": null,
       "away": "DAL",
       "bar": null,
@@ -6940,6 +6989,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "correct",
       "home": "BAL",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": null,
@@ -6956,9 +7006,11 @@
       "tainted": false,
       "team": "BAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:passing_yards:00-0033077:under": {
+      "actual": 276.0,
       "appearance_pct": null,
       "away": "BAL",
       "bar": null,
@@ -6970,6 +7022,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 265.5,
@@ -6986,9 +7039,11 @@
       "tainted": false,
       "team": "DAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:passing_yards:00-0034796:under": {
+      "actual": 186.0,
       "appearance_pct": null,
       "away": "DAL",
       "bar": null,
@@ -7000,6 +7055,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "correct",
       "home": "BAL",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 235.5,
@@ -7016,9 +7072,11 @@
       "tainted": false,
       "team": "BAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:receiving_yards:00-0034753:under": {
+      "actual": 24.0,
       "appearance_pct": null,
       "away": "DAL",
       "bar": null,
@@ -7030,6 +7088,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "correct",
       "home": "BAL",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 41.5,
@@ -7046,9 +7105,11 @@
       "tainted": false,
       "team": "BAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:receiving_yards:00-0036358:under": {
+      "actual": 112.0,
       "appearance_pct": null,
       "away": "BAL",
       "bar": null,
@@ -7060,6 +7121,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 82.5,
@@ -7076,9 +7138,11 @@
       "tainted": false,
       "team": "DAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:receiving_yards:00-0036550:under": {
+      "actual": 37.0,
       "appearance_pct": null,
       "away": "DAL",
       "bar": null,
@@ -7090,6 +7154,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "correct",
       "home": "BAL",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 46.5,
@@ -7106,9 +7171,11 @@
       "tainted": false,
       "team": "BAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:receiving_yards:00-0037247:under": {
+      "actual": 82.0,
       "appearance_pct": null,
       "away": "BAL",
       "bar": null,
@@ -7120,6 +7187,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 64.5,
@@ -7136,9 +7204,11 @@
       "tainted": false,
       "team": "DAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:receiving_yards:00-0038041:under": {
+      "actual": 23.0,
       "appearance_pct": null,
       "away": "BAL",
       "bar": null,
@@ -7150,6 +7220,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 26.5,
@@ -7166,9 +7237,11 @@
       "tainted": false,
       "team": "DAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_BAL_DAL:rushing_yards:00-0036997:under": {
+      "actual": 98.0,
       "appearance_pct": null,
       "away": "BAL",
       "bar": null,
@@ -7180,6 +7253,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_BAL_DAL",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 55.5,
@@ -7196,7 +7270,8 @@
       "tainted": false,
       "team": "DAL",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_CAR_CLE:passing_yards:00-0039150:under": {
       "actual": 291.0,
@@ -9083,6 +9158,7 @@
       "unavailable": false
     },
     "2026_03_LV_NO:passing_yards:00-0029604:under": {
+      "actual": 248.0,
       "appearance_pct": null,
       "away": "NO",
       "bar": null,
@@ -9094,6 +9170,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "wrong",
       "home": "LV",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 212.5,
@@ -9110,9 +9187,11 @@
       "tainted": false,
       "team": "LV",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:passing_yards:00-0040743:under": {
+      "actual": 255.0,
       "appearance_pct": null,
       "away": "LV",
       "bar": null,
@@ -9124,6 +9203,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 251.5,
@@ -9140,9 +9220,11 @@
       "tainted": false,
       "team": "NO",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:receiving_yards:00-0036040": {
+      "actual": 53.0,
       "appearance_pct": null,
       "away": "LV",
       "bar": null,
@@ -9154,6 +9236,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 35.5,
@@ -9170,9 +9253,11 @@
       "tainted": false,
       "team": "NO",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:receiving_yards:00-0038563:under": {
+      "actual": 43.0,
       "appearance_pct": null,
       "away": "NO",
       "bar": null,
@@ -9184,6 +9269,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "correct",
       "home": "LV",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 43.5,
@@ -9200,9 +9286,11 @@
       "tainted": false,
       "team": "LV",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:receiving_yards:00-0039338:under": {
+      "actual": 116.0,
       "appearance_pct": null,
       "away": "NO",
       "bar": null,
@@ -9214,6 +9302,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "wrong",
       "home": "LV",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 46.5,
@@ -9230,9 +9319,11 @@
       "tainted": false,
       "team": "LV",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:receiving_yards:00-0039424:under": {
+      "actual": 39.0,
       "appearance_pct": null,
       "away": "LV",
       "bar": null,
@@ -9244,6 +9335,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 48.5,
@@ -9260,9 +9352,11 @@
       "tainted": false,
       "team": "NO",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:rushing_yards:00-0040122:under": {
+      "actual": 56.0,
       "appearance_pct": null,
       "away": "NO",
       "bar": null,
@@ -9274,6 +9368,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LV_NO",
+      "graded": "correct",
       "home": "LV",
       "kickoff": "2026-09-27T20:25:00+00:00",
       "line": 68.5,
@@ -9290,9 +9385,11 @@
       "tainted": false,
       "team": "LV",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:passing_yards:00-0034855:under": {
+      "actual": 217.0,
       "appearance_pct": null,
       "away": "MIN",
       "bar": null,
@@ -9304,6 +9401,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 216.5,
@@ -9320,9 +9418,11 @@
       "tainted": false,
       "team": "TB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:receiving_yards:00-0033921:under": {
+      "actual": 25.0,
       "appearance_pct": null,
       "away": "MIN",
       "bar": null,
@@ -9334,6 +9434,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 35.5,
@@ -9350,9 +9451,11 @@
       "tainted": false,
       "team": "TB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:receiving_yards:00-0035229:under": {
+      "actual": 11.0,
       "appearance_pct": null,
       "away": "TB",
       "bar": null,
@@ -9364,6 +9467,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "correct",
       "home": "MIN",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 30.5,
@@ -9380,9 +9484,11 @@
       "tainted": false,
       "team": "MIN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:receiving_yards:00-0038129:under": {
+      "actual": 56.0,
       "appearance_pct": null,
       "away": "MIN",
       "bar": null,
@@ -9394,6 +9500,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 27.5,
@@ -9410,9 +9517,11 @@
       "tainted": false,
       "team": "TB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:receiving_yards:00-0038994:under": {
+      "actual": 90.0,
       "appearance_pct": null,
       "away": "TB",
       "bar": null,
@@ -9424,6 +9533,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "wrong",
       "home": "MIN",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 36.5,
@@ -9440,9 +9550,11 @@
       "tainted": false,
       "team": "MIN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:receiving_yards:00-0040129:under": {
+      "actual": 62.0,
       "appearance_pct": null,
       "away": "MIN",
       "bar": null,
@@ -9454,6 +9566,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 48.5,
@@ -9470,9 +9583,11 @@
       "tainted": false,
       "team": "TB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:rushing_yards:00-0033293:under": {
+      "actual": 58.0,
       "appearance_pct": null,
       "away": "TB",
       "bar": null,
@@ -9484,6 +9599,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "wrong",
       "home": "MIN",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 52.5,
@@ -9500,9 +9616,11 @@
       "tainted": false,
       "team": "MIN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:rushing_yards:00-0035228": {
+      "actual": 17.0,
       "appearance_pct": null,
       "away": "TB",
       "bar": null,
@@ -9514,6 +9632,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "wrong",
       "home": "MIN",
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 20.5,
@@ -9530,9 +9649,11 @@
       "tainted": false,
       "team": "MIN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_MIN_TB:rushing_yards:00-0039361:under": {
+      "actual": 46.0,
       "appearance_pct": null,
       "away": "MIN",
       "bar": null,
@@ -9544,6 +9665,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_MIN_TB",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-27T20:05:00+00:00",
       "line": 57.5,
@@ -9560,7 +9682,8 @@
       "tainted": false,
       "team": "TB",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_NE_JAX:receiving_yards:00-0033090:under": {
       "actual": 5.0,
