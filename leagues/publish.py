@@ -1321,6 +1321,19 @@ def main(argv=None):
         # Recalibrated from the props' own graded record FIRST, so the edge against
         # bet365 is computed on the corrected number (leagues/prop_calibration.py).
         pp["calibration"] = prop_calibration.apply(pp["upcoming"], pp_all)
+        # Recalibration moves p_pick AFTER build_player_picks ranked and barred the
+        # list, so rank, band and bar again on the corrected number. Without this
+        # the sanity check failed every run from 2026-09-27 21:22 UTC, the first
+        # run where a market had enough graded picks to be recalibrated.
+        kept = [x for x in pp["upcoming"]
+                if (x.get("p_pick") or 0) >= PLAYER_PICK_MIN_PROB.get(x.get("market"), 0)]
+        if len(kept) < len(pp["upcoming"]):
+            print(f"  {len(pp['upcoming']) - len(kept)} player pick(s) fell below their "
+                  f"market's bar once recalibrated; not shown")
+        for x in kept:
+            x["confidence"] = _confidence(x["p_pick"])
+        kept.sort(key=lambda x: (-(x["p_pick"] or 0), x["date"]))
+        pp["upcoming"] = kept
         n_priced = prop_odds.attach(pp["upcoming"])
         print(f"  bet365 scorer prices attached to {n_priced} pick(s)")
         ppath = OUT / "player_picks.json"
