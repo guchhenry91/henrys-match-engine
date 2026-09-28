@@ -564,12 +564,15 @@
       "away": "LA",
       "board": true,
       "confidence": 3,
+      "graded": "correct",
       "home": "DEN",
       "kickoff": "2026-09-28T00:20:00+00:00",
       "locked_at": "2026-09-27T22:35:47.878837+00:00",
       "p_pick": 0.5582,
       "pick": "DEN",
-      "tainted": false
+      "result": "DEN 30-26 LA",
+      "tainted": false,
+      "void": false
     },
     "2026_03_LV_NO": {
       "away": "LV",
@@ -8858,6 +8861,7 @@
       "void": false
     },
     "2026_03_LA_DEN:anytime_touchdown:00-0037840": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "DEN",
       "bar": null,
@@ -8869,6 +8873,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "wrong",
       "home": "LA",
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": null,
@@ -8885,9 +8890,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:anytime_touchdown:00-0040730": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -8899,6 +8906,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": null,
@@ -8915,9 +8923,11 @@
       "tainted": false,
       "team": "DEN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:passing_yards:00-0026498": {
+      "actual": 390.0,
       "appearance_pct": null,
       "away": "DEN",
       "bar": null,
@@ -8929,6 +8939,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "correct",
       "home": "LA",
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 243.5,
@@ -8945,9 +8956,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:passing_yards:00-0039732": {
+      "actual": 186.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -8959,6 +8972,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 218.5,
@@ -8975,9 +8989,11 @@
       "tainted": false,
       "team": "DEN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:receiving_yards:00-0031381:under": {
+      "actual": 137.0,
       "appearance_pct": null,
       "away": "DEN",
       "bar": null,
@@ -8989,6 +9005,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "wrong",
       "home": "LA",
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 71.5,
@@ -9005,9 +9022,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:receiving_yards:00-0034348": {
+      "actual": 46.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -9019,6 +9038,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 36.5,
@@ -9035,9 +9055,11 @@
       "tainted": false,
       "team": "DEN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:receiving_yards:00-0036244": {
+      "actual": 0.0,
       "appearance_pct": null,
       "away": "DEN",
       "bar": null,
@@ -9049,6 +9071,7 @@
       "doubt": true,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "wrong",
       "home": "LA",
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 18.5,
@@ -9065,9 +9088,11 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:receiving_yards:00-0036613:under": {
+      "actual": 10.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -9079,6 +9104,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 59.5,
@@ -9095,9 +9121,11 @@
       "tainted": false,
       "team": "DEN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:rushing_yards:00-0036158": {
+      "actual": 49.0,
       "appearance_pct": null,
       "away": "LA",
       "bar": null,
@@ -9109,6 +9137,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 50.5,
@@ -9125,9 +9154,11 @@
       "tainted": false,
       "team": "DEN",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LA_DEN:rushing_yards:00-0037840": {
+      "actual": 88.0,
       "appearance_pct": null,
       "away": "DEN",
       "bar": null,
@@ -9139,6 +9170,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_LA_DEN",
+      "graded": "correct",
       "home": "LA",
       "kickoff": "2026-09-28T00:20:00+00:00",
       "line": 54.5,
@@ -9155,7 +9187,8 @@
       "tainted": false,
       "team": "LA",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_LV_NO:passing_yards:00-0029604:under": {
       "actual": 248.0,
