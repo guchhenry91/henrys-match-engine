@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T15:39:24.337855+00:00",
+  "updated": "2026-09-29T20:24:47.338959+00:00",
   "season": 2026,
   "week": 4,
   "elo": {
@@ -805,7 +805,7 @@
           "lockable": true
         }
       ],
-      "awaiting_book_line": 80
+      "awaiting_book_line": 84
     },
     "rushing_yards": {
       "released": true,
@@ -897,7 +897,7 @@
           "lockable": true
         }
       ],
-      "awaiting_book_line": 27
+      "awaiting_book_line": 26
     },
     "passing_yards": {
       "released": true,
@@ -946,7 +946,7 @@
           "lockable": true
         }
       ],
-      "awaiting_book_line": 26
+      "awaiting_book_line": 27
     }
   },
   "evidence": {
@@ -1023,8 +1023,8 @@
   },
   "depth_check": {
     "source": "nflverse depth charts",
-    "players": 1874,
-    "coverage_of_known_actives": 0.909,
+    "players": 1876,
+    "coverage_of_known_actives": 0.939,
     "applied": true,
     "caps": {
       "anytime_touchdown": 3,
@@ -1036,16 +1036,16 @@
   },
   "roster_check": {
     "source": "nflverse rosters",
-    "players_placed": 1536,
+    "players_placed": 1693,
     "teams": 32,
-    "agreement_with_known_players": 0.612,
+    "agreement_with_known_players": 0.654,
     "trusted": true
   },
   "odds": {
     "fixtures_priced": 13,
     "source": "API-NFL, bet365 preferred",
     "note": "Edges are model probability minus the de-vigged book price.",
-    "checked_at": "2026-09-29T15:38:46.989534+00:00",
+    "checked_at": "2026-09-29T20:23:54.998098+00:00",
     "player_props": {
       "available": true,
       "markets_quoted": [
@@ -1073,7 +1073,7 @@
     }
   },
   "injury_report": {
-    "players_listed": 94,
+    "players_listed": 103,
     "source": "API-NFL"
   },
   "caveats": [
