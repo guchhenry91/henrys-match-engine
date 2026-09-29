@@ -31,7 +31,9 @@
       "edge": 0.1546,
       "verdict": "value",
       "book_price_overround": 1.046,
-      "lockable": true
+      "lockable": true,
+      "locked": true,
+      "tainted": false
     }
   ],
   "props": {
@@ -84,7 +86,9 @@
           "blend_w": 0.15,
           "ladder_up": [],
           "side": "under",
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -157,7 +161,9 @@
               "p": 0.0759
             }
           ],
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "receiving_yards",
@@ -230,7 +236,9 @@
               "p": 0.0946
             }
           ],
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ],
       "awaiting_book_line": 1
@@ -309,7 +317,9 @@
               "p": 0.1592
             }
           ],
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         },
         {
           "market": "rushing_yards",
@@ -352,7 +362,9 @@
           "blend_w": 0.0,
           "ladder_up": [],
           "side": "under",
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ],
       "awaiting_book_line": 0
@@ -401,7 +413,9 @@
           "blend_w": 0.0,
           "ladder_up": [],
           "side": "under",
-          "lockable": true
+          "lockable": true,
+          "locked": true,
+          "tainted": false
         }
       ],
       "awaiting_book_line": 1
@@ -550,22 +564,22 @@
   },
   "record": {
     "team_winner": {
-      "correct": 30,
+      "correct": 31,
       "wrong": 17,
       "void": 0,
-      "pending": 1,
+      "pending": 0,
       "total": 48,
-      "settled": 47,
-      "hit_rate": 0.6383
+      "settled": 48,
+      "hit_rate": 0.6458
     },
     "props": {
-      "correct": 162,
-      "wrong": 169,
+      "correct": 166,
+      "wrong": 171,
       "void": 12,
-      "pending": 6,
+      "pending": 0,
       "total": 349,
-      "settled": 331,
-      "hit_rate": 0.4894
+      "settled": 337,
+      "hit_rate": 0.4926
     },
     "props_by_market": {
       "anytime_touchdown": {
@@ -578,35 +592,158 @@
         "hit_rate": 0.5556
       },
       "receiving_yards": {
-        "correct": 80,
-        "wrong": 83,
+        "correct": 82,
+        "wrong": 84,
         "void": 7,
-        "pending": 3,
+        "pending": 0,
         "total": 173,
-        "settled": 163,
-        "hit_rate": 0.4908
+        "settled": 166,
+        "hit_rate": 0.494
       },
       "rushing_yards": {
-        "correct": 48,
-        "wrong": 43,
+        "correct": 49,
+        "wrong": 44,
         "void": 4,
-        "pending": 2,
+        "pending": 0,
         "total": 97,
-        "settled": 91,
-        "hit_rate": 0.5275
+        "settled": 93,
+        "hit_rate": 0.5269
       },
       "passing_yards": {
-        "correct": 19,
+        "correct": 20,
         "wrong": 31,
         "void": 1,
-        "pending": 1,
+        "pending": 0,
         "total": 52,
-        "settled": 50,
-        "hit_rate": 0.38
+        "settled": 51,
+        "hit_rate": 0.3922
       }
     }
   },
   "settled": [
+    {
+      "kind": "game",
+      "key": "2026_03_PHI_CHI",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5087,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": "CHI",
+      "away": "PHI",
+      "tainted": false,
+      "pick": "CHI",
+      "result": "CHI 27-7 PHI"
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_PHI_CHI:passing_yards:00-0036389:under",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": "PHI",
+      "away": "CHI",
+      "tainted": false,
+      "market": "passing_yards",
+      "player": "Jalen Hurts",
+      "team": "PHI",
+      "line": 213.5,
+      "actual": 153.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_PHI_CHI:receiving_yards:00-0036912:under",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.554,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": "PHI",
+      "away": "CHI",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "DeVonta Smith",
+      "team": "PHI",
+      "line": 71.5,
+      "actual": 65.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_PHI_CHI:receiving_yards:00-0039919",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5464,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": true,
+      "away": "PHI",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Rome Odunze",
+      "team": "CHI",
+      "line": 25.5,
+      "actual": 44.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_PHI_CHI:receiving_yards:00-0040126",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.5143,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": true,
+      "away": "PHI",
+      "tainted": false,
+      "market": "receiving_yards",
+      "player": "Colston Loveland",
+      "team": "CHI",
+      "line": 33.5,
+      "actual": 31.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_PHI_CHI:rushing_yards:00-0034844",
+      "graded": "correct",
+      "void": false,
+      "p_pick": 0.5,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": "PHI",
+      "away": "CHI",
+      "tainted": false,
+      "market": "rushing_yards",
+      "player": "Saquon Barkley",
+      "team": "PHI",
+      "line": 71.5,
+      "actual": 82.0
+    },
+    {
+      "kind": "prop",
+      "key": "2026_03_PHI_CHI:rushing_yards:00-0036275:under",
+      "graded": "wrong",
+      "void": false,
+      "p_pick": 0.5,
+      "confidence": 3,
+      "kickoff": "2026-09-29T00:15:00+00:00",
+      "date": "2026-09-29T00:15:00+00:00",
+      "home": true,
+      "away": "PHI",
+      "tainted": false,
+      "market": "rushing_yards",
+      "player": "D'Andre Swift",
+      "team": "CHI",
+      "line": 61.5,
+      "actual": 84.0
+    },
     {
       "kind": "game",
       "key": "2026_03_LA_DEN",

@@ -634,12 +634,15 @@
       "away": "PHI",
       "board": true,
       "confidence": 3,
+      "graded": "correct",
       "home": "CHI",
       "kickoff": "2026-09-29T00:15:00+00:00",
       "locked_at": "2026-09-28T23:32:38.646188+00:00",
       "p_pick": 0.5087,
       "pick": "CHI",
-      "tainted": false
+      "result": "CHI 27-7 PHI",
+      "tainted": false,
+      "void": false
     },
     "2026_03_SEA_WAS": {
       "away": "SEA",
@@ -10390,6 +10393,7 @@
       "void": false
     },
     "2026_03_PHI_CHI:passing_yards:00-0036389:under": {
+      "actual": 153.0,
       "appearance_pct": null,
       "away": "CHI",
       "bar": null,
@@ -10401,6 +10405,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_PHI_CHI",
+      "graded": "correct",
       "home": "PHI",
       "kickoff": "2026-09-29T00:15:00+00:00",
       "line": 213.5,
@@ -10417,9 +10422,11 @@
       "tainted": false,
       "team": "PHI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_PHI_CHI:receiving_yards:00-0036912:under": {
+      "actual": 65.0,
       "appearance_pct": null,
       "away": "CHI",
       "bar": null,
@@ -10431,6 +10438,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_PHI_CHI",
+      "graded": "correct",
       "home": "PHI",
       "kickoff": "2026-09-29T00:15:00+00:00",
       "line": 71.5,
@@ -10447,9 +10455,11 @@
       "tainted": false,
       "team": "PHI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_PHI_CHI:receiving_yards:00-0039919": {
+      "actual": 44.0,
       "appearance_pct": null,
       "away": "PHI",
       "bar": null,
@@ -10461,6 +10471,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_PHI_CHI",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-09-29T00:15:00+00:00",
       "line": 25.5,
@@ -10477,9 +10488,11 @@
       "tainted": false,
       "team": "CHI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_PHI_CHI:receiving_yards:00-0040126": {
+      "actual": 31.0,
       "appearance_pct": null,
       "away": "PHI",
       "bar": null,
@@ -10491,6 +10504,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_PHI_CHI",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-29T00:15:00+00:00",
       "line": 33.5,
@@ -10507,9 +10521,11 @@
       "tainted": false,
       "team": "CHI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_PHI_CHI:rushing_yards:00-0034844": {
+      "actual": 82.0,
       "appearance_pct": null,
       "away": "CHI",
       "bar": null,
@@ -10521,6 +10537,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_PHI_CHI",
+      "graded": "correct",
       "home": "PHI",
       "kickoff": "2026-09-29T00:15:00+00:00",
       "line": 71.5,
@@ -10537,9 +10554,11 @@
       "tainted": false,
       "team": "PHI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_PHI_CHI:rushing_yards:00-0036275:under": {
+      "actual": 84.0,
       "appearance_pct": null,
       "away": "PHI",
       "bar": null,
@@ -10551,6 +10570,7 @@
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_03_PHI_CHI",
+      "graded": "wrong",
       "home": true,
       "kickoff": "2026-09-29T00:15:00+00:00",
       "line": 61.5,
@@ -10567,7 +10587,8 @@
       "tainted": false,
       "team": "CHI",
       "team_attribution": "confirmed",
-      "unavailable": false
+      "unavailable": false,
+      "void": false
     },
     "2026_03_SEA_WAS:passing_yards:00-0034869:under": {
       "actual": 379.0,
