@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 98632,
-  "account_used": 1368,
+  "account_remaining": 98528,
+  "account_used": 1472,
   "alerts": [],
   "calls": [
     {
@@ -1344,6 +1344,51 @@
       "path": "sports/americanfootball_nfl/events",
       "purpose": "nfl: list events",
       "sport": "nfl"
+    },
+    {
+      "account_remaining": 98562,
+      "account_used": 1438,
+      "at": "2026-09-30T18:52:28+00:00",
+      "credits": 0,
+      "path": "sports/baseball_mlb/events",
+      "purpose": "mlb: events",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 98561,
+      "account_used": 1439,
+      "at": "2026-09-30T18:52:28+00:00",
+      "credits": 1,
+      "path": "sports/baseball_mlb/odds",
+      "purpose": "mlb: match odds",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 98550,
+      "account_used": 1450,
+      "at": "2026-09-30T18:52:28+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/766096a9312f4528ba2e8b59fe9550fd/odds",
+      "purpose": "mlb lock check CHA@HOU",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 98539,
+      "account_used": 1461,
+      "at": "2026-09-30T18:52:28+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/110c5c1a6de988c7066e2f291be8d7ff/odds",
+      "purpose": "mlb board check BOS@NYA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 98528,
+      "account_used": 1472,
+      "at": "2026-09-30T18:52:28+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/66c0c13a06424600557af241371043fc/odds",
+      "purpose": "mlb board check CHN@SDN",
+      "sport": "mlb"
     }
   ],
   "days": {
@@ -1384,11 +1429,11 @@
     },
     "2026-09-30": {
       "by_sport": {
-        "mlb": 20,
+        "mlb": 54,
         "nfl": 0
       },
-      "credits": 20
+      "credits": 54
     }
   },
-  "updated": "2026-09-30T15:50:00.717317+00:00"
+  "updated": "2026-09-30T18:52:28.978584+00:00"
 }
