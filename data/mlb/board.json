@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T18:52:30.681900+00:00",
+  "updated": "2026-09-30T21:30:33.450917+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -52,28 +52,6 @@
   "markets_withheld": [],
   "games": [
     {
-      "game_id": "849846",
-      "tipoff": "2026-09-30T21:00:00Z",
-      "kickoff": "2026-09-30T21:00:00Z",
-      "date": "2026-09-30T21:00:00Z",
-      "home": "HOU",
-      "away": "CHA",
-      "home_name": "Houston Astros",
-      "away_name": "Chicago White Sox",
-      "home_pitcher": "Hunter Brown",
-      "away_pitcher": "Sean Burke",
-      "pick": "HOU",
-      "p_home": 0.5803,
-      "p_pick": 0.5803,
-      "rating_home": 1503.4,
-      "rating_away": 1487.1,
-      "game_type": "F",
-      "book": "pinnacle",
-      "book_p_pick": 0.5796,
-      "edge": 0.0007,
-      "locked": true
-    },
-    {
       "game_id": "849848",
       "tipoff": "2026-10-01T00:00:00Z",
       "kickoff": "2026-10-01T00:00:00Z",
@@ -91,8 +69,8 @@
       "rating_away": 1529.2,
       "game_type": "F",
       "book": "pinnacle",
-      "book_p_pick": 0.5491,
-      "edge": 0.0384
+      "book_p_pick": 0.5516,
+      "edge": 0.0359
     },
     {
       "game_id": "849842",
@@ -112,8 +90,8 @@
       "rating_away": 1538.1,
       "game_type": "F",
       "book": "pinnacle",
-      "book_p_pick": 0.5725,
-      "edge": -0.017
+      "book_p_pick": 0.5736,
+      "edge": -0.0181
     },
     {
       "game_id": "849844",
@@ -127,11 +105,14 @@
       "home_pitcher": null,
       "away_pitcher": null,
       "pick": "ATL",
-      "p_home": 0.5585,
-      "p_pick": 0.5585,
-      "rating_home": 1530.2,
-      "rating_away": 1529.3,
-      "game_type": "F"
+      "p_home": 0.5563,
+      "p_pick": 0.5563,
+      "rating_home": 1529.4,
+      "rating_away": 1530.1,
+      "game_type": "F",
+      "book": "draftkings",
+      "book_p_pick": 0.5079,
+      "edge": 0.0484
     },
     {
       "game_id": "849850",
@@ -194,31 +175,6 @@
       "picks": [
         {
           "market": "hits",
-          "player": "Taylor Trammell",
-          "player_id": "tramt001",
-          "team": "HOU",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 0.5,
-          "probability": 0.7656,
-          "form5": 0.0,
-          "games_before": 207,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.68,
-          "book_p": 0.5567,
-          "book_p_fair": true,
-          "edge": 0.2089,
-          "side": "under",
-          "p_model": 0.7738,
-          "ladder_up": [],
-          "locked": true
-        },
-        {
-          "market": "hits",
           "player": "Fernando Tatis Jr.",
           "player_id": "tatif002",
           "team": "SDN",
@@ -228,7 +184,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 1.5,
-          "probability": 0.6663,
+          "probability": 0.6644,
           "form5": 1.8,
           "games_before": 676,
           "book": "DraftKings",
@@ -236,86 +192,10 @@
           "book_price": 1.43,
           "book_p": 0.6571,
           "book_p_fair": true,
-          "edge": 0.0092,
+          "edge": 0.0073,
           "side": "under",
-          "p_model": 0.6714,
+          "p_model": 0.6695,
           "ladder_up": []
-        },
-        {
-          "market": "hits",
-          "player": "Chase Meidroth",
-          "player_id": "meidc001",
-          "team": "CHA",
-          "opponent": "HOU",
-          "home": false,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 0.5,
-          "probability": 0.6601,
-          "form5": 2.0,
-          "games_before": 267,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.64,
-          "book_p": 0.5707,
-          "book_p_fair": true,
-          "edge": 0.0894,
-          "side": "over",
-          "p_model": 0.665,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 4.52,
-              "book": "DraftKings",
-              "p": 0.3777
-            },
-            {
-              "line": 2.5,
-              "price": 18.0,
-              "book": "DraftKings",
-              "p": 0.0654
-            }
-          ],
-          "locked": true
-        },
-        {
-          "market": "hits",
-          "player": "Sam Antonacci",
-          "player_id": "mlbam:803011",
-          "team": "CHA",
-          "opponent": "HOU",
-          "home": false,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 0.5,
-          "probability": 0.6601,
-          "form5": 1.8,
-          "games_before": 124,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.51,
-          "book_p": 0.6196,
-          "book_p_fair": true,
-          "edge": 0.0404,
-          "side": "over",
-          "p_model": 0.665,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 3.77,
-              "book": "DraftKings",
-              "p": 0.3337
-            },
-            {
-              "line": 2.5,
-              "price": 13.0,
-              "book": "DraftKings",
-              "p": 0.0848
-            }
-          ],
-          "locked": true
         },
         {
           "market": "hits",
@@ -328,7 +208,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 0.5,
-          "probability": 0.6552,
+          "probability": 0.6606,
           "form5": 0.2,
           "games_before": 667,
           "book": "DraftKings",
@@ -336,9 +216,9 @@
           "book_price": 2.04,
           "book_p": 0.4574,
           "book_p_fair": true,
-          "edge": 0.1978,
+          "edge": 0.2032,
           "side": "under",
-          "p_model": 0.66,
+          "p_model": 0.6656,
           "ladder_up": []
         },
         {
@@ -352,7 +232,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 0.5,
-          "probability": 0.6505,
+          "probability": 0.6504,
           "form5": 1.4,
           "games_before": 43,
           "book": "DraftKings",
@@ -360,15 +240,15 @@
           "book_price": 1.65,
           "book_p": 0.5658,
           "book_p_fair": true,
-          "edge": 0.0847,
+          "edge": 0.0846,
           "side": "over",
-          "p_model": 0.6552,
+          "p_model": 0.6551,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 4.95,
               "book": "DraftKings",
-              "p": 0.272
+              "p": 0.2724
             },
             {
               "line": 2.5,
@@ -389,7 +269,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 0.5,
-          "probability": 0.6421,
+          "probability": 0.6424,
           "form5": 1.2,
           "games_before": 659,
           "book": "DraftKings",
@@ -397,15 +277,15 @@
           "book_price": 1.61,
           "book_p": 0.5807,
           "book_p_fair": true,
-          "edge": 0.0614,
+          "edge": 0.0617,
           "side": "over",
-          "p_model": 0.6465,
+          "p_model": 0.6468,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 4.5,
               "book": "DraftKings",
-              "p": 0.2565
+              "p": 0.2582
             },
             {
               "line": 2.5,
@@ -426,7 +306,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 0.5,
-          "probability": 0.6362,
+          "probability": 0.6363,
           "form5": 1.0,
           "games_before": 784,
           "book": "DraftKings",
@@ -434,15 +314,15 @@
           "book_price": 1.5,
           "book_p": 0.6241,
           "book_p_fair": true,
-          "edge": 0.0121,
+          "edge": 0.0122,
           "side": "over",
-          "p_model": 0.6404,
+          "p_model": 0.6405,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 3.83,
               "book": "DraftKings",
-              "p": 0.248
+              "p": 0.2482
             },
             {
               "line": 2.5,
@@ -463,7 +343,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 0.5,
-          "probability": 0.6322,
+          "probability": 0.631,
           "form5": 1.0,
           "games_before": 577,
           "book": "DraftKings",
@@ -471,15 +351,15 @@
           "book_price": 1.51,
           "book_p": 0.6196,
           "book_p_fair": true,
-          "edge": 0.0126,
+          "edge": 0.0114,
           "side": "over",
-          "p_model": 0.6363,
+          "p_model": 0.6351,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 3.96,
               "book": "DraftKings",
-              "p": 0.2404
+              "p": 0.2408
             },
             {
               "line": 2.5,
@@ -505,7 +385,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 0.5,
-          "probability": 0.6976,
+          "probability": 0.6979,
           "form5": 1.2,
           "games_before": 668,
           "book": "DraftKings",
@@ -513,27 +393,27 @@
           "book_price": 1.6,
           "book_p": 0.5855,
           "book_p_fair": true,
-          "edge": 0.1121,
+          "edge": 0.1124,
           "side": "over",
-          "p_model": 0.7058,
+          "p_model": 0.7061,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 2.38,
               "book": "DraftKings",
-              "p": 0.5073
+              "p": 0.5056
             },
             {
               "line": 2.5,
               "price": 3.62,
               "book": "DraftKings",
-              "p": 0.3324
+              "p": 0.3328
             },
             {
               "line": 3.5,
               "price": 6.04,
               "book": "DraftKings",
-              "p": 0.2119
+              "p": 0.2118
             },
             {
               "line": 4.5,
@@ -554,7 +434,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 0.5,
-          "probability": 0.6887,
+          "probability": 0.688,
           "form5": 0.8,
           "games_before": 112,
           "book": "DraftKings",
@@ -562,128 +442,29 @@
           "book_price": 1.62,
           "book_p": 0.577,
           "book_p_fair": true,
-          "edge": 0.1117,
+          "edge": 0.111,
           "side": "over",
-          "p_model": 0.6966,
+          "p_model": 0.6958,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 2.62,
               "book": "DraftKings",
-              "p": 0.4857
+              "p": 0.4875
             },
             {
               "line": 2.5,
               "price": 4.53,
               "book": "DraftKings",
-              "p": 0.3071
+              "p": 0.3054
             },
             {
               "line": 3.5,
               "price": 8.1,
               "book": "DraftKings",
-              "p": 0.205
+              "p": 0.2053
             }
           ]
-        },
-        {
-          "market": "hrr",
-          "player": "Jarren Duran",
-          "player_id": "duraj001",
-          "team": "BOS",
-          "opponent": "NYA",
-          "home": false,
-          "game_id": "849848",
-          "tipoff": "2026-10-01T00:00:00Z",
-          "kickoff": "2026-10-01T00:00:00Z",
-          "line": 0.5,
-          "probability": 0.6853,
-          "form5": 0.4,
-          "games_before": 613,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.65,
-          "book_p": 0.5681,
-          "book_p_fair": true,
-          "edge": 0.1172,
-          "side": "over",
-          "p_model": 0.693,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 2.57,
-              "book": "DraftKings",
-              "p": 0.4798
-            },
-            {
-              "line": 2.5,
-              "price": 4.37,
-              "book": "DraftKings",
-              "p": 0.2866
-            },
-            {
-              "line": 3.5,
-              "price": 7.6,
-              "book": "DraftKings",
-              "p": 0.205
-            },
-            {
-              "line": 4.5,
-              "price": 14.0,
-              "book": "DraftKings",
-              "p": 0.0843
-            }
-          ]
-        },
-        {
-          "market": "hrr",
-          "player": "Braden Montgomery",
-          "player_id": "mlbam:695731",
-          "team": "CHA",
-          "opponent": "HOU",
-          "home": false,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 0.5,
-          "probability": 0.6798,
-          "form5": 3.0,
-          "games_before": 88,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.53,
-          "book_p": 0.6117,
-          "book_p_fair": true,
-          "edge": 0.0681,
-          "side": "over",
-          "p_model": 0.6873,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 2.44,
-              "book": "DraftKings",
-              "p": 0.4811
-            },
-            {
-              "line": 2.5,
-              "price": 4.16,
-              "book": "DraftKings",
-              "p": 0.3171
-            },
-            {
-              "line": 3.5,
-              "price": 7.4,
-              "book": "DraftKings",
-              "p": 0.1414
-            },
-            {
-              "line": 4.5,
-              "price": 14.0,
-              "book": "DraftKings",
-              "p": 0.0842
-            }
-          ],
-          "locked": true
         },
         {
           "market": "hrr",
@@ -696,7 +477,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 0.5,
-          "probability": 0.6793,
+          "probability": 0.6776,
           "form5": 2.0,
           "games_before": 812,
           "book": "DraftKings",
@@ -704,21 +485,21 @@
           "book_price": 1.66,
           "book_p": 0.5632,
           "book_p_fair": true,
-          "edge": 0.1161,
+          "edge": 0.1144,
           "side": "over",
-          "p_model": 0.6868,
+          "p_model": 0.685,
           "ladder_up": [
             {
               "line": 1.5,
               "price": 2.56,
               "book": "DraftKings",
-              "p": 0.4505
+              "p": 0.4503
             },
             {
               "line": 2.5,
               "price": 4.4,
               "book": "DraftKings",
-              "p": 0.2803
+              "p": 0.2796
             },
             {
               "line": 3.5,
@@ -730,53 +511,76 @@
         },
         {
           "market": "hrr",
-          "player": "Cam Smith",
-          "player_id": "smitc010",
-          "team": "HOU",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 0.5,
-          "probability": 0.642,
-          "form5": 2.4,
-          "games_before": 262,
+          "player": "Caleb Durbin",
+          "player_id": "durbc002",
+          "team": "BOS",
+          "opponent": "NYA",
+          "home": false,
+          "game_id": "849848",
+          "tipoff": "2026-10-01T00:00:00Z",
+          "kickoff": "2026-10-01T00:00:00Z",
+          "line": 1.5,
+          "probability": 0.6669,
+          "form5": 0.2,
+          "games_before": 270,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.63,
-          "book_p": 0.5744,
+          "book_price": 1.55,
+          "book_p": 0.6026,
           "book_p_fair": true,
-          "edge": 0.0676,
+          "edge": 0.0643,
+          "side": "under",
+          "p_model": 0.6739,
+          "ladder_up": []
+        },
+        {
+          "market": "hrr",
+          "player": "Michael Busch",
+          "player_id": "buscm003",
+          "team": "CHN",
+          "opponent": "SDN",
+          "home": false,
+          "game_id": "849842",
+          "tipoff": "2026-10-01T02:00:00Z",
+          "kickoff": "2026-10-01T02:00:00Z",
+          "line": 0.5,
+          "probability": 0.6136,
+          "form5": 1.0,
+          "games_before": 443,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.58,
+          "book_p": 0.5917,
+          "book_p_fair": true,
+          "edge": 0.0219,
           "side": "over",
-          "p_model": 0.6479,
+          "p_model": 0.6183,
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.39,
+              "price": 2.47,
               "book": "DraftKings",
-              "p": 0.4505
+              "p": 0.4002
             },
             {
               "line": 2.5,
-              "price": 3.66,
+              "price": 3.86,
               "book": "DraftKings",
-              "p": 0.2834
+              "p": 0.255
             },
             {
               "line": 3.5,
-              "price": 6.2,
+              "price": 6.65,
               "book": "DraftKings",
-              "p": 0.165
+              "p": 0.155
             },
             {
               "line": 4.5,
-              "price": 10.7,
+              "price": 11.6,
               "book": "DraftKings",
-              "p": 0.104
+              "p": 0.0974
             }
-          ],
-          "locked": true
+          ]
         },
         {
           "market": "hrr",
@@ -789,7 +593,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 1.5,
-          "probability": 0.6131,
+          "probability": 0.6135,
           "form5": 0.6,
           "games_before": 428,
           "book": "DraftKings",
@@ -797,78 +601,10 @@
           "book_price": 1.8,
           "book_p": 0.5187,
           "book_p_fair": true,
-          "edge": 0.0944,
+          "edge": 0.0948,
           "side": "under",
-          "p_model": 0.6178,
+          "p_model": 0.6182,
           "ladder_up": []
-        },
-        {
-          "market": "hrr",
-          "player": "Gavin Sheets",
-          "player_id": "sheeg001",
-          "team": "SDN",
-          "opponent": "CHN",
-          "home": true,
-          "game_id": "849842",
-          "tipoff": "2026-10-01T02:00:00Z",
-          "kickoff": "2026-10-01T02:00:00Z",
-          "line": 1.5,
-          "probability": 0.6131,
-          "form5": 1.2,
-          "games_before": 599,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.56,
-          "book_p": 0.601,
-          "book_p_fair": true,
-          "edge": 0.0121,
-          "side": "under",
-          "p_model": 0.6178,
-          "ladder_up": []
-        },
-        {
-          "market": "hrr",
-          "player": "Chase Meidroth",
-          "player_id": "meidc001",
-          "team": "CHA",
-          "opponent": "HOU",
-          "home": false,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 1.5,
-          "probability": 0.6127,
-          "form5": 4.8,
-          "games_before": 267,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 2.33,
-          "book_p": 0.401,
-          "book_p_fair": true,
-          "edge": 0.2117,
-          "side": "over",
-          "p_model": 0.6174,
-          "ladder_up": [
-            {
-              "line": 2.5,
-              "price": 3.95,
-              "book": "DraftKings",
-              "p": 0.4505
-            },
-            {
-              "line": 3.5,
-              "price": 7.1,
-              "book": "DraftKings",
-              "p": 0.3083
-            },
-            {
-              "line": 4.5,
-              "price": 13.2,
-              "book": "DraftKings",
-              "p": 0.088
-            }
-          ],
-          "locked": true
         }
       ]
     },
@@ -894,7 +630,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 4.5,
-          "probability": 0.6904,
+          "probability": 0.6883,
           "form5": 7.0,
           "games_before": 190,
           "book": "Pinnacle",
@@ -902,54 +638,29 @@
           "book_price": 2.12,
           "book_p": 0.4508,
           "book_p_fair": true,
-          "edge": 0.2396,
+          "edge": 0.2375,
           "side": "over",
-          "p_model": 0.7047,
+          "p_model": 0.7025,
           "ladder_up": [
             {
               "line": 5.5,
               "price": 3.27,
               "book": "DraftKings",
-              "p": 0.5325
+              "p": 0.5331
             },
             {
               "line": 6.5,
               "price": 5.87,
               "book": "DraftKings",
-              "p": 0.4096
+              "p": 0.4131
             },
             {
               "line": 7.5,
               "price": 11.6,
               "book": "DraftKings",
-              "p": 0.2801
+              "p": 0.2647
             }
           ]
-        },
-        {
-          "market": "strikeouts",
-          "player": "Sean Burke",
-          "player_id": "burks001",
-          "team": "CHA",
-          "opponent": "HOU",
-          "home": false,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 5.5,
-          "probability": 0.6459,
-          "form5": 4.6,
-          "games_before": 52,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 1.59,
-          "book_p": 0.5995,
-          "book_p_fair": true,
-          "edge": 0.0464,
-          "side": "under",
-          "p_model": 0.6569,
-          "ladder_up": [],
-          "locked": true
         },
         {
           "market": "strikeouts",
@@ -962,7 +673,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 5.5,
-          "probability": 0.5904,
+          "probability": 0.5869,
           "form5": 5.0,
           "games_before": 153,
           "book": "Pinnacle",
@@ -970,9 +681,9 @@
           "book_price": 1.75,
           "book_p": 0.5455,
           "book_p_fair": true,
-          "edge": 0.0449,
+          "edge": 0.0414,
           "side": "under",
-          "p_model": 0.5972,
+          "p_model": 0.5934,
           "ladder_up": []
         },
         {
@@ -986,7 +697,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 4.5,
-          "probability": 0.5557,
+          "probability": 0.5487,
           "form5": 4.4,
           "games_before": 144,
           "book": "Pinnacle",
@@ -994,27 +705,27 @@
           "book_price": 1.88,
           "book_p": 0.5079,
           "book_p_fair": true,
-          "edge": 0.0478,
+          "edge": 0.0408,
           "side": "over",
-          "p_model": 0.5599,
+          "p_model": 0.5524,
           "ladder_up": [
             {
               "line": 5.5,
               "price": 2.72,
               "book": "DraftKings",
-              "p": 0.3637
+              "p": 0.367
             },
             {
               "line": 6.5,
               "price": 4.72,
               "book": "DraftKings",
-              "p": 0.2643
+              "p": 0.2647
             },
             {
               "line": 7.5,
               "price": 9.1,
               "book": "DraftKings",
-              "p": 0.2125
+              "p": 0.2082
             },
             {
               "line": 8.5,
@@ -1023,87 +734,12 @@
               "p": 0.0833
             }
           ]
-        },
-        {
-          "market": "strikeouts",
-          "player": "Hunter Brown",
-          "player_id": "browh001",
-          "team": "HOU",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 6.5,
-          "probability": 0.5108,
-          "form5": 7.6,
-          "games_before": 112,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 2.17,
-          "book_p": 0.4393,
-          "book_p_fair": true,
-          "edge": 0.0715,
-          "side": "over",
-          "p_model": 0.5116,
-          "ladder_up": [
-            {
-              "line": 7.5,
-              "price": 2.89,
-              "book": "DraftKings",
-              "p": 0.4096
-            },
-            {
-              "line": 8.5,
-              "price": 4.45,
-              "book": "DraftKings",
-              "p": 0.2342
-            },
-            {
-              "line": 9.5,
-              "price": 7.2,
-              "book": "DraftKings",
-              "p": 0.1581
-            },
-            {
-              "line": 10.5,
-              "price": 12.6,
-              "book": "DraftKings",
-              "p": 0.1054
-            }
-          ],
-          "locked": true
         }
       ]
     },
     "team_runs": {
       "released": true,
       "picks": [
-        {
-          "market": "team_runs",
-          "player": "Houston Astros",
-          "player_id": "HOU",
-          "team": "HOU",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 3.5,
-          "probability": 0.6361,
-          "form5": 7.4,
-          "games_before": 972,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 1.74,
-          "book_p": 0.5538,
-          "book_p_fair": true,
-          "edge": 0.0823,
-          "side": "over",
-          "p_model": 0.6768,
-          "ladder_up": [],
-          "locked": true
-        },
         {
           "market": "team_runs",
           "player": "San Diego Padres",
@@ -1115,7 +751,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 3.5,
-          "probability": 0.6154,
+          "probability": 0.616,
           "form5": 7.0,
           "games_before": 973,
           "book": "Pinnacle",
@@ -1123,35 +759,10 @@
           "book_price": 1.78,
           "book_p": 0.5401,
           "book_p_fair": true,
-          "edge": 0.0753,
+          "edge": 0.0759,
           "side": "over",
-          "p_model": 0.6499,
+          "p_model": 0.6506,
           "ladder_up": []
-        },
-        {
-          "market": "team_runs",
-          "player": "Chicago White Sox",
-          "player_id": "CHA",
-          "team": "CHA",
-          "opponent": "HOU",
-          "home": false,
-          "game_id": "849846",
-          "tipoff": "2026-09-30T21:00:00Z",
-          "kickoff": "2026-09-30T21:00:00Z",
-          "line": 3.5,
-          "probability": 0.591,
-          "form5": 6.2,
-          "games_before": 973,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 2.04,
-          "book_p": 0.4729,
-          "book_p_fair": true,
-          "edge": 0.1181,
-          "side": "over",
-          "p_model": 0.6182,
-          "ladder_up": [],
-          "locked": true
         },
         {
           "market": "team_runs",
@@ -1164,7 +775,7 @@
           "tipoff": "2026-10-01T00:00:00Z",
           "kickoff": "2026-10-01T00:00:00Z",
           "line": 3.5,
-          "probability": 0.591,
+          "probability": 0.5903,
           "form5": 6.4,
           "games_before": 972,
           "book": "Pinnacle",
@@ -1172,9 +783,9 @@
           "book_price": 2.03,
           "book_p": 0.4741,
           "book_p_fair": true,
-          "edge": 0.1169,
+          "edge": 0.1162,
           "side": "over",
-          "p_model": 0.6182,
+          "p_model": 0.6173,
           "ladder_up": []
         },
         {
@@ -1188,7 +799,7 @@
           "tipoff": "2026-10-01T02:00:00Z",
           "kickoff": "2026-10-01T02:00:00Z",
           "line": 3.5,
-          "probability": 0.5569,
+          "probability": 0.5577,
           "form5": 2.2,
           "games_before": 973,
           "book": "Pinnacle",
@@ -1196,16 +807,64 @@
           "book_price": 1.78,
           "book_p": 0.5412,
           "book_p_fair": true,
-          "edge": 0.0157,
+          "edge": 0.0165,
           "side": "under",
-          "p_model": 0.5739,
+          "p_model": 0.575,
+          "ladder_up": []
+        },
+        {
+          "market": "team_runs",
+          "player": "Atlanta Braves",
+          "player_id": "ATL",
+          "team": "ATL",
+          "opponent": "PHI",
+          "home": true,
+          "game_id": "849844",
+          "tipoff": "2026-10-01T18:00:00Z",
+          "kickoff": "2026-10-01T18:00:00Z",
+          "line": 3.5,
+          "probability": 0.5206,
+          "form5": 3.8,
+          "games_before": 974,
+          "book": "FanDuel",
+          "line_source": "fanduel",
+          "book_price": 2.02,
+          "book_p": 0.467,
+          "book_p_fair": true,
+          "edge": 0.0536,
+          "side": "over",
+          "p_model": 0.5267,
+          "ladder_up": []
+        },
+        {
+          "market": "team_runs",
+          "player": "Philadelphia Phillies",
+          "player_id": "PHI",
+          "team": "PHI",
+          "opponent": "ATL",
+          "home": false,
+          "game_id": "849844",
+          "tipoff": "2026-10-01T18:00:00Z",
+          "kickoff": "2026-10-01T18:00:00Z",
+          "line": 3.5,
+          "probability": 0.5196,
+          "form5": 3.0,
+          "games_before": 973,
+          "book": "FanDuel",
+          "line_source": "fanduel",
+          "book_price": 2.04,
+          "book_p": 0.4632,
+          "book_p_fair": true,
+          "edge": 0.0564,
+          "side": "under",
+          "p_model": 0.5255,
           "ladder_up": []
         }
       ]
     }
   },
   "odds": {
-    "checked_at": "2026-09-30T18:52:28+00:00",
+    "checked_at": "2026-09-30T21:30:31+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -1617,12 +1276,14 @@
   },
   "settled": [
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.516,
       "book_price": 1.81,
       "edge": 0.1351,
       "game_id": "849843",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -1636,17 +1297,17 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
       "key": "849843:hits:haysa001"
     },
     {
+      "actual": 1.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5881,
       "book_price": 1.59,
       "edge": 0.072,
       "game_id": "849843",
+      "graded": "correct",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -1660,17 +1321,17 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 1.0,
-      "graded": "correct",
       "key": "849843:hits:suzus001"
     },
     {
+      "actual": 2.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.6546,
       "book_price": 1.43,
       "edge": 0.0538,
       "game_id": "849843",
+      "graded": "wrong",
       "kind": "prop",
       "line": 1.5,
       "line_source": "draftkings",
@@ -1684,17 +1345,17 @@
       "side": "under",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 2.0,
-      "graded": "wrong",
       "key": "849843:hits:tatif002:under"
     },
     {
+      "actual": 1.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.6036,
       "book_price": 1.55,
       "edge": 0.0748,
       "game_id": "849843",
+      "graded": "correct",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -1708,17 +1369,17 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 1.0,
-      "graded": "correct",
       "key": "849843:hrr:cronj001"
     },
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5681,
       "book_price": 1.65,
       "edge": 0.1295,
       "game_id": "849843",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -1732,17 +1393,17 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
       "key": "849843:hrr:haysa001"
     },
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5917,
       "book_price": 1.58,
       "edge": 0.0801,
       "game_id": "849843",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -1756,17 +1417,17 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
       "key": "849843:hrr:tayls003"
     },
     {
+      "actual": 4.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.4778,
       "book_price": 2.0,
       "edge": 0.1258,
       "game_id": "849843",
+      "graded": "correct",
       "kind": "prop",
       "line": 3.5,
       "line_source": "pinnacle",
@@ -1780,17 +1441,17 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 4.0,
-      "graded": "correct",
       "key": "849843:strikeouts:boydm001"
     },
     {
+      "actual": 8.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.4726,
       "book_price": 2.02,
       "edge": 0.0828,
       "game_id": "849843",
+      "graded": "correct",
       "kind": "prop",
       "line": 4.5,
       "line_source": "pinnacle",
@@ -1804,17 +1465,17 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 8.0,
-      "graded": "correct",
       "key": "849843:strikeouts:kingm002"
     },
     {
+      "actual": 8.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.5412,
       "book_price": 1.78,
       "edge": 0.0749,
       "game_id": "849843",
+      "graded": "correct",
       "kind": "prop",
       "line": 3.5,
       "line_source": "pinnacle",
@@ -1828,8 +1489,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "actual": 8.0,
-      "graded": "correct",
       "key": "849843:team_runs:SDN"
     },
     {
@@ -1837,14 +1496,14 @@
       "book": "pinnacle",
       "book_p_pick": 0.5567,
       "game_id": "849843",
+      "graded": "correct",
       "home": "SDN",
       "kind": "winner",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "p_pick": 0.55,
       "pick": "SDN",
-      "tipoff": "2026-09-30T02:00:00Z",
       "result": "SDN",
-      "graded": "correct",
+      "tipoff": "2026-09-30T02:00:00Z",
       "key": "849843:winner"
     },
     {
