@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 98686,
-  "account_used": 1314,
+  "account_remaining": 98632,
+  "account_used": 1368,
   "alerts": [],
   "calls": [
     {
@@ -1335,6 +1335,15 @@
       "path": "sports/americanfootball_nfl/events",
       "purpose": "nfl: list events",
       "sport": "nfl"
+    },
+    {
+      "account_remaining": 98632,
+      "account_used": 1368,
+      "at": "2026-09-30T15:50:00+00:00",
+      "credits": 0,
+      "path": "sports/americanfootball_nfl/events",
+      "purpose": "nfl: list events",
+      "sport": "nfl"
     }
   ],
   "days": {
@@ -1381,5 +1390,5 @@
       "credits": 20
     }
   },
-  "updated": "2026-09-30T10:53:01.018393+00:00"
+  "updated": "2026-09-30T15:50:00.717317+00:00"
 }
