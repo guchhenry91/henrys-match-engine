@@ -1480,6 +1480,14 @@ function lastFiveTiles(p){
   const line=p.last_five_line!=null?p.last_five_line:(p.market==="goal"?1:null);
   return tiles(p.last_five, x=>line==null?null:x>=line);
 }
+// NBA / MLB: the last five games against THIS pick's line and side -- a tile is
+// green where that game would have won the bet as it stands (strictly over the
+// line for an over, under it for an under, as the grader settles it).
+function lineLastFive(p){
+  const under=p.side==="under";
+  return tiles(p.last_five, x=>p.line==null?null:(under?x<p.line:x>p.line),
+    x=>Math.round(x), "Last five games");
+}
 
 // NFL team winner. Edge is against bet365's DE-VIGGED probability, which the
 // board already publishes -- so unlike a raw 1/odds it is not flattered or
@@ -1603,10 +1611,10 @@ function propTableRow(p){
       ${lastFiveTiles(p)}</div>
     <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}${perfTag("soccer",p.market)}${valueBits(p,"soccer",p.market)}</div>
     ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${p.book_price!=null
-      ? valCell(`bet365 ${Number(p.book_price).toFixed(2)}`,
+      ? valCell(`${esc(p.book||"bet365")} ${Number(p.book_price).toFixed(2)}`,
           p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
           p.edge==null?"off":p.edge>=0?"pos":"neg")
-      : valCell("Price",p.market==="goal"?"—":"no bet365 market","off")}</div>`;
+      : valCell("Price","—","off")}</div>`;
 }
 
 // Edge = model probability minus the book's implied probability (1/odds). The
@@ -1911,6 +1919,16 @@ function viewBest(){
 // filled where the game cleared this market's line. "0, 2, 0, 1, 3 shots" and
 // "1.2 average" describe very different players, and only one of them tells you
 // whether a 2+ shots pick is a habit or a hope.
+// The squad list on a match page: his last five matches in all three markets on
+// one line, oldest first ("shots 2·0·3·1·4"). Numbers only -- no market line here,
+// so nothing is coloured as a hit or a miss.
+function squadLastFive(f){
+  if(!f) return "";
+  const bit=(k,l)=>(f[k]||[]).length?`${l} ${f[k].join("·")}`:"";
+  const s=[bit("shots","shots"),bit("sot","on target"),bit("goals","goals")].filter(Boolean).join(" · ");
+  return s?`<span class="sl5" style="display:block;opacity:.75;font-size:11.5px">Last 5 — ${s}</span>`:"";
+}
+
 function soccerLastFive(p){
   const v=p.last_five||[];
   if(!v.length) return "";
@@ -2291,9 +2309,9 @@ function nbaPropTableRow(p){
   return `<div class="brow click" onclick="openGame('nba','${esc(String(p.game_id))}')" title="Open this game: every team pick and prop">${timeCell(p.tipoff)}
     <div class="be"><div class="beb">NBA · ${esc(NBAMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
-      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
+      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · averaging ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
-        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
+        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${lineLastFive(p)}${ladderStrip(p)}</div>
     <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p,"nba",p.market)}${newsTag(p)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
@@ -2338,7 +2356,7 @@ function mlbPropTableRow(p){
   return `<div class="brow click" onclick="openGame('mlb','${esc(String(p.game_id))}')" title="Open this game: every team pick and prop">${timeCell(p.tipoff)}
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
-      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${ladderStrip(p)}</div>
+      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${lineLastFive(p)}${ladderStrip(p)}</div>
     <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p,"mlb",p.market)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
@@ -3114,7 +3132,7 @@ function openMatch(lk,id){
       const b365=pr.b365_anytime?` · bet365 anytime ${Number(pr.b365_anytime).toFixed(2)}${v.min_price?` (worth it at ${Number(v.min_price).toFixed(2)}+)`:""}${v.value?` <b style="color:var(--lime)">value</b>`:""}`:"";
       return `<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
     <div class="li2"><b>${pr.top?"★ ":""}${esc(pr.player)}</b><span>${pct1(pr.anytime_pct)} goal · ${pct1(pr.p_shots_2plus)} 2+ shots · ${pct1(pr.p_sot_1plus)} 1+ on target${
-      pr.expected_minutes!=null?` · ~${Math.round(pr.expected_minutes)} min`:""}${b365}</span></div></div>`;}).join("");
+      pr.expected_minutes!=null?` · ~${Math.round(pr.expected_minutes)} min`:""}${b365}</span>${squadLastFive(pr.last_five)}</div></div>`;}).join("");
   }).join("");
   const props=propTeams;
   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];

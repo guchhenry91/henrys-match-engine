@@ -24,6 +24,7 @@ from nfl.games_model import run_elo
 from oddsapi import props as shared
 from oddsapi import props as shared_props
 from nfl.model import PropModel
+from tracking import recent
 
 ROOT = Path(__file__).resolve().parent.parent
 ODDS = ROOT / "data-raw" / "mlb" / "odds_api.json"
@@ -228,6 +229,9 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
             return value if np.isfinite(value) else None
 
         alts = {str(k): (v or {}).get("alt") or {} for k, v in odds_games.items()}
+        # Each player's last five games of THIS stat, for the card's strip.
+        past = allrows[~allrows["GAME_ID"].astype(str).str.startswith("NEXT")]
+        last5 = recent.last_n(past, ask["PLAYER_ID"], spec["stat"])
         picks = []
         for idx, r in ask.iterrows():
             g, team, opp, home, q, name = meta[(r["PLAYER_ID"], r["GAME_ID"])]
@@ -242,6 +246,7 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
                  "game_id": str(g.game_pk), "tipoff": g.start, "kickoff": g.start,
                  "line": line, "probability": round(prob, 4),
                  "form5": round(float(r["form5"]), 2),
+                 "last_five": last5.get(r["PLAYER_ID"], []),
                  "games_before": int(r["games_before"]), **_price(prob, q)},
                 q, shrink.get(market, 1.0), allow_under=(market != "hr"))
             # THE LADDER UP: the book's higher lines for this player, each with its

@@ -75,7 +75,8 @@ def _just_locked(entry: dict, now, minutes: float = 30.0) -> bool:
         return False
 
 
-def _match_props(squad_props: list, home: str, away: str, league: str, match_id) -> list:
+def _match_props(squad_props: list, home: str, away: str, league: str, match_id,
+                 form5: dict | None = None) -> list:
     top = {(p["team"], p["player"]) for p in props.top_props(squad_props, home)
            + props.top_props(squad_props, away)}
     out = []
@@ -88,6 +89,9 @@ def _match_props(squad_props: list, home: str, away: str, league: str, match_id)
             if (p["team"], p["player"]) not in top:
                 continue
         row = dict(p, top=(p["team"], p["player"]) in top)
+        # His last five matches -- goals, shots, on target -- for the squad list.
+        if (form5 or {}).get(p["player"]):
+            row["last_five"] = form5[p["player"]]
         try:
             price = prop_odds.price_for(league, match_id, p["player"], store=store)
         except Exception:
@@ -772,7 +776,7 @@ def build(league: str = "PL") -> dict:
             # them all. `top` marks the three per side the page used to show.
             # bet365's anytime price where it quotes him, with the lowest price
             # worth taking (tracking/value.py).
-            "props": _match_props(squad_props, home, away, league, m["match_id"]),
+            "props": _match_props(squad_props, home, away, league, m["match_id"], form5),
             "player_picks": player_picks,
             "market": _market_block(odds.market_for(market_odds, home, away),
                                     pred, pick_type),

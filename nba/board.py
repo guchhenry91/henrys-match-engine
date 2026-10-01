@@ -29,6 +29,7 @@ from nfl import odds as odds_mod
 from nfl.games_model import run_elo
 from nfl import selection
 from nfl.model import PropModel
+from tracking import recent
 from oddsapi import props as shared
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -237,6 +238,9 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
                    for s in config.LINE_STEPS[market]} if per_step
                   else {None: PropModel(market).fit(spread)})
         ask = built[is_synth].copy()
+        # Each player's last five games of THIS stat (minutes > 0), for the card.
+        last5 = recent.last_n(allrows[allrows["GAME_ID"] >= 0], ask["PLAYER_ID"],
+                              config.MARKETS[market], played="MIN")
         picks, below = [], 0
         for idx, r in ask.iterrows():
             m = meta.get((int(r["PLAYER_ID"]), int(r["GAME_ID"])))
@@ -266,6 +270,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
                 "book_price": quote.get("odd_over"), "book_p": quote.get("over"),
                 "edge": round(prob - float(quote["over"]), 4) if quote.get("over") else None,
                 "form5": round(float(r["form5"]), 1), "min5": round(float(r["min5"]), 1),
+                "last_five": last5.get(r["PLAYER_ID"], []),
                 "games_before": int(r["games_before"]), "club_source": m["club_source"],
                 "vacated": (round(float(r.get("vacated") or 0.0), 3)
                             if float(r.get("vacated") or 0.0) >= 0.05 else None),
