@@ -50,6 +50,14 @@ FEATURES = WITH_ALL + SCRIPT     # superset, for frame_features to build
 
 BLEND = 0.5          # equal parts model and empirical baseline
 
+# NBA markets whose every candidate feature set gets boost_edge (Phase 3). On the
+# 2016-2026 walk-forward, with 20%+ of a team's production belonging to absent
+# players, the men left landed well above the model -- points 61.1% vs 53.2%
+# predicted, rebounds 64.7% vs 59.0%, assists 70.4% vs 62.7%, threes 73.5% vs
+# 71.5% -- and forcing boost_edge in moved every vacated bucket toward the truth
+# in all four markets with all four still released.
+BOOST_MARKETS = {"points", "rebounds", "assists", "threes"}
+
 # Rows required before isotonic calibration is trusted. Isotonic is non-parametric
 # and will happily carve a step function out of noise on a small sample, so below
 # this the model falls back to Platt scaling -- one parameter, far harder to
@@ -140,6 +148,13 @@ def frame_features(frame: pd.DataFrame, market: str, stats: dict | None = None) 
         out["boost_edge"] = frame["form5"] * (v / (1.0 - v)) / frame["line"].replace(0, np.nan)
     else:
         out["boost_edge"] = 0.0
+    # MLB (Phase 3): the park's effect on this stat, against the line -- the
+    # extra (or missing) output the park implies, in form5_edge's units.
+    if "park_pf" in frame and market != "anytime_touchdown":
+        out["park_edge"] = (frame["form5"] * (frame["park_pf"].fillna(1.0) - 1.0)
+                            / frame["line"].replace(0, np.nan))
+    else:
+        out["park_edge"] = 0.0
     for column in SCRIPT:
         out[column] = frame.get(column, 0.0)
     return out.replace([np.inf, -np.inf], np.nan).fillna(0.0)
@@ -225,6 +240,11 @@ class PropModel:
         self.stats = frame_stats(ordered)
         built = frame_features(ordered, self.market, self.stats)
         self.sets = [list(c) for _, c in sorted(CANDIDATES.items())]
+        # PHASE 3: every candidate set carries boost_edge where the walk-forward
+        # showed players inheriting absent teammates' production were underrated
+        # (BOOST_MARKETS). The NFL corrects after the model instead (nfl/vacancy.py).
+        if self.market in BOOST_MARKETS:
+            self.sets = [c + ["boost_edge"] for c in self.sets]
         y = ordered["outcome"].to_numpy()
         # A fold with one class in it cannot be fitted and must not be faked --
         # fall back to the baseline alone rather than inventing a decision boundary.
