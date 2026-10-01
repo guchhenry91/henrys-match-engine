@@ -71,6 +71,34 @@ def build(now=None, sched=None) -> dict:
     }
 
 
+def void_unplayed(log: dict, now, opener=None) -> int:
+    """VOID every pick whose game was cancelled or postponed -- as bet365 settles it.
+
+    A game that is never played never gets a final score or a box score, so its
+    picks waited forever: 17 from the 27 Sep game 823490 (cancelled) were still
+    pending four days later, found by the health check. Asked by game id, so it
+    works however long ago the game was scheduled."""
+    waiting = {str(e["game_id"]) for e in log.values()
+               if isinstance(e, dict) and not e.get("graded") and e.get("tipoff")
+               and (now - datetime.fromisoformat(str(e["tipoff"]).replace("Z", "+00:00"))) > timedelta(hours=24)}
+    if not waiting:
+        return 0
+    try:
+        status = current.game_status(waiting, **({"opener": opener} if opener else {}))
+    except Exception as exc:
+        print(f"  could not check unplayed games ({type(exc).__name__}); left pending")
+        return 0
+    n = 0
+    for e in log.values():
+        if isinstance(e, dict) and not e.get("graded") and status.get(int(e.get("game_id") or 0)) in current.NOT_PLAYED:
+            e["graded"], e["actual"] = "void", None
+            e["void_reason"] = f"game {status[int(e['game_id'])].lower()}"
+            n += 1
+    if n:
+        print(f"  voided {n} pick(s) on games that were not played")
+    return n
+
+
 def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     now = now or datetime.now(timezone.utc)
     log = picks_mod.load_log()
@@ -101,6 +129,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
         for r in rows.to_dict("records"):
             box[(str(r["GAME_ID"])[3:], str(r["PLAYER_ID"]))] = {c: r[c] for c in stat_cols}
     picks_mod.grade(log, finals, box, covered)
+    void_unplayed(log, now)
     picks_mod.save_log(log)
     for g in payload["games"]:
         e = log.get(picks_mod.game_key(g))

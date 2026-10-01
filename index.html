@@ -617,6 +617,8 @@ async function boot(){
   catch(e){DATA.nba=null;}
   try{const r=await fetch("data/mlb/board.json",{cache:"no-cache"});DATA.mlb=r.ok?await r.json():null;}
   catch(e){DATA.mlb=null;}
+  try{const r=await fetch("data/health.json",{cache:"no-cache"});DATA.health=r.ok?await r.json():null;}
+  catch(e){DATA.health=null;}
   FRESH=computeFreshness(); updateLivePill();
   buildNav(); go("today");
   startLive();      // no-ops unless a fixture could actually be in play
@@ -872,6 +874,21 @@ function buildTabs(s){
   tabsFor(s).forEach(t=>el.append(navBtn("tab",t,false)));
 }
 
+// THE SELF-CHECK (scripts/health_check.py). When something is stale, stuck or
+// failing, every page says so -- for the sport on screen first -- rather than
+// leaving a reader to bet on a board that quietly stopped updating.
+function healthBanner(s){
+  const h=DATA.health; if(!h||h.status==="ok") return "";
+  const name={soccer:"Soccer",nfl:"NFL",nba:"NBA",mlb:"MLB",ucl:"Soccer"}[s];
+  const bad=(h.checks||[]).filter(c=>c.status!=="ok");
+  const mine=bad.filter(c=>c.sport===name||c.sport==="Pipeline"||c.sport==="Odds API");
+  const show=(mine.length?mine:bad).slice(0,4);
+  if(!show.length) return "";
+  const fail=show.some(c=>c.status==="fail");
+  return `<div class="feed warn" style="border-color:${fail?"var(--hot)":"var(--amber)"}"><span class="dot"></span><span><b>${fail?"Do not rely on":"Check"} this data:</b> ${
+    show.map(c=>`${esc(c.sport)} ${esc(c.check)} — ${esc(c.message)}`).join(" · ")}</span></div>`;
+}
+
 function feedBanner(s){
   let ok=true, txt;
   if(s==="soccer"){
@@ -931,7 +948,7 @@ function chrome(){
   if(sub) sub.textContent=`${SPORT_NAME[s]} · ${on?on.t:(LG[cur]||subFor[cur]||"")}`;
   const title=document.getElementById("ptitle");
   if(title) title.textContent=nflMarket?propLabel(nflMarket):(TITLE[cur]||LG[cur]||subFor[cur]||"");
-  const feed=document.getElementById("feed"); if(feed) feed.innerHTML=feedBanner(s);
+  const feed=document.getElementById("feed"); if(feed) feed.innerHTML=healthBanner(s)+feedBanner(s);
   buildSidebar(); buildTabs(s); syncNav();
 }
 

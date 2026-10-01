@@ -130,3 +130,15 @@ def test_sync_keeps_one_date_format_so_the_next_load_parses(tmp_path, monkeypatc
     assert current.sync(sched, sleeper=lambda s: None)["fetched"] == 1
     got = current.load("team")
     assert list(got["game_date"].dt.strftime("%Y-%m-%d")) == ["2026-09-26", "2026-09-27"]
+
+
+def test_picks_on_a_cancelled_game_are_voided_not_left_pending(monkeypatch):
+    from datetime import datetime, timezone
+    from mlb import current, publish
+    monkeypatch.setattr(current, "game_status", lambda pks, **k: {823490: "Cancelled", 1: "Final"})
+    log = {"a": {"kind": "prop", "game_id": "823490", "tipoff": "2026-09-27T17:05:00Z"},
+           "b": {"kind": "winner", "game_id": "823490", "tipoff": "2026-09-27T17:05:00Z"},
+           "c": {"kind": "prop", "game_id": "1", "tipoff": "2026-09-27T17:05:00Z"}}
+    n = publish.void_unplayed(log, datetime(2026, 10, 1, tzinfo=timezone.utc))
+    assert n == 2 and log["a"]["graded"] == "void" and log["a"]["void_reason"] == "game cancelled"
+    assert not log["c"].get("graded")                 # played: grading handles it

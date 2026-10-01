@@ -1,0 +1,56 @@
+name: Health check
+
+# Every three hours: is every board current, grading, and running? Reads only what
+# the pipeline already published plus the latest run of each workflow -- no paid
+# API calls. Writes data/health.json (shown as a banner on the site) and sends a
+# Telegram alert ONLY when the set of problems changes. See scripts/health_check.py.
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: health-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -q pandas
+      - name: Run the health check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python -m scripts.health_check
+      - name: Commit a changed status
+        id: commit
+        run: |
+          git config user.name "leagues-bot"
+          git config user.email "leagues-bot@users.noreply.github.com"
+          git add data/health.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -q -m "auto: health check $(date -u +%Y-%m-%dT%H:%M)"
+            for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 5; done
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Trigger Render deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          HOOK="$(printf '%s' "$HOOK" | tr -d '[:space:]')"
+          [ -z "$HOOK" ] && exit 0
+          code=$(curl --retry 3 --retry-all-errors -sS -o /dev/null -w "%{http_code}" -X POST "$HOOK")
+          echo "deploy hook responded $code"

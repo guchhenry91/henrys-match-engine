@@ -134,6 +134,19 @@ def availability(games: pd.DataFrame, opener=urllib.request.urlopen) -> dict:
     return out
 
 
+NOT_PLAYED = ("Cancelled", "Postponed")
+
+
+def game_status(game_pks, opener=urllib.request.urlopen) -> dict:
+    """{game_pk: detailedState} for specific games, whatever their date."""
+    pks = sorted({int(k) for k in game_pks})
+    if not pks:
+        return {}
+    raw = _get(f"schedule?sportId=1&gamePks={','.join(str(k) for k in pks)}", opener)
+    return {int(g["gamePk"]): g["status"]["detailedState"]
+            for day in raw.get("dates", []) for g in day.get("games", [])}
+
+
 def box_rows(g: dict, opener=urllib.request.urlopen) -> dict:
     """{"batting", "pitching", "team"} rows for one finished game, history-shaped."""
     box = _get(f"game/{g['game_pk']}/boxscore", opener)
