@@ -17,6 +17,7 @@ reason, so a board with picks needs no second design.
 import json
 
 from scripts import json_safe
+from tracking import performance
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -161,6 +162,9 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     now = now or picks_mod.now_utc()
     log = picks_mod.load_log()
     frozen = picks_mod.freeze(payload, log, now, book_lines.is_last_run_before)
+    # The first price seen and the price frozen on, for profit and closing-line
+    # value (tracking/performance.py). Uses only odds already fetched.
+    performance.stamp_line_log(log, ROOT / "data-raw" / "nba" / "odds_api.json")
     finals, box, covered = {}, {}, set()
     if sched is not None:
         done = sched[(sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)]
@@ -181,6 +185,9 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     picks_mod.save_log(log)
     _show_frozen(payload, log)
     payload["record"] = picks_mod.record(log)
+    payload["performance"] = performance.by_market(
+        [e for e in log.values() if isinstance(e, dict) and e.get("graded")],
+        performance.market_of)
     # Every graded pick, not the newest 200: the Results tab lists them per market
     # and must agree with the record's own counts (the MLB list fell short at 200).
     payload["settled"] = picks_mod.settled(log, limit=100_000)

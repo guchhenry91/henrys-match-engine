@@ -415,6 +415,10 @@
   .sty small{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
   .sty b{font-size:13px;margin-top:4px}
   .wv{font-size:11px;font-weight:900;letter-spacing:.06em;text-align:center}
+  .pftag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+    padding:2px 7px;border-radius:999px;border:1px solid currentColor;opacity:.92;white-space:nowrap}
+  .pftag.proven{color:var(--lime)} .pftag.promising{color:var(--cyan)}
+  .pftag.testing{color:var(--mut,#8a93a6)} .pftag.losing{color:var(--hot)}
   .wv.win{color:var(--lime)}
   .wv.loss{color:var(--hot)}
   .wv.void{color:var(--amber)}
@@ -1418,7 +1422,7 @@ function nflPropTableRow(p, full){
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
-    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${
       p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
       p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
@@ -1484,7 +1488,7 @@ function propTableRow(p){
       <span>${esc(p.home||"")} vs ${esc(p.away||"")} · ${esc(p.team||"")} · ${xi}${
         p.doubt?" · fitness doubt":""}${p.penalty_taker?" · takes penalties":""}</span>
       ${lastFiveTiles(p)}</div>
-    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}</div>
+    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}${perfTag("soccer",p.market)}</div>
     ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${p.book_price!=null
       ? valCell(`bet365 ${Number(p.book_price).toFixed(2)}`,
           p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
@@ -1502,7 +1506,7 @@ function bestTableRow(u){
     <div class="be"><div class="beb">${esc(LG[u.league_key]||"")} · Match winner</div>
       <b>${esc(u.home)} vs ${esc(u.away)}</b>
       <span>Model selection: <em>${esc(u.pick)}</em>${u.score?` · Correct score: <em>${esc(u.score)}</em>`:""}</span></div>
-    <div class="bs">${confTag(bandOf(u))}</div>
+    <div class="bs">${confTag(bandOf(u))}${perfTag("soccer","match_winner")}</div>
     ${probCell(u.p_pick)}
     ${valCell(priced?(u.book||"Bookmaker"):"Price",priced?odds.toFixed(2):"—",priced?"":"off")}
     ${valCell("Edge",edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—",edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -1561,6 +1565,47 @@ function settledRow(r){
     <span>${teams} · settled ${whenStr(r.date)}</span></div>
     <div class="sty"><small>Type</small><b>Team pick</b></div>${winChip(x)}</div>`;
 }
+// --- Betting performance (tracking/performance.py) ------------------------------
+// Profit at the price each pick froze on, one unit a bet, and whether the market
+// then moved toward the pick (closing-line value). A market's status is EARNED:
+// Proven needs enough bets AND evidence beyond luck; until then it says Testing.
+const PERF_LABEL={proven:"Proven",promising:"Promising",testing:"Testing",losing:"Losing"};
+const PERF_NAME={team_winner:"Team winner",match_winner:"Match winner"};
+function perfBlocks(sport){
+  if(sport==="soccer") return {...(((DATA.player_picks||{}).performance)||{}),
+    match_winner:(((DATA.best||{}).performance)||{}).match_winner};
+  return ((DATA[sport]||{}).performance)||{};
+}
+function perfOf(sport, market){ return perfBlocks(sport)[market]||null; }
+function perfTag(sport, market){
+  const s=perfOf(sport, market);
+  if(!s) return "";
+  const tip=s.bets?`${s.bets} priced bets · ${s.profit>0?"+":""}${s.profit} units · ${Math.round(100*s.roi)}% return. ${s.status_note}`:s.status_note;
+  return `<span class="pftag ${s.status}" title="${esc(tip)}">${PERF_LABEL[s.status]||s.status}</span>`;
+}
+function perfPanel(sport){
+  const blocks=perfBlocks(sport);
+  const rows=Object.entries(blocks).filter(([m,s])=>m!=="all"&&s)
+    .sort((a,b)=>(b[1].bets||0)-(a[1].bets||0));
+  if(!rows.length) return "";
+  const pct=x=>x==null?"—":`${Math.round(100*x)}%`;
+  const body=rows.map(([m,s])=>{
+    const c=s.clv||{}, moved=(c.ours||0)+(c.against||0);
+    const clvTxt=moved?`line moved our way ${pct(c.beat_rate)} of ${moved}`:"no closing-line data yet";
+    const roi=s.roi==null?"—":`${s.roi>0?"+":""}${(100*s.roi).toFixed(1)}%`;
+    return `<div class="srow"><div class="be"><b>${esc(PERF_NAME[m]||gradeName(m))}</b>
+      <span>${s.bets} priced bet${s.bets===1?"":"s"}${s.bets?` · ${s.wins}–${s.losses} · hit ${pct(s.hit_rate)}, needed ${pct(s.break_even)}`:""} · ${esc(clvTxt)}</span></div>
+      <div class="sty"><small>Profit</small><b class="${s.profit>0?"pos":s.profit<0?"neg":""}">${s.bets?`${s.profit>0?"+":""}${s.profit}u · ${roi}`:"—"}</b></div>
+      ${perfTag(sport, m)}</div>`;
+  }).join("");
+  const all=blocks.all;
+  return `<section class="glass settled"><div class="sech"><div><div class="eb">Betting performance</div>
+    <h2>Does it make money?</h2>
+    <p>Each graded pick scored at the price it locked on, one unit staked. "Needed" is the hit rate those prices required just to break even. Closing-line value is whether the market moved toward the pick after it first appeared — the quickest honest sign of a real edge. A market is marked <b>Proven</b> only once it is profitable over 200+ bets with evidence beyond luck; until then treat its picks as Testing.${
+      all&&all.bets?` Overall: ${all.bets} priced bets, ${all.profit>0?"+":""}${all.profit} units.`:""}</p></div></div>
+    <div class="slist">${body}</div></section>`;
+}
+
 const SETTLED_SHOW=25;
 function latestSettled(){
   const all=settledRows();
@@ -1976,7 +2021,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2008,7 +2053,7 @@ function mlbGameTableRow(g){
     <div class="be"><div class="beb">MLB · Team winner</div>
       <b>${esc(g.away_name||g.away)} @ ${esc(g.home_name||g.home)}</b>
       <span>Model selection: <em>${esc(g.pick===g.home?(g.home_name||g.home):(g.away_name||g.away))}</em>${sp}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb","team_winner")}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${bk} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -2021,7 +2066,7 @@ function mlbPropTableRow(p){
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span><span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2612,7 +2657,7 @@ function viewGrades(){
   // picks are all still here; the chips decide which of them is on screen.
   const chips=gradeFilters();
   // Newest graded first, above every summary, so a result is never buried.
-  const latest=filter==="all"?latestSettled()+calibWatch():"";
+  const latest=filter==="all"?latestSettled()+perfPanel(gsport)+calibWatch():"";
   if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
   if(filter&&filter!=="all"){
     const block=propMarketBlock(filter);

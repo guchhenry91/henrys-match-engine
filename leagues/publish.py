@@ -21,6 +21,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
 from leagues import prop_odds
 from leagues import prop_calibration
+from tracking import performance
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -58,6 +59,20 @@ LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
 # than an unscheduled round. Comfortably wider than the lock window, so the
 # warning arrives with time to put a verified time in fixture_times.json.
 SUSPECT_TIME_URGENT_HOURS = 72.0
+
+def _just_locked(entry: dict, now, minutes: float = 30.0) -> bool:
+    """True when `entry` was locked on THIS run (or within the last half hour)."""
+    try:
+        locked = pd.Timestamp(entry.get("locked_at"))
+        now = pd.Timestamp(now)
+        if locked.tzinfo is None:
+            locked = locked.tz_localize("UTC")
+        if now.tzinfo is None:
+            now = now.tz_localize("UTC")
+        return abs((now - locked).total_seconds()) <= minutes * 60
+    except Exception:
+        return False
+
 
 def _lock_window():
     """The window in force for this run: the floor, widened to cover the gap
@@ -559,6 +574,13 @@ def build(league: str = "PL") -> dict:
         frozen = entry["pick"]
         pick_type = ("home" if frozen == home
                      else "away" if frozen == away else "draw")
+        # THE PRICE AT LOCK, frozen with the pick, so profit can be scored at what a
+        # bettor could actually get (tracking/performance.py). Only on the run that
+        # locked it: a price stamped later would be one nobody was offered.
+        if not provisional and entry.get("odds") is None and _just_locked(entry, now):
+            price = ((odds.market_for(market_odds, home, away) or {}).get("odds") or {}).get(pick_type)
+            if price:
+                entry["odds"] = float(price)
         # The model's committed single call. It is the most likely score GIVEN the
         # pick, so the card never contradicts itself -- the unconditional mode is
         # 1-1 in 68% of fixtures and would fight a home/away pick.
@@ -624,6 +646,11 @@ def build(league: str = "PL") -> dict:
                                          unavailable=p["player"] in unavailable,
                                          team_attribution=p["team"])
                     pprov = False
+                    # bet365's anytime price at the moment of locking (see above).
+                    if market == "goal" and pe.get("book_price") is None and _just_locked(pe, now):
+                        price = prop_odds.price_for(league, m["match_id"], p["player"])
+                        if price:
+                            pe["book_price"] = float(price)
                 else:
                     pe = {"p_pick": round(prob, 4), "confidence": _confidence(prob)}
                     pprov = True
@@ -970,6 +997,8 @@ def build_best_picks() -> dict:
                 # Malaga became the first Best Pick ever to settle: every earlier
                 # graded pick sat below 0.65 and so never reached this list.
                 "board": entry.get("board"),
+                # The price at lock, where one was frozen (tracking/performance.py).
+                "odds": entry.get("odds"),
             }
             if bool(row["played"]):
                 g = picks.grade(entry, {"home": row["home"], "away": row["away"],
@@ -1298,6 +1327,9 @@ def main(argv=None):
     if boards_safe:
         best = build_best_picks()
         best_all = best.pop("_all_settled", best["settled"])
+        # Profit at the price frozen with each pick (soccer has no opening-price
+        # history, so no closing-line value yet).
+        best["performance"] = performance.by_market(best_all, lambda e: "match_winner")
         bp = OUT / "best.json"
         if best["_incomplete"]:
             # Refuse rather than publish a record with a league's graded history
@@ -1316,6 +1348,7 @@ def main(argv=None):
 
         pp = build_player_picks()
         pp_all = pp.pop("_all_settled", pp["settled"])
+        pp["performance"] = performance.by_market(pp_all, lambda e: e.get("market"))
         # bet365's anytime-scorer price and the edge against it, where fetched
         # (leagues/prop_odds.py). Shots and SOT have no usable bet365 market.
         # Recalibrated from the props' own graded record FIRST, so the edge against

@@ -386,6 +386,9 @@ def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
 
     _lock_games(payload, log[GAMES_KEY], now)
     _lock_props(payload, log[PROPS_KEY], now)
+    # The first price seen and the price frozen on (tracking/performance.py).
+    from tracking import performance
+    performance.stamp_nfl_log(log[PROPS_KEY], ROOT / "data-raw" / "nfl" / "odds_api_props.json")
 
     # GRADING SWEEPS THE LOG, NOT THE BOARD. The board publishes only UPCOMING
     # games, so a fixture leaves it the moment it is played. Grading driven off the

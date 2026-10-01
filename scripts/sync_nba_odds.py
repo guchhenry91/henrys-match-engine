@@ -91,7 +91,8 @@ def run(client, sched_rows, now=None, store=None) -> dict:
             line = shared.parse_moneyline(by_id.get(ev["id"]), bl.BOOK_ORDER,
                                           ev["home_team"], ev["away_team"])
             if line:
-                entry["moneyline"] = line
+                entry["moneyline"] = {**line, "at": now.isoformat(timespec="seconds")}
+                shared.remember_open(entry, now.isoformat(timespec="seconds"))
     except oc.BudgetExceeded as exc:
         print(f"  budget stop before match odds: {exc}")
         return store
@@ -121,6 +122,7 @@ def run(client, sched_rows, now=None, store=None) -> dict:
         entry["checks"].append(now.isoformat(timespec="seconds"))
         entry["props"] = props
         entry["alt"] = bl.parse_alternates(payload)
+        shared.remember_open(entry, now.isoformat(timespec="seconds"))
         print(f"  {g['away_team']}@{g['home_team']} ({why}): "
               f"{ {m: len(q) for m, q in props.items()} }")
     store["updated"] = now.isoformat(timespec="seconds")

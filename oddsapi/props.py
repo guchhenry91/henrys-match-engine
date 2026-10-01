@@ -112,16 +112,42 @@ def parse_moneyline(event, book_order, home_name, away_name) -> dict | None:
         for market in (books.get(key) or {}).get("markets") or []:
             if market.get("key") != "h2h":
                 continue
-            prices = {o.get("name"): odds.decimal_to_prob(o.get("price"))
-                      for o in market.get("outcomes") or []}
+            raw = {o.get("name"): o.get("price") for o in market.get("outcomes") or []}
+            prices = {name: odds.decimal_to_prob(price) for name, price in raw.items()}
             h, a = prices.get(home_name), prices.get(away_name)
             if h is None or a is None:
                 continue
             fair = odds.devig({"home": h, "away": a})
+            # The raw prices too: profit is scored at the price a bettor gets, not
+            # the margin-free fair one (tracking/performance.py).
             return {"book": key, "home": round(fair["home"], 4),
                     "away": round(fair["away"], 4),
-                    "overround": round(h + a - 1.0, 4)}
+                    "overround": round(h + a - 1.0, 4),
+                    "odd_home": raw.get(home_name), "odd_away": raw.get(away_name)}
     return None
+
+
+def remember_open(entry: dict, at: str) -> None:
+    """Keep the FIRST quote seen for every player, team total and the match odds.
+
+    A later check replaces entry["props"] wholesale, so without this the opening
+    price is gone the moment the lock check lands -- and the move from the first
+    price to the last one (closing-line value) is the quickest honest test of
+    whether picks have an edge (tracking/performance.py). Written once per
+    quote, never overwritten.
+    """
+    opened = entry.setdefault("open", {})
+    for market, quotes in (entry.get("props") or {}).items():
+        block = opened.setdefault(market, {})
+        for name, q in (quotes or {}).items():
+            if name not in block and isinstance(q, dict):
+                block[name] = {**q, "at": at}
+    for side, q in (entry.get("team_totals") or {}).items():
+        block = opened.setdefault("team_totals", {})
+        if side not in block and isinstance(q, dict):
+            block[side] = {**q, "at": at}
+    if entry.get("moneyline") and "moneyline" not in opened:
+        opened["moneyline"] = {**entry["moneyline"], "at": at}
 
 
 def parse_alternates(payload, alt_map: dict, books, book_label: dict) -> dict:

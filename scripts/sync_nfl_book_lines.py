@@ -18,6 +18,7 @@ from pathlib import Path
 
 from nfl import book_lines as bl
 from oddsapi import client as oc
+from oddsapi import props as shared
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data-raw" / "nfl" / "odds_api_props.json"
@@ -116,6 +117,7 @@ def run(client, now=None, store=None) -> dict:
             # A later check replaces the earlier lines wholesale: the freshest
             # quote is the one a pick should freeze on.
             entry["props"] = props
+            shared.remember_open(entry, now.isoformat(timespec="seconds"))
         counts = {m: len(q) for m, q in props.items()}
         spent_on.append(key)
         print(f"  {key} ({why}): {counts or 'no lines quoted'}")

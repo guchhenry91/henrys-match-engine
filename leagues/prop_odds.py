@@ -64,6 +64,15 @@ def load() -> dict:
         return {}
 
 
+def price_for(league_key: str, match_id, player: str, store: dict | None = None):
+    """bet365's anytime-scorer price for one player in one fixture, or None."""
+    fixtures = (store if store is not None else load()).get("fixtures") or {}
+    entry = fixtures.get(fixture_key(league_key, match_id)) or {}
+    want = norm_name(player)
+    hits = [odd for name, odd in (entry.get("anytime") or {}).items() if norm_name(name) == want]
+    return hits[0] if len(hits) == 1 and hits[0] <= MAX_ODDS else None
+
+
 def attach(upcoming: list, store: dict | None = None) -> int:
     """Put bet365's price on each upcoming anytime-scorer pick. Returns count."""
     fixtures = (store if store is not None else load()).get("fixtures") or {}

@@ -746,6 +746,15 @@ def main():
     # The picks BEHIND the record, so the Grades tab can show which hit and
     # which missed rather than only a total.
     payload["settled"] = picks.settled(picks.core.load_log(picks.PICKS_LOG))
+    # Profit at the frozen price and closing-line value, per market.
+    from tracking import performance
+    _log = picks.core.load_log(picks.PICKS_LOG)
+    payload["performance"] = performance.by_market(
+        [dict(e, kind="winner") for k, e in (_log.get(picks.GAMES_KEY) or {}).items()
+         if not k.startswith("_") and e.get("graded")]
+        + [e for k, e in (_log.get(picks.PROPS_KEY) or {}).items()
+           if not k.startswith("_") and e.get("graded")],
+        performance.market_of)
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / "board.json"
     tmp = path.with_suffix(".json.tmp")
