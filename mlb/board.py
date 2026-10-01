@@ -211,7 +211,12 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
             outside the range it was trained and gated on."""
             if not config.MIN_LINE[market] <= line <= config.MAX_LINE[market]:
                 return None
-            step = int(round(line - base_line))
+            # Step 0 is trained at the base line FLOORED at the book minimum
+            # (features.augment_lines), so a batter whose HR/RBI median is 0
+            # (base -0.5) is asked about 0.5 at step 0 -- not at step 1, which
+            # HR and RBI do not carry and which dropped every one of them.
+            step = (0 if abs(line - max(base_line, config.MIN_LINE[market])) < 1e-9
+                    else int(round(line - base_line)))
             if not min(steps) <= step <= max(steps):
                 return None
             model = models.get(step if per_step else None)
