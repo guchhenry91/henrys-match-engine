@@ -215,6 +215,40 @@ def augment_lines(frame: pd.DataFrame, market: str) -> pd.DataFrame:
     return out[out["line"] >= config.MIN_LINE[market]].reset_index(drop=True)
 
 
+def vacated_share(share_source: pd.DataFrame) -> pd.DataFrame:
+    """How much of each team's volume belongs to players who are NOT playing.
+
+    PHASE 3: where books are slow. When a team's No.1 receiver is out, his targets
+    do not vanish -- they go to the men who are left, and a teammate's own five-game
+    share understates what he is about to get. For every team-game this sums the
+    entering share of every player who played in the team's PREVIOUS game and is
+    absent from this one (injured, inactive, released, traded away).
+
+    Historically "absent" is read from the box score. On the live board the synthetic
+    next-game rows leave out players ruled OUT (nfl.publish), so the same feature is
+    asked the same question. A man who has already missed weeks is not counted --
+    his share has already moved to his teammates' recent form.
+
+    Returns team, season, week, vacated (0..0.9).
+    """
+    s = share_source[["player_id", "team", "season", "week", "_share"]].copy()
+    s = s.sort_values(["player_id", "season", "week"])
+    s["_next5"] = (s.groupby("player_id", sort=False)["_share"]
+                   .rolling(config.FORM_GAMES, min_periods=1).mean()
+                   .reset_index(level=0, drop=True))
+    order = (s[["team", "season", "week"]].drop_duplicates()
+             .sort_values(["team", "season", "week"]))
+    order["_to"] = order.groupby(["team", "season"])["week"].shift(-1)
+    prev = s.merge(order, on=["team", "season", "week"]).dropna(subset=["_to"])
+    prev["week"] = prev["_to"].astype(int)
+    present = s[["player_id", "team", "season", "week"]].drop_duplicates().assign(_here=1)
+    prev = prev.merge(present, on=["player_id", "team", "season", "week"], how="left")
+    gone = prev[prev["_here"].isna()]
+    out = (gone.groupby(["team", "season", "week"])["_next5"].sum()
+           .clip(0.0, 0.9).rename("vacated").reset_index())
+    return out
+
+
 def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -> pd.DataFrame:
     """Per-player-game rows with pre-game features and the settled outcome."""
     stat = MARKET_STAT[market]
@@ -235,6 +269,13 @@ def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -
 
     frame["games_before"] = _prior_count(frame)
     frame["share5"] = _prior_mean(frame, "_share", config.FORM_GAMES)
+    # Volume freed up by absent teammates, and this player's slice of it if the
+    # freed volume is shared out in proportion to the shares left (vacated_share).
+    vac = vacated_share(share_source)
+    frame = frame.merge(vac, on=["team", "season", "week"], how="left")
+    frame["vacated"] = frame["vacated"].fillna(0.0)
+    frame["share_boost"] = frame["share5"] * frame["vacated"] / (1.0 - frame["vacated"])
+    frame = frame.sort_values(["player_id", "season", "week"]).reset_index(drop=True)
     frame["hist_rate"] = _prior_mean(frame, stat)
     frame["form5"] = _prior_mean(frame, stat, config.FORM_GAMES)
     frame["form10"] = _prior_mean(frame, stat, config.LONG_FORM_GAMES)

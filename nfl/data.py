@@ -14,6 +14,8 @@ from pathlib import Path
 
 import time
 
+from urllib.error import HTTPError, URLError
+
 import pandas as pd
 
 from nfl import config
@@ -157,6 +159,25 @@ def player_weeks(seasons=None, refresh: bool = False) -> pd.DataFrame:
 
     out = out.sort_values(["season", "week", "player_id"]).reset_index(drop=True)
     return out
+
+
+def live_player_weeks() -> pd.DataFrame:
+    """Every completed season PLUS the season being played, for the live board.
+
+    THE BUG THIS FIXES (found 2026-10-01). The board read `player_weeks()`, which is
+    the completed seasons only -- so four weeks into 2026 every prop was priced on
+    the player's last five games OF 2025: last season's form, target share and
+    workload rank. Grading already read the 2026 file; the board never did.
+
+    Before a season's first game nflverse has no file for it (a 404). That is not
+    an error worth failing the board over, so the completed seasons are used alone
+    and the board says so through `player_data_through`.
+    """
+    try:
+        return player_weeks(tuple(config.SEASONS) + (config.CURRENT_SEASON,))
+    except (HTTPError, URLError) as exc:
+        print(f"  no {config.CURRENT_SEASON} player feed yet ({exc}); completed seasons only")
+        return player_weeks()
 
 
 def rosters(season=None, refresh: bool = False) -> pd.DataFrame:

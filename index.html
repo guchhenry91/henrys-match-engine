@@ -1470,7 +1470,8 @@ function nflPropTableRow(p, full){
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)}${p.depth_label?` · ${esc(p.depth_label)}`:""}${
         p.workload_share?` · No.${p.workload_rank} on his team · ${Math.round(p.workload_share*100)}% of ${({receiving_yards:"targets",rushing_yards:"carries",passing_yards:"attempts",anytime_touchdown:"touches"})[p.market]||"volume"}`:""}${
-        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>
+        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}${
+        p.vacated?` · <em title="Teammates ruled out leave this share of the team's volume; players who inherit it beat the model's numbers in the backtest, so the pick is lifted (Phase 3)">Teammates out: ${Math.round(p.vacated*100)}% of ${({receiving_yards:"targets",rushing_yards:"carries",passing_yards:"attempts"})[p.market]||"volume"} freed${p.vacancy_lift?` (+${(p.vacancy_lift*100).toFixed(1)} pts)`:""}</em>`:""}</span>
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>

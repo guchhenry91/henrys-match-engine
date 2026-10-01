@@ -23,6 +23,7 @@ import pandas as pd
 from nfl import (config, data, depth, features, games_model,
                  odds as odds_mod, rosters)
 from nfl import picks
+from nfl import vacancy
 from nfl import book_lines
 from nfl import market_blend
 from nfl import selection
@@ -176,9 +177,14 @@ def upcoming_games(schedule: pd.DataFrame) -> pd.DataFrame:
 
 
 def next_game_frame(player_weeks, games, upcoming, fixtures, market,
-                    roster_index, rosters_complete):
+                    roster_index, rosters_complete, ruled_out=None):
     """One built row per active player whose CURRENT team plays in `upcoming`,
-    with that game's week, opponent, venue and rest -- see player_projections."""
+    with that game's week, opponent, venue and rest -- see player_projections.
+
+    `ruled_out` (display names) get NO row: absent from the game, exactly as an
+    inactive player is absent from a box score, so features.vacated_share credits
+    his volume to the teammates who are left (nfl/vacancy.py)."""
+    ruled_out = set(ruled_out or ())
     last = player_weeks.sort_values(["season", "week"]).groupby("player_id").tail(1)
     newest = int(player_weeks["season"].max())
     last = last[last["season"] >= newest - (config.ACTIVE_WITHIN_SEASONS - 1)]
@@ -188,6 +194,8 @@ def next_game_frame(player_weeks, games, upcoming, fixtures, market,
                             "season", "week", "season_type", "opponent_team")
                and pd.api.types.is_numeric_dtype(player_weeks[c])]
     for _, row in last.iterrows():
+        if row.get("player_display_name") in ruled_out:
+            continue
         team, why = rosters.reconcile(row["player_id"], row["team"],
                                       roster_index, rosters_complete)
         if team not in fixtures:
@@ -252,8 +260,9 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     # placeholder row for the upcoming game (outcome columns zero -- every input
     # is ENTERING, shift(1), so a row never reads its own values) goes through the
     # same build, and the model is still trained only on real games.
+    out_names = {n for n, r in (injuries or {}).items() if (r or {}).get("status") == "out"}
     latest = next_game_frame(player_weeks, games, upcoming, fixtures, market,
-                             roster_index, rosters_complete)
+                             roster_index, rosters_complete, ruled_out=out_names)
     if latest is None or latest.empty:
         return []
 
@@ -262,7 +271,6 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     # ones the offence actually runs through.
     # Players ruled OUT are dropped BEFORE ranking, so the next man up moves into
     # the top group when the lead option is inactive.
-    out_names = {n for n, r in (injuries or {}).items() if (r or {}).get("status") == "out"}
     latest = latest[~latest["player_display_name"].isin(out_names)].copy()
     if latest.empty:
         return []
@@ -314,7 +322,12 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             quoted.at[idx, "line"] = float(quote["line"])
 
     rows, dropped_depth, below_floor = [], [], []
-    for (idx, player), prob in zip(quoted.iterrows(), model.predict(quoted)):
+    # PHASE 3: lift players inheriting an absent teammate's volume (nfl/vacancy.py).
+    vac_c = vacancy.load().get(market)
+    raw_probs = model.predict(quoted)
+    probs = vacancy.adjust(raw_probs, quoted["form5"].fillna(0), quoted.get("vacated", 0.0),
+                           quoted["line"], vac_c) if market in vacancy.MARKETS else raw_probs
+    for (idx, player), prob, prob_raw in zip(quoted.iterrows(), probs, raw_probs):
         game, opponent, is_home = fixtures[player["team"]]
         name = player["player_display_name"]
         quote = found.get(idx)
@@ -369,7 +382,10 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
                 raw = {}
                 if inside:
                     asked = pd.concat([features.at_line(quoted.loc[[idx]], l) for l in inside])
-                    raw = dict(zip(inside, (float(x) for x in model.predict(asked))))
+                    lifted = (vacancy.adjust(model.predict(asked), asked["form5"].fillna(0),
+                                             asked.get("vacated", 0.0), asked["line"], vac_c)
+                              if market in vacancy.MARKETS else model.predict(asked))
+                    raw = dict(zip(inside, (float(x) for x in lifted)))
                 ladder = {"book": alt["book"], "source": alt["source"],
                           "rungs": [{"line": l, "price": pr, "raw": raw.get(l)} for l, pr in rungs]}
             except Exception as exc:      # never let a ladder take the board down
@@ -377,9 +393,15 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
                 ladder = None
 
         last_five = [float(v) for v in (player["last_five"] or [])]
+        vac = float(player.get("vacated") or 0.0)
         rows.append({
             "ladder": ladder,
             "market": market,
+            # Teammates' volume left by absent players, and how much it lifted
+            # this pick (nfl/vacancy.py). Shown on the card when it matters.
+            "vacated": round(vac, 3) if vac >= 0.05 else None,
+            "vacancy_lift": (round(float(prob) - float(prob_raw), 4)
+                             if vac >= 0.05 and abs(float(prob) - float(prob_raw)) >= 0.002 else None),
             "player": name,
             "player_id": player["player_id"],
             "team": player["team"],
@@ -459,7 +481,8 @@ def _odds_checked_at():
 
 
 def build() -> dict:
-    player_weeks = data.player_weeks()
+    # Completed seasons AND the one being played (data.live_player_weeks).
+    player_weeks = data.live_player_weeks()
     history = data.games()
     current = data.games(seasons=(config.CURRENT_SEASON,))
     schedule = pd.concat([history, current], ignore_index=True)

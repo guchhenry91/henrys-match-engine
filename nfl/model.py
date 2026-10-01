@@ -128,6 +128,18 @@ def frame_features(frame: pd.DataFrame, market: str, stats: dict | None = None) 
     out["rest_days"] = frame.get("rest_days", 7.0)
     out["share5"] = frame.get("share5", 0.0)
     out["eff5"] = frame.get("eff5", 0.0)
+    out["vacated"] = frame.get("vacated", 0.0)
+    out["share_boost"] = frame.get("share_boost", 0.0)
+    # THE MECHANISM, in the units the model already reads: the extra output this
+    # player should expect from his slice of the volume absent teammates leave
+    # (form x vacated/(1-vacated)), relative to the line -- the same scale as
+    # form5_edge. The raw "vacated" share alone left the 20%+-vacated games
+    # under-predicted by 7-11pt in the walk-forward (Phase 3).
+    if market != "anytime_touchdown" and "vacated" in frame:
+        v = frame["vacated"].fillna(0.0).clip(0.0, 0.9)
+        out["boost_edge"] = frame["form5"] * (v / (1.0 - v)) / frame["line"].replace(0, np.nan)
+    else:
+        out["boost_edge"] = 0.0
     for column in SCRIPT:
         out[column] = frame.get(column, 0.0)
     return out.replace([np.inf, -np.inf], np.nan).fillna(0.0)

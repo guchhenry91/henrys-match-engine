@@ -85,7 +85,10 @@ jobs:
         # the board at all, so it must not run on every publish -- a market
         # flickering in and out of release day to day would be unreadable.
         if: github.event.schedule == '30 8 * * 2' || inputs.backtest
-        run: python -m scripts.nfl_backtest
+        run: |
+          python -m scripts.nfl_backtest
+          # Phase 3: re-fit the teammates-out correction on the same walk-forward.
+          python -m scripts.fit_nfl_vacancy
 
       - name: Probe odds coverage
         # Reconnaissance only, on request. Whether bet365 is visible and whether
