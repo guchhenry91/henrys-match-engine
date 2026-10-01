@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T14:33:34.518301+00:00",
+  "updated": "2026-10-01T15:51:38.252313+00:00",
   "season": 2027,
   "seasons_backtested": [
     2012,
@@ -215,6 +215,18 @@
     "Edges are against the book's de-vigged price. A large edge against a sharp book such as Pinnacle is more often the model's error than the market's -- the record, not the edge, is the test.",
     "A player's team is his newest box score this season, preseason included. A player whose known team is not in the game the book lists him for is skipped rather than guessed onto a side."
   ],
+  "model_trust": {
+    "prop": {
+      "w": 0.0,
+      "n": 399,
+      "basis": "other sports pooled"
+    },
+    "winner": {
+      "w": 0.25,
+      "n": 18,
+      "basis": "default (too few graded)"
+    }
+  },
   "record": {
     "team_winner": {
       "correct": 0,
