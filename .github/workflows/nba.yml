@@ -69,7 +69,7 @@ jobs:
           # THE CREDIT LEDGER AND THE FROZEN PICKS ARE ALWAYS KEPT, deploy or not:
           # the ledger is how the daily cap counts every run, and a frozen pick
           # that is not committed was never frozen.
-          git add data-raw/odds_api data-raw/nba/odds_api.json data-raw/nba/picks_log.json data-raw/nba/current 2>/dev/null || true
+          git add data-raw/odds_api data-raw/nba/odds_api.json data-raw/nba/picks_log.json data-raw/nba/current data-raw/nba/out_since.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -q -m "auto: NBA ledger, box scores and frozen picks $(date -u +%Y-%m-%d)"
             kept=true

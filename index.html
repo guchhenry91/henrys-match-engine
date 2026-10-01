@@ -420,6 +420,7 @@
   .pftag.proven{color:var(--lime)} .pftag.promising{color:var(--cyan)}
   .pftag.testing{color:var(--mut,#8a93a6)} .pftag.losing{color:var(--hot)}
   .pftag.value{color:#0b1220;background:var(--lime);border-color:var(--lime)}
+  .pftag.news{color:#0b1220;background:var(--amber);border-color:var(--amber)}
   .b365{display:block;font-size:11px;font-weight:800;white-space:normal;line-height:1.35;max-width:100%}
   .wv.win{color:var(--lime)}
   .wv.loss{color:var(--hot)}
@@ -1347,6 +1348,15 @@ function sideChips(){
   const c=(v,l)=>`<button class="chip ${fside===v?"on":""}" type="button" onclick="setFSide('${v}')">${l}</button>`;
   return `<div class="chips">${c("all","All sides")}${c("over","Overs")}${c("under","Unders")}${c("value","Value only")}</div>`;
 }
+// NEWS EDGE (tracking/news_edge.py): this pick is lifted because a teammate was
+// ruled out in the last few hours -- books may not have moved yet, so check now.
+function newsTag(p){
+  const n=p&&p.news_edge;
+  if(!n) return "";
+  const who=(n.out||[]).join(", ");
+  const tip=`${who} ruled out ${n.hours_ago<1?"under an hour":Math.round(n.hours_ago)+"h"} ago. Teammates inherit his volume and books can be slow to move their lines — check bet365 now.`;
+  return `<span class="pftag news" title="${esc(tip)}">News edge</span><span class="bsn b365" title="${esc(tip)}">${esc(who)} out · ${n.hours_ago<1?"<1":Math.round(n.hours_ago)}h ago</span>`;
+}
 function valueBits(x){
   const v=x&&x.value;
   if(!v||!v.min_price) return "";
@@ -1475,7 +1485,7 @@ function nflPropTableRow(p, full){
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
-    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p)}${
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p)}${newsTag(p)}${
       p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
       p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
@@ -2084,7 +2094,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p)}${newsTag(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null

@@ -17,7 +17,7 @@ reason, so a board with picks needs no second design.
 import json
 
 from scripts import json_safe
-from tracking import performance, value
+from tracking import news_edge, performance, value
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -29,6 +29,12 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "nba"
 REPORT = ROOT / "data-raw" / "nba" / "backtest_report.json"
 NEWS = ROOT / "data-raw" / "nba" / "news.json"
+
+
+def _news_edge(picks: list, out_state: dict) -> list:
+    """Tag picks lifted by a teammate ruled out in the last few hours."""
+    news_edge.annotate(picks, out_state)
+    return picks
 
 
 def apply_news(picks: list, news: dict) -> list:
@@ -91,7 +97,10 @@ def build(now=None, sched=None) -> dict:
             sched = current.schedule()
         except Exception as exc:
             print(f"NBA schedule unavailable ({exc}); publishing evidence only")
-    live = board.build(sched, now, released) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},
+    ruled_out = [n for n, e in news.items() if (e or {}).get("status") == "out"]
+    out_state = news_edge.remember(ROOT / "data-raw" / "nba" / "out_since.json",
+                                   {n: e for n, e in news.items() if (e or {}).get("status") == "out"})
+    live = board.build(sched, now, released, ruled_out=ruled_out) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},
          "odds_checked_at": None}
     season_started = sched is not None and bool(
         ((sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)).any())
@@ -117,7 +126,7 @@ def build(now=None, sched=None) -> dict:
         "markets_withheld": withheld,
         "games": live["games"],
         "props": {m: {"released": m in released,
-                      "picks": apply_news(live["props"].get(m) or [], news),
+                      "picks": _news_edge(apply_news(live["props"].get(m) or [], news), out_state),
                       "below_trained_floor": (live.get("held_back") or {}).get(m, 0)}
                   for m in config.MARKETS},
         "odds": {"checked_at": live.get("odds_checked_at"),

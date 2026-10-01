@@ -147,8 +147,14 @@ def player_rows(history_rows: pd.DataFrame) -> pd.DataFrame:
     return rows.dropna(subset=["GAME_ID", "PLAYER_ID", "game_date"])
 
 
-def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
-    """({market: [picks]}, {market: held_back_count}) at bookmaker lines only."""
+def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=None) -> tuple:
+    """({market: [picks]}, {market: held_back_count}) at bookmaker lines only.
+
+    `ruled_out` (player names, from the news file) are the only players treated as
+    absent tonight: everyone else who played in his team's last game gets a
+    PRESENCE row, priced or not, so features.vacated_share counts only real
+    absences -- not every bench player the books happen not to quote."""
+    ruled_out = {odds_mod.norm_name(n) for n in (ruled_out or ())}
     names = _name_index(rows)
     last_team = (rows.sort_values("game_date").groupby("PLAYER_ID")["TEAM_ABBREVIATION"]
                  .last().to_dict())
@@ -180,6 +186,39 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                                      else "last season"}
     if not synth:
         return {m: [] for m in config.MARKETS}, {}
+    # PRESENCE ROWS: the rest of each team's last-game squad, minus anyone ruled
+    # out, so their absence or presence matches what the walk-forward measured.
+    if not rows.empty:
+        last_game = (rows.sort_values("game_date").groupby("TEAM_ABBREVIATION")["GAME_ID"].last())
+        have = {(s["PLAYER_ID"], s["GAME_ID"]) for s in synth}
+        for g in games_ahead.itertuples():
+            fake_gid = -int(str(g.game_id)[-7:])
+            for team in (g.home_team, g.away_team):
+                gid = last_game.get(team)
+                if gid is None:
+                    continue
+                squad = rows[(rows["TEAM_ABBREVIATION"] == team) & (rows["GAME_ID"] == gid)]
+                for r in squad.itertuples():
+                    pid = int(r.PLAYER_ID)
+                    if (pid, fake_gid) in have:
+                        continue
+                    if odds_mod.norm_name(getattr(r, "PLAYER_NAME", "")) in ruled_out:
+                        continue          # ruled out: absent, his share is vacated
+                    if (teams_now.get(pid) or team) != team:
+                        continue          # moved on since: not in tonight's squad
+                    have.add((pid, fake_gid))
+                    synth.append({"PLAYER_ID": pid, "PLAYER_NAME": getattr(r, "PLAYER_NAME", ""),
+                                  "TEAM_ABBREVIATION": team, "GAME_ID": fake_gid,
+                                  "season": config.CURRENT_SEASON,
+                                  "game_date": pd.Timestamp(g.game_date),
+                                  "is_home": float(team == g.home_team),
+                                  "opponent": g.away_team if team == g.home_team else g.home_team,
+                                  "MIN": 30.0, "PTS": 0.0, "REB": 0.0, "AST": 0.0,
+                                  "FG3M": 0.0, "won": 0.0})
+    # A quoted player the news file rules out is absent too -- never priced.
+    synth = [s for s in synth if odds_mod.norm_name(s["PLAYER_NAME"]) not in ruled_out]
+    if not synth:
+        return {m: [] for m in config.MARKETS}, {}
     allrows = pd.concat([rows, pd.DataFrame(synth)], ignore_index=True)
     out, held = {}, {}
     shrink = published_shrink()
@@ -200,6 +239,8 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
         picks, below = [], 0
         for idx, r in ask.iterrows():
             m = meta.get((int(r["PLAYER_ID"]), int(r["GAME_ID"])))
+            if m is None:
+                continue                  # a presence row: in the squad, not priced
             quote = odds_mod.match_player(
                 ((odds_games.get(m["game"].game_id) or {}).get("props") or {}).get(market)
                 or {}, m["name"])
@@ -225,6 +266,8 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
                 "edge": round(prob - float(quote["over"]), 4) if quote.get("over") else None,
                 "form5": round(float(r["form5"]), 1), "min5": round(float(r["min5"]), 1),
                 "games_before": int(r["games_before"]), "club_source": m["club_source"],
+                "vacated": (round(float(r.get("vacated") or 0.0), 3)
+                            if float(r.get("vacated") or 0.0) >= 0.05 else None),
             }, quote, shrink.get(market, 1.0))
             # THE LADDER UP: the book's higher lines, each with its chance of hitting.
             base = float(r["base_line"])
@@ -261,7 +304,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released) -> tuple:
     return out, held
 
 
-def build(sched: pd.DataFrame, now, released: list) -> dict:
+def build(sched: pd.DataFrame, now, released: list, ruled_out=None) -> dict:
     """{"games", "props", "held_back", "odds_checked_at"} for nba.publish."""
     games_ahead = slate(sched, now)
     odds_store = _read(ODDS)
@@ -271,7 +314,7 @@ def build(sched: pd.DataFrame, now, released: list) -> dict:
         seasons=config.SEASONS[-HISTORY_SEASONS:]) if len(games_ahead) else pd.DataFrame()
     if len(games_ahead) and (odds_store.get("games") or {}):
         props, held = prop_picks(player_rows(hist_rows), games_ahead, odds_store,
-                                 current.current_teams(), released)
+                                 current.current_teams(), released, ruled_out=ruled_out)
     else:
         props, held = {m: [] for m in config.MARKETS}, {}
     return {"games": teams, "props": props, "held_back": held,

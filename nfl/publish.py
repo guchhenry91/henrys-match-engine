@@ -24,6 +24,7 @@ from nfl import (config, data, depth, features, games_model,
                  odds as odds_mod, rosters)
 from nfl import picks
 from nfl import vacancy
+from tracking import news_edge
 from nfl import book_lines
 from nfl import market_blend
 from nfl import selection
@@ -648,6 +649,16 @@ def build() -> dict:
         trimmed.sort(key=lambda p: -p["probability"])
         props[market] = {"released": True, "picks": trimmed,
                          "awaiting_book_line": awaiting_book.get(market, 0)}
+
+    # NEWS EDGE (tracking/news_edge.py): a lift from a teammate ruled out in the
+    # last few hours, before the books have necessarily moved.
+    out_state = news_edge.remember(ROOT / "data-raw" / "nfl" / "out_since.json",
+                                   {n: r for n, r in injuries.items()
+                                    if (r or {}).get("status") == "out"})
+    n_news = news_edge.annotate([p for b in props.values() for p in b.get("picks", [])], out_state)
+    if n_news:
+        print(f"  news edge: {n_news} pick(s) lifted by a teammate ruled out in the last "
+              f"{news_edge.FRESH_HOURS:g}h")
 
     last_season = int(player_weeks["season"].max())
     last_week = int(player_weeks[player_weeks["season"] == last_season]["week"].max())
