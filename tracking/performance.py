@@ -287,7 +287,11 @@ def stamp_nfl_log(props: dict, odds_path) -> int:
     for key, entry in props.items():
         if key.startswith("_") or not isinstance(entry, dict) or "open" in entry:
             continue
-        game = by_pair.get(frozenset((entry.get("team"), entry.get("away"))))
+        # The game is its two teams, read from the nflverse id
+        # (season_week_AWAY_HOME); a prop's "away" field holds his OPPONENT.
+        parts = str(entry.get("game_id") or "").split("_")
+        pair = (parts[2], parts[3]) if len(parts) == 4 else (entry.get("team"), entry.get("away"))
+        game = by_pair.get(frozenset(pair))
         if game is None:
             continue
         n += stamp_prop(entry, game, lambda block, e=entry: match_player(block, e.get("player")))

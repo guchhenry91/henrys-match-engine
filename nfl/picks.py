@@ -277,6 +277,11 @@ def _lock_games(payload, log, now):
             entry["book_p_pick"] = game.get("book_p_pick")
             entry["book"] = game.get("book")
             entry["value"] = game.get("value")
+            if game.get("book_price"):
+                entry["book_price"] = game["book_price"]
+                entry["open"] = game.get("book_open")
+                entry["close_p"] = game.get("book_p_pick")
+                entry["close_at"] = game.get("book_at") or entry.get("locked_at")
         entry = log.get(key)
         if entry:
             # Show what was frozen, not what the model would say now.

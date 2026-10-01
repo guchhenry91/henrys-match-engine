@@ -128,3 +128,42 @@ def test_nfl_props_find_their_game_by_team_pair(tmp_path):
                    "away": "CLE", "side": "over", "line": 42.5, "locked_at": "c"}}
     assert pf.stamp_nfl_log(props, path) == 1
     assert pf.clv(props["k"]) == ("ours", None)
+
+
+def test_nfl_props_find_their_game_from_the_game_id(tmp_path):
+    """A prop's "home" field is a flag and "away" is his opponent; the nflverse id
+    (season_week_AWAY_HOME) names the game whichever side he plays for."""
+    path = tmp_path / "nfl.json"
+    path.write_text(json.dumps({"games": {"NYG|TEN": {"checks": ["a", "c"], "open": {
+        "rushing_yards": {"Tony Pollard": {"line": 60.5, "over": 0.5, "at": "a"}}}}}}))
+    props = {"k": {"market": "rushing_yards", "player": "Tony Pollard", "team": "TEN",
+                   "home": False, "away": "NYG", "game_id": "2026_03_TEN_NYG",
+                   "side": "over", "line": 60.5, "locked_at": "c"}}
+    assert pf.stamp_nfl_log(props, path) == 1 and props["k"]["open"]["line"] == 60.5
+
+
+def test_nfl_moneyline_keeps_the_decimal_prices_as_quoted():
+    from nfl import odds
+    book = {"name": "Bet365", "bets": [{"name": "Home/Away", "values": [
+        {"value": "Home", "odd": "2.25"}, {"value": "Away", "odd": "1.66"}]}]}
+    line = odds.moneyline(book, "CLE", "PIT")
+    assert line["odd_home"] == 2.25 and line["odd_away"] == 1.66
+    assert abs(line["home"] + line["away"] - 1) < 1e-3
+
+
+def test_nfl_winner_lock_freezes_price_and_open(monkeypatch):
+    from datetime import datetime, timezone
+    from nfl import picks
+    now = datetime(2026, 10, 1, 22, 0, tzinfo=timezone.utc)
+    monkeypatch.setattr(picks.lockwindow, "window", lambda now: 2.0)
+    game = {"game_id": "2026_05_PIT_CLE", "kickoff": "2026-10-01T23:30:00+00:00",
+            "gradeable": True, "pick": "PIT", "p_pick": 0.57, "home": "CLE", "away": "PIT",
+            "book": "Bet365", "book_p_pick": 0.5754, "book_price": 1.66,
+            "book_at": "2026-10-01T21:00:00+00:00",
+            "book_open": {"p": 0.55, "price": 1.74, "book": "Bet365",
+                          "at": "2026-09-29T11:00:00+00:00"}}
+    log = {}
+    picks._lock_games({"games": [game]}, log, now)
+    e = log["2026_05_PIT_CLE"]
+    assert e["book_price"] == 1.66 and e["open"]["price"] == 1.74
+    assert pf.clv(e) == ("ours", 0.0254)

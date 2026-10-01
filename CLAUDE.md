@@ -1170,7 +1170,12 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   (`oddsapi.props.remember_open`), stamped onto the frozen pick as `open`. Each market
   earns a status -- proven / promising / testing / losing -- shown in Results ->
   Betting performance and as a tag on board picks. Soccer freezes the match odds and
-  bet365 anytime price at lock. NFL winners have no stored price yet.
+  bet365 anytime price at lock. NFL winners freeze bet365's decimal price and the
+  first moneyline seen (`sync_nfl_odds` keeps `open` per game) since 2026-10-01; the
+  47 graded before that, and 152 NFL props, were backfilled from the odds files' git
+  history (`scripts/backfill_nfl_open_prices.py`) -- real snapshots, never estimates.
+  NFL props find their game from the nflverse id (season_week_AWAY_HOME): on a
+  prop entry `home` is a flag or his team and `away` is his OPPONENT.
 - **Phase 2, value at bet365** (`tracking/value.py`). Every pick: the minimum bet365 price
   worth taking (+3% EV), a VALUE verdict at bet365's own price where known (soccer, NFL
   bet365 lines) else an ESTIMATE from the sharp fair price less a 5% margin (labelled

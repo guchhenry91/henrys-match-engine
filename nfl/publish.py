@@ -571,6 +571,15 @@ def build() -> dict:
             entry["book"] = line.get("book")
             entry["book_p_pick"] = book_p
             entry["book_price_overround"] = line.get("overround")
+            side = "home" if pick_home else "away"
+            raw_p = line.get(f"raw_{side}")
+            entry["book_price"] = line.get(f"odd_{side}") or (
+                round(1.0 / raw_p, 3) if raw_p else None)
+            entry["book_at"] = line.get("at")
+            op = line.get("open") or {}
+            entry["book_open"] = ({"p": op.get(side), "price": op.get(f"odd_{side}"),
+                                   "book": op.get("book"), "at": op.get("at")}
+                                  if op.get(side) is not None else None)
             entry["edge"] = gap
             entry["verdict"] = verdict
 

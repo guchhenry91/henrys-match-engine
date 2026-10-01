@@ -108,22 +108,25 @@ def moneyline(book: dict, home: str, away: str) -> dict | None:
         name = str(bet.get("name") or "")
         if not any(m.lower() == name.lower() for m in MONEYLINE_MARKETS):
             continue
-        raw = {}
+        raw, price = {}, {}
         for value in bet.get("values") or []:
             label = str(value.get("value") or "").strip().lower()
             prob = decimal_to_prob(value.get("odd"))
             if prob is None:
                 continue
-            if label in ("home", "1", home.lower()):
-                raw["home"] = prob
-            elif label in ("away", "2", away.lower()):
-                raw["away"] = prob
+            side = ("home" if label in ("home", "1", home.lower())
+                    else "away" if label in ("away", "2", away.lower()) else None)
+            if side:
+                raw[side], price[side] = prob, float(value.get("odd"))
         if "home" in raw and "away" in raw:
             fair = devig(raw)
             return {"home": round(fair["home"], 4), "away": round(fair["away"], 4),
                     "book": book.get("name"),
                     "raw_home": round(raw["home"], 4),
                     "raw_away": round(raw["away"], 4),
+                    # The decimal prices as quoted, so a frozen pick can be scored
+                    # at what the book actually paid (tracking/performance.py).
+                    "odd_home": price["home"], "odd_away": price["away"],
                     "overround": round(sum(raw.values()), 4)}
     return None
 
