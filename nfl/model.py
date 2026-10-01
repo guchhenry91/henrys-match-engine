@@ -58,6 +58,13 @@ BLEND = 0.5          # equal parts model and empirical baseline
 # in all four markets with all four still released.
 BOOST_MARKETS = {"points", "rebounds", "assists", "threes"}
 
+# MLB markets whose every candidate set gets park_edge (Phase 3). On the 15-season
+# walk-forward it lowered Brier in all six and moved the extreme parks toward the
+# truth -- e.g. team runs in the most hitter-friendly parks 55.2% -> 57.5%
+# predicted (60.7% landed), strikeouts in pitcher-friendly parks 56.3% -> 53.1%
+# (52.4% landed) -- with all six still released.
+PARK_MARKETS = {"hits", "hrr", "hr", "rbi", "strikeouts", "team_runs"}
+
 # Rows required before isotonic calibration is trusted. Isotonic is non-parametric
 # and will happily carve a step function out of noise on a small sample, so below
 # this the model falls back to Platt scaling -- one parameter, far harder to
@@ -245,6 +252,9 @@ class PropModel:
         # (BOOST_MARKETS). The NFL corrects after the model instead (nfl/vacancy.py).
         if self.market in BOOST_MARKETS:
             self.sets = [c + ["boost_edge"] for c in self.sets]
+        # MLB (Phase 3): the home park's effect on the stat (mlb.features.park_factors).
+        if self.market in PARK_MARKETS:
+            self.sets = [c + ["park_edge"] for c in self.sets]
         y = ordered["outcome"].to_numpy()
         # A fold with one class in it cannot be fitted and must not be faked --
         # fall back to the baseline alone rather than inventing a decision boundary.

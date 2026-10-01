@@ -30,10 +30,54 @@ def _opponent_allowed(frame: pd.DataFrame, stat: str) -> pd.DataFrame:
     return per_game[["season", "opponent", "GAME_ID", "allowed"]]
 
 
+PARK_SEASONS = 3        # seasons of history a park factor is measured over
+PARK_SHRINK_GAMES = 81  # pull toward neutral with a season's worth of games
+
+
+def park_factors(rows: pd.DataFrame, stat: str) -> pd.DataFrame:
+    """How much each home park inflates or suppresses `stat`, from PRIOR seasons only.
+
+    PHASE 3: what books are slow on. Coors Field adds runs and homers, Petco and
+    Oracle take them away. For each team, the factor is its home games' per-game
+    total of `stat` (both sides) over its road games' total, pooled across the
+    PARK_SEASONS seasons BEFORE the one being priced and shrunk toward 1.0 by
+    PARK_SHRINK_GAMES -- so a new or rebuilt park starts neutral rather than at a
+    small-sample extreme. Retrosheet carries no park key on these rows; the home
+    team stands in for its park (neutral-site games are a handful a season).
+
+    Returns home_team, season, park_pf.
+    """
+    r = rows[["GAME_ID", "season", "TEAM", "opponent", "is_home", stat]].copy()
+    r["home_team"] = np.where(r["is_home"] >= 0.5, r["TEAM"], r["opponent"])
+    r["away_team"] = np.where(r["is_home"] >= 0.5, r["opponent"], r["TEAM"])
+    g = (r.groupby(["GAME_ID", "season", "home_team", "away_team"])[stat].sum()
+         .reset_index())
+    home = g.groupby(["home_team", "season"])[stat].agg(["sum", "count"]).reset_index()
+    home.columns = ["team", "season", "h_sum", "h_n"]
+    road = g.groupby(["away_team", "season"])[stat].agg(["sum", "count"]).reset_index()
+    road.columns = ["team", "season", "r_sum", "r_n"]
+    per = home.merge(road, on=["team", "season"], how="outer").fillna(0.0)
+    out = []
+    for season in sorted(r["season"].unique()):
+        prior = per[(per["season"] < season) & (per["season"] >= season - PARK_SEASONS)]
+        agg = prior.groupby("team")[["h_sum", "h_n", "r_sum", "r_n"]].sum()
+        for team, a in agg.iterrows():
+            if a["h_n"] <= 0 or a["r_n"] <= 0 or a["r_sum"] <= 0:
+                continue
+            raw = (a["h_sum"] / a["h_n"]) / (a["r_sum"] / a["r_n"])
+            w = a["h_n"] / (a["h_n"] + PARK_SHRINK_GAMES)
+            out.append((team, season, 1.0 + (raw - 1.0) * w))
+    return pd.DataFrame(out, columns=["home_team", "season", "park_pf"])
+
+
 def build(rows: pd.DataFrame, market: str) -> pd.DataFrame:
     spec = config.MARKETS[market]
     stat, opp, kind = spec["stat"], spec["opp"], spec["kind"]
     frame = rows[rows[stat].notna() & rows[opp].notna()].copy()
+    # The park this game is played in, and how it treats this stat (park_factors).
+    frame["home_team"] = np.where(frame["is_home"] >= 0.5, frame["TEAM"], frame["opponent"])
+    frame = frame.merge(park_factors(frame, stat), on=["home_team", "season"], how="left")
+    frame["park_pf"] = frame["park_pf"].fillna(1.0)
     frame = frame.sort_values(["PLAYER_ID", "game_date", "GAME_ID"]).reset_index(drop=True)
 
     frame["games_before"] = frame.groupby("PLAYER_ID").cumcount()

@@ -1161,3 +1161,33 @@ unfiltered. On 2026-09-27 this would have removed 6 of 179 picks, all benched or
   ways (calibration better in all four markets).
 - **Soccer props recalibrated** from their own record, penalised toward no change
   (`leagues/prop_calibration.py`); raw kept as `p_model`.
+
+
+## Betting tool phases, 2026-10-01 -- making it a tool, not a hobby
+The person using the app bets at **bet365 (UK)**. Every price judgement is at bet365.
+- **Phase 1, measure** (`tracking/performance.py`). Every graded pick scored at the price
+  it froze on (one unit), plus closing-line value: odds checks keep the FIRST quote seen
+  (`oddsapi.props.remember_open`), stamped onto the frozen pick as `open`. Each market
+  earns a status -- proven / promising / testing / losing -- shown in Results ->
+  Betting performance and as a tag on board picks. Soccer freezes the match odds and
+  bet365 anytime price at lock. NFL winners have no stored price yet.
+- **Phase 2, value at bet365** (`tracking/value.py`). Every pick: the minimum bet365 price
+  worth taking (+3% EV), a VALUE verdict at bet365's own price where known (soccer, NFL
+  bet365 lines) else an ESTIMATE from the sharp fair price less a 5% margin (labelled
+  "est."), and a quarter-Kelly stake capped at 2%. Verdict frozen with the pick;
+  "value_plays" scored on its own in performance. Boards have a "Value only" filter.
+- **Phase 3, where books are slow.**
+  - Teammates out: `features.vacated_share` (NFL and NBA) = entering share of players
+    who played the team's last game and are absent now. NFL: post-model logit correction
+    `nfl/vacancy.py` (c fitted out-of-sample by `scripts/fit_nfl_vacancy.py`, re-fitted
+    with the Tuesday gate). NBA: `boost_edge` forced into every candidate set
+    (`nfl.model.BOOST_MARKETS`). Live boards leave players ruled OUT out of the
+    next-game rows (NBA adds presence rows for the rest of the squad) so the live
+    question matches the backtest.
+  - News edge (`tracking/news_edge.py`): first-seen-OUT times in
+    `data-raw/<sport>/out_since.json`; an over lifted by a teammate ruled out in the last
+    12h is tagged "News edge".
+  - MLB park factors (`mlb.features.park_factors`, prior 3 seasons, shrunk) -> `park_edge`.
+  - MLB weather: not done (needs 19 seasons of historical weather to gate; spring).
+- **Bug fixed 2026-10-01**: the NFL board read completed seasons only, so all of 2026
+  was priced on 2025 form. `nfl.data.live_player_weeks` adds the current season.
