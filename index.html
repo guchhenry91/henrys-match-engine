@@ -437,15 +437,44 @@
     .sech p{text-align:left}
     .srow{grid-template-columns:1fr auto}
     .sty{display:none!important}
+    /* A long verdict ("Over-confident — hits less than stated") wraps in its own
+       narrow column instead of squeezing the row's text to 72px. */
+    .srow>.wv,.srow>.pftag{white-space:normal;max-width:96px;padding-right:12px;line-height:1.25}
   }
   /* The rows stack on a phone, where a 96px basis would become 96px of height. */
   @media (max-width:520px){.flab{flex:none}}
 
   /* Table fit: dates and edges never wrap mid-value. */
-  .bhead,.brow{grid-template-columns:108px minmax(0,1fr) 128px 100px 110px 112px}
-  .btable.t5 .bhead,.btable.t5 .brow{grid-template-columns:108px minmax(0,1fr) 128px 100px 116px}
+  /* The number columns are sized to their widest value ("+12.4 pp", "bet365 1.95")
+     with the unit set small, so nothing is clipped at any width the table shows at. */
+  .bhead,.brow{grid-template-columns:108px minmax(0,1fr) 132px 100px 112px 124px}
+  .btable.t5 .bhead,.btable.t5 .brow{grid-template-columns:108px minmax(0,1fr) 132px 100px 124px}
   .bt b{white-space:nowrap}
   .bn{white-space:nowrap;font-size:19px}
+  .brow>.bc{padding-left:8px;padding-right:8px}
+  .bc small{white-space:normal;line-height:1.3}
+  .bn .u{font-size:12px;font-weight:800;margin-left:2px}
+  /* A word in a number column ("no bet365 market") wraps rather than clipping. */
+  .bn.off{white-space:normal;font-size:13px;line-height:1.3}
+  /* Section-header chips (Results' All / Team picks / Player props) wrap on a
+     narrow phone instead of widening the page. */
+  .sech .chips{flex-wrap:wrap;max-width:100%}
+  /* STACK BY THE TABLE'S OWN WIDTH, not the screen's. With the sidebar open, a
+     1024px screen left the event column 125px wide -- the five fixed number
+     columns need ~580px, so below ~860px of table the rows stack instead. */
+  .btable{container-type:inline-size}
+  @container (max-width:860px){
+    .bhead{display:none}
+    .brow,.btable.t5 .brow{grid-template-columns:1fr 1fr 1fr}
+    .brow>.bt{grid-column:1/-1;flex-direction:row;gap:8px;align-items:baseline;padding-bottom:0}
+    .bt br{display:none}
+    .brow>.be,.brow>.bs{grid-column:1/-1}
+    .brow>.bs{flex-direction:row;flex-wrap:wrap;align-items:center;padding-top:0}
+    .brow>div+div{border-left:0}
+    .bn{font-size:17px}
+  }
+  @container (max-width:380px){ .bn{font-size:15px} .brow>.bc{padding-left:4px;padding-right:4px} }
+  @container (max-width:300px){ .bn{font-size:13.5px} .brow>.bc{padding-left:2px;padding-right:2px} .bn .u{font-size:10px} }
   .bsn{font-size:11px;color:var(--sub);font-weight:650}
   .bmore{padding:13px 16px;border-top:1px solid var(--line);color:var(--lime);font-weight:750;font-size:13px;cursor:pointer}
   .bmore:hover{background:rgba(255,255,255,.03)}
@@ -1379,7 +1408,9 @@ function probCell(p, label){
     <div class="bar"><i style="width:${p!=null?pc(p):0}%"></i></div></div>`;
 }
 function valCell(label, val, cls){
-  return `<div class="bc"><small>${esc(label)}</small><b class="bn ${cls||""}">${val}</b></div>`;
+  // The unit is set small so the figure keeps its size and still fits the column.
+  const v=String(val).replace(/ (pp|yds|%)$/,'<span class="u">$1</span>');
+  return `<div class="bc"><small>${esc(label)}</small><b class="bn ${cls||""}">${v}</b></div>`;
 }
 
 // The selection in bet-slip words. "2+ shot attempts" and "Over 1.5 shots" are
