@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T20:28:48.436960+00:00",
+  "updated": "2026-10-01T11:20:42.599301+00:00",
   "season": 2026,
   "week": 4,
   "elo": {
@@ -26,10 +26,11 @@
       "rating_home": 1456.3,
       "rating_away": 1526.2,
       "gradeable": true,
-      "book": null,
-      "book_p_pick": null,
-      "edge": null,
-      "verdict": null,
+      "book": "Bet365",
+      "book_p_pick": 0.5754,
+      "edge": -0.0211,
+      "verdict": "no edge",
+      "book_price_overround": 1.0469,
       "lockable": true
     },
     {
@@ -805,7 +806,7 @@
           "lockable": true
         }
       ],
-      "awaiting_book_line": 85
+      "awaiting_book_line": 84
     },
     "rushing_yards": {
       "released": true,
@@ -819,15 +820,15 @@
           "home": false,
           "game_id": "2026_04_PIT_CLE",
           "kickoff": "2026-10-02T00:15:00+00:00",
-          "line": 65.5,
-          "line_source": "pinnacle",
-          "probability": 0.5096,
-          "book": "Pinnacle",
-          "book_price": 1.88,
-          "book_price_under": 1.88,
+          "line": 67.5,
+          "line_source": "bet365",
+          "probability": 0.5107,
+          "book": "Bet365",
+          "book_price": 1.86,
+          "book_price_under": 1.86,
           "book_p": 0.5,
           "book_p_fair": true,
-          "edge": 0.0096,
+          "edge": 0.0107,
           "last_five": [
             13.0,
             33.0,
@@ -847,7 +848,7 @@
           "games_played": 64,
           "as_of_season": 2026,
           "as_of_week": 4,
-          "p_model": 0.6914,
+          "p_model": 0.7134,
           "blend_w": 0.05,
           "ladder_up": [],
           "side": "under",
@@ -863,11 +864,11 @@
           "game_id": "2026_04_PIT_CLE",
           "kickoff": "2026-10-02T00:15:00+00:00",
           "line": 55.5,
-          "line_source": "pinnacle",
+          "line_source": "bet365",
           "probability": 0.5086,
-          "book": "Pinnacle",
-          "book_price": 1.87,
-          "book_price_under": 1.87,
+          "book": "Bet365",
+          "book_price": 1.86,
+          "book_price_under": 1.86,
           "book_p": 0.5,
           "book_p_fair": true,
           "edge": 0.0086,
@@ -911,12 +912,12 @@
           "home": false,
           "game_id": "2026_04_PIT_CLE",
           "kickoff": "2026-10-02T00:15:00+00:00",
-          "line": 212.5,
-          "line_source": "pinnacle",
+          "line": 214.5,
+          "line_source": "bet365",
           "probability": 0.5045,
-          "book": "Pinnacle",
-          "book_price": 1.88,
-          "book_price_under": 1.88,
+          "book": "Bet365",
+          "book_price": 1.86,
+          "book_price_under": 1.86,
           "book_p": 0.5,
           "book_p_fair": true,
           "edge": 0.0045,
@@ -1023,8 +1024,8 @@
   },
   "depth_check": {
     "source": "nflverse depth charts",
-    "players": 1880,
-    "coverage_of_known_actives": 0.939,
+    "players": 1885,
+    "coverage_of_known_actives": 0.938,
     "applied": true,
     "caps": {
       "anytime_touchdown": 3,
@@ -1036,19 +1037,20 @@
   },
   "roster_check": {
     "source": "nflverse rosters",
-    "players_placed": 1690,
+    "players_placed": 1692,
     "teams": 32,
     "agreement_with_known_players": 0.653,
     "trusted": true
   },
   "odds": {
-    "fixtures_priced": 13,
+    "fixtures_priced": 14,
     "source": "API-NFL, bet365 preferred",
     "note": "Edges are model probability minus the de-vigged book price.",
-    "checked_at": "2026-09-30T20:27:49.384303+00:00",
+    "checked_at": "2026-10-01T11:19:55.985500+00:00",
     "player_props": {
       "available": true,
       "markets_quoted": [
+        "anytime_touchdown",
         "passing_yards",
         "receiving_yards",
         "rushing_yards"
