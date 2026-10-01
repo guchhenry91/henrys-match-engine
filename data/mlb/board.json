@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T15:13:15.499809+00:00",
+  "updated": "2026-10-01T15:50:02.222535+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -61,23 +61,25 @@
       "home_name": "Atlanta Braves",
       "away_name": "Philadelphia Phillies",
       "home_pitcher": null,
-      "away_pitcher": null,
+      "away_pitcher": "Aaron Nola",
       "pick": "ATL",
       "p_home": 0.5563,
-      "p_pick": 0.5563,
+      "p_pick": 0.5102,
       "rating_home": 1529.4,
       "rating_away": 1530.1,
       "game_type": "F",
       "book": "pinnacle",
       "book_p_pick": 0.4949,
-      "edge": 0.0614,
+      "edge": 0.0153,
+      "p_model": 0.5563,
+      "trust_w": 0.25,
       "value": {
-        "min_price": 1.85,
+        "min_price": 2.02,
         "basis": "estimate",
         "ref_price": 1.92,
-        "ev": 0.0705,
-        "value": true,
-        "stake": 0.02
+        "ev": -0.0182,
+        "value": false,
+        "stake": 0.0
       }
     }
   ],
@@ -116,7 +118,7 @@
           "tipoff": "2026-10-02T00:00:00Z",
           "kickoff": "2026-10-02T00:00:00Z",
           "line": 3.5,
-          "probability": 0.5234,
+          "probability": 0.4632,
           "form5": 3.0,
           "games_before": 973,
           "book": "FanDuel",
@@ -124,17 +126,18 @@
           "book_price": 2.04,
           "book_p": 0.4632,
           "book_p_fair": true,
-          "edge": 0.0602,
+          "edge": 0.0,
           "side": "under",
           "p_model": 0.5293,
           "ladder_up": [],
+          "trust_w": 0.0,
           "value": {
-            "min_price": 1.97,
+            "min_price": 2.22,
             "basis": "estimate",
             "ref_price": 2.06,
-            "ev": 0.0762,
-            "value": true,
-            "stake": 0.0175
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
           }
         },
         {
@@ -148,7 +151,7 @@
           "tipoff": "2026-10-02T00:00:00Z",
           "kickoff": "2026-10-02T00:00:00Z",
           "line": 3.5,
-          "probability": 0.5194,
+          "probability": 0.467,
           "form5": 3.8,
           "games_before": 974,
           "book": "FanDuel",
@@ -156,24 +159,25 @@
           "book_price": 2.02,
           "book_p": 0.467,
           "book_p_fair": true,
-          "edge": 0.0524,
+          "edge": 0.0,
           "side": "over",
           "p_model": 0.5242,
           "ladder_up": [],
+          "trust_w": 0.0,
           "value": {
-            "min_price": 1.98,
+            "min_price": 2.21,
             "basis": "estimate",
             "ref_price": 2.04,
-            "ev": 0.0592,
-            "value": true,
-            "stake": 0.015
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
           }
         }
       ]
     }
   },
   "odds": {
-    "checked_at": "2026-10-01T15:13:13+00:00",
+    "checked_at": "2026-10-01T15:49:59+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -515,6 +519,18 @@
     "The team-winner Elo's settings were fitted on 2007-2010 only and then held.",
     "Edges are against the book's de-vigged price; home runs are priced one-sided where only an over is quoted. A large edge against a sharp book is more often the model's error than the market's -- the record is the test."
   ],
+  "model_trust": {
+    "prop": {
+      "w": 0.0,
+      "n": 233,
+      "basis": "own record"
+    },
+    "winner": {
+      "w": 0.25,
+      "n": 18,
+      "basis": "default (too few graded)"
+    }
+  },
   "record": {
     "team_winner": {
       "correct": 13,
