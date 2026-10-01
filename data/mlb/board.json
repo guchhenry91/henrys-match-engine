@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T12:56:34.823576+00:00",
+  "updated": "2026-10-01T15:13:15.499809+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -107,38 +107,6 @@
       "picks": [
         {
           "market": "team_runs",
-          "player": "Atlanta Braves",
-          "player_id": "ATL",
-          "team": "ATL",
-          "opponent": "PHI",
-          "home": true,
-          "game_id": "849844",
-          "tipoff": "2026-10-02T00:00:00Z",
-          "kickoff": "2026-10-02T00:00:00Z",
-          "line": 3.5,
-          "probability": 0.5206,
-          "form5": 3.8,
-          "games_before": 974,
-          "book": "FanDuel",
-          "line_source": "fanduel",
-          "book_price": 2.02,
-          "book_p": 0.467,
-          "book_p_fair": true,
-          "edge": 0.0536,
-          "side": "over",
-          "p_model": 0.5267,
-          "ladder_up": [],
-          "value": {
-            "min_price": 1.98,
-            "basis": "estimate",
-            "ref_price": 2.04,
-            "ev": 0.0617,
-            "value": true,
-            "stake": 0.015
-          }
-        },
-        {
-          "market": "team_runs",
           "player": "Philadelphia Phillies",
           "player_id": "PHI",
           "team": "PHI",
@@ -148,7 +116,7 @@
           "tipoff": "2026-10-02T00:00:00Z",
           "kickoff": "2026-10-02T00:00:00Z",
           "line": 3.5,
-          "probability": 0.5199,
+          "probability": 0.5234,
           "form5": 3.0,
           "games_before": 973,
           "book": "FanDuel",
@@ -156,24 +124,56 @@
           "book_price": 2.04,
           "book_p": 0.4632,
           "book_p_fair": true,
-          "edge": 0.0567,
+          "edge": 0.0602,
           "side": "under",
-          "p_model": 0.5259,
+          "p_model": 0.5293,
+          "ladder_up": [],
+          "value": {
+            "min_price": 1.97,
+            "basis": "estimate",
+            "ref_price": 2.06,
+            "ev": 0.0762,
+            "value": true,
+            "stake": 0.0175
+          }
+        },
+        {
+          "market": "team_runs",
+          "player": "Atlanta Braves",
+          "player_id": "ATL",
+          "team": "ATL",
+          "opponent": "PHI",
+          "home": true,
+          "game_id": "849844",
+          "tipoff": "2026-10-02T00:00:00Z",
+          "kickoff": "2026-10-02T00:00:00Z",
+          "line": 3.5,
+          "probability": 0.5194,
+          "form5": 3.8,
+          "games_before": 974,
+          "book": "FanDuel",
+          "line_source": "fanduel",
+          "book_price": 2.02,
+          "book_p": 0.467,
+          "book_p_fair": true,
+          "edge": 0.0524,
+          "side": "over",
+          "p_model": 0.5242,
           "ladder_up": [],
           "value": {
             "min_price": 1.98,
             "basis": "estimate",
-            "ref_price": 2.06,
-            "ev": 0.069,
+            "ref_price": 2.04,
+            "ev": 0.0592,
             "value": true,
-            "stake": 0.0175
+            "stake": 0.015
           }
         }
       ]
     }
   },
   "odds": {
-    "checked_at": "2026-10-01T12:56:32+00:00",
+    "checked_at": "2026-10-01T15:13:13+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -214,7 +214,7 @@
       "brier": 0.2076,
       "baseline_brier": 0.2371,
       "accuracy": 0.6939,
-      "ece": 0.0038,
+      "ece": 0.0037,
       "failures": [],
       "seasons_scored": [
         2011,
@@ -239,13 +239,13 @@
           "ece": 0.0111,
           "predicted": 0.6336,
           "landed": 0.6357,
-          "brier": 0.2312,
+          "brier": 0.2311,
           "baseline": 0.26
         },
         "1": {
           "n": 556731,
           "ece": 0.0094,
-          "predicted": 0.2523,
+          "predicted": 0.2522,
           "landed": 0.2428,
           "brier": 0.1834,
           "baseline": 0.2136
@@ -256,7 +256,7 @@
     "hrr": {
       "released": true,
       "n": 1992966,
-      "brier": 0.2154,
+      "brier": 0.2153,
       "baseline_brier": 0.2478,
       "accuracy": 0.6636,
       "ece": 0.0021,
@@ -281,34 +281,34 @@
       "by_line_step": {
         "-1": {
           "n": 281851,
-          "ece": 0.0036,
-          "predicted": 0.7351,
+          "ece": 0.0039,
+          "predicted": 0.7352,
           "landed": 0.7328,
-          "brier": 0.1954,
+          "brier": 0.1952,
           "baseline": 0.2358
         },
         "0": {
           "n": 571405,
-          "ece": 0.0022,
+          "ece": 0.0028,
           "predicted": 0.5945,
           "landed": 0.5925,
-          "brier": 0.2366,
+          "brier": 0.2365,
           "baseline": 0.2767
         },
         "1": {
           "n": 568308,
-          "ece": 0.0023,
+          "ece": 0.0019,
           "predicted": 0.3927,
           "landed": 0.3934,
-          "brier": 0.2363,
+          "brier": 0.2362,
           "baseline": 0.2575
         },
         "2": {
           "n": 571402,
-          "ece": 0.003,
+          "ece": 0.0026,
           "predicted": 0.242,
           "landed": 0.2441,
-          "brier": 0.1834,
+          "brier": 0.1833,
           "baseline": 0.2154
         }
       },
@@ -320,7 +320,7 @@
       "brier": 0.1026,
       "baseline_brier": 0.1457,
       "accuracy": 0.8821,
-      "ece": 0.0022,
+      "ece": 0.0019,
       "failures": [],
       "seasons_scored": [
         2011,
@@ -348,7 +348,7 @@
       "brier": 0.2114,
       "baseline_brier": 0.2707,
       "accuracy": 0.6943,
-      "ece": 0.0042,
+      "ece": 0.0043,
       "failures": [],
       "seasons_scored": [
         2011,
@@ -373,10 +373,10 @@
     "strikeouts": {
       "released": true,
       "n": 289110,
-      "brier": 0.2017,
+      "brier": 0.2013,
       "baseline_brier": 0.2182,
-      "accuracy": 0.6909,
-      "ece": 0.0059,
+      "accuracy": 0.6913,
+      "ece": 0.0061,
       "failures": [],
       "seasons_scored": [
         2011,
@@ -399,41 +399,41 @@
         "-2": {
           "n": 39699,
           "ece": 0.0115,
-          "predicted": 0.8165,
+          "predicted": 0.8173,
           "landed": 0.8268,
-          "brier": 0.1389,
+          "brier": 0.1388,
           "baseline": 0.1563
         },
         "-1": {
           "n": 57501,
-          "ece": 0.0128,
-          "predicted": 0.7148,
+          "ece": 0.0129,
+          "predicted": 0.715,
           "landed": 0.7189,
-          "brier": 0.1939,
+          "brier": 0.1936,
           "baseline": 0.2077
         },
         "0": {
           "n": 64202,
-          "ece": 0.0184,
-          "predicted": 0.5654,
+          "ece": 0.0166,
+          "predicted": 0.5652,
           "landed": 0.5704,
-          "brier": 0.2337,
+          "brier": 0.2332,
           "baseline": 0.2391
         },
         "1": {
           "n": 63542,
-          "ece": 0.0159,
-          "predicted": 0.4112,
+          "ece": 0.0158,
+          "predicted": 0.411,
           "landed": 0.4061,
-          "brier": 0.2303,
+          "brier": 0.2299,
           "baseline": 0.241
         },
         "2": {
           "n": 64166,
-          "ece": 0.0348,
-          "predicted": 0.2976,
+          "ece": 0.0344,
+          "predicted": 0.2971,
           "landed": 0.2628,
-          "brier": 0.1873,
+          "brier": 0.1868,
           "baseline": 0.2224
         }
       },
@@ -442,10 +442,10 @@
     "team_runs": {
       "released": true,
       "n": 276169,
-      "brier": 0.2304,
+      "brier": 0.2299,
       "baseline_brier": 0.2427,
-      "accuracy": 0.6226,
-      "ece": 0.0039,
+      "accuracy": 0.6238,
+      "ece": 0.0049,
       "failures": [],
       "seasons_scored": [
         2011,
@@ -467,42 +467,42 @@
       "by_line_step": {
         "-2": {
           "n": 2322,
-          "ece": 0.0197,
-          "predicted": 0.7175,
+          "ece": 0.0316,
+          "predicted": 0.7201,
           "landed": 0.7313,
-          "brier": 0.1952,
+          "brier": 0.1953,
           "baseline": 0.2083
         },
         "-1": {
           "n": 64448,
-          "ece": 0.0235,
-          "predicted": 0.6745,
+          "ece": 0.0217,
+          "predicted": 0.6754,
           "landed": 0.6931,
-          "brier": 0.213,
+          "brier": 0.2127,
           "baseline": 0.2269
         },
         "0": {
           "n": 69800,
-          "ece": 0.0379,
-          "predicted": 0.5449,
+          "ece": 0.036,
+          "predicted": 0.5446,
           "landed": 0.5596,
-          "brier": 0.2472,
+          "brier": 0.2467,
           "baseline": 0.2539
         },
         "1": {
           "n": 69799,
-          "ece": 0.0313,
-          "predicted": 0.4221,
+          "ece": 0.03,
+          "predicted": 0.4216,
           "landed": 0.4289,
-          "brier": 0.2449,
+          "brier": 0.2444,
           "baseline": 0.2532
         },
         "2": {
           "n": 69800,
-          "ece": 0.0308,
-          "predicted": 0.3437,
+          "ece": 0.0291,
+          "predicted": 0.3417,
           "landed": 0.3148,
-          "brier": 0.2162,
+          "brier": 0.2158,
           "baseline": 0.2368
         }
       },
