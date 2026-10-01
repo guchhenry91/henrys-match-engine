@@ -181,7 +181,9 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     picks_mod.save_log(log)
     _show_frozen(payload, log)
     payload["record"] = picks_mod.record(log)
-    payload["settled"] = picks_mod.settled(log)
+    # Every graded pick, not the newest 200: the Results tab lists them per market
+    # and must agree with the record's own counts (the MLB list fell short at 200).
+    payload["settled"] = picks_mod.settled(log, limit=100_000)
     print(f"  froze {frozen} pick(s); record {payload['record']['team_winner']['correct']}-"
           f"{payload['record']['team_winner']['wrong']} winners, "
           f"{payload['record']['props']['correct']}-{payload['record']['props']['wrong']} props")

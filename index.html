@@ -714,13 +714,12 @@ function propCount(item){
     const up=(DATA.player_picks||{}).upcoming;
     return Array.isArray(up)?up.filter(p=>p.market===item.filter).length:null;
   }
-  if(item.view==="NBA"){
-    const ev=((DATA.nba||{}).evidence||{})[item.filter];
-    return ev&&ev.n!=null?ev.n:null;
-  }
-  if(item.view==="MLB"){
-    if(!DATA.mlb) return null;
-    const b=(DATA.mlb.props||{})[item.filter];
+  // Live boards count the picks on show. (The NBA once counted its backtest
+  // sample here -- "Points 644083" -- from before it had a live board.)
+  if(item.view==="NBA"||item.view==="MLB"){
+    const d=DATA[item.view.toLowerCase()];
+    if(!d) return null;
+    const b=(d.props||{})[item.filter];
     return b?(b.picks||[]).length:null;
   }
   if(item.view==="NFL"){
@@ -1530,7 +1529,8 @@ function settledRows(){
   return m.concat(p).sort((a,b)=>new Date(b.date)-new Date(a.date));
 }
 const MLB_UNIT={hits:"hits", hrr:"hits + runs + RBIs", hr:"home runs", rbi:"RBIs",
-                strikeouts:"strikeouts", team_runs:"runs"};
+                strikeouts:"strikeouts", team_runs:"runs",
+                points:"points", rebounds:"rebounds", assists:"assists", threes:"threes"};
 function propSel(p){
   if(PSEL[p.market]) return PSEL[p.market];
   if(p.market==="anytime_touchdown") return "Anytime TD";
@@ -1547,7 +1547,7 @@ function winChip(x){
 function settledRow(r){
   const x=r.x;
   if(r.kind==="prop"){
-    const lg=x.league||LG[x.league_key]||(gsport==="nfl"?"NFL":gsport==="mlb"?"MLB":"");
+    const lg=x.league||LG[x.league_key]||(gsport==="nfl"?"NFL":gsport==="mlb"?"MLB":gsport==="nba"?"NBA":"");
     return `<div class="srow"><div class="be"><div class="beb">${esc(lg)} · ${esc(PMK[x.market]||gradeName(x.market))}</div>
       <b>${esc(x.player)} · ${esc(propSel(x))}</b>
       <span>${esc(x.home||"")} vs ${esc(x.away||"")} · ${esc(actualLabel(x))} · settled ${whenStr(r.date)}</span></div>
@@ -2328,7 +2328,8 @@ function gradedMatchRow(m){
 // to arrive in, so the chips do not reshuffle as results land.
 const GRADE_MARKETS=["goal","shots","sot",
                      "anytime_touchdown","receiving_yards","rushing_yards","passing_yards",
-                     "hits","hrr","hr","rbi","strikeouts","team_runs"];
+                     "hits","hrr","hr","rbi","strikeouts","team_runs",
+                     "points","rebounds","assists","threes"];
 // THE SAME WORDS THE OTHER TABS USE. MK calls the goalscorer market "Goal" for a
 // narrow row chip, but Player Picks and the NFL board both label their filters
 // "Anytime" / "Receiving" -- a reader who taps "Anytime" on one tab and finds
@@ -2337,7 +2338,8 @@ const GRADE_LABEL={goal:"Anytime", shots:"Attempts", sot:"On target",
                    anytime_touchdown:"Anytime TD", receiving_yards:"Receiving",
                    rushing_yards:"Rushing", passing_yards:"Passing",
                    hits:"Hits", hrr:"Hits + runs + RBIs", hr:"Home runs", rbi:"RBIs",
-                   strikeouts:"Strikeouts", team_runs:"Team total"};
+                   strikeouts:"Strikeouts", team_runs:"Team total",
+                   points:"Points", rebounds:"Rebounds", assists:"Assists", threes:"Threes"};
 const gradeName=m=>GRADE_LABEL[m]||(MK[m]||NFLMK[m]||{name:m}).name;
 
 // THE ORDER IS CURATED; THE MEMBERSHIP IS NOT. GRADE_MARKETS fixes the order so
@@ -2367,7 +2369,7 @@ function gradeMarketsPresent(props){
 // markets beneath it -- the same two-level filter the reader already uses to
 // narrow a board.
 const GSPORTS=[["soccer","Soccer"],["nfl","NFL"],["ucl","Champions League"],["nba","NBA"],["mlb","MLB"]];
-const GMATCH_LABEL={soccer:"Every match pick", nfl:"Team winner", mlb:"Team winner",
+const GMATCH_LABEL={soccer:"Every match pick", nfl:"Team winner", mlb:"Team winner", nba:"Team winner",
                     ucl:"Every Champions League pick"};
 let gsport="soccer";
 function setGSport(s){ gsport=s; filter="all"; render(cur); }
@@ -2380,12 +2382,12 @@ function gradedProps(sport){
   if(sport==="nfl") all=(((DATA.nfl||{}).settled)||[]).filter(p=>p.market&&p.player);
   // MLB props carry team/opponent and the game id; the matchup comes from the
   // same game's winner entry where there is one.
-  if(sport==="mlb"){
-    const st=((DATA.mlb||{}).settled)||[], games={};
+  if(sport==="mlb"||sport==="nba"){
+    const st=((DATA[sport]||{}).settled)||[], games={};
     st.forEach(g=>{ if(g.kind==="winner") games[g.game_id]=g; });
     all=st.filter(x=>x.kind==="prop"&&x.market).map(x=>{
       const g=games[x.game_id];
-      return {...x, date:x.tipoff, p_pick:x.probability, league:"MLB",
+      return {...x, date:x.tipoff, p_pick:x.probability, league:sport.toUpperCase(),
               home:g?g.home:x.team, away:g?g.away:x.opponent};
     });
   }
@@ -2415,9 +2417,10 @@ function gradedMatches(sport){
     (((DATA.nfl||{}).settled)||[]).forEach(g=>{
       if(!g.market) all.push({...g, league:"NFL", colour:"#37a9e6", date:g.date||g.kickoff});
     });
-  if(sport==="mlb")
-    (((DATA.mlb||{}).settled)||[]).forEach(g=>{
-      if(g.kind==="winner") all.push({...g, league:"MLB", colour:"#e6553a", date:g.tipoff,
+  if(sport==="mlb"||sport==="nba")
+    (((DATA[sport]||{}).settled)||[]).forEach(g=>{
+      if(g.kind==="winner") all.push({...g, league:sport.toUpperCase(),
+        colour:sport==="nba"?"#f28c28":"#e6553a", date:g.tipoff,
         result:g.result?`${g.result} won`:g.result});
     });
   return all.sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -2443,7 +2446,7 @@ function gradeFilters(){
 function gradeChips(){
   const props=gradedProps();
   const chips=[["all","Summary"]];
-  if(gradedMatches().length) chips.push(["matches", gsport==="nfl"||gsport==="mlb"?"Winners":"Matches"]);
+  if(gradedMatches().length) chips.push(["matches", ["nfl","mlb","nba"].includes(gsport)?"Winners":"Matches"]);
   gradeMarketsPresent(props).forEach(m=>{
     const n=props.filter(p=>p.market===m).length;
     if(n) chips.push([m, `${gradeName(m)} ${n}`]);
@@ -2518,6 +2521,7 @@ function nbaGradeSummary(){
     ${body||gradeEmpty(d.status==="live"
       ?"No NBA picks have been frozen yet. Picks freeze on the last run before tip-off and grade from the box score."
       :"No NBA picks exist to grade yet.")}
+    ${everyPropBlock()}
     <div class="glass rowc"><div class="rw" onclick="go('NBA')">
       <div class="info"><b>See the backtest evidence</b><span>${esc((d.markets_released||[]).length+" markets released · "+(d.seasons_backtested||[]).length+" seasons")}</span></div>
       <span class="chev">›</span></div></div>`;
@@ -2532,7 +2536,7 @@ function propMarketBlock(market){
     <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
       <div class="l">${tallyLine(t)}</div></div>
     <div class="glass rowc">${rows.map(r=>gradedPropRow(r,false)).join("")}</div>
-    <p class="note">Every settled pick in this market. A pick with no shot row grades MISS rather than void — the feed cannot separate "did not play" from "played, never shot", so the harsher reading is taken deliberately: it can understate the record, never inflate it. VOID means the pick was tainted or the player was confirmed out before kickoff.</p>`;
+    <p class="note">${gsport!=="soccer"?"Every settled pick in this market. VOID means the player did not play or the pick was tainted; a pick waiting on its box score stays pending, never a loss.":`Every settled pick in this market. A pick with no shot row grades MISS rather than void — the feed cannot separate "did not play" from "played, never shot", so the harsher reading is taken deliberately: it can understate the record, never inflate it. VOID means the pick was tainted or the player was confirmed out before kickoff.`}</p>`;
 }
 
 function everyMatchBlock(){
@@ -2608,8 +2612,7 @@ function viewGrades(){
   // picks are all still here; the chips decide which of them is on screen.
   const chips=gradeFilters();
   // Newest graded first, above every summary, so a result is never buried.
-  const latest=(filter==="all"&&gsport!=="nba")?latestSettled()+calibWatch():"";
-  if(gsport==="nba") return chips+nbaGradeSummary()+archiveLink();
+  const latest=filter==="all"?latestSettled()+calibWatch():"";
   if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
   if(filter&&filter!=="all"){
     const block=propMarketBlock(filter);
@@ -2619,6 +2622,7 @@ function viewGrades(){
   }
   if(gsport==="nfl") return chips+latest+nflGradeSummary()+archiveLink();
   if(gsport==="mlb") return chips+latest+mlbGradeSummary()+archiveLink();
+  if(gsport==="nba") return chips+latest+nbaGradeSummary()+archiveLink();
   if(gsport==="ucl") return chips+latest+uclGradeSummary()+archiveLink();
   const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
   const br=best.record||{correct:0,wrong:0,total:0};
