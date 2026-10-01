@@ -142,3 +142,37 @@ def test_picks_on_a_cancelled_game_are_voided_not_left_pending(monkeypatch):
     n = publish.void_unplayed(log, datetime(2026, 10, 1, tzinfo=timezone.utc))
     assert n == 2 and log["a"]["graded"] == "void" and log["a"]["void_reason"] == "game cancelled"
     assert not log["c"].get("graded")                 # played: grading handles it
+
+
+def test_a_totals_only_reply_does_not_use_up_a_check():
+    """Books post team totals a day out but player lines only nearer first pitch;
+    a reply with totals and no players must leave the game due on the next run."""
+    totals_only = {"bookmakers": [{"key": "fanduel", "markets": [{"key": "team_totals", "outcomes": [
+        {"name": "Over", "description": "Atlanta Braves", "point": 3.5, "price": 2.0},
+        {"name": "Under", "description": "Atlanta Braves", "point": 3.5, "price": 1.8}]}]}]}
+    with_props = {"bookmakers": [{"key": "draftkings", "markets": [{"key": "batter_hits", "outcomes": [
+        {"name": "Over", "description": "Matt Olson", "point": 0.5, "price": 1.5},
+        {"name": "Under", "description": "Matt Olson", "point": 0.5, "price": 2.6}]}]}]}
+
+    class Client:
+        def __init__(self, reply):
+            self.reply, self.event_calls = reply, 0
+
+        def get(self, path, **kw):
+            if path.endswith("/events"):
+                return [{"id": "E1", "home_team": "Atlanta Braves", "away_team": "Philadelphia Phillies",
+                         "commence_time": "2026-10-02T00:00:00Z"}]
+            if path.endswith("/odds") and "/events/" not in path:
+                return []
+            self.event_calls += 1
+            return self.reply
+
+    games = [{"game_pk": 9, "home_team": "ATL", "away_team": "PHI",
+              "start": "2026-10-02T00:00:00Z", "status": "Scheduled"}]
+    store = sync.run(Client(totals_only), games, now=_t("2026-09-30T21:30:00"), store={})
+    entry = store["games"]["9"]
+    assert entry["checks"] == [] and entry["team_totals"]["home"]["line"] == 3.5
+    later = Client(with_props)
+    store = sync.run(later, games, now=_t("2026-10-01T14:00:00"), store=store)
+    assert later.event_calls == 1 and "Matt Olson" in store["games"]["9"]["props"]["hits"]
+    assert len(store["games"]["9"]["checks"]) == 1

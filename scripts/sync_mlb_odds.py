@@ -87,7 +87,11 @@ def run(client, games, now=None, store=None) -> dict:
         print(f"  budget stop before match odds: {exc}")
         return store
     for ev, g, entry in matched:
-        why = bl.due(entry["checks"], g["start"], now)
+        # A game with no PLAYER lines yet has not had a real check: books post
+        # team totals and alternate ladders a day out but the main props only
+        # nearer first pitch, so look again on the next run rather than waiting
+        # for the lock run (the board otherwise shows no players until then).
+        why = bl.due(entry["checks"] if entry.get("props") else [], g["start"], now)
         if why is None:
             continue
         try:
@@ -108,9 +112,14 @@ def run(client, games, now=None, store=None) -> dict:
         if not props and not totals:
             print(f"  {g['away_team']}@{g['home_team']} ({why}): nothing posted yet (free)")
             continue
-        entry["checks"].append(now.isoformat(timespec="seconds"))
-        entry["props"], entry["team_totals"] = props, totals
-        entry["alt"] = bl.parse_alternates(payload)
+        if props:
+            entry["checks"].append(now.isoformat(timespec="seconds"))
+            entry["props"] = props
+        if totals:
+            entry["team_totals"] = totals
+        alt = bl.parse_alternates(payload)
+        if alt:
+            entry["alt"] = alt
         shared.remember_open(entry, now.isoformat(timespec="seconds"))
         print(f"  {g['away_team']}@{g['home_team']} ({why}): "
               f"{ {m: len(q) for m, q in props.items()} } totals={list(totals)}")
