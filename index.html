@@ -3106,9 +3106,15 @@ function openMatch(lk,id){
     // like a bug or, worse, like the club has nobody worth listing.
     if(!list.length) return `<div class="ptm">${esc(t)}</div>`+
       `<div class="rl">No player markets -- not enough top-flight history for this squad.</div>`;
-    return `<div class="ptm">${esc(t)}</div>` + list.map(pr=>
-      `<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
-    <div class="li2"><b>${esc(pr.player)}</b><span>${pct1(pr.anytime_pct)} goal · ${pct1(pr.p_shots_2plus)} 2+ shots · ${pct1(pr.p_sot_1plus)} 1+ on target</span></div></div>`).join("");
+    // THE WHOLE SQUAD likely to play, not only the top three: ★ marks the three
+    // per side the page used to show. bet365's anytime price where it quotes him,
+    // and the lowest price worth taking (Phase 2) -- check bet365 before betting.
+    return `<div class="ptm">${esc(t)} · ${list.length} players</div>` + list.map(pr=>{
+      const v=pr.value||{};
+      const b365=pr.b365_anytime?` · bet365 anytime ${Number(pr.b365_anytime).toFixed(2)}${v.min_price?` (worth it at ${Number(v.min_price).toFixed(2)}+)`:""}${v.value?` <b style="color:var(--lime)">value</b>`:""}`:"";
+      return `<div class="leg"><div class="av" style="width:36px;height:36px;font-size:13px;background:${tc(pr.team)}">${esc(initials(pr.player))}</div>
+    <div class="li2"><b>${pr.top?"★ ":""}${esc(pr.player)}</b><span>${pct1(pr.anytime_pct)} goal · ${pct1(pr.p_shots_2plus)} 2+ shots · ${pct1(pr.p_sot_1plus)} 1+ on target${
+      pr.expected_minutes!=null?` · ~${Math.round(pr.expected_minutes)} min`:""}${b365}</span></div></div>`;}).join("");
   }).join("");
   const props=propTeams;
   const ua=p.unmodeled_absences||{}; const uaAll=[...(ua.home||[]),...(ua.away||[])];
@@ -3179,7 +3185,7 @@ function openMatch(lk,id){
       <p class="note" style="padding-top:8px">No single exact score is likely in football -- even the highest-probability score above is usually right well under 1 time in 5. Treat this as the model's honest best shot, not a confident call.</p></div>
     ${marketSec}
     <div class="glass dsec"><h3>Why this pick</h3>${reasons}</div>
-    ${props?`<div class="glass dsec"><h3>Top players in this match</h3>${props}</div>`:""}`;
+    ${props?`<div class="glass dsec"><h3>Every player likely to play · ★ the top three per side</h3>${props}</div>`:""}`;
   window.scrollTo(0,0);
 }
 

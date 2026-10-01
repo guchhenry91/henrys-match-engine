@@ -75,6 +75,30 @@ def _just_locked(entry: dict, now, minutes: float = 30.0) -> bool:
         return False
 
 
+def _match_props(squad_props: list, home: str, away: str, league: str, match_id) -> list:
+    top = {(p["team"], p["player"]) for p in props.top_props(squad_props, home)
+           + props.top_props(squad_props, away)}
+    out = []
+    try:
+        store = prop_odds.load()
+    except Exception:
+        store = {}
+    for p in squad_props:
+        if p.get("position") == "GK" or (p.get("expected_minutes") or 0) < 20:
+            if (p["team"], p["player"]) not in top:
+                continue
+        row = dict(p, top=(p["team"], p["player"]) in top)
+        try:
+            price = prop_odds.price_for(league, match_id, p["player"], store=store)
+        except Exception:
+            price = None
+        if price:
+            row["b365_anytime"] = float(price)
+            row["value"] = value.assess((p.get("anytime_pct") or 0) / 100.0, None, price, True)
+        out.append(row)
+    return sorted(out, key=lambda p: -(p.get("anytime_pct") or 0))
+
+
 def _lock_window():
     """The window in force for this run: the floor, widened to cover the gap
     since the last locking run. Read through a function so tests that patch
@@ -737,8 +761,12 @@ def build(league: str = "PL") -> dict:
                 "unmodeled_absences": pred.get("unmodeled_absences",
                                                {"home": [], "away": []}),
             },
-            "props": (props.top_props(squad_props, home)
-                      + props.top_props(squad_props, away)),
+            # EVERY squad player likely to play (20+ expected minutes; keepers
+            # left out), not only the top three per side -- the match page lists
+            # them all. `top` marks the three per side the page used to show.
+            # bet365's anytime price where it quotes him, with the lowest price
+            # worth taking (tracking/value.py).
+            "props": _match_props(squad_props, home, away, league, m["match_id"]),
             "player_picks": player_picks,
             "market": _market_block(odds.market_for(market_odds, home, away),
                                     pred, pick_type),
