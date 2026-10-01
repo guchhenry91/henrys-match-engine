@@ -1482,6 +1482,16 @@ function nflGameTableRow(g){
 // Odds API (Pinnacle, DraftKings, FanDuel) for players bet365 does not quote.
 const LINE_BOOKS={bet365:"bet365",pinnacle:"Pinnacle",draftkings:"DraftKings",fanduel:"FanDuel"};
 function lineBook(p){return LINE_BOOKS[p.line_source]||p.book||"Book";}
+// WHOSE LINE THE PICK IS GRADED AT. Most US-sport lines are Pinnacle's or
+// DraftKings', not bet365's, and the pick is graded at THAT number: an "Under
+// 64.5" that wins on 62 yards is a LOSS on bet365's 59.5. Unless the line is
+// bet365's own, the card says so plainly -- bet only at this exact line.
+function lineNote(p){
+  const b=lineBook(p);
+  if(String(p.line_source||"").toLowerCase()==="bet365") return `<span class="bsn">bet365 line</span>`;
+  const tip=`This pick is graded at ${b}'s line of ${p.line}. If bet365's line is different, this pick does not apply to your bet — only bet at bet365 if it offers the same line (or a better one for your side).`;
+  return `<span class="bsn b365" style="color:var(--amber)" title="${esc(tip)}">${esc(b)} line ${p.line} — bet only at this line</span>`;
+}
 
 function nflPropTableRow(p, full){
   const td=p.market==="anytime_touchdown";
@@ -1503,7 +1513,7 @@ function nflPropTableRow(p, full){
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
     <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p,"nfl",p.market)}${newsTag(p)}${
-      p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
+      p.line_source&&p.line_source!=="model"?`${lineNote(p)}`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
       p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
     ${probCell(p.probability)}
@@ -1992,7 +2002,9 @@ function nflFig(p){
   // The sub-label under the percentage, matching how the football player cards
   // read: the line the pick is against, not just a bare number.
   if(p.market==="anytime_touchdown") return "anytime";
-  return p.line==null?"":`over ${p.line}`;
+  // The side the pick is ON. This said "over" on every card, so an UNDER pick that
+  // won read as an over that missed -- marked a hit (audit 2026-10-01).
+  return p.line==null?"":`${p.side==="under"?"under":"over"} ${p.line}`;
 }
 
 // Strength bands, reusing the tier vocabulary the football boards already use.
@@ -2174,7 +2186,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p,"nba",p.market)}${newsTag(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p,"nba",p.market)}${newsTag(p)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2219,7 +2231,7 @@ function mlbPropTableRow(p){
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p,"mlb",p.market)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p,"mlb",p.market)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
