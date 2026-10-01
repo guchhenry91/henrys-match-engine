@@ -125,8 +125,13 @@ def check_league(fn, key, n_teams, releg):
             names = [x["player"] for x in m.get("props", []) if x["team"] == team]
             if len(names) != len(set(names)):
                 fail(tag, f"duplicate player in {team} props")
-            if len(names) > 3:
-                fail(tag, f"{team} has {len(names)} props (max 3)")
+            # The match page lists the whole squad likely to play; the TOP picks
+            # (starred) are still at most three per side.
+            tops = [x for x in m.get("props", []) if x["team"] == team and x.get("top")]
+            if len(tops) > 3:
+                fail(tag, f"{team} has {len(tops)} top props (max 3)")
+            if len(names) > 30:
+                fail(tag, f"{team} lists {len(names)} players -- more than a squad")
 
         mk = m.get("market")
         if mk:
