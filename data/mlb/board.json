@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T10:43:21.569030+00:00",
+  "updated": "2026-10-01T11:40:03.019346+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -69,8 +69,8 @@
       "rating_away": 1530.1,
       "game_type": "F",
       "book": "pinnacle",
-      "book_p_pick": 0.4974,
-      "edge": 0.0589
+      "book_p_pick": 0.4949,
+      "edge": 0.0614
     }
   ],
   "props": {
@@ -149,7 +149,7 @@
     }
   },
   "odds": {
-    "checked_at": "2026-10-01T10:43:19+00:00",
+    "checked_at": "2026-10-01T11:40:00+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -559,14 +559,194 @@
       }
     }
   },
+  "performance": {
+    "hits": {
+      "bets": 53,
+      "wins": 28,
+      "losses": 25,
+      "voids": 1,
+      "profit": -9.25,
+      "roi": -0.1745,
+      "roi_se": 0.109,
+      "hit_rate": 0.5283,
+      "break_even": 0.6291,
+      "avg_price": 1.61,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "Behind so far, but not yet enough bets to call it"
+    },
+    "hr": {
+      "bets": 30,
+      "wins": 3,
+      "losses": 27,
+      "voids": 6,
+      "profit": -8.2,
+      "roi": -0.2733,
+      "roi_se": 0.4082,
+      "hit_rate": 0.1,
+      "break_even": 0.132,
+      "avg_price": 7.856,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "30 priced bets so far; 50 needed before any verdict"
+    },
+    "hrr": {
+      "bets": 54,
+      "wins": 30,
+      "losses": 24,
+      "voids": 0,
+      "profit": -1.92,
+      "roi": -0.0356,
+      "roi_se": 0.12,
+      "hit_rate": 0.5556,
+      "break_even": 0.5967,
+      "avg_price": 1.688,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "Behind so far, but not yet enough bets to call it"
+    },
+    "rbi": {
+      "bets": 40,
+      "wins": 24,
+      "losses": 16,
+      "voids": 0,
+      "profit": -7.51,
+      "roi": -0.1878,
+      "roi_se": 0.1066,
+      "hit_rate": 0.6,
+      "break_even": 0.7321,
+      "avg_price": 1.369,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "40 priced bets so far; 50 needed before any verdict"
+    },
+    "strikeouts": {
+      "bets": 25,
+      "wins": 10,
+      "losses": 15,
+      "voids": 0,
+      "profit": -6.99,
+      "roi": -0.2796,
+      "roi_se": 0.1814,
+      "hit_rate": 0.4,
+      "break_even": 0.5384,
+      "avg_price": 1.88,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "25 priced bets so far; 50 needed before any verdict"
+    },
+    "team_runs": {
+      "bets": 31,
+      "wins": 13,
+      "losses": 18,
+      "voids": 0,
+      "profit": -7.21,
+      "roi": -0.2326,
+      "roi_se": 0.1653,
+      "hit_rate": 0.4194,
+      "break_even": 0.525,
+      "avg_price": 1.916,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "31 priced bets so far; 50 needed before any verdict"
+    },
+    "team_winner": {
+      "bets": 4,
+      "wins": 2,
+      "losses": 2,
+      "voids": 0,
+      "profit": -0.51,
+      "roi": -0.1275,
+      "roi_se": 0.5038,
+      "hit_rate": 0.5,
+      "break_even": 0.5696,
+      "avg_price": 1.758,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "4 priced bets so far; 50 needed before any verdict"
+    },
+    "all": {
+      "bets": 237,
+      "wins": 110,
+      "losses": 127,
+      "voids": 7,
+      "profit": -41.59,
+      "roi": -0.1755,
+      "roi_se": 0.0716,
+      "hit_rate": 0.4641,
+      "break_even": 0.552,
+      "avg_price": 2.449,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "losing",
+      "status_note": "Behind at the prices taken, with no closing-line edge: do not bet"
+    }
+  },
   "settled": [
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5333,
       "book_price": 1.75,
       "edge": 0.1029,
       "game_id": "849842",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -580,17 +760,18 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
+      "open": null,
       "key": "849842:hits:haysa001"
     },
     {
+      "actual": 1.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5733,
       "book_price": 1.63,
       "edge": 0.0679,
       "game_id": "849842",
+      "graded": "correct",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -604,17 +785,18 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 1.0,
-      "graded": "correct",
+      "open": null,
       "key": "849842:hits:suzus001"
     },
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.6455,
       "book_price": 1.45,
       "edge": 0.0204,
       "game_id": "849842",
+      "graded": "correct",
       "kind": "prop",
       "line": 1.5,
       "line_source": "draftkings",
@@ -628,17 +810,18 @@
       "side": "under",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 0.0,
-      "graded": "correct",
+      "open": null,
       "key": "849842:hits:tatif002:under"
     },
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5643,
       "book_price": 1.66,
       "edge": 0.1104,
       "game_id": "849842",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -652,17 +835,18 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
+      "open": null,
       "key": "849842:hrr:cronj001"
     },
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5759,
       "book_price": 1.62,
       "edge": 0.1212,
       "game_id": "849842",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -676,17 +860,18 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
+      "open": null,
       "key": "849842:hrr:haysa001"
     },
     {
+      "actual": 0.0,
       "availability": null,
       "book": "DraftKings",
       "book_p": 0.5881,
       "book_price": 1.59,
       "edge": 0.0472,
       "game_id": "849842",
+      "graded": "wrong",
       "kind": "prop",
       "line": 0.5,
       "line_source": "draftkings",
@@ -700,17 +885,18 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 0.0,
-      "graded": "wrong",
+      "open": null,
       "key": "849842:hrr:shawm002"
     },
     {
+      "actual": 1.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.4246,
       "book_price": 2.25,
       "edge": 0.2637,
       "game_id": "849842",
+      "graded": "wrong",
       "kind": "prop",
       "line": 4.5,
       "line_source": "pinnacle",
@@ -724,17 +910,18 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 1.0,
-      "graded": "wrong",
+      "open": null,
       "key": "849842:strikeouts:gausk001"
     },
     {
+      "actual": 4.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.5131,
       "book_price": 1.86,
       "edge": 0.0259,
       "game_id": "849842",
+      "graded": "wrong",
       "kind": "prop",
       "line": 4.5,
       "line_source": "pinnacle",
@@ -748,17 +935,18 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 4.0,
-      "graded": "wrong",
+      "open": null,
       "key": "849842:strikeouts:piven001"
     },
     {
+      "actual": 1.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.5476,
       "book_price": 1.76,
       "edge": 0.0082,
       "game_id": "849842",
+      "graded": "correct",
       "kind": "prop",
       "line": 3.5,
       "line_source": "pinnacle",
@@ -772,17 +960,18 @@
       "side": "under",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 1.0,
-      "graded": "correct",
+      "open": null,
       "key": "849842:team_runs:CHN:under"
     },
     {
+      "actual": 4.0,
       "availability": null,
       "book": "Pinnacle",
       "book_p": 0.5259,
       "book_price": 1.83,
       "edge": 0.0901,
       "game_id": "849842",
+      "graded": "correct",
       "kind": "prop",
       "line": 3.5,
       "line_source": "pinnacle",
@@ -796,8 +985,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "actual": 4.0,
-      "graded": "correct",
+      "open": null,
       "key": "849842:team_runs:SDN"
     },
     {
@@ -805,14 +993,19 @@
       "book": "pinnacle",
       "book_p_pick": 0.5664,
       "game_id": "849842",
+      "graded": "correct",
       "home": "SDN",
       "kind": "winner",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "p_pick": 0.5555,
       "pick": "SDN",
-      "tipoff": "2026-10-01T02:00:00Z",
       "result": "SDN",
-      "graded": "correct",
+      "tipoff": "2026-10-01T02:00:00Z",
+      "book_price": 1.73,
+      "price_estimated": true,
+      "open": null,
+      "close_p": 0.5664,
+      "close_at": "2026-10-01T00:55:51+00:00",
       "key": "849842:winner"
     },
     {
@@ -837,6 +1030,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:hits:meidc001"
     },
     {
@@ -861,6 +1055,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:hits:mlbam:803011"
     },
     {
@@ -886,6 +1081,7 @@
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
       "void_reason": "did not start",
+      "open": null,
       "key": "849846:hits:tramt001:under"
     },
     {
@@ -910,6 +1106,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:hrr:meidc001"
     },
     {
@@ -934,6 +1131,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:hrr:mlbam:695731"
     },
     {
@@ -958,6 +1156,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:hrr:smitc010"
     },
     {
@@ -982,6 +1181,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:strikeouts:browh001"
     },
     {
@@ -1006,6 +1206,7 @@
       "side": "under",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:strikeouts:burks001:under"
     },
     {
@@ -1030,6 +1231,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:team_runs:CHA"
     },
     {
@@ -1054,6 +1256,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
+      "open": null,
       "key": "849846:team_runs:HOU"
     },
     {
@@ -1069,6 +1272,11 @@
       "pick": "HOU",
       "result": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
+      "book_price": 1.69,
+      "price_estimated": true,
+      "open": null,
+      "close_p": 0.5796,
+      "close_at": "2026-09-30T18:52:30+00:00",
       "key": "849846:winner"
     },
     {
@@ -1093,6 +1301,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:hits:haysa001"
     },
     {
@@ -1117,6 +1326,7 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:hits:suzus001"
     },
     {
@@ -1141,6 +1351,7 @@
       "side": "under",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:hits:tatif002:under"
     },
     {
@@ -1165,6 +1376,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:hrr:cronj001"
     },
     {
@@ -1189,6 +1401,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:hrr:haysa001"
     },
     {
@@ -1213,6 +1426,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:hrr:tayls003"
     },
     {
@@ -1237,6 +1451,7 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:strikeouts:boydm001"
     },
     {
@@ -1261,6 +1476,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:strikeouts:kingm002"
     },
     {
@@ -1285,6 +1501,7 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "open": null,
       "key": "849843:team_runs:SDN"
     },
     {
@@ -1300,6 +1517,11 @@
       "pick": "SDN",
       "result": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
+      "book_price": 1.76,
+      "price_estimated": true,
+      "open": null,
+      "close_p": 0.5567,
+      "close_at": "2026-09-30T00:54:35+00:00",
       "key": "849843:winner"
     },
     {
@@ -1324,6 +1546,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:hits:diazy004"
     },
     {
@@ -1348,6 +1571,7 @@
       "side": "under",
       "team": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:hits:montc004:under"
     },
     {
@@ -1372,6 +1596,7 @@
       "side": "under",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:hits:tramt001:under"
     },
     {
@@ -1396,6 +1621,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:hrr:meidc001"
     },
     {
@@ -1420,6 +1646,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:hrr:penaj004"
     },
     {
@@ -1444,6 +1671,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:hrr:smitc010"
     },
     {
@@ -1468,6 +1696,7 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:team_runs:CHA"
     },
     {
@@ -1492,6 +1721,7 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
+      "open": null,
       "key": "849849:team_runs:HOU"
     },
     {
@@ -1507,6 +1737,11 @@
       "pick": "HOU",
       "result": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
+      "book_price": 1.85,
+      "price_estimated": true,
+      "open": null,
+      "close_p": 0.5305,
+      "close_at": "2026-09-29T19:10:38+00:00",
       "key": "849849:winner"
     },
     {
