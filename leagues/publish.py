@@ -20,6 +20,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 # dozen call sites and several tests reference publish.actual_standings.
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
 from leagues import prop_odds
+from leagues import mispricing
 from leagues import prop_calibration
 from tracking import performance, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
@@ -1338,6 +1339,19 @@ def main(argv=None):
     full_refresh = set(leagues) == set(FILE_FOR) and attempted == len(FILE_FOR)
     boards_safe = full_refresh and ok == attempted
     if boards_safe:
+        # bet365 vs the Betfair Exchange (leagues/mispricing.py): model-free value.
+        # Never allowed to take the publish down -- a missing feed is no flags.
+        try:
+            mis = mispricing.update(mispricing.scan(mispricing.fetch()),
+                                    mispricing.results_from_boards(OUT),
+                                    log_path=PICKS_DIR / "mispriced_log.json")
+            mis["performance"] = performance.by_market(mis["settled"], lambda e: e["market"])
+            (OUT / "mispriced.json").write_text(json.dumps(mis, indent=2, default=str),
+                                                encoding="utf-8")
+            print(f"  bet365 vs exchange: {len(mis['upcoming'])} upcoming flag(s), "
+                  f"{len(mis['settled'])} graded")
+        except Exception as exc:
+            print(f"  bet365 vs exchange scan skipped ({type(exc).__name__}: {exc})")
         best = build_best_picks()
         best_all = best.pop("_all_settled", best["settled"])
         # Profit at the price frozen with each pick (soccer has no opening-price

@@ -24,6 +24,7 @@ from nfl import (config, data, depth, features, games_model,
                  odds as odds_mod, rosters)
 from nfl import picks
 from nfl import vacancy
+from nfl import mispricing as nfl_mispricing
 from tracking import news_edge
 from nfl import book_lines
 from nfl import market_blend
@@ -659,6 +660,32 @@ def build() -> dict:
     if n_news:
         print(f"  news edge: {n_news} pick(s) lifted by a teammate ruled out in the last "
               f"{news_edge.FRESH_HOURS:g}h")
+
+    # bet365 vs Pinnacle (nfl/mispricing.py): model-free value. Never fatal.
+    try:
+        slate = {f"{g['home_team']}|{g['away_team']}": {
+                     "kickoff": pd.Timestamp(g["kickoff"]).isoformat(),
+                     "season": int(g["season"]), "week": int(g["week"])}
+                 for _, g in upcoming.iterrows()}
+
+        def stats_for(season, week, name, teams):
+            rows = player_weeks[(player_weeks["season"] == season) & (player_weeks["week"] == week)
+                                & (player_weeks["team"].isin(teams))]
+            hit = rows[rows["player_display_name"].map(odds_mod.norm_name) == odds_mod.norm_name(name)]
+            return hit.iloc[0] if len(hit) == 1 else None
+        try:
+            b365 = json.loads((ROOT / "data-raw" / "nfl" / "odds.json").read_text(encoding="utf-8")).get("props") or {}
+            sharp = json.loads((ROOT / "data-raw" / "nfl" / "odds_api_props.json").read_text(encoding="utf-8")).get("games") or {}
+        except Exception:
+            b365, sharp = {}, {}
+        mis = nfl_mispricing.update(nfl_mispricing.scan(b365, sharp), slate, stats_for)
+        from tracking import performance as _perf
+        mis["performance"] = _perf.by_market(mis["settled"], lambda e: e["market"])
+        OUT.mkdir(parents=True, exist_ok=True)
+        (OUT / "mispriced.json").write_text(json.dumps(mis, indent=2, default=str), encoding="utf-8")
+        print(f"  bet365 vs Pinnacle: {len(mis['upcoming'])} upcoming flag(s), {len(mis['settled'])} graded")
+    except Exception as exc:
+        print(f"  bet365 vs Pinnacle scan skipped ({type(exc).__name__}: {exc})")
 
     last_season = int(player_weeks["season"].max())
     last_week = int(player_weeks[player_weeks["season"] == last_season]["week"].max())

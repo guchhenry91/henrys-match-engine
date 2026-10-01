@@ -28,6 +28,11 @@ def _isolated(tmp_path, monkeypatch):
     raw = tmp_path / "_raw"
     raw.mkdir()
     monkeypatch.setattr(publish, "PICKS_DIR", raw)
+    # No network in a unit test: the bet365-vs-exchange scan sees no feed and is
+    # skipped, exactly as it would be on a feed outage.
+    def _no_feed():
+        raise OSError("no network in tests")
+    monkeypatch.setattr(publish.mispricing, "fetch", _no_feed)
     before = _snapshot()
     yield
     changed = sorted(str(p.relative_to(ROOT)) for p, h in _snapshot().items()

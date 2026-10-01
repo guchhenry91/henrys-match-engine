@@ -164,6 +164,14 @@ def summarize(entries) -> dict:
             moves[direction] += 1
         if size is not None:
             sizes.append(size)
+        # A settled stake can be fractional (an Asian-handicap quarter line wins or
+        # loses half): such entries carry their own `units` per unit staked.
+        if e.get("units") is not None and e.get("graded") in ("correct", "wrong"):
+            u = float(e["units"])
+            returns.append(u)
+            prices.append(float(e.get("book_price") or e.get("b365") or 2.0))
+            wins += int(u > 0)
+            continue
         won = _won(e)
         price = price_of(e)
         if won is None:

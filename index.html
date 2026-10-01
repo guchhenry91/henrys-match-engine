@@ -619,6 +619,10 @@ async function boot(){
   catch(e){DATA.mlb=null;}
   try{const r=await fetch("data/health.json",{cache:"no-cache"});DATA.health=r.ok?await r.json():null;}
   catch(e){DATA.health=null;}
+  try{const r=await fetch("data/leagues/mispriced.json",{cache:"no-cache"});DATA.edges_soccer=r.ok?await r.json():null;}
+  catch(e){DATA.edges_soccer=null;}
+  try{const r=await fetch("data/nfl/mispriced.json",{cache:"no-cache"});DATA.edges_nfl=r.ok?await r.json():null;}
+  catch(e){DATA.edges_nfl=null;}
   FRESH=computeFreshness(); updateLivePill();
   buildNav(); go("today");
   startLive();      // no-ops unless a fixture could actually be in play
@@ -1680,16 +1684,20 @@ const PERF_LABEL={proven:"Proven",promising:"Promising",testing:"Testing",losing
 const PERF_NAME={team_winner:"Team winner",match_winner:"Match winner",
                  value_plays:"Value plays only (the bet365 value rule)",
                  value_match:"Value plays only — match winners",
-                 value_players:"Value plays only — player props"};
+                 value_players:"Value plays only — player props",
+                 value_edges:"Price edges — bet365 above the sharp market"};
 function perfBlocks(sport){
   if(sport==="soccer"){
     const pp=((DATA.player_picks||{}).performance)||{}, bp=((DATA.best||{}).performance)||{};
     // Match winners and player props are scored in separate files, so each gets
     // its own value line rather than one number that hides which is which.
     const {value_plays:vp, ...rest}=pp;
-    return {...rest, match_winner:bp.match_winner, value_match:bp.value_plays, value_players:vp};
+    return {...rest, match_winner:bp.match_winner, value_match:bp.value_plays, value_players:vp,
+            value_edges:(((DATA.edges_soccer||{}).performance)||{}).all};
   }
-  return ((DATA[sport]||{}).performance)||{};
+  const out={...(((DATA[sport]||{}).performance)||{})};
+  if(sport==="nfl"&&DATA.edges_nfl&&DATA.edges_nfl.performance) out.value_edges=DATA.edges_nfl.performance.all;
+  return out;
 }
 function perfOf(sport, market){ return perfBlocks(sport)[market]||null; }
 function perfTag(sport, market){
@@ -1762,10 +1770,39 @@ function trustLine(){
   }).filter(Boolean);
   return parts.length?`<p class="note"><b>Model trust</b> — how far each pick may differ from the bookmaker's own chance, fitted on every graded pick so far: ${parts.join(" · ")}. At 0% the record says the bookmaker's price has been the better guide, so a pick is only value where bet365's price beats the sharp books'. Trust rises on its own if the model starts beating the book.</p>`:"";
 }
+// PRICE EDGES (leagues/mispricing.py, nfl/mispricing.py): bet365 paying MORE
+// than the sharp market's fair price -- the Betfair Exchange for soccer, Pinnacle
+// for NFL yardage. No model involved, so model trust does not apply; each edge
+// is logged at its first price and graded, so it earns its own record.
+function edgeTitle(e){
+  if(e.player){ const n={passing_yards:"passing yds",rushing_yards:"rushing yds",receiving_yards:"receiving yds"}[e.market]||e.market;
+    return [`${e.player} ${e.side} ${e.line} ${n}`, `NFL · ${e.game.split("|").reverse().join(" @ ")}`]; }
+  const sel=e.market==="match_result"?(e.selection==="draw"?"Draw":`${e.selection==="home"?e.home:e.away} to win`)
+    :e.market==="over_under_2.5"?`${e.selection==="over"?"Over":"Under"} 2.5 goals`
+    :`${e.selection==="home"?e.home:e.away} ${(()=>{const h=e.selection==="home"?e.line:-e.line;return (h>0?"+":"")+h;})()} Asian handicap`;
+  return [sel, `${LG[e.league_key]||e.league_key} · ${e.home} v ${e.away}`];
+}
+function edgeStake(p,o){ const k=(p*o-1)/(o-1); const st=Math.min(0.02,Math.max(0,0.25*k)); return Math.round(st/0.0025)*0.0025; }
+function priceEdges(){
+  const now=Date.now();
+  const all=[...(((DATA.edges_soccer||{}).upcoming)||[]),...(((DATA.edges_nfl||{}).upcoming)||[])]
+    .filter(e=>new Date(e.date||e.kickoff)>now)
+    .sort((a,b)=>(b.ev_latest??b.ev)-(a.ev_latest??a.ev));
+  if(!all.length) return `<div class="glass rowc">${emptyRow("No bet365 price beats the sharp market right now. Soccer prices appear about a week before kickoff; NFL once bet365 and Pinnacle post the same players.")}</div>`;
+  return `<section class="glass settled"><div class="slist">${all.map(e=>{
+    const [t,sub]=edgeTitle(e), price=e.b365_latest??e.b365, ev=e.ev_latest??e.ev, st=edgeStake(e.fair_p,price);
+    return `<div class="srow"><div class="be"><b>${esc(t)}</b>
+      <span>${esc(sub)} · ${whenStr(e.date||e.kickoff)} · bet365 ${Number(price).toFixed(2)} vs fair ${(1/e.fair_p).toFixed(2)} (${esc(e.exchange?"Betfair Exchange":"Pinnacle"+(e.basis==="line-adjusted"?", line-adjusted":""))})${st?` · stake ${+(100*st).toFixed(2)}%`:""}</span></div>
+      <div class="sty"><small>Expected</small><b class="pos">+${(100*ev).toFixed(1)}%</b></div>
+      <span class="pftag value">Price edge</span></div>`;}).join("")}</div></section>`;
+}
 function viewBetList(){
   const {bet,watch,losing}=betList();
   const total=bet.reduce((n,b)=>n+((b.x.value||{}).stake||0),0);
-  let h=sectHead("Phase 4 · narrow down",`Bet list · ${bet.length} pick${bet.length===1?"":"s"}`,
+  let h=sectHead("No model needed","Price edges · bet365 pays more than the sharp market",
+    "bet365's price beats the Betfair Exchange (soccer) or Pinnacle (NFL) fair price by 3%+ — positive expected value whatever any model says. Take the price shown or better; each edge is tracked and graded.");
+  h+=priceEdges();
+  h+=sectHead("Phase 4 · narrow down",`Bet list · ${bet.length} pick${bet.length===1?"":"s"}`,
     "Value at bet365 AND in a market whose own record has earned a bet. Check bet365's price is at or above the minimum shown before you bet.");
   h+=bet.length
     ? btable(PCOLS,bet.map(b=>b.row()).join(""))

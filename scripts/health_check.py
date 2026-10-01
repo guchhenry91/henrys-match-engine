@@ -209,7 +209,7 @@ def main():
     for c in rep["checks"]:
         print(f"[{c['status'].upper():4s}] {c['sport']:9s} {c['check']:16s} {c['message']}")
     print(f"overall: {rep['status']}")
-    if problems != before:
+    if problems != before or not OUT.exists():
         OUT.write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8")
         print(f"status changed -> wrote {OUT.relative_to(ROOT)}")
         bad = [c for c in rep["checks"] if c["status"] != "ok"]
