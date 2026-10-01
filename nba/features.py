@@ -59,6 +59,36 @@ def _opponent_allowed(frame: pd.DataFrame, stat: str) -> pd.Series:
     return per_game[["season", "opponent", "GAME_ID", "allowed"]]
 
 
+def vacated_share(frame: pd.DataFrame) -> pd.DataFrame:
+    """Share of the team's production belonging to players NOT playing tonight.
+
+    The NBA side of Phase 3 (see nfl.features.vacated_share for the reasoning).
+    Sums the entering five-game share of every player who played in the team's
+    previous game and is absent from this one. On the live board the next-game
+    rows leave out players ruled OUT, so the feature asks the same question there.
+    Returns GAME_ID, TEAM_ABBREVIATION, vacated (0..0.9).
+    """
+    s = frame[["PLAYER_ID", "TEAM_ABBREVIATION", "GAME_ID", "game_date", "_share"]].copy()
+    s = s.sort_values(["PLAYER_ID", "game_date"])
+    s["_next5"] = (s.groupby("PLAYER_ID", sort=False)["_share"]
+                   .rolling(config.FORM_GAMES, min_periods=1).mean()
+                   .reset_index(level=0, drop=True))
+    order = (s[["TEAM_ABBREVIATION", "GAME_ID", "game_date"]].drop_duplicates(["TEAM_ABBREVIATION", "GAME_ID"])
+             .sort_values(["TEAM_ABBREVIATION", "game_date"]))
+    order["_to"] = order.groupby("TEAM_ABBREVIATION")["GAME_ID"].shift(-1)
+    order["_gap"] = (order.groupby("TEAM_ABBREVIATION")["game_date"].shift(-1)
+                     - order["game_date"]).dt.days
+    order = order[order["_gap"] <= 30]          # not across a summer
+    prev = s.merge(order[["TEAM_ABBREVIATION", "GAME_ID", "_to"]],
+                   on=["TEAM_ABBREVIATION", "GAME_ID"]).dropna(subset=["_to"])
+    prev["GAME_ID"] = prev["_to"]
+    present = s[["PLAYER_ID", "TEAM_ABBREVIATION", "GAME_ID"]].drop_duplicates().assign(_here=1)
+    prev = prev.merge(present, on=["PLAYER_ID", "TEAM_ABBREVIATION", "GAME_ID"], how="left")
+    gone = prev[prev["_here"].isna()]
+    return (gone.groupby(["GAME_ID", "TEAM_ABBREVIATION"])["_next5"].sum()
+            .clip(0.0, 0.9).rename("vacated").reset_index())
+
+
 def build(player_games: pd.DataFrame, market: str) -> pd.DataFrame:
     """One row per player-game that is eligible for `market`, with its outcome."""
     stat = config.MARKETS[market]
@@ -83,6 +113,12 @@ def build(player_games: pd.DataFrame, market: str) -> pd.DataFrame:
     team_total = frame.groupby(["GAME_ID", "TEAM_ABBREVIATION"])[stat].transform("sum")
     frame["_share"] = frame[stat] / team_total.replace(0, np.nan)
     frame["share5"] = _prior_mean(frame, "_share", config.FORM_GAMES).fillna(0.0)
+    # Production freed up by absent teammates, and this player's slice of it.
+    frame["_share"] = frame["_share"].fillna(0.0)
+    frame = frame.merge(vacated_share(frame), on=["GAME_ID", "TEAM_ABBREVIATION"], how="left")
+    frame["vacated"] = frame["vacated"].fillna(0.0)
+    frame["share_boost"] = frame["share5"] * frame["vacated"] / (1.0 - frame["vacated"])
+    frame = frame.sort_values(["PLAYER_ID", "game_date"]).reset_index(drop=True)
 
     rest = frame.groupby("PLAYER_ID")["game_date"].diff().dt.days
     # A first game has no rest history. Filled with a week rather than zero, which
