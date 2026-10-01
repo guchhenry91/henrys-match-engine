@@ -1529,10 +1529,14 @@ function settledRows(){
   const p=gradedProps(gsport).map(x=>({kind:"prop",x,date:x.date||x.kickoff}));
   return m.concat(p).sort((a,b)=>new Date(b.date)-new Date(a.date));
 }
+const MLB_UNIT={hits:"hits", hrr:"hits + runs + RBIs", hr:"home runs", rbi:"RBIs",
+                strikeouts:"strikeouts", team_runs:"runs"};
 function propSel(p){
   if(PSEL[p.market]) return PSEL[p.market];
   if(p.market==="anytime_touchdown") return "Anytime TD";
-  return p.line!=null?`Over ${p.line} ${gradeName(p.market).toLowerCase()} yards`:gradeName(p.market);
+  const side=p.side==="under"?"Under":"Over";
+  if(MLB_UNIT[p.market]) return `${side} ${p.line} ${MLB_UNIT[p.market]}`;
+  return p.line!=null?`${side} ${p.line} ${gradeName(p.market).toLowerCase()} yards`:gradeName(p.market);
 }
 function winChip(x){
   const g=x.void?"void":x.graded;
@@ -1543,7 +1547,7 @@ function winChip(x){
 function settledRow(r){
   const x=r.x;
   if(r.kind==="prop"){
-    const lg=x.league||LG[x.league_key]||(gsport==="nfl"?"NFL":"");
+    const lg=x.league||LG[x.league_key]||(gsport==="nfl"?"NFL":gsport==="mlb"?"MLB":"");
     return `<div class="srow"><div class="be"><div class="beb">${esc(lg)} · ${esc(PMK[x.market]||gradeName(x.market))}</div>
       <b>${esc(x.player)} · ${esc(propSel(x))}</b>
       <span>${esc(x.home||"")} vs ${esc(x.away||"")} · ${esc(actualLabel(x))} · settled ${whenStr(r.date)}</span></div>
@@ -2252,12 +2256,13 @@ function tallyLine(t){
 // target" shows the working, and is the difference between a record and a claim.
 function actualLabel(p){
   const a=p.actual;
-  if(a==null) return "not recorded";
+  if(a==null) return p.void_reason||"not recorded";
   if(p.market==="goal") return a===0?"no goal":`${a} goal${a===1?"":"s"}`;
   if(p.market==="shots") return `${a} attempt${a===1?"":"s"}`;
   if(p.market==="sot") return `${a} on target`;
   if(p.market==="anytime_touchdown") return a?`${a} TD`:"no TD";
   if(String(p.market||"").endsWith("_yards")) return `${a} yards`;
+  if(MLB_UNIT[p.market]) return `${a} ${MLB_UNIT[p.market]}`;
   return `${a}`;
 }
 
@@ -2268,7 +2273,8 @@ function actualLabel(p){
 function lineLabel(p){
   const name=(MK[p.market]||NFLMK[p.market]||{name:p.market}).name;
   if(p.line==null) return p.market==="anytime_touchdown"?"anytime TD":name;
-  return typeof p.line==="number" ? `over ${p.line}` : p.line;
+  return typeof p.line==="number" ? `${p.side==="under"?"under":"over"} ${p.line}${
+    MLB_UNIT[p.market]?" "+MLB_UNIT[p.market]:""}` : p.line;
 }
 
 // `showMarket` is false inside a single-market view: the heading already says
@@ -2321,14 +2327,17 @@ function gradedMatchRow(m){
 // Market order is the boards' own, not whatever order the settled list happens
 // to arrive in, so the chips do not reshuffle as results land.
 const GRADE_MARKETS=["goal","shots","sot",
-                     "anytime_touchdown","receiving_yards","rushing_yards","passing_yards"];
+                     "anytime_touchdown","receiving_yards","rushing_yards","passing_yards",
+                     "hits","hrr","hr","rbi","strikeouts","team_runs"];
 // THE SAME WORDS THE OTHER TABS USE. MK calls the goalscorer market "Goal" for a
 // narrow row chip, but Player Picks and the NFL board both label their filters
 // "Anytime" / "Receiving" -- a reader who taps "Anytime" on one tab and finds
 // "Goal" on another has to work out they are the same market.
 const GRADE_LABEL={goal:"Anytime", shots:"Attempts", sot:"On target",
                    anytime_touchdown:"Anytime TD", receiving_yards:"Receiving",
-                   rushing_yards:"Rushing", passing_yards:"Passing"};
+                   rushing_yards:"Rushing", passing_yards:"Passing",
+                   hits:"Hits", hrr:"Hits + runs + RBIs", hr:"Home runs", rbi:"RBIs",
+                   strikeouts:"Strikeouts", team_runs:"Team total"};
 const gradeName=m=>GRADE_LABEL[m]||(MK[m]||NFLMK[m]||{name:m}).name;
 
 // THE ORDER IS CURATED; THE MEMBERSHIP IS NOT. GRADE_MARKETS fixes the order so
@@ -2358,7 +2367,7 @@ function gradeMarketsPresent(props){
 // markets beneath it -- the same two-level filter the reader already uses to
 // narrow a board.
 const GSPORTS=[["soccer","Soccer"],["nfl","NFL"],["ucl","Champions League"],["nba","NBA"],["mlb","MLB"]];
-const GMATCH_LABEL={soccer:"Every match pick", nfl:"Team winner",
+const GMATCH_LABEL={soccer:"Every match pick", nfl:"Team winner", mlb:"Team winner",
                     ucl:"Every Champions League pick"};
 let gsport="soccer";
 function setGSport(s){ gsport=s; filter="all"; render(cur); }
@@ -2369,6 +2378,17 @@ function gradedProps(sport){
   if(sport==="soccer") all=((DATA.player_picks||{}).settled||[]).slice();
   // NFL props settle into their own board's settled list.
   if(sport==="nfl") all=(((DATA.nfl||{}).settled)||[]).filter(p=>p.market&&p.player);
+  // MLB props carry team/opponent and the game id; the matchup comes from the
+  // same game's winner entry where there is one.
+  if(sport==="mlb"){
+    const st=((DATA.mlb||{}).settled)||[], games={};
+    st.forEach(g=>{ if(g.kind==="winner") games[g.game_id]=g; });
+    all=st.filter(x=>x.kind==="prop"&&x.market).map(x=>{
+      const g=games[x.game_id];
+      return {...x, date:x.tipoff, p_pick:x.probability, league:"MLB",
+              home:g?g.home:x.team, away:g?g.away:x.opponent};
+    });
+  }
   return all.sort((a,b)=>new Date(b.date||b.kickoff)-new Date(a.date||a.kickoff));
 }
 function gradedMatches(sport){
@@ -2395,6 +2415,11 @@ function gradedMatches(sport){
     (((DATA.nfl||{}).settled)||[]).forEach(g=>{
       if(!g.market) all.push({...g, league:"NFL", colour:"#37a9e6", date:g.date||g.kickoff});
     });
+  if(sport==="mlb")
+    (((DATA.mlb||{}).settled)||[]).forEach(g=>{
+      if(g.kind==="winner") all.push({...g, league:"MLB", colour:"#e6553a", date:g.tipoff,
+        result:g.result?`${g.result} won`:g.result});
+    });
   return all.sort((a,b)=>new Date(b.date)-new Date(a.date));
 }
 const gradedCount=s=>gradedProps(s).length+gradedMatches(s).length;
@@ -2418,7 +2443,7 @@ function gradeFilters(){
 function gradeChips(){
   const props=gradedProps();
   const chips=[["all","Summary"]];
-  if(gradedMatches().length) chips.push(["matches", gsport==="nfl"?"Winners":"Matches"]);
+  if(gradedMatches().length) chips.push(["matches", gsport==="nfl"||gsport==="mlb"?"Winners":"Matches"]);
   gradeMarketsPresent(props).forEach(m=>{
     const n=props.filter(p=>p.market===m).length;
     if(n) chips.push([m, `${gradeName(m)} ${n}`]);
@@ -2476,6 +2501,7 @@ function mlbGradeSummary(){
   const body=line("Team winner",rw)+line("Props and team totals (bookmaker lines)",rp);
   return `<div class="eyebrow">MLB track record</div>
     ${body||gradeEmpty("Picks freeze on the last run before first pitch and grade from the box score — the first ones settle tonight.")}
+    ${everyPropBlock()}
     <div class="glass rowc"><div class="rw" onclick="go('MLB')">
       <div class="info"><b>Open the MLB board</b><span>${esc((d.markets_released||[]).length+" markets released · "+(d.seasons_scored||[]).length+" seasons backtested")}</span></div>
       <span class="chev">›</span></div></div>`;
@@ -2584,7 +2610,6 @@ function viewGrades(){
   // Newest graded first, above every summary, so a result is never buried.
   const latest=(filter==="all"&&gsport!=="nba")?latestSettled()+calibWatch():"";
   if(gsport==="nba") return chips+nbaGradeSummary()+archiveLink();
-  if(gsport==="mlb") return chips+mlbGradeSummary()+archiveLink();
   if(filter==="matches") return chips+everyMatchBlock()+archiveLink();
   if(filter&&filter!=="all"){
     const block=propMarketBlock(filter);
@@ -2593,6 +2618,7 @@ function viewGrades(){
     if(block) return chips+block+archiveLink();
   }
   if(gsport==="nfl") return chips+latest+nflGradeSummary()+archiveLink();
+  if(gsport==="mlb") return chips+latest+mlbGradeSummary()+archiveLink();
   if(gsport==="ucl") return chips+latest+uclGradeSummary()+archiveLink();
   const best=DATA.best||{}, pp=DATA.player_picks||{}, par=DATA.parlays||{};
   const br=best.record||{correct:0,wrong:0,total:0};

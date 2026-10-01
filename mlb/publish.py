@@ -106,7 +106,9 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
                           "book_p": e["book_p"], "book_price": e["book_price"],
                           "edge": e["edge"], "locked": True})
     payload["record"] = picks_mod.record(log)
-    payload["settled"] = picks_mod.settled(log)
+    # Every graded pick: the Results tab lists them per market, and a list cut at
+    # 200 disagreed with the record's own counts (243 graded on 2026-10-01).
+    payload["settled"] = picks_mod.settled(log, limit=100_000)
     print(f"  froze {frozen} pick(s); record {payload['record']['team_winner']['correct']}-"
           f"{payload['record']['team_winner']['wrong']} winners, "
           f"{payload['record']['props']['correct']}-{payload['record']['props']['wrong']} props")
