@@ -1,7 +1,7 @@
 {
   "league": "Ligue 1",
-  "updated": "2026-10-01T22:10:06.583695+00:00",
-  "results_updated": "2026-10-01T22:55:38.997674+00:00",
+  "updated": "2026-10-01T23:00:27.692842+00:00",
+  "results_updated": "2026-10-01T23:00:27.692849+00:00",
   "record": {
     "correct": 20,
     "wrong": 22,
@@ -13,6 +13,10 @@
         "correct": 4,
         "total": 9
       },
+      "4": {
+        "correct": 3,
+        "total": 5
+      },
       "2": {
         "correct": 9,
         "total": 17
@@ -20,10 +24,6 @@
       "1": {
         "correct": 4,
         "total": 11
-      },
-      "4": {
-        "correct": 3,
-        "total": 5
       }
     }
   },
@@ -111,7 +111,7 @@
           "team": "Lens",
           "player": "Odsonne Edouard",
           "position": "FW",
-          "lambda_goals": 0.6124522579638106,
+          "lambda_goals": 0.612452468812032,
           "anytime_pct": 30.1,
           "exp_shots": 1.83,
           "p_shots_2plus": 29.8,
@@ -121,13 +121,36 @@
           "expected_minutes": 54.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              4,
+              1,
+              1,
+              0
+            ],
+            "sot": [
+              2,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Florian Thauvin",
           "position": "MF",
-          "lambda_goals": 0.5687506109938903,
+          "lambda_goals": 0.5687507612982933,
           "anytime_pct": 29.5,
           "exp_shots": 2.0,
           "p_shots_2plus": 35.6,
@@ -137,13 +160,36 @@
           "expected_minutes": 71.8,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              2,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              3,
+              3,
+              7
+            ],
+            "sot": [
+              0,
+              1,
+              3,
+              2,
+              3
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Corentin Tolisso",
           "position": "MF",
-          "lambda_goals": 0.33948226278334404,
+          "lambda_goals": 0.3394610913229641,
           "anytime_pct": 16.1,
           "exp_shots": 1.06,
           "p_shots_2plus": 9.6,
@@ -153,13 +199,36 @@
           "expected_minutes": 66.6,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              5
+            ],
+            "sot": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Pavel Sulc",
           "position": "FW",
-          "lambda_goals": 0.3434977502042139,
+          "lambda_goals": 0.3434645405654964,
           "anytime_pct": 15.9,
           "exp_shots": 1.0,
           "p_shots_2plus": 8.6,
@@ -169,13 +238,36 @@
           "expected_minutes": 45.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              4,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Abdallah Sima",
           "position": "FW",
-          "lambda_goals": 0.16742552821930962,
+          "lambda_goals": 0.16742558585870007,
           "anytime_pct": 6.3,
           "exp_shots": 0.69,
           "p_shots_2plus": 3.9,
@@ -185,13 +277,36 @@
           "expected_minutes": 20.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              8,
+              2,
+              7,
+              1
+            ],
+            "sot": [
+              1,
+              2,
+              0,
+              3,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Matthieu Udol",
           "position": "DF",
-          "lambda_goals": 0.13039950454885124,
+          "lambda_goals": 0.1303995494413359,
           "anytime_pct": 4.9,
           "exp_shots": 1.09,
           "p_shots_2plus": 9.5,
@@ -201,13 +316,36 @@
           "expected_minutes": 85.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              5,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              3,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Samson Baidoo",
           "position": "DF",
-          "lambda_goals": 0.1029641285013786,
+          "lambda_goals": 0.10296416394871848,
           "anytime_pct": 3.4,
           "exp_shots": 0.44,
           "p_shots_2plus": 1.0,
@@ -217,13 +355,36 @@
           "expected_minutes": 52.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Khalis Merah",
           "position": "FW",
-          "lambda_goals": 0.10052393155488633,
+          "lambda_goals": 0.1005142128203461,
           "anytime_pct": 3.3,
           "exp_shots": 0.37,
           "p_shots_2plus": 0.6,
@@ -233,13 +394,36 @@
           "expected_minutes": 34.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              2,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Abner",
           "position": "DF",
-          "lambda_goals": 0.08822544356181411,
+          "lambda_goals": 0.08821691385498302,
           "anytime_pct": 2.8,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.4,
@@ -249,13 +433,36 @@
           "expected_minutes": 62.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Tyler Morton",
           "position": "MF",
-          "lambda_goals": 0.08541629762199215,
+          "lambda_goals": 0.08540803950564954,
           "anytime_pct": 2.7,
           "exp_shots": 0.62,
           "p_shots_2plus": 2.3,
@@ -265,13 +472,36 @@
           "expected_minutes": 73.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Saud Abdulhamid",
           "position": "DF",
-          "lambda_goals": 0.07424692073252624,
+          "lambda_goals": 0.07424694629342665,
           "anytime_pct": 2.2,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.1,
@@ -281,13 +511,36 @@
           "expected_minutes": 38.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Ruben Aguilar",
           "position": "DF",
-          "lambda_goals": 0.06937074928425892,
+          "lambda_goals": 0.06937077316644549,
           "anytime_pct": 2.0,
           "exp_shots": 0.36,
           "p_shots_2plus": 0.5,
@@ -297,13 +550,36 @@
           "expected_minutes": 50.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Tanner Tessmann",
           "position": "DF",
-          "lambda_goals": 0.05970592119681819,
+          "lambda_goals": 0.05970014878034366,
           "anytime_pct": 1.7,
           "exp_shots": 0.53,
           "p_shots_2plus": 1.3,
@@ -313,13 +589,36 @@
           "expected_minutes": 55.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Nicol\u00e1s Tagliafico",
           "position": "DF",
-          "lambda_goals": 0.0499003671709022,
+          "lambda_goals": 0.04989554276327615,
           "anytime_pct": 1.3,
           "exp_shots": 0.29,
           "p_shots_2plus": 0.3,
@@ -329,13 +628,36 @@
           "expected_minutes": 37.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Andrija Bulatovic",
           "position": "MF",
-          "lambda_goals": 0.03812902918735055,
+          "lambda_goals": 0.03812904231398675,
           "anytime_pct": 0.9,
           "exp_shots": 0.29,
           "p_shots_2plus": 0.3,
@@ -345,13 +667,36 @@
           "expected_minutes": 21.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              4,
+              1
+            ],
+            "sot": [
+              1,
+              3,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Ruben Kluivert",
           "position": "DF",
-          "lambda_goals": 0.02337796792023589,
+          "lambda_goals": 0.023375707719497693,
           "anytime_pct": 0.4,
           "exp_shots": 0.06,
           "p_shots_2plus": 0.0,
@@ -361,13 +706,27 @@
           "expected_minutes": 22.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Clinton Mata",
           "position": "DF",
-          "lambda_goals": 0.011352759188147607,
+          "lambda_goals": 0.011351661594259842,
           "anytime_pct": 0.2,
           "exp_shots": 0.19,
           "p_shots_2plus": 0.0,
@@ -377,13 +736,36 @@
           "expected_minutes": 81.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lens",
           "player": "Jonathan Gradit",
           "position": "DF",
-          "lambda_goals": 0.010753212628896863,
+          "lambda_goals": 0.010753216330892776,
           "anytime_pct": 0.1,
           "exp_shots": 0.1,
           "p_shots_2plus": 0.0,
@@ -393,13 +775,36 @@
           "expected_minutes": 25.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lyon",
           "player": "Moussa Niakhate",
           "position": "DF",
-          "lambda_goals": 0.009537004977295682,
+          "lambda_goals": 0.009536082931985181,
           "anytime_pct": 0.1,
           "exp_shots": 0.1,
           "p_shots_2plus": 0.0,
@@ -409,7 +814,30 @@
           "expected_minutes": 78.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [
@@ -440,7 +868,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 338.7842614519445,
+          "news_checked_hours_ago": 339.62344620222217,
           "unavailable": false,
           "team_attribution": "Lens"
         },
@@ -471,7 +899,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 338.7842614125,
+          "news_checked_hours_ago": 339.6234461527778,
           "unavailable": false,
           "team_attribution": "Lens"
         }
@@ -490,7 +918,7 @@
       "away": "Le Havre",
       "time_suspect": false,
       "prediction": {
-        "p_home": 0.622,
+        "p_home": 0.623,
         "p_draw": 0.233,
         "p_away": 0.144,
         "pick": "Lille",
@@ -523,7 +951,7 @@
           "home_attack_pct": 13.2,
           "home_defence_pct": 36.2,
           "away_attack_pct": -16.4,
-          "away_defence_pct": -6.0,
+          "away_defence_pct": -6.1,
           "home_advantage_pct": 22.2
         },
         "best_pick": false,
@@ -541,7 +969,7 @@
           "team": "Lille",
           "player": "H\u00e1kon Haraldsson",
           "position": "FW",
-          "lambda_goals": 0.48906487600225235,
+          "lambda_goals": 0.48909491682709677,
           "anytime_pct": 24.8,
           "exp_shots": 1.67,
           "p_shots_2plus": 25.8,
@@ -551,13 +979,36 @@
           "expected_minutes": 72.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              5,
+              1,
+              0
+            ],
+            "sot": [
+              0,
+              1,
+              3,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Olivier Giroud",
           "position": "FW",
-          "lambda_goals": 0.4825465007531895,
+          "lambda_goals": 0.4825687395207471,
           "anytime_pct": 23.9,
           "exp_shots": 1.43,
           "p_shots_2plus": 19.0,
@@ -567,13 +1018,36 @@
           "expected_minutes": 46.2,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              0
+            ],
+            "sot": [
+              2,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Le Havre",
           "player": "Mbwana Samatta",
           "position": "FW",
-          "lambda_goals": 0.24385439143610893,
+          "lambda_goals": 0.24385316591554498,
           "anytime_pct": 10.6,
           "exp_shots": 0.82,
           "p_shots_2plus": 5.2,
@@ -583,13 +1057,36 @@
           "expected_minutes": 44.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              2,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Le Havre",
           "player": "Rassoul Ndiaye",
           "position": "MF",
-          "lambda_goals": 0.16964905788256104,
+          "lambda_goals": 0.16964820529012725,
           "anytime_pct": 6.9,
           "exp_shots": 0.7,
           "p_shots_2plus": 2.6,
@@ -599,13 +1096,36 @@
           "expected_minutes": 78.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              2,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Romain Perraud",
           "position": "DF",
-          "lambda_goals": 0.12946028040241503,
+          "lambda_goals": 0.12946823250406597,
           "anytime_pct": 4.8,
           "exp_shots": 0.91,
           "p_shots_2plus": 6.5,
@@ -615,13 +1135,36 @@
           "expected_minutes": 64.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Benjamin Andr\u00e9",
           "position": "MF",
-          "lambda_goals": 0.11579527377648514,
+          "lambda_goals": 0.11580238650468956,
           "anytime_pct": 4.1,
           "exp_shots": 0.69,
           "p_shots_2plus": 3.3,
@@ -631,13 +1174,36 @@
           "expected_minutes": 67.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              2,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Le Havre",
           "player": "Simon Ebonog",
           "position": "MF",
-          "lambda_goals": 0.1062726244946967,
+          "lambda_goals": 0.10627209040840883,
           "anytime_pct": 3.7,
           "exp_shots": 0.55,
           "p_shots_2plus": 1.2,
@@ -647,13 +1213,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              2,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Alexsandro Ribeiro",
           "position": "DF",
-          "lambda_goals": 0.08363978333286279,
+          "lambda_goals": 0.08364492090909126,
           "anytime_pct": 2.7,
           "exp_shots": 0.68,
           "p_shots_2plus": 2.4,
@@ -663,13 +1252,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Le Havre",
           "player": "Timothee Pembele",
           "position": "DF",
-          "lambda_goals": 0.08331098176283044,
+          "lambda_goals": 0.08331056307313307,
           "anytime_pct": 2.6,
           "exp_shots": 0.38,
           "p_shots_2plus": 0.3,
@@ -679,13 +1291,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Ngal'ayel Mukau",
           "position": "MF",
-          "lambda_goals": 0.08127454764062386,
+          "lambda_goals": 0.08127953993217818,
           "anytime_pct": 2.5,
           "exp_shots": 0.59,
           "p_shots_2plus": 1.8,
@@ -701,7 +1336,7 @@
           "team": "Lille",
           "player": "Nathan Ngoy",
           "position": "DF",
-          "lambda_goals": 0.07878790347949056,
+          "lambda_goals": 0.07879274302885186,
           "anytime_pct": 2.4,
           "exp_shots": 0.66,
           "p_shots_2plus": 2.7,
@@ -711,13 +1346,36 @@
           "expected_minutes": 68.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Tiago Santos",
           "position": "DF",
-          "lambda_goals": 0.07233996243048278,
+          "lambda_goals": 0.07234440591486954,
           "anytime_pct": 2.2,
           "exp_shots": 0.98,
           "p_shots_2plus": 7.1,
@@ -727,13 +1385,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Nabil Bentaleb",
           "position": "MF",
-          "lambda_goals": 0.054645602878043195,
+          "lambda_goals": 0.05464895948585767,
           "anytime_pct": 1.5,
           "exp_shots": 0.5,
           "p_shots_2plus": 1.3,
@@ -743,13 +1424,36 @@
           "expected_minutes": 36.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Le Havre",
           "player": "Ayumu Seko",
           "position": "DF",
-          "lambda_goals": 0.03565584311423089,
+          "lambda_goals": 0.03565566392135802,
           "anytime_pct": 0.8,
           "exp_shots": 0.36,
           "p_shots_2plus": 0.3,
@@ -759,13 +1463,36 @@
           "expected_minutes": 87.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Lille",
           "player": "Calvin Verdonk",
           "position": "DF",
-          "lambda_goals": 0.01423733597008115,
+          "lambda_goals": 0.014238210498875008,
           "anytime_pct": 0.2,
           "exp_shots": 0.11,
           "p_shots_2plus": 0.0,
@@ -775,7 +1502,24 @@
           "expected_minutes": 23.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -821,7 +1565,7 @@
         ],
         "confidence": 3,
         "provisional": true,
-        "p_pick": 0.519,
+        "p_pick": 0.5191,
         "why": {
           "home_attack_pct": -1.1,
           "home_defence_pct": -5.3,
@@ -846,7 +1590,7 @@
           "team": "Brest",
           "player": "Ludovic Ajorque",
           "position": "FW",
-          "lambda_goals": 0.6899707273075691,
+          "lambda_goals": 0.6899813235333148,
           "anytime_pct": 35.3,
           "exp_shots": 2.19,
           "p_shots_2plus": 40.6,
@@ -856,13 +1600,36 @@
           "expected_minutes": 81.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              2,
+              6,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Kamory Doumbia",
           "position": "MF",
-          "lambda_goals": 0.31003585014462787,
+          "lambda_goals": 0.3100406115203317,
           "anytime_pct": 13.6,
           "exp_shots": 1.32,
           "p_shots_2plus": 16.2,
@@ -872,13 +1639,36 @@
           "expected_minutes": 52.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              3,
+              2,
+              2,
+              3
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Prosper Peter",
           "position": "FW",
-          "lambda_goals": 0.2787974460083465,
+          "lambda_goals": 0.2787865684395757,
           "anytime_pct": 12.6,
           "exp_shots": 0.72,
           "p_shots_2plus": 3.4,
@@ -888,13 +1678,36 @@
           "expected_minutes": 36.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              4,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              3,
+              0
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Amine Sba\u00ef",
           "position": "FW",
-          "lambda_goals": 0.2418406147738482,
+          "lambda_goals": 0.2418311791138146,
           "anytime_pct": 10.3,
           "exp_shots": 1.04,
           "p_shots_2plus": 9.8,
@@ -904,13 +1717,36 @@
           "expected_minutes": 53.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Mama Bald\u00e9",
           "position": "FW",
-          "lambda_goals": 0.1624408904095703,
+          "lambda_goals": 0.16244338509561562,
           "anytime_pct": 5.9,
           "exp_shots": 0.8,
           "p_shots_2plus": 5.9,
@@ -920,13 +1756,36 @@
           "expected_minutes": 20.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              5,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Path\u00e9 Mboup",
           "position": "MF",
-          "lambda_goals": 0.1076029722750432,
+          "lambda_goals": 0.10760462478773684,
           "anytime_pct": 3.7,
           "exp_shots": 0.64,
           "p_shots_2plus": 2.5,
@@ -936,13 +1795,36 @@
           "expected_minutes": 29.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Louis Mouton",
           "position": "MF",
-          "lambda_goals": 0.10203975244417167,
+          "lambda_goals": 0.10203577125840238,
           "anytime_pct": 3.5,
           "exp_shots": 0.86,
           "p_shots_2plus": 5.2,
@@ -952,13 +1834,36 @@
           "expected_minutes": 55.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              4,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Yassin Belkhdim",
           "position": "MF",
-          "lambda_goals": 0.09601564196553401,
+          "lambda_goals": 0.09601189581662375,
           "anytime_pct": 3.2,
           "exp_shots": 0.68,
           "p_shots_2plus": 3.1,
@@ -968,13 +1873,36 @@
           "expected_minutes": 62.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              3
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Hugo Magnetti",
           "position": "MF",
-          "lambda_goals": 0.09057783095012911,
+          "lambda_goals": 0.09057922199920743,
           "anytime_pct": 3.0,
           "exp_shots": 0.95,
           "p_shots_2plus": 6.7,
@@ -984,13 +1912,36 @@
           "expected_minutes": 77.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Gautier Lloris",
           "position": "DF",
-          "lambda_goals": 0.09227309985261818,
+          "lambda_goals": 0.09227451693678941,
           "anytime_pct": 3.0,
           "exp_shots": 0.41,
           "p_shots_2plus": 0.6,
@@ -1000,13 +1951,36 @@
           "expected_minutes": 68.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Branco van den Boomen",
           "position": "MF",
-          "lambda_goals": 0.09431515604824281,
+          "lambda_goals": 0.0943139027742417,
           "anytime_pct": 2.9,
           "exp_shots": 0.44,
           "p_shots_2plus": 1.5,
@@ -1016,13 +1990,36 @@
           "expected_minutes": 37.2,
           "penalty_taker": true,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Joris Chotard",
           "position": "MF",
-          "lambda_goals": 0.08792364845444532,
+          "lambda_goals": 0.08792499874191481,
           "anytime_pct": 2.8,
           "exp_shots": 0.83,
           "p_shots_2plus": 4.7,
@@ -1032,13 +2029,36 @@
           "expected_minutes": 79.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Ousmane Camara",
           "position": "DF",
-          "lambda_goals": 0.044930845663334516,
+          "lambda_goals": 0.04492909264023251,
           "anytime_pct": 1.1,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.3,
@@ -1048,13 +2068,36 @@
           "expected_minutes": 78.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Lucas Tousart",
           "position": "DF",
-          "lambda_goals": 0.04234727787040249,
+          "lambda_goals": 0.04234792821874085,
           "anytime_pct": 1.0,
           "exp_shots": 0.22,
           "p_shots_2plus": 0.1,
@@ -1064,13 +2107,36 @@
           "expected_minutes": 23.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Haris Belkebla",
           "position": "MF",
-          "lambda_goals": 0.02529028606101185,
+          "lambda_goals": 0.02528929933451991,
           "anytime_pct": 0.5,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.1,
@@ -1080,13 +2146,36 @@
           "expected_minutes": 82.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Jordan Lefort",
           "position": "DF",
-          "lambda_goals": 0.01998238630425395,
+          "lambda_goals": 0.019981606670923944,
           "anytime_pct": 0.4,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.1,
@@ -1096,13 +2185,36 @@
           "expected_minutes": 87.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brest",
           "player": "Bradley Locko",
           "position": "DF",
-          "lambda_goals": 0.013236628004172194,
+          "lambda_goals": 0.013236831285692542,
           "anytime_pct": 0.2,
           "exp_shots": 0.16,
           "p_shots_2plus": 0.0,
@@ -1112,13 +2224,36 @@
           "expected_minutes": 37.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Angers",
           "player": "Carlens Arcus",
           "position": "DF",
-          "lambda_goals": 0.011734384165967868,
+          "lambda_goals": 0.011733926336914642,
           "anytime_pct": 0.2,
           "exp_shots": 0.18,
           "p_shots_2plus": 0.0,
@@ -1128,7 +2263,30 @@
           "expected_minutes": 59.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [
@@ -1159,7 +2317,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 292.6365904377778,
+          "news_checked_hours_ago": 293.47577712,
           "unavailable": false,
           "team_attribution": "Brest"
         }
@@ -1229,7 +2387,7 @@
           "team": "Paris FC",
           "player": "Lassine Sinayoko",
           "position": "FW",
-          "lambda_goals": 0.3543869317095052,
+          "lambda_goals": 0.35438839096896974,
           "anytime_pct": 17.2,
           "exp_shots": 1.9,
           "p_shots_2plus": 32.4,
@@ -1239,13 +2397,36 @@
           "expected_minutes": 80.5,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              2,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              3,
+              3,
+              2,
+              5
+            ],
+            "sot": [
+              1,
+              3,
+              1,
+              2,
+              2
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Aiyegun Tosin",
           "position": "FW",
-          "lambda_goals": 0.33082392453825027,
+          "lambda_goals": 0.33082408788905215,
           "anytime_pct": 15.2,
           "exp_shots": 0.83,
           "p_shots_2plus": 5.4,
@@ -1255,13 +2436,36 @@
           "expected_minutes": 30.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Jean-Victor Makengo",
           "position": "FW",
-          "lambda_goals": 0.3026819343658731,
+          "lambda_goals": 0.3026820838210153,
           "anytime_pct": 14.2,
           "exp_shots": 1.15,
           "p_shots_2plus": 11.3,
@@ -1271,13 +2475,36 @@
           "expected_minutes": 52.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              3,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Mohamed Bamba",
           "position": "FW",
-          "lambda_goals": 0.2805896092409499,
+          "lambda_goals": 0.28058971132054555,
           "anytime_pct": 11.2,
           "exp_shots": 0.56,
           "p_shots_2plus": 2.5,
@@ -1287,13 +2514,36 @@
           "expected_minutes": 19.5,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Pablo Pagis",
           "position": "FW",
-          "lambda_goals": 0.1991083310610775,
+          "lambda_goals": 0.19910961603776461,
           "anytime_pct": 8.3,
           "exp_shots": 1.26,
           "p_shots_2plus": 14.6,
@@ -1303,13 +2553,36 @@
           "expected_minutes": 51.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              3,
+              5,
+              3,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Noah Cadiou",
           "position": "MF",
-          "lambda_goals": 0.1795405602721368,
+          "lambda_goals": 0.1795406489238101,
           "anytime_pct": 7.2,
           "exp_shots": 0.59,
           "p_shots_2plus": 2.0,
@@ -1319,13 +2592,36 @@
           "expected_minutes": 53.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Ilan Kebbal",
           "position": "FW",
-          "lambda_goals": 0.15184294023717593,
+          "lambda_goals": 0.15184392017928716,
           "anytime_pct": 5.9,
           "exp_shots": 1.14,
           "p_shots_2plus": 11.6,
@@ -1335,13 +2631,36 @@
           "expected_minutes": 64.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Arthur Avom",
           "position": "MF",
-          "lambda_goals": 0.12675211031352973,
+          "lambda_goals": 0.12675217289987042,
           "anytime_pct": 4.6,
           "exp_shots": 0.65,
           "p_shots_2plus": 2.4,
@@ -1351,13 +2670,36 @@
           "expected_minutes": 60.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              2,
+              1
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Th\u00e9o Le Bris",
           "position": "DF",
-          "lambda_goals": 0.10978071786692546,
+          "lambda_goals": 0.10978077207330826,
           "anytime_pct": 3.8,
           "exp_shots": 0.46,
           "p_shots_2plus": 0.9,
@@ -1367,13 +2709,36 @@
           "expected_minutes": 55.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Moses Simon",
           "position": "FW",
-          "lambda_goals": 0.10600049761186459,
+          "lambda_goals": 0.10600118170261823,
           "anytime_pct": 3.6,
           "exp_shots": 0.83,
           "p_shots_2plus": 5.1,
@@ -1383,13 +2748,36 @@
           "expected_minutes": 59.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              4,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Jonathan Ikone",
           "position": "FW",
-          "lambda_goals": 0.10188113270585679,
+          "lambda_goals": 0.10188179021164616,
           "anytime_pct": 3.4,
           "exp_shots": 0.61,
           "p_shots_2plus": 2.6,
@@ -1399,13 +2787,36 @@
           "expected_minutes": 32.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              2,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              4,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              2,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Jean-Phillipe Krasso",
           "position": "FW",
-          "lambda_goals": 0.0889851664005593,
+          "lambda_goals": 0.08898574068021757,
           "anytime_pct": 2.8,
           "exp_shots": 0.64,
           "p_shots_2plus": 2.9,
@@ -1415,13 +2826,36 @@
           "expected_minutes": 31.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Panos Katseris",
           "position": "DF",
-          "lambda_goals": 0.05585787629061425,
+          "lambda_goals": 0.055857903871536316,
           "anytime_pct": 1.5,
           "exp_shots": 0.22,
           "p_shots_2plus": 0.2,
@@ -1431,13 +2865,36 @@
           "expected_minutes": 21.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Pierre Lees-Melou",
           "position": "MF",
-          "lambda_goals": 0.054851725383071544,
+          "lambda_goals": 0.054852079377241396,
           "anytime_pct": 1.5,
           "exp_shots": 0.71,
           "p_shots_2plus": 3.9,
@@ -1447,13 +2904,36 @@
           "expected_minutes": 57.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Montassar Talbi",
           "position": "DF",
-          "lambda_goals": 0.03915698170655358,
+          "lambda_goals": 0.03915700104108136,
           "anytime_pct": 0.9,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.3,
@@ -1463,13 +2943,36 @@
           "expected_minutes": 75.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              2,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Rudy Matondo",
           "position": "DF",
-          "lambda_goals": 0.03933131530739435,
+          "lambda_goals": 0.03933156913817568,
           "anytime_pct": 0.9,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.1,
@@ -1479,13 +2982,36 @@
           "expected_minutes": 38.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              4
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              3
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Vincent Marchetti",
           "position": "MF",
-          "lambda_goals": 0.02787746510191427,
+          "lambda_goals": 0.027877645013485827,
           "anytime_pct": 0.6,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.4,
@@ -1495,13 +3021,36 @@
           "expected_minutes": 23.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Samir Chergui",
           "position": "DF",
-          "lambda_goals": 0.028471756426743988,
+          "lambda_goals": 0.028471940173667352,
           "anytime_pct": 0.6,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.2,
@@ -1511,13 +3060,36 @@
           "expected_minutes": 34.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Maxime Lopez",
           "position": "MF",
-          "lambda_goals": 0.02466864547619244,
+          "lambda_goals": 0.024668804679145777,
           "anytime_pct": 0.5,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.4,
@@ -1527,13 +3099,36 @@
           "expected_minutes": 56.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Ot\u00e1vio",
           "position": "DF",
-          "lambda_goals": 0.02198302441897012,
+          "lambda_goals": 0.02198316628984885,
           "anytime_pct": 0.4,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.2,
@@ -1543,13 +3138,36 @@
           "expected_minutes": 55.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Lorient",
           "player": "Nathaniel Adjei",
           "position": "DF",
-          "lambda_goals": 0.01920007912478988,
+          "lambda_goals": 0.01920008860520556,
           "anytime_pct": 0.3,
           "exp_shots": 0.11,
           "p_shots_2plus": 0.0,
@@ -1559,13 +3177,36 @@
           "expected_minutes": 24.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Mamadou Mbow",
           "position": "DF",
-          "lambda_goals": 0.012838036514216708,
+          "lambda_goals": 0.01283811936648884,
           "anytime_pct": 0.2,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.1,
@@ -1575,13 +3216,36 @@
           "expected_minutes": 77.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Hamari Traore",
           "position": "DF",
-          "lambda_goals": 0.014390139646232886,
+          "lambda_goals": 0.014390232515244801,
           "anytime_pct": 0.2,
           "exp_shots": 0.19,
           "p_shots_2plus": 0.1,
@@ -1591,13 +3255,36 @@
           "expected_minutes": 34.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Nhoa Sangui",
           "position": "DF",
-          "lambda_goals": 0.009136398569844904,
+          "lambda_goals": 0.00913645753301889,
           "anytime_pct": 0.1,
           "exp_shots": 0.11,
           "p_shots_2plus": 0.0,
@@ -1607,13 +3294,36 @@
           "expected_minutes": 49.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Diego Coppola",
           "position": "DF",
-          "lambda_goals": 0.009384036391963732,
+          "lambda_goals": 0.00938409695330705,
           "anytime_pct": 0.1,
           "exp_shots": 0.12,
           "p_shots_2plus": 0.0,
@@ -1623,13 +3333,36 @@
           "expected_minutes": 35.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris FC",
           "player": "Thibault De Smet",
           "position": "DF",
-          "lambda_goals": 0.004740340355956222,
+          "lambda_goals": 0.004740370948482481,
           "anytime_pct": 0.0,
           "exp_shots": 0.07,
           "p_shots_2plus": 0.0,
@@ -1639,7 +3372,30 @@
           "expected_minutes": 33.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -1687,7 +3443,7 @@
         "provisional": true,
         "p_pick": 0.5059,
         "why": {
-          "home_attack_pct": 29.6,
+          "home_attack_pct": 29.7,
           "home_defence_pct": 11.8,
           "away_attack_pct": 2.4,
           "away_defence_pct": 13.9,
@@ -1708,7 +3464,7 @@
           "team": "Monaco",
           "player": "Folarin Balogun",
           "position": "FW",
-          "lambda_goals": 0.37380986204957717,
+          "lambda_goals": 0.37382829709952875,
           "anytime_pct": 18.0,
           "exp_shots": 2.35,
           "p_shots_2plus": 43.4,
@@ -1718,13 +3474,36 @@
           "expected_minutes": 65.5,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              5,
+              4,
+              2,
+              1,
+              5
+            ],
+            "sot": [
+              1,
+              3,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Santiago Hidalgo",
           "position": "FW",
-          "lambda_goals": 0.3509423774926377,
+          "lambda_goals": 0.35093278472355743,
           "anytime_pct": 16.4,
           "exp_shots": 0.81,
           "p_shots_2plus": 5.0,
@@ -1734,13 +3513,36 @@
           "expected_minutes": 37.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              2,
+              3
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Paris Brunner",
           "position": "FW",
-          "lambda_goals": 0.24580428111481922,
+          "lambda_goals": 0.24582216987574262,
           "anytime_pct": 11.2,
           "exp_shots": 1.98,
           "p_shots_2plus": 35.4,
@@ -1750,13 +3552,30 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Aron D\u00f8nnum",
           "position": "DF",
-          "lambda_goals": 0.23688418183570042,
+          "lambda_goals": 0.23688078803077856,
           "anytime_pct": 10.3,
           "exp_shots": 0.75,
           "p_shots_2plus": 3.9,
@@ -1766,13 +3585,36 @@
           "expected_minutes": 70.1,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Matthis Abline",
           "position": "FW",
-          "lambda_goals": 0.16967790106329708,
+          "lambda_goals": 0.16969024961716417,
           "anytime_pct": 6.9,
           "exp_shots": 2.19,
           "p_shots_2plus": 40.7,
@@ -1782,13 +3624,36 @@
           "expected_minutes": 71.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              5,
+              2,
+              3,
+              6
+            ],
+            "sot": [
+              0,
+              2,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Aleksandr Golovin",
           "position": "FW",
-          "lambda_goals": 0.15276470217061483,
+          "lambda_goals": 0.1527758198420495,
           "anytime_pct": 6.0,
           "exp_shots": 1.43,
           "p_shots_2plus": 18.2,
@@ -1798,13 +3663,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              3,
+              3,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              3,
+              3,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Anssumane Fati",
           "position": "FW",
-          "lambda_goals": 0.15088400497568552,
+          "lambda_goals": 0.1508949857766705,
           "anytime_pct": 5.7,
           "exp_shots": 1.06,
           "p_shots_2plus": 10.3,
@@ -1814,13 +3702,36 @@
           "expected_minutes": 30.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            "shots": [
+              5,
+              3,
+              1,
+              1,
+              4
+            ],
+            "sot": [
+              2,
+              1,
+              0,
+              1,
+              3
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Jacen Russell-Rowe",
           "position": "FW",
-          "lambda_goals": 0.1439645793620252,
+          "lambda_goals": 0.1439606441890335,
           "anytime_pct": 4.8,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.6,
@@ -1830,13 +3741,36 @@
           "expected_minutes": 13.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              3,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Stanis Idumbo Muzambo",
           "position": "MF",
-          "lambda_goals": 0.11422958991541653,
+          "lambda_goals": 0.11423790313850242,
           "anytime_pct": 4.1,
           "exp_shots": 1.07,
           "p_shots_2plus": 8.9,
@@ -1846,13 +3780,30 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Cristian C\u00e1sseres Jr.",
           "position": "MF",
-          "lambda_goals": 0.10740145887647137,
+          "lambda_goals": 0.10739852313128939,
           "anytime_pct": 3.7,
           "exp_shots": 0.51,
           "p_shots_2plus": 1.2,
@@ -1862,13 +3813,36 @@
           "expected_minutes": 71.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Mamadou Coulibaly",
           "position": "MF",
-          "lambda_goals": 0.08241434464526702,
+          "lambda_goals": 0.08242034246801173,
           "anytime_pct": 2.6,
           "exp_shots": 0.69,
           "p_shots_2plus": 2.5,
@@ -1878,13 +3852,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Denis Zakaria",
           "position": "DF",
-          "lambda_goals": 0.08060933714423818,
+          "lambda_goals": 0.0806152036049598,
           "anytime_pct": 2.5,
           "exp_shots": 0.87,
           "p_shots_2plus": 5.0,
@@ -1894,13 +3891,36 @@
           "expected_minutes": 85.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Takumi Minamino",
           "position": "FW",
-          "lambda_goals": 0.07957263684073251,
+          "lambda_goals": 0.07957842785409498,
           "anytime_pct": 2.3,
           "exp_shots": 0.73,
           "p_shots_2plus": 5.0,
@@ -1910,13 +3930,36 @@
           "expected_minutes": 28.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              2,
+              3
+            ],
+            "sot": [
+              0,
+              0,
+              2,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Rasmus Nicolaisen",
           "position": "DF",
-          "lambda_goals": 0.07515015920262273,
+          "lambda_goals": 0.07514810502458723,
           "anytime_pct": 2.3,
           "exp_shots": 0.35,
           "p_shots_2plus": 0.3,
@@ -1926,13 +3969,36 @@
           "expected_minutes": 74.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Alexis Vossah",
           "position": "MF",
-          "lambda_goals": 0.06898364920408809,
+          "lambda_goals": 0.06898176358337209,
           "anytime_pct": 2.0,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.1,
@@ -1942,13 +4008,36 @@
           "expected_minutes": 31.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Lamine Camara",
           "position": "MF",
-          "lambda_goals": 0.057644428502070924,
+          "lambda_goals": 0.05764862365845861,
           "anytime_pct": 1.6,
           "exp_shots": 0.95,
           "p_shots_2plus": 6.4,
@@ -1958,13 +4047,36 @@
           "expected_minutes": 77.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              2
+            ],
+            "shots": [
+              1,
+              3,
+              2,
+              2,
+              4
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Toulouse",
           "player": "Mark McKenzie",
           "position": "DF",
-          "lambda_goals": 0.05042055670147401,
+          "lambda_goals": 0.050419178490153996,
           "anytime_pct": 1.3,
           "exp_shots": 0.17,
           "p_shots_2plus": 0.0,
@@ -1974,13 +4086,36 @@
           "expected_minutes": 69.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Eric Dier",
           "position": "DF",
-          "lambda_goals": 0.04593185070466335,
+          "lambda_goals": 0.045935193461316325,
           "anytime_pct": 1.2,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.2,
@@ -1990,13 +4125,30 @@
           "expected_minutes": 77.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Vanderson",
           "position": "DF",
-          "lambda_goals": 0.04355600791250048,
+          "lambda_goals": 0.0435591777637691,
           "anytime_pct": 1.1,
           "exp_shots": 0.71,
           "p_shots_2plus": 2.7,
@@ -2006,13 +4158,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Sadibou San\u00e9",
           "position": "DF",
-          "lambda_goals": 0.03657060389658065,
+          "lambda_goals": 0.03657326537500146,
           "anytime_pct": 0.8,
           "exp_shots": 0.31,
           "p_shots_2plus": 0.2,
@@ -2022,13 +4197,36 @@
           "expected_minutes": 84.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Jordan Teze",
           "position": "DF",
-          "lambda_goals": 0.03233362563776442,
+          "lambda_goals": 0.03233597876398418,
           "anytime_pct": 0.7,
           "exp_shots": 0.4,
           "p_shots_2plus": 0.5,
@@ -2038,13 +4236,36 @@
           "expected_minutes": 72.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Mohammed Salisu",
           "position": "DF",
-          "lambda_goals": 0.01711826577567431,
+          "lambda_goals": 0.01711951158214479,
           "anytime_pct": 0.3,
           "exp_shots": 0.2,
           "p_shots_2plus": 0.2,
@@ -2054,13 +4275,36 @@
           "expected_minutes": 32.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Monaco",
           "player": "Christian Mawissa Elebi",
           "position": "DF",
-          "lambda_goals": 0.009702642655141048,
+          "lambda_goals": 0.009703348778948151,
           "anytime_pct": 0.1,
           "exp_shots": 0.08,
           "p_shots_2plus": 0.0,
@@ -2070,7 +4314,30 @@
           "expected_minutes": 34.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -2116,7 +4383,7 @@
         ],
         "confidence": 5,
         "provisional": true,
-        "p_pick": 0.7226,
+        "p_pick": 0.7227,
         "why": {
           "home_attack_pct": 60.0,
           "home_defence_pct": 43.8,
@@ -2141,7 +4408,7 @@
           "team": "Paris SG",
           "player": "Ousmane Demb\u00e9l\u00e9",
           "position": "FW",
-          "lambda_goals": 0.4513322931810046,
+          "lambda_goals": 0.4513488874677447,
           "anytime_pct": 19.8,
           "exp_shots": 1.39,
           "p_shots_2plus": 17.4,
@@ -2151,13 +4418,36 @@
           "expected_minutes": 30.5,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              2,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              3,
+              3,
+              4,
+              2
+            ],
+            "sot": [
+              1,
+              2,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Maghnes Akliouche",
           "position": "FW",
-          "lambda_goals": 0.35256233707726653,
+          "lambda_goals": 0.35257850187647216,
           "anytime_pct": 17.0,
           "exp_shots": 1.73,
           "p_shots_2plus": 27.5,
@@ -2167,13 +4457,36 @@
           "expected_minutes": 69.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Khvicha Kvaratskhelia",
           "position": "FW",
-          "lambda_goals": 0.35055288117715155,
+          "lambda_goals": 0.35056895384385256,
           "anytime_pct": 16.4,
           "exp_shots": 1.8,
           "p_shots_2plus": 28.6,
@@ -2183,13 +4496,36 @@
           "expected_minutes": 42.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              2,
+              0,
+              1
+            ],
+            "shots": [
+              6,
+              4,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              2,
+              3,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Jo\u00e3o Neves",
           "position": "DF",
-          "lambda_goals": 0.2583213645498605,
+          "lambda_goals": 0.25833320844964597,
           "anytime_pct": 11.9,
           "exp_shots": 1.17,
           "p_shots_2plus": 11.2,
@@ -2199,13 +4535,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "D\u00e9sir\u00e9 Dou\u00e9",
           "position": "FW",
-          "lambda_goals": 0.27141705262880383,
+          "lambda_goals": 0.271429496959055,
           "anytime_pct": 11.6,
           "exp_shots": 1.36,
           "p_shots_2plus": 17.0,
@@ -2215,13 +4574,36 @@
           "expected_minutes": 39.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              4,
+              4,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Vitinha",
           "position": "FW",
-          "lambda_goals": 0.24436826575667578,
+          "lambda_goals": 0.2443794699141616,
           "anytime_pct": 11.1,
           "exp_shots": 1.59,
           "p_shots_2plus": 23.0,
@@ -2231,13 +4613,36 @@
           "expected_minutes": 73.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Senny Mayulu",
           "position": "DF",
-          "lambda_goals": 0.1778227404359986,
+          "lambda_goals": 0.17783089351586856,
           "anytime_pct": 7.1,
           "exp_shots": 1.0,
           "p_shots_2plus": 8.7,
@@ -2247,13 +4652,36 @@
           "expected_minutes": 49.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              4,
+              4
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Nuno Mendes",
           "position": "DF",
-          "lambda_goals": 0.1621342789530188,
+          "lambda_goals": 0.16214171272511524,
           "anytime_pct": 6.5,
           "exp_shots": 1.02,
           "p_shots_2plus": 7.7,
@@ -2263,13 +4691,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              2,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Warren Za\u00efre-Emery",
           "position": "DF",
-          "lambda_goals": 0.11682983487547866,
+          "lambda_goals": 0.11683519146245173,
           "anytime_pct": 4.2,
           "exp_shots": 0.58,
           "p_shots_2plus": 1.7,
@@ -2279,13 +4730,36 @@
           "expected_minutes": 70.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Marquinhos",
           "position": "DF",
-          "lambda_goals": 0.0857173585993774,
+          "lambda_goals": 0.08572128869554616,
           "anytime_pct": 2.8,
           "exp_shots": 0.42,
           "p_shots_2plus": 0.5,
@@ -2295,13 +4769,36 @@
           "expected_minutes": 74.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Fabi\u00e1n",
           "position": "MF",
-          "lambda_goals": 0.08812647290892027,
+          "lambda_goals": 0.08813051346172315,
           "anytime_pct": 2.7,
           "exp_shots": 0.62,
           "p_shots_2plus": 3.0,
@@ -2311,13 +4808,36 @@
           "expected_minutes": 33.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Illia Zabarnyi",
           "position": "DF",
-          "lambda_goals": 0.04723779734877877,
+          "lambda_goals": 0.04723996317714089,
           "anytime_pct": 1.2,
           "exp_shots": 0.18,
           "p_shots_2plus": 0.0,
@@ -2327,13 +4847,33 @@
           "expected_minutes": 68.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "Lucas Hern\u00e1ndez",
           "position": "DF",
-          "lambda_goals": 0.02375500992008521,
+          "lambda_goals": 0.02375609907489587,
           "anytime_pct": 0.5,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.2,
@@ -2343,13 +4883,36 @@
           "expected_minutes": 50.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Paris SG",
           "player": "William Pacho",
           "position": "DF",
-          "lambda_goals": 0.016063453541593442,
+          "lambda_goals": 0.016064190042557217,
           "anytime_pct": 0.3,
           "exp_shots": 0.23,
           "p_shots_2plus": 0.1,
@@ -2359,7 +4922,30 @@
           "expected_minutes": 55.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -2405,7 +4991,7 @@
         ],
         "confidence": 1,
         "provisional": true,
-        "p_pick": 0.3727,
+        "p_pick": 0.3728,
         "why": {
           "home_attack_pct": 2.1,
           "home_defence_pct": -0.4,
@@ -2428,7 +5014,7 @@
           "team": "Nice",
           "player": "Sofiane Diop",
           "position": "FW",
-          "lambda_goals": 0.6671904105318257,
+          "lambda_goals": 0.6671953433105099,
           "anytime_pct": 34.7,
           "exp_shots": 1.72,
           "p_shots_2plus": 27.1,
@@ -2438,13 +5024,36 @@
           "expected_minutes": 62.7,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              4,
+              0,
+              0
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Martial Godo",
           "position": "MF",
-          "lambda_goals": 0.5583543570746669,
+          "lambda_goals": 0.5583355754248842,
           "anytime_pct": 27.1,
           "exp_shots": 0.97,
           "p_shots_2plus": 7.9,
@@ -2454,13 +5063,36 @@
           "expected_minutes": 46.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              2
+            ],
+            "shots": [
+              1,
+              5,
+              2,
+              2,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Sebastian Nanasi",
           "position": "FW",
-          "lambda_goals": 0.35356936122335836,
+          "lambda_goals": 0.35355746803074295,
           "anytime_pct": 14.6,
           "exp_shots": 0.56,
           "p_shots_2plus": 2.4,
@@ -2470,13 +5102,36 @@
           "expected_minutes": 30.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              1,
+              2
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Nice",
           "player": "Ali Abdi",
           "position": "DF",
-          "lambda_goals": 0.19351585935779417,
+          "lambda_goals": 0.19351764350237385,
           "anytime_pct": 7.6,
           "exp_shots": 0.53,
           "p_shots_2plus": 1.8,
@@ -2486,13 +5141,36 @@
           "expected_minutes": 33.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              4,
+              2,
+              5
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Nice",
           "player": "Jonathan Clauss",
           "position": "DF",
-          "lambda_goals": 0.16181389841241306,
+          "lambda_goals": 0.16181539027664954,
           "anytime_pct": 6.4,
           "exp_shots": 0.93,
           "p_shots_2plus": 6.7,
@@ -2502,13 +5180,36 @@
           "expected_minutes": 72.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Samuel Amo-Ameyaw",
           "position": "DF",
-          "lambda_goals": 0.13182570558196133,
+          "lambda_goals": 0.13182127129358656,
           "anytime_pct": 4.8,
           "exp_shots": 0.4,
           "p_shots_2plus": 0.7,
@@ -2518,13 +5219,36 @@
           "expected_minutes": 29.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              2,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Nice",
           "player": "Hichem Boudaoui",
           "position": "MF",
-          "lambda_goals": 0.131190661281416,
+          "lambda_goals": 0.1311918708107435,
           "anytime_pct": 4.7,
           "exp_shots": 0.75,
           "p_shots_2plus": 4.4,
@@ -2534,13 +5258,36 @@
           "expected_minutes": 49.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              4,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              2,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Pape Diop",
           "position": "MF",
-          "lambda_goals": 0.10158595853056282,
+          "lambda_goals": 0.1015825414319555,
           "anytime_pct": 3.2,
           "exp_shots": 0.68,
           "p_shots_2plus": 4.3,
@@ -2550,13 +5297,36 @@
           "expected_minutes": 35.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Samir El Mourabet",
           "position": "MF",
-          "lambda_goals": 0.09050960265334812,
+          "lambda_goals": 0.09050655813576272,
           "anytime_pct": 3.0,
           "exp_shots": 0.42,
           "p_shots_2plus": 0.5,
@@ -2566,13 +5336,36 @@
           "expected_minutes": 61.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nice",
           "player": "Antoine Mendy",
           "position": "DF",
-          "lambda_goals": 0.08786454639047032,
+          "lambda_goals": 0.08786535646905876,
           "anytime_pct": 2.8,
           "exp_shots": 0.55,
           "p_shots_2plus": 1.9,
@@ -2582,13 +5375,36 @@
           "expected_minutes": 60.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Isma\u00ebl Doukour\u00e9",
           "position": "DF",
-          "lambda_goals": 0.03916159134728215,
+          "lambda_goals": 0.03916027404889575,
           "anytime_pct": 0.9,
           "exp_shots": 0.2,
           "p_shots_2plus": 0.1,
@@ -2598,13 +5414,36 @@
           "expected_minutes": 60.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Strasbourg",
           "player": "Lucas H\u00f8gsberg",
           "position": "DF",
-          "lambda_goals": 0.027345657477621826,
+          "lambda_goals": 0.02734473763781882,
           "anytime_pct": 0.6,
           "exp_shots": 0.15,
           "p_shots_2plus": 0.0,
@@ -2614,13 +5453,33 @@
           "expected_minutes": 52.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nice",
           "player": "Salis Abdul Samed",
           "position": "MF",
-          "lambda_goals": 0.02602791967081062,
+          "lambda_goals": 0.026028159638593906,
           "anytime_pct": 0.5,
           "exp_shots": 0.15,
           "p_shots_2plus": 0.0,
@@ -2630,7 +5489,30 @@
           "expected_minutes": 27.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [
@@ -2661,7 +5543,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 295.6442197322222,
+          "news_checked_hours_ago": 296.4834105777778,
           "unavailable": false,
           "team_attribution": "Nice"
         }
@@ -2734,7 +5616,7 @@
           "team": "Rennes",
           "player": "Esteban Lepaul",
           "position": "FW",
-          "lambda_goals": 0.558923791599019,
+          "lambda_goals": 0.5589255049719499,
           "anytime_pct": 29.3,
           "exp_shots": 2.56,
           "p_shots_2plus": 52.5,
@@ -2744,13 +5626,36 @@
           "expected_minutes": 79.0,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              4,
+              3,
+              3,
+              5,
+              2
+            ],
+            "sot": [
+              1,
+              2,
+              3,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "Danny Namaso",
           "position": "FW",
-          "lambda_goals": 0.36220518019776177,
+          "lambda_goals": 0.3622079650081138,
           "anytime_pct": 17.4,
           "exp_shots": 1.58,
           "p_shots_2plus": 23.0,
@@ -2760,13 +5665,36 @@
           "expected_minutes": 73.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "Remy Labeau Lascary",
           "position": "FW",
-          "lambda_goals": 0.29240686212048816,
+          "lambda_goals": 0.2924091102872764,
           "anytime_pct": 13.2,
           "exp_shots": 0.81,
           "p_shots_2plus": 5.1,
@@ -2776,13 +5704,36 @@
           "expected_minutes": 33.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              3,
+              1,
+              1,
+              4
+            ],
+            "sot": [
+              2,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Issa Soumar\u00e9",
           "position": "FW",
-          "lambda_goals": 0.2565261829512158,
+          "lambda_goals": 0.25652722232133046,
           "anytime_pct": 11.8,
           "exp_shots": 2.36,
           "p_shots_2plus": 46.8,
@@ -2792,13 +5743,36 @@
           "expected_minutes": 84.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "shots": [
+              4,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              2,
+              0,
+              1,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Mousa Al Tamari",
           "position": "FW",
-          "lambda_goals": 0.1726727970016806,
+          "lambda_goals": 0.17267349662205755,
           "anytime_pct": 7.0,
           "exp_shots": 1.9,
           "p_shots_2plus": 32.5,
@@ -2808,13 +5782,36 @@
           "expected_minutes": 64.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              5,
+              2,
+              1,
+              2,
+              5
+            ],
+            "sot": [
+              4,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Adrien Thomasson",
           "position": "MF",
-          "lambda_goals": 0.1387094650459303,
+          "lambda_goals": 0.13871002705668073,
           "anytime_pct": 5.3,
           "exp_shots": 1.42,
           "p_shots_2plus": 18.4,
@@ -2824,13 +5821,36 @@
           "expected_minutes": 77.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              7,
+              3,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              4,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "K\u00e9vin Danois",
           "position": "MF",
-          "lambda_goals": 0.12892132044808363,
+          "lambda_goals": 0.12892231165816956,
           "anytime_pct": 4.8,
           "exp_shots": 0.67,
           "p_shots_2plus": 2.5,
@@ -2840,13 +5860,36 @@
           "expected_minutes": 81.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Mahdi Camara",
           "position": "MF",
-          "lambda_goals": 0.10996636178152126,
+          "lambda_goals": 0.10996680733350639,
           "anytime_pct": 3.8,
           "exp_shots": 1.17,
           "p_shots_2plus": 11.8,
@@ -2856,13 +5899,36 @@
           "expected_minutes": 76.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Ludovic Blas",
           "position": "FW",
-          "lambda_goals": 0.10539037145664289,
+          "lambda_goals": 0.10539079846803487,
           "anytime_pct": 3.6,
           "exp_shots": 1.41,
           "p_shots_2plus": 18.1,
@@ -2872,13 +5938,36 @@
           "expected_minutes": 43.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              3,
+              1,
+              2,
+              3
+            ],
+            "sot": [
+              2,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "Sinaly Diomande",
           "position": "DF",
-          "lambda_goals": 0.10313540477013773,
+          "lambda_goals": 0.10313619772550825,
           "anytime_pct": 3.4,
           "exp_shots": 0.25,
           "p_shots_2plus": 0.2,
@@ -2888,13 +5977,36 @@
           "expected_minutes": 61.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Charlie Cresswell",
           "position": "DF",
-          "lambda_goals": 0.09012128195141214,
+          "lambda_goals": 0.09012164709685686,
           "anytime_pct": 2.9,
           "exp_shots": 1.01,
           "p_shots_2plus": 8.6,
@@ -2904,13 +6016,36 @@
           "expected_minutes": 72.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              4,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              2,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Valentin Rongier",
           "position": "DF",
-          "lambda_goals": 0.050240736340925046,
+          "lambda_goals": 0.050240939901899956,
           "anytime_pct": 1.3,
           "exp_shots": 0.72,
           "p_shots_2plus": 3.3,
@@ -2920,13 +6055,36 @@
           "expected_minutes": 78.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              2,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Abdelhamid A\u00eft Boudlal",
           "position": "DF",
-          "lambda_goals": 0.043970656275082,
+          "lambda_goals": 0.04397083443150069,
           "anytime_pct": 1.1,
           "exp_shots": 0.35,
           "p_shots_2plus": 0.5,
@@ -2936,13 +6094,36 @@
           "expected_minutes": 40.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Quentin Merlin",
           "position": "DF",
-          "lambda_goals": 0.039915499606358124,
+          "lambda_goals": 0.03991566133245144,
           "anytime_pct": 0.9,
           "exp_shots": 0.8,
           "p_shots_2plus": 4.2,
@@ -2952,13 +6133,36 @@
           "expected_minutes": 72.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Anthony Rouault",
           "position": "DF",
-          "lambda_goals": 0.03488936672223795,
+          "lambda_goals": 0.03488950808389028,
           "anytime_pct": 0.8,
           "exp_shots": 0.31,
           "p_shots_2plus": 0.4,
@@ -2968,13 +6172,36 @@
           "expected_minutes": 50.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Przemyslaw Frankowski",
           "position": "DF",
-          "lambda_goals": 0.03255420279788448,
+          "lambda_goals": 0.032554334698126026,
           "anytime_pct": 0.7,
           "exp_shots": 0.41,
           "p_shots_2plus": 1.0,
@@ -2984,13 +6211,36 @@
           "expected_minutes": 36.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "Naouirou Ahamada",
           "position": "MF",
-          "lambda_goals": 0.028940649247412614,
+          "lambda_goals": 0.02894087175726069,
           "anytime_pct": 0.6,
           "exp_shots": 0.17,
           "p_shots_2plus": 0.1,
@@ -3000,13 +6250,36 @@
           "expected_minutes": 20.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Mahamadou Nagida",
           "position": "DF",
-          "lambda_goals": 0.024983974859830376,
+          "lambda_goals": 0.02498407608769147,
           "anytime_pct": 0.5,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.4,
@@ -3016,13 +6289,36 @@
           "expected_minutes": 22.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Sebastian Szymanski",
           "position": "MF",
-          "lambda_goals": 0.02304453312171355,
+          "lambda_goals": 0.023044626491516028,
           "anytime_pct": 0.4,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.6,
@@ -3032,13 +6328,36 @@
           "expected_minutes": 23.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "Fredrik Oppeg\u00e5rd",
           "position": "DF",
-          "lambda_goals": 0.0212543760930339,
+          "lambda_goals": 0.021254539507059446,
           "anytime_pct": 0.4,
           "exp_shots": 0.22,
           "p_shots_2plus": 0.1,
@@ -3048,13 +6367,36 @@
           "expected_minutes": 35.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Rennes",
           "player": "Djaoui Ciss\u00e9",
           "position": "MF",
-          "lambda_goals": 0.01784403127284181,
+          "lambda_goals": 0.01784410357171055,
           "anytime_pct": 0.3,
           "exp_shots": 0.52,
           "p_shots_2plus": 1.6,
@@ -3064,13 +6406,36 @@
           "expected_minutes": 27.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Auxerre",
           "player": "Cl\u00e9ment Akpa",
           "position": "DF",
-          "lambda_goals": 0.013590331541294503,
+          "lambda_goals": 0.013590436030401875,
           "anytime_pct": 0.2,
           "exp_shots": 0.15,
           "p_shots_2plus": 0.0,
@@ -3080,7 +6445,30 @@
           "expected_minutes": 56.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [
@@ -3111,7 +6499,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.511,
-          "news_checked_hours_ago": 292.636601865,
+          "news_checked_hours_ago": 293.47579413000005,
           "unavailable": false,
           "team_attribution": "Rennes"
         },
@@ -3142,7 +6530,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 292.6366018327778,
+          "news_checked_hours_ago": 293.4757937297222,
           "unavailable": false,
           "team_attribution": "Rennes"
         },
@@ -3173,7 +6561,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 292.63660179388893,
+          "news_checked_hours_ago": 293.47579369,
           "unavailable": false,
           "team_attribution": "Rennes"
         }
@@ -3245,7 +6633,7 @@
           "team": "Marseille",
           "player": "Igor Paix\u00e3o",
           "position": "DF",
-          "lambda_goals": 0.48063091914862244,
+          "lambda_goals": 0.48062145735562534,
           "anytime_pct": 25.0,
           "exp_shots": 1.41,
           "p_shots_2plus": 17.7,
@@ -3255,13 +6643,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              2,
+              3,
+              2,
+              5
+            ],
+            "sot": [
+              3,
+              1,
+              1,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Amine Gouiri",
           "position": "FW",
-          "lambda_goals": 0.5538086104298635,
+          "lambda_goals": 0.5537977080467185,
           "anytime_pct": 24.0,
           "exp_shots": 1.11,
           "p_shots_2plus": 11.5,
@@ -3271,13 +6682,36 @@
           "expected_minutes": 38.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Pierre-Emile H\u00f8jbjerg",
           "position": "DF",
-          "lambda_goals": 0.26444501605563603,
+          "lambda_goals": 0.2644398101400335,
           "anytime_pct": 12.1,
           "exp_shots": 0.95,
           "p_shots_2plus": 6.9,
@@ -3287,13 +6721,36 @@
           "expected_minutes": 77.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              2,
+              4,
+              1,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Himad Abdelli",
           "position": "FW",
-          "lambda_goals": 0.22045623795908795,
+          "lambda_goals": 0.22045358149063835,
           "anytime_pct": 8.9,
           "exp_shots": 0.43,
           "p_shots_2plus": 1.1,
@@ -3303,13 +6760,36 @@
           "expected_minutes": 31.3,
           "penalty_taker": true,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              4,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              3,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Timothy Weah",
           "position": "DF",
-          "lambda_goals": 0.1919054978590173,
+          "lambda_goals": 0.19190171997036426,
           "anytime_pct": 7.9,
           "exp_shots": 0.75,
           "p_shots_2plus": 3.9,
@@ -3319,13 +6799,36 @@
           "expected_minutes": 65.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Naif Aguerd",
           "position": "DF",
-          "lambda_goals": 0.10819749991721186,
+          "lambda_goals": 0.10819536992035515,
           "anytime_pct": 3.5,
           "exp_shots": 0.26,
           "p_shots_2plus": 0.3,
@@ -3335,13 +6838,36 @@
           "expected_minutes": 41.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Angel Gomes",
           "position": "MF",
-          "lambda_goals": 0.09273632572113054,
+          "lambda_goals": 0.0927345000959318,
           "anytime_pct": 2.8,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.8,
@@ -3351,13 +6877,36 @@
           "expected_minutes": 27.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Marseille",
           "player": "Emerson",
           "position": "DF",
-          "lambda_goals": 0.05402837707220917,
+          "lambda_goals": 0.054027313459155034,
           "anytime_pct": 1.5,
           "exp_shots": 0.44,
           "p_shots_2plus": 0.6,
@@ -3367,7 +6916,30 @@
           "expected_minutes": 75.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -6913,21 +10485,21 @@
       "team": "Lyon",
       "proj_points": 55.0,
       "title_pct": 3.5,
-      "top4_pct": 41.4,
+      "top4_pct": 41.3,
       "relegation_pct": 0.0
     },
     {
       "team": "Marseille",
       "proj_points": 51.4,
       "title_pct": 1.1,
-      "top4_pct": 23.8,
+      "top4_pct": 23.9,
       "relegation_pct": 0.3
     },
     {
       "team": "Rennes",
       "proj_points": 50.6,
       "title_pct": 0.7,
-      "top4_pct": 18.5,
+      "top4_pct": 18.4,
       "relegation_pct": 0.3
     },
     {
@@ -6941,7 +10513,7 @@
       "team": "Strasbourg",
       "proj_points": 48.8,
       "title_pct": 0.5,
-      "top4_pct": 12.5,
+      "top4_pct": 12.6,
       "relegation_pct": 0.7
     },
     {
@@ -7260,7 +10832,7 @@
   ],
   "thin_squads": [],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 11.9,
+  "roster_snapshot_age_hours": 12.7,
   "roster_unmatched_count": 180,
   "data_warnings": [
     "180 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",

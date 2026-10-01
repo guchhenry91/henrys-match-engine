@@ -1,7 +1,7 @@
 {
   "league": "Premier League",
-  "updated": "2026-10-01T22:09:50.585508+00:00",
-  "results_updated": "2026-10-01T22:55:36.633420+00:00",
+  "updated": "2026-10-01T23:00:07.216441+00:00",
+  "results_updated": "2026-10-01T23:00:07.216447+00:00",
   "record": {
     "correct": 23,
     "wrong": 24,
@@ -13,6 +13,14 @@
         "correct": 2,
         "total": 3
       },
+      "3": {
+        "correct": 5,
+        "total": 9
+      },
+      "1": {
+        "correct": 8,
+        "total": 17
+      },
       "2": {
         "correct": 4,
         "total": 14
@@ -20,14 +28,6 @@
       "4": {
         "correct": 4,
         "total": 4
-      },
-      "1": {
-        "correct": 8,
-        "total": 17
-      },
-      "3": {
-        "correct": 5,
-        "total": 9
       }
     }
   },
@@ -113,7 +113,7 @@
           "team": "Arsenal",
           "player": "Viktor Gyokeres",
           "position": "FW",
-          "lambda_goals": 0.33882521494997697,
+          "lambda_goals": 0.3388241536616451,
           "anytime_pct": 16.4,
           "exp_shots": 1.54,
           "p_shots_2plus": 21.9,
@@ -123,13 +123,36 @@
           "expected_minutes": 57.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              2,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              1,
+              4,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              4,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Bukayo Saka",
           "position": "FW",
-          "lambda_goals": 0.3043151557887444,
+          "lambda_goals": 0.3043144218529868,
           "anytime_pct": 13.9,
           "exp_shots": 1.99,
           "p_shots_2plus": 33.2,
@@ -139,13 +162,36 @@
           "expected_minutes": 57.8,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              1,
+              2,
+              2,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Dominic Calvert-Lewin",
           "position": "FW",
-          "lambda_goals": 0.22676575304799207,
+          "lambda_goals": 0.22676633008297276,
           "anytime_pct": 9.9,
           "exp_shots": 1.23,
           "p_shots_2plus": 13.2,
@@ -155,13 +201,36 @@
           "expected_minutes": 70.3,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              1,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Eberechi Eze",
           "position": "FW",
-          "lambda_goals": 0.19919689432425508,
+          "lambda_goals": 0.1991962703879883,
           "anytime_pct": 8.3,
           "exp_shots": 1.77,
           "p_shots_2plus": 28.2,
@@ -171,13 +240,36 @@
           "expected_minutes": 49.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              3,
+              3,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              2,
+              1
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Bruno Guimar\u00e3es",
           "position": "MF",
-          "lambda_goals": 0.18943920395516708,
+          "lambda_goals": 0.18943861058251388,
           "anytime_pct": 8.0,
           "exp_shots": 1.29,
           "p_shots_2plus": 14.3,
@@ -187,13 +279,36 @@
           "expected_minutes": 85.1,
           "penalty_taker": false,
           "doubt": true,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              4,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              3,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Noni Madueke",
           "position": "FW",
-          "lambda_goals": 0.12480395628090596,
+          "lambda_goals": 0.12480356536258956,
           "anytime_pct": 4.4,
           "exp_shots": 0.99,
           "p_shots_2plus": 8.9,
@@ -203,13 +318,36 @@
           "expected_minutes": 32.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              3,
+              2,
+              2,
+              4
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Declan Rice",
           "position": "MF",
-          "lambda_goals": 0.11423957888332822,
+          "lambda_goals": 0.1142392210553781,
           "anytime_pct": 4.1,
           "exp_shots": 1.16,
           "p_shots_2plus": 11.5,
@@ -219,13 +357,36 @@
           "expected_minutes": 79.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              4
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Noah Okafor",
           "position": "FW",
-          "lambda_goals": 0.10573510341042941,
+          "lambda_goals": 0.10573551561556362,
           "anytime_pct": 3.6,
           "exp_shots": 0.6,
           "p_shots_2plus": 2.3,
@@ -235,13 +396,36 @@
           "expected_minutes": 41.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              2,
+              1,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              2,
+              2,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Gabriel",
           "position": "DF",
-          "lambda_goals": 0.10194890935999622,
+          "lambda_goals": 0.10194859002960645,
           "anytime_pct": 3.4,
           "exp_shots": 0.69,
           "p_shots_2plus": 3.1,
@@ -251,13 +435,36 @@
           "expected_minutes": 70.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Brenden Aaronson",
           "position": "FW",
-          "lambda_goals": 0.07835781927739029,
+          "lambda_goals": 0.07835812475300216,
           "anytime_pct": 2.4,
           "exp_shots": 0.78,
           "p_shots_2plus": 3.8,
@@ -267,13 +474,36 @@
           "expected_minutes": 64.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              4
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Martin Odegaard",
           "position": "MF",
-          "lambda_goals": 0.07528767538578655,
+          "lambda_goals": 0.07528743956528708,
           "anytime_pct": 2.2,
           "exp_shots": 0.77,
           "p_shots_2plus": 5.1,
@@ -283,13 +513,36 @@
           "expected_minutes": 35.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Lukas Nmecha",
           "position": "FW",
-          "lambda_goals": 0.07004605703806016,
+          "lambda_goals": 0.07004633011051586,
           "anytime_pct": 2.1,
           "exp_shots": 0.47,
           "p_shots_2plus": 1.0,
@@ -299,13 +552,36 @@
           "expected_minutes": 27.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              4,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Riccardo Calafiori",
           "position": "DF",
-          "lambda_goals": 0.05823798559519669,
+          "lambda_goals": 0.05823780317874166,
           "anytime_pct": 1.6,
           "exp_shots": 0.64,
           "p_shots_2plus": 3.0,
@@ -315,13 +591,36 @@
           "expected_minutes": 45.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              4,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Anton Stach",
           "position": "MF",
-          "lambda_goals": 0.053716161409073135,
+          "lambda_goals": 0.053716370819919756,
           "anytime_pct": 1.4,
           "exp_shots": 0.76,
           "p_shots_2plus": 4.4,
@@ -331,13 +630,36 @@
           "expected_minutes": 61.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              5,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Ezri Konsa Ngoyo",
           "position": "DF",
-          "lambda_goals": 0.03277538048532496,
+          "lambda_goals": 0.03277527782434417,
           "anytime_pct": 0.7,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.3,
@@ -347,13 +669,36 @@
           "expected_minutes": 78.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Piero Hincapi\u00e9",
           "position": "DF",
-          "lambda_goals": 0.02529777145209995,
+          "lambda_goals": 0.02529769221292742,
           "anytime_pct": 0.5,
           "exp_shots": 0.12,
           "p_shots_2plus": 0.0,
@@ -363,13 +708,30 @@
           "expected_minutes": 46.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Jayden Bogle",
           "position": "DF",
-          "lambda_goals": 0.02524875447301718,
+          "lambda_goals": 0.02524885290453037,
           "anytime_pct": 0.5,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.3,
@@ -379,13 +741,36 @@
           "expected_minutes": 72.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Ao Tanaka",
           "position": "MF",
-          "lambda_goals": 0.02630313556119038,
+          "lambda_goals": 0.02630323810317667,
           "anytime_pct": 0.5,
           "exp_shots": 0.25,
           "p_shots_2plus": 0.1,
@@ -395,13 +780,36 @@
           "expected_minutes": 34.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Ethan Ampadu",
           "position": "MF",
-          "lambda_goals": 0.024681821624023024,
+          "lambda_goals": 0.02468191784536548,
           "anytime_pct": 0.5,
           "exp_shots": 0.43,
           "p_shots_2plus": 0.6,
@@ -411,13 +819,36 @@
           "expected_minutes": 80.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              3,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "James Justin",
           "position": "DF",
-          "lambda_goals": 0.020496638728010653,
+          "lambda_goals": 0.020496718633542924,
           "anytime_pct": 0.4,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.2,
@@ -427,13 +858,36 @@
           "expected_minutes": 49.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Sean Longstaff",
           "position": "MF",
-          "lambda_goals": 0.02022017968627247,
+          "lambda_goals": 0.020220258514037446,
           "anytime_pct": 0.4,
           "exp_shots": 0.21,
           "p_shots_2plus": 0.1,
@@ -443,13 +897,36 @@
           "expected_minutes": 26.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Jaka Bijol",
           "position": "DF",
-          "lambda_goals": 0.013171547701464984,
+          "lambda_goals": 0.013171599050349252,
           "anytime_pct": 0.2,
           "exp_shots": 0.21,
           "p_shots_2plus": 0.1,
@@ -459,13 +936,36 @@
           "expected_minutes": 49.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              2,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Arsenal",
           "player": "Cristhian Mosquera",
           "position": "DF",
-          "lambda_goals": 0.007949077748193633,
+          "lambda_goals": 0.007949052849623245,
           "anytime_pct": 0.1,
           "exp_shots": 0.07,
           "p_shots_2plus": 0.0,
@@ -475,13 +975,24 @@
           "expected_minutes": 25.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0
+            ],
+            "shots": [
+              1
+            ],
+            "sot": [
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Gabriel Gudmundsson",
           "position": "DF",
-          "lambda_goals": 0.00824175436219602,
+          "lambda_goals": 0.008241786492428587,
           "anytime_pct": 0.1,
           "exp_shots": 0.26,
           "p_shots_2plus": 0.1,
@@ -491,13 +1002,36 @@
           "expected_minutes": 68.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Leeds",
           "player": "Ilia Gruev",
           "position": "MF",
-          "lambda_goals": 0.00995042327566209,
+          "lambda_goals": 0.009950462067089246,
           "anytime_pct": 0.1,
           "exp_shots": 0.15,
           "p_shots_2plus": 0.0,
@@ -507,7 +1041,30 @@
           "expected_minutes": 34.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -576,7 +1133,7 @@
           "team": "Brentford",
           "player": "Thiago",
           "position": "FW",
-          "lambda_goals": 0.43803626557132047,
+          "lambda_goals": 0.43803578633270546,
           "anytime_pct": 22.4,
           "exp_shots": 1.87,
           "p_shots_2plus": 31.8,
@@ -586,13 +1143,36 @@
           "expected_minutes": 84.5,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              2,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Emiliano Buend\u00eda",
           "position": "FW",
-          "lambda_goals": 0.31801134404001347,
+          "lambda_goals": 0.3180110939457227,
           "anytime_pct": 15.2,
           "exp_shots": 1.52,
           "p_shots_2plus": 21.1,
@@ -602,13 +1182,36 @@
           "expected_minutes": 45.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Kevin Schade",
           "position": "FW",
-          "lambda_goals": 0.2725929648271077,
+          "lambda_goals": 0.27259259446058387,
           "anytime_pct": 12.8,
           "exp_shots": 1.53,
           "p_shots_2plus": 21.3,
@@ -618,13 +1221,36 @@
           "expected_minutes": 79.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              4,
+              2,
+              2,
+              4
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Dango Ouattara",
           "position": "FW",
-          "lambda_goals": 0.22226547888932688,
+          "lambda_goals": 0.22226517690173586,
           "anytime_pct": 9.8,
           "exp_shots": 1.63,
           "p_shots_2plus": 24.3,
@@ -634,13 +1260,36 @@
           "expected_minutes": 72.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            "shots": [
+              3,
+              4,
+              3,
+              5,
+              3
+            ],
+            "sot": [
+              3,
+              0,
+              1,
+              3,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Alejandro Garnacho",
           "position": "MF",
-          "lambda_goals": 0.20573373547858342,
+          "lambda_goals": 0.20573357368299458,
           "anytime_pct": 8.2,
           "exp_shots": 1.33,
           "p_shots_2plus": 16.1,
@@ -650,13 +1299,36 @@
           "expected_minutes": 33.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              3,
+              3,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "John McGinn",
           "position": "MF",
-          "lambda_goals": 0.1759637338386093,
+          "lambda_goals": 0.1759635954551018,
           "anytime_pct": 7.0,
           "exp_shots": 0.96,
           "p_shots_2plus": 7.9,
@@ -666,13 +1338,36 @@
           "expected_minutes": 57.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              4,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Matthew Cash",
           "position": "DF",
-          "lambda_goals": 0.12943494963078356,
+          "lambda_goals": 0.12943484783899992,
           "anytime_pct": 4.8,
           "exp_shots": 0.9,
           "p_shots_2plus": 6.1,
@@ -682,13 +1377,36 @@
           "expected_minutes": 78.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Amadou Onana",
           "position": "MF",
-          "lambda_goals": 0.1311914004042535,
+          "lambda_goals": 0.1311912972311408,
           "anytime_pct": 4.7,
           "exp_shots": 0.68,
           "p_shots_2plus": 3.7,
@@ -698,13 +1416,36 @@
           "expected_minutes": 46.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              3,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Jo\u00e3o Gomes",
           "position": "MF",
-          "lambda_goals": 0.11963602303318269,
+          "lambda_goals": 0.11963592894758829,
           "anytime_pct": 4.3,
           "exp_shots": 0.82,
           "p_shots_2plus": 4.7,
@@ -714,13 +1455,36 @@
           "expected_minutes": 73.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Ross Barkley",
           "position": "MF",
-          "lambda_goals": 0.12025511569202586,
+          "lambda_goals": 0.12025502111955719,
           "anytime_pct": 4.1,
           "exp_shots": 0.6,
           "p_shots_2plus": 2.9,
@@ -730,13 +1494,36 @@
           "expected_minutes": 21.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              4,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Keane Lewis-Potter",
           "position": "DF",
-          "lambda_goals": 0.08288665021782908,
+          "lambda_goals": 0.0828865376014212,
           "anytime_pct": 2.6,
           "exp_shots": 0.83,
           "p_shots_2plus": 4.3,
@@ -746,13 +1533,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Mathias Jensen",
           "position": "MF",
-          "lambda_goals": 0.06098077122449537,
+          "lambda_goals": 0.06098068837116028,
           "anytime_pct": 1.7,
           "exp_shots": 0.6,
           "p_shots_2plus": 1.6,
@@ -762,13 +1572,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Ian Maatsen",
           "position": "DF",
-          "lambda_goals": 0.0524430898493801,
+          "lambda_goals": 0.05244304860645714,
           "anytime_pct": 1.4,
           "exp_shots": 0.65,
           "p_shots_2plus": 2.7,
@@ -778,13 +1611,36 @@
           "expected_minutes": 41.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Boubacar Kamara",
           "position": "MF",
-          "lambda_goals": 0.04509451337486817,
+          "lambda_goals": 0.04509447791110076,
           "anytime_pct": 1.1,
           "exp_shots": 0.25,
           "p_shots_2plus": 0.3,
@@ -794,13 +1650,36 @@
           "expected_minutes": 37.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Nathan Collins",
           "position": "DF",
-          "lambda_goals": 0.04430647246964447,
+          "lambda_goals": 0.04430641227134037,
           "anytime_pct": 1.1,
           "exp_shots": 0.39,
           "p_shots_2plus": 0.4,
@@ -810,13 +1689,36 @@
           "expected_minutes": 84.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Pau Torres",
           "position": "DF",
-          "lambda_goals": 0.04086524389368765,
+          "lambda_goals": 0.04086521175595301,
           "anytime_pct": 1.0,
           "exp_shots": 0.26,
           "p_shots_2plus": 0.2,
@@ -826,13 +1728,36 @@
           "expected_minutes": 44.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Vitaly Janelt",
           "position": "DF",
-          "lambda_goals": 0.04235027709419704,
+          "lambda_goals": 0.04235021955373586,
           "anytime_pct": 1.0,
           "exp_shots": 0.43,
           "p_shots_2plus": 0.6,
@@ -842,13 +1767,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Tyrone Mings",
           "position": "DF",
-          "lambda_goals": 0.03187286138974901,
+          "lambda_goals": 0.03187283632391154,
           "anytime_pct": 0.7,
           "exp_shots": 0.25,
           "p_shots_2plus": 0.3,
@@ -858,13 +1806,36 @@
           "expected_minutes": 34.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Yehor Yarmolyuk",
           "position": "MF",
-          "lambda_goals": 0.031115131793091628,
+          "lambda_goals": 0.03111508951759414,
           "anytime_pct": 0.7,
           "exp_shots": 0.44,
           "p_shots_2plus": 0.6,
@@ -874,13 +1845,36 @@
           "expected_minutes": 68.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Kristoffer Ajer",
           "position": "DF",
-          "lambda_goals": 0.027359814954037328,
+          "lambda_goals": 0.02735977778081254,
           "anytime_pct": 0.6,
           "exp_shots": 0.32,
           "p_shots_2plus": 0.2,
@@ -890,13 +1884,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Michael Kayode",
           "position": "DF",
-          "lambda_goals": 0.02759629823829642,
+          "lambda_goals": 0.027596260743766598,
           "anytime_pct": 0.6,
           "exp_shots": 0.24,
           "p_shots_2plus": 0.1,
@@ -906,13 +1923,36 @@
           "expected_minutes": 88.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Brentford",
           "player": "Sepp van den Berg",
           "position": "DF",
-          "lambda_goals": 0.028078965927237444,
+          "lambda_goals": 0.02807892777691684,
           "anytime_pct": 0.6,
           "exp_shots": 0.47,
           "p_shots_2plus": 0.9,
@@ -922,13 +1962,36 @@
           "expected_minutes": 71.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Victor Lindel\u00f6f",
           "position": "DF",
-          "lambda_goals": 0.013275541384629263,
+          "lambda_goals": 0.013275530944318973,
           "anytime_pct": 0.2,
           "exp_shots": 0.09,
           "p_shots_2plus": 0.0,
@@ -938,13 +2001,36 @@
           "expected_minutes": 24.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              2,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Aston Villa",
           "player": "Lamare Bogarde",
           "position": "DF",
-          "lambda_goals": 0.012081221161276119,
+          "lambda_goals": 0.012081211660217448,
           "anytime_pct": 0.2,
           "exp_shots": 0.06,
           "p_shots_2plus": 0.0,
@@ -954,7 +2040,18 @@
           "expected_minutes": 26.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0
+            ],
+            "shots": [
+              1
+            ],
+            "sot": [
+              1
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -1023,7 +2120,7 @@
           "team": "Bournemouth",
           "player": "Evanilson",
           "position": "FW",
-          "lambda_goals": 0.31411254362811736,
+          "lambda_goals": 0.31411237781618545,
           "anytime_pct": 15.2,
           "exp_shots": 1.59,
           "p_shots_2plus": 22.9,
@@ -1033,13 +2130,36 @@
           "expected_minutes": 78.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              1,
+              0
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Jo\u00e3o Pedro",
           "position": "FW",
-          "lambda_goals": 0.3176939672585664,
+          "lambda_goals": 0.3176933860836829,
           "anytime_pct": 15.0,
           "exp_shots": 2.1,
           "p_shots_2plus": 37.9,
@@ -1049,13 +2169,36 @@
           "expected_minutes": 69.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              2,
+              3,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Danny Welbeck",
           "position": "FW",
-          "lambda_goals": 0.2820421621538282,
+          "lambda_goals": 0.2820416461987342,
           "anytime_pct": 13.2,
           "exp_shots": 1.67,
           "p_shots_2plus": 25.7,
@@ -1065,13 +2208,36 @@
           "expected_minutes": 58.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Morgan Rogers",
           "position": "FW",
-          "lambda_goals": 0.2661768640306777,
+          "lambda_goals": 0.26617637709883796,
           "anytime_pct": 12.3,
           "exp_shots": 2.05,
           "p_shots_2plus": 37.2,
@@ -1081,13 +2247,36 @@
           "expected_minutes": 84.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              3,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Eli Junior Kroupi",
           "position": "FW",
-          "lambda_goals": 0.251860930439438,
+          "lambda_goals": 0.2518607974885314,
           "anytime_pct": 11.2,
           "exp_shots": 0.96,
           "p_shots_2plus": 7.5,
@@ -1097,13 +2286,36 @@
           "expected_minutes": 44.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              4,
+              1,
+              2,
+              6
+            ],
+            "sot": [
+              1,
+              2,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Cole Palmer",
           "position": "FW",
-          "lambda_goals": 0.2593621137060812,
+          "lambda_goals": 0.2593617472870847,
           "anytime_pct": 11.0,
           "exp_shots": 2.0,
           "p_shots_2plus": 29.7,
@@ -1113,13 +2325,36 @@
           "expected_minutes": 52.1,
           "penalty_taker": true,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              4,
+              4,
+              5,
+              3,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              2,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Rayan",
           "position": "MF",
-          "lambda_goals": 0.21152454679851557,
+          "lambda_goals": 0.21152443514014835,
           "anytime_pct": 9.2,
           "exp_shots": 1.07,
           "p_shots_2plus": 8.8,
@@ -1129,13 +2364,36 @@
           "expected_minutes": 76.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              5,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              2,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Pedro Neto",
           "position": "FW",
-          "lambda_goals": 0.15891183992217536,
+          "lambda_goals": 0.15891154921608844,
           "anytime_pct": 6.3,
           "exp_shots": 1.62,
           "p_shots_2plus": 24.0,
@@ -1145,13 +2403,36 @@
           "expected_minutes": 68.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              3,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Marcus Tavernier",
           "position": "MF",
-          "lambda_goals": 0.15473502435770728,
+          "lambda_goals": 0.15473494267706817,
           "anytime_pct": 6.0,
           "exp_shots": 1.26,
           "p_shots_2plus": 14.3,
@@ -1161,13 +2442,36 @@
           "expected_minutes": 71.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              3,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              2,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Justin Kluivert",
           "position": "MF",
-          "lambda_goals": 0.10948693445921023,
+          "lambda_goals": 0.10948690091309846,
           "anytime_pct": 3.6,
           "exp_shots": 0.4,
           "p_shots_2plus": 1.0,
@@ -1177,13 +2481,36 @@
           "expected_minutes": 24.5,
           "penalty_taker": true,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Est\u00eav\u00e3o",
           "position": "FW",
-          "lambda_goals": 0.10246634641057725,
+          "lambda_goals": 0.10246615896330699,
           "anytime_pct": 3.3,
           "exp_shots": 0.73,
           "p_shots_2plus": 4.7,
@@ -1193,13 +2520,36 @@
           "expected_minutes": 22.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              1,
+              4,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              2,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Alex Scott",
           "position": "MF",
-          "lambda_goals": 0.078463197609729,
+          "lambda_goals": 0.07846315619102529,
           "anytime_pct": 2.4,
           "exp_shots": 0.82,
           "p_shots_2plus": 4.4,
@@ -1209,13 +2559,36 @@
           "expected_minutes": 74.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "David Brooks",
           "position": "MF",
-          "lambda_goals": 0.07629628897427959,
+          "lambda_goals": 0.0762962486994312,
           "anytime_pct": 2.3,
           "exp_shots": 0.67,
           "p_shots_2plus": 2.9,
@@ -1225,13 +2598,36 @@
           "expected_minutes": 30.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Reece James",
           "position": "DF",
-          "lambda_goals": 0.048594682910506,
+          "lambda_goals": 0.04859459401360492,
           "anytime_pct": 1.2,
           "exp_shots": 0.61,
           "p_shots_2plus": 2.3,
@@ -1241,13 +2637,36 @@
           "expected_minutes": 49.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              4,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Maxence Lacroix",
           "position": "DF",
-          "lambda_goals": 0.04838563586640849,
+          "lambda_goals": 0.04838554735192856,
           "anytime_pct": 1.2,
           "exp_shots": 0.7,
           "p_shots_2plus": 3.0,
@@ -1257,13 +2676,36 @@
           "expected_minutes": 79.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              4,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Mois\u00e9s Caicedo",
           "position": "MF",
-          "lambda_goals": 0.04327812646123645,
+          "lambda_goals": 0.04327804729020175,
           "anytime_pct": 1.1,
           "exp_shots": 0.6,
           "p_shots_2plus": 2.0,
@@ -1273,13 +2715,36 @@
           "expected_minutes": 72.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Adrien Truffert",
           "position": "DF",
-          "lambda_goals": 0.04018858397382902,
+          "lambda_goals": 0.04018856275930931,
           "anytime_pct": 1.0,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.2,
@@ -1289,13 +2754,36 @@
           "expected_minutes": 87.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Malo Gusto",
           "position": "DF",
-          "lambda_goals": 0.03883092597369275,
+          "lambda_goals": 0.0388308549381642,
           "anytime_pct": 0.9,
           "exp_shots": 0.47,
           "p_shots_2plus": 0.9,
@@ -1305,13 +2793,36 @@
           "expected_minutes": 59.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              2,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Jordan Henderson",
           "position": "MF",
-          "lambda_goals": 0.028898509978684886,
+          "lambda_goals": 0.028898457113066076,
           "anytime_pct": 0.6,
           "exp_shots": 0.38,
           "p_shots_2plus": 0.5,
@@ -1321,13 +2832,36 @@
           "expected_minutes": 49.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Tyler Adams",
           "position": "MF",
-          "lambda_goals": 0.02929821094936566,
+          "lambda_goals": 0.029298195483593737,
           "anytime_pct": 0.6,
           "exp_shots": 0.18,
           "p_shots_2plus": 0.1,
@@ -1337,13 +2871,36 @@
           "expected_minutes": 46.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Ryan Christie",
           "position": "MF",
-          "lambda_goals": 0.024536730729356075,
+          "lambda_goals": 0.02453671777704708,
           "anytime_pct": 0.5,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.3,
@@ -1353,13 +2910,36 @@
           "expected_minutes": 24.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Wesley Fofana",
           "position": "DF",
-          "lambda_goals": 0.013046197453799892,
+          "lambda_goals": 0.013046173587680081,
           "anytime_pct": 0.2,
           "exp_shots": 0.21,
           "p_shots_2plus": 0.1,
@@ -1369,13 +2949,36 @@
           "expected_minutes": 45.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "James Hill",
           "position": "DF",
-          "lambda_goals": 0.015047599062573786,
+          "lambda_goals": 0.01504759111933331,
           "anytime_pct": 0.2,
           "exp_shots": 0.24,
           "p_shots_2plus": 0.1,
@@ -1385,13 +2988,36 @@
           "expected_minutes": 54.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Chelsea",
           "player": "Jorrel Hato",
           "position": "DF",
-          "lambda_goals": 0.009151880334199102,
+          "lambda_goals": 0.009151863592165776,
           "anytime_pct": 0.1,
           "exp_shots": 0.12,
           "p_shots_2plus": 0.0,
@@ -1401,13 +3027,30 @@
           "expected_minutes": 29.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Lewis Cook",
           "position": "DF",
-          "lambda_goals": 0.0051197240940021385,
+          "lambda_goals": 0.005119721391431483,
           "anytime_pct": 0.1,
           "exp_shots": 0.07,
           "p_shots_2plus": 0.0,
@@ -1417,13 +3060,36 @@
           "expected_minutes": 22.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Bafode Diakite",
           "position": "DF",
-          "lambda_goals": 0.007179537373488462,
+          "lambda_goals": 0.007179533583595361,
           "anytime_pct": 0.1,
           "exp_shots": 0.05,
           "p_shots_2plus": 0.0,
@@ -1433,13 +3099,24 @@
           "expected_minutes": 33.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0
+            ],
+            "shots": [
+              1
+            ],
+            "sot": [
+              0
+            ]
+          }
         },
         {
           "team": "Bournemouth",
           "player": "Adam Smith",
           "position": "DF",
-          "lambda_goals": 0.0037378255727766063,
+          "lambda_goals": 0.003737823599674634,
           "anytime_pct": 0.0,
           "exp_shots": 0.03,
           "p_shots_2plus": 0.0,
@@ -1449,7 +3126,30 @@
           "expected_minutes": 28.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -1520,7 +3220,7 @@
           "team": "Fulham",
           "player": "Joshua King",
           "position": "FW",
-          "lambda_goals": 0.37368300730912524,
+          "lambda_goals": 0.3736809901744367,
           "anytime_pct": 18.7,
           "exp_shots": 1.74,
           "p_shots_2plus": 27.8,
@@ -1530,13 +3230,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              2,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Emile Smith-Rowe",
           "position": "MF",
-          "lambda_goals": 0.21673868787046752,
+          "lambda_goals": 0.21673751791861767,
           "anytime_pct": 9.5,
           "exp_shots": 1.0,
           "p_shots_2plus": 7.6,
@@ -1546,13 +3269,36 @@
           "expected_minutes": 49.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Alex Iwobi",
           "position": "DF",
-          "lambda_goals": 0.19917060750963628,
+          "lambda_goals": 0.19916953238999344,
           "anytime_pct": 8.2,
           "exp_shots": 1.18,
           "p_shots_2plus": 12.9,
@@ -1562,13 +3308,36 @@
           "expected_minutes": 64.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              2,
+              6
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              2,
+              1
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Oscar Bobb",
           "position": "MF",
-          "lambda_goals": 0.14197512777618412,
+          "lambda_goals": 0.14197436139679426,
           "anytime_pct": 5.5,
           "exp_shots": 0.86,
           "p_shots_2plus": 4.8,
@@ -1578,13 +3347,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Ryan Sessegnon",
           "position": "DF",
-          "lambda_goals": 0.08246731474797352,
+          "lambda_goals": 0.08246686959077343,
           "anytime_pct": 2.3,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.5,
@@ -1594,13 +3386,36 @@
           "expected_minutes": 23.7,
           "penalty_taker": false,
           "doubt": true,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Antonee Robinson",
           "position": "DF",
-          "lambda_goals": 0.060590293351325916,
+          "lambda_goals": 0.06059023787196752,
           "anytime_pct": 1.7,
           "exp_shots": 0.18,
           "p_shots_2plus": 0.1,
@@ -1610,13 +3425,36 @@
           "expected_minutes": 38.8,
           "penalty_taker": true,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Calvin Bassey",
           "position": "DF",
-          "lambda_goals": 0.05083286710868004,
+          "lambda_goals": 0.05083259271370473,
           "anytime_pct": 1.3,
           "exp_shots": 0.29,
           "p_shots_2plus": 0.2,
@@ -1626,13 +3464,36 @@
           "expected_minutes": 65.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Joachim Andersen",
           "position": "DF",
-          "lambda_goals": 0.04792006787769881,
+          "lambda_goals": 0.047919809205965544,
           "anytime_pct": 1.2,
           "exp_shots": 0.49,
           "p_shots_2plus": 1.1,
@@ -1642,13 +3503,36 @@
           "expected_minutes": 74.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Sander Berge",
           "position": "MF",
-          "lambda_goals": 0.047967758147850786,
+          "lambda_goals": 0.047967499218686226,
           "anytime_pct": 1.2,
           "exp_shots": 0.44,
           "p_shots_2plus": 0.7,
@@ -1658,13 +3542,36 @@
           "expected_minutes": 75.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Timothy Castagne",
           "position": "DF",
-          "lambda_goals": 0.03633414318220959,
+          "lambda_goals": 0.03633394705110606,
           "anytime_pct": 0.8,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.2,
@@ -1674,13 +3581,36 @@
           "expected_minutes": 47.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Fulham",
           "player": "Jorge Cuenca",
           "position": "DF",
-          "lambda_goals": 0.01098649621353656,
+          "lambda_goals": 0.010986436908611839,
           "anytime_pct": 0.2,
           "exp_shots": 0.07,
           "p_shots_2plus": 0.0,
@@ -1690,7 +3620,21 @@
           "expected_minutes": 25.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -1759,7 +3703,7 @@
           "team": "Sunderland",
           "player": "Brian Brobbey",
           "position": "FW",
-          "lambda_goals": 0.30709451899085277,
+          "lambda_goals": 0.30709527576234014,
           "anytime_pct": 14.8,
           "exp_shots": 1.42,
           "p_shots_2plus": 18.0,
@@ -1769,13 +3713,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              4
+            ],
+            "sot": [
+              1,
+              0,
+              2,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Enzo Le F\u00e9e",
           "position": "FW",
-          "lambda_goals": 0.22626649716956224,
+          "lambda_goals": 0.22626683913114723,
           "anytime_pct": 10.1,
           "exp_shots": 1.21,
           "p_shots_2plus": 12.2,
@@ -1785,13 +3752,36 @@
           "expected_minutes": 82.0,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              3,
+              2,
+              2
+            ],
+            "sot": [
+              2,
+              1,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Diego G\u00f3mez",
           "position": "FW",
-          "lambda_goals": 0.22492894203156136,
+          "lambda_goals": 0.2249287480916722,
           "anytime_pct": 9.7,
           "exp_shots": 1.16,
           "p_shots_2plus": 12.1,
@@ -1801,13 +3791,36 @@
           "expected_minutes": 56.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              3,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Georginio Rutter",
           "position": "FW",
-          "lambda_goals": 0.16593353246186085,
+          "lambda_goals": 0.16593338938942828,
           "anytime_pct": 6.6,
           "exp_shots": 1.18,
           "p_shots_2plus": 12.6,
@@ -1817,13 +3830,36 @@
           "expected_minutes": 46.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Kaoru Mitoma",
           "position": "DF",
-          "lambda_goals": 0.16059563397846222,
+          "lambda_goals": 0.16059549550851182,
           "anytime_pct": 6.1,
           "exp_shots": 0.83,
           "p_shots_2plus": 6.1,
@@ -1833,13 +3869,36 @@
           "expected_minutes": 44.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              3,
+              1,
+              3
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Yankuba Minteh",
           "position": "DF",
-          "lambda_goals": 0.15259874837623288,
+          "lambda_goals": 0.15259861680141606,
           "anytime_pct": 5.9,
           "exp_shots": 0.94,
           "p_shots_2plus": 6.9,
@@ -1849,13 +3908,36 @@
           "expected_minutes": 62.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Jack Hinshelwood",
           "position": "DF",
-          "lambda_goals": 0.12969980936976083,
+          "lambda_goals": 0.1296996975390359,
           "anytime_pct": 4.7,
           "exp_shots": 0.64,
           "p_shots_2plus": 2.9,
@@ -1865,13 +3947,36 @@
           "expected_minutes": 46.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              4,
+              2,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              3,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Nilson Angulo",
           "position": "MF",
-          "lambda_goals": 0.09105864718704229,
+          "lambda_goals": 0.09105887158241116,
           "anytime_pct": 3.0,
           "exp_shots": 0.85,
           "p_shots_2plus": 4.7,
@@ -1881,13 +3986,30 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              4
+            ],
+            "sot": [
+              2,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Yasin Ayari",
           "position": "MF",
-          "lambda_goals": 0.07965196399559087,
+          "lambda_goals": 0.07965189531748777,
           "anytime_pct": 2.4,
           "exp_shots": 0.82,
           "p_shots_2plus": 5.4,
@@ -1897,13 +4019,36 @@
           "expected_minutes": 49.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Granit Xhaka",
           "position": "MF",
-          "lambda_goals": 0.07536701877225672,
+          "lambda_goals": 0.07536720449882417,
           "anytime_pct": 2.3,
           "exp_shots": 0.76,
           "p_shots_2plus": 3.4,
@@ -1913,13 +4058,36 @@
           "expected_minutes": 85.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Dan Ballard",
           "position": "DF",
-          "lambda_goals": 0.06556414874943796,
+          "lambda_goals": 0.06556431031884183,
           "anytime_pct": 1.9,
           "exp_shots": 0.53,
           "p_shots_2plus": 1.5,
@@ -1929,13 +4097,36 @@
           "expected_minutes": 55.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Pascal Gro\u00df",
           "position": "DF",
-          "lambda_goals": 0.06824650308467993,
+          "lambda_goals": 0.06824644424067736,
           "anytime_pct": 1.9,
           "exp_shots": 0.52,
           "p_shots_2plus": 2.1,
@@ -1945,13 +4136,36 @@
           "expected_minutes": 43.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              2,
+              1
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Trai Hume",
           "position": "DF",
-          "lambda_goals": 0.06275241605283478,
+          "lambda_goals": 0.06275257069329984,
           "anytime_pct": 1.8,
           "exp_shots": 0.77,
           "p_shots_2plus": 3.5,
@@ -1961,13 +4175,36 @@
           "expected_minutes": 80.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Ferdi Kadioglu",
           "position": "DF",
-          "lambda_goals": 0.061646963331004986,
+          "lambda_goals": 0.0616469101773062,
           "anytime_pct": 1.7,
           "exp_shots": 0.65,
           "p_shots_2plus": 2.2,
@@ -1977,13 +4214,36 @@
           "expected_minutes": 80.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              3,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Mats Wieffer",
           "position": "DF",
-          "lambda_goals": 0.06131912898722092,
+          "lambda_goals": 0.06131907611618987,
           "anytime_pct": 1.7,
           "exp_shots": 0.4,
           "p_shots_2plus": 0.8,
@@ -1993,13 +4253,36 @@
           "expected_minutes": 49.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Pascal Struijk",
           "position": "DF",
-          "lambda_goals": 0.05177818994984071,
+          "lambda_goals": 0.05177814530526839,
           "anytime_pct": 1.4,
           "exp_shots": 0.64,
           "p_shots_2plus": 2.3,
@@ -2009,13 +4292,36 @@
           "expected_minutes": 75.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Maxim De Cuyper",
           "position": "DF",
-          "lambda_goals": 0.052001546445595424,
+          "lambda_goals": 0.05200150160843903,
           "anytime_pct": 1.4,
           "exp_shots": 0.27,
           "p_shots_2plus": 0.2,
@@ -2025,13 +4331,36 @@
           "expected_minutes": 36.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Lewis Dunk",
           "position": "DF",
-          "lambda_goals": 0.04817066337464591,
+          "lambda_goals": 0.048170621840581726,
           "anytime_pct": 1.2,
           "exp_shots": 0.56,
           "p_shots_2plus": 1.6,
@@ -2041,13 +4370,36 @@
           "expected_minutes": 72.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Noah Sadiki",
           "position": "MF",
-          "lambda_goals": 0.03845573124287099,
+          "lambda_goals": 0.03845582600913717,
           "anytime_pct": 0.9,
           "exp_shots": 0.62,
           "p_shots_2plus": 1.8,
@@ -2057,13 +4409,36 @@
           "expected_minutes": 88.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Sunderland",
           "player": "Luke O'Nien",
           "position": "DF",
-          "lambda_goals": 0.03161088704716457,
+          "lambda_goals": 0.03161096494571543,
           "anytime_pct": 0.7,
           "exp_shots": 0.38,
           "p_shots_2plus": 0.4,
@@ -2079,7 +4454,7 @@
           "team": "Sunderland",
           "player": "Reinildo",
           "position": "DF",
-          "lambda_goals": 0.009717354536538207,
+          "lambda_goals": 0.009717378482966395,
           "anytime_pct": 0.1,
           "exp_shots": 0.13,
           "p_shots_2plus": 0.0,
@@ -2089,13 +4464,33 @@
           "expected_minutes": 51.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Brighton",
           "player": "Olivier Boscagli",
           "position": "DF",
-          "lambda_goals": 0.007715796489956004,
+          "lambda_goals": 0.007715789837185123,
           "anytime_pct": 0.1,
           "exp_shots": 0.06,
           "p_shots_2plus": 0.0,
@@ -2105,7 +4500,18 @@
           "expected_minutes": 21.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0
+            ],
+            "shots": [
+              1
+            ],
+            "sot": [
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -2174,7 +4580,7 @@
           "team": "Manchester United",
           "player": "Matheus Cunha",
           "position": "FW",
-          "lambda_goals": 0.2866222385376137,
+          "lambda_goals": 0.2866215058900808,
           "anytime_pct": 13.6,
           "exp_shots": 2.92,
           "p_shots_2plus": 62.9,
@@ -2184,13 +4590,36 @@
           "expected_minutes": 75.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              5,
+              4,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Bryan Mbeumo",
           "position": "FW",
-          "lambda_goals": 0.28246482604094103,
+          "lambda_goals": 0.2824641040203505,
           "anytime_pct": 13.3,
           "exp_shots": 2.33,
           "p_shots_2plus": 46.6,
@@ -2200,13 +4629,36 @@
           "expected_minutes": 81.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ],
+            "shots": [
+              4,
+              1,
+              6,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Bruno Fernandes",
           "position": "FW",
-          "lambda_goals": 0.2750865370521123,
+          "lambda_goals": 0.2750860575540305,
           "anytime_pct": 12.9,
           "exp_shots": 2.81,
           "p_shots_2plus": 60.1,
@@ -2216,13 +4668,36 @@
           "expected_minutes": 88.1,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              3
+            ],
+            "shots": [
+              2,
+              2,
+              5,
+              1,
+              4
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              3
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Benjamin Sesko",
           "position": "FW",
-          "lambda_goals": 0.2543313422071428,
+          "lambda_goals": 0.2543306920997703,
           "anytime_pct": 11.1,
           "exp_shots": 1.6,
           "p_shots_2plus": 23.1,
@@ -2232,13 +4707,36 @@
           "expected_minutes": 42.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            "shots": [
+              2,
+              3,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              1,
+              2,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Mathys Tel",
           "position": "FW",
-          "lambda_goals": 0.1692011689877653,
+          "lambda_goals": 0.1692013036993647,
           "anytime_pct": 6.9,
           "exp_shots": 1.43,
           "p_shots_2plus": 18.3,
@@ -2248,13 +4746,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Amad Diallo Traore",
           "position": "DF",
-          "lambda_goals": 0.11084079128511619,
+          "lambda_goals": 0.11084050796016313,
           "anytime_pct": 3.9,
           "exp_shots": 1.38,
           "p_shots_2plus": 17.6,
@@ -2264,13 +4785,36 @@
           "expected_minutes": 60.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              2
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Patrick Dorgu",
           "position": "DF",
-          "lambda_goals": 0.09772331092844283,
+          "lambda_goals": 0.09772306113365012,
           "anytime_pct": 3.3,
           "exp_shots": 0.99,
           "p_shots_2plus": 7.2,
@@ -2280,13 +4824,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              2,
+              1,
+              0,
+              1,
+              3
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Conor Gallagher",
           "position": "MF",
-          "lambda_goals": 0.09441743367610789,
+          "lambda_goals": 0.09441750884771327,
           "anytime_pct": 3.1,
           "exp_shots": 0.8,
           "p_shots_2plus": 4.0,
@@ -2296,13 +4863,36 @@
           "expected_minutes": 76.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Xavi Simons",
           "position": "FW",
-          "lambda_goals": 0.0864844524242529,
+          "lambda_goals": 0.08648452127991732,
           "anytime_pct": 2.7,
           "exp_shots": 0.88,
           "p_shots_2plus": 6.6,
@@ -2312,13 +4902,36 @@
           "expected_minutes": 45.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              4,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Andrey Santos",
           "position": "MF",
-          "lambda_goals": 0.08202068516666775,
+          "lambda_goals": 0.08202047551003767,
           "anytime_pct": 2.6,
           "exp_shots": 0.76,
           "p_shots_2plus": 3.4,
@@ -2328,13 +4941,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Mohammed Kudus",
           "position": "FW",
-          "lambda_goals": 0.08200592387078469,
+          "lambda_goals": 0.08200598916081332,
           "anytime_pct": 2.4,
           "exp_shots": 0.78,
           "p_shots_2plus": 5.8,
@@ -2344,13 +4980,36 @@
           "expected_minutes": 41.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Mason Mount",
           "position": "FW",
-          "lambda_goals": 0.07532411567627229,
+          "lambda_goals": 0.07532392313703387,
           "anytime_pct": 2.2,
           "exp_shots": 0.7,
           "p_shots_2plus": 4.1,
@@ -2360,13 +5019,36 @@
           "expected_minutes": 26.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Youri Tielemans",
           "position": "MF",
-          "lambda_goals": 0.0575565863044051,
+          "lambda_goals": 0.05755643918151899,
           "anytime_pct": 1.6,
           "exp_shots": 1.08,
           "p_shots_2plus": 9.1,
@@ -2376,13 +5058,36 @@
           "expected_minutes": 74.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Micky van de Ven",
           "position": "DF",
-          "lambda_goals": 0.056549771623003085,
+          "lambda_goals": 0.056549816645801845,
           "anytime_pct": 1.5,
           "exp_shots": 0.29,
           "p_shots_2plus": 0.2,
@@ -2392,13 +5097,36 @@
           "expected_minutes": 78.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Sandro Tonali",
           "position": "MF",
-          "lambda_goals": 0.05195762374785909,
+          "lambda_goals": 0.05195766511456264,
           "anytime_pct": 1.4,
           "exp_shots": 0.75,
           "p_shots_2plus": 3.3,
@@ -2408,13 +5136,36 @@
           "expected_minutes": 73.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              4,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Harry Maguire",
           "position": "DF",
-          "lambda_goals": 0.05029864543435697,
+          "lambda_goals": 0.05029851686380824,
           "anytime_pct": 1.3,
           "exp_shots": 0.67,
           "p_shots_2plus": 2.4,
@@ -2424,13 +5175,36 @@
           "expected_minutes": 72.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              2,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Lucas Bergvall",
           "position": "MF",
-          "lambda_goals": 0.047958472554956805,
+          "lambda_goals": 0.04795851073768676,
           "anytime_pct": 1.2,
           "exp_shots": 0.58,
           "p_shots_2plus": 1.5,
@@ -2440,13 +5214,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Jan Paul van Hecke",
           "position": "DF",
-          "lambda_goals": 0.045631309715604376,
+          "lambda_goals": 0.04563134604553491,
           "anytime_pct": 1.1,
           "exp_shots": 0.44,
           "p_shots_2plus": 0.6,
@@ -2456,13 +5253,36 @@
           "expected_minutes": 89.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "S\u00e1vio",
           "position": "FW",
-          "lambda_goals": 0.04398916626559994,
+          "lambda_goals": 0.043989201288117695,
           "anytime_pct": 1.1,
           "exp_shots": 0.45,
           "p_shots_2plus": 1.1,
@@ -2472,13 +5292,36 @@
           "expected_minutes": 20.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              2,
+              3
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Pedro Porro",
           "position": "DF",
-          "lambda_goals": 0.041220995244932813,
+          "lambda_goals": 0.04122102806353704,
           "anytime_pct": 1.0,
           "exp_shots": 0.75,
           "p_shots_2plus": 3.7,
@@ -2488,13 +5331,36 @@
           "expected_minutes": 72.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              2,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Marcos Senesi",
           "position": "DF",
-          "lambda_goals": 0.03865754962205486,
+          "lambda_goals": 0.0386575803997402,
           "anytime_pct": 0.9,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.2,
@@ -2504,13 +5370,36 @@
           "expected_minutes": 89.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Archie Gray",
           "position": "DF",
-          "lambda_goals": 0.03676161926094271,
+          "lambda_goals": 0.03676164852915969,
           "anytime_pct": 0.8,
           "exp_shots": 0.24,
           "p_shots_2plus": 0.1,
@@ -2520,13 +5409,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Luke Shaw",
           "position": "DF",
-          "lambda_goals": 0.02164076631212067,
+          "lambda_goals": 0.021640710995219473,
           "anytime_pct": 0.4,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.2,
@@ -2536,13 +5448,36 @@
           "expected_minutes": 86.0,
           "penalty_taker": false,
           "doubt": true,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Ayden Heaven",
           "position": "DF",
-          "lambda_goals": 0.01854014269809663,
+          "lambda_goals": 0.018540095306833915,
           "anytime_pct": 0.3,
           "exp_shots": 0.33,
           "p_shots_2plus": 0.2,
@@ -2552,13 +5487,33 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Andrew Robertson",
           "position": "DF",
-          "lambda_goals": 0.016301980305523985,
+          "lambda_goals": 0.016301993284546845,
           "anytime_pct": 0.3,
           "exp_shots": 0.15,
           "p_shots_2plus": 0.0,
@@ -2568,13 +5523,36 @@
           "expected_minutes": 30.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester United",
           "player": "Noussair Mazraoui",
           "position": "DF",
-          "lambda_goals": 0.012308203571983114,
+          "lambda_goals": 0.012308172110450237,
           "anytime_pct": 0.2,
           "exp_shots": 0.36,
           "p_shots_2plus": 0.3,
@@ -2584,13 +5562,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Tosin Adarabioyo",
           "position": "DF",
-          "lambda_goals": 0.0094258341849434,
+          "lambda_goals": 0.009425841689437645,
           "anytime_pct": 0.1,
           "exp_shots": 0.11,
           "p_shots_2plus": 0.0,
@@ -2600,13 +5601,36 @@
           "expected_minutes": 21.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Tottenham",
           "player": "Iyenoma Destiny Udogie",
           "position": "DF",
-          "lambda_goals": 0.01053677953129618,
+          "lambda_goals": 0.010536787920283277,
           "anytime_pct": 0.1,
           "exp_shots": 0.09,
           "p_shots_2plus": 0.0,
@@ -2616,7 +5640,30 @@
           "expected_minutes": 35.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [
@@ -2647,7 +5694,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 338.7798878861111,
+          "news_checked_hours_ago": 339.61772651527775,
           "unavailable": false,
           "team_attribution": "Manchester United"
         },
@@ -2678,7 +5725,7 @@
           ],
           "last_five_line": 2,
           "bar": 0.497,
-          "news_checked_hours_ago": 338.7798878547222,
+          "news_checked_hours_ago": 339.6177230658333,
           "unavailable": false,
           "team_attribution": "Manchester United"
         },
@@ -2709,7 +5756,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.511,
-          "news_checked_hours_ago": 338.7798879286111,
+          "news_checked_hours_ago": 339.6177296027778,
           "unavailable": false,
           "team_attribution": "Manchester United"
         },
@@ -2740,7 +5787,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.511,
-          "news_checked_hours_ago": 338.7798879094444,
+          "news_checked_hours_ago": 339.6177265552778,
           "unavailable": false,
           "team_attribution": "Manchester United"
         }
@@ -2813,7 +5860,7 @@
           "team": "Crystal Palace",
           "player": "J\u00f8rgen Strand Larsen",
           "position": "FW",
-          "lambda_goals": 0.34781314236465605,
+          "lambda_goals": 0.34781306683135,
           "anytime_pct": 16.9,
           "exp_shots": 1.44,
           "p_shots_2plus": 18.9,
@@ -2823,13 +5870,36 @@
           "expected_minutes": 60.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Ismaila Sarr",
           "position": "FW",
-          "lambda_goals": 0.3434486832315944,
+          "lambda_goals": 0.343448608646102,
           "anytime_pct": 15.5,
           "exp_shots": 1.46,
           "p_shots_2plus": 19.6,
@@ -2839,13 +5909,36 @@
           "expected_minutes": 56.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            "shots": [
+              2,
+              2,
+              6,
+              1,
+              2
+            ],
+            "sot": [
+              2,
+              0,
+              3,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Yeremi Pino",
           "position": "FW",
-          "lambda_goals": 0.21442376792722498,
+          "lambda_goals": 0.2144237213616008,
           "anytime_pct": 9.2,
           "exp_shots": 1.44,
           "p_shots_2plus": 19.0,
@@ -2855,13 +5948,36 @@
           "expected_minutes": 54.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Morgan Gibbs-White",
           "position": "FW",
-          "lambda_goals": 0.20545095582259051,
+          "lambda_goals": 0.20545096875253527,
           "anytime_pct": 8.9,
           "exp_shots": 1.69,
           "p_shots_2plus": 26.3,
@@ -2871,13 +5987,36 @@
           "expected_minutes": 84.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              3,
+              1,
+              1,
+              1
+            ],
+            "shots": [
+              3,
+              5,
+              2,
+              5,
+              3
+            ],
+            "sot": [
+              1,
+              3,
+              1,
+              3,
+              1
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Igor Jesus",
           "position": "FW",
-          "lambda_goals": 0.1735315464823433,
+          "lambda_goals": 0.17353155740345733,
           "anytime_pct": 7.1,
           "exp_shots": 1.71,
           "p_shots_2plus": 26.8,
@@ -2887,13 +6026,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              4,
+              1,
+              3
+            ],
+            "sot": [
+              1,
+              2,
+              3,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Dan Ndoye",
           "position": "FW",
-          "lambda_goals": 0.14327747538582375,
+          "lambda_goals": 0.14327748440291416,
           "anytime_pct": 5.5,
           "exp_shots": 1.08,
           "p_shots_2plus": 9.1,
@@ -2903,13 +6065,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "James McAtee",
           "position": "MF",
-          "lambda_goals": 0.1086299488162541,
+          "lambda_goals": 0.10862995565282117,
           "anytime_pct": 3.8,
           "exp_shots": 0.9,
           "p_shots_2plus": 5.6,
@@ -2919,13 +6104,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              2,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Callum Hudson-Odoi",
           "position": "FW",
-          "lambda_goals": 0.09714128049824351,
+          "lambda_goals": 0.09714128661177744,
           "anytime_pct": 3.2,
           "exp_shots": 0.76,
           "p_shots_2plus": 4.2,
@@ -2935,13 +6143,36 @@
           "expected_minutes": 48.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              4,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              1,
+              2,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Liam Delap",
           "position": "FW",
-          "lambda_goals": 0.08419760249696367,
+          "lambda_goals": 0.08419760779589425,
           "anytime_pct": 2.6,
           "exp_shots": 0.66,
           "p_shots_2plus": 3.0,
@@ -2951,13 +6182,36 @@
           "expected_minutes": 27.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              4,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Chris Richards",
           "position": "DF",
-          "lambda_goals": 0.06392554203140567,
+          "lambda_goals": 0.06392552814892989,
           "anytime_pct": 1.8,
           "exp_shots": 0.46,
           "p_shots_2plus": 0.9,
@@ -2967,13 +6221,36 @@
           "expected_minutes": 72.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Dwight McNeil",
           "position": "DF",
-          "lambda_goals": 0.06171958458139908,
+          "lambda_goals": 0.061719571177983,
           "anytime_pct": 1.7,
           "exp_shots": 0.6,
           "p_shots_2plus": 2.9,
@@ -2983,13 +6260,36 @@
           "expected_minutes": 30.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              3,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Evann Guessand",
           "position": "MF",
-          "lambda_goals": 0.058112401595357216,
+          "lambda_goals": 0.05811238897529984,
           "anytime_pct": 1.6,
           "exp_shots": 0.31,
           "p_shots_2plus": 0.4,
@@ -2999,13 +6299,36 @@
           "expected_minutes": 24.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              2,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Tyrick Mitchell",
           "position": "DF",
-          "lambda_goals": 0.05050193174077359,
+          "lambda_goals": 0.05050192077345407,
           "anytime_pct": 1.3,
           "exp_shots": 0.4,
           "p_shots_2plus": 0.4,
@@ -3015,13 +6338,36 @@
           "expected_minutes": 83.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Adam Wharton",
           "position": "MF",
-          "lambda_goals": 0.04694404097864246,
+          "lambda_goals": 0.04694403078397705,
           "anytime_pct": 1.2,
           "exp_shots": 0.83,
           "p_shots_2plus": 5.0,
@@ -3031,13 +6377,36 @@
           "expected_minutes": 66.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              2,
+              4
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Jefferson Lerma",
           "position": "DF",
-          "lambda_goals": 0.0444792386368434,
+          "lambda_goals": 0.04447922897745008,
           "anytime_pct": 1.1,
           "exp_shots": 0.55,
           "p_shots_2plus": 1.6,
@@ -3047,13 +6416,36 @@
           "expected_minutes": 43.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              3,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Nikola Milenkovic",
           "position": "DF",
-          "lambda_goals": 0.04496344484231248,
+          "lambda_goals": 0.04496344767206256,
           "anytime_pct": 1.1,
           "exp_shots": 0.44,
           "p_shots_2plus": 0.6,
@@ -3063,13 +6455,36 @@
           "expected_minutes": 86.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Neco Williams",
           "position": "DF",
-          "lambda_goals": 0.042597498094813946,
+          "lambda_goals": 0.042597500775664446,
           "anytime_pct": 1.0,
           "exp_shots": 0.93,
           "p_shots_2plus": 6.0,
@@ -3079,13 +6494,36 @@
           "expected_minutes": 86.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              2,
+              1,
+              1,
+              3
+            ],
+            "sot": [
+              3,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Daichi Kamada",
           "position": "MF",
-          "lambda_goals": 0.038093007065614214,
+          "lambda_goals": 0.03809299879309541,
           "anytime_pct": 0.9,
           "exp_shots": 0.62,
           "p_shots_2plus": 2.6,
@@ -3095,13 +6533,36 @@
           "expected_minutes": 49.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Ibrahim Sangare",
           "position": "MF",
-          "lambda_goals": 0.03410212869063164,
+          "lambda_goals": 0.034102130836830655,
           "anytime_pct": 0.8,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.4,
@@ -3111,13 +6572,36 @@
           "expected_minutes": 54.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Murillo",
           "position": "DF",
-          "lambda_goals": 0.03262473203000958,
+          "lambda_goals": 0.03262473408322944,
           "anytime_pct": 0.7,
           "exp_shots": 0.44,
           "p_shots_2plus": 0.6,
@@ -3127,13 +6611,36 @@
           "expected_minutes": 85.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Jair",
           "position": "DF",
-          "lambda_goals": 0.03230794345383599,
+          "lambda_goals": 0.03230794548711893,
           "anytime_pct": 0.7,
           "exp_shots": 0.29,
           "p_shots_2plus": 0.1,
@@ -3143,13 +6650,27 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Jaydee Canvot",
           "position": "DF",
-          "lambda_goals": 0.02987382430460267,
+          "lambda_goals": 0.029873817817013683,
           "anytime_pct": 0.6,
           "exp_shots": 0.2,
           "p_shots_2plus": 0.1,
@@ -3159,13 +6680,36 @@
           "expected_minutes": 35.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Crystal Palace",
           "player": "Will Hughes",
           "position": "MF",
-          "lambda_goals": 0.025086917596734704,
+          "lambda_goals": 0.02508691214870071,
           "anytime_pct": 0.5,
           "exp_shots": 0.41,
           "p_shots_2plus": 0.7,
@@ -3175,13 +6719,36 @@
           "expected_minutes": 40.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              4,
+              1,
+              4,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Nottingham Forest",
           "player": "Ola Aina",
           "position": "DF",
-          "lambda_goals": 0.02653586316343912,
+          "lambda_goals": 0.02653586483345931,
           "anytime_pct": 0.5,
           "exp_shots": 0.4,
           "p_shots_2plus": 0.4,
@@ -3191,7 +6758,30 @@
           "expected_minutes": 88.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -3260,7 +6850,7 @@
           "team": "Everton",
           "player": "Brennan Johnson",
           "position": "FW",
-          "lambda_goals": 0.156155626080626,
+          "lambda_goals": 0.15615718605615936,
           "anytime_pct": 6.1,
           "exp_shots": 0.81,
           "p_shots_2plus": 4.7,
@@ -3270,13 +6860,36 @@
           "expected_minutes": 44.0,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "Tyrique George",
           "position": "FW",
-          "lambda_goals": 0.15335490057034723,
+          "lambda_goals": 0.15335790623056672,
           "anytime_pct": 6.1,
           "exp_shots": 1.75,
           "p_shots_2plus": 28.0,
@@ -3286,13 +6899,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "Thierno Barry",
           "position": "FW",
-          "lambda_goals": 0.12654633060917442,
+          "lambda_goals": 0.1265488108381754,
           "anytime_pct": 4.7,
           "exp_shots": 0.98,
           "p_shots_2plus": 7.1,
@@ -3302,13 +6938,36 @@
           "expected_minutes": 49.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              2,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              3,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "Kiernan Dewsbury-Hall",
           "position": "MF",
-          "lambda_goals": 0.0659461879758289,
+          "lambda_goals": 0.06594748047990337,
           "anytime_pct": 1.9,
           "exp_shots": 0.77,
           "p_shots_2plus": 4.4,
@@ -3318,13 +6977,36 @@
           "expected_minutes": 68.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              3,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "Jack Grealish",
           "position": "FW",
-          "lambda_goals": 0.05832158888305239,
+          "lambda_goals": 0.05832273194974926,
           "anytime_pct": 1.6,
           "exp_shots": 0.79,
           "p_shots_2plus": 5.9,
@@ -3334,13 +7016,36 @@
           "expected_minutes": 43.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              4,
+              1,
+              3,
+              3
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "Michael Keane",
           "position": "DF",
-          "lambda_goals": 0.04718857687553541,
+          "lambda_goals": 0.04718950174215397,
           "anytime_pct": 1.2,
           "exp_shots": 0.56,
           "p_shots_2plus": 1.6,
@@ -3350,13 +7055,36 @@
           "expected_minutes": 66.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "James Tarkowski",
           "position": "DF",
-          "lambda_goals": 0.027398627724981358,
+          "lambda_goals": 0.02739916472096333,
           "anytime_pct": 0.6,
           "exp_shots": 0.49,
           "p_shots_2plus": 0.9,
@@ -3366,13 +7094,36 @@
           "expected_minutes": 85.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              2,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "James Garner",
           "position": "DF",
-          "lambda_goals": 0.0242303951988052,
+          "lambda_goals": 0.024230870099409493,
           "anytime_pct": 0.5,
           "exp_shots": 0.9,
           "p_shots_2plus": 5.7,
@@ -3382,13 +7133,36 @@
           "expected_minutes": 87.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Everton",
           "player": "Jake O'Brien",
           "position": "DF",
-          "lambda_goals": 0.02477784058749895,
+          "lambda_goals": 0.024778326217690765,
           "anytime_pct": 0.5,
           "exp_shots": 0.3,
           "p_shots_2plus": 0.2,
@@ -3404,7 +7178,7 @@
           "team": "Everton",
           "player": "Vitalii Mykolenko",
           "position": "DF",
-          "lambda_goals": 0.012274305874343009,
+          "lambda_goals": 0.012274546443067918,
           "anytime_pct": 0.2,
           "exp_shots": 0.34,
           "p_shots_2plus": 0.3,
@@ -3414,7 +7188,30 @@
           "expected_minutes": 76.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -3483,7 +7280,7 @@
           "team": "Manchester City",
           "player": "Erling Haaland",
           "position": "FW",
-          "lambda_goals": 0.5685027905503971,
+          "lambda_goals": 0.5685016783628015,
           "anytime_pct": 28.9,
           "exp_shots": 2.34,
           "p_shots_2plus": 44.4,
@@ -3493,13 +7290,36 @@
           "expected_minutes": 76.6,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            "shots": [
+              2,
+              4,
+              4,
+              2,
+              4
+            ],
+            "sot": [
+              1,
+              2,
+              3,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Alexander Isak",
           "position": "FW",
-          "lambda_goals": 0.4385230106395659,
+          "lambda_goals": 0.4385228722801283,
           "anytime_pct": 22.6,
           "exp_shots": 1.81,
           "p_shots_2plus": 29.9,
@@ -3509,13 +7329,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": true,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              1,
+              2,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              3
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Antoine Semenyo",
           "position": "FW",
-          "lambda_goals": 0.2732027953873744,
+          "lambda_goals": 0.27320217496669286,
           "anytime_pct": 12.7,
           "exp_shots": 1.9,
           "p_shots_2plus": 32.7,
@@ -3525,13 +7368,36 @@
           "expected_minutes": 82.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              2
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              2
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Cody Gakpo",
           "position": "FW",
-          "lambda_goals": 0.25282069247708183,
+          "lambda_goals": 0.25282059282512803,
           "anytime_pct": 11.6,
           "exp_shots": 1.93,
           "p_shots_2plus": 33.9,
@@ -3541,13 +7407,36 @@
           "expected_minutes": 76.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              5,
+              5,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              2,
+              2,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Florian Wirtz",
           "position": "FW",
-          "lambda_goals": 0.18483331429395228,
+          "lambda_goals": 0.18483324143994373,
           "anytime_pct": 7.8,
           "exp_shots": 1.34,
           "p_shots_2plus": 15.6,
@@ -3557,13 +7446,36 @@
           "expected_minutes": 73.5,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              2,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Iliman Ndiaye",
           "position": "FW",
-          "lambda_goals": 0.13543304657500285,
+          "lambda_goals": 0.1354327390178897,
           "anytime_pct": 5.0,
           "exp_shots": 0.91,
           "p_shots_2plus": 6.6,
@@ -3573,13 +7485,36 @@
           "expected_minutes": 72.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              4,
+              3,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              3,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Dominik Szoboszlai",
           "position": "DF",
-          "lambda_goals": 0.12738234238800084,
+          "lambda_goals": 0.12738229217890137,
           "anytime_pct": 4.7,
           "exp_shots": 1.61,
           "p_shots_2plus": 23.7,
@@ -3589,13 +7524,36 @@
           "expected_minutes": 89.9,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              3,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Rio Ngumoha",
           "position": "MF",
-          "lambda_goals": 0.10916029483819746,
+          "lambda_goals": 0.10916025181151105,
           "anytime_pct": 3.8,
           "exp_shots": 1.06,
           "p_shots_2plus": 8.8,
@@ -3605,13 +7563,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              3,
+              2
+            ],
+            "sot": [
+              2,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Nico O'Reilly",
           "position": "DF",
-          "lambda_goals": 0.10569212242899699,
+          "lambda_goals": 0.10569188241103326,
           "anytime_pct": 3.6,
           "exp_shots": 0.68,
           "p_shots_2plus": 2.7,
@@ -3627,7 +7608,7 @@
           "team": "Manchester City",
           "player": "J\u00e9remy Doku",
           "position": "FW",
-          "lambda_goals": 0.09791040636707048,
+          "lambda_goals": 0.09791018402073261,
           "anytime_pct": 3.2,
           "exp_shots": 0.84,
           "p_shots_2plus": 5.6,
@@ -3637,13 +7618,36 @@
           "expected_minutes": 46.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              4,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              2,
+              2,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Virgil van Dijk",
           "position": "DF",
-          "lambda_goals": 0.08316213683411314,
+          "lambda_goals": 0.08316210405487606,
           "anytime_pct": 2.6,
           "exp_shots": 0.69,
           "p_shots_2plus": 2.5,
@@ -3653,13 +7657,36 @@
           "expected_minutes": 90.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              2,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              2,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              2,
+              0
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Ryan Gravenberch",
           "position": "MF",
-          "lambda_goals": 0.05712823379372827,
+          "lambda_goals": 0.057128211276029836,
           "anytime_pct": 1.6,
           "exp_shots": 0.73,
           "p_shots_2plus": 3.0,
@@ -3669,13 +7696,36 @@
           "expected_minutes": 83.6,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Elliot Anderson",
           "position": "MF",
-          "lambda_goals": 0.05744282185660698,
+          "lambda_goals": 0.05744269140876644,
           "anytime_pct": 1.6,
           "exp_shots": 0.89,
           "p_shots_2plus": 5.4,
@@ -3685,13 +7735,36 @@
           "expected_minutes": 85.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              2,
+              3,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Marc Guehi",
           "position": "DF",
-          "lambda_goals": 0.05246178315586783,
+          "lambda_goals": 0.05246166401954928,
           "anytime_pct": 1.4,
           "exp_shots": 0.39,
           "p_shots_2plus": 0.5,
@@ -3701,13 +7774,36 @@
           "expected_minutes": 81.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              1,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Josko Gvardiol",
           "position": "DF",
-          "lambda_goals": 0.03940889249469298,
+          "lambda_goals": 0.039408803000396606,
           "anytime_pct": 0.9,
           "exp_shots": 0.31,
           "p_shots_2plus": 0.5,
@@ -3717,13 +7813,36 @@
           "expected_minutes": 36.3,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              3,
+              4,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              0,
+              1,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "R\u00faben Dias",
           "position": "DF",
-          "lambda_goals": 0.031249161690293133,
+          "lambda_goals": 0.031249090726062453,
           "anytime_pct": 0.7,
           "exp_shots": 0.4,
           "p_shots_2plus": 0.4,
@@ -3733,13 +7852,36 @@
           "expected_minutes": 82.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              1,
+              1,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Milos Kerkez",
           "position": "DF",
-          "lambda_goals": 0.026952068203072242,
+          "lambda_goals": 0.02695205757962909,
           "anytime_pct": 0.5,
           "exp_shots": 0.25,
           "p_shots_2plus": 0.1,
@@ -3749,13 +7891,36 @@
           "expected_minutes": 58.4,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Liverpool",
           "player": "Jeremie Frimpong",
           "position": "DF",
-          "lambda_goals": 0.019902571960162412,
+          "lambda_goals": 0.01990256411535287,
           "anytime_pct": 0.4,
           "exp_shots": 0.43,
           "p_shots_2plus": 0.5,
@@ -3765,13 +7930,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              3,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Rayan Ait Nouri",
           "position": "DF",
-          "lambda_goals": 0.017860701631840586,
+          "lambda_goals": 0.0178606610716821,
           "anytime_pct": 0.3,
           "exp_shots": 0.18,
           "p_shots_2plus": 0.1,
@@ -3781,13 +7969,36 @@
           "expected_minutes": 26.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Manchester City",
           "player": "Abduqodir Khusanov",
           "position": "DF",
-          "lambda_goals": 0.007995868931685728,
+          "lambda_goals": 0.007995850773736629,
           "anytime_pct": 0.1,
           "exp_shots": 0.12,
           "p_shots_2plus": 0.0,
@@ -3797,7 +8008,30 @@
           "expected_minutes": 37.2,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [
@@ -3828,7 +8062,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.511,
-          "news_checked_hours_ago": 274.63813291888886,
+          "news_checked_hours_ago": 275.47598477583335,
           "unavailable": false,
           "team_attribution": "Manchester City"
         },
@@ -3859,7 +8093,7 @@
           ],
           "last_five_line": 1,
           "bar": 0.276,
-          "news_checked_hours_ago": 274.63813289250004,
+          "news_checked_hours_ago": 275.4759847358333,
           "unavailable": false,
           "team_attribution": "Manchester City"
         }
@@ -3931,7 +8165,7 @@
           "team": "Newcastle United",
           "player": "Yoane Wissa",
           "position": "FW",
-          "lambda_goals": 0.5221495142091236,
+          "lambda_goals": 0.5221460278227582,
           "anytime_pct": 27.5,
           "exp_shots": 1.74,
           "p_shots_2plus": 27.7,
@@ -3941,13 +8175,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Newcastle United",
           "player": "Harvey Barnes",
           "position": "FW",
-          "lambda_goals": 0.42915355995781845,
+          "lambda_goals": 0.42915069450438154,
           "anytime_pct": 22.0,
           "exp_shots": 1.95,
           "p_shots_2plus": 34.6,
@@ -3957,13 +8214,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              2
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         },
         {
           "team": "Newcastle United",
           "player": "Malick Thiaw",
           "position": "DF",
-          "lambda_goals": 0.16932356568076506,
+          "lambda_goals": 0.16932243510924358,
           "anytime_pct": 6.9,
           "exp_shots": 0.65,
           "p_shots_2plus": 2.1,
@@ -3973,13 +8253,36 @@
           "expected_minutes": 84.8,
           "penalty_taker": false,
           "doubt": false,
-          "top": true
+          "top": true,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Newcastle United",
           "player": "Lewis Miley",
           "position": "MF",
-          "lambda_goals": 0.09853893628032435,
+          "lambda_goals": 0.09853827833696799,
           "anytime_pct": 3.3,
           "exp_shots": 0.59,
           "p_shots_2plus": 1.6,
@@ -3989,13 +8292,36 @@
           "expected_minutes": 70.0,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              1,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          }
         },
         {
           "team": "Newcastle United",
           "player": "Sven Botman",
           "position": "DF",
-          "lambda_goals": 0.06737925869505632,
+          "lambda_goals": 0.06737880880451266,
           "anytime_pct": 2.0,
           "exp_shots": 0.49,
           "p_shots_2plus": 0.9,
@@ -4005,13 +8331,36 @@
           "expected_minutes": 73.7,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              2,
+              2,
+              1,
+              1,
+              1
+            ],
+            "sot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
         },
         {
           "team": "Newcastle United",
           "player": "Lewis Hall",
           "position": "DF",
-          "lambda_goals": 0.044473013228753126,
+          "lambda_goals": 0.04447271628294981,
           "anytime_pct": 1.1,
           "exp_shots": 0.58,
           "p_shots_2plus": 1.5,
@@ -4021,7 +8370,30 @@
           "expected_minutes": 72.1,
           "penalty_taker": false,
           "doubt": false,
-          "top": false
+          "top": false,
+          "last_five": {
+            "goals": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "shots": [
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            "sot": [
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          }
         }
       ],
       "player_picks": [],
@@ -8460,7 +12832,7 @@
       "proj_points": 47.2,
       "title_pct": 0.0,
       "top4_pct": 2.0,
-      "relegation_pct": 9.6
+      "relegation_pct": 9.5
     },
     {
       "team": "Nottingham Forest",
@@ -8495,7 +12867,7 @@
       "proj_points": 34.0,
       "title_pct": 0.0,
       "top4_pct": 0.0,
-      "relegation_pct": 75.3
+      "relegation_pct": 75.2
     },
     {
       "team": "Coventry",
@@ -8783,7 +13155,7 @@
     "Ipswich"
   ],
   "roster_incomplete": [],
-  "roster_snapshot_age_hours": 11.9,
+  "roster_snapshot_age_hours": 12.7,
   "roster_unmatched_count": 111,
   "data_warnings": [
     "111 players were dropped from the player markets: their club's current squad list is complete and they are not on it, so they appear to have left.",
