@@ -107,6 +107,29 @@ def prop(entry, b365, odds_api):
     return True
 
 
+def repair_open_moneylines(b365) -> int:
+    """odds.json games whose kept "open" lacks a time (written in the hour before
+    decimal prices were kept) get their true first-seen quote from history."""
+    path = ROOT / B365
+    data = json.loads(path.read_text(encoding="utf-8"))
+    n = 0
+    for key, line in (data.get("games") or {}).items():
+        if (line.get("open") or {}).get("at"):
+            continue
+        seen = [(t, d["games"][key]) for t, d in b365 if key in (d.get("games") or {})]
+        if not seen:
+            continue
+        t, g = seen[0]
+        line["open"] = {"home": g.get("home"), "away": g.get("away"), "book": g.get("book"),
+                        "odd_home": g.get("odd_home") or round(1.0 / g["raw_home"], 3),
+                        "odd_away": g.get("odd_away") or round(1.0 / g["raw_away"], 3),
+                        "at": t}
+        n += 1
+    if n:
+        path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    return n
+
+
 def main() -> int:
     log = json.loads(LOG.read_text(encoding="utf-8"))
     b365, odds_api = versions(B365), versions(ODDS_API)
@@ -115,7 +138,8 @@ def main() -> int:
             if not k.startswith("_") and isinstance(e, dict) and "open" not in e)
     p = sum(prop(e, b365, odds_api) for k, e in (log.get("props") or {}).items()
             if not k.startswith("_") and isinstance(e, dict) and "open" not in e)
-    print(f"backfilled {w} winner pick(s) and {p} prop(s)")
+    print(f"backfilled {w} winner pick(s) and {p} prop(s); "
+          f"repaired {repair_open_moneylines(b365)} open moneyline(s) in odds.json")
     save_log(log, LOG)
     return 0
 
