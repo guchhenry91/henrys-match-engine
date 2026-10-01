@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 99879,
-  "account_used": 121,
+  "account_remaining": 99830,
+  "account_used": 170,
   "alerts": [],
   "calls": [
     {
@@ -1740,6 +1740,51 @@
       "path": "sports/baseball_mlb/odds",
       "purpose": "mlb: match odds",
       "sport": "mlb"
+    },
+    {
+      "account_remaining": 99854,
+      "account_used": 146,
+      "at": "2026-10-01T20:44:17+00:00",
+      "credits": 0,
+      "path": "sports/americanfootball_nfl/events",
+      "purpose": "nfl: list events",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99848,
+      "account_used": 152,
+      "at": "2026-10-01T20:44:17+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/c327223d76a3b7b0db8c6c104442f44b/odds",
+      "purpose": "nfl board check MIN|MIA",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99842,
+      "account_used": 158,
+      "at": "2026-10-01T20:44:17+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/a7e7efb75a9792ac63480ae6328dca18/odds",
+      "purpose": "nfl board check SF|DEN",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99836,
+      "account_used": 164,
+      "at": "2026-10-01T20:44:17+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/e0cbd266dcf997089203a1b33ba0333d/odds",
+      "purpose": "nfl board check LV|KC",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99830,
+      "account_used": 170,
+      "at": "2026-10-01T20:44:17+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/96d2373cda647873b971f268482bced0/odds",
+      "purpose": "nfl board check SEA|LAC",
+      "sport": "nfl"
     }
   ],
   "days": {
@@ -1788,10 +1833,10 @@
     "2026-10-01": {
       "by_sport": {
         "mlb": 19,
-        "nfl": 60
+        "nfl": 84
       },
-      "credits": 79
+      "credits": 103
     }
   },
-  "updated": "2026-10-01T19:19:27.857253+00:00"
+  "updated": "2026-10-01T20:44:17.587780+00:00"
 }
