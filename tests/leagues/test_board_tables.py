@@ -39,11 +39,13 @@ def test_a_voided_pick_never_reads_as_a_loss():
 
 
 def test_prop_price_is_never_invented():
-    """A soccer prop shows a price ONLY where bet365's was fetched (anytime scorer,
-    leagues/prop_odds.py); every other pick says there is none."""
+    """A soccer prop shows a price ONLY where one was fetched -- bet365's anytime
+    scorer (leagues/prop_odds.py) or a US book's shots line (leagues/shot_odds.py)
+    -- labelled with THAT book's name; every other pick says there is none."""
     body = _body("propTableRow")
-    assert "p.book_price!=null" in body and "bet365 ${Number(p.book_price)" in body
-    assert 'valCell("Price",p.market==="goal"?"—":"no bet365 market","off")' in body
+    assert "p.book_price!=null" in body
+    assert '${esc(p.book||"bet365")} ${Number(p.book_price)' in body
+    assert 'valCell("Price","—","off")' in body
 
 
 def test_edge_only_where_a_price_exists():
