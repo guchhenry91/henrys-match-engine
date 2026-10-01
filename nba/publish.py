@@ -129,6 +129,8 @@ def build(now=None, sched=None) -> dict:
                       "picks": _news_edge(apply_news(live["props"].get(m) or [], news), out_state),
                       "below_trained_floor": (live.get("held_back") or {}).get(m, 0)}
                   for m in config.MARKETS},
+        # Every priced prop per game, for the game pages (index.html viewGame).
+        "game_props": live.get("game_props") or {},
         "odds": {"checked_at": live.get("odds_checked_at"),
                  "books": ["Pinnacle", "DraftKings", "FanDuel"],
                  "source": "The Odds API"},
@@ -172,8 +174,11 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     log = picks_mod.load_log()
     # Pull every pick toward the book by the weight the live record supports
     # (tracking/trust.py), THEN judge value -- so only a real price gap reads as value.
-    trust.apply_line_board(payload, trust.weights()["nba"])
+    nba_trust = trust.weights()["nba"]
+    trust.apply_line_board(payload, nba_trust)
+    trust.apply_game_props(payload.get("game_props"), nba_trust)
     value.annotate_line_board(payload)
+    value.annotate_game_props(payload.get("game_props"))
     frozen = picks_mod.freeze(payload, log, now, book_lines.is_last_run_before)
     # The first price seen and the price frozen on, for profit and closing-line
     # value (tracking/performance.py). Uses only odds already fetched.

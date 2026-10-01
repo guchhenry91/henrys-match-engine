@@ -147,7 +147,8 @@ def player_rows(history_rows: pd.DataFrame) -> pd.DataFrame:
     return rows.dropna(subset=["GAME_ID", "PLAYER_ID", "game_date"])
 
 
-def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=None) -> tuple:
+def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=None,
+               collect=None) -> tuple:
     """({market: [picks]}, {market: held_back_count}) at bookmaker lines only.
 
     `ruled_out` (player names, from the news file) are the only players treated as
@@ -289,6 +290,9 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
                 pick["ladder_up"] = shared.ladder_up(alt, pick, prob_at,
                                                      shrink=shrink.get(market, 1.0))
             picks.extend(sides)
+            if collect is not None:
+                for s_ in sides:
+                    collect.setdefault(str(s_["game_id"]), {}).setdefault(market, []).append(s_)
         held[market] = below
         # The MODEL'S side, not the book's: 50%+ AND at least as sure as the book,
         # or the board would be publishing the book's favourite as a model pick.
@@ -298,6 +302,8 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
         for p in sorted(shortlist, key=lambda p: -p["probability"]):
             by_game.setdefault(p["game_id"], []).append(p)
         trimmed = [p for ps in by_game.values() for p in ps[:TOP_PER_MARKET]]
+        for p in trimmed:
+            p["on_board"] = True
         out[market] = sorted(trimmed, key=lambda p: -p["probability"])
         print(f"  {market}: {len(picks)} priced at a book line, {len(out[market])} published"
               f"{f', {below} below the trained floor' if below else ''}")
@@ -308,14 +314,16 @@ def build(sched: pd.DataFrame, now, released: list, ruled_out=None) -> dict:
     """{"games", "props", "held_back", "odds_checked_at"} for nba.publish."""
     games_ahead = slate(sched, now)
     odds_store = _read(ODDS)
+    game_props = {}
     history_games = data.games()
     teams = team_picks(history_games, sched, games_ahead, odds_store) if len(games_ahead) else []
     hist_rows = data.player_games(
         seasons=config.SEASONS[-HISTORY_SEASONS:]) if len(games_ahead) else pd.DataFrame()
     if len(games_ahead) and (odds_store.get("games") or {}):
         props, held = prop_picks(player_rows(hist_rows), games_ahead, odds_store,
-                                 current.current_teams(), released, ruled_out=ruled_out)
+                                 current.current_teams(), released, ruled_out=ruled_out,
+                                 collect=game_props)
     else:
         props, held = {m: [] for m in config.MARKETS}, {}
-    return {"games": teams, "props": props, "held_back": held,
+    return {"games": teams, "props": props, "held_back": held, "game_props": game_props,
             "odds_checked_at": odds_store.get("updated")}

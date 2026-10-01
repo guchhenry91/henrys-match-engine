@@ -110,3 +110,11 @@ def apply_line_board(payload: dict, sport_weights: dict) -> None:
             p["edge"] = round(p["probability"] - float(b), 4)
             p["trust_w"] = wp
     payload["model_trust"] = sport_weights
+
+
+def apply_game_props(game_props: dict, sport_weights: dict) -> None:
+    """The same pull toward the book for the game pages' full lists. Idempotent:
+    a pick also on the main board is the same object and re-blends from p_model."""
+    for markets in (game_props or {}).values():
+        apply_line_board({"props": {m: {"picks": ps} for m, ps in (markets or {}).items()}},
+                         sport_weights)

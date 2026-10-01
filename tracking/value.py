@@ -101,3 +101,9 @@ def annotate_soccer_player(pick: dict) -> dict | None:
     target have no bet365 market in the feed, so only the minimum price shows."""
     return assess(pick.get("p_pick"), None, pick.get("book_price"),
                   str(pick.get("book") or "").lower() == "bet365")
+
+
+def annotate_game_props(game_props: dict) -> int:
+    """Value verdicts for every pick on the game pages."""
+    return sum(annotate_line_board({"props": {m: {"picks": ps} for m, ps in (markets or {}).items()}})
+               for markets in (game_props or {}).values())

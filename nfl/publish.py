@@ -279,14 +279,18 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
     latest["workload_rank"] = (latest.groupby("team")["share5"]
                                .rank(ascending=False, method="first").astype(int))
     rule = config.WORKLOAD_RULES.get(market)
+    # The rule decides what may go on the MAIN BOARD (the shortlist), not who is
+    # priced: every quoted player is still priced for the game pages, flagged
+    # workload_ok=False when he is not one the offence runs through. Dropping them
+    # here hid 11 of the 14 receivers bet365/Pinnacle quoted for PIT @ CLE.
     if rule:
-        before = len(latest)
-        latest = latest[(latest["workload_rank"] <= rule["max_rank"])
-                        & (latest["share5"] >= rule["min_share"])].copy()
-        print(f"  {market}: workload rule kept {len(latest)} of {before} "
-              f"(top {rule['max_rank']} per team, {rule['min_share']:.0%}+ share)")
-        if latest.empty:
-            return []
+        latest["workload_ok"] = ((latest["workload_rank"] <= rule["max_rank"])
+                                 & (latest["share5"] >= rule["min_share"]))
+        print(f"  {market}: workload rule marks {int(latest['workload_ok'].sum())} of "
+              f"{len(latest)} as board-eligible (top {rule['max_rank']} per team, "
+              f"{rule['min_share']:.0%}+ share)")
+    else:
+        latest["workload_ok"] = True
 
     # RECONCILE THE CLUB BEFORE choosing who is playing. nflverse says where a man
     # last PLAYED; the roster snapshot says where he IS, and through an offseason
@@ -447,6 +451,7 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
             "injury_note": report.get("detail") or None,
             "workload_share": round(float(player.get("share5") or 0.0), 3),
             "workload_rank": int(player.get("workload_rank") or 0),
+            "workload_ok": bool(player.get("workload_ok", True)),
             "depth_pos": (entry or {}).get("pos"),
             "depth_rank": (entry or {}).get("rank"),
             "depth_label": (f"{entry['pos']}{entry['rank']}" if entry else None),
@@ -569,7 +574,7 @@ def build() -> dict:
             entry["edge"] = gap
             entry["verdict"] = verdict
 
-    props, awaiting_book = {}, {}
+    props, awaiting_book, game_props = {}, {}, {}
     blend_w = market_blend.weights()
     for market in config.MARKETS:
         if market not in released:
@@ -628,6 +633,7 @@ def build() -> dict:
                 if p["probability"] > 0.5 or not p.get("book_price_under"):
                     continue          # leans under, but not enough to make it the bet
                 u = dict(p)
+                u["_src"] = p
                 u["side"] = "under"
                 u["probability"] = round(1.0 - p["probability"], 4)
                 u["p_model"] = round(1.0 - p["p_model"], 4)
@@ -638,8 +644,24 @@ def build() -> dict:
                 unders.append(u)
             print(f"  {market}: {len(overs)} over(s), {len(unders)} under(s) where the model "
                   f"leans under against the book")
+            kept_ids = {id(p) for p in overs} | {id(u.get("_src")) for u in unders}
+            no_lean = [p for p in projections if id(p) not in kept_ids]
+            for p in no_lean:
+                p["no_lean"] = True
             projections = sorted(overs + unders, key=lambda p: -p["probability"])
-        shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY]
+            for p in no_lean:
+                game_props.setdefault(str(p["game_id"]), {}).setdefault(market, []).append(p)
+        # EVERY PRICED PLAYER, per game, for the game pages -- not just the board's
+        # shortlist. Anytime TD only where a book prices him (bet365's yes price).
+        for pick in projections:
+            if market == "anytime_touchdown" and pick.get("book_p") is None:
+                continue
+            game_props.setdefault(str(pick["game_id"]), {}).setdefault(market, []).append(pick)
+        for pick in projections:
+            pick.pop("_src", None)
+        # The main board: only players the offence runs through (WORKLOAD_RULES).
+        shortlist = [p for p in projections if p["probability"] >= MIN_PROBABILITY
+                     and p.get("workload_ok", True)]
         by_game = {}
         for pick in shortlist:
             game_key = pick["team"] + "|" + pick["opponent"]
@@ -648,8 +670,36 @@ def build() -> dict:
         for picks_for_game in by_game.values():
             trimmed.extend(picks_for_game[:TOP_PER_MARKET])
         trimmed.sort(key=lambda p: -p["probability"])
+        for pick in trimmed:
+            pick["on_board"] = True
         props[market] = {"released": True, "picks": trimmed,
                          "awaiting_book_line": awaiting_book.get(market, 0)}
+
+    # ALSO QUOTED: players a book prices that the model does not (rookies with no
+    # NFL history, lines below what it was tested on, tiny roles, deep depth).
+    # Shown on the game pages with the book's own line and price, never a model
+    # number it does not have.
+    game_quotes = {}
+    for _, g in upcoming.iterrows():
+        gid, gkey = str(g["game_id"]), f"{g['home_team']}|{g['away_team']}"
+        for market, players in (quotes.get(gkey) or {}).items():
+            if market not in config.MARKETS:
+                continue
+            priced = {odds_mod.norm_name(x["player"]) for x in (game_props.get(gid) or {}).get(market, [])}
+            for name, q in (players or {}).items():
+                if odds_mod.norm_name(q.get("_name", name)) in priced or not isinstance(q, dict):
+                    continue
+                line = q.get("line")
+                if (injuries.get(q.get("_name", name)) or {}).get("status") == "out":
+                    why = "ruled out"
+                elif line is not None and market in config.MIN_LINE and float(line) < config.MIN_LINE[market]:
+                    why = "line below the range the model was tested on"
+                else:
+                    why = "no model read: rookie or little NFL history, or a role too small to model"
+                game_quotes.setdefault(gid, {}).setdefault(market, []).append({
+                    "player": q.get("_name", name), "line": line, "book": q.get("book"),
+                    "odd_over": q.get("odd_over"), "odd_under": q.get("odd_under"),
+                    "odd": q.get("odd"), "book_p": q.get("over", q.get("raw_yes")), "why": why})
 
     # NEWS EDGE (tracking/news_edge.py): a lift from a teammate ruled out in the
     # last few hours, before the books have necessarily moved.
@@ -701,6 +751,10 @@ def build() -> dict:
         "player_data_through": {"season": last_season, "week": last_week},
         "games": games_out,
         "props": props,
+        # Every priced prop per game, for the game pages (index.html viewGame),
+        # and every other bookmaker quote the model has no read on.
+        "game_props": game_props,
+        "game_quotes": game_quotes,
         "evidence": _evidence(),
         # STATED, NOT HIDDEN. Each of these is a real hole a reader could
         # otherwise mistake for a signal, and the first one is visible on the
@@ -805,8 +859,11 @@ def main():
     # grades, not a fresher one computed moments earlier.
     from tracking import trust, value
     # How far the live record says to trust the model over the book (tracking/trust.py).
-    trust.apply_line_board(payload, trust.weights()["nfl"])
+    nfl_trust = trust.weights()["nfl"]
+    trust.apply_line_board(payload, nfl_trust)
+    trust.apply_game_props(payload.get("game_props"), nfl_trust)
     value.annotate_line_board(payload)
+    value.annotate_game_props(payload.get("game_props"))
     payload["record"] = picks.freeze_and_grade(payload)
     value.annotate_line_board(payload)     # on the frozen line and price
     # The picks BEHIND the record, so the Grades tab can show which hit and

@@ -140,7 +140,9 @@ def unavailable(kind: str, pid, team: str, g, avail: dict | None) -> str | None:
 
 
 def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list,
-                     avail: dict | None = None) -> dict:
+                     avail: dict | None = None, collect: dict | None = None) -> dict:
+    """Board shortlist per market. `collect`, when given, receives EVERY priced
+    pick per game ({game_pk: {market: [picks]}}) for the game pages."""
     odds_games = odds_store.get("games") or {}
     out = {m: [] for m in config.MARKETS}
     # The gate's fitted correction for publishing only the top picks (nfl/selection.py).
@@ -245,6 +247,9 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
                     alt, pick, lambda l, rf=row_frame, bl=float(r["base_line"]): prob_at(rf, bl, l),
                     shrink=shrink.get(market, 1.0))
             picks.extend(sides)
+            if collect is not None:
+                for s_ in sides:
+                    collect.setdefault(str(s_["game_id"]), {}).setdefault(market, []).append(s_)
         # Home runs: a ~12% event, so the bar is the PRICE, not 50% -- publish
         # where the model rates him above the book's own view.
         keep = [p for p in picks if (p["edge"] or 0) > 0] if market == "hr" else \
@@ -256,6 +261,8 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
             by_game.setdefault(p["game_id"], []).append(p)
         out[market] = sorted([p for ps in by_game.values() for p in ps[:TOP_PER_MARKET]],
                              key=lambda p: -p["probability"])
+        for p in out[market]:
+            p["on_board"] = True
         print(f"  {market}: {len(picks)} priced at a book line, {len(out[market])} published")
     return out
 
@@ -272,10 +279,12 @@ def _synth(pid, team, opp, home, g, spec) -> dict:
 def build(sched: pd.DataFrame, now, released: list) -> dict:
     games_ahead = slate(sched, now)
     odds_store = _read(ODDS)
+    game_props = {}
     if games_ahead.empty:
         return {"games": [], "props": {m: [] for m in config.MARKETS},
                 "odds_checked_at": odds_store.get("updated")}
     return {"games": team_picks(sched, games_ahead, odds_store),
             "props": props_and_totals(games_ahead, odds_store, released,
-                                      current.availability(games_ahead)),
+                                      current.availability(games_ahead), collect=game_props),
+            "game_props": game_props,
             "odds_checked_at": odds_store.get("updated")}
