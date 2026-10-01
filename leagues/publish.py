@@ -19,7 +19,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 # without importing this module's model stack. Re-exported here because a
 # dozen call sites and several tests reference publish.actual_standings.
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
-from leagues import prop_odds
+from leagues import closing, prop_odds
 from leagues import mispricing
 from leagues import prop_calibration
 from tracking import performance, value
@@ -788,6 +788,13 @@ def build(league: str = "PL") -> dict:
         log[k].update({"graded": g["graded"], "void": g["void"]})
         graded.append(log[k])
 
+    # bet365's pre-match and closing price on every graded pick, so the record
+    # can be scored at a price and for closing-line value (leagues/closing.py).
+    try:
+        closing.stamp(log, played, closing.b365_rows(league), season_tag)
+    except Exception as exc:
+        print(f"  {league}: bet365 closing prices unavailable ({exc}); stamped none")
+
     picks.save_log(log, log_path)
     picks.save_log(pl_log, pl_log_path)
 
@@ -1038,8 +1045,12 @@ def build_best_picks() -> dict:
                 # Malaga became the first Best Pick ever to settle: every earlier
                 # graded pick sat below 0.65 and so never reached this list.
                 "board": entry.get("board"),
-                # The price at lock, where one was frozen (tracking/performance.py).
+                # The price at lock, where one was frozen (tracking/performance.py),
+                # else bet365's pre-match price filled after the match
+                # (leagues/closing.py), plus the open/close pair for CLV.
                 "odds": entry.get("odds"),
+                "open": entry.get("open"),
+                "close_p": entry.get("close_p"),
                 "value": entry.get("value"),
             }
             if bool(row["played"]):

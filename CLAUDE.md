@@ -1176,6 +1176,10 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   history (`scripts/backfill_nfl_open_prices.py`) -- real snapshots, never estimates.
   NFL props find their game from the nflverse id (season_week_AWAY_HOME): on a
   prop entry `home` is a flag or his team and `away` is his OPPONENT.
+  Soccer match picks get bet365's pre-match AND closing 1X2 after the match from
+  football-data's season file (`leagues/closing.py`, run in publish after grading):
+  the price where none was frozen at lock, plus an open/close pair for CLV. First
+  run, all 223 graded: 111-104 at an average 2.09, +1.8%; CLV 96 toward, 104 against.
 - **Phase 2, value at bet365** (`tracking/value.py`). Every pick: the minimum bet365 price
   worth taking (+3% EV), a VALUE verdict at bet365's own price where known (soccer, NFL
   bet365 lines) else an ESTIMATE from the sharp fair price less a 5% margin (labelled
