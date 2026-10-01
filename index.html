@@ -421,6 +421,9 @@
   .pftag.testing{color:var(--mut,#8a93a6)} .pftag.losing{color:var(--hot)}
   .pftag.value{color:#0b1220;background:var(--lime);border-color:var(--lime)}
   .pftag.news{color:#0b1220;background:var(--amber);border-color:var(--amber)}
+  /* Phase 4: a pick in a market that is LOSING at the prices taken fades back. */
+  .brow:has(.pftag.losing){opacity:.55}
+  .brow:has(.pftag.losing):hover{opacity:.85}
   .b365{display:block;font-size:11px;font-weight:800;white-space:normal;line-height:1.35;max-width:100%}
   .wv.win{color:var(--lime)}
   .wv.loss{color:var(--hot)}
@@ -619,7 +622,7 @@ async function boot(){
   startLive();      // no-ops unless a fixture could actually be in play
 }
 
-const views=[{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"NBA",t:"NBA"},{k:"MLB",t:"MLB"},{k:"UCL",t:"Champions League"},
+const views=[{k:"betlist",t:"Bet list"},{k:"today",t:"Today"},{k:"best",t:"★ Best"},{k:"players",t:"★ Players"},{k:"six",t:"6 Scores"},{k:"parlay",t:"Parlay"},{k:"tables",t:"Tables"},{k:"grades",t:"Grades"},{k:"NFL",t:"NFL"},{k:"NBA",t:"NBA"},{k:"MLB",t:"MLB"},{k:"UCL",t:"Champions League"},
   {k:"PL",t:"Premier League"},{k:"LALIGA",t:"La Liga"},{k:"BUNDESLIGA",t:"Bundesliga"},{k:"LIGUE1",t:"Ligue 1"},{k:"SERIEA",t:"Serie A"}];
 const subFor={today:"Today · all leagues",best:"Best Picks",players:"Player Picks",parlay:"Model parlays",six:"bet365 6 Scores",tables:"League tables",grades:"Grades",NFL:"NFL · winners and player props",NBA:"NBA · winners and player props",MLB:"MLB · winners, team totals and player props",UCL:"Champions League · league phase",
   PL:"Premier League",LALIGA:"La Liga",BUNDESLIGA:"Bundesliga",LIGUE1:"Ligue 1",SERIEA:"Serie A"};
@@ -675,8 +678,8 @@ const PROPS=[
 // under the header show only that sport's boards. Pooling NFL props beside
 // Premier League fixtures in one flat list described neither sport.
 const SPORTS=[["soccer","Soccer"],["nfl","NFL"],["nba","NBA"],["mlb","MLB"],["ucl","Champions League"]];
-const SPORT_NAME=Object.fromEntries(SPORTS);
-const SPORT_OF={NFL:"nfl",NBA:"nba",MLB:"mlb",UCL:"ucl"};
+const SPORT_NAME={...Object.fromEntries(SPORTS),bets:"Your bets"};
+const SPORT_OF={NFL:"nfl",NBA:"nba",MLB:"mlb",UCL:"ucl",betlist:"bets"};
 const sportOf=k=>SPORT_OF[k]||"soccer";
 function curSport(){ return cur==="grades" ? (gsport||"soccer") : sportOf(cur); }
 const propLabel=p=>{const t=p.t.replace(/^(NFL|NBA|MLB) /,""); return t[0].toUpperCase()+t.slice(1);};
@@ -693,6 +696,7 @@ function tabsFor(s){
   if(s==="nba") return [{k:"NBA",t:"Board",ic:"⌂"},...props("NBA"),...sides("NBA"),{k:"grades",gs:"nba",t:"Results",ic:"✓"}];
   if(s==="mlb") return [{k:"MLB",t:"Board",ic:"⌂"},...props("MLB"),...sides("MLB"),{k:"grades",gs:"mlb",t:"Results",ic:"✓"}];
   if(s==="ucl") return [{k:"UCL",t:"Today",ic:"⌂",loose:1},{k:"grades",gs:"ucl",t:"Results",ic:"✓"}];
+  if(s==="bets") return [{k:"betlist",t:"Bet list",ic:"★"}];
   return [{k:"today",t:"Today",ic:"⌂",loose:1},{k:"best",t:"Best Picks",ic:"★",loose:1},
     {k:"players",t:"Player Props",ic:"+",loose:1},{k:"six",t:"Correct Scores",ic:"#",loose:1},
     {k:"parlay",t:"Parlays",ic:"⧉",loose:1},{k:"tables",t:"Tables",ic:"≡",loose:1},
@@ -704,6 +708,7 @@ const SIDE_EXTRA={soccer:[{name:"Player props", props:true},
   {name:"Leagues", keys:["PL","LALIGA","BUNDESLIGA","LIGUE1","SERIEA"]}]};
 const TITLE={today:"Today's markets",best:"Best picks",players:"Player props",six:"Correct scores",
   parlay:"Model parlays",tables:"League tables",grades:"Results & grading",NFL:"NFL board",
+  betlist:"Bet list",
   NBA:"NBA board",MLB:"MLB board",UCL:"Champions League"};
 
 function openTab(t){
@@ -828,7 +833,8 @@ function group(el,name){
 function buildSidebar(){
   const s=curSport();
   const ms=document.getElementById("msports");
-  if(ms){ ms.innerHTML=""; SPORTS.forEach(([k,t])=>ms.append(sportBtn("chip",k,t,false))); }
+  if(ms){ ms.innerHTML=""; ms.append(navBtn("chip",{k:"betlist",t:`★ Bet list (${betList().bet.length})`},false));
+    SPORTS.forEach(([k,t])=>ms.append(sportBtn("chip",k,t,false))); }
   // On a phone the sidebar is hidden, so the league boards need their own row or
   // they are unreachable there.
   const ml=document.getElementById("mleagues");
@@ -837,6 +843,8 @@ function buildSidebar(){
   const side=document.getElementById("side"); if(!side) return;
   side.innerHTML=`<div class="brand2"><div class="he">HE</div><div><small>Personal sports edge</small>
     <b>Henry&rsquo;s Engine</b></div></div>`;
+  group(side,"Your bets");
+  side.append(navBtn("sitem",{k:"betlist",t:"Bet list",ic:"★",ct:betList().bet.length},true));
   group(side,"Sports");
   SPORTS.forEach(([k,t])=>side.append(sportBtn("sitem",k,t,true)));
   group(side,"Markets");
@@ -885,6 +893,8 @@ function feedBanner(s){
     txt=!DATA.mlb?"MLB board did not load"
       :ok?`MLB schedule and box scores from MLB · lines from Pinnacle, DraftKings, FanDuel · Board updated ${agoOf(stampOf(DATA.mlb))||"—"}`
       :"MLB schedule feed did not answer · showing the model's backtest evidence";
+  } else if(s==="bets"){
+    txt="Only value picks at bet365, in markets that have earned a bet · stakes as % of your bankroll";
   } else {
     ok=!!DATA.ucl;
     txt=ok?`Champions League board · updated ${agoOf(stampOf(DATA.ucl))||"—"}`:"Champions League board did not load";
@@ -1002,6 +1012,7 @@ function render(k){
   else if(k==="NFL") h=viewNFL();
   else if(k==="NBA") h=viewNBA();
   else if(k==="MLB") h=viewMLB();
+  else if(k==="betlist") h=viewBetList();
   else if(k==="UCL") h=viewUCL();
   else h=viewLeague(k);
   app.innerHTML=h; chrome(); window.scrollTo(0,0);
@@ -1357,7 +1368,12 @@ function newsTag(p){
   const tip=`${who} ruled out ${n.hours_ago<1?"under an hour":Math.round(n.hours_ago)+"h"} ago. Teammates inherit his volume and books can be slow to move their lines — check bet365 now.`;
   return `<span class="pftag news" title="${esc(tip)}">News edge</span><span class="bsn b365" title="${esc(tip)}">${esc(who)} out · ${n.hours_ago<1?"<1":Math.round(n.hours_ago)}h ago</span>`;
 }
-function valueBits(x){
+// PHASE 4: a stake is suggested only in a market that has EARNED one -- Promising
+// or Proven in Betting performance. Elsewhere the value verdict still shows, but
+// as "track only": paper-bet it until the market's own record says otherwise.
+const BETTABLE=new Set(["promising","proven"]);
+const marketEarned=(sport,market)=>BETTABLE.has((perfOf(sport,market)||{}).status);
+function valueBits(x, sport, market){
   const v=x&&x.value;
   if(!v||!v.min_price) return "";
   const est=v.basis==="estimate";
@@ -1367,7 +1383,8 @@ function valueBits(x){
       ? `bet365 price not on record; estimated about ${v.ref_price} from the sharp books (${v.ev>0?"+":""}${(100*v.ev).toFixed(1)}%). Check bet365: worth it at ${v.min_price} or better.`
       : `No price on record. Check bet365: worth it at ${v.min_price} or better.`;
   const tag=v.value?`<span class="pftag value" title="${esc(tip)}">Value${est?" (est.)":""}</span>`:"";
-  const stake=v.value&&v.stake?` · stake ${+(100*v.stake).toFixed(2)}%`:"";
+  const earned=!sport||marketEarned(sport,market);
+  const stake=v.value&&v.stake?(earned?` · stake ${+(100*v.stake).toFixed(2)}%`:" · track only"):"";
   return `${tag}<span class="bsn b365" title="${esc(tip)}">bet365 ${v.min_price.toFixed(2)}+${stake}</span>`;
 }
 function setFLeague(l){ fleague=l; render(cur); }
@@ -1453,7 +1470,7 @@ function nflGameTableRow(g){
       <b>${esc(g.away)} @ ${esc(g.home)}</b>
       <span>Model selection: <em>${esc(g.pick)}</em> · ${g.pick===g.home?"home":"away"} · Elo ${
         Math.round(g.rating_away)} v ${Math.round(g.rating_home)}${g.neutral?" · neutral site":""}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${valueBits(g)}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("nfl","team_winner")}${valueBits(g,"nfl","team_winner")}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${g.book||"Book"} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -1485,7 +1502,7 @@ function nflPropTableRow(p, full){
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
-    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p)}${newsTag(p)}${
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p,"nfl",p.market)}${newsTag(p)}${
       p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
       p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
@@ -1551,7 +1568,7 @@ function propTableRow(p){
       <span>${esc(p.home||"")} vs ${esc(p.away||"")} · ${esc(p.team||"")} · ${xi}${
         p.doubt?" · fitness doubt":""}${p.penalty_taker?" · takes penalties":""}</span>
       ${lastFiveTiles(p)}</div>
-    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}${perfTag("soccer",p.market)}${valueBits(p)}</div>
+    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}${perfTag("soccer",p.market)}${valueBits(p,"soccer",p.market)}</div>
     ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${p.book_price!=null
       ? valCell(`bet365 ${Number(p.book_price).toFixed(2)}`,
           p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
@@ -1569,7 +1586,7 @@ function bestTableRow(u){
     <div class="be"><div class="beb">${esc(LG[u.league_key]||"")} · Match winner</div>
       <b>${esc(u.home)} vs ${esc(u.away)}</b>
       <span>Model selection: <em>${esc(u.pick)}</em>${u.score?` · Correct score: <em>${esc(u.score)}</em>`:""}</span></div>
-    <div class="bs">${confTag(bandOf(u))}${perfTag("soccer","match_winner")}${valueBits(u)}</div>
+    <div class="bs">${confTag(bandOf(u))}${perfTag("soccer","match_winner")}${valueBits(u,"soccer","match_winner")}</div>
     ${probCell(u.p_pick)}
     ${valCell(priced?(u.book||"Bookmaker"):"Price",priced?odds.toFixed(2):"—",priced?"":"off")}
     ${valCell("Edge",edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—",edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -1679,6 +1696,53 @@ function perfPanel(sport){
     <div class="slist">${body}</div></section>`;
 }
 
+// --- PHASE 4: the Bet list -----------------------------------------------------
+// One page with only what is worth betting: a VALUE pick at bet365 (Phase 2), in a
+// market whose own record has earned it (Promising / Proven, Phase 1), not yet
+// started. Value picks in markets still Testing are listed underneath as
+// track-only; Losing markets and parlays never appear.
+function betList(){
+  const now=Date.now(), bet=[], watch=[];
+  let losing=0;
+  const add=(sport,market,x,row)=>{
+    if(!isValue(x)) return;
+    const when=new Date(x.kickoff||x.tipoff||x.date);
+    if(isNaN(when)||when<now) return;
+    const st=(perfOf(sport,market)||{}).status||"testing";
+    if(st==="losing"){ losing++; return; }
+    (BETTABLE.has(st)?bet:watch).push({sport,market,x,row,when,st});
+  };
+  const lineBoard=(sport,d,rowFn,gameFn)=>{
+    if(!d) return;
+    (d.games||[]).forEach(g=>add(sport,"team_winner",g,()=>gameFn(g)));
+    Object.entries(d.props||{}).forEach(([m,b])=>((b&&b.picks)||[]).forEach(x=>add(sport,m,x,()=>rowFn(x,m))));
+  };
+  lineBoard("nfl",DATA.nfl,(x,m)=>nflPropTableRow(x,gradeName(m)),nflGameTableRow);
+  lineBoard("nba",DATA.nba,x=>nbaPropTableRow(x),nbaGameTableRow);
+  lineBoard("mlb",DATA.mlb,x=>mlbPropTableRow(x),mlbGameTableRow);
+  ((DATA.best||{}).upcoming||[]).forEach(u=>add("soccer","match_winner",u,()=>bestTableRow(u)));
+  ((DATA.player_picks||{}).upcoming||[]).forEach(x=>add("soccer",x.market,x,()=>propTableRow(x)));
+  const order=(a,b)=>((b.x.value||{}).ev||0)-((a.x.value||{}).ev||0)||a.when-b.when;
+  return {bet:bet.sort(order), watch:watch.sort(order), losing};
+}
+function viewBetList(){
+  const {bet,watch,losing}=betList();
+  const total=bet.reduce((n,b)=>n+((b.x.value||{}).stake||0),0);
+  let h=sectHead("Phase 4 · narrow down",`Bet list · ${bet.length} pick${bet.length===1?"":"s"}`,
+    "Value at bet365 AND in a market whose own record has earned a bet. Check bet365's price is at or above the minimum shown before you bet.");
+  h+=bet.length
+    ? btable(PCOLS,bet.map(b=>b.row()).join(""))
+      +`<p class="note">Suggested total stake: ${+(100*total).toFixed(2)}% of your bankroll across these picks (quarter-Kelly, at most 2% on any one).</p>`
+    : `<div class="glass rowc">${emptyRow("Nothing has earned a bet yet. A market needs its own record to reach Promising or Proven first — see Results → Betting performance.")}</div>`;
+  if(watch.length){
+    h+=sectHead("Value, not yet proven",`Track only · ${watch.length} pick${watch.length===1?"":"s"}`,
+      "These clear the bet365 value bar, but their market has not yet shown it makes money. Paper-bet them: they are how a market earns its place above.");
+    h+=btable(PCOLS,watch.slice(0,40).map(b=>b.row()).join(""));
+  }
+  h+=`<p class="note">Never listed: picks in markets that are LOSING at the prices taken${losing?` (${losing} value pick${losing===1?"":"s"} left out today)`:""}, and parlays — a parlay multiplies the bookmaker's margin with every leg.</p>`;
+  return h;
+}
+
 const SETTLED_SHOW=25;
 function latestSettled(){
   const all=settledRows();
@@ -1774,8 +1838,13 @@ function viewPlayers(){
 function viewParlay(){
   const par=DATA.parlays||{}, sections=par.sections||[];
   if(!sections.length) return emptyState();
+  const rec=par.record||{};
+  const warn=`<div class="glass rowc" style="border-color:var(--hot)"><div class="rw static"><div class="info">
+    <b>Not recommended for betting</b>
+    <span>A parlay multiplies the bookmaker's margin with every leg, so even good legs combine into a poor bet${
+      rec.correct!=null?` — the model's parlays are ${rec.correct}–${rec.wrong}`:""}. Shown for interest only; the Bet list never includes them.</span></div></div></div>`;
   const legsAll=sections.flatMap(x=>(x.parlays||[]).flatMap(pa=>pa.legs||[]));
-  let h=boardFilters(legsAll,"")+`<div class="eyebrow">Model parlays · combined chance = product of the legs</div>`;
+  let h=warn+boardFilters(legsAll,"")+`<div class="eyebrow">Model parlays · combined chance = product of the legs</div>`;
   sections.forEach((sec,si)=>{
     h+=`<div class="secttl" style="${si?"margin-top:24px":""}">${esc(sec.title)}</div><div class="sectsub">${esc(sec.sub)}</div>`;
     (sec.parlays||[]).filter(pa=>(pa.legs||[]).some(inBoard)).forEach(pa=>{const legs=pa.legs||[];
@@ -2076,7 +2145,7 @@ function nbaGameTableRow(g){
       <b>${esc(g.away)} @ ${esc(g.home)}</b>
       <span>Model selection: <em>${esc(g.pick)}</em> · ${g.pick===g.home?"home":"away"} · Elo ${
         Math.round(g.rating_away)} v ${Math.round(g.rating_home)}${g.neutral?" · neutral site":""}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${valueBits(g)}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("nba","team_winner")}${valueBits(g,"nba","team_winner")}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${bk} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -2094,7 +2163,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p)}${newsTag(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p,"nba",p.market)}${newsTag(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2126,7 +2195,7 @@ function mlbGameTableRow(g){
     <div class="be"><div class="beb">MLB · Team winner</div>
       <b>${esc(g.away_name||g.away)} @ ${esc(g.home_name||g.home)}</b>
       <span>Model selection: <em>${esc(g.pick===g.home?(g.home_name||g.home):(g.away_name||g.away))}</em>${sp}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb","team_winner")}${valueBits(g)}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb","team_winner")}${valueBits(g,"mlb","team_winner")}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${bk} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -2139,7 +2208,7 @@ function mlbPropTableRow(p){
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p,"mlb",p.market)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null

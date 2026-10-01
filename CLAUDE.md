@@ -1191,3 +1191,9 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   - MLB weather: not done (needs 19 seasons of historical weather to gate; spring).
 - **Bug fixed 2026-10-01**: the NFL board read completed seasons only, so all of 2026
   was priced on 2025 form. `nfl.data.live_player_weeks` adds the current season.
+- **Phase 4, narrow down** (index.html `betList` / `viewBetList`, `BETTABLE`). A "Bet list"
+  page above the sports: only VALUE picks at bet365 in markets whose Phase 1 status is
+  Promising or Proven, not yet started, ranked by expected return, with the stake. Value
+  picks in Testing markets are listed beneath as track-only. Everywhere else a stake is
+  shown only in an earned market ("track only" otherwise); Losing-market rows fade; the
+  Parlay page carries a not-recommended warning and parlays never enter the Bet list.
