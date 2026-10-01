@@ -97,10 +97,12 @@ def annotate_soccer_match(item: dict) -> dict | None:
 
 
 def annotate_soccer_player(pick: dict) -> dict | None:
-    """A player pick: bet365's anytime price where fetched; shots and shots on
-    target have no bet365 market in the feed, so only the minimum price shows."""
-    return assess(pick.get("p_pick"), None, pick.get("book_price"),
-                  str(pick.get("book") or "").lower() == "bet365")
+    """A player pick: bet365's anytime price where fetched. Shots and shots on
+    target have no bet365 market in any feed; they carry a US book's fair chance
+    (leagues/shot_odds.py), from which the bet365 price is ESTIMATED."""
+    b365 = str(pick.get("book") or "").lower() == "bet365"
+    return assess(pick.get("p_pick"), None if b365 else pick.get("book_p"),
+                  pick.get("book_price"), b365)
 
 
 def annotate_game_props(game_props: dict) -> int:

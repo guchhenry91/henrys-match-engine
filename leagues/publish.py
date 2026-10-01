@@ -19,7 +19,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 # without importing this module's model stack. Re-exported here because a
 # dozen call sites and several tests reference publish.actual_standings.
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
-from leagues import closing, prop_odds
+from leagues import closing, prop_odds, shot_odds
 from leagues import mispricing
 from leagues import prop_calibration
 from tracking import performance, value
@@ -680,6 +680,12 @@ def build(league: str = "PL") -> dict:
                         if price:
                             pe["book_price"] = float(price)
                         pe["value"] = value.assess(prob, None, price, bool(price))
+                    # Shots / on target: a US book's price on the same line, via
+                    # The Odds API (leagues/shot_odds.py); value at bet365 estimated.
+                    if (market in shot_odds.LINE and pe.get("book_price") is None
+                            and _just_locked(pe, now)):
+                        shot_odds.freeze(pe, league, m["match_id"])
+                        pe["value"] = value.assess(prob, pe.get("book_p"), None, False)
                 else:
                     pe = {"p_pick": round(prob, 4), "confidence": _confidence(prob)}
                     pprov = True
@@ -1416,7 +1422,8 @@ def main(argv=None):
         pp_all = pp.pop("_all_settled", pp["settled"])
         pp["performance"] = performance.by_market(pp_all, lambda e: e.get("market"))
         # bet365's anytime-scorer price and the edge against it, where fetched
-        # (leagues/prop_odds.py). Shots and SOT have no usable bet365 market.
+        # (leagues/prop_odds.py). Shots and SOT have no bet365 market in any feed;
+        # they carry a US book's price instead (leagues/shot_odds.py).
         # Recalibrated from the props' own graded record FIRST, so the edge against
         # bet365 is computed on the corrected number (leagues/prop_calibration.py).
         pp["calibration"] = prop_calibration.apply(pp["upcoming"], pp_all)
@@ -1434,9 +1441,11 @@ def main(argv=None):
         kept.sort(key=lambda x: (-(x["p_pick"] or 0), x["date"]))
         pp["upcoming"] = kept
         n_priced = prop_odds.attach(pp["upcoming"])
+        n_shots = shot_odds.attach(pp["upcoming"])
         for x in pp["upcoming"]:
             x["value"] = value.annotate_soccer_player(x)
-        print(f"  bet365 scorer prices attached to {n_priced} pick(s)")
+        print(f"  bet365 scorer prices attached to {n_priced} pick(s); "
+              f"shots/on-target book prices to {n_shots}")
         ppath = OUT / "player_picks.json"
         if pp["_incomplete"]:
             print(f"  SKIPPED player_picks.json: could not grade "

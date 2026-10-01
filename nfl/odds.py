@@ -192,6 +192,10 @@ def player_props(book: dict) -> dict:
 _SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 
 
+_PLAIN = str.maketrans({"ø": "o", "Ø": "O", "æ": "ae", "Æ": "Ae", "ß": "ss",
+                        "đ": "d", "Đ": "D", "ł": "l", "Ł": "L", "ı": "i", "œ": "oe"})
+
+
 def norm_name(name: str) -> str:
     """A player's name in a form both feeds agree on.
 
@@ -202,7 +206,10 @@ def norm_name(name: str) -> str:
     """
     import re
     import unicodedata
-    text = unicodedata.normalize("NFKD", str(name or "")).encode("ascii", "ignore").decode()
+    # Letters NFKD does not decompose would otherwise be DROPPED ("Ødegaard" ->
+    # "degaard"), so a European name never met a US book's plain spelling.
+    text = str(name or "").translate(_PLAIN)
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
     words = re.sub(r"[^a-z0-9 ]", "", text.lower().replace("-", " ")).split()
     return " ".join(w for w in words if w not in _SUFFIXES)
 

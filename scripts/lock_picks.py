@@ -27,7 +27,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from leagues import config, lockwindow, parlays, picks
+from leagues import config, lockwindow, parlays, picks, shot_odds
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "leagues"
@@ -98,6 +98,7 @@ def lock_players(now, window=None) -> list:
         return []
     payload = json.loads(path.read_text(encoding="utf-8"))
     frozen, logs = [], {}
+    shots_store = shot_odds.load()
     for pick in payload.get("upcoming", []):
         league = pick.get("league_key")
         if not league or pick.get("p_pick") is None:
@@ -124,6 +125,9 @@ def lock_players(now, window=None) -> list:
                         doubt=pick.get("doubt"),
                         unavailable=pick.get("unavailable"),
                         team_attribution=pick.get("team_attribution"))
+        if pick["market"] in shot_odds.LINE:
+            # The book's price at the moment of freezing (leagues/shot_odds.py).
+            shot_odds.freeze(log[key], league, pick["id"], store=shots_store)
         frozen.append(f"{pick['player']} {pick['market']} ({hours * 60:.0f}m out)")
     for log_path, log in logs.values():
         picks.save_log(log, log_path)

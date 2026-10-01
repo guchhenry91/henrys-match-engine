@@ -447,6 +447,16 @@ jobs:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: python -m scripts.sync_soccer_prop_odds
 
+      # Shots / on-target prices from US books (The Odds API -- bet365 has no shots
+      # market in any feed). Only fixtures with such a pick, at most two checks
+      # each, 2 credits a check; off unless ODDS_API_ENABLED is "true".
+      - name: Fetch shots / on-target book prices
+        continue-on-error: true
+        env:
+          ODDS_API_ENABLED: ${{ vars.ODDS_API_ENABLED }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m scripts.sync_soccer_shot_odds
+
       - name: Refresh confirmed pre-match lineups
         id: lineups
         continue-on-error: true
@@ -522,6 +532,8 @@ jobs:
           git config user.email "actions@github.com"
           # ONLY league files -- never the World Cup app's data.
           git add data/leagues data-raw/leagues data-raw/ucl data/ucl
+          # The Odds API credit ledger (the shots price sync spends from it).
+          git add data-raw/odds_api 2>/dev/null || true
           # A byte-level diff is ALWAYS non-empty: publish rewrites `updated` in
           # every league file each run. With the matchday cadence at 15 minutes
           # that meant 48 Render deploys a day, nearly all of them shipping only

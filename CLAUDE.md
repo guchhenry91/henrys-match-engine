@@ -1180,6 +1180,16 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   football-data's season file (`leagues/closing.py`, run in publish after grading):
   the price where none was frozen at lock, plus an open/close pair for CLV. First
   run, all 223 graded: 111-104 at an average 2.09, +1.8%; CLV 96 toward, 104 against.
+  Soccer SHOTS / ON-TARGET picks are priced from US books via The Odds API
+  (`leagues/shot_odds.py`, `scripts/sync_soccer_shot_odds.py`): bet365 has no shots
+  market in any feed (API-Football's id 275 covers both teams), and The Odds API's
+  soccer player props are US-only. Same line as the pick (2+ shots = over 1.5,
+  1+ on target = over 0.5); fixtures with such a pick only, <= 2 checks, 2 credits a
+  check. Value at bet365 is an ESTIMATE from that fair chance. Frozen at lock by
+  the fast locker and publish; the open is the first quote seen. Club names must
+  map in `leagues/names.py` -- `probe_soccer_event_names` (odds-probe workflow, free)
+  lists any that do not. `nfl.odds.norm_name` now folds letters NFKD drops (o-slash,
+  ae, ss, l-stroke), which had turned "Odegaard" into "degaard".
 - **Phase 2, value at bet365** (`tracking/value.py`). Every pick: the minimum bet365 price
   worth taking (+3% EV), a VALUE verdict at bet365's own price where known (soccer, NFL
   bet365 lines) else an ESTIMATE from the sharp fair price less a 5% margin (labelled
