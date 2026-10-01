@@ -9,7 +9,7 @@ the schedule feed does not answer, the board falls back to evidence only.
 import json
 
 from scripts import json_safe
-from tracking import performance
+from tracking import performance, value
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -74,6 +74,7 @@ def build(now=None, sched=None) -> dict:
 def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     now = now or datetime.now(timezone.utc)
     log = picks_mod.load_log()
+    value.annotate_line_board(payload)
     frozen = picks_mod.freeze(payload, log, now, book_lines.is_last_run_before)
     # The first price seen and the price frozen on, for profit and closing-line
     # value (tracking/performance.py). Uses only odds already fetched.
@@ -109,6 +110,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
                 p.update({"line": e["line"], "probability": e["probability"],
                           "book_p": e["book_p"], "book_price": e["book_price"],
                           "edge": e["edge"], "locked": True})
+    value.annotate_line_board(payload)     # on the frozen line and price
     payload["record"] = picks_mod.record(log)
     payload["performance"] = performance.by_market(
         [e for e in log.values() if isinstance(e, dict) and e.get("graded")],

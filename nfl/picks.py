@@ -315,6 +315,9 @@ def _lock_props(payload, log, now):
                 # nfl/market_blend.py can keep re-fitting how far to trust it.
                 entry["p_model"] = pick.get("p_model")
                 entry["blend_w"] = pick.get("blend_w")
+                # The bet365 value verdict at lock (tracking/value.py), so value
+                # plays can be scored apart from the rest.
+                entry["value"] = pick.get("value")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the

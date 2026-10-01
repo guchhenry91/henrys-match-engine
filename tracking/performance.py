@@ -225,6 +225,10 @@ def by_market(entries, market_of) -> dict:
         groups.setdefault(market_of(e), []).append(e)
     out = {m: summarize(rows) for m, rows in groups.items() if m}
     out["all"] = summarize(entries)
+    # The Phase 2 rule on trial: only the picks that were VALUE when they locked
+    # (tracking/value.py). If this line does not beat "all", the rule is not working.
+    out["value_plays"] = summarize([e for e in entries
+                                    if ((e.get("value") or {}).get("value")) is True])
     return out
 
 

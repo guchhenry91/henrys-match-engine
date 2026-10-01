@@ -419,6 +419,8 @@
     padding:2px 7px;border-radius:999px;border:1px solid currentColor;opacity:.92;white-space:nowrap}
   .pftag.proven{color:var(--lime)} .pftag.promising{color:var(--cyan)}
   .pftag.testing{color:var(--mut,#8a93a6)} .pftag.losing{color:var(--hot)}
+  .pftag.value{color:#0b1220;background:var(--lime);border-color:var(--lime)}
+  .b365{display:block;font-size:11px;font-weight:800;white-space:normal;line-height:1.35;max-width:100%}
   .wv.win{color:var(--lime)}
   .wv.loss{color:var(--hot)}
   .wv.void{color:var(--amber)}
@@ -1305,10 +1307,29 @@ function setFDate(d){ fdate=(fdate===d?"all":d); render(cur); }
 // A prop with no side (anytime TD, home runs) is a yes/over bet.
 let fside="all";
 function setFSide(v){ fside=(fside===v?"all":v); render(cur); }
-const inSide=p=>fside==="all"||(p.side||"over")===fside;
+// VALUE AT BET365 (tracking/value.py). Every pick carries the lowest bet365 price
+// worth taking it at; a VALUE pick clears +3% expected return at bet365's own price
+// where we have it, or at an ESTIMATE of it (sharp books' fair chance less a typical
+// bet365 margin) where we do not -- the estimate is labelled, never passed off.
+const isValue=x=>!!(x&&x.value&&x.value.value);
+const inSide=p=>fside==="all"||(fside==="value"?isValue(p):(p.side||"over")===fside);
+const inValue=g=>fside!=="value"||isValue(g);
 function sideChips(){
   const c=(v,l)=>`<button class="chip ${fside===v?"on":""}" type="button" onclick="setFSide('${v}')">${l}</button>`;
-  return `<div class="chips">${c("all","All sides")}${c("over","Overs")}${c("under","Unders")}</div>`;
+  return `<div class="chips">${c("all","All sides")}${c("over","Overs")}${c("under","Unders")}${c("value","Value only")}</div>`;
+}
+function valueBits(x){
+  const v=x&&x.value;
+  if(!v||!v.min_price) return "";
+  const est=v.basis==="estimate";
+  const tip=v.basis==="bet365"
+    ? `bet365 ${v.ref_price}: ${v.ev>0?"+":""}${(100*v.ev).toFixed(1)}% expected return. Worth it at ${v.min_price} or better.`
+    : v.basis==="estimate"
+      ? `bet365 price not on record; estimated about ${v.ref_price} from the sharp books (${v.ev>0?"+":""}${(100*v.ev).toFixed(1)}%). Check bet365: worth it at ${v.min_price} or better.`
+      : `No price on record. Check bet365: worth it at ${v.min_price} or better.`;
+  const tag=v.value?`<span class="pftag value" title="${esc(tip)}">Value${est?" (est.)":""}</span>`:"";
+  const stake=v.value&&v.stake?` · stake ${+(100*v.stake).toFixed(2)}%`:"";
+  return `${tag}<span class="bsn b365" title="${esc(tip)}">bet365 ${v.min_price.toFixed(2)}+${stake}</span>`;
 }
 function setFLeague(l){ fleague=l; render(cur); }
 function setRKind(k){ rkind=k; rall=false; render(cur); }
@@ -1391,7 +1412,7 @@ function nflGameTableRow(g){
       <b>${esc(g.away)} @ ${esc(g.home)}</b>
       <span>Model selection: <em>${esc(g.pick)}</em> · ${g.pick===g.home?"home":"away"} · Elo ${
         Math.round(g.rating_away)} v ${Math.round(g.rating_home)}${g.neutral?" · neutral site":""}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${valueBits(g)}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${g.book||"Book"} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -1422,7 +1443,7 @@ function nflPropTableRow(p, full){
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
-    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p)}${
       p.line_source&&p.line_source!=="model"?`<span class="bsn">${esc(lineBook(p))} line</span>`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
       p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
@@ -1488,7 +1509,7 @@ function propTableRow(p){
       <span>${esc(p.home||"")} vs ${esc(p.away||"")} · ${esc(p.team||"")} · ${xi}${
         p.doubt?" · fitness doubt":""}${p.penalty_taker?" · takes penalties":""}</span>
       ${lastFiveTiles(p)}</div>
-    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}${perfTag("soccer",p.market)}</div>
+    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.line||p.market)}</b>${confTag(bandOf(p))}${perfTag("soccer",p.market)}${valueBits(p)}</div>
     ${probCell(p.p_pick)}${valCell("Per appearance",avg)}${p.book_price!=null
       ? valCell(`bet365 ${Number(p.book_price).toFixed(2)}`,
           p.edge!=null?`${p.edge>0?"+":""}${(p.edge*100).toFixed(1)} pp`:"—",
@@ -1506,7 +1527,7 @@ function bestTableRow(u){
     <div class="be"><div class="beb">${esc(LG[u.league_key]||"")} · Match winner</div>
       <b>${esc(u.home)} vs ${esc(u.away)}</b>
       <span>Model selection: <em>${esc(u.pick)}</em>${u.score?` · Correct score: <em>${esc(u.score)}</em>`:""}</span></div>
-    <div class="bs">${confTag(bandOf(u))}${perfTag("soccer","match_winner")}</div>
+    <div class="bs">${confTag(bandOf(u))}${perfTag("soccer","match_winner")}${valueBits(u)}</div>
     ${probCell(u.p_pick)}
     ${valCell(priced?(u.book||"Bookmaker"):"Price",priced?odds.toFixed(2):"—",priced?"":"off")}
     ${valCell("Edge",edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—",edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -1570,10 +1591,18 @@ function settledRow(r){
 // then moved toward the pick (closing-line value). A market's status is EARNED:
 // Proven needs enough bets AND evidence beyond luck; until then it says Testing.
 const PERF_LABEL={proven:"Proven",promising:"Promising",testing:"Testing",losing:"Losing"};
-const PERF_NAME={team_winner:"Team winner",match_winner:"Match winner"};
+const PERF_NAME={team_winner:"Team winner",match_winner:"Match winner",
+                 value_plays:"Value plays only (the bet365 value rule)",
+                 value_match:"Value plays only — match winners",
+                 value_players:"Value plays only — player props"};
 function perfBlocks(sport){
-  if(sport==="soccer") return {...(((DATA.player_picks||{}).performance)||{}),
-    match_winner:(((DATA.best||{}).performance)||{}).match_winner};
+  if(sport==="soccer"){
+    const pp=((DATA.player_picks||{}).performance)||{}, bp=((DATA.best||{}).performance)||{};
+    // Match winners and player props are scored in separate files, so each gets
+    // its own value line rather than one number that hides which is which.
+    const {value_plays:vp, ...rest}=pp;
+    return {...rest, match_winner:bp.match_winner, value_match:bp.value_plays, value_players:vp};
+  }
   return ((DATA[sport]||{}).performance)||{};
 }
 function perfOf(sport, market){ return perfBlocks(sport)[market]||null; }
@@ -1585,8 +1614,10 @@ function perfTag(sport, market){
 }
 function perfPanel(sport){
   const blocks=perfBlocks(sport);
-  const rows=Object.entries(blocks).filter(([m,s])=>m!=="all"&&s)
+  const isV=m=>m.startsWith("value_");
+  const rows=Object.entries(blocks).filter(([m,s])=>m!=="all"&&!isV(m)&&s)
     .sort((a,b)=>(b[1].bets||0)-(a[1].bets||0));
+  rows.unshift(...Object.entries(blocks).filter(([m,s])=>isV(m)&&s));
   if(!rows.length) return "";
   const pct=x=>x==null?"—":`${Math.round(100*x)}%`;
   const body=rows.map(([m,s])=>{
@@ -1930,7 +1961,7 @@ function viewNFL(){
   const markets = filter==="all" ? allMarkets : filter==="team_winner" ? [] : [filter];
 
   if(filter==="all"||filter==="team_winner"){
-    const games=(d.games||[]).filter(inBoard)
+    const games=(d.games||[]).filter(inBoard).filter(inValue)
       .sort(strongFirst((a,b)=>new Date(a.kickoff)-new Date(b.kickoff)||b.p_pick-a.p_pick));
     h+=sectHead("Henry's live model",`Team winner · ${d.season?`week ${d.week} · `:""}${games.length} game${games.length===1?"":"s"}`,
       "Edge is the model's probability minus bet365's de-vigged probability for the same side.");
@@ -2003,7 +2034,7 @@ function nbaGameTableRow(g){
       <b>${esc(g.away)} @ ${esc(g.home)}</b>
       <span>Model selection: <em>${esc(g.pick)}</em> · ${g.pick===g.home?"home":"away"} · Elo ${
         Math.round(g.rating_away)} v ${Math.round(g.rating_home)}${g.neutral?" · neutral site":""}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${valueBits(g)}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${bk} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -2021,7 +2052,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2053,7 +2084,7 @@ function mlbGameTableRow(g){
     <div class="be"><div class="beb">MLB · Team winner</div>
       <b>${esc(g.away_name||g.away)} @ ${esc(g.home_name||g.home)}</b>
       <span>Model selection: <em>${esc(g.pick===g.home?(g.home_name||g.home):(g.away_name||g.away))}</em>${sp}</span></div>
-    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb","team_winner")}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb","team_winner")}${valueBits(g)}${g.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(g.p_pick)}
     ${valCell(bp!=null?`${bk} implied`:"Price", bp!=null?pc(bp)+"%":"—", bp!=null?"":"off")}
     ${valCell("Edge", edge!=null?`${edge>0?"+":""}${edge.toFixed(1)} pp`:"—", edge==null?"off":edge>=0?"pos":"neg")}</div>`;
@@ -2066,7 +2097,7 @@ function mlbPropTableRow(p){
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p)}<span class="bsn">${esc(lineBook(p))} line</span>${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2097,7 +2128,7 @@ function viewMLB(){
       h+=`<div class="eyebrow" style="margin-top:18px">Live record · frozen picks</div>
         <div class="glass rowc">${recLine("Team winner",rw)}${recLine("Props and team totals",rp)}</div>`;
     if(filter==="all"||filter==="team_winner"){
-      const games=(d.games||[]).filter(inBoard).sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)));
+      const games=(d.games||[]).filter(inBoard).filter(inValue).sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)));
       h+=sectHead("Henry's live model",`Team winner · ${games.length} game${games.length===1?"":"s"}`,
         "Edge is the model's probability minus the book's de-vigged probability for the same side.");
       h+=games.length?btable(PCOLS,games.map(mlbGameTableRow).join(""))
@@ -2169,7 +2200,7 @@ function viewNBA(){
         <div class="glass rowc">${recLine("Team winner",rw)}${recLine("Player props",rp)}</div>`;
 
     if(filter==="all"||filter==="team_winner"){
-      const games=(d.games||[]).filter(inBoard)
+      const games=(d.games||[]).filter(inBoard).filter(inValue)
         .sort(strongFirst((a,b)=>new Date(a.tipoff)-new Date(b.tipoff)||b.p_pick-a.p_pick));
       h+=sectHead("Henry's live model",`Team winner · ${games.length} game${games.length===1?"":"s"}`,
         "Edge is the model's probability minus the book's de-vigged probability for the same side.");

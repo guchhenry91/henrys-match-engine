@@ -742,7 +742,10 @@ def main():
     # FREEZE AND GRADE BEFORE WRITING. Done here rather than inside build() so the
     # locked pick is what reaches disk: the board must display the pick the record
     # grades, not a fresher one computed moments earlier.
+    from tracking import value
+    value.annotate_line_board(payload)
     payload["record"] = picks.freeze_and_grade(payload)
+    value.annotate_line_board(payload)     # on the frozen line and price
     # The picks BEHIND the record, so the Grades tab can show which hit and
     # which missed rather than only a total.
     payload["settled"] = picks.settled(picks.core.load_log(picks.PICKS_LOG))

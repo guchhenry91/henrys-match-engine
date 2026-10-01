@@ -6,7 +6,8 @@ HTML = (pathlib.Path(__file__).resolve().parents[2] / "index.html").read_text(en
 
 def test_the_side_switch_exists_and_treats_yes_bets_as_overs():
     assert "function sideChips()" in HTML and "setFSide('under')" not in HTML  # built from a helper
-    assert 'const inSide=p=>fside==="all"||(p.side||"over")===fside;' in HTML
+    # A pick with no side is an over; "value" narrows to bet365 value plays instead.
+    assert 'const inSide=p=>fside==="all"||(fside==="value"?isValue(p):(p.side||"over")===fside);' in HTML
 
 
 def test_nfl_nba_and_mlb_props_all_honour_it():

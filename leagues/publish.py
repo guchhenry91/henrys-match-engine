@@ -21,7 +21,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
 from leagues import prop_odds
 from leagues import prop_calibration
-from tracking import performance
+from tracking import performance, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -581,6 +581,9 @@ def build(league: str = "PL") -> dict:
             price = ((odds.market_for(market_odds, home, away) or {}).get("odds") or {}).get(pick_type)
             if price:
                 entry["odds"] = float(price)
+            mk = odds.market_for(market_odds, home, away) or {}
+            entry["value"] = value.assess(entry.get("p_pick"), mk.get(f"p_{pick_type}"),
+                                          price, str(mk.get("book") or "").lower() == "bet365")
         # The model's committed single call. It is the most likely score GIVEN the
         # pick, so the card never contradicts itself -- the unconditional mode is
         # 1-1 in 68% of fixtures and would fight a home/away pick.
@@ -651,6 +654,7 @@ def build(league: str = "PL") -> dict:
                         price = prop_odds.price_for(league, m["match_id"], p["player"])
                         if price:
                             pe["book_price"] = float(price)
+                        pe["value"] = value.assess(prob, None, price, bool(price))
                 else:
                     pe = {"p_pick": round(prob, 4), "confidence": _confidence(prob)}
                     pprov = True
@@ -947,6 +951,14 @@ def build_best_picks() -> dict:
                 # only reaches about a week ahead.
                 "odds": (m.get("market") or {}).get("pick_odds"),
                 "book": (m.get("market") or {}).get("book"),
+                # Worth betting at bet365? (tracking/value.py)
+                "value": value.assess(
+                    p.get("p_pick"),
+                    (m.get("market") or {}).get(
+                        "p_" + ("home" if p["pick"] == m["home"] else
+                                "away" if p["pick"] == m["away"] else "draw")),
+                    (m.get("market") or {}).get("pick_odds"),
+                    str((m.get("market") or {}).get("book") or "").lower() == "bet365"),
             })
 
         # SETTLED comes only from the frozen log -- graded honestly.
@@ -999,6 +1011,7 @@ def build_best_picks() -> dict:
                 "board": entry.get("board"),
                 # The price at lock, where one was frozen (tracking/performance.py).
                 "odds": entry.get("odds"),
+                "value": entry.get("value"),
             }
             if bool(row["played"]):
                 g = picks.grade(entry, {"home": row["home"], "away": row["away"],
@@ -1368,6 +1381,8 @@ def main(argv=None):
         kept.sort(key=lambda x: (-(x["p_pick"] or 0), x["date"]))
         pp["upcoming"] = kept
         n_priced = prop_odds.attach(pp["upcoming"])
+        for x in pp["upcoming"]:
+            x["value"] = value.annotate_soccer_player(x)
         print(f"  bet365 scorer prices attached to {n_priced} pick(s)")
         ppath = OUT / "player_picks.json"
         if pp["_incomplete"]:
