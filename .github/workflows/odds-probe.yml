@@ -14,7 +14,7 @@ on:
       script:
         description: "Which probe to run (scripts/<name>.py)"
         type: choice
-        options: [probe_odds_api, probe_alt_lines, probe_mlb_odds]
+        options: [probe_odds_api, probe_alt_lines, probe_mlb_odds, probe_apisports]
         default: probe_odds_api
 
 concurrency:
@@ -44,6 +44,7 @@ jobs:
           ODDS_API_ENABLED: "true"
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_NFL_KEY: ${{ secrets.API_NFL_KEY }}
         run: python -m scripts.${{ inputs.script || 'probe_odds_api' }}
 
       - name: Commit the probe result and ledger
