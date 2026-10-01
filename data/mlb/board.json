@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T11:40:03.019346+00:00",
+  "updated": "2026-10-01T12:56:34.823576+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -70,7 +70,15 @@
       "game_type": "F",
       "book": "pinnacle",
       "book_p_pick": 0.4949,
-      "edge": 0.0614
+      "edge": 0.0614,
+      "value": {
+        "min_price": 1.85,
+        "basis": "estimate",
+        "ref_price": 1.92,
+        "ev": 0.0705,
+        "value": true,
+        "stake": 0.02
+      }
     }
   ],
   "props": {
@@ -119,7 +127,15 @@
           "edge": 0.0536,
           "side": "over",
           "p_model": 0.5267,
-          "ladder_up": []
+          "ladder_up": [],
+          "value": {
+            "min_price": 1.98,
+            "basis": "estimate",
+            "ref_price": 2.04,
+            "ev": 0.0617,
+            "value": true,
+            "stake": 0.015
+          }
         },
         {
           "market": "team_runs",
@@ -143,13 +159,21 @@
           "edge": 0.0567,
           "side": "under",
           "p_model": 0.5259,
-          "ladder_up": []
+          "ladder_up": [],
+          "value": {
+            "min_price": 1.98,
+            "basis": "estimate",
+            "ref_price": 2.06,
+            "ev": 0.069,
+            "value": true,
+            "stake": 0.0175
+          }
         }
       ]
     }
   },
   "odds": {
-    "checked_at": "2026-10-01T11:40:00+00:00",
+    "checked_at": "2026-10-01T12:56:32+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -735,6 +759,28 @@
       },
       "status": "losing",
       "status_note": "Behind at the prices taken, with no closing-line edge: do not bet"
+    },
+    "value_plays": {
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "voids": 0,
+      "profit": 0,
+      "roi": null,
+      "roi_se": null,
+      "hit_rate": null,
+      "break_even": null,
+      "avg_price": null,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "0 priced bets so far; 50 needed before any verdict"
     }
   },
   "settled": [
@@ -752,6 +798,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.6404,
       "player": "Austin Hays",
@@ -760,7 +807,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:hits:haysa001"
     },
     {
@@ -777,6 +823,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "SDN",
       "p_model": 0.6456,
       "player": "Seiya Suzuki",
@@ -785,7 +832,6 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:hits:suzus001"
     },
     {
@@ -802,6 +848,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.671,
       "player": "Fernando Tatis Jr.",
@@ -810,7 +857,6 @@
       "side": "under",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:hits:tatif002:under"
     },
     {
@@ -827,6 +873,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.682,
       "player": "Jake Cronenworth",
@@ -835,7 +882,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:hrr:cronj001"
     },
     {
@@ -852,6 +898,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.7053,
       "player": "Austin Hays",
@@ -860,7 +907,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:hrr:haysa001"
     },
     {
@@ -877,6 +923,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "SDN",
       "p_model": 0.6409,
       "player": "Matt Shaw",
@@ -885,7 +932,6 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:hrr:shawm002"
     },
     {
@@ -902,6 +948,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "strikeouts",
+      "open": null,
       "opponent": "SDN",
       "p_model": 0.7025,
       "player": "Kevin Gausman",
@@ -910,7 +957,6 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:strikeouts:gausk001"
     },
     {
@@ -927,6 +973,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "strikeouts",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.5419,
       "player": "Nick Pivetta",
@@ -935,7 +982,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:strikeouts:piven001"
     },
     {
@@ -952,6 +998,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "SDN",
       "p_model": 0.5725,
       "player": "Chicago Cubs",
@@ -960,7 +1007,6 @@
       "side": "under",
       "team": "CHN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:team_runs:CHN:under"
     },
     {
@@ -977,6 +1023,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-10-01T00:55:51+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.6507,
       "player": "San Diego Padres",
@@ -985,27 +1032,26 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "open": null,
       "key": "849842:team_runs:SDN"
     },
     {
       "away": "CHN",
       "book": "pinnacle",
       "book_p_pick": 0.5664,
+      "book_price": 1.73,
+      "close_at": "2026-10-01T00:55:51+00:00",
+      "close_p": 0.5664,
       "game_id": "849842",
       "graded": "correct",
       "home": "SDN",
       "kind": "winner",
       "locked_at": "2026-10-01T00:55:51+00:00",
+      "open": null,
       "p_pick": 0.5555,
       "pick": "SDN",
+      "price_estimated": true,
       "result": "SDN",
       "tipoff": "2026-10-01T02:00:00Z",
-      "book_price": 1.73,
-      "price_estimated": true,
-      "open": null,
-      "close_p": 0.5664,
-      "close_at": "2026-10-01T00:55:51+00:00",
       "key": "849842:winner"
     },
     {
@@ -1022,6 +1068,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.665,
       "player": "Chase Meidroth",
@@ -1030,7 +1077,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:hits:meidc001"
     },
     {
@@ -1047,6 +1093,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.665,
       "player": "Sam Antonacci",
@@ -1055,7 +1102,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:hits:mlbam:803011"
     },
     {
@@ -1072,6 +1118,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.7738,
       "player": "Taylor Trammell",
@@ -1081,7 +1128,6 @@
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
       "void_reason": "did not start",
-      "open": null,
       "key": "849846:hits:tramt001:under"
     },
     {
@@ -1098,6 +1144,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.6174,
       "player": "Chase Meidroth",
@@ -1106,7 +1153,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:hrr:meidc001"
     },
     {
@@ -1123,6 +1169,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.6873,
       "player": "Braden Montgomery",
@@ -1131,7 +1178,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:hrr:mlbam:695731"
     },
     {
@@ -1148,6 +1194,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.6479,
       "player": "Cam Smith",
@@ -1156,7 +1203,6 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:hrr:smitc010"
     },
     {
@@ -1173,6 +1219,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "strikeouts",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.5116,
       "player": "Hunter Brown",
@@ -1181,7 +1228,6 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:strikeouts:browh001"
     },
     {
@@ -1198,6 +1244,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "strikeouts",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.6569,
       "player": "Sean Burke",
@@ -1206,7 +1253,6 @@
       "side": "under",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:strikeouts:burks001:under"
     },
     {
@@ -1223,6 +1269,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.6182,
       "player": "Chicago White Sox",
@@ -1231,7 +1278,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:team_runs:CHA"
     },
     {
@@ -1248,6 +1294,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T18:52:30+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.6768,
       "player": "Houston Astros",
@@ -1256,27 +1303,26 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-30T21:00:00Z",
-      "open": null,
       "key": "849846:team_runs:HOU"
     },
     {
       "away": "CHA",
       "book": "pinnacle",
       "book_p_pick": 0.5796,
+      "book_price": 1.69,
+      "close_at": "2026-09-30T18:52:30+00:00",
+      "close_p": 0.5796,
       "game_id": "849846",
       "graded": "wrong",
       "home": "HOU",
       "kind": "winner",
       "locked_at": "2026-09-30T18:52:30+00:00",
+      "open": null,
       "p_pick": 0.5803,
       "pick": "HOU",
+      "price_estimated": true,
       "result": "CHA",
       "tipoff": "2026-09-30T21:00:00Z",
-      "book_price": 1.69,
-      "price_estimated": true,
-      "open": null,
-      "close_p": 0.5796,
-      "close_at": "2026-09-30T18:52:30+00:00",
       "key": "849846:winner"
     },
     {
@@ -1293,6 +1339,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.6558,
       "player": "Austin Hays",
@@ -1301,7 +1348,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:hits:haysa001"
     },
     {
@@ -1318,6 +1364,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "SDN",
       "p_model": 0.665,
       "player": "Seiya Suzuki",
@@ -1326,7 +1373,6 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:hits:suzus001"
     },
     {
@@ -1343,6 +1389,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.7148,
       "player": "Fernando Tatis Jr.",
@@ -1351,7 +1398,6 @@
       "side": "under",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:hits:tatif002:under"
     },
     {
@@ -1368,6 +1414,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.6858,
       "player": "Jake Cronenworth",
@@ -1376,7 +1423,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:hrr:cronj001"
     },
     {
@@ -1393,6 +1439,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.7058,
       "player": "Austin Hays",
@@ -1401,7 +1448,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:hrr:haysa001"
     },
     {
@@ -1418,6 +1464,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.679,
       "player": "Samad Taylor",
@@ -1426,7 +1473,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:hrr:tayls003"
     },
     {
@@ -1443,6 +1489,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "strikeouts",
+      "open": null,
       "opponent": "SDN",
       "p_model": 0.6114,
       "player": "Matthew Boyd",
@@ -1451,7 +1498,6 @@
       "side": "over",
       "team": "CHN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:strikeouts:boydm001"
     },
     {
@@ -1468,6 +1514,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "strikeouts",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.5596,
       "player": "Michael King",
@@ -1476,7 +1523,6 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:strikeouts:kingm002"
     },
     {
@@ -1493,6 +1539,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-30T00:54:35+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "CHN",
       "p_model": 0.6508,
       "player": "San Diego Padres",
@@ -1501,27 +1548,26 @@
       "side": "over",
       "team": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "open": null,
       "key": "849843:team_runs:SDN"
     },
     {
       "away": "CHN",
       "book": "pinnacle",
       "book_p_pick": 0.5567,
+      "book_price": 1.76,
+      "close_at": "2026-09-30T00:54:35+00:00",
+      "close_p": 0.5567,
       "game_id": "849843",
       "graded": "correct",
       "home": "SDN",
       "kind": "winner",
       "locked_at": "2026-09-30T00:54:35+00:00",
+      "open": null,
       "p_pick": 0.55,
       "pick": "SDN",
+      "price_estimated": true,
       "result": "SDN",
       "tipoff": "2026-09-30T02:00:00Z",
-      "book_price": 1.76,
-      "price_estimated": true,
-      "open": null,
-      "close_p": 0.5567,
-      "close_at": "2026-09-30T00:54:35+00:00",
       "key": "849843:winner"
     },
     {
@@ -1538,6 +1584,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.6917,
       "player": "Yainer Diaz",
@@ -1546,7 +1593,6 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:hits:diazy004"
     },
     {
@@ -1563,6 +1609,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.7042,
       "player": "Colson Montgomery",
@@ -1571,7 +1618,6 @@
       "side": "under",
       "team": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:hits:montc004:under"
     },
     {
@@ -1588,6 +1634,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "hits",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.7717,
       "player": "Taylor Trammell",
@@ -1596,7 +1643,6 @@
       "side": "under",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:hits:tramt001:under"
     },
     {
@@ -1613,6 +1659,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.618,
       "player": "Chase Meidroth",
@@ -1621,7 +1668,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:hrr:meidc001"
     },
     {
@@ -1638,6 +1684,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.618,
       "player": "Jeremy Pena",
@@ -1646,7 +1693,6 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:hrr:penaj004"
     },
     {
@@ -1663,6 +1709,7 @@
       "line_source": "draftkings",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "hrr",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.6359,
       "player": "Cam Smith",
@@ -1671,7 +1718,6 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:hrr:smitc010"
     },
     {
@@ -1688,6 +1734,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "HOU",
       "p_model": 0.6029,
       "player": "Chicago White Sox",
@@ -1696,7 +1743,6 @@
       "side": "over",
       "team": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:team_runs:CHA"
     },
     {
@@ -1713,6 +1759,7 @@
       "line_source": "pinnacle",
       "locked_at": "2026-09-29T19:10:38+00:00",
       "market": "team_runs",
+      "open": null,
       "opponent": "CHA",
       "p_model": 0.5491,
       "player": "Houston Astros",
@@ -1721,27 +1768,26 @@
       "side": "over",
       "team": "HOU",
       "tipoff": "2026-09-29T21:00:00Z",
-      "open": null,
       "key": "849849:team_runs:HOU"
     },
     {
       "away": "CHA",
       "book": "pinnacle",
       "book_p_pick": 0.5305,
+      "book_price": 1.85,
+      "close_at": "2026-09-29T19:10:38+00:00",
+      "close_p": 0.5305,
       "game_id": "849849",
       "graded": "wrong",
       "home": "HOU",
       "kind": "winner",
       "locked_at": "2026-09-29T19:10:38+00:00",
+      "open": null,
       "p_pick": 0.585,
       "pick": "HOU",
+      "price_estimated": true,
       "result": "CHA",
       "tipoff": "2026-09-29T21:00:00Z",
-      "book_price": 1.85,
-      "price_estimated": true,
-      "open": null,
-      "close_p": 0.5305,
-      "close_at": "2026-09-29T19:10:38+00:00",
       "key": "849849:winner"
     },
     {
