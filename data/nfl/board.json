@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T11:20:42.599301+00:00",
+  "updated": "2026-10-01T11:48:09.369011+00:00",
   "season": 2026,
   "week": 4,
   "elo": {
@@ -1046,7 +1046,7 @@
     "fixtures_priced": 14,
     "source": "API-NFL, bet365 preferred",
     "note": "Edges are model probability minus the de-vigged book price.",
-    "checked_at": "2026-10-01T11:19:55.985500+00:00",
+    "checked_at": "2026-10-01T11:47:14.298292+00:00",
     "player_props": {
       "available": true,
       "markets_quoted": [
@@ -8152,5 +8152,139 @@
       "line": 44.0,
       "actual": 0.0
     }
-  ]
+  ],
+  "performance": {
+    "team_winner": {
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "voids": 0,
+      "profit": 0,
+      "roi": null,
+      "roi_se": null,
+      "hit_rate": null,
+      "break_even": null,
+      "avg_price": null,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "0 priced bets so far; 50 needed before any verdict"
+    },
+    "passing_yards": {
+      "bets": 35,
+      "wins": 13,
+      "losses": 22,
+      "voids": 1,
+      "profit": -10.82,
+      "roi": -0.3091,
+      "roi_se": 0.1541,
+      "hit_rate": 0.3714,
+      "break_even": 0.5363,
+      "avg_price": 1.865,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "35 priced bets so far; 50 needed before any verdict"
+    },
+    "receiving_yards": {
+      "bets": 72,
+      "wins": 40,
+      "losses": 32,
+      "voids": 7,
+      "profit": 3.6,
+      "roi": 0.05,
+      "roi_se": 0.1115,
+      "hit_rate": 0.5556,
+      "break_even": 0.5289,
+      "avg_price": 1.891,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "promising",
+      "status_note": "Ahead so far, but not yet enough evidence to trust"
+    },
+    "rushing_yards": {
+      "bets": 41,
+      "wins": 25,
+      "losses": 16,
+      "voids": 4,
+      "profit": 5.66,
+      "roi": 0.138,
+      "roi_se": 0.144,
+      "hit_rate": 0.6098,
+      "break_even": 0.5358,
+      "avg_price": 1.867,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "41 priced bets so far; 50 needed before any verdict"
+    },
+    "anytime_touchdown": {
+      "bets": 18,
+      "wins": 8,
+      "losses": 10,
+      "voids": 0,
+      "profit": -5.82,
+      "roi": -0.3233,
+      "roi_se": 0.1862,
+      "hit_rate": 0.4444,
+      "break_even": 0.5585,
+      "avg_price": 1.934,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "18 priced bets so far; 50 needed before any verdict"
+    },
+    "all": {
+      "bets": 166,
+      "wins": 86,
+      "losses": 80,
+      "voids": 12,
+      "profit": -7.38,
+      "roi": -0.0445,
+      "roi_se": 0.0721,
+      "hit_rate": 0.5181,
+      "break_even": 0.5353,
+      "avg_price": 1.884,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "losing",
+      "status_note": "Behind at the prices taken, with no closing-line edge: do not bet"
+    }
+  }
 }
