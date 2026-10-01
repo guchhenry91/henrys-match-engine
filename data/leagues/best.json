@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T10:17:49.612798+00:00",
+  "updated": "2026-10-01T11:59:52.012145+00:00",
   "_incomplete": [],
   "min_probability": 0.65,
   "record": {
@@ -62,7 +62,7 @@
       "away": "Le Mans",
       "pick": "Paris SG",
       "confidence": 5,
-      "p_pick": 0.7219,
+      "p_pick": 0.722,
       "score": "2-1",
       "provisional": true,
       "odds": null,
@@ -114,6 +114,7 @@
       "confidence": 4,
       "p_pick": 0.6515,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 5,
         "away_goals": 3
@@ -133,6 +134,7 @@
       "confidence": 5,
       "p_pick": 0.7393,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 0,
         "away_goals": 1
@@ -152,6 +154,7 @@
       "confidence": 5,
       "p_pick": 0.7741,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 7,
         "away_goals": 0
@@ -171,6 +174,7 @@
       "confidence": 5,
       "p_pick": 0.7974,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 7,
         "away_goals": 2
@@ -190,6 +194,7 @@
       "confidence": 4,
       "p_pick": 0.6793,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 5,
         "away_goals": 3
@@ -209,6 +214,7 @@
       "confidence": 4,
       "p_pick": 0.6652,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 2,
         "away_goals": 0
@@ -228,6 +234,7 @@
       "confidence": 4,
       "p_pick": 0.6546,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 4,
         "away_goals": 1
@@ -247,6 +254,7 @@
       "confidence": 4,
       "p_pick": 0.6978,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 0,
         "away_goals": 0
@@ -266,6 +274,7 @@
       "confidence": 5,
       "p_pick": 0.8057,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 1,
         "away_goals": 0
@@ -285,6 +294,7 @@
       "confidence": 5,
       "p_pick": 0.7126,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 5,
         "away_goals": 2
@@ -304,6 +314,7 @@
       "confidence": 4,
       "p_pick": 0.6814,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 2,
         "away_goals": 0
@@ -323,6 +334,7 @@
       "confidence": 4,
       "p_pick": 0.655,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 0,
         "away_goals": 0
@@ -342,6 +354,7 @@
       "confidence": 4,
       "p_pick": 0.6664,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 2,
         "away_goals": 0
@@ -361,6 +374,7 @@
       "confidence": 4,
       "p_pick": 0.6609,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 4,
         "away_goals": 1
@@ -380,6 +394,7 @@
       "confidence": 5,
       "p_pick": 0.7705,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 3,
         "away_goals": 0
@@ -399,6 +414,7 @@
       "confidence": 5,
       "p_pick": 0.7181,
       "board": true,
+      "odds": null,
       "result": {
         "home_goals": 2,
         "away_goals": 0
@@ -413,5 +429,51 @@
     75.0,
     75.0
   ],
-  "backtested_all_picks_pct": 52.9
+  "backtested_all_picks_pct": 52.9,
+  "performance": {
+    "match_winner": {
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "voids": 2,
+      "profit": 0,
+      "roi": null,
+      "roi_se": null,
+      "hit_rate": null,
+      "break_even": null,
+      "avg_price": null,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "0 priced bets so far; 50 needed before any verdict"
+    },
+    "all": {
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "voids": 2,
+      "profit": 0,
+      "roi": null,
+      "roi_se": null,
+      "hit_rate": null,
+      "break_even": null,
+      "avg_price": null,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "0 priced bets so far; 50 needed before any verdict"
+    }
+  }
 }
