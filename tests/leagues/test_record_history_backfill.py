@@ -57,4 +57,6 @@ def test_a_genuinely_empty_day_stays_zero_and_unmarked():
 def test_the_grades_tab_shows_the_calibration_watch():
     body = re.search(r"function calibWatch\(\)\{(.*?)\n\}", HTML, re.S).group(1)
     assert "WATCH_MIN" in body and "2*se" in body
-    assert "latestSettled()+calibWatch()" in HTML
+    # The watch follows the latest results (the betting-performance panel may sit
+    # between them).
+    assert re.search(r"latestSettled\(\)(\+perfPanel\(gsport\))?\+calibWatch\(\)", HTML)
