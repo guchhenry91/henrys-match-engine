@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 99948,
-  "account_used": 52,
+  "account_remaining": 99895,
+  "account_used": 105,
   "alerts": [],
   "calls": [
     {
@@ -1641,6 +1641,87 @@
       "path": "sports/americanfootball_nfl/events",
       "purpose": "nfl: list events",
       "sport": "nfl"
+    },
+    {
+      "account_remaining": 99943,
+      "account_used": 57,
+      "at": "2026-10-01T17:13:53+00:00",
+      "credits": 0,
+      "path": "sports/americanfootball_nfl/events",
+      "purpose": "nfl: list events",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99937,
+      "account_used": 63,
+      "at": "2026-10-01T17:13:53+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/664e6bda5721dc63be16bcf7d962a436/odds",
+      "purpose": "nfl board check NYG|ARI",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99931,
+      "account_used": 69,
+      "at": "2026-10-01T17:13:54+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/f01589b0e7e6dd4f4ac1220a1db81f53/odds",
+      "purpose": "nfl board check BAL|TEN",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99925,
+      "account_used": 75,
+      "at": "2026-10-01T17:13:54+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/573cc0ef39631a4f6673ec843a8bedd4/odds",
+      "purpose": "nfl board check BUF|NE",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99919,
+      "account_used": 81,
+      "at": "2026-10-01T17:13:54+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/164e6eb68f31bac190381903c3cccd31/odds",
+      "purpose": "nfl board check CHI|NYJ",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99913,
+      "account_used": 87,
+      "at": "2026-10-01T17:13:54+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/2ea94ddf20f66432b9024fe2e2eaba5f/odds",
+      "purpose": "nfl board check CIN|JAX",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99907,
+      "account_used": 93,
+      "at": "2026-10-01T17:13:54+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/daf55e2df5341c007fee5a0fc5bbc2d4/odds",
+      "purpose": "nfl board check HOU|DAL",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99901,
+      "account_used": 99,
+      "at": "2026-10-01T17:13:55+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/99a9bae4dc0dc2590496bd3102b211f2/odds",
+      "purpose": "nfl board check TB|GB",
+      "sport": "nfl"
+    },
+    {
+      "account_remaining": 99895,
+      "account_used": 105,
+      "at": "2026-10-01T17:13:55+00:00",
+      "credits": 6,
+      "path": "sports/americanfootball_nfl/events/1b4f2e60ce83fa1d63a5dff83769d27c/odds",
+      "purpose": "nfl board check PHI|LA",
+      "sport": "nfl"
     }
   ],
   "days": {
@@ -1689,10 +1770,10 @@
     "2026-10-01": {
       "by_sport": {
         "mlb": 18,
-        "nfl": 12
+        "nfl": 60
       },
-      "credits": 30
+      "credits": 78
     }
   },
-  "updated": "2026-10-01T16:35:10.266348+00:00"
+  "updated": "2026-10-01T17:13:55.376171+00:00"
 }
