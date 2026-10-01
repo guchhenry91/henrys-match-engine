@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T21:56:01.130231+00:00",
+  "updated": "2026-10-01T22:39:42.001361+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -64,23 +64,24 @@
       "away_pitcher": "Aaron Nola",
       "pick": "ATL",
       "p_home": 0.5563,
-      "p_pick": 0.5199,
+      "p_pick": 0.516,
       "rating_home": 1529.4,
       "rating_away": 1530.1,
       "game_type": "F",
       "book": "pinnacle",
-      "book_p_pick": 0.5077,
-      "edge": 0.0122,
+      "book_p_pick": 0.5026,
+      "edge": 0.0134,
       "p_model": 0.5563,
       "trust_w": 0.25,
       "value": {
-        "min_price": 1.98,
+        "min_price": 2.0,
         "basis": "estimate",
-        "ref_price": 1.88,
-        "ev": -0.0247,
+        "ref_price": 1.89,
+        "ev": -0.0222,
         "value": false,
         "stake": 0.0
-      }
+      },
+      "locked": true
     }
   ],
   "props": {
@@ -100,6 +101,13 @@
           "line": 1.5,
           "probability": 0.6659,
           "form5": 1.2,
+          "last_five": [
+            1.0,
+            2.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -119,7 +127,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -134,6 +143,13 @@
           "line": 0.5,
           "probability": 0.6714,
           "form5": 1.4,
+          "last_five": [
+            2.0,
+            0.0,
+            3.0,
+            0.0,
+            2.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -166,7 +182,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -181,6 +198,13 @@
           "line": 0.5,
           "probability": 0.6562,
           "form5": 2.2,
+          "last_five": [
+            3.0,
+            0.0,
+            4.0,
+            3.0,
+            1.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -213,7 +237,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     },
@@ -233,6 +258,13 @@
           "line": 0.5,
           "probability": 0.5943,
           "form5": 1.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            4.0,
+            1.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -277,7 +309,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -292,6 +325,13 @@
           "line": 0.5,
           "probability": 0.5744,
           "form5": 1.0,
+          "last_five": [
+            2.0,
+            0.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -336,7 +376,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -351,6 +392,13 @@
           "line": 1.5,
           "probability": 0.5807,
           "form5": 1.4,
+          "last_five": [
+            0.0,
+            0.0,
+            3.0,
+            3.0,
+            1.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -370,7 +418,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     },
@@ -390,6 +439,13 @@
           "line": 0.5,
           "probability": 0.1421,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 237,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -409,7 +465,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -424,6 +481,13 @@
           "line": 0.5,
           "probability": 0.1412,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
           "games_before": 845,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -443,7 +507,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -458,6 +523,13 @@
           "line": 0.5,
           "probability": 0.1086,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 786,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -477,7 +549,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     },
@@ -497,6 +570,13 @@
           "line": 0.5,
           "probability": 0.6961,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -516,7 +596,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -531,6 +612,13 @@
           "line": 0.5,
           "probability": 0.6998,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -550,7 +638,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -565,6 +654,13 @@
           "line": 0.5,
           "probability": 0.6897,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -584,7 +680,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     },
@@ -604,6 +701,13 @@
           "line": 3.5,
           "probability": 0.5131,
           "form5": 4.0,
+          "last_five": [
+            5.0,
+            3.0,
+            4.0,
+            8.0,
+            0.0
+          ],
           "games_before": 179,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -648,7 +752,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     },
@@ -668,6 +773,13 @@
           "line": 3.5,
           "probability": 0.4805,
           "form5": 3.0,
+          "last_five": [
+            0.0,
+            1.0,
+            7.0,
+            3.0,
+            4.0
+          ],
           "games_before": 973,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -687,7 +799,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "team_runs",
@@ -702,6 +815,13 @@
           "line": 3.5,
           "probability": 0.4987,
           "form5": 3.8,
+          "last_five": [
+            0.0,
+            8.0,
+            3.0,
+            5.0,
+            3.0
+          ],
           "games_before": 974,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -721,7 +841,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     }
@@ -742,6 +863,13 @@
           "line": 0.5,
           "probability": 0.6643,
           "form5": 0.4,
+          "last_five": [
+            2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -788,6 +916,13 @@
           "line": 0.5,
           "probability": 0.3357,
           "form5": 0.4,
+          "last_five": [
+            2.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -821,6 +956,13 @@
           "line": 0.5,
           "probability": 0.5529,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -867,6 +1009,13 @@
           "line": 0.5,
           "probability": 0.4471,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -900,6 +1049,13 @@
           "line": 0.5,
           "probability": 0.6714,
           "form5": 1.4,
+          "last_five": [
+            2.0,
+            0.0,
+            3.0,
+            0.0,
+            2.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -932,7 +1088,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -947,6 +1104,13 @@
           "line": 0.5,
           "probability": 0.3286,
           "form5": 1.4,
+          "last_five": [
+            2.0,
+            0.0,
+            3.0,
+            0.0,
+            2.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -980,6 +1144,13 @@
           "line": 0.5,
           "probability": 0.669,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            2.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1026,6 +1197,13 @@
           "line": 0.5,
           "probability": 0.331,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            2.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1059,6 +1237,13 @@
           "line": 0.5,
           "probability": 0.5399,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 463,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1105,6 +1290,13 @@
           "line": 0.5,
           "probability": 0.4601,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 463,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1138,6 +1330,13 @@
           "line": 0.5,
           "probability": 0.6413,
           "form5": 1.4,
+          "last_five": [
+            2.0,
+            0.0,
+            2.0,
+            1.0,
+            2.0
+          ],
           "games_before": 568,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1184,6 +1383,13 @@
           "line": 0.5,
           "probability": 0.3587,
           "form5": 1.4,
+          "last_five": [
+            2.0,
+            0.0,
+            2.0,
+            1.0,
+            2.0
+          ],
           "games_before": 568,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1217,6 +1423,13 @@
           "line": 0.5,
           "probability": 0.6413,
           "form5": 1.0,
+          "last_five": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 803,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1263,6 +1476,13 @@
           "line": 0.5,
           "probability": 0.3587,
           "form5": 1.0,
+          "last_five": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 803,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1296,6 +1516,13 @@
           "line": 0.5,
           "probability": 0.6562,
           "form5": 2.2,
+          "last_five": [
+            3.0,
+            0.0,
+            4.0,
+            3.0,
+            1.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1328,7 +1555,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -1343,6 +1571,13 @@
           "line": 0.5,
           "probability": 0.3437,
           "form5": 2.2,
+          "last_five": [
+            3.0,
+            0.0,
+            4.0,
+            3.0,
+            1.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1376,6 +1611,13 @@
           "line": 0.5,
           "probability": 0.5307,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
           "games_before": 123,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1422,6 +1664,13 @@
           "line": 0.5,
           "probability": 0.4693,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
           "games_before": 123,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1455,6 +1704,13 @@
           "line": 0.5,
           "probability": 0.6275,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 968,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1501,6 +1757,13 @@
           "line": 0.5,
           "probability": 0.3725,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 968,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1534,6 +1797,13 @@
           "line": 0.5,
           "probability": 0.5855,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1580,6 +1850,13 @@
           "line": 0.5,
           "probability": 0.4145,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1613,6 +1890,13 @@
           "line": 0.5,
           "probability": 0.5696,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 845,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1659,6 +1943,13 @@
           "line": 0.5,
           "probability": 0.4304,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 845,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1692,6 +1983,13 @@
           "line": 0.5,
           "probability": 0.5907,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            1.0,
+            1.0
+          ],
           "games_before": 889,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1738,6 +2036,13 @@
           "line": 0.5,
           "probability": 0.4093,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            1.0,
+            1.0
+          ],
           "games_before": 889,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1771,6 +2076,13 @@
           "line": 0.5,
           "probability": 0.6472,
           "form5": 1.6,
+          "last_five": [
+            1.0,
+            2.0,
+            3.0,
+            1.0,
+            1.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1817,6 +2129,13 @@
           "line": 0.5,
           "probability": 0.3528,
           "form5": 1.6,
+          "last_five": [
+            1.0,
+            2.0,
+            3.0,
+            1.0,
+            1.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1850,6 +2169,13 @@
           "line": 1.5,
           "probability": 0.3341,
           "form5": 1.2,
+          "last_five": [
+            1.0,
+            2.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1890,6 +2216,13 @@
           "line": 1.5,
           "probability": 0.6659,
           "form5": 1.2,
+          "last_five": [
+            1.0,
+            2.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1909,7 +2242,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -1924,6 +2258,13 @@
           "line": 0.5,
           "probability": 0.5214,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1964,6 +2305,13 @@
           "line": 0.5,
           "probability": 0.4786,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -1999,6 +2347,13 @@
           "line": 1.5,
           "probability": 0.5107,
           "form5": 0.8,
+          "last_five": [
+            3.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2051,6 +2406,13 @@
           "line": 1.5,
           "probability": 0.4893,
           "form5": 0.8,
+          "last_five": [
+            3.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2084,6 +2446,13 @@
           "line": 0.5,
           "probability": 0.5943,
           "form5": 1.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            4.0,
+            1.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2128,7 +2497,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -2143,6 +2513,13 @@
           "line": 0.5,
           "probability": 0.4057,
           "form5": 1.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            4.0,
+            1.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2176,6 +2553,13 @@
           "line": 1.5,
           "probability": 0.5253,
           "form5": 2.4,
+          "last_five": [
+            3.0,
+            0.0,
+            6.0,
+            0.0,
+            3.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2228,6 +2612,13 @@
           "line": 1.5,
           "probability": 0.4747,
           "form5": 2.4,
+          "last_five": [
+            3.0,
+            0.0,
+            6.0,
+            0.0,
+            3.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2261,6 +2652,13 @@
           "line": 1.5,
           "probability": 0.5053,
           "form5": 1.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            2.0,
+            4.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2313,6 +2711,13 @@
           "line": 1.5,
           "probability": 0.4947,
           "form5": 1.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            2.0,
+            4.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2346,6 +2751,13 @@
           "line": 0.5,
           "probability": 0.577,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 463,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2404,6 +2816,13 @@
           "line": 0.5,
           "probability": 0.423,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 463,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2437,6 +2856,13 @@
           "line": 1.5,
           "probability": 0.4601,
           "form5": 2.4,
+          "last_five": [
+            4.0,
+            0.0,
+            5.0,
+            1.0,
+            2.0
+          ],
           "games_before": 568,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2489,6 +2915,13 @@
           "line": 1.5,
           "probability": 0.5399,
           "form5": 2.4,
+          "last_five": [
+            4.0,
+            0.0,
+            5.0,
+            1.0,
+            2.0
+          ],
           "games_before": 568,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2522,6 +2955,13 @@
           "line": 1.5,
           "probability": 0.4786,
           "form5": 2.0,
+          "last_five": [
+            1.0,
+            1.0,
+            3.0,
+            0.0,
+            5.0
+          ],
           "games_before": 803,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2574,6 +3014,13 @@
           "line": 1.5,
           "probability": 0.5214,
           "form5": 2.0,
+          "last_five": [
+            1.0,
+            1.0,
+            3.0,
+            0.0,
+            5.0
+          ],
           "games_before": 803,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2607,6 +3054,13 @@
           "line": 1.5,
           "probability": 0.484,
           "form5": 3.8,
+          "last_five": [
+            5.0,
+            0.0,
+            8.0,
+            5.0,
+            1.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2659,6 +3113,13 @@
           "line": 1.5,
           "probability": 0.516,
           "form5": 3.8,
+          "last_five": [
+            5.0,
+            0.0,
+            8.0,
+            5.0,
+            1.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2692,6 +3153,13 @@
           "line": 0.5,
           "probability": 0.5696,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
           "games_before": 123,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2744,6 +3212,13 @@
           "line": 0.5,
           "probability": 0.4304,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
           "games_before": 123,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2777,6 +3252,13 @@
           "line": 1.5,
           "probability": 0.472,
           "form5": 1.2,
+          "last_five": [
+            0.0,
+            3.0,
+            0.0,
+            0.0,
+            3.0
+          ],
           "games_before": 968,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2829,6 +3311,13 @@
           "line": 1.5,
           "probability": 0.528,
           "form5": 1.2,
+          "last_five": [
+            0.0,
+            3.0,
+            0.0,
+            0.0,
+            3.0
+          ],
           "games_before": 968,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2862,6 +3351,13 @@
           "line": 1.5,
           "probability": 0.4193,
           "form5": 1.4,
+          "last_five": [
+            0.0,
+            0.0,
+            3.0,
+            3.0,
+            1.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2914,6 +3410,13 @@
           "line": 1.5,
           "probability": 0.5807,
           "form5": 1.4,
+          "last_five": [
+            0.0,
+            0.0,
+            3.0,
+            3.0,
+            1.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -2933,7 +3436,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -2948,6 +3452,13 @@
           "line": 1.5,
           "probability": 0.4119,
           "form5": 1.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            5.0,
+            1.0
+          ],
           "games_before": 845,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3000,6 +3511,13 @@
           "line": 1.5,
           "probability": 0.5881,
           "form5": 1.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            5.0,
+            1.0
+          ],
           "games_before": 845,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3033,6 +3551,13 @@
           "line": 1.5,
           "probability": 0.4786,
           "form5": 2.0,
+          "last_five": [
+            0.0,
+            0.0,
+            5.0,
+            2.0,
+            3.0
+          ],
           "games_before": 889,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3085,6 +3610,13 @@
           "line": 1.5,
           "probability": 0.5214,
           "form5": 2.0,
+          "last_five": [
+            0.0,
+            0.0,
+            5.0,
+            2.0,
+            3.0
+          ],
           "games_before": 889,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3118,6 +3650,13 @@
           "line": 1.5,
           "probability": 0.4799,
           "form5": 2.4,
+          "last_five": [
+            1.0,
+            3.0,
+            5.0,
+            2.0,
+            1.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3170,6 +3709,13 @@
           "line": 1.5,
           "probability": 0.5201,
           "form5": 2.4,
+          "last_five": [
+            1.0,
+            3.0,
+            5.0,
+            2.0,
+            1.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3203,6 +3749,13 @@
           "line": 1.5,
           "probability": 0.5372,
           "form5": 1.6,
+          "last_five": [
+            1.0,
+            2.0,
+            3.0,
+            0.0,
+            2.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3255,6 +3808,13 @@
           "line": 1.5,
           "probability": 0.4628,
           "form5": 1.6,
+          "last_five": [
+            1.0,
+            2.0,
+            3.0,
+            0.0,
+            2.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3288,6 +3848,13 @@
           "line": 0.5,
           "probability": 0.5744,
           "form5": 1.0,
+          "last_five": [
+            2.0,
+            0.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3332,7 +3899,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -3347,6 +3915,13 @@
           "line": 0.5,
           "probability": 0.4256,
           "form5": 1.0,
+          "last_five": [
+            2.0,
+            0.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3382,6 +3957,13 @@
           "line": 0.5,
           "probability": 0.1766,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 605,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3415,6 +3997,13 @@
           "line": 0.5,
           "probability": 0.1086,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 786,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3434,7 +4023,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -3449,6 +4039,13 @@
           "line": 0.5,
           "probability": 0.1421,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 237,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3468,7 +4065,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -3483,6 +4081,13 @@
           "line": 0.5,
           "probability": 0.1003,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 800,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3516,6 +4121,13 @@
           "line": 0.5,
           "probability": 0.1115,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 463,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3549,6 +4161,13 @@
           "line": 0.5,
           "probability": 0.0628,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 568,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3582,6 +4201,13 @@
           "line": 0.5,
           "probability": 0.1793,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            1.0
+          ],
           "games_before": 803,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3615,6 +4241,13 @@
           "line": 0.5,
           "probability": 0.1294,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 666,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3648,6 +4281,13 @@
           "line": 0.5,
           "probability": 0.0651,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 123,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3681,6 +4321,13 @@
           "line": 0.5,
           "probability": 0.1925,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 968,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3714,6 +4361,13 @@
           "line": 0.5,
           "probability": 0.1053,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 739,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3747,6 +4401,13 @@
           "line": 0.5,
           "probability": 0.1412,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
           "games_before": 845,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3766,7 +4427,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -3781,6 +4443,13 @@
           "line": 0.5,
           "probability": 0.2466,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 889,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3814,6 +4483,13 @@
           "line": 0.5,
           "probability": 0.1143,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 676,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3847,6 +4523,13 @@
           "line": 0.5,
           "probability": 0.1246,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 880,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3880,6 +4563,13 @@
           "line": 0.5,
           "probability": 0.1317,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 690,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -3915,6 +4605,13 @@
           "line": 0.5,
           "probability": 0.3039,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3955,6 +4652,13 @@
           "line": 0.5,
           "probability": 0.6961,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 605,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -3974,7 +4678,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -3989,6 +4694,13 @@
           "line": 0.5,
           "probability": 0.2337,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4029,6 +4741,13 @@
           "line": 0.5,
           "probability": 0.7663,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
           "games_before": 786,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4062,6 +4781,13 @@
           "line": 0.5,
           "probability": 0.3341,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4102,6 +4828,13 @@
           "line": 0.5,
           "probability": 0.6659,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 237,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4135,6 +4868,13 @@
           "line": 0.5,
           "probability": 0.3103,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4175,6 +4915,13 @@
           "line": 0.5,
           "probability": 0.6897,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
           "games_before": 800,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4194,7 +4941,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -4209,6 +4957,13 @@
           "line": 0.5,
           "probability": 0.2455,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 463,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4249,6 +5004,13 @@
           "line": 0.5,
           "probability": 0.7545,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 463,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4282,6 +5044,13 @@
           "line": 0.5,
           "probability": 0.2582,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            0.0,
+            0.0
+          ],
           "games_before": 568,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4322,6 +5091,13 @@
           "line": 0.5,
           "probability": 0.7418,
           "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            0.0,
+            0.0
+          ],
           "games_before": 568,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4355,6 +5131,13 @@
           "line": 0.5,
           "probability": 0.3141,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 803,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4395,6 +5178,13 @@
           "line": 0.5,
           "probability": 0.6859,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            2.0
+          ],
           "games_before": 803,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4428,6 +5218,13 @@
           "line": 0.5,
           "probability": 0.3155,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4468,6 +5265,13 @@
           "line": 0.5,
           "probability": 0.6845,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 666,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4501,6 +5305,13 @@
           "line": 0.5,
           "probability": 0.2186,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 123,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4541,6 +5352,13 @@
           "line": 0.5,
           "probability": 0.7814,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 123,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4574,6 +5392,13 @@
           "line": 0.5,
           "probability": 0.3406,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            2.0,
+            0.0,
+            0.0,
+            2.0
+          ],
           "games_before": 968,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4614,6 +5439,13 @@
           "line": 0.5,
           "probability": 0.6594,
           "form5": 0.8,
+          "last_five": [
+            0.0,
+            2.0,
+            0.0,
+            0.0,
+            2.0
+          ],
           "games_before": 968,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4647,6 +5479,13 @@
           "line": 0.5,
           "probability": 0.2566,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            2.0,
+            0.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4687,6 +5526,13 @@
           "line": 0.5,
           "probability": 0.7434,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            2.0,
+            0.0
+          ],
           "games_before": 739,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4720,6 +5566,13 @@
           "line": 0.5,
           "probability": 0.2756,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            3.0,
+            0.0
+          ],
           "games_before": 845,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4760,6 +5613,13 @@
           "line": 0.5,
           "probability": 0.7244,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            3.0,
+            0.0
+          ],
           "games_before": 845,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4793,6 +5653,13 @@
           "line": 0.5,
           "probability": 0.3463,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 889,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4839,6 +5706,13 @@
           "line": 0.5,
           "probability": 0.6537,
           "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            2.0,
+            0.0,
+            1.0
+          ],
           "games_before": 889,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4872,6 +5746,13 @@
           "line": 0.5,
           "probability": 0.3002,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4912,6 +5793,13 @@
           "line": 0.5,
           "probability": 0.6998,
           "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
           "games_before": 676,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4931,7 +5819,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -4946,6 +5835,13 @@
           "line": 0.5,
           "probability": 0.2768,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -4986,6 +5882,13 @@
           "line": 0.5,
           "probability": 0.7232,
           "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
           "games_before": 880,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -5019,6 +5922,13 @@
           "line": 0.5,
           "probability": 0.252,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -5059,6 +5969,13 @@
           "line": 0.5,
           "probability": 0.748,
           "form5": 0.4,
+          "last_five": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
           "games_before": 690,
           "book": "DraftKings",
           "line_source": "draftkings",
@@ -5094,6 +6011,13 @@
           "line": 3.5,
           "probability": 0.5131,
           "form5": 4.0,
+          "last_five": [
+            5.0,
+            3.0,
+            4.0,
+            8.0,
+            0.0
+          ],
           "games_before": 179,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -5138,7 +6062,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "strikeouts",
@@ -5153,6 +6078,13 @@
           "line": 3.5,
           "probability": 0.4869,
           "form5": 4.0,
+          "last_five": [
+            5.0,
+            3.0,
+            4.0,
+            8.0,
+            0.0
+          ],
           "games_before": 179,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -5188,6 +6120,13 @@
           "line": 3.5,
           "probability": 0.4987,
           "form5": 3.8,
+          "last_five": [
+            0.0,
+            8.0,
+            3.0,
+            5.0,
+            3.0
+          ],
           "games_before": 974,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -5207,7 +6146,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "team_runs",
@@ -5222,6 +6162,13 @@
           "line": 3.5,
           "probability": 0.5013,
           "form5": 3.8,
+          "last_five": [
+            0.0,
+            8.0,
+            3.0,
+            5.0,
+            3.0
+          ],
           "games_before": 974,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -5255,6 +6202,13 @@
           "line": 3.5,
           "probability": 0.5195,
           "form5": 3.0,
+          "last_five": [
+            0.0,
+            1.0,
+            7.0,
+            3.0,
+            4.0
+          ],
           "games_before": 973,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -5288,6 +6242,13 @@
           "line": 3.5,
           "probability": 0.4805,
           "form5": 3.0,
+          "last_five": [
+            0.0,
+            1.0,
+            7.0,
+            3.0,
+            4.0
+          ],
           "games_before": 973,
           "book": "Pinnacle",
           "line_source": "pinnacle",
@@ -5307,13 +6268,14 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ]
     }
   },
   "odds": {
-    "checked_at": "2026-10-01T21:55:59+00:00",
+    "checked_at": "2026-10-01T22:39:39+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -5672,7 +6634,7 @@
       "correct": 13,
       "wrong": 5,
       "void": 1,
-      "pending": 0,
+      "pending": 1,
       "settled": 18,
       "hit_rate": 0.7222
     },
@@ -5680,7 +6642,7 @@
       "correct": 108,
       "wrong": 125,
       "void": 23,
-      "pending": 0,
+      "pending": 15,
       "settled": 233,
       "hit_rate": 0.4635
     },
@@ -5689,7 +6651,7 @@
         "correct": 28,
         "wrong": 25,
         "void": 4,
-        "pending": 0,
+        "pending": 3,
         "settled": 53,
         "hit_rate": 0.5283
       },
@@ -5697,7 +6659,7 @@
         "correct": 30,
         "wrong": 24,
         "void": 3,
-        "pending": 0,
+        "pending": 3,
         "settled": 54,
         "hit_rate": 0.5556
       },
@@ -5705,7 +6667,7 @@
         "correct": 3,
         "wrong": 27,
         "void": 9,
-        "pending": 0,
+        "pending": 3,
         "settled": 30,
         "hit_rate": 0.1
       },
@@ -5713,7 +6675,7 @@
         "correct": 24,
         "wrong": 16,
         "void": 3,
-        "pending": 0,
+        "pending": 3,
         "settled": 40,
         "hit_rate": 0.6
       },
@@ -5721,7 +6683,7 @@
         "correct": 10,
         "wrong": 15,
         "void": 2,
-        "pending": 0,
+        "pending": 1,
         "settled": 25,
         "hit_rate": 0.4
       },
@@ -5729,7 +6691,7 @@
         "correct": 13,
         "wrong": 18,
         "void": 2,
-        "pending": 0,
+        "pending": 2,
         "settled": 31,
         "hit_rate": 0.4194
       }
