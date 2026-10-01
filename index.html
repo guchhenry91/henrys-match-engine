@@ -1693,7 +1693,7 @@ function perfPanel(sport){
     <h2>Does it make money?</h2>
     <p>Each graded pick scored at the price it locked on, one unit staked. "Needed" is the hit rate those prices required just to break even. Closing-line value is whether the market moved toward the pick after it first appeared — the quickest honest sign of a real edge. A market is marked <b>Proven</b> only once it is profitable over 200+ bets with evidence beyond luck; until then treat its picks as Testing.${
       all&&all.bets?` Overall: ${all.bets} priced bets, ${all.profit>0?"+":""}${all.profit} units.`:""}</p></div></div>
-    <div class="slist">${body}</div></section>`;
+    <div class="slist">${body}</div>${["nfl","nba","mlb"].includes(sport)?trustLine():""}</section>`;
 }
 
 // --- PHASE 4: the Bet list -----------------------------------------------------
@@ -1725,6 +1725,16 @@ function betList(){
   const order=(a,b)=>((b.x.value||{}).ev||0)-((a.x.value||{}).ev||0)||a.when-b.when;
   return {bet:bet.sort(order), watch:watch.sort(order), losing};
 }
+// How far the live record lets the model move a pick away from the book
+// (tracking/trust.py): 0% = the board shows the bookmaker's own chance.
+function trustLine(){
+  const parts=[["NFL","nfl"],["NBA","nba"],["MLB","mlb"]].map(([n,k])=>{
+    const t=(DATA[k]||{}).model_trust; if(!t) return null;
+    const f=x=>x?`${Math.round(100*x.w)}%`:"—";
+    return `${n} props ${f(t.prop)}, winners ${f(t.winner)}`;
+  }).filter(Boolean);
+  return parts.length?`<p class="note"><b>Model trust</b> — how far each pick may differ from the bookmaker's own chance, fitted on every graded pick so far: ${parts.join(" · ")}. At 0% the record says the bookmaker's price has been the better guide, so a pick is only value where bet365's price beats the sharp books'. Trust rises on its own if the model starts beating the book.</p>`:"";
+}
 function viewBetList(){
   const {bet,watch,losing}=betList();
   const total=bet.reduce((n,b)=>n+((b.x.value||{}).stake||0),0);
@@ -1739,6 +1749,7 @@ function viewBetList(){
       "These clear the bet365 value bar, but their market has not yet shown it makes money. Paper-bet them: they are how a market earns its place above.");
     h+=btable(PCOLS,watch.slice(0,40).map(b=>b.row()).join(""));
   }
+  h+=trustLine();
   h+=`<p class="note">Never listed: picks in markets that are LOSING at the prices taken${losing?` (${losing} value pick${losing===1?"":"s"} left out today)`:""}, and parlays — a parlay multiplies the bookmaker's margin with every leg.</p>`;
   return h;
 }

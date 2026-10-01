@@ -9,7 +9,7 @@ the schedule feed does not answer, the board falls back to evidence only.
 import json
 
 from scripts import json_safe
-from tracking import performance, value
+from tracking import performance, trust, value
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -74,6 +74,9 @@ def build(now=None, sched=None) -> dict:
 def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     now = now or datetime.now(timezone.utc)
     log = picks_mod.load_log()
+    # Pull every pick toward the book by the weight the live record supports
+    # (tracking/trust.py), THEN judge value -- so only a real price gap reads as value.
+    trust.apply_line_board(payload, trust.weights()["mlb"])
     value.annotate_line_board(payload)
     frozen = picks_mod.freeze(payload, log, now, book_lines.is_last_run_before)
     # The first price seen and the price frozen on, for profit and closing-line

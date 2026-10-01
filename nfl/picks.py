@@ -270,6 +270,13 @@ def _lock_games(payload, log, now):
             # keyed by game_id and grading writes only a score STRING, so without
             # these a graded entry cannot say who played whom.
             entry["home"], entry["away"] = game.get("home"), game.get("away")
+            # The raw model, the book's fair chance and the price at lock, so the
+            # live record can measure the winner model against the book
+            # (tracking/trust.py) and score it at a price (tracking/performance.py).
+            entry["p_model"] = game.get("p_model")
+            entry["book_p_pick"] = game.get("book_p_pick")
+            entry["book"] = game.get("book")
+            entry["value"] = game.get("value")
         entry = log.get(key)
         if entry:
             # Show what was frozen, not what the model would say now.

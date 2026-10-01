@@ -776,7 +776,9 @@ def main():
     # FREEZE AND GRADE BEFORE WRITING. Done here rather than inside build() so the
     # locked pick is what reaches disk: the board must display the pick the record
     # grades, not a fresher one computed moments earlier.
-    from tracking import value
+    from tracking import trust, value
+    # How far the live record says to trust the model over the book (tracking/trust.py).
+    trust.apply_line_board(payload, trust.weights()["nfl"])
     value.annotate_line_board(payload)
     payload["record"] = picks.freeze_and_grade(payload)
     value.annotate_line_board(payload)     # on the frozen line and price

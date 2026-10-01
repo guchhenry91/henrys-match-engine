@@ -17,7 +17,7 @@ reason, so a board with picks needs no second design.
 import json
 
 from scripts import json_safe
-from tracking import news_edge, performance, value
+from tracking import news_edge, performance, trust, value
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -170,6 +170,9 @@ def _show_frozen(payload: dict, log: dict) -> None:
 def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     now = now or picks_mod.now_utc()
     log = picks_mod.load_log()
+    # Pull every pick toward the book by the weight the live record supports
+    # (tracking/trust.py), THEN judge value -- so only a real price gap reads as value.
+    trust.apply_line_board(payload, trust.weights()["nba"])
     value.annotate_line_board(payload)
     frozen = picks_mod.freeze(payload, log, now, book_lines.is_last_run_before)
     # The first price seen and the price frozen on, for profit and closing-line

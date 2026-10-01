@@ -1197,3 +1197,12 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   picks in Testing markets are listed beneath as track-only. Everywhere else a stake is
   shown only in an earned market ("track only" otherwise); Losing-market rows fade; the
   Parlay page carries a not-recommended warning and parlays never enter the Bet list.
+- **Audit 2026-10-01, model trust** (`tracking/trust.py`). On the first 417 graded picks
+  carrying both numbers, the BOOK was the better forecast (log-loss 0.652 vs 0.674) and
+  the model's biggest "edges" did worst (6pt+: model 65%, book 53%, landed 49%); fitted
+  blend weight w = 0.00 for MLB props, NFL props, overs and unders. Every NFL/NBA/MLB pick
+  is now pulled toward the book by the w the live record supports (re-fitted every run;
+  pooled across sports under 100 graded; 0.25 default), raw model kept as `p_model`. With
+  props at w=0 only a genuine bet365-vs-sharp price gap can read as value. Grading was
+  spot-checked against official box scores: 16/16 correct. Soccer's 21 Sep - 8 Oct gap is
+  the international break, not a bug.
