@@ -17175,9 +17175,12 @@
       "away_name": "Philadelphia Phillies",
       "moneyline": {
         "book": "pinnacle",
-        "home": 0.4974,
-        "away": 0.5026,
-        "overround": 0.0204
+        "home": 0.4949,
+        "away": 0.5051,
+        "overround": 0.0205,
+        "odd_home": 1.98,
+        "odd_away": 1.94,
+        "at": "2026-10-01T11:40:00+00:00"
       },
       "team_totals": {
         "home": {
@@ -18344,9 +18347,42 @@
             ]
           }
         }
+      },
+      "open": {
+        "team_totals": {
+          "home": {
+            "line": 3.5,
+            "over": 0.467,
+            "under": 0.533,
+            "odd_over": 2.02,
+            "odd_under": 1.77,
+            "book": "FanDuel",
+            "source": "fanduel",
+            "at": "2026-10-01T11:40:00+00:00"
+          },
+          "away": {
+            "line": 3.5,
+            "over": 0.5368,
+            "under": 0.4632,
+            "odd_over": 1.76,
+            "odd_under": 2.04,
+            "book": "FanDuel",
+            "source": "fanduel",
+            "at": "2026-10-01T11:40:00+00:00"
+          }
+        },
+        "moneyline": {
+          "book": "pinnacle",
+          "home": 0.4949,
+          "away": 0.5051,
+          "overround": 0.0205,
+          "odd_home": 1.98,
+          "odd_away": 1.94,
+          "at": "2026-10-01T11:40:00+00:00"
+        }
       }
     }
   },
-  "updated": "2026-10-01T10:43:19+00:00",
+  "updated": "2026-10-01T11:40:00+00:00",
   "_note": "MLB bookmaker lines, team totals and match odds (Pinnacle, DraftKings, FanDuel via The Odds API), keyed by MLB gamePk. Written by scripts/sync_mlb_odds.py -- never by hand."
 }
