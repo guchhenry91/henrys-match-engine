@@ -1198,6 +1198,7 @@
       "close_at": "2026-10-01T21:18:17+00:00",
       "close_p": 0.5754,
       "confidence": 3,
+      "graded": "wrong",
       "home": "CLE",
       "kickoff": "2026-10-02T00:15:00+00:00",
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
@@ -1210,6 +1211,7 @@
       "p_model": 0.5543,
       "p_pick": 0.5701,
       "pick": "PIT",
+      "result": "CLE 27-24 PIT",
       "tainted": false,
       "value": {
         "basis": "bet365",
@@ -1218,7 +1220,8 @@
         "ref_price": 1.66,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     }
   },
   "props": {
@@ -12916,6 +12919,7 @@
       "void": false
     },
     "2026_04_PIT_CLE:passing_yards:00-0023459:under": {
+      "actual": 299.0,
       "appearance_pct": null,
       "away": "CLE",
       "bar": null,
@@ -12923,10 +12927,12 @@
       "book": "Bet365",
       "book_p": 0.5,
       "book_price": 1.86,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 3,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "wrong",
       "home": "PIT",
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 214.5,
@@ -12935,6 +12941,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "passing_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 214.5,
+        "p": 0.5052,
+        "price": 1.89
+      },
       "p_model": 0.5996,
       "p_pick": 0.5,
       "player": "Aaron Rodgers",
@@ -12951,9 +12964,11 @@
         "ref_price": 1.86,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     },
     "2026_04_PIT_CLE:passing_yards:00-0033537": {
+      "actual": 268.0,
       "appearance_pct": null,
       "away": "PIT",
       "bar": null,
@@ -12961,10 +12976,12 @@
       "book": "Bet365",
       "book_p": 0.5,
       "book_price": 1.86,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 3,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 181.5,
@@ -12973,6 +12990,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "passing_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 185.5,
+        "p": 0.5,
+        "price": 1.91
+      },
       "p_model": 0.6968,
       "p_pick": 0.5,
       "player": "Deshaun Watson",
@@ -12989,9 +13013,11 @@
         "ref_price": 1.86,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     },
     "2026_04_PIT_CLE:receiving_yards:00-0035640:under": {
+      "actual": 115.0,
       "appearance_pct": null,
       "away": "CLE",
       "bar": null,
@@ -12999,10 +13025,12 @@
       "book": "Pinnacle",
       "book_p": 0.5,
       "book_price": 1.91,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 3,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "wrong",
       "home": "PIT",
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 45.5,
@@ -13011,6 +13039,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "receiving_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 45.5,
+        "p": 0.5,
+        "price": 1.91
+      },
       "p_model": 0.629,
       "p_pick": 0.5,
       "player": "DK Metcalf",
@@ -13027,9 +13062,11 @@
         "ref_price": 1.9,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     },
     "2026_04_PIT_CLE:receiving_yards:00-0036894": {
+      "actual": 17.0,
       "appearance_pct": null,
       "away": "CLE",
       "bar": null,
@@ -13037,10 +13074,12 @@
       "book": "Pinnacle",
       "book_p": 0.5,
       "book_price": 1.91,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 3,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "wrong",
       "home": "PIT",
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 26.5,
@@ -13049,6 +13088,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "receiving_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 26.5,
+        "p": 0.5,
+        "price": 1.91
+      },
       "p_model": 0.5436,
       "p_pick": 0.5,
       "player": "Pat Freiermuth",
@@ -13065,9 +13111,11 @@
         "ref_price": 1.9,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     },
     "2026_04_PIT_CLE:receiving_yards:00-0040663:under": {
+      "actual": 27.0,
       "appearance_pct": null,
       "away": "PIT",
       "bar": null,
@@ -13075,10 +13123,12 @@
       "book": "Pinnacle",
       "book_p": 0.4974,
       "book_price": 1.92,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 2,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 38.5,
@@ -13087,6 +13137,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "receiving_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 38.5,
+        "p": 0.4974,
+        "price": 1.92
+      },
       "p_model": 0.5336,
       "p_pick": 0.4974,
       "player": "Harold Fannin Jr.",
@@ -13103,9 +13160,11 @@
         "ref_price": 1.91,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     },
     "2026_04_PIT_CLE:rushing_yards:00-0037228:under": {
+      "actual": 93.0,
       "appearance_pct": null,
       "away": "CLE",
       "bar": null,
@@ -13113,10 +13172,12 @@
       "book": "Bet365",
       "book_p": 0.5,
       "book_price": 1.86,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 3,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "wrong",
       "home": "PIT",
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 67.5,
@@ -13125,6 +13186,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "rushing_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 75.5,
+        "p": 0.5,
+        "price": 1.91
+      },
       "p_model": 0.6124,
       "p_pick": 0.5,
       "player": "Jaylen Warren",
@@ -13141,9 +13209,11 @@
         "ref_price": 1.86,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     },
     "2026_04_PIT_CLE:rushing_yards:00-0040784:under": {
+      "actual": 53.0,
       "appearance_pct": null,
       "away": "PIT",
       "bar": null,
@@ -13151,10 +13221,12 @@
       "book": "Bet365",
       "book_p": 0.5,
       "book_price": 1.86,
+      "close_at": "2026-10-01T16:16:17+00:00",
       "confidence": 3,
       "doubt": false,
       "expected_minutes": null,
       "game_id": "2026_04_PIT_CLE",
+      "graded": "correct",
       "home": true,
       "kickoff": "2026-10-02T00:15:00+00:00",
       "line": 55.5,
@@ -13163,6 +13235,13 @@
       "locked_at": "2026-10-01T21:29:26.526853+00:00",
       "market": "rushing_yards",
       "news_checked_hours_ago": null,
+      "open": {
+        "at": "2026-10-01T16:16:17+00:00",
+        "book": "Pinnacle",
+        "line": 55.5,
+        "p": 0.4856,
+        "price": 1.96
+      },
       "p_model": 0.7362,
       "p_pick": 0.5,
       "player": "Quinshon Judkins",
@@ -13179,7 +13258,8 @@
         "ref_price": 1.86,
         "stake": 0.0,
         "value": false
-      }
+      },
+      "void": false
     }
   }
 }
