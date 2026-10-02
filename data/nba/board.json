@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T19:58:20.692341+00:00",
+  "updated": "2026-10-02T08:58:47.795906+00:00",
   "season": 2027,
   "seasons_backtested": [
     2012,
@@ -219,12 +219,12 @@
   "model_trust": {
     "prop": {
       "w": 0.0,
-      "n": 399,
+      "n": 421,
       "basis": "other sports pooled"
     },
     "winner": {
       "w": 0.25,
-      "n": 18,
+      "n": 20,
       "basis": "default (too few graded)"
     }
   },
@@ -304,6 +304,28 @@
       "status_note": "0 priced bets so far; 50 needed before any verdict"
     },
     "value_plays": {
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "voids": 0,
+      "profit": 0,
+      "roi": null,
+      "roi_se": null,
+      "hit_rate": null,
+      "break_even": null,
+      "avg_price": null,
+      "clv": {
+        "pairs": 0,
+        "ours": 0,
+        "against": 0,
+        "flat": 0,
+        "beat_rate": null,
+        "avg_move": null
+      },
+      "status": "testing",
+      "status_note": "0 priced bets so far; 50 needed before any verdict"
+    },
+    "value_official": {
       "bets": 0,
       "wins": 0,
       "losses": 0,
