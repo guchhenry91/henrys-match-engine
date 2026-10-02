@@ -1,7 +1,7 @@
 {
   "_note": "Every The Odds API call: cost, sport, purpose, and what the account reports left. Written by oddsapi/client.py -- never by hand. Limits: 200/run, 1000/day, hard stop at 40000 used per month.",
-  "account_remaining": 99719,
-  "account_used": 281,
+  "account_remaining": 99672,
+  "account_used": 328,
   "alerts": [],
   "calls": [
     {
@@ -1929,6 +1929,60 @@
       "path": "sports/americanfootball_nfl/events",
       "purpose": "nfl: list events",
       "sport": "nfl"
+    },
+    {
+      "account_remaining": 99717,
+      "account_used": 283,
+      "at": "2026-10-02T19:02:20+00:00",
+      "credits": 0,
+      "path": "sports/baseball_mlb/events",
+      "purpose": "mlb: events",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99716,
+      "account_used": 284,
+      "at": "2026-10-02T19:02:20+00:00",
+      "credits": 1,
+      "path": "sports/baseball_mlb/odds",
+      "purpose": "mlb: match odds",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99705,
+      "account_used": 295,
+      "at": "2026-10-02T19:02:21+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/5d13b613a334039f0694d8c95af28728/odds",
+      "purpose": "mlb board check CHA@CLE",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99694,
+      "account_used": 306,
+      "at": "2026-10-02T19:02:21+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/1632ced04d65127cf6172d3a2c2e2d16/odds",
+      "purpose": "mlb board check ATL@LAN",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99683,
+      "account_used": 317,
+      "at": "2026-10-02T19:02:21+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/cb4d07dc15440acf3d9ebe1ad41756c1/odds",
+      "purpose": "mlb board check NYA@TBA",
+      "sport": "mlb"
+    },
+    {
+      "account_remaining": 99672,
+      "account_used": 328,
+      "at": "2026-10-02T19:02:21+00:00",
+      "credits": 11,
+      "path": "sports/baseball_mlb/events/347a2e725dd11a54a1d964eae3d04dd2/odds",
+      "purpose": "mlb board check SDN@MIL",
+      "sport": "mlb"
     }
   ],
   "days": {
@@ -1983,10 +2037,11 @@
     },
     "2026-10-02": {
       "by_sport": {
+        "mlb": 45,
         "nfl": 6
       },
-      "credits": 6
+      "credits": 51
     }
   },
-  "updated": "2026-10-02T15:40:27.951458+00:00"
+  "updated": "2026-10-02T19:02:21.371122+00:00"
 }
