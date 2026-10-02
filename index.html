@@ -1695,7 +1695,8 @@ const PERF_NAME={team_winner:"Team winner",match_winner:"Match winner",
                  value_plays:"Value plays only (the bet365 value rule)",
                  value_match:"Value plays only — match winners",
                  value_players:"Value plays only — player props",
-                 value_edges:"Price edges — bet365 above the sharp market"};
+                 value_edges:"Price edges — bet365 above the sharp market",
+                 value_official:"Official picks — what the Bet list recommended"};
 function perfBlocks(sport){
   if(sport==="soccer"){
     const pp=((DATA.player_picks||{}).performance)||{}, bp=((DATA.best||{}).performance)||{};

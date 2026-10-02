@@ -75,7 +75,7 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
                 "home": g["home"], "away": g["away"], "pick": g["pick"],
                 "p_pick": g["p_pick"], "book_p_pick": g.get("book_p_pick"),
                 "book": g.get("book"), "value": g.get("value"),
-                "p_model": g.get("p_model"), "locked_at": stamp}
+                "p_model": g.get("p_model"), "trust_w": g.get("trust_w"), "locked_at": stamp}
             frozen += 1
     for market, block in (payload.get("props") or {}).items():
         for p in block.get("picks") or []:
@@ -90,7 +90,7 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
                 "book_price": p.get("book_price"), "edge": p.get("edge"),
                 "availability": p.get("availability"), "side": p.get("side", "over"),
                 "p_model": p.get("p_model"), "value": p.get("value"),
-                "locked_at": stamp}
+                "trust_w": p.get("trust_w"), "locked_at": stamp}
             frozen += 1
     return frozen
 

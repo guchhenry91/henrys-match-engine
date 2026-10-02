@@ -23,6 +23,7 @@ never overwrite an earlier, better-timed lock.
 """
 import json
 import sys
+from tracking import manifest, release
 from pathlib import Path
 
 import pandas as pd
@@ -87,6 +88,8 @@ def lock_matches(now, window=None) -> list:
                           f"({hours * 60:.0f}m out)")
             changed = True
         if changed:
+            manifest.stamp(log.values(), "soccer")      # which model made each new pick
+            release.mark(log.values(), "soccer", lambda e: "match_winner")
             picks.save_log(log, log_path)
     return frozen
 
@@ -130,6 +133,8 @@ def lock_players(now, window=None) -> list:
             shot_odds.freeze(log[key], league, pick["id"], store=shots_store)
         frozen.append(f"{pick['player']} {pick['market']} ({hours * 60:.0f}m out)")
     for log_path, log in logs.values():
+        manifest.stamp(log.values(), "soccer")
+        release.mark(log.values(), "soccer", lambda e: e.get("market"))
         picks.save_log(log, log_path)
     return frozen
 
@@ -182,6 +187,10 @@ def lock_nfl(now) -> list:
     log.setdefault("props", {})
     nfl_picks._lock_games(payload, log["games"], now)
     nfl_picks._lock_props(payload, log["props"], now)
+    for section in ("games", "props"):
+        manifest.stamp([e for k, e in log[section].items() if not k.startswith("_")], "nfl")
+        release.mark([e for k, e in log[section].items() if not k.startswith("_")], "nfl",
+                     (lambda e: "team_winner") if section == "games" else (lambda e: e.get("market")))
     picks.save_log(log, nfl_picks.PICKS_LOG)
     after = _nfl_locked_count()
     return [f"NFL {after - before} pick(s)"] if after > before else []

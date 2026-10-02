@@ -237,6 +237,8 @@ def by_market(entries, market_of) -> dict:
     # (tracking/value.py). If this line does not beat "all", the rule is not working.
     out["value_plays"] = summarize([e for e in entries
                                     if ((e.get("value") or {}).get("value")) is True])
+    # What the app actually RECOMMENDED at the time (tracking/release.py).
+    out["value_official"] = summarize([e for e in entries if e.get("release") == "official"])
     return out
 
 

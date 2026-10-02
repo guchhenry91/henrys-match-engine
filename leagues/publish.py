@@ -21,8 +21,9 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
 from leagues import closing, prop_odds, shot_odds
 from leagues import mispricing
+from leagues import odds_history
 from leagues import prop_calibration
-from tracking import performance, value
+from tracking import manifest, performance, release, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -805,6 +806,10 @@ def build(league: str = "PL") -> dict:
     except Exception as exc:
         print(f"  {league}: bet365 closing prices unavailable ({exc}); stamped none")
 
+    manifest.stamp(log.values(), "soccer")       # which model made each new pick
+    manifest.stamp(pl_log.values(), "soccer")
+    release.mark(log.values(), "soccer", lambda e: "match_winner")   # official or tracked
+    release.mark(pl_log.values(), "soccer", lambda e: e.get("market"))
     picks.save_log(log, log_path)
     picks.save_log(pl_log, pl_log_path)
 
@@ -1391,7 +1396,11 @@ def main(argv=None):
         # bet365 vs the Betfair Exchange (leagues/mispricing.py): model-free value.
         # Never allowed to take the publish down -- a missing feed is no flags.
         try:
-            mis = mispricing.update(mispricing.scan(mispricing.fetch()),
+            feed = mispricing.fetch()
+            # The price archive (leagues/odds_history.py): one snapshot per change.
+            n_snap = odds_history.record(feed, path=PICKS_DIR / "odds_history.json")
+            print(f"  odds history: {n_snap} fixture(s) with a new price snapshot")
+            mis = mispricing.update(mispricing.scan(feed),
                                     mispricing.results_from_boards(OUT),
                                     log_path=PICKS_DIR / "mispriced_log.json")
             mis["performance"] = performance.by_market(mis["settled"], lambda e: e["market"])

@@ -1234,3 +1234,10 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   (information, not a proven edge). CAVEAT: the NBA boost was gated on box-score absence
   too and no historical NBA injury reports are on hand to re-test it; props trust is 0
   for NBA anyway, so it cannot reach a value verdict until the live record earns it.
+- **Improvement-report items, 2026-10-02.** `tracking/manifest.py` stamps every newly frozen
+  pick with `model_version` {commit, release-report hash, trust}; `tracking/release.py`
+  marks it `release` = official (value at bet365 in a market Promising/Proven as last
+  published) or tracked, and performance scores `value_official` on its own;
+  `leagues/odds_history.py` archives bet365 / Betfair Exchange / average soccer prices
+  per fixture, one snapshot per change (data-raw/leagues/odds_history.json). Parlays were
+  checked: all 165 logged and 7 live use one leg per match (rule already enforced).

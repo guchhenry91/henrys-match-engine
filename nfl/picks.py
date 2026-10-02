@@ -277,6 +277,7 @@ def _lock_games(payload, log, now):
             entry["book_p_pick"] = game.get("book_p_pick")
             entry["book"] = game.get("book")
             entry["value"] = game.get("value")
+            entry["trust_w"] = game.get("trust_w")
             if game.get("book_price"):
                 entry["book_price"] = game["book_price"]
                 entry["open"] = game.get("book_open")
@@ -330,6 +331,7 @@ def _lock_props(payload, log, now):
                 # The bet365 value verdict at lock (tracking/value.py), so value
                 # plays can be scored apart from the rest.
                 entry["value"] = pick.get("value")
+                entry["trust_w"] = pick.get("trust_w")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the
@@ -426,5 +428,10 @@ def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
         log[PROPS_KEY][key] = grade_prop(
             entry, lookup.get((str(entry.get("player_id")), season_, week)))
 
+    from tracking import manifest, performance, release
+    for section in (GAMES_KEY, PROPS_KEY):
+        manifest.stamp([e for k, e in log[section].items() if not k.startswith("_")], "nfl")
+        release.mark([e for k, e in log[section].items() if not k.startswith("_")], "nfl",
+                     (lambda e: "team_winner") if section == GAMES_KEY else performance.market_of)
     core.save_log(log, PICKS_LOG)
     return record(log)

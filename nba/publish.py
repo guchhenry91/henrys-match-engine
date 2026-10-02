@@ -17,6 +17,7 @@ reason, so a board with picks needs no second design.
 import json
 
 from scripts import json_safe
+from tracking import manifest, release
 from tracking import news_edge, performance, trust, value
 from datetime import datetime, timezone
 from pathlib import Path
@@ -200,6 +201,8 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
             box[(str(r.GAME_ID), int(r.PLAYER_ID))] = {
                 "PTS": r.PTS, "REB": r.REB, "AST": r.AST, "FG3M": r.FG3M}
     picks_mod.grade(log, finals, box, covered)
+    manifest.stamp(log.values(), "nba")      # which model made each new pick
+    release.mark(log.values(), "nba", performance.market_of)   # official or tracked
     picks_mod.save_log(log)
     _show_frozen(payload, log)
     value.annotate_line_board(payload)     # on the frozen line and price

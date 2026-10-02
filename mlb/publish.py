@@ -9,6 +9,7 @@ the schedule feed does not answer, the board falls back to evidence only.
 import json
 
 from scripts import json_safe
+from tracking import manifest, release
 from tracking import performance, trust, value
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -135,6 +136,8 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
             box[(str(r["GAME_ID"])[3:], str(r["PLAYER_ID"]))] = {c: r[c] for c in stat_cols}
     picks_mod.grade(log, finals, box, covered)
     void_unplayed(log, now)
+    manifest.stamp(log.values(), "mlb")      # which model made each new pick
+    release.mark(log.values(), "mlb", performance.market_of)   # official or tracked
     picks_mod.save_log(log)
     for g in payload["games"]:
         e = log.get(picks_mod.game_key(g))
