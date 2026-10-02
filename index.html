@@ -1387,8 +1387,8 @@ function newsTag(p){
   const n=p&&p.news_edge;
   if(!n) return "";
   const who=(n.out||[]).join(", ");
-  const tip=`${who} ruled out ${n.hours_ago<1?"under an hour":Math.round(n.hours_ago)+"h"} ago. Teammates inherit his volume and books can be slow to move their lines — check bet365 now.`;
-  return `<span class="pftag news" title="${esc(tip)}">News edge</span><span class="bsn b365" title="${esc(tip)}">${esc(who)} out · ${n.hours_ago<1?"<1":Math.round(n.hours_ago)}h ago</span>`;
+  const tip=`${who} ruled out ${n.hours_ago<1?"under an hour":Math.round(n.hours_ago)+"h"} ago. Teammates inherit his volume; check whether bet365's line has moved. (Information, not a proven edge: the teammate lift did not survive a pre-game-only backtest.)`;
+  return `<span class="pftag news" title="${esc(tip)}">Fresh news</span><span class="bsn b365" title="${esc(tip)}">${esc(who)} out · ${n.hours_ago<1?"<1":Math.round(n.hours_ago)}h ago</span>`;
 }
 // PHASE 4: a stake is suggested only in a market that has EARNED one -- Promising
 // or Proven in Betting performance. Elsewhere the value verdict still shows, but

@@ -31,6 +31,8 @@ CACHE = ROOT / "data-raw" / "nfl" / "_cache"
 PLAYER_STATS_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
                     "stats_player/stats_player_week_{season}.csv")
 GAMES_URL = "https://github.com/nflverse/nfldata/raw/master/data/games.csv"
+INJURIES_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
+                "injuries/injuries_{season}.csv")
 # Who is ON each team right now, which the box scores cannot say. Carries gsis_id,
 # the SAME key as player_stats' player_id, so clubs are reconciled by identity
 # rather than by matching names.
@@ -158,6 +160,30 @@ def player_weeks(seasons=None, refresh: bool = False) -> pd.DataFrame:
     out["touches"] = out["carries"] + out["receptions"]
 
     out = out.sort_values(["season", "week", "player_id"]).reset_index(drop=True)
+    return out
+
+
+def known_out(seasons=None) -> set:
+    """{(player_id, season, week)} for players the OFFICIAL pre-game injury report
+    listed Out or Doubtful -- what a bettor could actually know before kickoff.
+
+    WHY (report point #5, 2026-10-02). The teammates-out feature first read
+    "absent" from the box score, which also counts late scratches and surprise
+    inactives nobody knew about when a pick was made -- a backtest built on that
+    is optimistic. Restricting absences to the pre-game report asks the backtest
+    the question the live board can answer. Doubtful players almost never play;
+    Questionable ones usually do, so they are not counted.
+    """
+    out = set()
+    for season in tuple(seasons or config.SEASONS):
+        try:
+            raw = _read_csv(INJURIES_URL.format(season=season), f"injuries_{season}.csv",
+                            max_age_hours=(6 if int(season) >= int(config.CURRENT_SEASON) else None))
+        except (HTTPError, URLError) as exc:
+            print(f"  no injury reports for {season} ({exc})")
+            continue
+        raw = raw[raw["report_status"].isin(["Out", "Doubtful"])]
+        out |= set(zip(raw["gsis_id"].astype(str), raw["season"].astype(int), raw["week"].astype(int)))
     return out
 
 

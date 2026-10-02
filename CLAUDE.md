@@ -1225,3 +1225,12 @@ The person using the app bets at **bet365 (UK)**. Every price judgement is at be
   props at w=0 only a genuine bet365-vs-sharp price gap can read as value. Grading was
   spot-checked against official box scores: 16/16 correct. Soccer's 21 Sep - 8 Oct gap is
   the international break, not a bug.
+- **Leakage check, 2026-10-02 (report point #5).** The NFL teammates-out correction was
+  re-fitted counting ONLY absences on the official pre-game injury report (Out/Doubtful,
+  `nfl.data.known_out`, `features.KNOWN_OUT`). With late scratches removed it no longer
+  lowered Brier for receiving or rushing (fitted c = 0) and passing had only 26
+  high-vacancy games; `scripts/fit_nfl_vacancy.py` now uses pre-game absences and needs
+  100+ such games, so all three are OFF. The "News edge" tag became "Fresh news"
+  (information, not a proven edge). CAVEAT: the NBA boost was gated on box-score absence
+  too and no historical NBA injury reports are on hand to re-test it; props trust is 0
+  for NBA anyway, so it cannot reach a value verdict until the live record earns it.

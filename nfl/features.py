@@ -215,6 +215,12 @@ def augment_lines(frame: pd.DataFrame, market: str) -> pd.DataFrame:
     return out[out["line"] >= config.MIN_LINE[market]].reset_index(drop=True)
 
 
+# When set (a set of (player_id, season, week)), only absences the OFFICIAL
+# pre-game injury report announced count as vacated -- see data.known_out. None
+# keeps the box-score reading (every absence counts).
+KNOWN_OUT = None
+
+
 def vacated_share(share_source: pd.DataFrame) -> pd.DataFrame:
     """How much of each team's volume belongs to players who are NOT playing.
 
@@ -244,6 +250,12 @@ def vacated_share(share_source: pd.DataFrame) -> pd.DataFrame:
     present = s[["player_id", "team", "season", "week"]].drop_duplicates().assign(_here=1)
     prev = prev.merge(present, on=["player_id", "team", "season", "week"], how="left")
     gone = prev[prev["_here"].isna()]
+    if KNOWN_OUT is not None:
+        # Only an absence announced BEFORE kickoff (data.known_out): a late
+        # scratch could not have informed a pick, so it may not inform the test.
+        keys = list(zip(gone["player_id"].astype(str), gone["season"].astype(int),
+                        gone["week"].astype(int)))
+        gone = gone[[k in KNOWN_OUT for k in keys]]
     out = (gone.groupby(["team", "season", "week"])["_next5"].sum()
            .clip(0.0, 0.9).rename("vacated").reset_index())
     return out
