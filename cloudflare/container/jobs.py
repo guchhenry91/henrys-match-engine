@@ -71,5 +71,5 @@ JOBS = {
 }
 
 # The Odds API switch comes from the Worker (off for shadow runs); default on.
-ENV = {"PUBLISH_WORKERS": "2"}
+ENV = {"PUBLISH_WORKERS": "4"}   # standard-4 = 4 vCPU, like a GitHub runner
 ENV_DEFAULTS = {"ODDS_API_ENABLED": "true"}

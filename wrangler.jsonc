@@ -22,7 +22,7 @@
   // One job container at a time (cloudflare/container/run_job.py).
   "containers": [
     { "class_name": "JobRunner", "image": "./Dockerfile.jobs",
-      "instance_type": "standard-2", "max_instances": 2 }
+      "instance_type": "standard-4", "max_instances": 2 }
   ],
   "durable_objects": {
     "bindings": [ { "name": "JOB_RUNNER", "class_name": "JobRunner" } ]
