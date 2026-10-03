@@ -1,8 +1,29 @@
 {
-  "updated": "2026-10-03T15:11:44+00:00",
+  "updated": "2026-10-03T18:57:01+00:00",
   "min_ev": 0.03,
   "source": "Pinnacle (The Odds API) vs bet365 (API-NFL)",
-  "upcoming": [],
+  "upcoming": [
+    {
+      "game": "CIN|JAX",
+      "market": "passing_yards",
+      "player": "Joe Burrow",
+      "side": "under",
+      "line": 274.5,
+      "b365": 1.86,
+      "pinnacle_line": 267.5,
+      "fair_p": 0.5706,
+      "ev": 0.0613,
+      "basis": "line-adjusted",
+      "kickoff": "2026-10-04T17:00:00+00:00",
+      "season": 2026,
+      "week": 4,
+      "first_seen": "2026-10-03T18:57:01+00:00",
+      "book_price": 1.86,
+      "book": "bet365",
+      "last_seen": "2026-10-03T18:57:01+00:00",
+      "ev_latest": 0.0613
+    }
+  ],
   "settled": [],
   "performance": {
     "all": {
