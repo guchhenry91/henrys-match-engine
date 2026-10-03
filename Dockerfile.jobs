@@ -7,5 +7,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 WORKDIR /runner
 COPY requirements.txt /runner/requirements.txt
 RUN pip install -r /runner/requirements.txt
+# soccerdata's TLS client downloads a native library on first use. Publish fits
+# leagues in parallel threads, and on a fresh container they all raced to download
+# and load it at once -- a segfault (exit -11) four seconds in. Fetch it at build.
+RUN python -c "from tls_requests.models.libraries import TLSLibrary; TLSLibrary.load()"
+# Cloudflare containers have no /dev/shm, so joblib's process pool cannot start.
+ENV JOBLIB_MULTIPROCESSING=0
 COPY cloudflare/container/ /runner/
 CMD ["python", "/runner/run_job.py"]
