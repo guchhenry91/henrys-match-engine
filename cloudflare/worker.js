@@ -133,6 +133,41 @@ async function internal(request, env, ctx, path) {
       .bind(ns).all();
     return json(rows.results);
   }
+  // LARGE FILES MOVE ONE CHUNK PER REQUEST. A 35 MB cache sent as one JSON body
+  // overran the Worker (HTTP 500), so: GET ?idx=N returns one piece plus the count,
+  // PUT /internal/state/chunk stages pieces under "<path>#new", and
+  // /internal/state/commit swaps them in at once -- a half-finished upload can
+  // never be read as the file.
+  if (path === "/internal/state/file" && request.method === "GET" && url.searchParams.has("idx")) {
+    const p = url.searchParams.get("path") || "";
+    const meta = await env.DB.prepare("SELECT chunks FROM state_files WHERE ns=? AND path=?").bind(ns, p).first();
+    if (!meta) return json(null);
+    const row = await env.DB.prepare("SELECT data FROM state_chunks WHERE ns=? AND path=? AND idx=?")
+      .bind(ns, p, Number(url.searchParams.get("idx"))).first();
+    return json({ chunks: meta.chunks, data: row ? row.data : null });
+  }
+  if (path === "/internal/state/chunk" && request.method === "PUT") {
+    const b = await request.json();
+    if (!b.path || typeof b.data !== "string") return json({ error: "bad request" }, 400);
+    if (Number(b.idx) === 0)                // a new upload clears any abandoned one
+      await env.DB.prepare("DELETE FROM state_chunks WHERE ns=? AND path=?").bind(ns, b.path + "#new").run();
+    await env.DB.prepare("INSERT OR REPLACE INTO state_chunks (ns,path,idx,data) VALUES (?,?,?,?)")
+      .bind(ns, b.path + "#new", Number(b.idx), b.data).run();
+    return json({ ok: true });
+  }
+  if (path === "/internal/state/commit" && request.method === "POST") {
+    const b = await request.json();
+    const staged = await env.DB.prepare("SELECT COUNT(*) AS n FROM state_chunks WHERE ns=? AND path=?")
+      .bind(ns, b.path + "#new").first();
+    if (!b.path || staged.n !== Number(b.chunks)) return json({ error: `staged ${staged.n} of ${b.chunks}` }, 409);
+    await env.DB.batch([
+      env.DB.prepare("DELETE FROM state_chunks WHERE ns=? AND path=?").bind(ns, b.path),
+      env.DB.prepare("UPDATE state_chunks SET path=? WHERE ns=? AND path=?").bind(b.path, ns, b.path + "#new"),
+      env.DB.prepare("INSERT OR REPLACE INTO state_files (ns,path,sha,repo_sha,chunks,size,updated_at) VALUES (?,?,?,?,?,?,?)")
+        .bind(ns, b.path, b.sha, b.repo_sha || "", Number(b.chunks), Number(b.size), Math.floor(Date.now() / 1000)),
+    ]);
+    return json({ ok: true });
+  }
   if (path === "/internal/state/file" && request.method === "GET") {
     const chunks = await readFile(env, ns, url.searchParams.get("path") || "");
     return json(chunks ? { chunks } : null);

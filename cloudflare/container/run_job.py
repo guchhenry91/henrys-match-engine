@@ -43,6 +43,7 @@ SKIP_PARTS = {"_cache", "__pycache__", "_fdcache"}
 CACHES = {"cache/soccerdata.tar.gz": Path.home() / "soccerdata",
           "cache/nflverse.tar.gz": CODE / "data-raw" / "nfl" / "_cache"}
 LOG = []
+RESTORED = {}                   # cache key -> fingerprint of what was restored
 
 
 STEP_TIMEOUT = 20 * 60          # no single step may run longer than this
@@ -108,16 +109,27 @@ def tracked_files():
 
 
 def get_file(path):
-    res = api("GET", "/internal/state/file?path=" + urllib.parse.quote(path))
-    return base64.b64decode("".join(res["chunks"])) if res else None
+    # One chunk per request: a large cache in one response overruns the Worker.
+    q = "/internal/state/file?path=" + urllib.parse.quote(path) + "&idx="
+    first = api("GET", q + "0")
+    if not first or first.get("data") is None:
+        return None
+    parts = [first["data"]] + [api("GET", q + str(i))["data"] for i in range(1, first["chunks"])]
+    return base64.b64decode("".join(parts))
 
 
 def put_file(path, content: bytes, repo_sha: str):
     b64 = base64.b64encode(content).decode()
     size = 900_000
     chunks = [b64[i:i + size] for i in range(0, len(b64), size)] or [""]
-    api("PUT", "/internal/state/file", {"path": path, "sha": sha(content),
-                                        "repo_sha": repo_sha, "chunks": chunks}, timeout=300)
+    if len(chunks) <= 2:
+        api("PUT", "/internal/state/file", {"path": path, "sha": sha(content),
+                                            "repo_sha": repo_sha, "chunks": chunks}, timeout=300)
+        return
+    for i, c in enumerate(chunks):          # big file: staged piece by piece, then swapped in
+        api("PUT", "/internal/state/chunk", {"path": path, "idx": i, "data": c})
+    api("POST", "/internal/state/commit", {"path": path, "sha": sha(content), "repo_sha": repo_sha,
+                                           "chunks": len(chunks), "size": len(b64)})
 
 
 def overlay_state():
@@ -145,6 +157,13 @@ def overlay_state():
     return repo_sha
 
 
+def fingerprint(src):
+    """Which files a cache holds, and how big -- enough to tell whether it changed."""
+    if not src.exists():
+        return None
+    return sorted((p.relative_to(src).as_posix(), p.stat().st_size) for p in src.rglob("*") if p.is_file())
+
+
 def restore_caches():
     for key, dest in CACHES.items():
         try:
@@ -157,12 +176,16 @@ def restore_caches():
         dest.mkdir(parents=True, exist_ok=True)
         with tarfile.open(fileobj=io.BytesIO(blob), mode="r:gz") as t:
             t.extractall(dest, filter="data")
+        RESTORED[key] = fingerprint(dest)
         log(f"cache: {key} restored ({len(blob) // 1024} KB)")
 
 
 def save_caches():
     for key, src in CACHES.items():
         if not src.exists() or not any(src.rglob("*")):
+            continue
+        if key in RESTORED and fingerprint(src) == RESTORED[key]:
+            log(f"cache: {key} unchanged, not re-saved")   # 35 MB is ~50s to upload
             continue
         buf = io.BytesIO()
         with tarfile.open(fileobj=buf, mode="w:gz") as t:
