@@ -265,6 +265,10 @@ function containerEnv(env, row) {
   // SHADOW RUNS GET NO PROVIDER KEYS: a trial copy must never spend API-Football,
   // API-NFL or Odds API credits a second time alongside the real pipeline.
   if (row.ns === "live") for (const k of pass) if (env[k]) out[k] = env[k];
+  // TELEGRAM WAITS FOR THE CUTOVER. While GitHub still runs the same jobs, both
+  // would send every pick and failure alert -- each message twice. Set
+  // TELEGRAM_FROM_CLOUDFLARE = "on" once the GitHub schedules are off.
+  if (env.TELEGRAM_FROM_CLOUDFLARE !== "on") { delete out.TELEGRAM_BOT_TOKEN; delete out.TELEGRAM_CHAT_ID; }
   if (row.ns !== "live") out.ODDS_API_ENABLED = "false";
   return out;
 }
