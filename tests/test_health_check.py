@@ -24,3 +24,17 @@ def test_a_board_that_stopped_updating_fails(monkeypatch):
     r = hc.Report()
     hc.board_age(r, datetime(2026, 10, 1, tzinfo=timezone.utc), "NFL", "x", 14, 30)
     assert r.checks[0]["status"] == "fail"
+
+
+def test_an_unchanged_board_whose_refresh_ran_is_not_stale(monkeypatch):
+    """2026-10-03: the off-season NBA board was 31h 'old' because it had not changed,
+    while its refresh succeeded every few hours -- a false FAIL."""
+    monkeypatch.setattr(hc, "_read", lambda rel: {"updated": "2026-10-01T12:00:00+00:00"})
+    monkeypatch.setitem(hc.LAST_OK, "nba.yml", 2.0)
+    r = hc.Report()
+    hc.board_age(r, datetime(2026, 10, 2, 19, tzinfo=timezone.utc), "NBA", "x", 14, 30)
+    assert r.checks[0]["status"] == "ok"
+    monkeypatch.setitem(hc.LAST_OK, "nba.yml", 40.0)       # refresh itself stopped
+    r2 = hc.Report()
+    hc.board_age(r2, datetime(2026, 10, 2, 19, tzinfo=timezone.utc), "NBA", "x", 14, 30)
+    assert r2.checks[0]["status"] == "fail"

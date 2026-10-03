@@ -60,12 +60,27 @@ class Report:
         self.checks.append({"sport": sport, "check": name, "status": status, "message": message})
 
 
+# Hours since each sport's workflow last SUCCEEDED (filled by workflow_age). A board
+# that has not changed is deliberately not republished, so its "updated" time ages
+# while the pipeline is fine -- on 2026-10-03 that raised a false "NBA board 31h
+# old" in the off-season. A board is stale only when BOTH it and its workflow's
+# last success are old.
+LAST_OK = {}
+SPORT_WORKFLOW = {"Soccer": "leagues.yml", "NFL": "nfl.yml", "NBA": "nba.yml", "MLB": "mlb.yml"}
+
+
 def board_age(r, now, sport, rel, warn_h, fail_h, active=True):
     d = _read(rel)
     if d is None:
         r.add(sport, "board", "fail", f"{rel} is missing or unreadable")
         return None
     h = _hours(now, _utc(d.get("updated")))
+    ok_h = LAST_OK.get(SPORT_WORKFLOW.get(sport))
+    if h is not None and ok_h is not None and ok_h < h:
+        if ok_h <= warn_h:
+            r.add(sport, "board", "ok", f"unchanged since {h:.0f}h ago; refresh ran {ok_h:.1f}h ago")
+            return d
+        h = ok_h
     if h is None:
         r.add(sport, "board", "warn", "board has no update time")
     elif active and h > fail_h:
@@ -145,14 +160,29 @@ def odds_budget(r):
     r.add("Odds API", "monthly credits", status, f"{used:,} of 40,000 used this month")
 
 
+def _runs(wf):
+    out = subprocess.run(["gh", "run", "list", "--workflow", wf, "-L", "10", "--json",
+                          "conclusion,status,createdAt"], capture_output=True, text=True,
+                         timeout=60, check=True).stdout
+    return [x for x in json.loads(out) if x.get("status") == "completed"]
+
+
+def workflow_age(now):
+    """Fill LAST_OK: hours since each workflow's newest successful run."""
+    for wf in WORKFLOWS:
+        try:
+            ok = [x for x in _runs(wf) if x.get("conclusion") == "success"]
+        except Exception:
+            continue
+        if ok:
+            LAST_OK[wf] = _hours(now, _utc(ok[0]["createdAt"]))
+
+
 def workflows(r, now):
     """The newest COMPLETED run of each workflow. Needs gh + GITHUB_TOKEN (in Actions)."""
     for wf, name in WORKFLOWS.items():
         try:
-            out = subprocess.run(["gh", "run", "list", "--workflow", wf, "-L", "5", "--json",
-                                  "conclusion,status,createdAt"], capture_output=True, text=True,
-                                 timeout=60, check=True).stdout
-            runs = [x for x in json.loads(out) if x.get("status") == "completed"]
+            runs = _runs(wf)
         except Exception as exc:
             r.add("Pipeline", name, "warn", f"could not read workflow runs ({type(exc).__name__})")
             continue
@@ -188,6 +218,9 @@ def telegram(text):
 def run(now=None, check_workflows=True) -> dict:
     now = now or datetime.now(timezone.utc)
     r = Report()
+    LAST_OK.clear()
+    if check_workflows:
+        workflow_age(now)
     soccer(r, now)
     nfl(r, now)
     line_sport(r, now, "NBA", "nba", "tipoff")
