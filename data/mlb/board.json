@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-03T00:50:18.082304+00:00",
+  "updated": "2026-10-03T16:21:34.223686+00:00",
   "status": "live",
   "status_note": "Live board. Team winners are the Elo model's; every player prop and team total stands on a bookmaker's line (Pinnacle, DraftKings or FanDuel) and the probability is the model's for THAT line. Home runs are shown where the model rates the player above the book's own price.",
   "seasons_loaded": [
@@ -64,23 +64,24 @@
       "away_pitcher": "Hagen Smith",
       "pick": "CLE",
       "p_home": 0.5874,
-      "p_pick": 0.5818,
+      "p_pick": 0.5762,
       "rating_home": 1510.4,
       "rating_away": 1489.0,
       "game_type": "D",
       "book": "pinnacle",
-      "book_p_pick": 0.58,
-      "edge": 0.0018,
+      "book_p_pick": 0.5725,
+      "edge": 0.0037,
       "p_model": 0.5874,
       "trust_w": 0.25,
       "value": {
-        "min_price": 1.77,
+        "min_price": 1.79,
         "basis": "estimate",
-        "ref_price": 1.64,
-        "ev": -0.0447,
+        "ref_price": 1.66,
+        "ev": -0.0415,
         "value": false,
         "stake": 0.0
-      }
+      },
+      "locked": true
     },
     {
       "game_id": "849828",
@@ -95,20 +96,20 @@
       "away_pitcher": null,
       "pick": "LAN",
       "p_home": 0.6062,
-      "p_pick": 0.655,
+      "p_pick": 0.6516,
       "rating_home": 1565.8,
       "rating_away": 1530.8,
       "game_type": "D",
       "book": "pinnacle",
-      "book_p_pick": 0.6712,
-      "edge": -0.0162,
+      "book_p_pick": 0.6667,
+      "edge": -0.0151,
       "p_model": 0.6062,
       "trust_w": 0.25,
       "value": {
-        "min_price": 1.57,
+        "min_price": 1.58,
         "basis": "estimate",
-        "ref_price": 1.42,
-        "ev": -0.0706,
+        "ref_price": 1.43,
+        "ev": -0.0692,
         "value": false,
         "stake": 0.0
       }
@@ -126,20 +127,20 @@
       "away_pitcher": "Gerrit Cole",
       "pick": "TBA",
       "p_home": 0.5289,
-      "p_pick": 0.5406,
+      "p_pick": 0.5451,
       "rating_home": 1532.4,
       "rating_away": 1552.3,
       "game_type": "D",
       "book": "pinnacle",
-      "book_p_pick": 0.5445,
-      "edge": -0.0039,
+      "book_p_pick": 0.5505,
+      "edge": -0.0054,
       "p_model": 0.5289,
       "trust_w": 0.25,
       "value": {
-        "min_price": 1.91,
+        "min_price": 1.89,
         "basis": "estimate",
-        "ref_price": 1.75,
-        "ev": -0.0544,
+        "ref_price": 1.73,
+        "ev": -0.057,
         "value": false,
         "stake": 0.0
       }
@@ -157,21 +158,69 @@
       "away_pitcher": "Robbie Ray",
       "pick": "MIL",
       "p_home": 0.6065,
-      "p_pick": 0.6327,
+      "p_pick": 0.6412,
       "rating_home": 1573.2,
       "rating_away": 1538.0,
       "game_type": "D",
       "book": "pinnacle",
-      "book_p_pick": 0.6415,
-      "edge": -0.0088,
+      "book_p_pick": 0.6528,
+      "edge": -0.0116,
       "p_model": 0.6065,
       "trust_w": 0.25,
       "value": {
-        "min_price": 1.63,
+        "min_price": 1.61,
         "basis": "estimate",
-        "ref_price": 1.48,
-        "ev": -0.0607,
+        "ref_price": 1.46,
+        "ev": -0.0645,
         "value": false,
+        "stake": 0.0
+      }
+    },
+    {
+      "game_id": "849825",
+      "tipoff": "2026-10-04T20:00:00Z",
+      "kickoff": "2026-10-04T20:00:00Z",
+      "date": "2026-10-04T20:00:00Z",
+      "home": "MIL",
+      "away": "SDN",
+      "home_name": "Milwaukee Brewers",
+      "away_name": "San Diego Padres",
+      "home_pitcher": "Logan Henderson",
+      "away_pitcher": "Michael King",
+      "pick": "MIL",
+      "p_home": 0.6065,
+      "p_pick": 0.6065,
+      "rating_home": 1573.2,
+      "rating_away": 1538.0,
+      "game_type": "D",
+      "value": {
+        "min_price": 1.7,
+        "basis": null,
+        "value": null,
+        "stake": 0.0
+      }
+    },
+    {
+      "game_id": "849823",
+      "tipoff": "2026-10-05T00:00:00Z",
+      "kickoff": "2026-10-05T00:00:00Z",
+      "date": "2026-10-05T00:00:00Z",
+      "home": "LAN",
+      "away": "ATL",
+      "home_name": "Los Angeles Dodgers",
+      "away_name": "Atlanta Braves",
+      "home_pitcher": "Blake Snell",
+      "away_pitcher": null,
+      "pick": "LAN",
+      "p_home": 0.6062,
+      "p_pick": 0.6062,
+      "rating_home": 1565.8,
+      "rating_away": 1530.8,
+      "game_type": "D",
+      "value": {
+        "min_price": 1.7,
+        "basis": null,
+        "value": null,
         "stake": 0.0
       }
     }
@@ -235,8 +284,8 @@
           "probability": 0.6791,
           "form5": 1.4,
           "last_five": [
-            2.0,
             0.0,
+            2.0,
             2.0,
             0.0,
             3.0
@@ -273,7 +322,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5964,
+          "probability": 0.6328,
           "form5": 2.2,
           "last_five": [
             3.0,
@@ -285,8 +334,8 @@
           "games_before": 268,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.57,
-          "book_p": 0.5964,
+          "book_price": 1.48,
+          "book_p": 0.6328,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -294,27 +343,28 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.15,
+              "price": 3.61,
               "book": "DraftKings",
               "p": 0.4539
             },
             {
               "line": 2.5,
-              "price": 16.2,
+              "price": 13.0,
               "book": "DraftKings",
-              "p": 0.0711
+              "p": 0.0849
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.73,
+            "min_price": 1.63,
             "basis": "estimate",
-            "ref_price": 1.6,
+            "ref_price": 1.51,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -435,7 +485,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5907,
+          "probability": 0.6107,
           "form5": 1.4,
           "last_five": [
             1.0,
@@ -447,8 +497,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.58,
-          "book_p": 0.5907,
+          "book_price": 1.53,
+          "book_p": 0.6107,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -456,27 +506,28 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.59,
+              "price": 4.2,
               "book": "DraftKings",
               "p": 0.2668
             },
             {
               "line": 2.5,
-              "price": 21.0,
+              "price": 18.6,
               "book": "DraftKings",
-              "p": 0.0581
+              "p": 0.0637
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.74,
+            "min_price": 1.69,
             "basis": "estimate",
-            "ref_price": 1.61,
+            "ref_price": 1.56,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -588,8 +639,8 @@
         },
         {
           "market": "hits",
-          "player": "Steven Kwan",
-          "player_id": "kwans001",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
@@ -597,48 +648,36 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6422,
-          "form5": 1.2,
+          "probability": 0.5707,
+          "form5": 0.4,
           "last_five": [
+            0.0,
             1.0,
-            2.0,
             0.0,
-            0.0,
-            3.0
+            1.0,
+            0.0
           ],
-          "games_before": 715,
+          "games_before": 419,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.46,
-          "book_p": 0.6422,
+          "book_price": 1.64,
+          "book_p": 0.5707,
           "book_p_fair": true,
           "edge": 0.0,
-          "side": "over",
-          "p_model": 0.65,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 3.47,
-              "book": "DraftKings",
-              "p": 0.2626
-            },
-            {
-              "line": 2.5,
-              "price": 12.6,
-              "book": "DraftKings",
-              "p": 0.0872
-            }
-          ],
+          "side": "under",
+          "p_model": 0.6542,
+          "ladder_up": [],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.6,
+            "min_price": 1.8,
             "basis": "estimate",
-            "ref_price": 1.48,
+            "ref_price": 1.67,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -1196,7 +1235,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5807,
+          "probability": 0.5669,
           "form5": 2.8,
           "last_five": [
             8.0,
@@ -1208,8 +1247,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.61,
-          "book_p": 0.5807,
+          "book_price": 1.65,
+          "book_p": 0.5669,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -1217,39 +1256,40 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.4,
+              "price": 2.5,
               "book": "DraftKings",
               "p": 0.4818
             },
             {
               "line": 2.5,
-              "price": 3.49,
+              "price": 3.7,
               "book": "DraftKings",
               "p": 0.3203
             },
             {
               "line": 3.5,
-              "price": 5.73,
+              "price": 5.88,
               "book": "DraftKings",
-              "p": 0.1733
+              "p": 0.1693
             },
             {
               "line": 4.5,
-              "price": 9.9,
+              "price": 10.1,
               "book": "DraftKings",
-              "p": 0.1066
+              "p": 0.1048
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.77,
+            "min_price": 1.82,
             "basis": "estimate",
-            "ref_price": 1.64,
+            "ref_price": 1.68,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -1283,21 +1323,21 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.79,
+              "price": 2.83,
               "book": "DraftKings",
               "p": 0.4867
             },
             {
               "line": 2.5,
-              "price": 4.68,
+              "price": 4.83,
               "book": "DraftKings",
               "p": 0.328
             },
             {
               "line": 3.5,
-              "price": 8.5,
+              "price": 8.9,
               "book": "DraftKings",
-              "p": 0.1216
+              "p": 0.1168
             }
           ],
           "on_board": true,
@@ -1309,7 +1349,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -1388,7 +1429,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5503,
+          "probability": 0.5567,
           "form5": 3.0,
           "last_five": [
             1.0,
@@ -1400,8 +1441,8 @@
           "games_before": 446,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.7,
-          "book_p": 0.5503,
+          "book_price": 1.68,
+          "book_p": 0.5567,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -1409,33 +1450,34 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.75,
+              "price": 2.7,
               "book": "DraftKings",
               "p": 0.4658
             },
             {
               "line": 2.5,
-              "price": 4.68,
+              "price": 4.51,
               "book": "DraftKings",
               "p": 0.296
             },
             {
               "line": 3.5,
-              "price": 8.4,
+              "price": 8.0,
               "book": "DraftKings",
-              "p": 0.123
+              "p": 0.1284
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.87,
+            "min_price": 1.85,
             "basis": "estimate",
-            "ref_price": 1.73,
+            "ref_price": 1.71,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -1579,7 +1621,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.081,
+          "probability": 0.0811,
           "form5": 0.6,
           "last_five": [
             0.0,
@@ -1591,8 +1633,8 @@
           "games_before": 446,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 11.68,
-          "book_p": 0.081,
+          "book_price": 11.78,
+          "book_p": 0.0811,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -1601,13 +1643,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 12.72,
+            "min_price": 12.7,
             "basis": "estimate",
-            "ref_price": 11.76,
+            "ref_price": 11.74,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -1734,47 +1777,6 @@
         },
         {
           "market": "hr",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.1074,
-          "form5": 0.4,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            2.0
-          ],
-          "games_before": 395,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 8.81,
-          "book_p": 0.1074,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.1518,
-          "ladder_up": [],
-          "on_board": true,
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 9.59,
-            "basis": "estimate",
-            "ref_price": 8.87,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hr",
           "player": "Chase Meidroth",
           "player_id": "meidc001",
           "team": "CHA",
@@ -1784,7 +1786,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.0776,
+          "probability": 0.077,
           "form5": 0.4,
           "last_five": [
             1.0,
@@ -1796,8 +1798,8 @@
           "games_before": 268,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 12.25,
-          "book_p": 0.0776,
+          "book_price": 12.35,
+          "book_p": 0.077,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -1806,13 +1808,56 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 13.27,
+            "min_price": 13.38,
             "basis": "estimate",
-            "ref_price": 12.27,
+            "ref_price": 12.37,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
+        },
+        {
+          "market": "hr",
+          "player": "Brayan Rocchio",
+          "player_id": "roccb001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.0811,
+          "form5": 0.4,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            2.0
+          ],
+          "games_before": 398,
+          "book": "Pinnacle",
+          "line_source": "pinnacle",
+          "book_price": 11.78,
+          "book_p": 0.0811,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.1518,
+          "ladder_up": [],
+          "on_board": true,
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 12.7,
+            "basis": "estimate",
+            "ref_price": 11.74,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -2117,7 +2162,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6553,
+          "probability": 0.6297,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -2129,8 +2174,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.42,
-          "book_p": 0.6553,
+          "book_price": 1.47,
+          "book_p": 0.6297,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -2139,13 +2184,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.57,
+            "min_price": 1.64,
             "basis": "estimate",
-            "ref_price": 1.45,
+            "ref_price": 1.51,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -2158,7 +2204,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6761,
+          "probability": 0.6904,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -2170,8 +2216,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.38,
-          "book_p": 0.6761,
+          "book_price": 1.35,
+          "book_p": 0.6904,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -2180,13 +2226,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.52,
+            "min_price": 1.49,
             "basis": "estimate",
-            "ref_price": 1.41,
+            "ref_price": 1.38,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -2240,7 +2287,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6889,
+          "probability": 0.6651,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -2252,8 +2299,8 @@
           "games_before": 903,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.35,
-          "book_p": 0.6889,
+          "book_price": 1.4,
+          "book_p": 0.6651,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -2262,13 +2309,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.5,
+            "min_price": 1.55,
             "basis": "estimate",
-            "ref_price": 1.38,
+            "ref_price": 1.43,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -2545,6 +2593,48 @@
             "value": false,
             "stake": 0.0
           }
+        },
+        {
+          "market": "strikeouts",
+          "player": "Parker Messick",
+          "player_id": "messp001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 6.5,
+          "probability": 0.5262,
+          "form5": 6.4,
+          "last_five": [
+            12.0,
+            5.0,
+            8.0,
+            5.0,
+            2.0
+          ],
+          "games_before": 39,
+          "book": "Pinnacle",
+          "line_source": "pinnacle",
+          "book_price": 1.81,
+          "book_p": 0.5262,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.54,
+          "ladder_up": [],
+          "on_board": true,
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.96,
+            "basis": "estimate",
+            "ref_price": 1.81,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          },
+          "locked": true
         }
       ]
     },
@@ -2603,7 +2693,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 2.5,
-          "probability": 0.5656,
+          "probability": 0.5678,
           "form5": 5.8,
           "last_five": [
             6.0,
@@ -2616,7 +2706,7 @@
           "book": "Pinnacle",
           "line_source": "pinnacle",
           "book_price": 1.69,
-          "book_p": 0.5656,
+          "book_p": 0.5678,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -2625,13 +2715,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.82,
+            "min_price": 1.81,
             "basis": "estimate",
             "ref_price": 1.68,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "team_runs",
@@ -2726,7 +2817,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 3.5,
-          "probability": 0.5065,
+          "probability": 0.4987,
           "form5": 5.2,
           "last_five": [
             0.0,
@@ -2738,8 +2829,8 @@
           "games_before": 971,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 1.89,
-          "book_p": 0.5065,
+          "book_price": 1.93,
+          "book_p": 0.4987,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -2748,13 +2839,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.03,
+            "min_price": 2.07,
             "basis": "estimate",
-            "ref_price": 1.88,
+            "ref_price": 1.91,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "team_runs",
@@ -7041,7 +7133,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6142,
+          "probability": 0.5796,
           "form5": 0.8,
           "last_five": [
             0.0,
@@ -7053,8 +7145,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.52,
-          "book_p": 0.6142,
+          "book_price": 1.61,
+          "book_p": 0.5796,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7062,22 +7154,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.04,
+              "price": 4.61,
               "book": "DraftKings",
               "p": 0.226
             },
             {
               "line": 2.5,
-              "price": 16.4,
+              "price": 19.8,
               "book": "DraftKings",
-              "p": 0.0702
+              "p": 0.0607
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.68,
+            "min_price": 1.78,
             "basis": "estimate",
-            "ref_price": 1.55,
+            "ref_price": 1.64,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7094,7 +7186,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3858,
+          "probability": 0.4204,
           "form5": 0.8,
           "last_five": [
             0.0,
@@ -7106,8 +7198,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.42,
-          "book_p": 0.3858,
+          "book_price": 2.22,
+          "book_p": 0.4204,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7115,96 +7207,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.67,
+            "min_price": 2.45,
             "basis": "estimate",
-            "ref_price": 2.47,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hits",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.516,
-          "form5": 0.8,
-          "last_five": [
-            1.0,
-            0.0,
-            1.0,
-            0.0,
-            2.0
-          ],
-          "games_before": 395,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.81,
-          "book_p": 0.516,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.6055,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 5.74,
-              "book": "DraftKings",
-              "p": 0.226
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.0,
-            "basis": "estimate",
-            "ref_price": 1.85,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hits",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.484,
-          "form5": 0.8,
-          "last_five": [
-            1.0,
-            0.0,
-            1.0,
-            0.0,
-            2.0
-          ],
-          "games_before": 395,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.93,
-          "book_p": 0.484,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.3945,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.13,
-            "basis": "estimate",
-            "ref_price": 1.97,
+            "ref_price": 2.27,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7221,7 +7226,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6328,
+          "probability": 0.6036,
           "form5": 0.8,
           "last_five": [
             2.0,
@@ -7233,8 +7238,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.48,
-          "book_p": 0.6328,
+          "book_price": 1.55,
+          "book_p": 0.6036,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7242,22 +7247,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 3.66,
+              "price": 4.09,
               "book": "DraftKings",
               "p": 0.2427
             },
             {
               "line": 2.5,
-              "price": 14.4,
+              "price": 17.0,
               "book": "DraftKings",
-              "p": 0.0781
+              "p": 0.0684
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.63,
+            "min_price": 1.71,
             "basis": "estimate",
-            "ref_price": 1.51,
+            "ref_price": 1.58,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7274,7 +7279,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3672,
+          "probability": 0.3964,
           "form5": 0.8,
           "last_five": [
             2.0,
@@ -7286,8 +7291,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.55,
-          "book_p": 0.3672,
+          "book_price": 2.36,
+          "book_p": 0.3964,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7295,9 +7300,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.81,
+            "min_price": 2.6,
             "basis": "estimate",
-            "ref_price": 2.59,
+            "ref_price": 2.4,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7314,7 +7319,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5201,
+          "probability": 0.5214,
           "form5": 1.2,
           "last_five": [
             1.0,
@@ -7327,7 +7332,7 @@
           "book": "DraftKings",
           "line_source": "draftkings",
           "book_price": 1.79,
-          "book_p": 0.5201,
+          "book_p": 0.5214,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7335,7 +7340,7 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 5.64,
+              "price": 5.55,
               "book": "DraftKings",
               "p": 0.2434
             },
@@ -7343,7 +7348,7 @@
               "line": 2.5,
               "price": 25.0,
               "book": "DraftKings",
-              "p": 0.0511
+              "p": 0.0512
             }
           ],
           "trust_w": 0.0,
@@ -7367,7 +7372,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4799,
+          "probability": 0.4786,
           "form5": 1.2,
           "last_five": [
             1.0,
@@ -7379,8 +7384,8 @@
           "games_before": 446,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.94,
-          "book_p": 0.4799,
+          "book_price": 1.95,
+          "book_p": 0.4786,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7390,7 +7395,7 @@
           "value": {
             "min_price": 2.15,
             "basis": "estimate",
-            "ref_price": 1.98,
+            "ref_price": 1.99,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7407,7 +7412,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5907,
+          "probability": 0.6107,
           "form5": 1.4,
           "last_five": [
             1.0,
@@ -7419,8 +7424,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.58,
-          "book_p": 0.5907,
+          "book_price": 1.53,
+          "book_p": 0.6107,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7428,27 +7433,28 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.59,
+              "price": 4.2,
               "book": "DraftKings",
               "p": 0.2668
             },
             {
               "line": 2.5,
-              "price": 21.0,
+              "price": 18.6,
               "book": "DraftKings",
-              "p": 0.0581
+              "p": 0.0637
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.74,
+            "min_price": 1.69,
             "basis": "estimate",
-            "ref_price": 1.61,
+            "ref_price": 1.56,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -7461,7 +7467,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4093,
+          "probability": 0.3893,
           "form5": 1.4,
           "last_five": [
             1.0,
@@ -7473,8 +7479,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.28,
-          "book_p": 0.4093,
+          "book_price": 2.4,
+          "book_p": 0.3893,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7482,13 +7488,102 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.52,
+            "min_price": 2.65,
             "basis": "estimate",
-            "ref_price": 2.33,
+            "ref_price": 2.45,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
           }
+        },
+        {
+          "market": "hits",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.4293,
+          "form5": 0.4,
+          "last_five": [
+            0.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "games_before": 419,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 2.18,
+          "book_p": 0.4293,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.3458,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 7.9,
+              "book": "DraftKings",
+              "p": 0.1299
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 2.4,
+            "basis": "estimate",
+            "ref_price": 2.22,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hits",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.5707,
+          "form5": 0.4,
+          "last_five": [
+            0.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "games_before": 419,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.64,
+          "book_p": 0.5707,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.6542,
+          "ladder_up": [],
+          "on_board": true,
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.8,
+            "basis": "estimate",
+            "ref_price": 1.67,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -7501,7 +7596,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6422,
+          "probability": 0.6513,
           "form5": 1.2,
           "last_five": [
             1.0,
@@ -7513,8 +7608,8 @@
           "games_before": 715,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.46,
-          "book_p": 0.6422,
+          "book_price": 1.44,
+          "book_p": 0.6513,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7522,23 +7617,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 3.47,
+              "price": 3.43,
               "book": "DraftKings",
               "p": 0.2626
             },
             {
               "line": 2.5,
-              "price": 12.6,
+              "price": 11.8,
               "book": "DraftKings",
-              "p": 0.0872
+              "p": 0.0921
             }
           ],
-          "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.6,
+            "min_price": 1.58,
             "basis": "estimate",
-            "ref_price": 1.48,
+            "ref_price": 1.46,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7555,7 +7649,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3578,
+          "probability": 0.3487,
           "form5": 1.2,
           "last_five": [
             1.0,
@@ -7567,8 +7661,8 @@
           "games_before": 715,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.62,
-          "book_p": 0.3578,
+          "book_price": 2.69,
+          "book_p": 0.3487,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7576,102 +7670,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.88,
+            "min_price": 2.95,
             "basis": "estimate",
-            "ref_price": 2.66,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hits",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.5605,
-          "form5": 0.6,
-          "last_five": [
-            1.0,
-            0.0,
-            0.0,
-            1.0,
-            1.0
-          ],
-          "games_before": 846,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.67,
-          "book_p": 0.5605,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.6055,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 4.87,
-              "book": "DraftKings",
-              "p": 0.2174
-            },
-            {
-              "line": 2.5,
-              "price": 21.0,
-              "book": "DraftKings",
-              "p": 0.0582
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.84,
-            "basis": "estimate",
-            "ref_price": 1.7,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hits",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.4395,
-          "form5": 0.6,
-          "last_five": [
-            1.0,
-            0.0,
-            0.0,
-            1.0,
-            1.0
-          ],
-          "games_before": 846,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 2.13,
-          "book_p": 0.4395,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.3945,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.34,
-            "basis": "estimate",
-            "ref_price": 2.17,
+            "ref_price": 2.73,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7688,7 +7689,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6036,
+          "probability": 0.6216,
           "form5": 1.2,
           "last_five": [
             3.0,
@@ -7700,8 +7701,8 @@
           "games_before": 247,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.55,
-          "book_p": 0.6036,
+          "book_price": 1.51,
+          "book_p": 0.6216,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7709,22 +7710,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.06,
+              "price": 3.88,
               "book": "DraftKings",
               "p": 0.2537
             },
             {
               "line": 2.5,
-              "price": 16.2,
+              "price": 15.0,
               "book": "DraftKings",
-              "p": 0.071
+              "p": 0.0757
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.71,
+            "min_price": 1.66,
             "basis": "estimate",
-            "ref_price": 1.58,
+            "ref_price": 1.53,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7741,7 +7742,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3964,
+          "probability": 0.3784,
           "form5": 1.2,
           "last_five": [
             3.0,
@@ -7753,8 +7754,8 @@
           "games_before": 247,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.36,
-          "book_p": 0.3964,
+          "book_price": 2.48,
+          "book_p": 0.3784,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7762,9 +7763,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.6,
+            "min_price": 2.72,
             "basis": "estimate",
-            "ref_price": 2.4,
+            "ref_price": 2.52,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7781,7 +7782,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5964,
+          "probability": 0.6328,
           "form5": 2.2,
           "last_five": [
             3.0,
@@ -7793,8 +7794,8 @@
           "games_before": 268,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.57,
-          "book_p": 0.5964,
+          "book_price": 1.48,
+          "book_p": 0.6328,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7802,27 +7803,28 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.15,
+              "price": 3.61,
               "book": "DraftKings",
               "p": 0.4539
             },
             {
               "line": 2.5,
-              "price": 16.2,
+              "price": 13.0,
               "book": "DraftKings",
-              "p": 0.0711
+              "p": 0.0849
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.73,
+            "min_price": 1.63,
             "basis": "estimate",
-            "ref_price": 1.6,
+            "ref_price": 1.51,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hits",
@@ -7835,7 +7837,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4036,
+          "probability": 0.3672,
           "form5": 2.2,
           "last_five": [
             3.0,
@@ -7847,8 +7849,8 @@
           "games_before": 268,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.32,
-          "book_p": 0.4036,
+          "book_price": 2.55,
+          "book_p": 0.3672,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7856,9 +7858,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.55,
+            "min_price": 2.81,
             "basis": "estimate",
-            "ref_price": 2.36,
+            "ref_price": 2.59,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7875,7 +7877,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5696,
+          "probability": 0.5227,
           "form5": 0.8,
           "last_five": [
             0.0,
@@ -7887,8 +7889,8 @@
           "games_before": 122,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.64,
-          "book_p": 0.5696,
+          "book_price": 1.79,
+          "book_p": 0.5227,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -7896,22 +7898,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 4.64,
+              "price": 5.83,
               "book": "DraftKings",
               "p": 0.226
-            },
-            {
-              "line": 2.5,
-              "price": 20.4,
-              "book": "DraftKings",
-              "p": 0.0594
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.81,
+            "min_price": 1.97,
             "basis": "estimate",
-            "ref_price": 1.67,
+            "ref_price": 1.82,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7928,7 +7924,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4304,
+          "probability": 0.4773,
           "form5": 0.8,
           "last_five": [
             0.0,
@@ -7940,8 +7936,8 @@
           "games_before": 122,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.17,
-          "book_p": 0.4304,
+          "book_price": 1.96,
+          "book_p": 0.4773,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -7949,9 +7945,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.39,
+            "min_price": 2.16,
             "basis": "estimate",
-            "ref_price": 2.21,
+            "ref_price": 2.0,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -7989,7 +7985,7 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 6.06,
+              "price": 5.94,
               "book": "DraftKings",
               "p": 0.2668
             }
@@ -8055,7 +8051,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5307,
+          "probability": 0.5,
           "form5": 1.0,
           "last_five": [
             3.0,
@@ -8067,8 +8063,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.76,
-          "book_p": 0.5307,
+          "book_price": 1.87,
+          "book_p": 0.5,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8076,16 +8072,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 5.57,
+              "price": 6.31,
               "book": "DraftKings",
               "p": 0.2386
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.94,
+            "min_price": 2.06,
             "basis": "estimate",
-            "ref_price": 1.79,
+            "ref_price": 1.9,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8102,7 +8098,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4693,
+          "probability": 0.5,
           "form5": 1.0,
           "last_five": [
             3.0,
@@ -8114,8 +8110,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.99,
-          "book_p": 0.4693,
+          "book_price": 1.87,
+          "book_p": 0.5,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8123,9 +8119,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.19,
+            "min_price": 2.06,
             "basis": "estimate",
-            "ref_price": 2.03,
+            "ref_price": 1.9,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8142,7 +8138,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.492,
+          "probability": 0.4509,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -8154,8 +8150,8 @@
           "games_before": 218,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.9,
-          "book_p": 0.492,
+          "book_price": 2.07,
+          "book_p": 0.4509,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8163,16 +8159,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 7.0,
+              "price": 8.1,
               "book": "DraftKings",
               "p": 0.1729
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.09,
+            "min_price": 2.28,
             "basis": "estimate",
-            "ref_price": 1.94,
+            "ref_price": 2.11,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8189,7 +8185,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.508,
+          "probability": 0.5491,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -8201,8 +8197,8 @@
           "games_before": 218,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.84,
-          "book_p": 0.508,
+          "book_price": 1.7,
+          "book_p": 0.5491,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8210,9 +8206,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.03,
+            "min_price": 1.88,
             "basis": "estimate",
-            "ref_price": 1.87,
+            "ref_price": 1.73,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8229,7 +8225,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5567,
+          "probability": 0.5294,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -8241,8 +8237,8 @@
           "games_before": 602,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.68,
-          "book_p": 0.5567,
+          "book_price": 1.76,
+          "book_p": 0.5294,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8250,22 +8246,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 5.24,
+              "price": 5.79,
               "book": "DraftKings",
               "p": 0.1727
-            },
-            {
-              "line": 2.5,
-              "price": 23.0,
-              "book": "DraftKings",
-              "p": 0.0544
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.85,
+            "min_price": 1.95,
             "basis": "estimate",
-            "ref_price": 1.71,
+            "ref_price": 1.8,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8282,7 +8272,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4433,
+          "probability": 0.4706,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -8294,8 +8284,8 @@
           "games_before": 602,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.11,
-          "book_p": 0.4433,
+          "book_price": 1.98,
+          "book_p": 0.4706,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8303,9 +8293,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.32,
+            "min_price": 2.19,
             "basis": "estimate",
-            "ref_price": 2.15,
+            "ref_price": 2.02,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8322,7 +8312,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6446,
+          "probability": 0.625,
           "form5": 0.8,
           "last_five": [
             1.0,
@@ -8334,8 +8324,8 @@
           "games_before": 903,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.45,
-          "book_p": 0.6446,
+          "book_price": 1.5,
+          "book_p": 0.625,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8343,22 +8333,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 3.59,
+              "price": 3.8,
               "book": "DraftKings",
               "p": 0.226
             },
             {
               "line": 2.5,
-              "price": 13.6,
+              "price": 14.4,
               "book": "DraftKings",
-              "p": 0.0817
+              "p": 0.0782
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.6,
+            "min_price": 1.65,
             "basis": "estimate",
-            "ref_price": 1.48,
+            "ref_price": 1.52,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8375,7 +8365,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3554,
+          "probability": 0.375,
           "form5": 0.8,
           "last_five": [
             1.0,
@@ -8387,8 +8377,8 @@
           "games_before": 903,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.63,
-          "book_p": 0.3554,
+          "book_price": 2.5,
+          "book_p": 0.375,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8396,9 +8386,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.9,
+            "min_price": 2.75,
             "basis": "estimate",
-            "ref_price": 2.68,
+            "ref_price": 2.54,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8415,7 +8405,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5579,
+          "probability": 0.5372,
           "form5": 1.2,
           "last_five": [
             1.0,
@@ -8427,8 +8417,8 @@
           "games_before": 398,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.68,
-          "book_p": 0.5579,
+          "book_price": 1.74,
+          "book_p": 0.5372,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8436,22 +8426,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 5.0,
+              "price": 5.38,
               "book": "DraftKings",
               "p": 0.2434
             },
             {
               "line": 2.5,
-              "price": 23.0,
+              "price": 25.0,
               "book": "DraftKings",
-              "p": 0.0545
+              "p": 0.0513
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.85,
+            "min_price": 1.92,
             "basis": "estimate",
-            "ref_price": 1.71,
+            "ref_price": 1.77,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8468,7 +8458,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4421,
+          "probability": 0.4628,
           "form5": 1.2,
           "last_five": [
             1.0,
@@ -8480,8 +8470,8 @@
           "games_before": 398,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.12,
-          "book_p": 0.4421,
+          "book_price": 2.02,
+          "book_p": 0.4628,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8489,9 +8479,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.33,
+            "min_price": 2.23,
             "basis": "estimate",
-            "ref_price": 2.15,
+            "ref_price": 2.06,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8508,7 +8498,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5094,
+          "probability": 0.5107,
           "form5": 1.6,
           "last_five": [
             2.0,
@@ -8521,7 +8511,7 @@
           "book": "DraftKings",
           "line_source": "draftkings",
           "book_price": 1.83,
-          "book_p": 0.5094,
+          "book_p": 0.5107,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8529,7 +8519,7 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 6.21,
+              "price": 6.02,
               "book": "DraftKings",
               "p": 0.2834
             }
@@ -8538,7 +8528,7 @@
           "value": {
             "min_price": 2.02,
             "basis": "estimate",
-            "ref_price": 1.87,
+            "ref_price": 1.86,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8555,7 +8545,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4906,
+          "probability": 0.4893,
           "form5": 1.6,
           "last_five": [
             2.0,
@@ -8567,8 +8557,8 @@
           "games_before": 105,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.9,
-          "book_p": 0.4906,
+          "book_price": 1.91,
+          "book_p": 0.4893,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8576,9 +8566,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.1,
+            "min_price": 2.11,
             "basis": "estimate",
-            "ref_price": 1.94,
+            "ref_price": 1.95,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8595,7 +8585,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6081,
+          "probability": 0.6,
           "form5": 0.4,
           "last_five": [
             2.0,
@@ -8607,8 +8597,8 @@
           "games_before": 432,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.54,
-          "book_p": 0.6081,
+          "book_price": 1.56,
+          "book_p": 0.6,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8616,22 +8606,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 3.91,
+              "price": 4.24,
               "book": "DraftKings",
               "p": 0.1948
             },
             {
               "line": 2.5,
-              "price": 14.4,
+              "price": 16.6,
               "book": "DraftKings",
-              "p": 0.0781
+              "p": 0.0697
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.69,
+            "min_price": 1.72,
             "basis": "estimate",
-            "ref_price": 1.57,
+            "ref_price": 1.59,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8648,7 +8638,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3919,
+          "probability": 0.4,
           "form5": 0.4,
           "last_five": [
             2.0,
@@ -8660,8 +8650,8 @@
           "games_before": 432,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.39,
-          "book_p": 0.3919,
+          "book_price": 2.34,
+          "book_p": 0.4,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8669,9 +8659,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.63,
+            "min_price": 2.57,
             "basis": "estimate",
-            "ref_price": 2.43,
+            "ref_price": 2.38,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8690,7 +8680,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.4773,
+          "probability": 0.472,
           "form5": 1.8,
           "last_five": [
             0.0,
@@ -8702,8 +8692,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.96,
-          "book_p": 0.4773,
+          "book_price": 1.98,
+          "book_p": 0.472,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8711,28 +8701,28 @@
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 2.83,
+              "price": 2.96,
               "book": "DraftKings",
               "p": 0.2711
             },
             {
               "line": 3.5,
-              "price": 4.37,
+              "price": 4.57,
               "book": "DraftKings",
-              "p": 0.2227
+              "p": 0.2134
             },
             {
               "line": 4.5,
-              "price": 7.1,
+              "price": 7.3,
               "book": "DraftKings",
-              "p": 0.1428
+              "p": 0.1392
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.16,
+            "min_price": 2.18,
             "basis": "estimate",
-            "ref_price": 2.0,
+            "ref_price": 2.02,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8749,7 +8739,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.5227,
+          "probability": 0.528,
           "form5": 1.8,
           "last_five": [
             0.0,
@@ -8761,8 +8751,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.79,
-          "book_p": 0.5227,
+          "book_price": 1.77,
+          "book_p": 0.528,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8770,114 +8760,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.97,
+            "min_price": 1.95,
             "basis": "estimate",
-            "ref_price": 1.82,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.5722,
-          "form5": 2.0,
-          "last_five": [
-            2.0,
-            0.0,
-            1.0,
-            0.0,
-            7.0
-          ],
-          "games_before": 395,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.63,
-          "book_p": 0.5722,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.6371,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 2.51,
-              "book": "DraftKings",
-              "p": 0.4275
-            },
-            {
-              "line": 2.5,
-              "price": 4.16,
-              "book": "DraftKings",
-              "p": 0.2642
-            },
-            {
-              "line": 3.5,
-              "price": 7.2,
-              "book": "DraftKings",
-              "p": 0.1407
-            },
-            {
-              "line": 4.5,
-              "price": 13.2,
-              "book": "DraftKings",
-              "p": 0.0835
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.8,
-            "basis": "estimate",
-            "ref_price": 1.66,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.4278,
-          "form5": 2.0,
-          "last_five": [
-            2.0,
-            0.0,
-            1.0,
-            0.0,
-            7.0
-          ],
-          "games_before": 395,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 2.18,
-          "book_p": 0.4278,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.3629,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.41,
-            "basis": "estimate",
-            "ref_price": 2.23,
+            "ref_price": 1.8,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8894,7 +8779,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.4799,
+          "probability": 0.4628,
           "form5": 1.8,
           "last_five": [
             3.0,
@@ -8906,8 +8791,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.94,
-          "book_p": 0.4799,
+          "book_price": 2.02,
+          "book_p": 0.4628,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -8915,28 +8800,28 @@
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 2.88,
+              "price": 3.12,
               "book": "DraftKings",
               "p": 0.3578
             },
             {
               "line": 3.5,
-              "price": 4.57,
+              "price": 5.16,
               "book": "DraftKings",
               "p": 0.2415
             },
             {
               "line": 4.5,
-              "price": 7.7,
+              "price": 8.9,
               "book": "DraftKings",
-              "p": 0.1323
+              "p": 0.1169
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.15,
+            "min_price": 2.23,
             "basis": "estimate",
-            "ref_price": 1.98,
+            "ref_price": 2.06,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8953,7 +8838,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.5201,
+          "probability": 0.5372,
           "form5": 1.8,
           "last_five": [
             3.0,
@@ -8965,8 +8850,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.79,
-          "book_p": 0.5201,
+          "book_price": 1.74,
+          "book_p": 0.5372,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -8974,9 +8859,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.98,
+            "min_price": 1.92,
             "basis": "estimate",
-            "ref_price": 1.83,
+            "ref_price": 1.77,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -8993,7 +8878,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5503,
+          "probability": 0.5567,
           "form5": 3.0,
           "last_five": [
             1.0,
@@ -9005,8 +8890,8 @@
           "games_before": 446,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.7,
-          "book_p": 0.5503,
+          "book_price": 1.68,
+          "book_p": 0.5567,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -9014,33 +8899,34 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.75,
+              "price": 2.7,
               "book": "DraftKings",
               "p": 0.4658
             },
             {
               "line": 2.5,
-              "price": 4.68,
+              "price": 4.51,
               "book": "DraftKings",
               "p": 0.296
             },
             {
               "line": 3.5,
-              "price": 8.4,
+              "price": 8.0,
               "book": "DraftKings",
-              "p": 0.123
+              "p": 0.1284
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.87,
+            "min_price": 1.85,
             "basis": "estimate",
-            "ref_price": 1.73,
+            "ref_price": 1.71,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -9053,7 +8939,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4497,
+          "probability": 0.4433,
           "form5": 3.0,
           "last_five": [
             1.0,
@@ -9065,8 +8951,8 @@
           "games_before": 446,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.08,
-          "book_p": 0.4497,
+          "book_price": 2.11,
+          "book_p": 0.4433,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -9074,9 +8960,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.29,
+            "min_price": 2.32,
             "basis": "estimate",
-            "ref_price": 2.12,
+            "ref_price": 2.15,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9093,7 +8979,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.4119,
+          "probability": 0.4471,
           "form5": 3.6,
           "last_five": [
             1.0,
@@ -9105,8 +8991,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.27,
-          "book_p": 0.4119,
+          "book_price": 2.09,
+          "book_p": 0.4471,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -9114,28 +9000,28 @@
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 3.5,
+              "price": 3.34,
               "book": "DraftKings",
               "p": 0.3276
             },
             {
               "line": 3.5,
-              "price": 5.82,
+              "price": 5.69,
               "book": "DraftKings",
-              "p": 0.1708
+              "p": 0.1743
             },
             {
               "line": 4.5,
-              "price": 10.1,
+              "price": 10.4,
               "book": "DraftKings",
-              "p": 0.1048
+              "p": 0.1022
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.5,
+            "min_price": 2.3,
             "basis": "estimate",
-            "ref_price": 2.31,
+            "ref_price": 2.13,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9152,7 +9038,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.5881,
+          "probability": 0.5529,
           "form5": 3.6,
           "last_five": [
             1.0,
@@ -9164,8 +9050,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.59,
-          "book_p": 0.5881,
+          "book_price": 1.69,
+          "book_p": 0.5529,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -9173,9 +9059,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.75,
+            "min_price": 1.86,
             "basis": "estimate",
-            "ref_price": 1.62,
+            "ref_price": 1.72,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9183,25 +9069,25 @@
         },
         {
           "market": "hrr",
-          "player": "Steven Kwan",
-          "player_id": "kwans001",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
           "game_id": "849829",
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
+          "line": 0.5,
           "probability": 0.484,
-          "form5": 1.8,
+          "form5": 1.6,
           "last_five": [
             1.0,
-            2.0,
+            3.0,
             0.0,
-            2.0,
-            4.0
+            4.0,
+            0.0
           ],
-          "games_before": 715,
+          "games_before": 419,
           "book": "DraftKings",
           "line_source": "draftkings",
           "book_price": 1.93,
@@ -9209,25 +9095,25 @@
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
-          "p_model": 0.5185,
+          "p_model": 0.6305,
           "ladder_up": [
             {
-              "line": 2.5,
-              "price": 3.25,
+              "line": 1.5,
+              "price": 3.16,
               "book": "DraftKings",
-              "p": 0.3513
+              "p": 0.3843
             },
             {
-              "line": 3.5,
-              "price": 5.93,
+              "line": 2.5,
+              "price": 5.54,
               "book": "DraftKings",
               "p": 0.23
             },
             {
-              "line": 4.5,
-              "price": 11.2,
+              "line": 3.5,
+              "price": 10.5,
               "book": "DraftKings",
-              "p": 0.0959
+              "p": 0.1013
             }
           ],
           "trust_w": 0.0,
@@ -9242,25 +9128,25 @@
         },
         {
           "market": "hrr",
-          "player": "Steven Kwan",
-          "player_id": "kwans001",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
           "game_id": "849829",
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
+          "line": 0.5,
           "probability": 0.516,
-          "form5": 1.8,
+          "form5": 1.6,
           "last_five": [
             1.0,
-            2.0,
+            3.0,
             0.0,
-            2.0,
-            4.0
+            4.0,
+            0.0
           ],
-          "games_before": 715,
+          "games_before": 419,
           "book": "DraftKings",
           "line_source": "draftkings",
           "book_price": 1.81,
@@ -9268,7 +9154,7 @@
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
-          "p_model": 0.4815,
+          "p_model": 0.3695,
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
@@ -9282,8 +9168,8 @@
         },
         {
           "market": "hrr",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
+          "player": "Steven Kwan",
+          "player_id": "kwans001",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
@@ -9291,49 +9177,49 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.3964,
-          "form5": 1.4,
+          "probability": 0.496,
+          "form5": 1.8,
           "last_five": [
             1.0,
+            2.0,
             0.0,
-            0.0,
-            5.0,
-            1.0
+            2.0,
+            4.0
           ],
-          "games_before": 846,
+          "games_before": 715,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.36,
-          "book_p": 0.3964,
+          "book_price": 1.88,
+          "book_p": 0.496,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
-          "p_model": 0.5173,
+          "p_model": 0.5185,
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 3.79,
+              "price": 3.13,
               "book": "DraftKings",
-              "p": 0.3432
+              "p": 0.3513
             },
             {
               "line": 3.5,
-              "price": 6.59,
+              "price": 5.53,
               "book": "DraftKings",
-              "p": 0.2086
+              "p": 0.23
             },
             {
               "line": 4.5,
-              "price": 11.8,
+              "price": 10.5,
               "book": "DraftKings",
-              "p": 0.0919
+              "p": 0.1011
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.6,
+            "min_price": 2.08,
             "basis": "estimate",
-            "ref_price": 2.4,
+            "ref_price": 1.92,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9341,8 +9227,8 @@
         },
         {
           "market": "hrr",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
+          "player": "Steven Kwan",
+          "player_id": "kwans001",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
@@ -9350,30 +9236,30 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.6036,
-          "form5": 1.4,
+          "probability": 0.504,
+          "form5": 1.8,
           "last_five": [
             1.0,
+            2.0,
             0.0,
-            0.0,
-            5.0,
-            1.0
+            2.0,
+            4.0
           ],
-          "games_before": 846,
+          "games_before": 715,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.55,
-          "book_p": 0.6036,
+          "book_price": 1.85,
+          "book_p": 0.504,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
-          "p_model": 0.4827,
+          "p_model": 0.4815,
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.71,
+            "min_price": 2.04,
             "basis": "estimate",
-            "ref_price": 1.58,
+            "ref_price": 1.89,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9390,7 +9276,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.4342,
+          "probability": 0.4615,
           "form5": 2.6,
           "last_five": [
             4.0,
@@ -9402,8 +9288,8 @@
           "games_before": 247,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.15,
-          "book_p": 0.4342,
+          "book_price": 2.03,
+          "book_p": 0.4615,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -9411,28 +9297,28 @@
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 3.49,
+              "price": 3.25,
               "book": "DraftKings",
               "p": 0.296
             },
             {
               "line": 3.5,
-              "price": 6.07,
+              "price": 5.5,
               "book": "DraftKings",
-              "p": 0.1642
+              "p": 0.1802
             },
             {
               "line": 4.5,
-              "price": 10.5,
+              "price": 9.4,
               "book": "DraftKings",
-              "p": 0.1012
+              "p": 0.1117
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.37,
+            "min_price": 2.23,
             "basis": "estimate",
-            "ref_price": 2.19,
+            "ref_price": 2.06,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9449,7 +9335,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.5658,
+          "probability": 0.5385,
           "form5": 2.6,
           "last_five": [
             4.0,
@@ -9461,8 +9347,8 @@
           "games_before": 247,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.65,
-          "book_p": 0.5658,
+          "book_price": 1.74,
+          "book_p": 0.5385,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -9470,9 +9356,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.82,
+            "min_price": 1.91,
             "basis": "estimate",
-            "ref_price": 1.68,
+            "ref_price": 1.77,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9489,7 +9375,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.4,
+          "probability": 0.4524,
           "form5": 5.0,
           "last_five": [
             10.0,
@@ -9501,8 +9387,8 @@
           "games_before": 268,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.34,
-          "book_p": 0.4,
+          "book_price": 2.07,
+          "book_p": 0.4524,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -9510,28 +9396,28 @@
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 3.97,
+              "price": 3.47,
               "book": "DraftKings",
               "p": 0.45
             },
             {
               "line": 3.5,
-              "price": 7.0,
+              "price": 6.09,
               "book": "DraftKings",
               "p": 0.296
             },
             {
               "line": 4.5,
-              "price": 13.4,
+              "price": 11.6,
               "book": "DraftKings",
-              "p": 0.0828
+              "p": 0.0933
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.57,
+            "min_price": 2.28,
             "basis": "estimate",
-            "ref_price": 2.38,
+            "ref_price": 2.11,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9548,7 +9434,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.6,
+          "probability": 0.5476,
           "form5": 5.0,
           "last_five": [
             10.0,
@@ -9560,8 +9446,8 @@
           "games_before": 268,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.56,
-          "book_p": 0.6,
+          "book_price": 1.71,
+          "book_p": 0.5476,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -9569,9 +9455,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.72,
+            "min_price": 1.88,
             "basis": "estimate",
-            "ref_price": 1.59,
+            "ref_price": 1.74,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9587,8 +9473,8 @@
           "game_id": "849829",
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
-          "probability": 0.4119,
+          "line": 0.5,
+          "probability": 0.5807,
           "form5": 1.4,
           "last_five": [
             0.0,
@@ -9600,37 +9486,37 @@
           "games_before": 122,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.27,
-          "book_p": 0.4119,
+          "book_price": 1.61,
+          "book_p": 0.5807,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
-          "p_model": 0.4097,
+          "p_model": 0.6438,
           "ladder_up": [
             {
+              "line": 1.5,
+              "price": 2.56,
+              "book": "DraftKings",
+              "p": 0.4124
+            },
+            {
               "line": 2.5,
-              "price": 3.62,
+              "price": 4.45,
               "book": "DraftKings",
               "p": 0.254
             },
             {
               "line": 3.5,
-              "price": 6.18,
+              "price": 8.1,
               "book": "DraftKings",
-              "p": 0.1618
-            },
-            {
-              "line": 4.5,
-              "price": 10.8,
-              "book": "DraftKings",
-              "p": 0.099
+              "p": 0.127
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.5,
+            "min_price": 1.77,
             "basis": "estimate",
-            "ref_price": 2.31,
+            "ref_price": 1.64,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9646,8 +9532,8 @@
           "game_id": "849829",
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
-          "probability": 0.5881,
+          "line": 0.5,
+          "probability": 0.4193,
           "form5": 1.4,
           "last_five": [
             0.0,
@@ -9659,18 +9545,18 @@
           "games_before": 122,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.59,
-          "book_p": 0.5881,
+          "book_price": 2.23,
+          "book_p": 0.4193,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
-          "p_model": 0.5903,
+          "p_model": 0.3562,
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.75,
+            "min_price": 2.46,
             "basis": "estimate",
-            "ref_price": 1.62,
+            "ref_price": 2.27,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9708,21 +9594,21 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.82,
+              "price": 2.78,
               "book": "DraftKings",
               "p": 0.45
             },
             {
               "line": 2.5,
-              "price": 5.04,
+              "price": 4.99,
               "book": "DraftKings",
               "p": 0.2895
             },
             {
               "line": 3.5,
-              "price": 9.2,
+              "price": 9.3,
               "book": "DraftKings",
-              "p": 0.1134
+              "p": 0.1124
             }
           ],
           "trust_w": 0.0,
@@ -9786,7 +9672,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5807,
+          "probability": 0.5669,
           "form5": 2.8,
           "last_five": [
             8.0,
@@ -9798,8 +9684,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.61,
-          "book_p": 0.5807,
+          "book_price": 1.65,
+          "book_p": 0.5669,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -9807,39 +9693,40 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.4,
+              "price": 2.5,
               "book": "DraftKings",
               "p": 0.4818
             },
             {
               "line": 2.5,
-              "price": 3.49,
+              "price": 3.7,
               "book": "DraftKings",
               "p": 0.3203
             },
             {
               "line": 3.5,
-              "price": 5.73,
+              "price": 5.88,
               "book": "DraftKings",
-              "p": 0.1733
+              "p": 0.1693
             },
             {
               "line": 4.5,
-              "price": 9.9,
+              "price": 10.1,
               "book": "DraftKings",
-              "p": 0.1066
+              "p": 0.1048
             }
           ],
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.77,
+            "min_price": 1.82,
             "basis": "estimate",
-            "ref_price": 1.64,
+            "ref_price": 1.68,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -9852,7 +9739,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.4193,
+          "probability": 0.4331,
           "form5": 2.8,
           "last_five": [
             8.0,
@@ -9864,8 +9751,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.23,
-          "book_p": 0.4193,
+          "book_price": 2.16,
+          "book_p": 0.4331,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -9873,9 +9760,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.46,
+            "min_price": 2.38,
             "basis": "estimate",
-            "ref_price": 2.27,
+            "ref_price": 2.2,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -9892,7 +9779,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.5319,
+          "probability": 0.504,
           "form5": 0.6,
           "last_five": [
             0.0,
@@ -9904,8 +9791,8 @@
           "games_before": 218,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.76,
-          "book_p": 0.5319,
+          "book_price": 1.85,
+          "book_p": 0.504,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -9913,273 +9800,23 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.73,
+              "price": 2.99,
               "book": "DraftKings",
               "p": 0.3768
             },
             {
               "line": 2.5,
-              "price": 4.21,
+              "price": 4.8,
               "book": "DraftKings",
               "p": 0.2382
             },
             {
               "line": 3.5,
-              "price": 7.4,
+              "price": 8.3,
               "book": "DraftKings",
-              "p": 0.1377
-            },
-            {
-              "line": 4.5,
-              "price": 12.6,
-              "book": "DraftKings",
-              "p": 0.0871
+              "p": 0.124
             }
           ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.94,
-            "basis": "estimate",
-            "ref_price": 1.79,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Colson Montgomery",
-          "player_id": "montc004",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.4681,
-          "form5": 0.6,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            3.0,
-            0.0
-          ],
-          "games_before": 218,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 2.0,
-          "book_p": 0.4681,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.4382,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.2,
-            "basis": "estimate",
-            "ref_price": 2.03,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Tommy Pham",
-          "player_id": "phamt001",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.6071,
-          "form5": 0.8,
-          "last_five": [
-            0.0,
-            2.0,
-            2.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 602,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.54,
-          "book_p": 0.6071,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.5815,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 2.46,
-              "book": "DraftKings",
-              "p": 0.3749
-            },
-            {
-              "line": 2.5,
-              "price": 4.15,
-              "book": "DraftKings",
-              "p": 0.23
-            },
-            {
-              "line": 3.5,
-              "price": 7.5,
-              "book": "DraftKings",
-              "p": 0.1359
-            },
-            {
-              "line": 4.5,
-              "price": 13.4,
-              "book": "DraftKings",
-              "p": 0.0827
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.7,
-            "basis": "estimate",
-            "ref_price": 1.57,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Tommy Pham",
-          "player_id": "phamt001",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.3929,
-          "form5": 0.8,
-          "last_five": [
-            0.0,
-            2.0,
-            2.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 602,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 2.38,
-          "book_p": 0.3929,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.4185,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.62,
-            "basis": "estimate",
-            "ref_price": 2.42,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Jose Ramirez",
-          "player_id": "ramij003",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
-          "probability": 0.496,
-          "form5": 1.8,
-          "last_five": [
-            1.0,
-            0.0,
-            2.0,
-            5.0,
-            1.0
-          ],
-          "games_before": 903,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.88,
-          "book_p": 0.496,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.5185,
-          "ladder_up": [
-            {
-              "line": 2.5,
-              "price": 2.78,
-              "book": "DraftKings",
-              "p": 0.3578
-            },
-            {
-              "line": 3.5,
-              "price": 4.48,
-              "book": "DraftKings",
-              "p": 0.2382
-            },
-            {
-              "line": 4.5,
-              "price": 7.4,
-              "book": "DraftKings",
-              "p": 0.1372
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 2.08,
-            "basis": "estimate",
-            "ref_price": 1.92,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hrr",
-          "player": "Jose Ramirez",
-          "player_id": "ramij003",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
-          "probability": 0.504,
-          "form5": 1.8,
-          "last_five": [
-            1.0,
-            0.0,
-            2.0,
-            5.0,
-            1.0
-          ],
-          "games_before": 903,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.85,
-          "book_p": 0.504,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.4815,
-          "ladder_up": [],
           "trust_w": 0.0,
           "value": {
             "min_price": 2.04,
@@ -10192,8 +9829,147 @@
         },
         {
           "market": "hrr",
-          "player": "Brayan Rocchio",
-          "player_id": "roccb001",
+          "player": "Colson Montgomery",
+          "player_id": "montc004",
+          "team": "CHA",
+          "opponent": "CLE",
+          "home": false,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.496,
+          "form5": 0.6,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            3.0,
+            0.0
+          ],
+          "games_before": 218,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.88,
+          "book_p": 0.496,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.4382,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 2.08,
+            "basis": "estimate",
+            "ref_price": 1.92,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hrr",
+          "player": "Tommy Pham",
+          "player_id": "phamt001",
+          "team": "CHA",
+          "opponent": "CLE",
+          "home": false,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.5759,
+          "form5": 0.8,
+          "last_five": [
+            0.0,
+            2.0,
+            2.0,
+            0.0,
+            0.0
+          ],
+          "games_before": 602,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.62,
+          "book_p": 0.5759,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.5815,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 2.63,
+              "book": "DraftKings",
+              "p": 0.3749
+            },
+            {
+              "line": 2.5,
+              "price": 4.58,
+              "book": "DraftKings",
+              "p": 0.23
+            },
+            {
+              "line": 3.5,
+              "price": 8.4,
+              "book": "DraftKings",
+              "p": 0.1227
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.79,
+            "basis": "estimate",
+            "ref_price": 1.65,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hrr",
+          "player": "Tommy Pham",
+          "player_id": "phamt001",
+          "team": "CHA",
+          "opponent": "CLE",
+          "home": false,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.4241,
+          "form5": 0.8,
+          "last_five": [
+            0.0,
+            2.0,
+            2.0,
+            0.0,
+            0.0
+          ],
+          "games_before": 602,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 2.2,
+          "book_p": 0.4241,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.4185,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 2.43,
+            "basis": "estimate",
+            "ref_price": 2.25,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hrr",
+          "player": "Jose Ramirez",
+          "player_id": "ramij003",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
@@ -10201,49 +9977,89 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.3964,
-          "form5": 2.6,
+          "probability": 0.5107,
+          "form5": 1.8,
           "last_five": [
             1.0,
-            1.0,
             0.0,
-            3.0,
-            8.0
+            2.0,
+            5.0,
+            1.0
           ],
-          "games_before": 398,
+          "games_before": 903,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.36,
-          "book_p": 0.3964,
+          "book_price": 1.83,
+          "book_p": 0.5107,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
-          "p_model": 0.4593,
+          "p_model": 0.5185,
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 4.03,
+              "price": 2.73,
               "book": "DraftKings",
-              "p": 0.2895
+              "p": 0.3578
             },
             {
               "line": 3.5,
-              "price": 7.2,
+              "price": 4.33,
               "book": "DraftKings",
-              "p": 0.141
+              "p": 0.2382
             },
             {
               "line": 4.5,
-              "price": 13.4,
+              "price": 7.4,
               "book": "DraftKings",
-              "p": 0.0827
+              "p": 0.1375
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.6,
+            "min_price": 2.02,
             "basis": "estimate",
-            "ref_price": 2.4,
+            "ref_price": 1.86,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hrr",
+          "player": "Jose Ramirez",
+          "player_id": "ramij003",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 1.5,
+          "probability": 0.4893,
+          "form5": 1.8,
+          "last_five": [
+            1.0,
+            0.0,
+            2.0,
+            5.0,
+            1.0
+          ],
+          "games_before": 903,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.91,
+          "book_p": 0.4893,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.4815,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 2.11,
+            "basis": "estimate",
+            "ref_price": 1.95,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10259,8 +10075,8 @@
           "game_id": "849829",
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
-          "line": 1.5,
-          "probability": 0.6036,
+          "line": 0.5,
+          "probability": 0.5917,
           "form5": 2.6,
           "last_five": [
             1.0,
@@ -10272,18 +10088,83 @@
           "games_before": 398,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.55,
-          "book_p": 0.6036,
+          "book_price": 1.58,
+          "book_p": 0.5917,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.6438,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 2.45,
+              "book": "DraftKings",
+              "p": 0.4605
+            },
+            {
+              "line": 2.5,
+              "price": 4.26,
+              "book": "DraftKings",
+              "p": 0.2895
+            },
+            {
+              "line": 3.5,
+              "price": 7.6,
+              "book": "DraftKings",
+              "p": 0.1343
+            },
+            {
+              "line": 4.5,
+              "price": 14.0,
+              "book": "DraftKings",
+              "p": 0.0798
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.74,
+            "basis": "estimate",
+            "ref_price": 1.61,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hrr",
+          "player": "Brayan Rocchio",
+          "player_id": "roccb001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.4083,
+          "form5": 2.6,
+          "last_five": [
+            1.0,
+            1.0,
+            0.0,
+            3.0,
+            8.0
+          ],
+          "games_before": 398,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 2.29,
+          "book_p": 0.4083,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
-          "p_model": 0.5407,
+          "p_model": 0.3562,
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.71,
+            "min_price": 2.52,
             "basis": "estimate",
-            "ref_price": 1.58,
+            "ref_price": 2.33,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10321,21 +10202,21 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 2.79,
+              "price": 2.83,
               "book": "DraftKings",
               "p": 0.4867
             },
             {
               "line": 2.5,
-              "price": 4.68,
+              "price": 4.83,
               "book": "DraftKings",
               "p": 0.328
             },
             {
               "line": 3.5,
-              "price": 8.5,
+              "price": 8.9,
               "book": "DraftKings",
-              "p": 0.1216
+              "p": 0.1168
             }
           ],
           "on_board": true,
@@ -10347,7 +10228,8 @@
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hrr",
@@ -10400,7 +10282,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.4497,
+          "probability": 0.4433,
           "form5": 2.0,
           "last_five": [
             6.0,
@@ -10412,8 +10294,8 @@
           "games_before": 432,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.08,
-          "book_p": 0.4497,
+          "book_price": 2.11,
+          "book_p": 0.4433,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10421,28 +10303,28 @@
           "ladder_up": [
             {
               "line": 2.5,
-              "price": 3.14,
+              "price": 3.19,
               "book": "DraftKings",
               "p": 0.2895
             },
             {
               "line": 3.5,
-              "price": 5.16,
+              "price": 5.09,
               "book": "DraftKings",
-              "p": 0.1908
+              "p": 0.1933
             },
             {
               "line": 4.5,
-              "price": 8.7,
+              "price": 8.6,
               "book": "DraftKings",
-              "p": 0.1193
+              "p": 0.1205
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.29,
+            "min_price": 2.32,
             "basis": "estimate",
-            "ref_price": 2.12,
+            "ref_price": 2.15,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10459,7 +10341,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 1.5,
-          "probability": 0.5503,
+          "probability": 0.5567,
           "form5": 2.0,
           "last_five": [
             6.0,
@@ -10471,8 +10353,8 @@
           "games_before": 432,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.7,
-          "book_p": 0.5503,
+          "book_price": 1.68,
+          "book_p": 0.5567,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -10480,9 +10362,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.87,
+            "min_price": 1.85,
             "basis": "estimate",
-            "ref_price": 1.73,
+            "ref_price": 1.71,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10501,7 +10383,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1547,
+          "probability": 0.1548,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -10513,8 +10395,8 @@
           "games_before": 537,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 6.12,
-          "book_p": 0.1547,
+          "book_price": 6.17,
+          "book_p": 0.1548,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10522,90 +10404,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 6.66,
+            "min_price": 6.65,
             "basis": "estimate",
-            "ref_price": 6.16,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hr",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.1074,
-          "form5": 0.4,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            2.0
-          ],
-          "games_before": 395,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 8.81,
-          "book_p": 0.1074,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.1518,
-          "ladder_up": [],
-          "on_board": true,
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 9.59,
-            "basis": "estimate",
-            "ref_price": 8.87,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hr",
-          "player": "Andrew Benintendi",
-          "player_id": "benia002",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.1023,
-          "form5": 0.0,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 741,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 9.21,
-          "book_p": 0.1023,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.0976,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 10.07,
-            "basis": "estimate",
-            "ref_price": 9.31,
+            "ref_price": 6.15,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10634,7 +10435,7 @@
           "games_before": 127,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 6.98,
+          "book_price": 7.04,
           "book_p": 0.1351,
           "book_p_fair": true,
           "edge": 0.0,
@@ -10662,7 +10463,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.081,
+          "probability": 0.0811,
           "form5": 0.6,
           "last_five": [
             0.0,
@@ -10674,8 +10475,8 @@
           "games_before": 446,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 11.68,
-          "book_p": 0.081,
+          "book_price": 11.78,
+          "book_p": 0.0811,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10684,9 +10485,50 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 12.72,
+            "min_price": 12.7,
             "basis": "estimate",
-            "ref_price": 11.76,
+            "ref_price": 11.74,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          },
+          "locked": true
+        },
+        {
+          "market": "hr",
+          "player": "David Fry",
+          "player_id": "fry-d001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.1099,
+          "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "games_before": 200,
+          "book": "Pinnacle",
+          "line_source": "pinnacle",
+          "book_price": 8.5,
+          "book_p": 0.1099,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.1329,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 9.37,
+            "basis": "estimate",
+            "ref_price": 8.67,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10703,7 +10545,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1631,
+          "probability": 0.1565,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -10715,8 +10557,8 @@
           "games_before": 553,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 5.8,
-          "book_p": 0.1631,
+          "book_price": 6.09,
+          "book_p": 0.1565,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10724,9 +10566,49 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 6.32,
+            "min_price": 6.58,
             "basis": "estimate",
-            "ref_price": 5.84,
+            "ref_price": 6.09,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "hr",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.0748,
+          "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "games_before": 419,
+          "book": "Pinnacle",
+          "line_source": "pinnacle",
+          "book_price": 12.5,
+          "book_p": 0.0748,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.124,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 13.77,
+            "basis": "estimate",
+            "ref_price": 12.73,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10743,7 +10625,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.0481,
+          "probability": 0.0472,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -10755,58 +10637,18 @@
           "games_before": 715,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 20.0,
-          "book_p": 0.0481,
-          "book_p_fair": true,
+          "book_price": 19.8,
+          "book_p": 0.0472,
+          "book_p_fair": false,
           "edge": 0.0,
           "side": "over",
           "p_model": 0.0678,
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 21.41,
+            "min_price": 21.82,
             "basis": "estimate",
-            "ref_price": 19.8,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hr",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.1096,
-          "form5": 0.0,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 846,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 8.61,
-          "book_p": 0.1096,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.1229,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 9.4,
-            "basis": "estimate",
-            "ref_price": 8.69,
+            "ref_price": 20.18,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10823,7 +10665,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1042,
+          "probability": 0.1043,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -10835,8 +10677,8 @@
           "games_before": 247,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 9.11,
-          "book_p": 0.1042,
+          "book_price": 9.19,
+          "book_p": 0.1043,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10846,7 +10688,7 @@
           "value": {
             "min_price": 9.88,
             "basis": "estimate",
-            "ref_price": 9.14,
+            "ref_price": 9.13,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10863,7 +10705,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.0776,
+          "probability": 0.077,
           "form5": 0.4,
           "last_five": [
             1.0,
@@ -10875,8 +10717,8 @@
           "games_before": 268,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 12.25,
-          "book_p": 0.0776,
+          "book_price": 12.35,
+          "book_p": 0.077,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10885,13 +10727,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 13.27,
+            "min_price": 13.38,
             "basis": "estimate",
-            "ref_price": 12.27,
+            "ref_price": 12.37,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -10904,7 +10747,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.0984,
+          "probability": 0.0985,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -10916,8 +10759,8 @@
           "games_before": 122,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 9.62,
-          "book_p": 0.0984,
+          "book_price": 9.7,
+          "book_p": 0.0985,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -10925,9 +10768,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 10.47,
+            "min_price": 10.46,
             "basis": "estimate",
-            "ref_price": 9.68,
+            "ref_price": 9.67,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -10944,7 +10787,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.0544,
+          "probability": 0.0551,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -10956,48 +10799,8 @@
           "games_before": 89,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 17.17,
-          "book_p": 0.0544,
-          "book_p_fair": false,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.0678,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 18.93,
-            "basis": "estimate",
-            "ref_price": 17.51,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hr",
-          "player": "Sam Antonacci",
-          "player_id": "mlbam:803011",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.0667,
-          "form5": 0.0,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 125,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 14.14,
-          "book_p": 0.0667,
+          "book_price": 17.32,
+          "book_p": 0.0551,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11005,9 +10808,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 15.44,
+            "min_price": 18.69,
             "basis": "estimate",
-            "ref_price": 14.28,
+            "ref_price": 17.28,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11024,7 +10827,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1835,
+          "probability": 0.1822,
           "form5": 0.4,
           "last_five": [
             2.0,
@@ -11036,8 +10839,8 @@
           "games_before": 124,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 5.16,
-          "book_p": 0.1835,
+          "book_price": 5.25,
+          "book_p": 0.1822,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11045,9 +10848,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 5.61,
+            "min_price": 5.65,
             "basis": "estimate",
-            "ref_price": 5.19,
+            "ref_price": 5.23,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11064,7 +10867,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1647,
+          "probability": 0.1523,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -11076,8 +10879,8 @@
           "games_before": 218,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 5.73,
-          "book_p": 0.1647,
+          "book_price": 6.29,
+          "book_p": 0.1523,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11085,49 +10888,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 6.25,
+            "min_price": 6.76,
             "basis": "estimate",
-            "ref_price": 5.78,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "hr",
-          "player": "Tristan Peters",
-          "player_id": "petet002",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.081,
-          "form5": 0.0,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 131,
-          "book": "Pinnacle",
-          "line_source": "pinnacle",
-          "book_price": 11.68,
-          "book_p": 0.081,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.0876,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 12.72,
-            "basis": "estimate",
-            "ref_price": 11.76,
+            "ref_price": 6.25,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11156,7 +10919,7 @@
           "games_before": 602,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 10.33,
+          "book_price": 10.42,
           "book_p": 0.0915,
           "book_p_fair": true,
           "edge": 0.0,
@@ -11196,7 +10959,7 @@
           "games_before": 903,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 6.47,
+          "book_price": 6.53,
           "book_p": 0.1464,
           "book_p_fair": true,
           "edge": 0.0,
@@ -11224,7 +10987,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.081,
+          "probability": 0.0811,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -11236,22 +10999,24 @@
           "games_before": 398,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 11.68,
-          "book_p": 0.081,
+          "book_price": 11.78,
+          "book_p": 0.0811,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
           "p_model": 0.1518,
           "ladder_up": [],
+          "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 12.72,
+            "min_price": 12.7,
             "basis": "estimate",
-            "ref_price": 11.76,
+            "ref_price": 11.74,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "hr",
@@ -11264,7 +11029,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1268,
+          "probability": 0.115,
           "form5": 0.2,
           "last_five": [
             1.0,
@@ -11276,8 +11041,8 @@
           "games_before": 105,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 7.44,
-          "book_p": 0.1268,
+          "book_price": 8.31,
+          "book_p": 0.115,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11285,9 +11050,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 8.12,
+            "min_price": 8.96,
             "basis": "estimate",
-            "ref_price": 7.51,
+            "ref_price": 8.28,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11304,7 +11069,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.1691,
+          "probability": 0.1631,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -11316,8 +11081,8 @@
           "games_before": 432,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 5.6,
-          "book_p": 0.1691,
+          "book_price": 5.85,
+          "book_p": 0.1631,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11325,9 +11090,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 6.09,
+            "min_price": 6.32,
             "basis": "estimate",
-            "ref_price": 5.63,
+            "ref_price": 5.84,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11346,7 +11111,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3447,
+          "probability": 0.3703,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -11358,8 +11123,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.7,
-          "book_p": 0.3447,
+          "book_price": 2.5,
+          "book_p": 0.3703,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11367,16 +11132,22 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 5.8,
+              "price": 5.5,
               "book": "DraftKings",
-              "p": 0.1605
+              "p": 0.1683
+            },
+            {
+              "line": 2.5,
+              "price": 12.4,
+              "book": "DraftKings",
+              "p": 0.0747
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.99,
+            "min_price": 2.78,
             "basis": "estimate",
-            "ref_price": 2.76,
+            "ref_price": 2.57,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11393,7 +11164,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6553,
+          "probability": 0.6297,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -11405,8 +11176,8 @@
           "games_before": 537,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.42,
-          "book_p": 0.6553,
+          "book_price": 1.47,
+          "book_p": 0.6297,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -11415,100 +11186,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.57,
+            "min_price": 1.64,
             "basis": "estimate",
-            "ref_price": 1.45,
+            "ref_price": 1.51,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.2427,
-          "form5": 0.6,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            3.0
-          ],
-          "games_before": 395,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 3.87,
-          "book_p": 0.2427,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.3083,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 9.6,
-              "book": "DraftKings",
-              "p": 0.0978
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 4.24,
-            "basis": "estimate",
-            "ref_price": 3.92,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Patrick Bailey",
-          "player_id": "bailp001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.7573,
-          "form5": 0.6,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            3.0
-          ],
-          "games_before": 395,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.24,
-          "book_p": 0.7573,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.6917,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.36,
-            "basis": "estimate",
-            "ref_price": 1.26,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -11521,7 +11206,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3239,
+          "probability": 0.3096,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -11533,8 +11218,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.88,
-          "book_p": 0.3239,
+          "book_price": 3.01,
+          "book_p": 0.3096,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11542,16 +11227,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 6.72,
+              "price": 7.1,
               "book": "DraftKings",
-              "p": 0.1388
+              "p": 0.1313
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 3.18,
+            "min_price": 3.33,
             "basis": "estimate",
-            "ref_price": 2.94,
+            "ref_price": 3.08,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11568,7 +11253,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6761,
+          "probability": 0.6904,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -11580,8 +11265,8 @@
           "games_before": 127,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.38,
-          "book_p": 0.6761,
+          "book_price": 1.35,
+          "book_p": 0.6904,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -11590,13 +11275,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.52,
+            "min_price": 1.49,
             "basis": "estimate",
-            "ref_price": 1.41,
+            "ref_price": 1.38,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -11609,7 +11295,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.2084,
+          "probability": 0.2202,
           "form5": 0.8,
           "last_five": [
             0.0,
@@ -11621,8 +11307,8 @@
           "games_before": 446,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 4.52,
-          "book_p": 0.2084,
+          "book_price": 4.25,
+          "book_p": 0.2202,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11630,16 +11316,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 11.2,
+              "price": 10.5,
               "book": "DraftKings",
-              "p": 0.0841
+              "p": 0.0891
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 4.94,
+            "min_price": 4.68,
             "basis": "estimate",
-            "ref_price": 4.57,
+            "ref_price": 4.33,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11656,7 +11342,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.7916,
+          "probability": 0.7798,
           "form5": 0.8,
           "last_five": [
             0.0,
@@ -11668,8 +11354,8 @@
           "games_before": 446,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.19,
-          "book_p": 0.7916,
+          "book_price": 1.2,
+          "book_p": 0.7798,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -11677,9 +11363,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.3,
+            "min_price": 1.32,
             "basis": "estimate",
-            "ref_price": 1.2,
+            "ref_price": 1.22,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11696,7 +11382,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.2873,
+          "probability": 0.2695,
           "form5": 1.2,
           "last_five": [
             0.0,
@@ -11708,8 +11394,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 3.25,
-          "book_p": 0.2873,
+          "book_price": 3.47,
+          "book_p": 0.2695,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11717,16 +11403,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 7.9,
+              "price": 9.4,
               "book": "DraftKings",
-              "p": 0.1182
+              "p": 0.0995
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 3.59,
+            "min_price": 3.82,
             "basis": "estimate",
-            "ref_price": 3.31,
+            "ref_price": 3.53,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11743,7 +11429,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.7127,
+          "probability": 0.7305,
           "form5": 1.2,
           "last_five": [
             0.0,
@@ -11755,8 +11441,8 @@
           "games_before": 553,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.31,
-          "book_p": 0.7127,
+          "book_price": 1.28,
+          "book_p": 0.7305,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -11764,9 +11450,96 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.45,
+            "min_price": 1.41,
             "basis": "estimate",
-            "ref_price": 1.34,
+            "ref_price": 1.3,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.1905,
+          "form5": 0.4,
+          "last_five": [
+            0.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "games_before": 419,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 4.93,
+          "book_p": 0.1905,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.2963,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 12.6,
+              "book": "DraftKings",
+              "p": 0.0745
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 5.41,
+            "basis": "estimate",
+            "ref_price": 5.0,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Austin Hedges",
+          "player_id": "hedga001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.8095,
+          "form5": 0.4,
+          "last_five": [
+            0.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "games_before": 419,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.16,
+          "book_p": 0.8095,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.7037,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.27,
+            "basis": "estimate",
+            "ref_price": 1.18,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -11783,7 +11556,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.2257,
+          "probability": 0.2337,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -11795,8 +11568,8 @@
           "games_before": 715,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 4.15,
-          "book_p": 0.2257,
+          "book_price": 4.0,
+          "book_p": 0.2337,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -11804,9 +11577,270 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 12.8,
+              "price": 11.8,
               "book": "DraftKings",
-              "p": 0.0732
+              "p": 0.0792
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 4.41,
+            "basis": "estimate",
+            "ref_price": 4.08,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Steven Kwan",
+          "player_id": "kwans001",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.7663,
+          "form5": 0.2,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "games_before": 715,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.22,
+          "book_p": 0.7663,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.7133,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.34,
+            "basis": "estimate",
+            "ref_price": 1.24,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Angel Martinez",
+          "player_id": "marta008",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.2975,
+          "form5": 1.0,
+          "last_five": [
+            0.0,
+            1.0,
+            4.0,
+            0.0,
+            0.0
+          ],
+          "games_before": 247,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 3.14,
+          "book_p": 0.2975,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.3323,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 7.4,
+              "book": "DraftKings",
+              "p": 0.1262
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 3.46,
+            "basis": "estimate",
+            "ref_price": 3.2,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Angel Martinez",
+          "player_id": "marta008",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.7025,
+          "form5": 1.0,
+          "last_five": [
+            0.0,
+            1.0,
+            4.0,
+            0.0,
+            0.0
+          ],
+          "games_before": 247,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.33,
+          "book_p": 0.7025,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.6677,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.47,
+            "basis": "estimate",
+            "ref_price": 1.36,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Chase Meidroth",
+          "player_id": "meidc001",
+          "team": "CHA",
+          "opponent": "CLE",
+          "home": false,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.2014,
+          "form5": 1.8,
+          "last_five": [
+            5.0,
+            0.0,
+            0.0,
+            1.0,
+            3.0
+          ],
+          "games_before": 268,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 4.68,
+          "book_p": 0.2014,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.3392,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 13.4,
+              "book": "DraftKings",
+              "p": 0.0703
+            }
+          ],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 5.11,
+            "basis": "estimate",
+            "ref_price": 4.73,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Chase Meidroth",
+          "player_id": "meidc001",
+          "team": "CHA",
+          "opponent": "CLE",
+          "home": false,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.7986,
+          "form5": 1.8,
+          "last_five": [
+            5.0,
+            0.0,
+            0.0,
+            1.0,
+            3.0
+          ],
+          "games_before": 268,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 1.18,
+          "book_p": 0.7986,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "under",
+          "p_model": 0.6608,
+          "ladder_up": [],
+          "trust_w": 0.0,
+          "value": {
+            "min_price": 1.29,
+            "basis": "estimate",
+            "ref_price": 1.19,
+            "ev": -0.0476,
+            "value": false,
+            "stake": 0.0
+          }
+        },
+        {
+          "market": "rbi",
+          "player": "Travis Bazzana",
+          "player_id": "mlbam:683953",
+          "team": "CLE",
+          "opponent": "CHA",
+          "home": true,
+          "game_id": "849829",
+          "tipoff": "2026-10-03T17:00:00Z",
+          "kickoff": "2026-10-03T17:00:00Z",
+          "line": 0.5,
+          "probability": 0.2257,
+          "form5": 0.0,
+          "last_five": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "games_before": 122,
+          "book": "DraftKings",
+          "line_source": "draftkings",
+          "book_price": 4.15,
+          "book_p": 0.2257,
+          "book_p_fair": true,
+          "edge": 0.0,
+          "side": "over",
+          "p_model": 0.2797,
+          "ladder_up": [
+            {
+              "line": 1.5,
+              "price": 10.8,
+              "book": "DraftKings",
+              "p": 0.0867
             }
           ],
           "trust_w": 0.0,
@@ -11821,8 +11855,8 @@
         },
         {
           "market": "rbi",
-          "player": "Steven Kwan",
-          "player_id": "kwans001",
+          "player": "Travis Bazzana",
+          "player_id": "mlbam:683953",
           "team": "CLE",
           "opponent": "CHA",
           "home": true,
@@ -11831,15 +11865,15 @@
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
           "probability": 0.7743,
-          "form5": 0.2,
+          "form5": 0.0,
           "last_five": [
             0.0,
             0.0,
             0.0,
             0.0,
-            1.0
+            0.0
           ],
-          "games_before": 715,
+          "games_before": 122,
           "book": "DraftKings",
           "line_source": "draftkings",
           "book_price": 1.21,
@@ -11847,361 +11881,13 @@
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
-          "p_model": 0.7133,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.33,
-            "basis": "estimate",
-            "ref_price": 1.23,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.2465,
-          "form5": 0.8,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            4.0,
-            0.0
-          ],
-          "games_before": 846,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 3.79,
-          "book_p": 0.2465,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.3156,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 9.2,
-              "book": "DraftKings",
-              "p": 0.1015
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 4.18,
-            "basis": "estimate",
-            "ref_price": 3.86,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Nathaniel Lowe",
-          "player_id": "lowen001",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.7535,
-          "form5": 0.8,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            4.0,
-            0.0
-          ],
-          "games_before": 846,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.24,
-          "book_p": 0.7535,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.6844,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.37,
-            "basis": "estimate",
-            "ref_price": 1.26,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Angel Martinez",
-          "player_id": "marta008",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.2624,
-          "form5": 1.0,
-          "last_five": [
-            0.0,
-            1.0,
-            4.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 247,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 3.57,
-          "book_p": 0.2624,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.3323,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 9.0,
-              "book": "DraftKings",
-              "p": 0.1041
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 3.93,
-            "basis": "estimate",
-            "ref_price": 3.63,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Angel Martinez",
-          "player_id": "marta008",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.7376,
-          "form5": 1.0,
-          "last_five": [
-            0.0,
-            1.0,
-            4.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 247,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.27,
-          "book_p": 0.7376,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.6677,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.4,
-            "basis": "estimate",
-            "ref_price": 1.29,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Chase Meidroth",
-          "player_id": "meidc001",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.2253,
-          "form5": 1.8,
-          "last_five": [
-            5.0,
-            0.0,
-            0.0,
-            1.0,
-            3.0
-          ],
-          "games_before": 268,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 4.16,
-          "book_p": 0.2253,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.3392,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 11.0,
-              "book": "DraftKings",
-              "p": 0.0852
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 4.57,
-            "basis": "estimate",
-            "ref_price": 4.23,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Chase Meidroth",
-          "player_id": "meidc001",
-          "team": "CHA",
-          "opponent": "CLE",
-          "home": false,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.7747,
-          "form5": 1.8,
-          "last_five": [
-            5.0,
-            0.0,
-            0.0,
-            1.0,
-            3.0
-          ],
-          "games_before": 268,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.21,
-          "book_p": 0.7747,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
-          "p_model": 0.6608,
-          "ladder_up": [],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 1.33,
-            "basis": "estimate",
-            "ref_price": 1.23,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Travis Bazzana",
-          "player_id": "mlbam:683953",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.2678,
-          "form5": 0.0,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 122,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 3.5,
-          "book_p": 0.2678,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "over",
-          "p_model": 0.2797,
-          "ladder_up": [
-            {
-              "line": 1.5,
-              "price": 8.6,
-              "book": "DraftKings",
-              "p": 0.109
-            }
-          ],
-          "trust_w": 0.0,
-          "value": {
-            "min_price": 3.85,
-            "basis": "estimate",
-            "ref_price": 3.56,
-            "ev": -0.0476,
-            "value": false,
-            "stake": 0.0
-          }
-        },
-        {
-          "market": "rbi",
-          "player": "Travis Bazzana",
-          "player_id": "mlbam:683953",
-          "team": "CLE",
-          "opponent": "CHA",
-          "home": true,
-          "game_id": "849829",
-          "tipoff": "2026-10-03T17:00:00Z",
-          "kickoff": "2026-10-03T17:00:00Z",
-          "line": 0.5,
-          "probability": 0.7322,
-          "form5": 0.0,
-          "last_five": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-          ],
-          "games_before": 122,
-          "book": "DraftKings",
-          "line_source": "draftkings",
-          "book_price": 1.28,
-          "book_p": 0.7322,
-          "book_p_fair": true,
-          "edge": 0.0,
-          "side": "under",
           "p_model": 0.7203,
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.41,
+            "min_price": 1.33,
             "basis": "estimate",
-            "ref_price": 1.3,
+            "ref_price": 1.23,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12218,7 +11904,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.201,
+          "probability": 0.1973,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -12230,8 +11916,8 @@
           "games_before": 89,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 4.69,
-          "book_p": 0.201,
+          "book_price": 4.76,
+          "book_p": 0.1973,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12239,16 +11925,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 12.2,
+              "price": 12.8,
               "book": "DraftKings",
-              "p": 0.0773
+              "p": 0.0734
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 5.12,
+            "min_price": 5.22,
             "basis": "estimate",
-            "ref_price": 4.74,
+            "ref_price": 4.83,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12265,7 +11951,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.799,
+          "probability": 0.8027,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -12277,8 +11963,8 @@
           "games_before": 89,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.18,
-          "book_p": 0.799,
+          "book_price": 1.17,
+          "book_p": 0.8027,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12286,7 +11972,7 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.29,
+            "min_price": 1.28,
             "basis": "estimate",
             "ref_price": 1.19,
             "ev": -0.0476,
@@ -12305,7 +11991,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.294,
+          "probability": 0.2873,
           "form5": 0.8,
           "last_five": [
             3.0,
@@ -12317,8 +12003,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 3.17,
-          "book_p": 0.294,
+          "book_price": 3.25,
+          "book_p": 0.2873,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12326,16 +12012,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 7.2,
+              "price": 7.1,
               "book": "DraftKings",
-              "p": 0.1294
+              "p": 0.1315
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 3.5,
+            "min_price": 3.59,
             "basis": "estimate",
-            "ref_price": 3.24,
+            "ref_price": 3.31,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12352,7 +12038,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.706,
+          "probability": 0.7127,
           "form5": 0.8,
           "last_five": [
             3.0,
@@ -12364,8 +12050,8 @@
           "games_before": 124,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.32,
-          "book_p": 0.706,
+          "book_price": 1.31,
+          "book_p": 0.7127,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12373,9 +12059,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.46,
+            "min_price": 1.45,
             "basis": "estimate",
-            "ref_price": 1.35,
+            "ref_price": 1.34,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12392,7 +12078,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.237,
+          "probability": 0.217,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -12404,8 +12090,8 @@
           "games_before": 218,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 3.96,
-          "book_p": 0.237,
+          "book_price": 4.33,
+          "book_p": 0.217,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12413,16 +12099,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 9.4,
+              "price": 10.2,
               "book": "DraftKings",
-              "p": 0.0998
+              "p": 0.0921
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 4.35,
+            "min_price": 4.75,
             "basis": "estimate",
-            "ref_price": 4.02,
+            "ref_price": 4.39,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12439,7 +12125,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.763,
+          "probability": 0.783,
           "form5": 0.2,
           "last_five": [
             0.0,
@@ -12451,8 +12137,8 @@
           "games_before": 218,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.23,
-          "book_p": 0.763,
+          "book_price": 1.2,
+          "book_p": 0.783,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12460,9 +12146,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.35,
+            "min_price": 1.32,
             "basis": "estimate",
-            "ref_price": 1.25,
+            "ref_price": 1.22,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12479,7 +12165,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.2158,
+          "probability": 0.2289,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -12491,8 +12177,8 @@
           "games_before": 602,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 4.36,
-          "book_p": 0.2158,
+          "book_price": 4.11,
+          "book_p": 0.2289,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12500,16 +12186,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 11.2,
+              "price": 10.5,
               "book": "DraftKings",
-              "p": 0.084
+              "p": 0.0896
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 4.77,
+            "min_price": 4.5,
             "basis": "estimate",
-            "ref_price": 4.41,
+            "ref_price": 4.16,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12526,7 +12212,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.7842,
+          "probability": 0.7711,
           "form5": 0.0,
           "last_five": [
             0.0,
@@ -12538,8 +12224,8 @@
           "games_before": 602,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.2,
-          "book_p": 0.7842,
+          "book_price": 1.22,
+          "book_p": 0.7711,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12547,9 +12233,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.31,
+            "min_price": 1.34,
             "basis": "estimate",
-            "ref_price": 1.21,
+            "ref_price": 1.24,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12566,7 +12252,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.3111,
+          "probability": 0.3349,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -12578,8 +12264,8 @@
           "games_before": 903,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 2.99,
-          "book_p": 0.3111,
+          "book_price": 2.78,
+          "book_p": 0.3349,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12587,16 +12273,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 6.85,
+              "price": 6.72,
               "book": "DraftKings",
-              "p": 0.1358
+              "p": 0.1385
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 3.31,
+            "min_price": 3.08,
             "basis": "estimate",
-            "ref_price": 3.06,
+            "ref_price": 2.84,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12613,7 +12299,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.6889,
+          "probability": 0.6651,
           "form5": 0.4,
           "last_five": [
             0.0,
@@ -12625,8 +12311,8 @@
           "games_before": 903,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.35,
-          "book_p": 0.6889,
+          "book_price": 1.4,
+          "book_p": 0.6651,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12635,13 +12321,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.5,
+            "min_price": 1.55,
             "basis": "estimate",
-            "ref_price": 1.38,
+            "ref_price": 1.43,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "rbi",
@@ -12654,7 +12341,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.2402,
+          "probability": 0.2289,
           "form5": 0.6,
           "last_five": [
             0.0,
@@ -12666,8 +12353,8 @@
           "games_before": 398,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 3.89,
-          "book_p": 0.2402,
+          "book_price": 4.11,
+          "book_p": 0.2289,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12675,16 +12362,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 9.9,
+              "price": 11.0,
               "book": "DraftKings",
-              "p": 0.0944
+              "p": 0.0855
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 4.29,
+            "min_price": 4.5,
             "basis": "estimate",
-            "ref_price": 3.96,
+            "ref_price": 4.16,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12701,7 +12388,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.7598,
+          "probability": 0.7711,
           "form5": 0.6,
           "last_five": [
             0.0,
@@ -12713,8 +12400,8 @@
           "games_before": 398,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.23,
-          "book_p": 0.7598,
+          "book_price": 1.22,
+          "book_p": 0.7711,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12722,9 +12409,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.36,
+            "min_price": 1.34,
             "basis": "estimate",
-            "ref_price": 1.25,
+            "ref_price": 1.24,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12828,7 +12515,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.2593,
+          "probability": 0.2982,
           "form5": 0.6,
           "last_five": [
             2.0,
@@ -12840,8 +12527,8 @@
           "games_before": 432,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 3.6,
-          "book_p": 0.2593,
+          "book_price": 3.13,
+          "book_p": 0.2982,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12849,16 +12536,16 @@
           "ladder_up": [
             {
               "line": 1.5,
-              "price": 9.3,
+              "price": 7.2,
               "book": "DraftKings",
-              "p": 0.1004
+              "p": 0.1296
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 3.97,
+            "min_price": 3.45,
             "basis": "estimate",
-            "ref_price": 3.67,
+            "ref_price": 3.19,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12875,7 +12562,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 0.5,
-          "probability": 0.7407,
+          "probability": 0.7018,
           "form5": 0.6,
           "last_five": [
             2.0,
@@ -12887,8 +12574,8 @@
           "games_before": 432,
           "book": "DraftKings",
           "line_source": "draftkings",
-          "book_price": 1.26,
-          "book_p": 0.7407,
+          "book_price": 1.33,
+          "book_p": 0.7018,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -12896,9 +12583,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.39,
+            "min_price": 1.47,
             "basis": "estimate",
-            "ref_price": 1.29,
+            "ref_price": 1.36,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12917,7 +12604,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 6.5,
-          "probability": 0.4439,
+          "probability": 0.4738,
           "form5": 6.4,
           "last_five": [
             12.0,
@@ -12929,8 +12616,8 @@
           "games_before": 39,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 2.13,
-          "book_p": 0.4439,
+          "book_price": 2.01,
+          "book_p": 0.4738,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -12938,34 +12625,34 @@
           "ladder_up": [
             {
               "line": 7.5,
-              "price": 2.91,
+              "price": 3.06,
               "book": "DraftKings",
               "p": 0.3406
             },
             {
               "line": 8.5,
-              "price": 4.64,
+              "price": 5.03,
               "book": "DraftKings",
-              "p": 0.2215
+              "p": 0.208
             },
             {
               "line": 9.5,
-              "price": 8.0,
+              "price": 8.8,
               "book": "DraftKings",
-              "p": 0.1411
+              "p": 0.1317
             },
             {
               "line": 10.5,
-              "price": 14.6,
+              "price": 15.8,
               "book": "DraftKings",
-              "p": 0.0909
+              "p": 0.0867
             }
           ],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.32,
+            "min_price": 2.17,
             "basis": "estimate",
-            "ref_price": 2.15,
+            "ref_price": 2.01,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -12982,7 +12669,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 6.5,
-          "probability": 0.5561,
+          "probability": 0.5262,
           "form5": 6.4,
           "last_five": [
             12.0,
@@ -12994,22 +12681,24 @@
           "games_before": 39,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 1.7,
-          "book_p": 0.5561,
+          "book_price": 1.81,
+          "book_p": 0.5262,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
           "p_model": 0.54,
           "ladder_up": [],
+          "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.85,
+            "min_price": 1.96,
             "basis": "estimate",
-            "ref_price": 1.71,
+            "ref_price": 1.81,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         }
       ],
       "team_runs": [
@@ -13024,7 +12713,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 2.5,
-          "probability": 0.5656,
+          "probability": 0.5678,
           "form5": 5.8,
           "last_five": [
             6.0,
@@ -13037,7 +12726,7 @@
           "book": "Pinnacle",
           "line_source": "pinnacle",
           "book_price": 1.69,
-          "book_p": 0.5656,
+          "book_p": 0.5678,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -13046,13 +12735,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 1.82,
+            "min_price": 1.81,
             "basis": "estimate",
             "ref_price": 1.68,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "team_runs",
@@ -13065,7 +12755,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 2.5,
-          "probability": 0.4344,
+          "probability": 0.4322,
           "form5": 5.8,
           "last_five": [
             6.0,
@@ -13077,8 +12767,8 @@
           "games_before": 974,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 2.2,
-          "book_p": 0.4344,
+          "book_price": 2.22,
+          "book_p": 0.4322,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -13086,9 +12776,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.37,
+            "min_price": 2.38,
             "basis": "estimate",
-            "ref_price": 2.19,
+            "ref_price": 2.2,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -13105,7 +12795,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 3.5,
-          "probability": 0.5065,
+          "probability": 0.4987,
           "form5": 5.2,
           "last_five": [
             0.0,
@@ -13117,8 +12807,8 @@
           "games_before": 971,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 1.89,
-          "book_p": 0.5065,
+          "book_price": 1.93,
+          "book_p": 0.4987,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "over",
@@ -13127,13 +12817,14 @@
           "on_board": true,
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.03,
+            "min_price": 2.07,
             "basis": "estimate",
-            "ref_price": 1.88,
+            "ref_price": 1.91,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
-          }
+          },
+          "locked": true
         },
         {
           "market": "team_runs",
@@ -13146,7 +12837,7 @@
           "tipoff": "2026-10-03T17:00:00Z",
           "kickoff": "2026-10-03T17:00:00Z",
           "line": 3.5,
-          "probability": 0.4935,
+          "probability": 0.5013,
           "form5": 5.2,
           "last_five": [
             0.0,
@@ -13158,8 +12849,8 @@
           "games_before": 971,
           "book": "Pinnacle",
           "line_source": "pinnacle",
-          "book_price": 1.94,
-          "book_p": 0.4935,
+          "book_price": 1.92,
+          "book_p": 0.5013,
           "book_p_fair": true,
           "edge": 0.0,
           "side": "under",
@@ -13167,9 +12858,9 @@
           "ladder_up": [],
           "trust_w": 0.0,
           "value": {
-            "min_price": 2.09,
+            "min_price": 2.05,
             "basis": "estimate",
-            "ref_price": 1.93,
+            "ref_price": 1.9,
             "ev": -0.0476,
             "value": false,
             "stake": 0.0
@@ -19263,8 +18954,8 @@
           "probability": 0.3209,
           "form5": 1.4,
           "last_five": [
-            2.0,
             0.0,
+            2.0,
             2.0,
             0.0,
             3.0
@@ -19310,8 +19001,8 @@
           "probability": 0.6791,
           "form5": 1.4,
           "last_five": [
-            2.0,
             0.0,
+            2.0,
             2.0,
             0.0,
             3.0
@@ -24957,7 +24648,7 @@
     }
   },
   "odds": {
-    "checked_at": "2026-10-03T00:50:15+00:00",
+    "checked_at": "2026-10-03T16:21:31+00:00",
     "books": [
       "Pinnacle",
       "DraftKings",
@@ -25316,7 +25007,7 @@
       "correct": 14,
       "wrong": 5,
       "void": 1,
-      "pending": 0,
+      "pending": 1,
       "settled": 19,
       "hit_rate": 0.7368
     },
@@ -25324,7 +25015,7 @@
       "correct": 117,
       "wrong": 131,
       "void": 23,
-      "pending": 0,
+      "pending": 15,
       "settled": 248,
       "hit_rate": 0.4718
     },
@@ -25333,7 +25024,7 @@
         "correct": 30,
         "wrong": 26,
         "void": 4,
-        "pending": 0,
+        "pending": 3,
         "settled": 56,
         "hit_rate": 0.5357
       },
@@ -25341,7 +25032,7 @@
         "correct": 32,
         "wrong": 25,
         "void": 3,
-        "pending": 0,
+        "pending": 3,
         "settled": 57,
         "hit_rate": 0.5614
       },
@@ -25349,7 +25040,7 @@
         "correct": 4,
         "wrong": 29,
         "void": 9,
-        "pending": 0,
+        "pending": 3,
         "settled": 33,
         "hit_rate": 0.1212
       },
@@ -25357,7 +25048,7 @@
         "correct": 26,
         "wrong": 17,
         "void": 3,
-        "pending": 0,
+        "pending": 3,
         "settled": 43,
         "hit_rate": 0.6047
       },
@@ -25365,7 +25056,7 @@
         "correct": 10,
         "wrong": 16,
         "void": 2,
-        "pending": 0,
+        "pending": 1,
         "settled": 26,
         "hit_rate": 0.3846
       },
@@ -25373,7 +25064,7 @@
         "correct": 15,
         "wrong": 18,
         "void": 2,
-        "pending": 0,
+        "pending": 2,
         "settled": 33,
         "hit_rate": 0.4545
       }
