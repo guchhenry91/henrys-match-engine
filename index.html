@@ -1081,7 +1081,11 @@ function isToday(iso){
 // file without a deploy. Live scores are fetched at runtime from a small proxy
 // that holds the key instead. One constant, so moving hosts is a one-line
 // change.
-const LIVE_URL="https://nba-stats-proxy.onrender.com/api/soccer/live";
+// On Cloudflare the Worker serving this page answers /api/soccer/live itself
+// (cloudflare/worker.js). While Render still serves a copy, that copy keeps using
+// the old proxy.
+const LIVE_URL=location.hostname.endsWith(".onrender.com")
+  ? "https://nba-stats-proxy.onrender.com/api/soccer/live" : "/api/soccer/live";
 const LIVE_POLL_MS=60000;      // matches the proxy's 30s cache; viewers share fetches
 const LIVE_WINDOW_H=3.2;       // a match is plausibly in play for this long after kickoff
 let LIVE={matches:[], available:null, at:0};

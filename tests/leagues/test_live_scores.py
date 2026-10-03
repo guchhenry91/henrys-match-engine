@@ -94,9 +94,12 @@ def test_live_data_is_never_persisted():
 
 def test_the_endpoint_is_one_configurable_constant():
     """The proxy may have to move hosts; that should be a one-line change."""
-    found = re.findall(r'const LIVE_URL="([^"]+)"', HTML)
-    assert len(found) == 1, f"expected exactly one LIVE_URL, found {found}"
-    assert found[0].startswith("https://")
+    # Since the move to Cloudflare (2026-10-03) the Worker serving the page answers
+    # /api/soccer/live itself; a copy still on Render keeps the old proxy.
+    assert HTML.count("const LIVE_URL=") == 1
+    block = HTML[HTML.index("const LIVE_URL="):].split(";", 1)[0]
+    assert '"/api/soccer/live"' in block
+    assert "https://nba-stats-proxy.onrender.com/api/soccer/live" in block
 
 
 def test_a_dead_proxy_cannot_break_the_board():

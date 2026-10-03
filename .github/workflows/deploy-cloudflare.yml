@@ -1,0 +1,68 @@
+name: Deploy to Cloudflare
+
+# Publishes the site to the Cloudflare Worker (wrangler.jsonc, cloudflare/worker.js),
+# replacing Render's deploy hook.
+#
+# WHY workflow_run. Bot commits are pushed with GITHUB_TOKEN, and GitHub does not
+# start other workflows for those pushes -- which is why every refresh workflow
+# had to POST Render's hook itself. workflow_run fires when a named workflow
+# FINISHES, whoever started it, so one deploy follows every refresh with no change
+# to the refresh workflows. Human and news-routine pushes arrive through `push`.
+#
+# ALWAYS THE NEWEST main. Refreshes overlap; a deploy built from an older checkout
+# could replace newer boards with older ones. Each run checks out main as it is
+# NOW, a newer run cancels an older one still in flight, and nothing is uploaded
+# when the live site already serves exactly this content (site-version.json).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Leagues refresh", "NFL refresh", "NBA refresh", "MLB refresh", "Health check", "Lock picks"]
+    types: [completed]
+
+concurrency:
+  group: cloudflare-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the site folder
+        run: python scripts/build_site.py
+      - name: Skip if the live site already has this content
+        id: same
+        env:
+          SITE: ${{ vars.CLOUDFLARE_SITE_URL }}
+        run: |
+          want=$(python -c "import json;print(json.load(open('_site/site-version.json'))['hash'])")
+          have=""
+          if [ -n "$SITE" ]; then
+            have=$(curl -s -m 15 "$SITE/site-version.json" | python -c "import json,sys;print(json.load(sys.stdin).get('hash',''))" 2>/dev/null || true)
+          fi
+          echo "built $want, live ${have:-unknown}"
+          if [ -n "$have" ] && [ "$have" = "$want" ]; then echo "same=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-node@v4
+        if: steps.same.outputs.same != 'true'
+        with:
+          node-version: "20"
+      - name: Deploy
+        if: steps.same.outputs.same != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN is not set -- Cloudflare deploy skipped (Render still serves the site)."
+            exit 0
+          fi
+          npx --yes wrangler@4 deploy

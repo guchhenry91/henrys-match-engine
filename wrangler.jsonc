@@ -1,0 +1,22 @@
+// Henry's Match Engine on Cloudflare (replaces Render). See cloudflare/worker.js.
+// Deployed by .github/workflows/deploy-cloudflare.yml after every board refresh.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "henrys-match-engine",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-09-01",
+  "account_id": "91cd3c13e1deccadc2eb1f337bc40c99",
+  "workers_dev": true,
+  "preview_urls": false,
+  // ONLY the site: scripts/build_site.py copies index.html, worldcup.html and
+  // data/ into _site. Render published the whole repo root (notes, raw logs,
+  // workflows); this does not.
+  "assets": {
+    "directory": "./_site",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/data/*", "/", "/*.html"]
+  },
+  // Every minute; cloudflare/worker.js decides which workflows are due.
+  "triggers": { "crons": ["* * * * *"] },
+  "observability": { "enabled": true }
+}
