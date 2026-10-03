@@ -30,7 +30,7 @@
   "migrations": [ { "tag": "v1-job-runner", "new_sqlite_classes": ["JobRunner"] } ],
   "vars": {
     "JOBS_MODE": "live",
-    "TELEGRAM_FROM_CLOUDFLARE": "off",
+    "TELEGRAM_FROM_CLOUDFLARE": "on",
     "STATE_URL": "https://henrys-match-engine.henrys-edge-engine.workers.dev"
   },
   // Every minute; cloudflare/worker.js decides which jobs are due.

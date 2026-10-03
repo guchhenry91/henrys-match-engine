@@ -211,8 +211,12 @@ async function internal(request, env, ctx, path) {
     return json({ ok: true });
   }
   if (path === "/internal/jobs" && request.method === "GET") {
+    // ?job=nba&ns=live narrows it: the health check reads one job's history, which
+    // the every-10-minute lock runs would otherwise push out of the newest 40.
+    const job = url.searchParams.get("job"), jns = url.searchParams.get("ns");
     const rows = await env.DB.prepare(
-      "SELECT id, job, ns, status, enqueued_at, started_at, finished_at, substr(log, -3000) AS log FROM jobs ORDER BY id DESC LIMIT 40").all();
+      "SELECT id, job, ns, status, enqueued_at, started_at, finished_at, substr(log, -3000) AS log FROM jobs " +
+      "WHERE (?1 IS NULL OR job=?1) AND (?2 IS NULL OR ns=?2) ORDER BY id DESC LIMIT 40").bind(job, jns).all();
     return json(rows.results);
   }
   if (path === "/internal/run" && request.method === "POST") {

@@ -38,3 +38,25 @@ def test_an_unchanged_board_whose_refresh_ran_is_not_stale(monkeypatch):
     r2 = hc.Report()
     hc.board_age(r2, datetime(2026, 10, 2, 19, tzinfo=timezone.utc), "NBA", "x", 14, 30)
     assert r2.checks[0]["status"] == "fail"
+
+
+def test_on_cloudflare_the_pipeline_is_read_from_the_job_queue(monkeypatch):
+    """Since the move off GitHub Actions the jobs run on Cloudflare; reading `gh`
+    there would report every pipeline unreadable and every quiet board stale."""
+    import io
+    import json as _json
+    rows = [{"job": "nba", "status": "running", "enqueued_at": 1759500000},
+            {"job": "nba", "status": "done", "enqueued_at": 1759490000},
+            {"job": "nba", "status": "failed", "enqueued_at": 1759480000}]
+    seen = {}
+
+    def fake_open(req, timeout=0):
+        seen["url"] = req.full_url
+        return io.BytesIO(_json.dumps(rows).encode())
+
+    monkeypatch.setenv("STATE_URL", "https://example.invalid")
+    monkeypatch.setenv("STATE_TOKEN", "t")
+    monkeypatch.setattr(hc.urllib.request, "urlopen", fake_open)
+    runs = hc._runs("nba.yml")
+    assert "job=nba" in seen["url"] and "ns=live" in seen["url"]
+    assert [r["conclusion"] for r in runs] == ["success", "failure"]   # running is skipped

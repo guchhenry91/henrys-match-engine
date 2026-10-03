@@ -160,7 +160,27 @@ def odds_budget(r):
     r.add("Odds API", "monthly credits", status, f"{used:,} of 40,000 used this month")
 
 
+def _cloudflare_runs(wf):
+    """The same shape as _runs, from the Cloudflare job queue (cloudflare/worker.js).
+    Since 2026-10-04 the jobs run there, not in GitHub Actions; the container gets
+    STATE_URL/STATE_TOKEN, so their presence says which pipeline to read."""
+    job = wf.removesuffix(".yml")
+    url = (os.environ["STATE_URL"].rstrip("/") + "/internal/jobs?ns=live&job="
+           + urllib.parse.quote(job))
+    req = urllib.request.Request(url, headers={
+        "authorization": f"Bearer {os.environ['STATE_TOKEN']}",
+        "user-agent": "henrys-match-engine-runner/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        rows = json.loads(resp.read().decode())
+    return [{"status": "completed",
+             "conclusion": "success" if x["status"] == "done" else "failure",
+             "createdAt": datetime.fromtimestamp(x["enqueued_at"], timezone.utc).isoformat()}
+            for x in rows if x.get("status") in ("done", "failed")][:10]
+
+
 def _runs(wf):
+    if os.environ.get("STATE_URL") and os.environ.get("STATE_TOKEN"):
+        return _cloudflare_runs(wf)
     out = subprocess.run(["gh", "run", "list", "--workflow", wf, "-L", "10", "--json",
                           "conclusion,status,createdAt"], capture_output=True, text=True,
                          timeout=60, check=True).stdout
