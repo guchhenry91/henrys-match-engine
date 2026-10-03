@@ -1,0 +1,11 @@
+{
+  "name": "henrys-match-engine-worker",
+  "private": true,
+  "description": "Cloudflare Worker for Henry's Match Engine (cloudflare/worker.js). The engine itself is Python.",
+  "dependencies": {
+    "@cloudflare/containers": "^0.3.7"
+  },
+  "devDependencies": {
+    "wrangler": "^4.47.0"
+  }
+}

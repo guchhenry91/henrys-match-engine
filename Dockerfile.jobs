@@ -1,0 +1,11 @@
+# The Match Engine job runner for Cloudflare Containers (cloudflare/worker.js).
+# Only the Python requirements are baked in; the CODE is downloaded fresh from the
+# public repo on every run (cloudflare/container/run_job.py), so a push to main is
+# all it takes to change a job. Rebuild only when requirements.txt changes.
+FROM docker.io/library/python:3.13-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+WORKDIR /runner
+COPY requirements.txt /runner/requirements.txt
+RUN pip install -r /runner/requirements.txt
+COPY cloudflare/container/ /runner/
+CMD ["python", "/runner/run_job.py"]

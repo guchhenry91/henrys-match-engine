@@ -25,6 +25,6 @@ def test_the_worker_schedule_matches_the_workflows_run_slots():
     from nfl import book_lines as nfl_bl
     from nba import book_lines as nba_bl
     from mlb import book_lines as mlb_bl
-    for slots, wf in ((nfl_bl.RUN_SLOTS, "nfl.yml"), (nba_bl.RUN_SLOTS, "nba.yml"), (mlb_bl.RUN_SLOTS, "mlb.yml")):
+    for slots, job in ((nfl_bl.RUN_SLOTS, "nfl"), (nba_bl.RUN_SLOTS, "nba"), (mlb_bl.RUN_SLOTS, "mlb")):
         for weekday, hour, minute in slots:
-            assert f'[{hour}, {minute}, "{wf}"' in worker, (wf, hour, minute)
+            assert f'[{hour}, {minute}, "{job}"' in worker, (job, hour, minute)

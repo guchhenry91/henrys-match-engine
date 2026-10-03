@@ -1,5 +1,6 @@
-// Henry's Match Engine on Cloudflare (replaces Render). See cloudflare/worker.js.
-// Deployed by .github/workflows/deploy-cloudflare.yml after every board refresh.
+// Henry's Match Engine on Cloudflare (replaces Render AND the GitHub schedules).
+// See cloudflare/worker.js for the whole design; JOBS_MODE switches the jobs
+// between "off", "shadow" (a trial copy of the data) and "live".
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "henrys-match-engine",
@@ -8,15 +9,30 @@
   "account_id": "91cd3c13e1deccadc2eb1f337bc40c99",
   "workers_dev": true,
   "preview_urls": false,
-  // ONLY the site: scripts/build_site.py copies index.html, worldcup.html and
-  // data/ into _site. Render published the whole repo root (notes, raw logs,
-  // workflows); this does not.
+  // ONLY the site: scripts/build_site.py copies the pages and data/ into _site.
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*", "/data/*", "/", "/*.html"]
+    "run_worker_first": ["/api/*", "/internal/*", "/data/*", "/", "/*.html"]
   },
-  // Every minute; cloudflare/worker.js decides which workflows are due.
+  "d1_databases": [
+    { "binding": "DB", "database_name": "henrys-match-engine",
+      "database_id": "ec8195ba-a46c-45a6-ab59-2b5acc657473" }
+  ],
+  // One job container at a time (cloudflare/container/run_job.py).
+  "containers": [
+    { "class_name": "JobRunner", "image": "./Dockerfile.jobs",
+      "instance_type": "standard-2", "max_instances": 2 }
+  ],
+  "durable_objects": {
+    "bindings": [ { "name": "JOB_RUNNER", "class_name": "JobRunner" } ]
+  },
+  "migrations": [ { "tag": "v1-job-runner", "new_sqlite_classes": ["JobRunner"] } ],
+  "vars": {
+    "JOBS_MODE": "off",
+    "STATE_URL": "https://henrys-match-engine.henrys-edge-engine.workers.dev"
+  },
+  // Every minute; cloudflare/worker.js decides which jobs are due.
   "triggers": { "crons": ["* * * * *"] },
   "observability": { "enabled": true }
 }

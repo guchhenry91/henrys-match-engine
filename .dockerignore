@@ -1,0 +1,4 @@
+# Build context for Dockerfile.jobs: only the requirements and the runner.
+*
+!requirements.txt
+!cloudflare/container/
