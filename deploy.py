@@ -1,8 +1,12 @@
 """Atomic update+publish for the World Cup predictor.
 
 The scheduled tasks gather data (edit data-raw/*.json), then call THIS script
-to finish deterministically: re-run the model, commit, push, trigger the
-Render deploy. It self-heals a stale publish and refuses to half-complete.
+to finish deterministically: re-run the model, commit, push. It refuses to
+half-complete.
+
+There is no deploy step any more: since 2026-10-04 the site is served by
+Cloudflare (cloudflare/worker.js), whose jobs download main on every run, so a
+push is all it takes. Render, which this script used to trigger, is switched off.
 
 Usage:  python deploy.py "commit message"                # World Cup data pipeline
         python deploy.py "commit message" --league-data  # league data only
@@ -12,10 +16,8 @@ import json
 import os
 import subprocess
 import sys
-import urllib.request
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-HOOK_FILE = os.path.join(os.path.expanduser("~"), ".claude", "worldcup-deploy-hook.txt")
 LOCK_FILE = os.path.join(ROOT, ".deploy.lock")
 GIT_ENV = {**os.environ, "GIT_AUTHOR_NAME": "John", "GIT_AUTHOR_EMAIL": "guchhenry91@gmail.com",
            "GIT_COMMITTER_NAME": "John", "GIT_COMMITTER_EMAIL": "guchhenry91@gmail.com"}
@@ -73,26 +75,11 @@ def main():
             paths = ["data", "data-raw"]
         git("add", *paths)
         if git("diff", "--cached", "--quiet", fatal=False).returncode != 0:
-            # Mark the commit so .github/workflows/deploy-on-push.yml does NOT
-            # fire a second Render deploy: this script already POSTs the hook
-            # itself below, and on Render's metered plan the redundant deploy
-            # burns budget for nothing.
-            git("commit", "-m", msg + "\n\n[auto-deployed]")
+            git("commit", "-m", msg)
             git("push", "origin", "HEAD")
             print("Pushed:", msg)
         else:
             print("No data changes since last run.")
-
-        # 4. ALWAYS trigger the deploy so the live site can never lag the repo.
-        with open(HOOK_FILE, encoding="utf-8-sig") as f:
-            hook = f.read().strip()
-        try:
-            with urllib.request.urlopen(urllib.request.Request(hook, method="POST"),
-                                        timeout=20) as resp:
-                print(f"Deploy triggered: HTTP {resp.status}")
-        except Exception as e:
-            print(f"WARNING: deploy hook failed ({e}) — repo is current but live site may lag.")
-            sys.exit(1)
 
         rec = json.load(open(os.path.join(ROOT, "data", "predictions.json"),
                              encoding="utf-8"))["record"]
