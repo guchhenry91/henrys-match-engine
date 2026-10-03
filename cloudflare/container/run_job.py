@@ -206,6 +206,12 @@ def run_step(name, cmd, env):
     for line in tail:
         print("    " + line, flush=True)
     if p.returncode != 0:
+        # The last lines only say THAT it failed (e.g. "0/5 publishes succeeded");
+        # the per-league reasons are earlier, on the ABORT / error lines.
+        why = [l for l in (p.stdout + p.stderr).splitlines()
+               if any(w in l for w in ("ABORT", "Error", "WARNING", "FAILED"))][-15:]
+        for line in why:
+            log("    " + line[:300])
         log(f"step FAILED ({p.returncode}): {name} :: {' | '.join(tail[-3:])[:400]}")
     return p.returncode == 0
 
