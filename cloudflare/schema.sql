@@ -21,3 +21,8 @@ CREATE TABLE IF NOT EXISTS jobs (
   enqueued_at INTEGER NOT NULL, started_at INTEGER, finished_at INTEGER, log TEXT
 );
 CREATE INDEX IF NOT EXISTS jobs_status ON jobs (status, id);
+-- Odds API credits spent by the dashboard relay (/api/odds/v4), per UTC day, and
+-- the newest account-wide x-requests-used seen (the 40,000 monthly stop).
+CREATE TABLE IF NOT EXISTS odds_relay (
+  day TEXT PRIMARY KEY, credits INTEGER NOT NULL DEFAULT 0, account_used INTEGER NOT NULL DEFAULT 0
+);

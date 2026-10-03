@@ -36,8 +36,62 @@ export class StatsProxy extends Container {
   sleepAfter = "15m";
   constructor(ctx, env) {
     super(ctx, env);
-    this.envVars = { ODDS_API_KEY: env.ODDS_API_KEY || "", API_FOOTBALL_KEY: env.API_FOOTBALL_KEY || "" };
+    this.envVars = { API_FOOTBALL_KEY: env.API_FOOTBALL_KEY || "" };   // the odds key stays in the Worker
   }
+}
+
+// ---- Odds API relay for the dashboard ----------------------------------------------
+// The dashboard used to fetch the Odds API key from /api/config and call the API from
+// the browser, which handed the key to anyone who asked. Now the browser calls
+// /api/odds/v4/... and the key is added HERE; /api/config no longer returns it.
+// Because the relay is itself public, it is limited: GET only, three read-only paths,
+// a 60s shared cache, a daily credit cap, and a hard stop at the agreed 40,000 a month.
+const ODDS_PATHS = [/^\/sports\/[a-z0-9_]+\/odds\/?$/, /^\/sports\/[a-z0-9_]+\/events\/?$/,
+                    /^\/sports\/[a-z0-9_]+\/events\/[a-f0-9]+\/odds\/?$/];
+const ODDS_PARAMS = ["regions", "markets", "oddsFormat", "dateFormat", "bookmakers", "eventIds"];
+const ODDS_MONTH_STOP = 40000;
+const CORS = { "access-control-allow-origin": "*",
+               "access-control-expose-headers": "x-requests-remaining, x-requests-used, x-requests-last" };
+
+async function oddsRelay(request, env, ctx, path) {
+  if (request.method === "OPTIONS") return new Response(null, { headers: { ...CORS, "access-control-allow-methods": "GET" } });
+  if (request.method !== "GET") return json({ error: "GET only" }, 405, CORS);
+  const sub = path.slice("/api/odds/v4".length);
+  if (!ODDS_PATHS.some((re) => re.test(sub))) return json({ error: "not an allowed odds path" }, 404, CORS);
+  if (!env.ODDS_API_KEY) return json({ error: "odds key not configured" }, 503, CORS);
+  const inUrl = new URL(request.url);
+  const up = new URL("https://api.the-odds-api.com/v4" + sub);
+  for (const k of ODDS_PARAMS) if (inUrl.searchParams.has(k)) up.searchParams.set(k, inUrl.searchParams.get(k));
+
+  const cache = caches.default;
+  const cacheKey = new Request("https://odds-relay.cache" + up.pathname + up.search);
+  const hit = await cache.match(cacheKey);
+  if (hit) return new Response(hit.body, hit);
+
+  const day = new Date().toISOString().slice(0, 10);
+  const cap = Number(env.DASHBOARD_ODDS_DAILY || 600);
+  const row = await env.DB.prepare("SELECT credits, account_used FROM odds_relay WHERE day=?").bind(day).first();
+  if (row && row.credits >= cap) return json({ error: `dashboard odds cap reached (${cap} credits today)` }, 429, CORS);
+  const last = await env.DB.prepare("SELECT account_used FROM odds_relay ORDER BY day DESC LIMIT 1").first();
+  if (last && last.account_used >= ODDS_MONTH_STOP && last.day === day)
+    return json({ error: "monthly Odds API stop reached" }, 429, CORS);
+
+  up.searchParams.set("apiKey", env.ODDS_API_KEY);
+  const res = await fetch(up.toString());
+  const body = await res.arrayBuffer();
+  const spent = Number(res.headers.get("x-requests-last") || 0);
+  const used = Number(res.headers.get("x-requests-used") || 0);
+  ctx.waitUntil(env.DB.prepare(
+    "INSERT INTO odds_relay (day, credits, account_used) VALUES (?,?,?) " +
+    "ON CONFLICT(day) DO UPDATE SET credits = credits + excluded.credits, account_used = MAX(account_used, excluded.account_used)")
+    .bind(day, spent, used).run());
+  const headers = { ...CORS, "content-type": res.headers.get("content-type") || "application/json",
+                    "cache-control": "public, max-age=60" };
+  for (const h of ["x-requests-remaining", "x-requests-used", "x-requests-last"])
+    if (res.headers.get(h) !== null) headers[h] = res.headers.get(h);
+  const out = new Response(body, { status: res.status, headers });
+  if (res.ok) ctx.waitUntil(cache.put(cacheKey, out.clone()));
+  return out;
 }
 
 // /api/soccer/live is answered by this Worker itself (soccerLive), for both sites.
@@ -337,6 +391,9 @@ export default {
   async fetch(request, env, ctx) {
     const path = new URL(request.url).pathname;
     if (path === "/api/soccer/live") return soccerLive(request, env, ctx);
+    if (path.startsWith("/api/odds/v4/")) return oddsRelay(request, env, ctx, path);
+    // Never hand the key out: the dashboard now uses the relay above.
+    if (path === "/api/config") return json({ oddsKey: "", oddsRelay: "/api/odds/v4" }, 200, CORS);
     if (isProxyPath(path)) return getContainer(env.STATS_PROXY, "web").fetch(request);
     if (path === "/api/health") return json({ ok: true, mode: env.JOBS_MODE || "off", at: new Date().toISOString() });
     if (path.startsWith("/internal/")) return internal(request, env, ctx, path);
