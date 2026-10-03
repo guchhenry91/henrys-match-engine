@@ -26,6 +26,27 @@ export class JobRunner extends Container {
   onError(error) { console.error("job container failed", error); }
 }
 
+// ---- the stats proxy (formerly nba-stats-proxy on Render) ---------------------------
+// The Henryade betting dashboard's own backend: player gamelogs (nba_api, NHL,
+// StatMuse), Understat team xG/scorers, and /api/config. Run UNCHANGED from its repo
+// (Dockerfile.proxy) in one always-the-same container that sleeps when idle. The keys
+// it reads are this Worker's own secrets, so moving it needed none added.
+export class StatsProxy extends Container {
+  defaultPort = 8080;
+  sleepAfter = "15m";
+  constructor(ctx, env) {
+    super(ctx, env);
+    this.envVars = { ODDS_API_KEY: env.ODDS_API_KEY || "", API_FOOTBALL_KEY: env.API_FOOTBALL_KEY || "" };
+  }
+}
+
+// /api/soccer/live is answered by this Worker itself (soccerLive), for both sites.
+const PROXY_PREFIXES = ["/api/nba/", "/api/nhl/", "/api/mlb/", "/api/soccer/"];
+function isProxyPath(path) {
+  if (path === "/api/soccer/live") return false;
+  return path === "/health" || path === "/api/config" || PROXY_PREFIXES.some((p) => path.startsWith(p));
+}
+
 // ---- live scores -------------------------------------------------------------------
 const LEAGUES = { 39: "PL", 140: "LALIGA", 78: "BUNDESLIGA", 61: "LIGUE1", 135: "SERIEA", 2: "UCL" };
 const IN_PLAY = new Set(["1H", "HT", "2H", "ET", "BT", "P", "LIVE", "INT", "SUSP"]);
@@ -316,6 +337,7 @@ export default {
   async fetch(request, env, ctx) {
     const path = new URL(request.url).pathname;
     if (path === "/api/soccer/live") return soccerLive(request, env, ctx);
+    if (isProxyPath(path)) return getContainer(env.STATS_PROXY, "web").fetch(request);
     if (path === "/api/health") return json({ ok: true, mode: env.JOBS_MODE || "off", at: new Date().toISOString() });
     if (path.startsWith("/internal/")) return internal(request, env, ctx, path);
     if (path.startsWith("/data/")) return serveData(request, env);

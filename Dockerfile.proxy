@@ -1,0 +1,15 @@
+# The stats proxy for the Henryade betting dashboard (formerly nba-stats-proxy on
+# Render), run unchanged from its own public repo guchhenry91/nba-stats-proxy.
+# cloudflare/worker.js forwards /health and the dashboard's /api/... calls here.
+# The code is fetched at BUILD time, so a change to that repo needs a redeploy.
+FROM docker.io/library/python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+WORKDIR /app
+RUN python -c "import io,tarfile,urllib.request; \
+raw=urllib.request.urlopen('https://codeload.github.com/guchhenry91/nba-stats-proxy/tar.gz/refs/heads/main').read(); \
+t=tarfile.open(fileobj=io.BytesIO(raw)); top=t.getmembers()[0].name.split('/')[0]; \
+[setattr(m,'name',m.name[len(top)+1:]) for m in t.getmembers()]; \
+t.extractall('/app', members=[m for m in t.getmembers() if m.name], filter='data')"
+RUN pip install -r requirements.txt
+EXPOSE 8080
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8080", "--timeout", "30", "--workers", "2"]

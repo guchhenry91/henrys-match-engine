@@ -13,7 +13,7 @@
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*", "/internal/*", "/data/*", "/", "/*.html"]
+    "run_worker_first": ["/api/*", "/health", "/internal/*", "/data/*", "/", "/*.html"]
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "henrys-match-engine",
@@ -22,12 +22,17 @@
   // One job container at a time (cloudflare/container/run_job.py).
   "containers": [
     { "class_name": "JobRunner", "image": "./Dockerfile.jobs",
-      "instance_type": "standard-4", "max_instances": 2 }
+      "instance_type": "standard-4", "max_instances": 2 },
+    // The Henryade dashboard's stats proxy (Dockerfile.proxy), one instance.
+    { "class_name": "StatsProxy", "image": "./Dockerfile.proxy",
+      "instance_type": "basic", "max_instances": 1 }
   ],
   "durable_objects": {
-    "bindings": [ { "name": "JOB_RUNNER", "class_name": "JobRunner" } ]
+    "bindings": [ { "name": "JOB_RUNNER", "class_name": "JobRunner" },
+                  { "name": "STATS_PROXY", "class_name": "StatsProxy" } ]
   },
-  "migrations": [ { "tag": "v1-job-runner", "new_sqlite_classes": ["JobRunner"] } ],
+  "migrations": [ { "tag": "v1-job-runner", "new_sqlite_classes": ["JobRunner"] },
+                  { "tag": "v2-stats-proxy", "new_sqlite_classes": ["StatsProxy"] } ],
   "vars": {
     "JOBS_MODE": "live",
     "TELEGRAM_FROM_CLOUDFLARE": "on",
