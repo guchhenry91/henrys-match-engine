@@ -98,18 +98,19 @@ def grade_game(entry: dict, game: dict | None) -> dict:
     return out
 
 
-def grade_prop(entry: dict, actual=None) -> dict:
+def grade_prop(entry: dict, actual=None, did_not_play: bool = False) -> dict:
     """Settle a frozen prop against the player's actual line for that game.
 
     `actual` is his stats_player_week row, or None when the feed holds the game
-    but no row for him.
-
-    None is graded WRONG, not void, and for the NFL both readings agree: a man who
-    did not play scored no touchdown and gained no yards, so the harsh reading and
-    the literal one settle him under alike. What matters is that this is reached
-    ONLY for a game the feed actually covers -- see `covered_games`.
+    but no row for him -- he played and recorded nothing in this market (graded on
+    zero). `did_not_play` is set when the snap counts show he took no snap: VOID,
+    as bet365 settles it. Grading a non-player on zero lost every over and WON every
+    under; that is how three unders on benched players counted as wins.
     """
     out = dict(entry)
+    if did_not_play:
+        out.update(void=True, graded="void", void_reason="did not play (no snaps)")
+        return out
     if entry.get("tainted"):
         out.update(void=True, graded="void", void_reason="locked after kickoff")
         return out
@@ -417,6 +418,7 @@ def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
         log[GAMES_KEY][key] = grade_game(entry, results.get(key))
 
     lookup = _stats_lookup(stats)
+    snap_games, played = data.participation(season)
     for key, entry in list(log[PROPS_KEY].items()):
         if key.startswith("_") or entry.get("graded") is not None:
             continue
@@ -425,8 +427,33 @@ def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
         season_, week = season_week(entry.get("game_id"))
         if (season_, week, entry.get("team")) not in covered:
             continue                      # feed silent for his side: stay PENDING
-        log[PROPS_KEY][key] = grade_prop(
-            entry, lookup.get((str(entry.get("player_id")), season_, week)))
+        row = lookup.get((str(entry.get("player_id")), season_, week))
+        if row is None:
+            # No stat row: did he play and record nothing, or not play at all? Only
+            # the snap counts can say; until they cover the game, stay PENDING.
+            if str(entry.get("game_id")) not in snap_games:
+                continue
+            log[PROPS_KEY][key] = grade_prop(
+                entry, None, did_not_play=(str(entry.get("game_id")), str(entry.get("player_id"))) not in played)
+        else:
+            log[PROPS_KEY][key] = grade_prop(entry, row)
+
+    # CORRECTION, AUDITED. Props settled on zero before snap counts were consulted:
+    # where the snap counts show the player took no snap, the result was never a
+    # bet -- re-graded VOID, with what it was before kept on the entry.
+    for key, entry in list(log[PROPS_KEY].items()):
+        if (key.startswith("_") or entry.get("graded") not in ("correct", "wrong")
+                or entry.get("actual") not in (0, 0.0) or entry.get("regraded")):
+            continue
+        gid, pid = str(entry.get("game_id")), str(entry.get("player_id"))
+        season_, week = season_week(gid)
+        if gid in snap_games and (gid, pid) not in played and \
+                lookup.get((pid, season_, week)) is None:
+            was = entry.get("graded")
+            entry = grade_prop(entry, None, did_not_play=True)
+            entry["regraded"] = {"was": was, "at": now.isoformat(),
+                                 "why": "no stat row and no snaps: did not play (void, as bet365 settles)"}
+            log[PROPS_KEY][key] = entry
 
     from tracking import manifest, performance, release
     for section in (GAMES_KEY, PROPS_KEY):

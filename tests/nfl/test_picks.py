@@ -217,16 +217,46 @@ def test_a_prop_stays_pending_when_the_feed_has_not_filed_the_game():
     assert rec["props"]["wrong"] == 0
 
 
-def test_a_player_missing_from_a_covered_game_grades_wrong():
-    """His side IS in the feed and he is not: he took no snap or recorded nothing.
-    Either way he scored no touchdown, so both readings settle him under."""
+TEAMMATE_ONLY = _stats([{"player_id": "00-0009999", "season": 2026, "week": 1,
+                         "team": "CAR", "touchdowns": 1, "receiving_yards": 0,
+                         "rushing_yards": 0, "passing_yards": 0}])
+
+
+def _no_row(monkeypatch, snaps):
+    monkeypatch.setattr(picks.data, "participation", lambda season: snaps)
     picks.freeze_and_grade(_payload(), now=_at(1), stats=_stats([]), results={})
-    teammate_only = _stats([{"player_id": "00-0009999", "season": 2026, "week": 1,
-                             "team": "CAR", "touchdowns": 1, "receiving_yards": 0,
-                             "rushing_yards": 0, "passing_yards": 0}])
-    rec = picks.freeze_and_grade(_payload(), now=_at(-4), stats=teammate_only,
-                                 results=RESULT_CAR_WON)
+    return picks.freeze_and_grade(_payload(), now=_at(-4), stats=TEAMMATE_ONLY,
+                                  results=RESULT_CAR_WON)
+
+
+def test_no_stat_row_waits_for_the_snap_counts(monkeypatch):
+    """His side is in the feed, he is not: played-and-recorded-nothing or did not
+    play? Until the snap counts say, the pick stays PENDING."""
+    rec = _no_row(monkeypatch, (set(), set()))
+    assert rec["props"]["pending"] == 1 and rec["props"]["settled"] == 0
+
+
+def test_a_player_who_took_no_snap_is_void(monkeypatch):
+    """bet365 voids a prop on a non-participant; grading him on zero lost every over
+    and WON every under."""
+    rec = _no_row(monkeypatch, ({GAME_ID}, set()))
+    assert rec["props"]["void"] == 1 and rec["props"]["settled"] == 0
+
+
+def test_a_player_who_played_and_recorded_nothing_grades_on_zero(monkeypatch):
+    rec = _no_row(monkeypatch, ({GAME_ID}, {(GAME_ID, "00-0038543")}))
     assert rec["props"]["wrong"] == 1
+
+
+def test_an_old_zero_grade_on_a_non_player_is_corrected_with_an_audit(monkeypatch):
+    rec = _no_row(monkeypatch, ({GAME_ID}, {(GAME_ID, "00-0038543")}))
+    assert rec["props"]["wrong"] == 1
+    monkeypatch.setattr(picks.data, "participation", lambda season: ({GAME_ID}, set()))
+    rec = picks.freeze_and_grade(_payload(), now=_at(-5), stats=TEAMMATE_ONLY, results=RESULT_CAR_WON)
+    assert rec["props"]["void"] == 1
+    entry = next(e for k, e in picks.core.load_log(picks.PICKS_LOG)[picks.PROPS_KEY].items()
+                 if not k.startswith("_"))
+    assert entry["regraded"]["was"] == "wrong"
 
 
 def test_a_pick_first_seen_after_kickoff_is_void():

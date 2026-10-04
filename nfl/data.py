@@ -61,6 +61,36 @@ GAME_COLUMNS = ["game_id", "season", "game_type", "week", "gameday", "gametime",
                 "location"]
 
 
+SNAPS_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
+             "snap_counts/snap_counts_{season}.csv")
+PLAYERS_URL = "https://github.com/nflverse/nflverse-data/releases/download/players/players.csv"
+
+
+def participation(season: int):
+    """(games the snap counts cover, {(game_id, gsis_id)} who took a snap).
+
+    WHY. A player with no stat row was graded on zero -- an over LOST, an under WON
+    -- while bet365 voids a prop on a player who takes no part. On 2026-10-04 the
+    record held 29 yardage props settled on 0, backup quarterbacks among them, and
+    three unders counted as wins. Snap counts say who actually played. They are
+    keyed by the same nflverse game id as the picks and by the PFR player id, which
+    players.csv maps to the gsis id the picks carry. Empty sets when not filed yet."""
+    try:
+        snaps = _read_csv(SNAPS_URL.format(season=season), f"snap_counts_{season}.csv",
+                          max_age_hours=6)
+        ids = _read_csv(PLAYERS_URL, "players.csv", max_age_hours=72)
+    except Exception as exc:
+        print(f"  no snap counts for {season} yet ({exc}); no-row props stay pending")
+        return set(), set()
+    pfr_to_gsis = {r.pfr_id: r.gsis_id for r in ids[["pfr_id", "gsis_id"]].dropna().itertuples()}
+    snaps = snaps.copy()
+    total = sum(pd.to_numeric(snaps[c], errors="coerce").fillna(0)
+                for c in ("offense_snaps", "defense_snaps", "st_snaps") if c in snaps)
+    played = {(str(g), pfr_to_gsis[p]) for g, p, t in zip(snaps["game_id"], snaps["pfr_player_id"], total)
+              if t > 0 and p in pfr_to_gsis}
+    return set(snaps["game_id"].astype(str)), played
+
+
 def _read_csv(url: str, cache_name: str, refresh: bool = False,
               max_age_hours: float | None = None) -> pd.DataFrame:
     """Read a cached nflverse CSV, refetching when it is older than max_age_hours.
