@@ -28,21 +28,35 @@ def test_a_high_hit_rate_on_short_prices_can_still_lose():
     assert s["hit_rate"] == 0.6 and s["profit"] < 0
 
 
-def test_clv_same_line_uses_the_fair_probability_of_the_pick_side():
-    e = {"market": "hits", "line": 0.5, "side": "under", "book_p": 0.40,
-         "open": {"line": 0.5, "p": 0.35, "at": "2026-10-01T10:00:00+00:00"},
-         "close_at": "2026-10-01T16:00:00+00:00"}
-    assert pf.clv(e) == ("ours", 0.05)
-    e["book_p"] = 0.352
-    assert pf.clv(e)[0] == "flat"
+def test_clv_is_the_price_taken_against_the_bet365_close():
+    """CLV = closing fair chance x price taken - 1 (review 2026-10-04)."""
+    e = {"pick": "Arsenal", "odds": 2.0, "close_p": 0.55, "close_price": 1.75}
+    assert pf.clv(e) == ("ours", 0.1)            # 0.55 x 2.0 - 1
+    assert pf.clv(dict(e, close_p=0.45)) == ("against", -0.1)
+    assert pf.clv(dict(e, close_p=0.501))[0] == "flat"
 
 
-def test_clv_on_a_moved_line_is_scored_by_direction_for_each_side():
+def test_a_quote_at_lock_is_not_a_close():
+    """US picks' close_p is the quote they FROZE on -- the price taken. A move toward
+    the pick before the bet makes that price worse, so it must not count as CLV."""
     over = {"market": "receiving_yards", "line": 52.5, "side": "over", "book_p": 0.5,
+            "book_price": 1.9, "close_p": 0.55,
             "open": {"line": 48.5, "p": 0.5, "at": "a"}, "close_at": "b"}
-    assert pf.clv(over) == ("ours", None)          # line rose: market agreed with over
-    under = dict(over, side="under")
-    assert pf.clv(under) == ("against", None)
+    assert pf.clv(over) == (None, None)
+
+
+def test_a_price_stamped_after_the_fact_has_no_clv():
+    e = {"odds": 2.0, "close_p": 0.6, "close_price": 1.6,
+         "price_from": "bet365 pre-match, football-data (after the fact)"}
+    assert pf.clv(e) == (None, None)
+
+
+def test_us_book_prices_are_scored_at_the_estimated_bet365_price():
+    from tracking.value import BET365_MARGIN
+    e = _bet("correct", 2.10, book="DraftKings", book_p=0.50)
+    assert pf.price_of(e) == round(1 / (0.5 * (1 + BET365_MARGIN)), 3)    # 1.905, not 2.10
+    assert pf.price_of(_bet("correct", 1.80, book="DraftKings", book_p=0.50)) == 1.80   # never better
+    assert pf.price_of(_bet("correct", 2.10, book="bet365", book_p=0.50)) == 2.10
 
 
 def test_one_check_only_gives_no_clv_pair():
@@ -59,7 +73,9 @@ def test_status_needs_evidence_before_any_verdict():
     big = [_bet("correct", 2.0)] * 140 + [_bet("wrong", 2.0)] * 100
     assert pf.summarize(big)["status"] == "proven"   # +16.7% over 240: beyond luck
     small_edge = [_bet("correct", 2.0)] * 30 + [_bet("wrong", 2.0)] * 28
-    assert pf.summarize(small_edge)["status"] == "promising"
+    assert pf.summarize(small_edge)["status"] == "testing"     # +3% on 58: inside the noise
+    clear = [_bet("correct", 2.0)] * 75 + [_bet("wrong", 2.0)] * 50
+    assert pf.summarize(clear)["status"] == "promising"        # +20%, about 2 SE, n < 200
 
 
 def test_remember_open_keeps_only_the_first_quote():
@@ -105,9 +121,9 @@ def test_stamp_line_log_prices_winners_and_finds_props_and_team_totals(tmp_path)
     }
     assert pf.stamp_line_log(log, path) == 3
     w = log["7:winner"]
-    assert w["book_price"] == 1.6 and pf.clv(w) == ("ours", 0.05)
-    assert pf.clv(log["7:hits:j"]) == ("ours", 0.04)
-    assert pf.clv(log["7:team_runs:NYA"]) == ("against", -0.03)
+    assert w["book_price"] == 1.6 and w["open"] is not None
+    # the quotes at lock are the prices taken, not a close: no CLV claimed
+    assert pf.clv(w) == (None, None) and pf.clv(log["7:hits:j"]) == (None, None)
     assert pf.stamp_line_log(log, path) == 0          # never re-stamped
 
 
@@ -127,7 +143,8 @@ def test_nfl_props_find_their_game_by_team_pair(tmp_path):
     props = {"k": {"market": "receiving_yards", "player": "DK Metcalf", "team": "PIT",
                    "away": "CLE", "side": "over", "line": 42.5, "locked_at": "c"}}
     assert pf.stamp_nfl_log(props, path) == 1
-    assert pf.clv(props["k"]) == ("ours", None)
+    assert props["k"]["open"]["line"] == 40.5
+    assert pf.clv(props["k"]) == (None, None)
 
 
 def test_nfl_props_find_their_game_from_the_game_id(tmp_path):
@@ -166,4 +183,4 @@ def test_nfl_winner_lock_freezes_price_and_open(monkeypatch):
     picks._lock_games({"games": [game]}, log, now)
     e = log["2026_05_PIT_CLE"]
     assert e["book_price"] == 1.66 and e["open"]["price"] == 1.74
-    assert pf.clv(e) == ("ours", 0.0254)
+    assert pf.clv(e) == (None, None)          # no post-lock close on record

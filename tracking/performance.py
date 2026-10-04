@@ -16,11 +16,29 @@ each game at most twice to protect the Odds API budget, so CLOSE is the latest
 price on record rather than the literal final price at first pitch.
 
 A market's STATUS is earned, never assumed:
-  proven    -- profitable AND the line moves its way more often than chance
+  proven    -- profitable AND beating the closing line more often than chance
                allows, over enough bets (or a profit too large to be luck)
-  promising -- ahead on profit or on closing-line value, not yet enough bets
+  promising -- profit at least one standard error above zero, or a real
+               closing-line edge (z >= 1 over 30+ pairs); not yet enough to trust
   losing    -- enough bets to say it is behind, and no closing-line edge
-  testing   -- too few priced bets to judge either way
+  testing   -- too few priced bets, or not clearly ahead
+
+REVIEW, 2026-10-04 -- three corrections:
+  * "promising" used to need only ROI > 0 after 50 bets. At an average price of
+    1.27 the ROI's standard error is ~0.075, so a market truly losing 5% read
+    promising about a quarter of the time -- and "promising" puts picks on the
+    Bet list with a stake. It now needs ROI >= one standard error.
+  * PROFIT IS SCORED AT BET365. A price from Pinnacle, DraftKings or FanDuel is
+    not one the user can take; such picks are scored at the bet365 price
+    ESTIMATED from that book's fair chance (tracking/value.BET365_MARGIN), never
+    better than the price actually quoted.
+  * CLOSING-LINE VALUE IS THE PRICE TAKEN AGAINST THE CLOSE. It was the market's
+    move from the first quote seen to the quote at lock -- which is the price
+    taken, not the close: a move toward the pick BEFORE the bet made the price
+    worse and still counted as beating the line. CLV is now closing fair chance x
+    price taken - 1, and only where a closing price from AFTER the lock exists
+    (soccer match picks: bet365's closing 1X2, leagues/closing.py). Elsewhere a
+    market is judged on profit alone until a post-lock price is recorded.
 """
 from __future__ import annotations
 
@@ -99,34 +117,45 @@ def stamp_winner(entry: dict, game: dict | None, picked_side: str) -> bool:
 
 
 def clv(entry: dict):
-    """(direction, size) of the move from OPEN to CLOSE, from the pick's side.
+    """(direction, size): the price TAKEN against the de-vigged CLOSE.
 
-    direction: "ours" (the market moved toward the pick), "against", "flat", or
-    None when there is no usable pair. size: the change in the fair probability
-    of the pick's side at an unchanged line, else None (a moved line is scored by
-    direction only -- converting between lines would need the model, and this is
-    meant to be the market's verdict, not the model's).
+    size = closing fair chance x price taken - 1 -- the expected return of the bet
+    as the closing market priced it. "ours" when that is positive (the bet beat the
+    close), "against" when negative, "flat" within FLAT. (None, None) unless BOTH a
+    price taken at lock and a closing price from after the lock are on record; a
+    price stamped after the fact is not a price anyone took.
     """
-    op = entry.get("open")
-    if not op or op.get("p") is None:
+    close_p = entry.get("close_p")
+    price = _taken_price(entry)
+    # close_price is written only by leagues/closing.py (bet365's closing 1X2 from
+    # football-data, after kickoff). Elsewhere close_p is the quote AT LOCK -- the
+    # price taken, not a close -- and scoring it would measure nothing.
+    if close_p is None or price is None or entry.get("close_price") is None:
         return None, None
-    if op.get("at") and entry.get("close_at") and str(op["at"]) >= str(entry["close_at"]):
-        return None, None                 # one check only: open IS close
-    close_p = entry.get("close_p", entry.get("book_p"))
-    if entry.get("kind") == "winner" or entry.get("market") is None:
-        if close_p is None:
-            return None, None
-        d = float(close_p) - float(op["p"])
-        return ("flat" if abs(d) < FLAT else "ours" if d > 0 else "against"), round(d, 4)
-    line_o, line_c = op.get("line"), entry.get("line")
-    if line_o is not None and line_c is not None and float(line_o) != float(line_c):
-        up = float(line_c) > float(line_o)
-        under = entry.get("side") == "under"
-        return ("ours" if up != under else "against"), None
-    if close_p is None:
+    if "after the fact" in str(entry.get("price_from") or ""):
         return None, None
-    d = float(close_p) - float(op["p"])
+    d = float(close_p) * price - 1.0
     return ("flat" if abs(d) < FLAT else "ours" if d > 0 else "against"), round(d, 4)
+
+
+def _taken_price(entry: dict):
+    """The decimal price frozen with the pick, whatever the book."""
+    for key in ("book_price", "odds"):
+        try:
+            v = float(entry.get(key))
+        except (TypeError, ValueError):
+            continue
+        if v > 1.0:
+            return v
+    return None
+
+
+def _is_bet365(entry: dict) -> bool:
+    if any(str(entry.get(k) or "").lower() == "bet365" for k in ("book", "line_source", "odds_book")):
+        return True
+    # soccer match prices come from football-data's bet365 columns
+    return entry.get("odds") is not None and entry.get("book_price") is None and "bet365" in str(
+        entry.get("price_from") or (entry.get("open") or {}).get("book") or "bet365")
 
 
 def _won(entry: dict):
@@ -141,15 +170,21 @@ def _won(entry: dict):
 
 
 def price_of(entry: dict):
-    for key in ("book_price", "odds"):
-        v = entry.get(key)
-        try:
-            v = float(v)
-        except (TypeError, ValueError):
-            continue
-        if v > 1.0:
-            return v
-    return None
+    """The price a bet365 customer could have had. bet365's own where it is
+    bet365's; otherwise ESTIMATED from the quoting book's fair chance, and never
+    better than the price that book actually offered."""
+    price = _taken_price(entry)
+    if price is None or _is_bet365(entry):
+        return price
+    fair = entry.get("book_p", entry.get("book_p_pick"))
+    try:
+        fair = float(fair)
+    except (TypeError, ValueError):
+        return price
+    if not 0.0 < fair < 1.0:
+        return price
+    from tracking.value import BET365_MARGIN
+    return round(min(price, 1.0 / (fair * (1.0 + BET365_MARGIN))), 3)
 
 
 def summarize(entries) -> dict:
@@ -159,17 +194,20 @@ def summarize(entries) -> dict:
     moves = {"ours": 0, "against": 0, "flat": 0}
     sizes = []
     for e in entries:
-        direction, size = clv(e)
-        if direction:
-            moves[direction] += 1
-        if size is not None:
-            sizes.append(size)
+        if not e.get("void") and e.get("graded") in ("correct", "wrong"):
+            direction, size = clv(e)       # a void or tainted pick was never a bet
+            if direction:
+                moves[direction] += 1
+            if size is not None:
+                sizes.append(size)
         # A settled stake can be fractional (an Asian-handicap quarter line wins or
         # loses half): such entries carry their own `units` per unit staked.
         if e.get("units") is not None and e.get("graded") in ("correct", "wrong"):
             u = float(e["units"])
             returns.append(u)
-            prices.append(float(e.get("book_price") or e.get("b365") or 2.0))
+            p = price_of(e) or (float(e["b365"]) if e.get("b365") else None)
+            if p:
+                prices.append(p)
             wins += int(u > 0)
             continue
         won = _won(e)
@@ -197,8 +235,8 @@ def summarize(entries) -> dict:
         "roi_se": round(se, 4) if se is not None else None,
         "hit_rate": round(wins / n, 4) if n else None,
         # The hit rate these prices needed just to break even.
-        "break_even": round(sum(1.0 / p for p in prices) / n, 4) if n else None,
-        "avg_price": round(sum(prices) / n, 3) if n else None,
+        "break_even": round(sum(1.0 / p for p in prices) / len(prices), 4) if prices else None,
+        "avg_price": round(sum(prices) / len(prices), 3) if prices else None,
         "clv": {"pairs": moved + moves["flat"], "ours": moves["ours"],
                 "against": moves["against"], "flat": moves["flat"],
                 "beat_rate": round(beat, 4) if beat is not None else None,
@@ -221,8 +259,11 @@ def status(s: dict, clv_z=None):
         return "proven", "Profitable, and the evidence is beyond what luck explains"
     if n >= MIN_LOSING and roi < 0 and (beat is None or pairs < 30 or beat <= 0.5):
         return "losing", "Behind at the prices taken, with no closing-line edge: do not bet"
-    if roi > 0 or (beat is not None and pairs >= 30 and beat > 0.5):
-        return "promising", "Ahead so far, but not yet enough evidence to trust"
+    # One standard error, not merely > 0: a coin-flip market clears "> 0" half the time.
+    if (roi_z is not None and roi_z >= 1.0) or (pairs >= 30 and clv_z is not None and clv_z >= 1.0):
+        return "promising", "Ahead by more than its noise, but not yet enough evidence to trust"
+    if roi > 0:
+        return "testing", "Slightly ahead, but within what luck explains"
     return "testing", "Behind so far, but not yet enough bets to call it"
 
 

@@ -46,6 +46,7 @@ def stamp_match(entry: dict, market_odds, home: str, away: str, now) -> None:
     price, fair = (mk.get("odds") or {}).get(side), mk.get(f"p_{side}")
     if price:
         entry["odds"] = float(price)
+        entry["odds_book"] = str(mk.get("book") or "")     # whose price it was
     if fair is not None:
         entry["book_p_pick"] = round(float(fair), 4)     # what tracking/trust fits on
     # Judged on the model pulled toward bet365 by the weight the record supports.

@@ -60,7 +60,8 @@ def test_attach_and_freeze_give_price_open_and_a_clv_pair():
              "line": "1+ shot on target"}            # settled picks carry the LABEL
     assert shot_odds.freeze(entry, "PL", 7, store)
     assert entry["open"]["price"] == 1.6 and "line" not in entry["open"]
-    assert performance.clv(entry) == ("ours", round(0.66 - entry["open"]["p"], 4))
+    # the quote at lock is the price taken, not a close: no CLV is claimed for props
+    assert performance.clv(entry) == (None, None)
     assert performance.summarize([entry])["bets"] == 1
 
 
