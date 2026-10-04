@@ -72,8 +72,10 @@ async function oddsRelay(request, env, ctx, path) {
   const cap = Number(env.DASHBOARD_ODDS_DAILY || 600);
   const row = await env.DB.prepare("SELECT credits, account_used FROM odds_relay WHERE day=?").bind(day).first();
   if (row && row.credits >= cap) return json({ error: `dashboard odds cap reached (${cap} credits today)` }, 429, CORS);
-  const last = await env.DB.prepare("SELECT account_used FROM odds_relay ORDER BY day DESC LIMIT 1").first();
-  if (last && last.account_used >= ODDS_MONTH_STOP && last.day === day)
+  // x-requests-used is the whole ACCOUNT's usage this month (engine included), so the
+  // newest figure seen in the current month is what the 40,000 stop is judged on.
+  const last = await env.DB.prepare("SELECT day, account_used FROM odds_relay ORDER BY day DESC LIMIT 1").first();
+  if (last && last.day.slice(0, 7) === day.slice(0, 7) && last.account_used >= ODDS_MONTH_STOP)
     return json({ error: "monthly Odds API stop reached" }, 429, CORS);
 
   up.searchParams.set("apiKey", env.ODDS_API_KEY);
@@ -169,7 +171,9 @@ function b64ToBytes(chunks) {
 }
 
 async function serveData(request, env) {
-  const path = decodeURIComponent(new URL(request.url).pathname).replace(/^\//, "");
+  let path;
+  try { path = decodeURIComponent(new URL(request.url).pathname).replace(/^\//, ""); }
+  catch (e) { return json({ error: "bad path" }, 400); }
   if ((env.JOBS_MODE || "off") === "live") {
     const chunks = await readFile(env, "live", path);
     if (chunks) {
@@ -368,14 +372,18 @@ export async function pump(env) {
     const age = Date.now() - running.started_at * 1000;
     if (!alive && age < BOOT_MS) return "booting";        // just started: give it time to come up
     if (alive && age < STUCK_MS) return "busy";
-    if (alive) await runner.destroy();
+    try { await runner.destroy(); } catch (e) { /* already gone */ }
     await env.DB.prepare("UPDATE jobs SET status='failed', finished_at=?, log=COALESCE(log,'') || ? WHERE id=?")
       .bind(Math.floor(Date.now() / 1000), alive ? "\nkilled: ran past the time limit" : "\ncontainer exited without reporting", running.id).run();
   }
-  const next = await env.DB.prepare("SELECT id, job, ns FROM jobs WHERE status='queued' ORDER BY id LIMIT 1").first();
+  // Claimed in ONE statement: the cron and a finishing job both call pump(), and two
+  // pumps reading then writing separately could start the same job (or two jobs) at once.
+  const next = await env.DB.prepare(
+    "UPDATE jobs SET status='running', started_at=?1 " +
+    "WHERE id = (SELECT id FROM jobs WHERE status='queued' ORDER BY id LIMIT 1) " +
+    "AND NOT EXISTS (SELECT 1 FROM jobs WHERE status='running') RETURNING id, job, ns")
+    .bind(Math.floor(Date.now() / 1000)).first();
   if (!next) return "idle";
-  await env.DB.prepare("UPDATE jobs SET status='running', started_at=? WHERE id=?")
-    .bind(Math.floor(Date.now() / 1000), next.id).run();
   try {
     await slotFor(env, next.id).start({ envVars: containerEnv(env, next), enableInternet: true,
                                         labels: { job: next.job } });

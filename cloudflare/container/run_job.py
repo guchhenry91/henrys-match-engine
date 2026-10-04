@@ -114,7 +114,12 @@ def get_file(path):
     first = api("GET", q + "0")
     if not first or first.get("data") is None:
         return None
-    parts = [first["data"]] + [api("GET", q + str(i))["data"] for i in range(1, first["chunks"])]
+    parts = [first["data"]]
+    for i in range(1, first["chunks"]):
+        piece = (api("GET", q + str(i)) or {}).get("data")
+        if piece is None:               # replaced mid-read: never return a spliced file
+            raise RuntimeError(f"{path}: chunk {i} missing")
+        parts.append(piece)
     return base64.b64decode("".join(parts))
 
 
@@ -158,10 +163,12 @@ def overlay_state():
 
 
 def fingerprint(src):
-    """Which files a cache holds, and how big -- enough to tell whether it changed."""
+    """Which files a cache holds, their sizes and modification times. Size alone would
+    miss a page re-fetched at the same length; a rewrite always moves the mtime."""
     if not src.exists():
         return None
-    return sorted((p.relative_to(src).as_posix(), p.stat().st_size) for p in src.rglob("*") if p.is_file())
+    return sorted((p.relative_to(src).as_posix(), p.stat().st_size, p.stat().st_mtime_ns)
+                  for p in src.rglob("*") if p.is_file())
 
 
 def restore_caches():

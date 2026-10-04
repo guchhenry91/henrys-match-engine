@@ -298,6 +298,35 @@ confidence (they range ~12-14.5%) and each card shows the runner-up score with
 
 ---
 
+# Hosting: Cloudflare (since 2026-10-04)
+
+**Everything above that says GitHub Actions, Render or "the deploy hook" is history.**
+The engine now runs in ONE Cloudflare Worker, `henrys-match-engine`
+(https://henrys-match-engine.henrys-edge-engine.workers.dev, `cloudflare/worker.js`,
+`wrangler.jsonc`). Render is suspended and the refresh workflows are disabled; GitHub
+only stores the code.
+
+- **Jobs**: an every-minute cron queues what is due (`SLOTS` in worker.js) and runs ONE
+  container at a time (`Dockerfile.jobs`, `cloudflare/container/run_job.py`, steps in
+  `cloudflare/container/jobs.py`). Each job downloads main from GitHub, lays the saved
+  data from D1 over it, runs, and saves changed `data/` and `data-raw/` files back.
+- **The live data is in D1, not the repo.** The repo's `data/` boards stopped updating
+  at the cutover; read live boards from the site URL. A repo copy wins over D1 only when
+  it changed in the repo since D1 saved it -- so **never commit a picks log or board
+  from a local run**: it would replace the live, append-only copy.
+- **Changing index.html, the Worker or the containers needs `npx wrangler deploy`**
+  (with Docker Desktop running; `python -m scripts.build_site` first for the page).
+  A push alone changes only what the JOBS run. Do not start a job while a container
+  rollout is in progress -- the rollout stops running jobs (exit -15).
+- Also in the Worker: `/api/soccer/live`; the Henryade dashboard's stats proxy
+  (`Dockerfile.proxy`, built from guchhenry91/nba-stats-proxy); and the dashboard's
+  Odds API relay `/api/odds/v4` (key added server-side, 600 credits/day,
+  `DASHBOARD_ODDS_DAILY`, stops at 40,000 used a month). `/api/config` returns no key.
+- Secrets (Worker): API_FOOTBALL_KEY, API_NFL_KEY, ODDS_API_KEY, TELEGRAM_BOT_TOKEN,
+  TELEGRAM_CHAT_ID, STATE_TOKEN (the containers' bearer token for `/internal/*`).
+
+---
+
 # NFL engine (`nfl/`, tab: NFL)
 
 A second sport, deliberately kept in its own package. The soccer engine is a
