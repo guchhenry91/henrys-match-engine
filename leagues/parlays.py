@@ -117,7 +117,7 @@ def match_log_grades(picks_dir: str | Path) -> dict:
         for k, e in log.items():
             parts = str(k).split(":")
             if len(parts) == 2 and parts[1].isdigit() and isinstance(e, dict)                     and e.get("graded") in ("correct", "wrong", "void"):
-                out[_leg_id(lk, parts[1], "w", None)] = (e.get("pick"), e["graded"])
+                out[_leg_id(lk, parts[1], "w", None)] = (e.get("pick"), e["graded"], e.get("result"))
     return out
 
 
@@ -437,9 +437,22 @@ def build_parlays(best: dict, pp: dict, log_path: str | Path, now=None,
             elif l["id"] in match_logs and l["id"] not in seen:
                 # Only when the frozen pick is the SAME team the leg backed; a
                 # flipped pick says nothing about this leg, so it stays open.
-                team, grade = match_logs[l["id"]]
+                team, grade, result = match_logs[l["id"]]
                 if l.get("selection") == f"{team} to win":
                     seen[l["id"]] = grade
+                elif grade == "correct" or grade == "void":
+                    # The frozen pick FLIPPED to another outcome. If that outcome
+                    # happened, this leg's team did not win: the leg LOST (a void
+                    # match voids it too). Before this, the parlay was voided --
+                    # and flips usually follow bad news for the leg's team, so the
+                    # record quietly shed its likeliest losers (review, 2026-10-04).
+                    seen[l["id"]] = "wrong" if grade == "correct" else "void"
+                elif grade == "wrong" and team and team.lower() != "draw" and result:
+                    # Flipped to the OTHER team, which lost: the match was drawn
+                    # (this leg lost too) or this leg's team won.
+                    drawn = result.get("home_goals") == result.get("away_goals")
+                    seen[l["id"]] = "wrong" if drawn else "correct"
+                # A flipped DRAW pick that lost: either team may have won -- open.
     picks.save_log(log, log_path)
     if frozen is None:
         frozen = frozen_leg_ids(Path(log_path).parent)

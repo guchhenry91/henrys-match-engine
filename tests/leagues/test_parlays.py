@@ -279,12 +279,21 @@ def test_a_match_leg_below_the_best_bar_grades_from_the_league_log(tmp_path):
     (tmp_path / "ligue1").mkdir()
     (tmp_path / "ligue1" / "picks_log.json").write_text(
         '{"2026:7": {"pick": "Lens", "graded": "wrong"},'
-        ' "2026:8": {"pick": "Nice", "graded": "correct"}}', encoding="utf-8")
+        ' "2026:8": {"pick": "Nice", "graded": "correct"},'
+        ' "2026:9": {"pick": "Draw", "graded": "wrong"},'
+        ' "2026:10": {"pick": "Metz", "graded": "wrong", "result": {"home_goals": 2, "away_goals": 0}}}',
+        encoding="utf-8")
     log_path = tmp_path / "parlays_log.json"
     e = _entry(["LIGUE1#7#w"]); e["legs"][0]["selection"] = "Lens to win"
     flipped = _entry(["LIGUE1#8#w"]); flipped["legs"][0]["selection"] = "Lyon to win"
-    parlays.picks.save_log({"a": e, "b": flipped}, log_path)
+    unknown = _entry(["LIGUE1#9#w"]); unknown["legs"][0]["selection"] = "Rennes to win"
+    beat_metz = _entry(["LIGUE1#10#w"]); beat_metz["legs"][0]["selection"] = "Lille to win"
+    parlays.picks.save_log({"a": e, "b": flipped, "c": unknown, "d": beat_metz}, log_path)
     out = parlays.build_parlays(_best([]), _pp([]), log_path,
                                 now=pd.Timestamp("2099-08-21T00:00:00+00:00"))
-    assert out["record"]["wrong"] == 1          # same team: graded from the log
-    assert out["record"]["pending"] == 1        # flipped pick: not guessed
+    # same team: graded from the log; flipped to Nice and Nice WON: Lyon lost
+    assert out["record"]["wrong"] == 2
+    # flipped to Metz, Metz LOST and it was not a draw: Lille won
+    assert out["record"]["correct"] == 1
+    # flipped to the Draw, which did not happen: either side may have won -- open
+    assert out["record"]["pending"] == 1
