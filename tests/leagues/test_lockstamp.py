@@ -11,15 +11,15 @@ import pytest
 
 from leagues import lockstamp, odds, picks, prop_calibration, prop_odds, shot_odds
 from scripts import lock_picks
-from tracking import release
+from tracking import release, trust
 
 NOW = pd.Timestamp("2026-10-04T12:00:00Z")
 KICK = "2026-10-04T13:30:00Z"
 
 
 def _market(book="bet365"):
-    return pd.DataFrame([{"home": "Arsenal", "away": "Chelsea", "m_home": 0.55, "m_draw": 0.25,
-                          "m_away": 0.20, "b_home": 1.80, "b_draw": 3.80, "b_away": 4.60, "book": book}])
+    return pd.DataFrame([{"home": "Arsenal", "away": "Chelsea", "m_home": 0.60, "m_draw": 0.22,
+                          "m_away": 0.18, "b_home": 1.80, "b_draw": 3.80, "b_away": 4.60, "book": book}])
 
 
 @pytest.fixture
@@ -31,6 +31,8 @@ def board(tmp_path, monkeypatch):
     monkeypatch.setattr(lock_picks, "PICKS_DIR", raw)
     monkeypatch.setattr(lock_picks, "FILES", {"PL": "pl"})
     monkeypatch.setattr(odds, "fetch_fixture_odds", lambda league: _market())
+    # a fixed trust weight, so the test does not depend on the committed record
+    monkeypatch.setattr(trust, "_SOCCER", {"winner": {"w": 0.2}, "prop": {"w": 0.25}})
     return out, raw
 
 
@@ -47,7 +49,7 @@ def test_fast_locker_freezes_the_bet365_price_and_value(board):
     log = picks.load_log(raw / "pl" / "picks_log.json")
     entry = next(v for k, v in log.items() if not k.startswith("_"))
     assert entry["odds"] == 1.80
-    # 0.62 x 1.80 - 1 = +11.6% at bet365's own price: a value pick
+    # judged on 0.60 + 0.2 x (0.62 - 0.60) = 0.604; x 1.80 - 1 = +8.7% at bet365: value
     assert entry["value"]["basis"] == "bet365" and entry["value"]["value"] is True
     assert "release" in entry           # decided AFTER the price was there
 

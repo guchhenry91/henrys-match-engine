@@ -118,3 +118,65 @@ def apply_game_props(game_props: dict, sport_weights: dict) -> None:
     for markets in (game_props or {}).values():
         apply_line_board({"props": {m: {"picks": ps} for m, ps in (markets or {}).items()}},
                          sport_weights)
+
+
+# ---- soccer --------------------------------------------------------------------------
+# THE SAME AUDIT, FOR SOCCER (review, 2026-10-04). On the 215 graded match picks,
+# bet365's pre-match line was the better forecast (log-loss 0.6591 vs the model's
+# 0.6696), and where the model disagreed by 6pt+ it said 46.7%, bet365 34.9%, and
+# 37.5% landed. So the soccer VALUE verdict (and its stake) is judged on the model
+# pulled toward bet365 by the weight the record supports. Unlike the US boards, the
+# board's p_pick is left as the model's own number: the Best Picks tier and its
+# backtested hit rate describe the model, and they stay comparable.
+SOCCER_DIR = ROOT / "data-raw" / "leagues"
+_SOCCER = None
+
+
+def soccer_entries(kind: str) -> list:
+    name = "picks_log.json" if kind == "winner" else "player_picks_log.json"
+    out = []
+    for path in sorted(SOCCER_DIR.glob(f"*/{name}")):
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        out += [dict(e, kind="winner" if kind == "winner" else "prop")
+                for k, e in raw.items() if not str(k).startswith("_") and isinstance(e, dict)]
+    return out
+
+
+def soccer_rows(kind: str) -> list:
+    """(model, bet365's fair chance, won) for graded soccer picks carrying both.
+    A match pick's fair chance is the one frozen at lock (book_p_pick) or, for picks
+    stamped after the fact, bet365's pre-match line (open.p, leagues/closing.py)."""
+    out = []
+    for e in soccer_entries(kind):
+        if e.get("graded") not in ("correct", "wrong") or e.get("void"):
+            continue
+        p = e.get("p_model", e.get("p_pick"))
+        b = e.get("book_p_pick") or (e.get("open") or {}).get("p") if kind == "winner" else e.get("book_p")
+        if p is None or b is None:
+            continue
+        out.append((float(p), float(b), 1.0 if e["graded"] == "correct" else 0.0))
+    return out
+
+
+def soccer_weights() -> dict:
+    """{"winner": {w, n, basis}, "prop": {...}}; cached for the process."""
+    global _SOCCER
+    if _SOCCER is None:
+        _SOCCER = {}
+        for kind in ("winner", "prop"):
+            own = soccer_rows(kind)
+            if len(own) >= MIN_PICKS:
+                _SOCCER[kind] = {"w": market_blend.fit(own)["w"], "n": len(own), "basis": "own record"}
+            else:
+                _SOCCER[kind] = {"w": DEFAULT_W, "n": len(own), "basis": "default (too few graded)"}
+    return _SOCCER
+
+
+def soccer_value_p(p, book_p, kind: str):
+    """The probability a soccer value verdict is judged on."""
+    if p is None or book_p is None:
+        return p
+    return round(market_blend.blend(float(p), float(book_p), float(soccer_weights()[kind]["w"])), 4)

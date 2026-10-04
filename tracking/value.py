@@ -101,8 +101,12 @@ def annotate_soccer_player(pick: dict) -> dict | None:
     target have no bet365 market in any feed; they carry a US book's fair chance
     (leagues/shot_odds.py), from which the bet365 price is ESTIMATED."""
     b365 = str(pick.get("book") or "").lower() == "bet365"
-    return assess(pick.get("p_pick"), None if b365 else pick.get("book_p"),
-                  pick.get("book_price"), b365)
+    from tracking import trust
+    fair = None if b365 else pick.get("book_p")
+    # Shots / on target are judged on the model pulled toward the book's fair chance
+    # (tracking/trust.soccer_value_p); a goal pick has only bet365's vigged price.
+    return assess(trust.soccer_value_p(pick.get("p_pick"), fair, "prop") if fair is not None
+                  else pick.get("p_pick"), fair, pick.get("book_price"), b365)
 
 
 def annotate_game_props(game_props: dict) -> int:

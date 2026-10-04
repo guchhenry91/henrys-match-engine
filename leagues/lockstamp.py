@@ -16,7 +16,7 @@ from __future__ import annotations
 import pandas as pd
 
 from leagues import odds, prop_odds, shot_odds
-from tracking import value
+from tracking import trust, value
 
 
 def just_locked(entry: dict, now, minutes: float = 30.0) -> bool:
@@ -43,11 +43,14 @@ def stamp_match(entry: dict, market_odds, home: str, away: str, now) -> None:
         return
     side = pick_side(entry.get("pick"), home, away)
     mk = (odds.market_for(market_odds, home, away) if market_odds is not None else None) or {}
-    price = (mk.get("odds") or {}).get(side)
+    price, fair = (mk.get("odds") or {}).get(side), mk.get(f"p_{side}")
     if price:
         entry["odds"] = float(price)
-    entry["value"] = value.assess(entry.get("p_pick"), mk.get(f"p_{side}"), price,
-                                  str(mk.get("book") or "").lower() == "bet365")
+    if fair is not None:
+        entry["book_p_pick"] = round(float(fair), 4)     # what tracking/trust fits on
+    # Judged on the model pulled toward bet365 by the weight the record supports.
+    entry["value"] = value.assess(trust.soccer_value_p(entry.get("p_pick"), fair, "winner"), fair,
+                                  price, str(mk.get("book") or "").lower() == "bet365")
 
 
 def stamp_prop(entry: dict, league: str, match_id, now, prop_store=None, shots_store=None) -> None:
@@ -64,4 +67,5 @@ def stamp_prop(entry: dict, league: str, match_id, now, prop_store=None, shots_s
         entry["value"] = value.assess(prob, None, price, bool(price))
     elif market in shot_odds.LINE:
         shot_odds.freeze(entry, league, match_id, store=shots_store)
-        entry["value"] = value.assess(prob, entry.get("book_p"), None, False)
+        entry["value"] = value.assess(trust.soccer_value_p(prob, entry.get("book_p"), "prop"),
+                                      entry.get("book_p"), None, False)

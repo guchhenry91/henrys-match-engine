@@ -23,7 +23,7 @@ from leagues import closing, prop_odds, shot_odds
 from leagues import mispricing
 from leagues import odds_history
 from leagues import lockstamp, prop_calibration
-from tracking import manifest, performance, release, value
+from tracking import manifest, performance, release, trust, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
                            score_calibration)
@@ -1005,7 +1005,9 @@ def build_best_picks() -> dict:
                 "book": (m.get("market") or {}).get("book"),
                 # Worth betting at bet365? (tracking/value.py)
                 "value": value.assess(
-                    p.get("p_pick"),
+                    trust.soccer_value_p(p.get("p_pick"), (m.get("market") or {}).get(
+                        "p_" + ("home" if p["pick"] == m["home"] else
+                                "away" if p["pick"] == m["away"] else "draw")), "winner"),
                     (m.get("market") or {}).get(
                         "p_" + ("home" if p["pick"] == m["home"] else
                                 "away" if p["pick"] == m["away"] else "draw")),
@@ -1416,6 +1418,8 @@ def main(argv=None):
         # Profit at the price frozen with each pick (soccer has no opening-price
         # history, so no closing-line value yet).
         best["performance"] = performance.by_market(best_all, lambda e: "match_winner")
+        # How far value verdicts trust the model over bet365 (tracking/trust.py).
+        best["model_trust"] = trust.soccer_weights()
         bp = OUT / "best.json"
         if best["_incomplete"]:
             # Refuse rather than publish a record with a league's graded history
