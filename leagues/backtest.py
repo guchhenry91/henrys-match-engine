@@ -140,6 +140,11 @@ def walk_forward(matches: pd.DataFrame, league: str, xi: float = 0.003,
             if pd.notna(m.get("odds_h")):
                 mh, md, ma = devig(m["odds_h"], m["odds_d"], m["odds_a"])
                 row.update({"m_home": mh, "m_draw": md, "m_away": ma})
+            # bet365's own closing prices, so a tier can be scored on PROFIT at the
+            # price a bettor could have had -- not on hit rate alone.
+            if pd.notna(m.get("odds_b365_h")):
+                row.update({"b365_home": float(m["odds_b365_h"]), "b365_draw": float(m["odds_b365_d"]),
+                            "b365_away": float(m["odds_b365_a"])})
             rows.append(row)
     return pd.DataFrame(rows)
 

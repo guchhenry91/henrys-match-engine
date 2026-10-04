@@ -93,13 +93,29 @@ def tier_hit_rates(res: pd.DataFrame) -> list:
     p = res[["p_home", "p_draw", "p_away"]].to_numpy()
     y = res["outcome"].to_numpy()
     top = p.max(axis=1)
-    hit = p.argmax(axis=1) == y
+    pick = p.argmax(axis=1)
+    hit = pick == y
+    # PROFIT AT BET365'S CLOSING PRICE, one unit a pick. A tier can hit 75% and still
+    # lose: at an average price of 1.27 it needs 80% (review, 2026-10-04).
+    if {"b365_home", "b365_draw", "b365_away"} <= set(res.columns):
+        prices = res[["b365_home", "b365_draw", "b365_away"]].to_numpy(dtype=float)
+        price = prices[np.arange(len(pick)), pick]
+    else:
+        price = np.full(len(pick), np.nan)
     out = []
     for t in TIERS:
         m = top >= t
         k = int(m.sum())
-        out.append({"min_prob": t, "n": k,
-                    "hit_rate_pct": round(100.0 * float(hit[m].mean()), 1) if k else None})
+        row = {"min_prob": t, "n": k,
+               "hit_rate_pct": round(100.0 * float(hit[m].mean()), 1) if k else None}
+        priced = m & np.isfinite(price) & (price > 1.0)
+        n_p = int(priced.sum())
+        if n_p:
+            ret = np.where(hit[priced], price[priced] - 1.0, -1.0)
+            row.update({"priced_n": n_p, "avg_price": round(float(price[priced].mean()), 3),
+                        "roi_at_b365_close_pct": round(100.0 * float(ret.mean()), 1),
+                        "roi_se_pct": round(100.0 * float(ret.std(ddof=1) / np.sqrt(n_p)), 1) if n_p > 1 else None})
+        out.append(row)
     return out
 
 
