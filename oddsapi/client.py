@@ -108,6 +108,7 @@ class Client:
         self.planned = []                 # dry-run: what WOULD have been spent
         self.warnings = []
         self._usage_fresh = False
+        self._relay = None
         self.ledger = self._load()
         self.run_used = (sum(int(c.get("credits") or 0) for c in self.ledger.get("calls") or []
                              if c.get("run") == self.run_id) if self.run_id else 0)
@@ -140,7 +141,29 @@ class Client:
         return self.clock().date().isoformat()
 
     def day_used(self) -> int:
-        return int((self.ledger["days"].get(self._today()) or {}).get("credits", 0))
+        """Today's credits: this engine's own, PLUS what the dashboard's relay spent
+        (cloudflare/worker.js) -- the 1,000 a day is one limit for the account."""
+        own = int((self.ledger["days"].get(self._today()) or {}).get("credits", 0))
+        return own + self.relay_spent()
+
+    def relay_spent(self) -> int:
+        """The dashboard relay's spend today, read once per run from the Worker.
+        0 when not on Cloudflare or the Worker cannot be reached (the monthly stop,
+        read from the API's own counter, still covers everything)."""
+        if self._relay is None:
+            self._relay = 0
+            url, token = os.environ.get("STATE_URL"), os.environ.get("STATE_TOKEN")
+            if url and token and not self.dry_run:
+                try:
+                    req = urllib.request.Request(
+                        f"{url.rstrip('/')}/internal/relay-spend?day={self._today()}",
+                        headers={"authorization": f"Bearer {token}",
+                                 "user-agent": "henrys-match-engine-runner/1.0"})
+                    with urllib.request.urlopen(req, timeout=20) as r:
+                        self._relay = int(json.loads(r.read().decode()).get("credits") or 0)
+                except Exception as exc:
+                    print(f"  (dashboard relay spend unavailable: {type(exc).__name__})")
+        return self._relay
 
     def month_used(self) -> int | None:
         """The ACCOUNT's own figure from the last response, or None if never seen."""

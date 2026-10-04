@@ -74,6 +74,20 @@ const today = new Date().toISOString().slice(0, 10);
   const r2 = await get("/api/odds/v4/sports/soccer_epl/events", e);
   ok(r2.status === 200, "free events call still allowed at the stop", r2.status);
 }
+{ // one daily limit for the account: the engine's ledger counts against the relay
+  const db = makeD1(), e = env(db);
+  const ledger = Buffer.from(JSON.stringify({ days: { [today]: { credits: 995 } } })).toString("base64");
+  db.raw.prepare("INSERT INTO state_files VALUES ('live','data-raw/odds_api/ledger.json','x','',1,?,0)").run(ledger.length);
+  db.raw.prepare("INSERT INTO state_chunks VALUES ('live','data-raw/odds_api/ledger.json',0,?)").run(ledger);
+  const r = await get("/api/odds/v4/sports/baseball_mlb/events/ab/odds?regions=us&markets=batter_hits,batter_rbis,batter_walks,batter_home_runs,batter_total_bases,batter_strikeouts", e);
+  ok(r.status === 429, "engine 995 + relay 6 > 1,000 refused", r.status);
+  const r2 = await get("/api/odds/v4/sports/baseball_mlb/events/ab/odds?regions=us&markets=batter_hits", e);
+  ok(r2.status === 200, "engine 995 + 1 still allowed", r2.status);
+  const t = "x".repeat(40);
+  const sp = await worker.fetch(new Request(`https://x.dev/internal/relay-spend?day=${today}`,
+    { headers: { authorization: "Bearer " + t } }), { ...e, STATE_TOKEN: t }, ctx);
+  ok((await sp.json()).credits === 1, "relay spend reported to the engine");
+}
 { // rate limit binding honoured
   const db = makeD1(); let n = 0;
   const e = env(db, { RELAY_LIMIT: { limit: async () => ({ success: ++n <= 2 }) } });

@@ -83,6 +83,19 @@ const ODDS_MARKETS = new Set([
   "batter_strikeouts", "batter_walks", "batter_hits_runs_rbis", "pitcher_strikeouts",
   "pitcher_earned_runs"]);
 const ODDS_MAX_COST = 10;               // markets x regions per call (the dashboard's largest is 10)
+// ONE DAILY LIMIT FOR THE WHOLE ACCOUNT (agreed 2026-10-04): the engine's own spend
+// (its ledger, saved in D1) plus the dashboard relay's together stop at 1,000 a day.
+// The relay's own 600 still applies within that.
+const ODDS_DAY_TOTAL = 1000;
+
+async function engineSpentToday(env, day) {
+  try {
+    const chunks = await readFile(env, "live", "data-raw/odds_api/ledger.json");
+    if (!chunks) return 0;
+    const ledger = JSON.parse(new TextDecoder().decode(b64ToBytes(chunks)));
+    return Number(((ledger.days || {})[day] || {}).credits || 0);
+  } catch (e) { return 0; }
+}
 const ODDS_MONTH_STOP = 40000;
 const CORS = { "access-control-allow-origin": "*",
                "access-control-expose-headers": "x-requests-remaining, x-requests-used, x-requests-last" };
@@ -138,6 +151,10 @@ async function oddsRelay(request, env, ctx, path) {
   await env.DB.prepare("INSERT OR IGNORE INTO odds_relay (day, credits, account_used) VALUES (?, 0, ?)")
     .bind(day, last && last.day.slice(0, 7) === day.slice(0, 7) ? last.account_used : 0).run();
   if (cost > 0) {
+    const engine = await engineSpentToday(env, day);
+    const relay = await env.DB.prepare("SELECT credits FROM odds_relay WHERE day=?").bind(day).first();
+    if (engine + Number((relay || {}).credits || 0) + cost > ODDS_DAY_TOTAL)
+      return json({ error: `daily Odds API limit reached (${ODDS_DAY_TOTAL} credits, engine and dashboard together)` }, 429, CORS);
     const held = await env.DB.prepare(
       "UPDATE odds_relay SET credits = credits + ?1 WHERE day = ?2 AND credits + ?1 <= ?3 RETURNING credits")
       .bind(cost, day, cap).first();
@@ -371,6 +388,12 @@ async function internal(request, env, ctx, path) {
     await env.DB.prepare("UPDATE jobs SET status='failed', finished_at=?, log=COALESCE(log,'') || ? WHERE status='running'")
       .bind(Math.floor(Date.now() / 1000), " | killed by hand").run();
     return json({ ok: true });
+  }
+  if (path === "/internal/relay-spend" && request.method === "GET") {
+    // What the dashboard relay spent on a day, so the engine's daily cap counts it.
+    const row = await env.DB.prepare("SELECT credits FROM odds_relay WHERE day=?")
+      .bind(url.searchParams.get("day") || "").first();
+    return json({ credits: Number((row || {}).credits || 0) });
   }
   if (path === "/internal/jobs" && request.method === "GET") {
     // ?job=nba&ns=live narrows it: the health check reads one job's history, which

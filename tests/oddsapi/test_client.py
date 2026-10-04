@@ -235,3 +235,20 @@ def test_the_run_cap_is_shared_by_every_script_in_one_job(tmp_path, monkeypatch)
     assert c.run_used == 150
     monkeypatch.delenv("JOB_ID")
     assert oc.Client(key="k", ledger_path=ledger).run_used == 0
+
+
+def test_the_daily_cap_counts_the_dashboard_relay_too(tmp_path, monkeypatch):
+    import io
+    import json as _json
+    from oddsapi import client as oc
+    ledger = tmp_path / "ledger.json"
+    c0 = oc.Client(key="k", ledger_path=ledger)
+    ledger.write_text(_json.dumps({"days": {c0._today(): {"credits": 700}}}))
+    monkeypatch.setenv("STATE_URL", "https://w.dev")
+    monkeypatch.setenv("STATE_TOKEN", "t")
+    monkeypatch.setattr(oc.urllib.request, "urlopen",
+                        lambda req, timeout=0: io.BytesIO(b'{"credits": 250}'))
+    c = oc.Client(key="k", ledger_path=ledger)
+    assert c.day_used() == 950
+    with pytest.raises(oc.BudgetExceeded):
+        c.preflight("sports/basketball_nba/odds", 60)
