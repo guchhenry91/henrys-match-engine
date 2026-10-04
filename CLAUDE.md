@@ -322,6 +322,9 @@ only stores the code.
   (`Dockerfile.proxy`, built from guchhenry91/nba-stats-proxy); and the dashboard's
   Odds API relay `/api/odds/v4` (key added server-side, 600 credits/day,
   `DASHBOARD_ODDS_DAILY`, stops at 40,000 used a month). `/api/config` returns no key.
+- ONE DAILY LIMIT for the Odds API account (2026-10-04): the engine's spend and the
+  relay's together stop at 1,000 a day -- the relay reads the engine's ledger from D1,
+  the engine reads the relay's spend from `/internal/relay-spend`.
 - Secrets (Worker): API_FOOTBALL_KEY, API_NFL_KEY, ODDS_API_KEY, TELEGRAM_BOT_TOKEN,
   TELEGRAM_CHAT_ID, STATE_TOKEN (the containers' bearer token for `/internal/*`).
 
