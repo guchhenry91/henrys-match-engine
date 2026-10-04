@@ -222,3 +222,16 @@ def test_ladder_up_climbs_from_the_main_line_and_never_beats_it():
     assert [r["line"] for r in up] == [1.5, 2.5]          # 3.5 is ~2%, below the floor
     assert up[0]["p"] == 0.24 and all(r["p"] <= 0.66 for r in up)
     assert props.ladder_up(alt, dict(pick, side="under"), lambda l: 0.2) == []
+
+
+def test_the_run_cap_is_shared_by_every_script_in_one_job(tmp_path, monkeypatch):
+    """The soccer refresh runs two spending scripts; each used to start at zero."""
+    import json as _json
+    from oddsapi import client as oc
+    ledger = tmp_path / "ledger.json"
+    ledger.write_text(_json.dumps({"calls": [{"run": "77", "credits": 150}, {"run": "76", "credits": 90}]}))
+    monkeypatch.setenv("JOB_ID", "77")
+    c = oc.Client(key="k", ledger_path=ledger)
+    assert c.run_used == 150
+    monkeypatch.delenv("JOB_ID")
+    assert oc.Client(key="k", ledger_path=ledger).run_used == 0

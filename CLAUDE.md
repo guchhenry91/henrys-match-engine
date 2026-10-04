@@ -1125,8 +1125,10 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
   stat > line, a whole line landing exactly is a push, a player with no row in a box
   score we hold did not play (void), and a game whose box score we do not hold stays
   pending.
-- Odds API spend: 4 credits a check, at most two checks a game, plus 1 credit a run for
-  match odds -- about 55 a day in season. Shared scheduling/parsing lives in
+- Odds API spend: up to 8 credits a check (4 markets + their 4 alternate ladders), at
+  most two checks a game, plus 1 credit a run for match odds -- roughly 100-120 a day
+  on a full slate (corrected 2026-10-04; it said 4 credits and ~55 a day). While the
+  NBA CDN refuses, +2 credits a run for /scores (nba/current.odds_schedule). Shared scheduling/parsing lives in
   `oddsapi/props.py`, also used by the NFL gap-fill.
 
 NFL yardage props are likewise published on bookmaker lines only
@@ -1142,7 +1144,7 @@ from MLB's free StatsAPI (`mlb/current.py`: schedule with probable pitchers, one
 score per finished game kept in `data-raw/mlb/current/`), players joined to their
 Retrosheet history through the Chadwick register (`data-raw/mlb/id_register.csv.gz`).
 Lines, team totals and match odds from The Odds API (`mlb/book_lines.py`,
-`scripts/sync_mlb_odds.py`: <= 6 credits a check, <= 2 checks a game, 1 credit a run
+`scripts/sync_mlb_odds.py`: up to 11 credits a check (5 markets + 5 alternates + team totals; corrected 2026-10-04 from "<= 6"), <= 2 checks a game, 1 credit a run
 for match odds). Picks stand on bookmakers' lines only, either side (unders where the
 model leans under), published only where the model is at least as sure as the book;
 home runs are published where the model rates the player above the book's price.

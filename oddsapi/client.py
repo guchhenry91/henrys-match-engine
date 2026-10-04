@@ -100,12 +100,17 @@ class Client:
         self.clock = clock or (lambda: datetime.now(timezone.utc))
         self.sleeper = sleeper
         self.historical_allowance = int(historical_allowance)
-        self.run_used = 0
+        # ONE BUDGET PER JOB, not per script: a Cloudflare job (JOB_ID) can run more
+        # than one spending script -- the soccer refresh runs two -- and each used to
+        # start from zero, so a "200 a run" cap allowed 400 (review, 2026-10-04).
+        self.run_id = os.environ.get("JOB_ID") or None
         self.historical_used = 0
         self.planned = []                 # dry-run: what WOULD have been spent
         self.warnings = []
         self._usage_fresh = False
         self.ledger = self._load()
+        self.run_used = (sum(int(c.get("credits") or 0) for c in self.ledger.get("calls") or []
+                             if c.get("run") == self.run_id) if self.run_id else 0)
 
     # --- ledger -----------------------------------------------------------------
     def _load(self) -> dict:
@@ -259,7 +264,7 @@ class Client:
         self.ledger["updated"] = now.isoformat()
         self.ledger["calls"].append({
             "at": now.isoformat(timespec="seconds"), "path": _scrub(path, self.key),
-            "sport": sport, "purpose": purpose, "credits": spent,
+            "sport": sport, "purpose": purpose, "credits": spent, "run": self.run_id,
             "account_used": self.ledger.get("account_used"),
             "account_remaining": self.ledger.get("account_remaining")})
         self._check_alerts(day["credits"])

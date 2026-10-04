@@ -134,6 +134,11 @@ def _read_csv(url: str, cache_name: str, refresh: bool = False,
     return frame
 
 
+# Touchdowns not from scrimmage, which bet365 also settles an anytime bet on. Absent
+# from a season's file -> treated as none (reindex fills them).
+OTHER_TDS = ("special_teams_tds", "def_tds", "fumble_recovery_tds")
+
+
 def anytime_touchdown(frame: pd.DataFrame) -> pd.Series:
     """Did he score? A FLAG, never a count.
 
@@ -145,7 +150,13 @@ def anytime_touchdown(frame: pd.DataFrame) -> pd.Series:
     every starter look like a scorer and quietly turn the market into something
     else entirely.
     """
-    return ((frame["rushing_tds"] + frame["receiving_tds"]) > 0).astype(int)
+    scored = frame["rushing_tds"] + frame["receiving_tds"]
+    # bet365 pays the anytime market on ANY touchdown the player scores -- a kick or
+    # punt return, a fumble recovery, a defensive score -- not only from scrimmage.
+    for column in OTHER_TDS:
+        if column in frame:
+            scored = scored + pd.to_numeric(frame[column], errors="coerce").fillna(0.0)
+    return (scored > 0).astype(int)
 
 
 def player_weeks(seasons=None, refresh: bool = False) -> pd.DataFrame:
@@ -167,13 +178,13 @@ def player_weeks(seasons=None, refresh: bool = False) -> pd.DataFrame:
             raise RuntimeError(
                 f"nflverse stats_player_week_{season} is missing {missing}; the upstream "
                 f"schema changed and the features built from it would be silently wrong")
-        frames.append(raw[PLAYER_COLUMNS])
+        frames.append(raw.reindex(columns=PLAYER_COLUMNS + list(OTHER_TDS)))
     out = pd.concat(frames, ignore_index=True)
     out = out[out["season_type"] == config.SEASON_TYPE].copy()
 
     for column in ("passing_yards", "rushing_yards", "receiving_yards", "receptions",
                    "carries", "targets", "attempts", "completions",
-                   "passing_tds", "rushing_tds", "receiving_tds"):
+                   "passing_tds", "rushing_tds", "receiving_tds", *OTHER_TDS):
         out[column] = pd.to_numeric(out[column], errors="coerce").fillna(0.0)
 
     # An "anytime touchdown" is any of the three, and a player who both ran one in

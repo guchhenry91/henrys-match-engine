@@ -90,8 +90,30 @@ def availability() -> dict:
         api = {}
     # Manual news from the cloud team-news routine (nfl/news.py): late scratches
     # and inactives the API report has not caught. Only ever more cautious.
-    return player_news.merge(api, player_news.load_player_news(
-        ROOT / "data-raw" / "nfl" / "news.json"))
+    return NameKeyed(player_news.merge(api, player_news.load_player_news(
+        ROOT / "data-raw" / "nfl" / "news.json")))
+
+
+class NameKeyed(dict):
+    """The injury report, looked up by NORMALISED name (nfl.odds.norm_name).
+
+    The report and the box scores spell names differently ("B.J. Hill" / "BJ Hill",
+    "YaYa Diaby" / "Yaya Diaby"), and an exact-string lookup silently treated a
+    ruled-out player as fit (review, 2026-10-04). Iteration keeps the report's own
+    names; get() and `in` match on the normalised form."""
+
+    def __init__(self, data=None):
+        super().__init__(data or {})
+        self._norm = {odds_mod.norm_name(k): k for k in self}
+
+    def get(self, name, default=None):
+        if dict.__contains__(self, name):
+            return dict.__getitem__(self, name)
+        k = self._norm.get(odds_mod.norm_name(str(name)))
+        return dict.__getitem__(self, k) if k is not None else default
+
+    def __contains__(self, name):
+        return dict.__contains__(self, name) or odds_mod.norm_name(str(name)) in self._norm
 
 
 def book_prices() -> dict:
@@ -186,7 +208,7 @@ def next_game_frame(player_weeks, games, upcoming, fixtures, market,
     `ruled_out` (display names) get NO row: absent from the game, exactly as an
     inactive player is absent from a box score, so features.vacated_share credits
     his volume to the teammates who are left (nfl/vacancy.py)."""
-    ruled_out = set(ruled_out or ())
+    ruled_out = {odds_mod.norm_name(n) for n in (ruled_out or ())}
     last = player_weeks.sort_values(["season", "week"]).groupby("player_id").tail(1)
     newest = int(player_weeks["season"].max())
     last = last[last["season"] >= newest - (config.ACTIVE_WITHIN_SEASONS - 1)]
@@ -196,7 +218,7 @@ def next_game_frame(player_weeks, games, upcoming, fixtures, market,
                             "season", "week", "season_type", "opponent_team")
                and pd.api.types.is_numeric_dtype(player_weeks[c])]
     for _, row in last.iterrows():
-        if row.get("player_display_name") in ruled_out:
+        if odds_mod.norm_name(str(row.get("player_display_name") or "")) in ruled_out:
             continue
         team, why = rosters.reconcile(row["player_id"], row["team"],
                                       roster_index, rosters_complete)
