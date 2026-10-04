@@ -1,18 +1,30 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-03",
+  "_verified_on": "2026-10-04",
   "players": {
     "Terry McLaurin": {
       "status": "doubt",
       "team": "WAS",
-      "note": "Hamstring; late addition to Friday's final injury report, limited in practice, listed Questionable for Sun 2026-10-04 vs IND (London). Sources: commanders.com official Week 4 injury report; Yahoo Sports citing ESPN's John Keim.",
-      "checked": "2026-10-03T13:30:00Z"
+      "note": "Hamstring; still officially Questionable on Washington's final Week 4 report for Sun 2026-10-04 vs IND (London, 13:30 UTC); beat reporters say he is trending toward sitting out, with a final call expected game-morning. Sources: nfl.com Week 4 injury report; heavy.com (\"Commanders Won't Have WR Terry McLaurin Against Colts\") citing Ben Standig.",
+      "checked": "2026-10-04T09:12:08Z"
     },
     "DeVonta Smith": {
       "status": "out",
       "team": "PHI",
       "note": "Ruled OUT for Week 4 vs. LA Rams (Sun 2026-10-04) on the Eagles' final injury report, one of six Eagles players ruled out. Sources: Yahoo Sports/Bleeding Green Nation final injury report; CBS Sports injury update.",
       "checked": "2026-10-03T15:10:00Z"
+    },
+    "Zay Flowers": {
+      "status": "doubt",
+      "team": "BAL",
+      "note": "Hamstring (with a rest component); listed Questionable on Baltimore's final Week 4 report for Sun 2026-10-04 vs TEN. Full practice Thursday, limited Friday; reports say he is better than 50/50 to play. Sources: nfl.com Week 4 injury report; CBS Sports (\"Ravens' Zay Flowers: Listed as questionable for Week 4\").",
+      "checked": "2026-10-04T09:12:08Z"
+    },
+    "Ladd McConkey": {
+      "status": "doubt",
+      "team": "LAC",
+      "note": "Foot; listed Questionable on the Chargers' final Week 4 report for Sun 2026-10-04 vs SEA. Limited Wednesday, did not practice Thursday, limited/observer Friday -- a true game-time decision. Sources: nfl.com Week 4 injury report; NBC Sports / FantasyPros Week 4 injury notes; chargers.com final injury report.",
+      "checked": "2026-10-04T09:12:08Z"
     }
   }
 }
