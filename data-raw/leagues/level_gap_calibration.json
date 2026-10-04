@@ -1,15 +1,15 @@
 {
   "method": "pooled linear fit: top-flight deviation ~ second-tier deviation",
-  "n_promoted_club_seasons": 43,
+  "n_promoted_club_seasons": 41,
   "attack": {
-    "slope": 0.404,
-    "intercept": -0.394,
-    "r": 0.29
+    "slope": 0.392,
+    "intercept": -0.389,
+    "r": 0.26
   },
   "defence": {
-    "slope": -0.036,
-    "intercept": 0.179,
-    "r": -0.04,
+    "slope": 0.071,
+    "intercept": 0.219,
+    "r": 0.07,
     "note": "near-zero r -> slope zeroed in second_tier.DEFENCE_MAP; use the intercept (mean) as a constant prior"
   },
   "detail": [
@@ -131,45 +131,6 @@
       ]
     },
     {
-      "league": "PL",
-      "season": "2526",
-      "club": "Burnley",
-      "st": [
-        0.202,
-        -1.259
-      ],
-      "tf": [
-        -0.318,
-        0.361
-      ]
-    },
-    {
-      "league": "PL",
-      "season": "2526",
-      "club": "Sunderland",
-      "st": [
-        0.028,
-        -0.248
-      ],
-      "tf": [
-        -0.218,
-        -0.085
-      ]
-    },
-    {
-      "league": "PL",
-      "season": "2526",
-      "club": "Leeds",
-      "st": [
-        0.522,
-        -0.631
-      ],
-      "tf": [
-        -0.064,
-        0.069
-      ]
-    },
-    {
       "league": "LALIGA",
       "season": "2223",
       "club": "Valladolid",
@@ -287,45 +248,6 @@
       ]
     },
     {
-      "league": "LALIGA",
-      "season": "2526",
-      "club": "Oviedo",
-      "st": [
-        0.052,
-        -0.235
-      ],
-      "tf": [
-        -0.678,
-        0.159
-      ]
-    },
-    {
-      "league": "LALIGA",
-      "season": "2526",
-      "club": "Levante",
-      "st": [
-        0.261,
-        -0.235
-      ],
-      "tf": [
-        -0.086,
-        0.175
-      ]
-    },
-    {
-      "league": "LALIGA",
-      "season": "2526",
-      "club": "Elche",
-      "st": [
-        0.105,
-        -0.447
-      ],
-      "tf": [
-        -0.044,
-        0.107
-      ]
-    },
-    {
       "league": "BUNDESLIGA",
       "season": "2223",
       "club": "Werder Bremen",
@@ -401,32 +323,6 @@
       "tf": [
         -0.643,
         -0.262
-      ]
-    },
-    {
-      "league": "BUNDESLIGA",
-      "season": "2526",
-      "club": "FC Koln",
-      "st": [
-        0.031,
-        -0.302
-      ],
-      "tf": [
-        -0.116,
-        0.136
-      ]
-    },
-    {
-      "league": "BUNDESLIGA",
-      "season": "2526",
-      "club": "Hamburg",
-      "st": [
-        0.417,
-        -0.155
-      ],
-      "tf": [
-        -0.318,
-        -0.018
       ]
     },
     {
@@ -534,42 +430,120 @@
       ]
     },
     {
-      "league": "LIGUE1",
-      "season": "2526",
-      "club": "Paris FC",
+      "league": "SERIEA",
+      "season": "2223",
+      "club": "Monza",
       "st": [
-        0.227,
-        -0.284
+        0.242,
+        -0.215
       ],
       "tf": [
-        -0.02,
-        0.042
+        -0.014,
+        0.066
       ]
     },
     {
-      "league": "LIGUE1",
-      "season": "2526",
-      "club": "Lorient",
+      "league": "SERIEA",
+      "season": "2223",
+      "club": "Lecce",
       "st": [
-        0.439,
-        -0.346
+        0.225,
+        -0.418
       ],
       "tf": [
-        0.001,
-        0.062
+        -0.389,
+        -0.057
       ]
     },
     {
-      "league": "LIGUE1",
-      "season": "2526",
-      "club": "Metz",
+      "league": "SERIEA",
+      "season": "2223",
+      "club": "Cremonese",
       "st": [
-        0.378,
-        -0.254
+        0.191,
+        -0.189
       ],
       "tf": [
-        -0.404,
-        0.461
+        -0.302,
+        0.348
+      ]
+    },
+    {
+      "league": "SERIEA",
+      "season": "2324",
+      "club": "Frosinone",
+      "st": [
+        0.347,
+        -0.539
+      ],
+      "tf": [
+        -0.12,
+        0.33
+      ]
+    },
+    {
+      "league": "SERIEA",
+      "season": "2324",
+      "club": "Genoa",
+      "st": [
+        0.174,
+        -0.464
+      ],
+      "tf": [
+        -0.097,
+        -0.097
+      ]
+    },
+    {
+      "league": "SERIEA",
+      "season": "2324",
+      "club": "Cagliari",
+      "st": [
+        0.115,
+        -0.27
+      ],
+      "tf": [
+        -0.166,
+        0.316
+      ]
+    },
+    {
+      "league": "SERIEA",
+      "season": "2425",
+      "club": "Parma",
+      "st": [
+        0.321,
+        -0.314
+      ],
+      "tf": [
+        -0.1,
+        0.176
+      ]
+    },
+    {
+      "league": "SERIEA",
+      "season": "2425",
+      "club": "Venezia",
+      "st": [
+        0.365,
+        -0.04
+      ],
+      "tf": [
+        -0.419,
+        0.141
+      ]
+    },
+    {
+      "league": "SERIEA",
+      "season": "2425",
+      "club": "Como",
+      "st": [
+        0.191,
+        -0.18
+      ],
+      "tf": [
+        0.007,
+        0.067
       ]
     }
   ]

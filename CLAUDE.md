@@ -101,7 +101,7 @@ engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
   single third-party point of failure — down for days). Each promoted club's prior
   is derived from its actual second-division season (football-data.co.uk E1/SP2/D2/F2)
   via a calibrated linear map: attack carries a mild signal, defence none (promoted
-  clubs concede ~+0.19 above average regardless). See `leagues/second_tier.py` and
+  clubs concede ~+0.22 above average regardless (0.19 before the 2026-10-04 refit without the held-out season)). See `leagues/second_tier.py` and
   `scripts/calibrate_level_gap.py`. A club that can't be resolved in the second-tier
   feed falls back to the weakest-side seed with a `data_warnings` note.
 - **soccerdata shot-events bug**: `read_shot_events` crashes on GER-Bundesliga (a

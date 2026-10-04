@@ -35,8 +35,11 @@ from leagues.names import canonical, UnknownTeam
 FEED = "https://www.football-data.co.uk/mmz4281/{season}/{code}.csv"
 
 # Fitted top-flight deviation = slope * second-tier deviation + intercept.
-ATTACK_MAP = (0.40, -0.39)
-DEFENCE_MAP = (0.0, 0.19)     # slope zeroed: 2nd-tier defence does not translate
+# Refitted 2026-10-04 WITHOUT the held-out season(s) leagues.tune scores on (41 clubs;
+# 14 held out). The old fit included them, so the holdout saw its own answers through
+# these priors. Attack barely moved (0.40, -0.39); the defence constant rose 0.19 -> 0.22.
+ATTACK_MAP = (0.39, -0.39)
+DEFENCE_MAP = (0.0, 0.22)     # slope zeroed: 2nd-tier defence does not translate
 
 
 def table_strengths(buf, league: str) -> dict:

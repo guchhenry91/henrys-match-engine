@@ -109,11 +109,18 @@ def _fit(x, y):
 
 def main():
     all_rows = []
+    from leagues.tune import HOLDOUT_SEASONS
     for lg in config.LEAGUES:
         print(f"=== {lg} ===")
         rows = promoted_club_seasons(lg)
+        # NEVER THE HELD-OUT SEASON. leagues.tune scores the model on its final
+        # season(s); fitting this map on those clubs let the holdout RPS see its own
+        # answers through the promoted-club priors (review, 2026-10-04).
+        held = set(config.get(lg).history_seasons[-HOLDOUT_SEASONS:])
+        dropped = [r for r in rows if r["season"] in held]
+        rows = [r for r in rows if r["season"] not in held]
         all_rows += rows
-        print(f"  {len(rows)} promoted-club seasons resolved")
+        print(f"  {len(rows)} promoted-club seasons resolved ({len(dropped)} held out)")
 
     # Attack and defence translate very differently, and per-league samples are tiny
     # (~10 clubs), so fit ONE pooled regression per channel across all four leagues.
