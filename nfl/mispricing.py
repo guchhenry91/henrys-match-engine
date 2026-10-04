@@ -29,6 +29,10 @@ MIN_EV_ADJUSTED = 0.05
 SPREAD = {"passing_yards": 65.0, "rushing_yards": 25.0, "receiving_yards": 25.0}
 MAX_GAP = {"passing_yards": 8.0, "rushing_yards": 4.0, "receiving_yards": 4.0}
 MIN_LINE = {"passing_yards": 150.0, "rushing_yards": 15.0, "receiving_yards": 15.0}
+# Pinnacle's quote must be this fresh. bet365's comes from API-NFL every run while a
+# Pinnacle quote is checked at most twice a game, so it could be up to 72 hours old
+# -- and an "edge" against a stale price is the line having moved, not a mistake.
+MAX_SHARP_AGE_H = 6.0
 
 
 def _phi(x):
@@ -51,10 +55,24 @@ def _fair_over(q):
     return io / (io + iu)
 
 
-def scan(bet365: dict, odds_api_games: dict) -> list:
+def _age_hours(checks, now) -> float:
+    try:
+        last = max(datetime.fromisoformat(str(c).replace("Z", "+00:00")) for c in checks or [])
+    except ValueError:
+        return float("inf")
+    if last.tzinfo is None:
+        last = last.replace(tzinfo=timezone.utc)
+    return (now - last).total_seconds() / 3600.0
+
+
+def scan(bet365: dict, odds_api_games: dict, now=None) -> list:
+    now = now or datetime.now(timezone.utc)
     out = []
     for game, markets in (bet365 or {}).items():
-        sharp_game = (odds_api_games.get(game) or {}).get("props") or {}
+        sharp = odds_api_games.get(game) or {}
+        if _age_hours(sharp.get("checks"), now) > MAX_SHARP_AGE_H:
+            continue                      # no fresh Pinnacle price for this game
+        sharp_game = sharp.get("props") or {}
         for market, players in (markets or {}).items():
             if market not in SPREAD:
                 continue
@@ -122,11 +140,17 @@ def update(found: list, games: dict, stats_for, now=None) -> dict:
             continue
         actual = float(row[e["market"]])
         e["actual"] = actual
+        if actual == float(e["line"]):    # a bet365 whole-number line: stake returned
+            e["graded"], e["void"] = "void", True
+            continue
         hit = actual > e["line"] if e["side"] == "over" else actual < e["line"]
         e["graded"] = "correct" if hit else "wrong"
     LOG.parent.mkdir(parents=True, exist_ok=True)
     LOG.write_text(json.dumps(log, indent=1) + "\n", encoding="utf-8")
+    # Only what THIS scan still sees: a flag that vanished (the line moved, the price
+    # went) stays in the log for the record but is no longer offered as a bet.
     upcoming = sorted((e for e in log.values() if not e.get("graded")
+                       and e.get("last_seen") == stamp
                        and datetime.fromisoformat(str(e["kickoff"]).replace("Z", "+00:00")) > now),
                       key=lambda e: -e.get("ev_latest", e["ev"]))
     settled = sorted((e for e in log.values() if e.get("graded")), key=lambda e: e["kickoff"], reverse=True)

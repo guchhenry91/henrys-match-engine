@@ -38,6 +38,25 @@ def save(payload: dict) -> None:
     tmp.replace(OUT)
 
 
+def frozen_games(path=None) -> set:
+    """"HOME|AWAY" for every game with a prop already frozen in the NFL picks log.
+
+    A "lock" check exists to price a pick at the moment it freezes. On a Sunday the
+    1pm ET games are frozen by the 15:05 lock run, so the 16:00 lock check bought
+    ~6 credits a game for picks that could no longer change (review, 2026-10-04)."""
+    from nfl import picks as nfl_picks
+    try:
+        log = json.loads((path or nfl_picks.PICKS_LOG).read_text(encoding="utf-8"))
+    except Exception:
+        return set()
+    out = set()
+    for k, e in (log.get(nfl_picks.PROPS_KEY) or {}).items():
+        parts = str((e or {}).get("game_id") or "").split("_")   # season_week_AWAY_HOME
+        if not str(k).startswith("_") and len(parts) == 4:
+            out.add(f"{parts[3]}|{parts[2]}")
+    return out
+
+
 def run(client, now=None, store=None) -> dict:
     now = now or datetime.now(timezone.utc)
     store = store if store is not None else load()
@@ -51,6 +70,7 @@ def run(client, now=None, store=None) -> dict:
     events = client.get(f"sports/{bl.SPORT_KEY}/events", sport="nfl",
                         purpose="nfl: list events") or []
     spent_on = []
+    frozen = frozen_games()
     for ev in sorted(events, key=lambda e: e.get("commence_time", "")):
         home, away = bl.TEAM_CODES.get(ev.get("home_team")), bl.TEAM_CODES.get(ev.get("away_team"))
         if not home or not away:
@@ -60,6 +80,9 @@ def run(client, now=None, store=None) -> dict:
         entry = games.setdefault(key, {"checks": [], "props": {}})
         entry["event_id"], entry["kickoff"] = ev["id"], ev["commence_time"]
         why = bl.due(entry["checks"], ev["commence_time"], now)
+        if why == "lock" and key in frozen:
+            print(f"  {key}: picks already frozen; lock check skipped (no credits)")
+            continue
         if why is None:
             # LADDER BACKFILL: a game checked before alternate lines were fetched
             # has main lines but no ladder, so its cards cannot show a 70%+ line.

@@ -40,7 +40,9 @@ def test_nfl_same_line_and_line_adjusted_flags():
     b365 = {"PIT|CLE": {"passing_yards": {
         "A": {"_name": "A", "line": 214.5, "odd_over": 2.10, "odd_under": 1.70},
         "B": {"_name": "B", "line": 181.5, "odd_over": 1.86, "odd_under": 1.86}}}}
-    sharp = {"PIT|CLE": {"props": {"passing_yards": {
+    from datetime import datetime, timedelta, timezone
+    fresh = (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()
+    sharp = {"PIT|CLE": {"checks": [fresh], "props": {"passing_yards": {
         "A": {"_name": "A", "line": 214.5, "odd_over": 1.93, "odd_under": 1.89, "book": "Pinnacle"},
         "B": {"_name": "B", "line": 185.5, "odd_over": 1.91, "odd_under": 1.91, "book": "Pinnacle"}}}}}
     found = {(f["player"], f["side"]): f for f in nm.scan(b365, sharp)}
@@ -48,3 +50,6 @@ def test_nfl_same_line_and_line_adjusted_flags():
     assert a["basis"] == "same line" and a["ev"] > 0.03
     b = found.get(("B", "over"))                   # 4 yards lower than Pinnacle's fair 50% line
     assert b is None or b["basis"] == "line-adjusted"
+    # a Pinnacle price older than MAX_SHARP_AGE_H is not compared at all
+    sharp["PIT|CLE"]["checks"] = [(datetime.now(timezone.utc) - timedelta(hours=30)).isoformat()]
+    assert nm.scan(b365, sharp) == []

@@ -8,6 +8,7 @@ The grading definitions are mirrored from nfl/features.py -- `touchdowns > 0` an
 `yards > line`. If those ever drift apart, the record starts describing a product
 the release gate never validated, so they are asserted explicitly below.
 """
+import json
 import pandas as pd
 import pytest
 
@@ -315,3 +316,10 @@ def test_the_edge_always_equals_probability_minus_book():
     entry = {"p_pick": 0.55, "line": 229.5}
     picks._show_frozen_prop(pick, entry)
     assert pick["edge"] == round(pick["probability"] - pick["book_p"], 4)
+
+
+def test_lock_checks_skip_games_already_frozen(tmp_path):
+    from scripts import sync_nfl_book_lines as s
+    p = tmp_path / "log.json"
+    p.write_text(json.dumps({"props": {"k": {"game_id": "2026_05_PIT_CLE"}}, "games": {}}))
+    assert s.frozen_games(p) == {"CLE|PIT"}
