@@ -17,8 +17,26 @@
 import { Container, getContainer } from "@cloudflare/containers";
 
 const LIVE_TTL = 30;
-const STUCK_MS = 45 * 60 * 1000;          // a job running longer than this is killed
 const BOOT_MS = 3 * 60 * 1000;            // a just-started container may not report running yet
+// How long a job may run before it is killed. leagues.yml allowed 120 minutes because
+// a cold-cache soccer refresh takes about an hour; a 45-minute ceiling would kill that
+// run every time and the cache would never warm.
+const LIMIT_MIN = { leagues: 110, nfl_backtest: 110, nfl: 60 };
+const limitMs = (job) => (LIMIT_MIN[job] || 45) * 60 * 1000;
+export const JOBS = ["leagues", "lock", "nfl", "nfl_backtest", "nba", "mlb", "health"];
+// A job type whose newest SUCCESS is older than this many hours is reported to Telegram
+// by the Worker itself -- the health check runs in the same queue, so if the queue
+// stalls, only the Worker can still say so.
+const STALE_H = { lock: 3, leagues: 4, health: 8, nfl: 26, nba: 26, mlb: 26 };
+// Team-news inputs: when the news routine pushes one, the matching job runs straight
+// away (the old workflows had a push trigger on these paths).
+const NEWS_FILES = {
+  "data-raw/leagues/news.json": "leagues", "data-raw/leagues/transfers.json": "leagues",
+  "data-raw/leagues/results_override.json": "leagues", "data-raw/leagues/six_scores.json": "leagues",
+  "data-raw/ucl/news.json": "leagues", "data-raw/ucl/results_override.json": "leagues",
+  "data-raw/nfl/news.json": "nfl", "data-raw/nba/news.json": "nba",
+};
+const RAW = "https://raw.githubusercontent.com/guchhenry91/henrys-match-engine/main/";
 
 export class JobRunner extends Container {
   sleepAfter = "50m";
@@ -48,7 +66,23 @@ export class StatsProxy extends Container {
 // a 60s shared cache, a daily credit cap, and a hard stop at the agreed 40,000 a month.
 const ODDS_PATHS = [/^\/sports\/[a-z0-9_]+\/odds\/?$/, /^\/sports\/[a-z0-9_]+\/events\/?$/,
                     /^\/sports\/[a-z0-9_]+\/events\/[a-f0-9]+\/odds\/?$/];
-const ODDS_PARAMS = ["regions", "markets", "oddsFormat", "dateFormat", "bookmakers", "eventIds"];
+const ODDS_PARAMS = ["regions", "markets", "bookmakers", "eventIds"];
+// Only what the dashboard asks for. Anything else is refused, so the relay cannot be
+// used to buy arbitrary (or very expensive) data with the owner's credits.
+const ODDS_REGIONS = new Set(["uk", "eu", "au", "us"]);
+const ODDS_MARKETS = new Set([
+  "h2h", "totals", "btts", "draw_no_bet", "player_goal_scorer_anytime",
+  "player_shots_on_target", "player_shots",
+  "player_points", "player_rebounds", "player_assists", "player_threes", "player_blocks",
+  "player_steals", "player_turnovers",
+  "player_pass_yds", "player_rush_yds", "player_receiving_yds", "player_pass_tds",
+  "player_receptions", "player_anytime_td", "player_pass_attempts", "player_rush_attempts",
+  "player_kicking_points",
+  "player_shots_on_goal", "player_goals", "player_power_play_points", "player_blocked_shots",
+  "batter_home_runs", "batter_hits", "batter_rbis", "batter_runs_scored", "batter_total_bases",
+  "batter_strikeouts", "batter_walks", "batter_hits_runs_rbis", "pitcher_strikeouts",
+  "pitcher_earned_runs"]);
+const ODDS_MAX_COST = 10;               // markets x regions per call (the dashboard's largest is 10)
 const ODDS_MONTH_STOP = 40000;
 const CORS = { "access-control-allow-origin": "*",
                "access-control-expose-headers": "x-requests-remaining, x-requests-used, x-requests-last" };
@@ -62,31 +96,68 @@ async function oddsRelay(request, env, ctx, path) {
   const inUrl = new URL(request.url);
   const up = new URL("https://api.the-odds-api.com/v4" + sub);
   for (const k of ODDS_PARAMS) if (inUrl.searchParams.has(k)) up.searchParams.set(k, inUrl.searchParams.get(k));
+  // Fixed formats: they change nothing that costs credits, so letting them vary
+  // would only let a caller defeat the shared cache.
+  // What the call will cost, BEFORE it is made: The Odds API bills markets x regions
+  // on the odds endpoints; the events list is free.
+  const isEvents = /\/events\/?$/.test(sub);
+  if (!isEvents) up.searchParams.set("oddsFormat", "decimal");
+  up.searchParams.set("dateFormat", "iso");
+  let cost = 0;
+  if (!isEvents) {
+    const regions = (up.searchParams.get("regions") || "").split(",").filter(Boolean);
+    const markets = (up.searchParams.get("markets") || "h2h").split(",").filter(Boolean);
+    if (!regions.length || regions.some((r) => !ODDS_REGIONS.has(r)))
+      return json({ error: "region not allowed" }, 400, CORS);
+    if (markets.some((m) => !ODDS_MARKETS.has(m))) return json({ error: "market not allowed" }, 400, CORS);
+    cost = regions.length * markets.length;
+    if (cost > ODDS_MAX_COST) return json({ error: `too costly (${cost} credits a call; max ${ODDS_MAX_COST})` }, 400, CORS);
+  }
 
   const cache = caches.default;
   const cacheKey = new Request("https://odds-relay.cache" + up.pathname + up.search);
   const hit = await cache.match(cacheKey);
   if (hit) return new Response(hit.body, hit);
 
+  // A per-visitor rate limit: the relay is public, so one address cannot hammer it.
+  if (env.RELAY_LIMIT) {
+    const ip = request.headers.get("cf-connecting-ip") || "unknown";
+    const { success } = await env.RELAY_LIMIT.limit({ key: ip });
+    if (!success) return json({ error: "too many requests, slow down" }, 429, CORS);
+  }
   const day = new Date().toISOString().slice(0, 10);
   const cap = Number(env.DASHBOARD_ODDS_DAILY || 600);
-  const row = await env.DB.prepare("SELECT credits, account_used FROM odds_relay WHERE day=?").bind(day).first();
-  if (row && row.credits >= cap) return json({ error: `dashboard odds cap reached (${cap} credits today)` }, 429, CORS);
   // x-requests-used is the whole ACCOUNT's usage this month (engine included), so the
-  // newest figure seen in the current month is what the 40,000 stop is judged on.
+  // newest figure seen in the current month is what the 40,000 stop is judged on --
+  // plus what this call will add.
   const last = await env.DB.prepare("SELECT day, account_used FROM odds_relay ORDER BY day DESC LIMIT 1").first();
-  if (last && last.day.slice(0, 7) === day.slice(0, 7) && last.account_used >= ODDS_MONTH_STOP)
+  if (last && last.day.slice(0, 7) === day.slice(0, 7) && last.account_used + cost > ODDS_MONTH_STOP)
     return json({ error: "monthly Odds API stop reached" }, 429, CORS);
+  // RESERVE the credits in ONE statement before calling: a check-then-record would
+  // let many simultaneous requests all pass the cap before any of them was counted.
+  await env.DB.prepare("INSERT OR IGNORE INTO odds_relay (day, credits, account_used) VALUES (?, 0, ?)")
+    .bind(day, last && last.day.slice(0, 7) === day.slice(0, 7) ? last.account_used : 0).run();
+  if (cost > 0) {
+    const held = await env.DB.prepare(
+      "UPDATE odds_relay SET credits = credits + ?1 WHERE day = ?2 AND credits + ?1 <= ?3 RETURNING credits")
+      .bind(cost, day, cap).first();
+    if (!held) return json({ error: `dashboard odds cap reached (${cap} credits today)` }, 429, CORS);
+  }
 
   up.searchParams.set("apiKey", env.ODDS_API_KEY);
-  const res = await fetch(up.toString());
+  let res;
+  try { res = await fetch(up.toString()); }
+  catch (e) {
+    if (cost > 0) await env.DB.prepare("UPDATE odds_relay SET credits = credits - ? WHERE day = ?").bind(cost, day).run();
+    return json({ error: "odds upstream unreachable" }, 502, CORS);
+  }
   const body = await res.arrayBuffer();
   const spent = Number(res.headers.get("x-requests-last") || 0);
   const used = Number(res.headers.get("x-requests-used") || 0);
+  // Settle the reservation to what the API actually charged.
   ctx.waitUntil(env.DB.prepare(
-    "INSERT INTO odds_relay (day, credits, account_used) VALUES (?,?,?) " +
-    "ON CONFLICT(day) DO UPDATE SET credits = credits + excluded.credits, account_used = MAX(account_used, excluded.account_used)")
-    .bind(day, spent, used).run());
+    "UPDATE odds_relay SET credits = credits + ?1, account_used = MAX(account_used, ?2) WHERE day = ?3")
+    .bind(spent - cost, used, day).run());
   const headers = { ...CORS, "content-type": res.headers.get("content-type") || "application/json",
                     "cache-control": "public, max-age=60" };
   for (const h of ["x-requests-remaining", "x-requests-used", "x-requests-last"])
@@ -200,7 +271,10 @@ async function serveAsset(request, env) {
 function authorised(request, env) {
   const want = env.STATE_TOKEN || "";
   const got = (request.headers.get("authorization") || "").replace(/^Bearer /, "");
-  return want.length >= 32 && got === want;
+  if (want.length < 32 || got.length !== want.length) return false;
+  let diff = 0;                            // constant time: no early exit on the first mismatch
+  for (let i = 0; i < want.length; i++) diff |= want.charCodeAt(i) ^ got.charCodeAt(i);
+  return diff === 0;
 }
 
 async function internal(request, env, ctx, path) {
@@ -219,11 +293,11 @@ async function internal(request, env, ctx, path) {
   // never be read as the file.
   if (path === "/internal/state/file" && request.method === "GET" && url.searchParams.has("idx")) {
     const p = url.searchParams.get("path") || "";
-    const meta = await env.DB.prepare("SELECT chunks FROM state_files WHERE ns=? AND path=?").bind(ns, p).first();
+    const meta = await env.DB.prepare("SELECT chunks, sha FROM state_files WHERE ns=? AND path=?").bind(ns, p).first();
     if (!meta) return json(null);
     const row = await env.DB.prepare("SELECT data FROM state_chunks WHERE ns=? AND path=? AND idx=?")
       .bind(ns, p, Number(url.searchParams.get("idx"))).first();
-    return json({ chunks: meta.chunks, data: row ? row.data : null });
+    return json({ chunks: meta.chunks, sha: meta.sha, data: row ? row.data : null });
   }
   if (path === "/internal/state/chunk" && request.method === "PUT") {
     const b = await request.json();
@@ -265,6 +339,15 @@ async function internal(request, env, ctx, path) {
     await env.DB.batch(stmts);
     return json({ ok: true });
   }
+  if (path === "/internal/state/delete" && request.method === "POST") {
+    const b = await request.json();
+    if (!b.path) return json({ error: "bad request" }, 400);
+    await env.DB.batch([
+      env.DB.prepare("DELETE FROM state_chunks WHERE ns=? AND path=?").bind(ns, b.path),
+      env.DB.prepare("DELETE FROM state_files WHERE ns=? AND path=?").bind(ns, b.path),
+    ]);
+    return json({ ok: true });
+  }
   if (path === "/internal/job/finish" && request.method === "POST") {
     const b = await request.json();
     await env.DB.prepare("UPDATE jobs SET status=?, finished_at=?, log=? WHERE id=?")
@@ -300,6 +383,7 @@ async function internal(request, env, ctx, path) {
   }
   if (path === "/internal/run" && request.method === "POST") {
     const b = await request.json();
+    if (!JOBS.includes(b.job)) return json({ error: `unknown job ${b.job}` }, 400);
     await enqueue(env, b.job, b.ns === "live" ? "live" : "shadow");
     ctx.waitUntil(pump(env));
     return json({ ok: true, queued: b.job });
@@ -341,7 +425,7 @@ async function enqueue(env, job, ns) {
   return true;
 }
 
-function containerEnv(env, row) {
+function containerEnv(env, row, prevFailed) {
   const pass = ["API_FOOTBALL_KEY", "API_NFL_KEY", "ODDS_API_KEY", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"];
   const out = { JOB: row.job, JOB_ID: String(row.id), STATE_NS: row.ns,
                 STATE_URL: env.STATE_URL, STATE_TOKEN: env.STATE_TOKEN };
@@ -353,6 +437,9 @@ function containerEnv(env, row) {
   // TELEGRAM_FROM_CLOUDFLARE = "on" once the GitHub schedules are off.
   if (env.TELEGRAM_FROM_CLOUDFLARE !== "on") { delete out.TELEGRAM_BOT_TOKEN; delete out.TELEGRAM_CHAT_ID; }
   if (row.ns !== "live") out.ODDS_API_ENABLED = "false";
+  // Whether this job's previous run failed: the container alerts only when that
+  // changes (failed, or recovered), not on every run of a repeated failure.
+  out.PREV_FAILED = prevFailed ? "1" : "0";
   return out;
 }
 
@@ -363,29 +450,95 @@ function containerEnv(env, row) {
 // a stale assignment; max_instances = 1 still keeps it to one job at a time.
 const slotFor = (env, id) => getContainer(env.JOB_RUNNER, `job-${id}`);
 
+async function telegram(env, text) {
+  if (env.TELEGRAM_FROM_CLOUDFLARE !== "on" || !env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text }) });
+  } catch (e) { console.error("telegram failed", e.name); }
+}
+
+const kvGet = async (env, k) => ((await env.DB.prepare("SELECT v FROM kv WHERE k=?").bind(k).first()) || {}).v;
+const kvSet = (env, k, v) => env.DB.prepare("INSERT OR REPLACE INTO kv (k, v) VALUES (?, ?)").bind(k, String(v)).run();
+
+// THE WATCHDOG. Runs from the cron, outside the queue: if a job type has not
+// succeeded for longer than STALE_H, say so (again at most every 12 hours).
+export async function watchdog(env, now = Date.now()) {
+  const stale = [];
+  for (const [job, hours] of Object.entries(STALE_H)) {
+    // The lock only runs 11:00-23:59 UTC, so it is judged only from 14:00 to 23:59.
+    if (job === "lock" && new Date(now).getUTCHours() < 14) continue;
+    const row = await env.DB.prepare(
+      "SELECT MAX(finished_at) AS t FROM jobs WHERE job=? AND ns='live' AND status='done'").bind(job).first();
+    const age = row && row.t ? (now / 1000 - row.t) / 3600 : Infinity;
+    if (age > hours) stale.push(`${job} (${age === Infinity ? "never" : age.toFixed(1) + "h ago"})`);
+  }
+  if (!stale.length) { await kvSet(env, "watchdog_alerted", 0); return []; }
+  const last = Number((await kvGet(env, "watchdog_alerted")) || 0);
+  if (now - last > 12 * 3600 * 1000) {
+    await telegram(env, `Match Engine on Cloudflare: no successful run for ${stale.join(", ")}. Check the job queue.`);
+    await kvSet(env, "watchdog_alerted", now);
+  }
+  return stale;
+}
+
+async function sha1(text) {
+  const d = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(text));
+  return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// Poll the team-news files on GitHub; a changed one queues its job at once.
+export async function newsPoll(env) {
+  const queued = new Set();
+  for (const [file, job] of Object.entries(NEWS_FILES)) {
+    try {
+      const r = await fetch(RAW + file, { cf: { cacheTtl: 60 } });
+      if (!r.ok) continue;
+      const h = await sha1(await r.text());
+      const k = "news:" + file, before = await kvGet(env, k);
+      if (before !== h) {
+        await kvSet(env, k, h);
+        if (before !== undefined) queued.add(job);   // first sight only records the hash
+      }
+    } catch (e) { console.error("news poll", file, e.name); }
+  }
+  for (const job of queued) await enqueue(env, job, "live");
+  return [...queued];
+}
+
 export async function pump(env) {
-  const running = await env.DB.prepare("SELECT id, started_at FROM jobs WHERE status='running' ORDER BY id LIMIT 1").first();
+  const running = await env.DB.prepare("SELECT id, job, ns, started_at FROM jobs WHERE status='running' ORDER BY id LIMIT 1").first();
   if (running) {
     const runner = slotFor(env, running.id);
-    const state = await runner.getState();
-    const alive = ["running", "healthy", "stopping"].includes(state.status);
+    let alive = true;                      // if the state cannot be read, assume it is still working
+    try { alive = ["running", "healthy", "stopping"].includes((await runner.getState()).status); }
+    catch (e) { console.error("getState failed", e); }
     const age = Date.now() - running.started_at * 1000;
     if (!alive && age < BOOT_MS) return "booting";        // just started: give it time to come up
-    if (alive && age < STUCK_MS) return "busy";
+    if (alive && age < limitMs(running.job)) return "busy";
     try { await runner.destroy(); } catch (e) { /* already gone */ }
+    const why = alive ? "killed: ran past its time limit" : "the container exited without reporting";
     await env.DB.prepare("UPDATE jobs SET status='failed', finished_at=?, log=COALESCE(log,'') || ? WHERE id=?")
-      .bind(Math.floor(Date.now() / 1000), alive ? "\nkilled: ran past the time limit" : "\ncontainer exited without reporting", running.id).run();
+      .bind(Math.floor(Date.now() / 1000), "\n" + why, running.id).run();
+    // The container could not send its own alert, so the Worker does.
+    if (running.ns === "live") await telegram(env, `Match Engine job '${running.job}' failed on Cloudflare: ${why}.`);
   }
   // Claimed in ONE statement: the cron and a finishing job both call pump(), and two
   // pumps reading then writing separately could start the same job (or two jobs) at once.
   const next = await env.DB.prepare(
     "UPDATE jobs SET status='running', started_at=?1 " +
-    "WHERE id = (SELECT id FROM jobs WHERE status='queued' ORDER BY id LIMIT 1) " +
+    // Freezing picks goes first: a lock that waits behind a long refresh can miss
+    // kickoff, and a late lock voids the pick.
+    "WHERE id = (SELECT id FROM jobs WHERE status='queued' ORDER BY (job='lock') DESC, id LIMIT 1) " +
     "AND NOT EXISTS (SELECT 1 FROM jobs WHERE status='running') RETURNING id, job, ns")
     .bind(Math.floor(Date.now() / 1000)).first();
   if (!next) return "idle";
+  const prev = await env.DB.prepare(
+    "SELECT status FROM jobs WHERE job=? AND ns=? AND status IN ('done','failed') AND id<? ORDER BY id DESC LIMIT 1")
+    .bind(next.job, next.ns, next.id).first();
   try {
-    await slotFor(env, next.id).start({ envVars: containerEnv(env, next), enableInternet: true,
+    await slotFor(env, next.id).start({ envVars: containerEnv(env, next, prev && prev.status === "failed"), enableInternet: true,
                                         labels: { job: next.job } });
   } catch (e) {
     await env.DB.prepare("UPDATE jobs SET status='failed', finished_at=?, log=? WHERE id=?")
@@ -414,6 +567,16 @@ export default {
     if (mode === "off") return;
     const at = new Date(Math.round(controller.scheduledTime / 60000) * 60000);
     for (const job of due(at)) await enqueue(env, job, mode === "live" ? "live" : "shadow");
+    if (mode === "live") {
+      const m = at.getUTCMinutes();
+      try {
+        if (m % 5 === 2) await newsPoll(env);
+        if (m % 15 === 7) await watchdog(env, at.getTime());
+        if (m === 41 && at.getUTCHours() === 3)      // keep 14 days of job history
+          await env.DB.prepare("DELETE FROM jobs WHERE enqueued_at < ? AND status IN ('done','failed')")
+            .bind(Math.floor(at.getTime() / 1000) - 14 * 86400).run();
+      } catch (e) { console.error("cron housekeeping failed", e); }
+    }
     ctx.waitUntil(pump(env));
   },
 };

@@ -14,18 +14,18 @@ PY = "python -m "
 
 JOBS = {
     "nba": [[
-        ("Box scores and bookmaker lines", PY + "scripts.sync_nba_odds", "gate"),
+        ("Box scores and bookmaker lines", PY + "scripts.sync_nba_odds", "soft"),
         ("Publish the NBA board", PY + "nba.publish", "gate"),
         ("Tests", PY + "pytest tests/nba tests/oddsapi -q", "gate"),
     ]],
     "mlb": [[
-        ("Box scores and bookmaker lines", PY + "scripts.sync_mlb_odds", "gate"),
+        ("Box scores and bookmaker lines", PY + "scripts.sync_mlb_odds", "soft"),
         ("Publish the MLB board", PY + "mlb.publish", "gate"),
         ("Tests", PY + "pytest tests/mlb tests/oddsapi -q", "gate"),
     ]],
     "nfl": [[
         ("Refresh book prices", PY + "scripts.sync_nfl_odds", "gate"),
-        ("Refresh gap-fill book lines", PY + "scripts.sync_nfl_book_lines", "gate"),
+        ("Refresh gap-fill book lines", PY + "scripts.sync_nfl_book_lines", "soft"),
         ("Refresh the injury report", PY + "scripts.sync_nfl_injuries", "gate"),
         ("Re-fit model trust", PY + "scripts.fit_nfl_blend", "gate"),
         ("Publish the NFL board", PY + "nfl.publish", "gate"),
@@ -71,5 +71,17 @@ JOBS = {
 }
 
 # The Odds API switch comes from the Worker (off for shadow runs); default on.
-ENV = {"PUBLISH_WORKERS": "4"}   # standard-4 = 4 vCPU, like a GitHub runner
+# Two publish workers, as leagues.yml set deliberately: more would hammer Understat.
+ENV = {"PUBLISH_WORKERS": "2"}
 ENV_DEFAULTS = {"ODDS_API_ENABLED": "true"}
+
+# Saved even when a gate fails: the credits were spent, and the ledger is how the
+# per-day cap counts them (the workflows' "the credit ledger is always kept").
+KEEP_ON_FAILURE = ("data-raw/odds_api/", "data-raw/nfl/odds_api_props.json",
+                   "data-raw/nba/odds_api.json", "data-raw/mlb/odds_api.json",
+                   "data-raw/nfl/_quota.json")
+
+# Which download caches each job restores and saves. A lock or health run needs
+# neither, and restoring 56 MB for them 80 times a day was pure waste.
+CACHE_FOR = {"leagues": ("cache/soccerdata.tar.gz", "cache/nflverse.tar.gz"),
+             "nfl": ("cache/nflverse.tar.gz",), "nfl_backtest": ("cache/nflverse.tar.gz",)}

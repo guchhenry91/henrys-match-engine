@@ -26,3 +26,5 @@ CREATE INDEX IF NOT EXISTS jobs_status ON jobs (status, id);
 CREATE TABLE IF NOT EXISTS odds_relay (
   day TEXT PRIMARY KEY, credits INTEGER NOT NULL DEFAULT 0, account_used INTEGER NOT NULL DEFAULT 0
 );
+-- Small Worker state: the watchdog's last alert time, hashes of the team-news files.
+CREATE TABLE IF NOT EXISTS kv (k TEXT PRIMARY KEY, v TEXT);

@@ -19,6 +19,9 @@ import sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 LOCK_FILE = os.path.join(ROOT, ".deploy.lock")
+PROTECTED_PATHS = [":(glob)data/**"] + [f":(glob)**/{n}.json" for n in (
+    "picks_log", "player_picks_log", "six_scores_log", "parlays_log", "mispriced_log",
+    "telegram_sent", "ledger", "record_history", "odds_history", "out_since")]
 GIT_ENV = {**os.environ, "GIT_AUTHOR_NAME": "John", "GIT_AUTHOR_EMAIL": "guchhenry91@gmail.com",
            "GIT_COMMITTER_NAME": "John", "GIT_COMMITTER_EMAIL": "guchhenry91@gmail.com"}
 
@@ -74,6 +77,11 @@ def main():
         else:
             paths = ["data", "data-raw"]
         git("add", *paths)
+        # NEVER push the live record. Since the move to Cloudflare the published boards
+        # and every append-only log live in Cloudflare D1; a copy pushed from a local run
+        # is older, and the jobs refuse it anyway (run_job.PROTECTED). Unstage them so a
+        # local run can only ever push INPUTS.
+        git("reset", "-q", "--", *PROTECTED_PATHS, fatal=False)
         if git("diff", "--cached", "--quiet", fatal=False).returncode != 0:
             git("commit", "-m", msg)
             git("push", "origin", "HEAD")
