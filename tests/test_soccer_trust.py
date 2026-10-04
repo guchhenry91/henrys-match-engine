@@ -47,3 +47,15 @@ def test_value_is_judged_on_the_blend(logs):
     assert p < 0.58
     assert value.assess(p, 0.55, 1.80, True)["value"] is False
     assert trust.soccer_value_p(0.70, None, "winner") == 0.70          # nothing to blend toward
+
+
+def test_one_sided_markets_are_never_blended_toward_a_vigged_price():
+    payload = {"props": {"anytime_touchdown": {"picks": [{"probability": 0.55, "book_p": 0.6897}]},
+                         "rushing_yards": {"picks": [{"probability": 0.60, "book_p": 0.50}]}},
+               "games": []}
+    trust.apply_line_board(payload, {"prop": {"w": 0.0}, "winner": {"w": 0.0}})
+    assert payload["props"]["anytime_touchdown"]["picks"][0]["probability"] == 0.55
+    assert payload["props"]["rushing_yards"]["picks"][0]["probability"] == 0.50
+    rows = trust.rows([{"kind": "prop", "market": "anytime_touchdown", "graded": "correct",
+                        "p_pick": 0.5, "book_p": 0.69}], "prop")
+    assert rows == []

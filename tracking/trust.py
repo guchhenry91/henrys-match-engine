@@ -28,6 +28,11 @@ from pathlib import Path
 from nfl import market_blend
 
 ROOT = Path(__file__).resolve().parent.parent
+# ONE-SIDED markets carry the book's RAW price (margin included) as book_p: there is
+# no other side to de-vig against. Pulling a probability toward it would publish the
+# bookmaker's margin as a probability, and fitting on it would mis-measure the model
+# (review, 2026-10-04: NFL anytime-TD 0.6897 was exactly 1/1.45). Left unblended.
+ONE_SIDED = {"anytime_touchdown"}
 MIN_PICKS = 100
 DEFAULT_W = 0.25
 LOGS = {"mlb": ROOT / "data-raw" / "mlb" / "picks_log.json",
@@ -55,6 +60,8 @@ def rows(entries, kind: str) -> list:
     out = []
     for e in entries:
         if e.get("graded") not in ("correct", "wrong") or e.get("kind", "prop") != kind:
+            continue
+        if e.get("market") in ONE_SIDED:
             continue
         if kind == "prop":
             p, b = e.get("p_model", e.get("probability", e.get("p_pick"))), e.get("book_p")
@@ -99,10 +106,12 @@ def apply_line_board(payload: dict, sport_weights: dict) -> None:
         g["p_pick"] = round(market_blend.blend(raw, float(b), ww), 4)
         g["edge"] = round(g["p_pick"] - float(b), 4)
         g["trust_w"] = ww
-    for block in (payload.get("props") or {}).values():
+    for market, block in (payload.get("props") or {}).items():
         for p in (block or {}).get("picks") or []:
             b = p.get("book_p")
             if p.get("probability") is None or b is None or p.get("locked"):
+                continue
+            if market in ONE_SIDED or p.get("market") in ONE_SIDED:
                 continue
             raw = float(p.get("p_model", p["probability"]))
             p["p_model"] = round(raw, 4)

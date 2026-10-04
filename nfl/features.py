@@ -207,7 +207,10 @@ def augment_lines(frame: pd.DataFrame, market: str) -> pd.DataFrame:
     parts = []
     for mult in config.LINE_MULTIPLIERS:
         part = frame.copy()
-        part["line"] = (part["median"] * mult * 2).round() / 2 + 0.5
+        # Always on the HALF yard (floor + 0.5): the old (x*2).round()/2 + 0.5 gave a
+        # whole number half the time, where the gate scored a landing as a loss and
+        # the grader voids it as a push.
+        part["line"] = np.floor(part["median"] * mult) + 0.5
         part["outcome"] = (part[MARKET_STAT[market]] > part["line"]).astype(float)
         part["line_mult"] = mult
         parts.append(part)
@@ -315,7 +318,7 @@ def build(player_weeks: pd.DataFrame, market: str, games: pd.DataFrame = None) -
         frame["outcome"] = (frame[stat] > 0).astype(float)
     else:
         frame["median"] = _prior_median(frame, stat)
-        frame["line"] = (frame["median"] * 2).round() / 2 + 0.5
+        frame["line"] = np.floor(frame["median"]) + 0.5      # always on the half yard
         frame["outcome"] = (frame[stat] > frame["line"]).astype(float)
 
     # A ROLE, not just an appearance. See config.MIN_OPPORTUNITY.
