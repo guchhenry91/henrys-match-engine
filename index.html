@@ -1798,6 +1798,7 @@ function trustLine(){
 // for NFL yardage. No model involved, so model trust does not apply; each edge
 // is logged at its first price and graded, so it earns its own record.
 function edgeTitle(e){
+  if(e.player&&e.market==="anytime_touchdown") return [`${e.player} anytime touchdown`, `NFL · ${e.game.split("|").reverse().join(" @ ")}`];
   if(e.player){ const n={passing_yards:"passing yds",rushing_yards:"rushing yds",receiving_yards:"receiving yds"}[e.market]||e.market;
     return [`${e.player} ${e.side} ${e.line} ${n}`, `NFL · ${e.game.split("|").reverse().join(" @ ")}`]; }
   const sel=e.market==="match_result"?(e.selection==="draw"?"Draw":`${e.selection==="home"?e.home:e.away} to win`)

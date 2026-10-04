@@ -369,7 +369,10 @@ def player_projections(player_weeks, games, market, upcoming, injuries=None,
         book_p = book_price = None
         if quote is not None:
             if market == "anytime_touchdown":
-                book_p, book_price = quote.get("raw_yes"), quote.get("odd")
+                # bet365 (API-NFL): one-sided raw price. Pinnacle (The Odds API):
+                # two-sided, so its de-vigged yes chance and yes price.
+                book_p = quote.get("over", quote.get("raw_yes"))
+                book_price = quote.get("odd_over", quote.get("odd"))
             elif from_book:
                 book_p, book_price = quote.get("over"), quote.get("odd_over")
 

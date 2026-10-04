@@ -123,10 +123,10 @@ def test_sync_spends_only_on_due_games_and_asks_three_books_three_markets():
     store = sync.run(client, now=_t("2026-09-26T16:05"), store={})
     assert len(client.paid) == 1
     path, est, params = client.paid[0]
-    assert "e1" in path and est == 6          # 3 main + 3 alternate markets, 1 region
+    assert "e1" in path and est == 7          # 4 main (incl. anytime TD) + 3 alternate, 1 region
     assert params["bookmakers"] == "pinnacle,draftkings,fanduel"
     assert set(params["markets"].split(",")) == {
-        "player_pass_yds", "player_rush_yds", "player_reception_yds",
+        "player_pass_yds", "player_rush_yds", "player_reception_yds", "player_anytime_td",
         "player_pass_yds_alternate", "player_rush_yds_alternate",
         "player_reception_yds_alternate"}
     game = store["games"]["BUF|LAC"]

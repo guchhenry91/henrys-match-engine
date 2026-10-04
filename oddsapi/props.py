@@ -81,11 +81,15 @@ def parse_event(payload, market_map: dict, book_order, book_label: dict) -> dict
             for o in market_row.get("outcomes") or []:
                 name = str(o.get("description") or "").strip()
                 side = str(o.get("name") or "").lower()
+                # A YES/NO market (anytime touchdown) is a two-sided 0.5 line: "Yes"
+                # is the over. Pinnacle prices both sides, so it de-vigs like any other.
+                point = o.get("point")
+                if side in ("yes", "no") and point is None:
+                    side, point = ("over" if side == "yes" else "under"), 0.5
                 prob = odds.decimal_to_prob(o.get("price"))
-                if not name or side not in ("over", "under") or prob is None \
-                        or o.get("point") is None:
+                if not name or side not in ("over", "under") or prob is None or point is None:
                     continue
-                sides.setdefault((name, float(o["point"])), {})[side] = (prob, float(o["price"]))
+                sides.setdefault((name, float(point)), {})[side] = (prob, float(o["price"]))
             best = {}
             for (name, line), pair in sides.items():
                 if "over" not in pair or "under" not in pair:

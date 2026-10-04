@@ -74,6 +74,9 @@ def scan(bet365: dict, odds_api_games: dict, now=None) -> list:
             continue                      # no fresh Pinnacle price for this game
         sharp_game = sharp.get("props") or {}
         for market, players in (markets or {}).items():
+            if market == TD:
+                out += _scan_td(game, players, sharp_game.get(TD) or {})
+                continue
             if market not in SPREAD:
                 continue
             for name, b in (players or {}).items():
@@ -102,6 +105,27 @@ def scan(bet365: dict, odds_api_games: dict, now=None) -> list:
                                     "side": side, "line": bl, "b365": float(price),
                                     "pinnacle_line": pl, "fair_p": round(prob, 4),
                                     "ev": round(ev, 4), "basis": basis})
+    return out
+
+
+TD = "anytime_touchdown"
+
+
+def _scan_td(game, b365_players, sharp_players) -> list:
+    """bet365's one-sided anytime-TD price against Pinnacle's DE-VIGGED yes chance.
+    Same player, same market -- no line to adjust across."""
+    out = []
+    for name, b in (b365_players or {}).items():
+        price = b.get("odd") or b.get("odd_over")
+        p = match_player(sharp_players, b.get("_name") or name)
+        if not price or not p or str(p.get("book", "")).lower() != "pinnacle" or p.get("over") is None:
+            continue
+        ev = float(p["over"]) * float(price) - 1.0
+        if ev >= MIN_EV:
+            out.append({"game": game, "market": TD, "player": b.get("_name") or name,
+                        "side": "yes", "line": 0.5, "b365": float(price),
+                        "pinnacle_line": 0.5, "fair_p": round(float(p["over"]), 4),
+                        "ev": round(ev, 4), "basis": "same line"})
     return out
 
 
@@ -138,12 +162,12 @@ def update(found: list, games: dict, stats_for, now=None) -> dict:
         row = stats_for(int(e["season"]), int(e["week"]), e["player"], e["game"].split("|"))
         if row is None:
             continue
-        actual = float(row[e["market"]])
+        actual = float(row["touchdowns"] if e["market"] == TD else row[e["market"]])
         e["actual"] = actual
         if actual == float(e["line"]):    # a bet365 whole-number line: stake returned
             e["graded"], e["void"] = "void", True
             continue
-        hit = actual > e["line"] if e["side"] == "over" else actual < e["line"]
+        hit = actual > e["line"] if e["side"] in ("over", "yes") else actual < e["line"]
         e["graded"] = "correct" if hit else "wrong"
     LOG.parent.mkdir(parents=True, exist_ok=True)
     LOG.write_text(json.dumps(log, indent=1) + "\n", encoding="utf-8")

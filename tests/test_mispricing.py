@@ -53,3 +53,28 @@ def test_nfl_same_line_and_line_adjusted_flags():
     # a Pinnacle price older than MAX_SHARP_AGE_H is not compared at all
     sharp["PIT|CLE"]["checks"] = [(datetime.now(timezone.utc) - timedelta(hours=30)).isoformat()]
     assert nm.scan(b365, sharp) == []
+
+
+def test_anytime_td_yes_no_is_de_vigged_like_a_line():
+    from oddsapi import props as shared
+    payload = {"bookmakers": [{"key": "pinnacle", "markets": [{"key": "player_anytime_td", "outcomes": [
+        {"name": "Yes", "description": "Derrick Henry", "price": 1.48},
+        {"name": "No", "description": "Derrick Henry", "price": 2.68}]}]}]}
+    q = shared.parse_event(payload, {"player_anytime_td": "anytime_touchdown"}, ("pinnacle",), {"pinnacle": "Pinnacle"})
+    henry = q["anytime_touchdown"]["Derrick Henry"]
+    io, iu = 1 / 1.48, 1 / 2.68
+    assert henry["line"] == 0.5 and abs(henry["over"] - io / (io + iu)) < 1e-3
+
+
+def test_bet365_td_price_beating_pinnacle_fair_is_flagged_and_graded():
+    from datetime import datetime, timedelta, timezone
+    from nfl import mispricing as nm
+    now = datetime.now(timezone.utc)
+    b365 = {"TEN|BAL": {"anytime_touchdown": {"Derrick Henry": {"_name": "Derrick Henry", "odd": 1.80, "book": "Bet365"},
+                                              "Zay Flowers": {"_name": "Zay Flowers", "odd": 2.00, "book": "Bet365"}}}}
+    sharp = {"TEN|BAL": {"checks": [(now - timedelta(hours=1)).isoformat()], "props": {"anytime_touchdown": {
+        "Derrick Henry": {"_name": "Derrick Henry", "line": 0.5, "over": 0.64, "book": "Pinnacle"},
+        "Zay Flowers": {"_name": "Zay Flowers", "line": 0.5, "over": 0.40, "book": "Pinnacle"}}}}}
+    found = nm.scan(b365, sharp)
+    assert [(f["player"], f["side"]) for f in found] == [("Derrick Henry", "yes")]   # 0.64 x 1.80 = +15%
+    assert abs(found[0]["ev"] - 0.152) < 1e-6

@@ -28,7 +28,11 @@ from oddsapi import props as shared
 SPORT_KEY = "americanfootball_nfl"
 MARKETS = {"player_pass_yds": "passing_yards",
            "player_rush_yds": "rushing_yards",
-           "player_reception_yds": "receiving_yards"}
+           "player_reception_yds": "receiving_yards",
+           # Pinnacle prices BOTH sides of anytime TD (checked 2026-10-04), so its
+           # fair chance is the reference for bet365's one-sided TD price
+           # (nfl/mispricing.py). +1 credit a check.
+           "player_anytime_td": "anytime_touchdown"}
 BOOK_ORDER = ("pinnacle", "draftkings", "fanduel")
 BOOK_LABEL = {"pinnacle": "Pinnacle", "draftkings": "DraftKings", "fanduel": "FanDuel"}
 
