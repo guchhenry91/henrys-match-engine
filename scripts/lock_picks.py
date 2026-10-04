@@ -28,7 +28,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from leagues import config, lockwindow, parlays, picks, shot_odds
+from leagues import config, lockstamp, lockwindow, odds, parlays, picks, prop_odds, shot_odds
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "leagues"
@@ -56,6 +56,7 @@ def _hours_out(date_text, now) -> float:
 def lock_matches(now, window=None) -> list:
     """Freeze the match-winner pick for anything inside the window."""
     frozen = []
+    market_odds = {}             # fetched only for a league that actually locks something
     for league, stem in FILES.items():
         payload_path = OUT / f"{stem}.json"
         log_path = PICKS_DIR / league.lower() / "picks_log.json"
@@ -79,11 +80,16 @@ def lock_matches(now, window=None) -> list:
             key = f"{tag}:{match['id']}"
             if key in log:
                 continue
-            picks.lock_pick(log, key, pick=prediction["pick"],
-                            confidence=int(prediction.get("confidence") or 0),
-                            kickoff=match["date"], now=now,
-                            p_pick=prediction["p_pick"],
-                            board=bool(prediction.get("best_pick")))
+            entry = picks.lock_pick(log, key, pick=prediction["pick"],
+                                    confidence=int(prediction.get("confidence") or 0),
+                                    kickoff=match["date"], now=now,
+                                    p_pick=prediction["p_pick"],
+                                    board=bool(prediction.get("best_pick")))
+            # bet365's price and the value verdict, frozen now -- before release.mark
+            # decides official/tracked on them (leagues/lockstamp.py).
+            if league not in market_odds:
+                market_odds[league] = odds.fetch_fixture_odds(league)
+            lockstamp.stamp_match(entry, market_odds[league], match["home"], match["away"], now)
             frozen.append(f"{league} {match['home']} v {match['away']} "
                           f"({hours * 60:.0f}m out)")
             changed = True
@@ -101,11 +107,13 @@ def lock_players(now, window=None) -> list:
         return []
     payload = json.loads(path.read_text(encoding="utf-8"))
     frozen, logs = [], {}
-    shots_store = shot_odds.load()
+    shots_store, prop_store = shot_odds.load(), prop_odds.load()
     for pick in payload.get("upcoming", []):
         league = pick.get("league_key")
         if not league or pick.get("p_pick") is None:
             continue
+        if pick.get("time_suspect"):
+            continue             # a kickoff we do not trust is never locked against
         hours = _hours_out(pick["date"], now)
         if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
             continue
@@ -127,10 +135,11 @@ def lock_players(now, window=None) -> list:
                         news_checked_hours_ago=pick.get("news_checked_hours_ago"),
                         doubt=pick.get("doubt"),
                         unavailable=pick.get("unavailable"),
-                        team_attribution=pick.get("team_attribution"))
-        if pick["market"] in shot_odds.LINE:
-            # The book's price at the moment of freezing (leagues/shot_odds.py).
-            shot_odds.freeze(log[key], league, pick["id"], store=shots_store)
+                        team_attribution=pick.get("team_attribution"),
+                        p_model=pick.get("p_model"))
+        # The price at lock and the value verdict (leagues/lockstamp.py).
+        lockstamp.stamp_prop(log[key], league, pick["id"], now,
+                             prop_store=prop_store, shots_store=shots_store)
         frozen.append(f"{pick['player']} {pick['market']} ({hours * 60:.0f}m out)")
     for log_path, log in logs.values():
         manifest.stamp(log.values(), "soccer")

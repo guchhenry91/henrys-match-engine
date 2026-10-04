@@ -22,7 +22,7 @@ from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F40
 from leagues import closing, prop_odds, shot_odds
 from leagues import mispricing
 from leagues import odds_history
-from leagues import prop_calibration
+from leagues import lockstamp, prop_calibration
 from tracking import manifest, performance, release, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
@@ -62,20 +62,6 @@ LOCK_WINDOW_HOURS = config.LOCK_WINDOW_HOURS
 # warning arrives with time to put a verified time in fixture_times.json.
 SUSPECT_TIME_URGENT_HOURS = 72.0
 
-def _just_locked(entry: dict, now, minutes: float = 30.0) -> bool:
-    """True when `entry` was locked on THIS run (or within the last half hour)."""
-    try:
-        locked = pd.Timestamp(entry.get("locked_at"))
-        now = pd.Timestamp(now)
-        if locked.tzinfo is None:
-            locked = locked.tz_localize("UTC")
-        if now.tzinfo is None:
-            now = now.tz_localize("UTC")
-        return abs((now - locked).total_seconds()) <= minutes * 60
-    except Exception:
-        return False
-
-
 def _match_props(squad_props: list, home: str, away: str, league: str, match_id,
                  form5: dict | None = None) -> list:
     top = {(p["team"], p["player"]) for p in props.top_props(squad_props, home)
@@ -102,6 +88,22 @@ def _match_props(squad_props: list, home: str, away: str, league: str, match_id,
             row["value"] = value.assess((p.get("anytime_pct") or 0) / 100.0, None, price, True)
         out.append(row)
     return sorted(out, key=lambda p: -(p.get("anytime_pct") or 0))
+
+
+_PROP_FITS = None
+
+
+def _prop_fits() -> dict:
+    """The prop recalibration LAST PUBLISHED (player_picks.json "calibration"), so a
+    pick locked here is frozen at the probability the board was showing. Read once."""
+    global _PROP_FITS
+    if _PROP_FITS is None:
+        try:
+            cal = json.loads((OUT / "player_picks.json").read_text(encoding="utf-8")).get("calibration") or {}
+            _PROP_FITS = {m: (float(v["a"]), float(v["b"])) for m, v in cal.items()}
+        except Exception:
+            _PROP_FITS = {}
+    return _PROP_FITS
 
 
 def _lock_window():
@@ -586,6 +588,10 @@ def build(league: str = "PL") -> dict:
         # docstring); a played match is never re-locked.
         if picks.release_moved_lock(log, log_key(m["match_id"]), m["date"], now=now):
             released_locks.append(f"{m['home']} v {m['away']}")
+        # ...and this fixture's PLAYER picks, locked against the same wrong time.
+        for pk in [k for k in pl_log if str(k).startswith(f"{log_key(m['match_id'])}:")]:
+            if picks.release_moved_lock(pl_log, pk, m["date"], now=now):
+                released_locks.append(f"{m['home']} v {m['away']} ({pk.rsplit(':', 1)[-1]})")
         if hours_out <= _lock_window() and not bool(m.get("time_suspect")):
             entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
                                     confidence=_confidence(probs[pick]),
@@ -607,13 +613,8 @@ def build(league: str = "PL") -> dict:
         # THE PRICE AT LOCK, frozen with the pick, so profit can be scored at what a
         # bettor could actually get (tracking/performance.py). Only on the run that
         # locked it: a price stamped later would be one nobody was offered.
-        if not provisional and entry.get("odds") is None and _just_locked(entry, now):
-            price = ((odds.market_for(market_odds, home, away) or {}).get("odds") or {}).get(pick_type)
-            if price:
-                entry["odds"] = float(price)
-            mk = odds.market_for(market_odds, home, away) or {}
-            entry["value"] = value.assess(entry.get("p_pick"), mk.get(f"p_{pick_type}"),
-                                          price, str(mk.get("book") or "").lower() == "bet365")
+        if not provisional:
+            lockstamp.stamp_match(entry, market_odds, home, away, now)
         # The model's committed single call. It is the most likely score GIVEN the
         # pick, so the card never contradicts itself -- the unconditional mode is
         # 1-1 in 68% of fixtures and would fight a home/away pick.
@@ -664,10 +665,15 @@ def build(league: str = "PL") -> dict:
                     continue
                 pkey = f"{log_key(m['match_id'])}:{market}:{p['player']}"
                 prob = p[field] / 100.0
-                if hours_out <= _lock_window():
+                # Frozen as the board SHOWS it: recalibrated by the fit last published
+                # (prop_calibration), with the raw model probability kept beside it.
+                fits = _prop_fits()
+                shown = prop_calibration.apply_p(prob, fits[market]) if market in fits else prob
+                if hours_out <= _lock_window() and not bool(m.get("time_suspect")):
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
-                                         p_pick=prob, confidence=_confidence(prob),
+                                         p_pick=shown, p_model=prob,
+                                         confidence=_confidence(shown),
                                          kickoff=m["date"], now=now,
                                          bar=PLAYER_PICK_MIN_PROB[market],
                                          lineup_confirmed=lineup_ready,
@@ -679,20 +685,11 @@ def build(league: str = "PL") -> dict:
                                          unavailable=p["player"] in unavailable,
                                          team_attribution=p["team"])
                     pprov = False
-                    # bet365's anytime price at the moment of locking (see above).
-                    if market == "goal" and pe.get("book_price") is None and _just_locked(pe, now):
-                        price = prop_odds.price_for(league, m["match_id"], p["player"])
-                        if price:
-                            pe["book_price"] = float(price)
-                        pe["value"] = value.assess(prob, None, price, bool(price))
-                    # Shots / on target: a US book's price on the same line, via
-                    # The Odds API (leagues/shot_odds.py); value at bet365 estimated.
-                    if (market in shot_odds.LINE and pe.get("book_price") is None
-                            and _just_locked(pe, now)):
-                        shot_odds.freeze(pe, league, m["match_id"])
-                        pe["value"] = value.assess(prob, pe.get("book_p"), None, False)
+                    # The price at lock and the value verdict (leagues/lockstamp.py).
+                    lockstamp.stamp_prop(pe, league, m["match_id"], now)
                 else:
-                    pe = {"p_pick": round(prob, 4), "confidence": _confidence(prob)}
+                    pe = {"p_pick": round(prob, 4), "p_model": round(prob, 4),
+                          "confidence": _confidence(prob)}
                     pprov = True
                 player_picks.append({
                     "market": market,
@@ -701,8 +698,12 @@ def build(league: str = "PL") -> dict:
                     "team": p["team"],
                     "position": p["position"],
                     "p_pick": pe["p_pick"],
+                    "p_model": pe.get("p_model", pe["p_pick"]),
                     "confidence": pe["confidence"],
                     "provisional": pprov,
+                    # So the fast locker refuses it too (never lock against a kickoff
+                    # the feed does not believe).
+                    "time_suspect": bool(m.get("time_suspect")),
                     "doubt": p.get("doubt", False),
                     "penalty_taker": p.get("penalty_taker", False),
                     "appearance_pct": p.get("appearance_pct"),

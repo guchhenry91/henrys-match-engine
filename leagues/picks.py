@@ -151,7 +151,8 @@ def lock_prop(log: dict, key, market: str, player: str, team: str,
               news_checked_hours_ago: float | None = None,
               doubt: bool | None = None,
               unavailable: bool | None = None,
-              team_attribution: str | None = None) -> dict:
+              team_attribution: str | None = None,
+              p_model: float | None = None) -> dict:
     """Freeze one player pick. Same discipline as lock_pick: write once, never
     rewrite, and store the probability AT LOCK TIME so board membership cannot be
     decided in hindsight.
@@ -176,6 +177,10 @@ def lock_prop(log: dict, key, market: str, player: str, team: str,
         "player": player,
         "team": team,
         "p_pick": round(float(p_pick), 4),
+        # The MODEL's own probability before recalibration (leagues/prop_calibration).
+        # p_pick is what the board SHOWED; the recalibration must be refitted on
+        # p_model, or it is fitted on numbers it has already transformed.
+        "p_model": round(float(p_model if p_model is not None else p_pick), 4),
         "confidence": int(confidence),
         # The threshold IN FORCE when this pick was made. Stored so a later change
         # to PLAYER_PICK_MIN_PROB cannot retroactively evict settled picks from the

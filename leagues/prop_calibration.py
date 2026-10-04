@@ -69,6 +69,8 @@ def apply(upcoming: list, settled: list) -> dict:
         f = fits.get(pick.get("market"))
         if not f or pick.get("p_pick") is None:
             continue
+        if pick.get("provisional") is False:
+            continue     # FROZEN: it shows the probability it was locked at, never a refit
         raw = float(pick.get("p_model", pick["p_pick"]))
         pick["p_model"] = round(raw, 4)
         pick["p_pick"] = round(apply_p(raw, f[:2]), 4)
