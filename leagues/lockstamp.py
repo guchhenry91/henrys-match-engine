@@ -42,6 +42,7 @@ def stamp_match(entry: dict, market_odds, home: str, away: str, now) -> None:
     if entry.get("odds") is not None or not just_locked(entry, now):
         return
     side = pick_side(entry.get("pick"), home, away)
+    entry.setdefault("pick_side", side)          # graded by side (picks.grade)
     mk = (odds.market_for(market_odds, home, away) if market_odds is not None else None) or {}
     price, fair = (mk.get("odds") or {}).get(side), mk.get(f"p_{side}")
     if price:

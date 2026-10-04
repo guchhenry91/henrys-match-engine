@@ -26,7 +26,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from leagues import picks
+from leagues import config, picks
 
 ROOT = Path(__file__).resolve().parent.parent
 SELECTION = ROOT / "data-raw" / "leagues" / "six_scores.json"
@@ -91,7 +91,11 @@ def build(pl_payload: dict, log: dict, now: pd.Timestamp) -> dict:
     sel = load_selection()
     wanted = list(sel.get("fixtures") or [])
     by_key = {f"{m['home']}|{m['away']}": m for m in pl_payload.get("matches", [])}
-    season = str(pd.Timestamp(now).year)
+    # THE FOOTBALL SEASON, not the calendar year: keyed by the year the board was
+    # built, every settled 2026 entry stopped being found on 1 January -- the record
+    # reset mid-season -- and fixture ids (which restart each season) could collide.
+    # The same tag every other soccer log uses (lock_picks._season_tag).
+    season = config.get("PL").fixture_slug.rsplit("-", 1)[-1]
 
     picks_out, missing = [], []
     for key in wanted:

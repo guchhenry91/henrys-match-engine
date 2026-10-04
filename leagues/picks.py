@@ -136,8 +136,16 @@ def grade(entry: dict, result: dict) -> dict:
         return out
 
     hg, ag = int(result["home_goals"]), int(result["away_goals"])
-    winner = result["home"] if hg > ag else result["away"] if ag > hg else "Draw"
     out["void"] = False
+    # BY SIDE where the side was frozen: a result typed by hand can spell the club
+    # differently from the board ("Inter Milan" / "Internazionale"), and a name
+    # comparison would grade a winning pick as lost. The score says which side won.
+    side = entry.get("pick_side")
+    if side in ("home", "away", "draw"):
+        won = "home" if hg > ag else "away" if ag > hg else "draw"
+        out["graded"] = "correct" if side == won else "wrong"
+        return out
+    winner = result["home"] if hg > ag else result["away"] if ag > hg else "Draw"
     out["graded"] = "correct" if entry["pick"] == winner else "wrong"
     return out
 

@@ -141,9 +141,12 @@ def freeze_and_grade(matches: list, now=None) -> tuple[dict, dict]:
 
         hours_out = (kickoff - now).total_seconds() / 3600.0
         if key not in log and hours_out <= lockwindow.window(now):
-            picks.lock_pick(log, key, match["pick"], match["confidence"],
-                            kickoff, now=now, p_pick=match["p_pick"],
-                            board=bool(match.get("best_pick")))
+            frozen = picks.lock_pick(log, key, match["pick"], match["confidence"],
+                                     kickoff, now=now, p_pick=match["p_pick"],
+                                     board=bool(match.get("best_pick")))
+            # The side, so grading never depends on how a result spells the club.
+            frozen["pick_side"] = ("home" if match["pick"] == match.get("home")
+                                   else "away" if match["pick"] == match.get("away") else "draw")
 
         entry = log.get(key)
         if not entry:

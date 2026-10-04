@@ -145,3 +145,11 @@ def test_the_released_archive_is_never_counted_as_a_pick():
                                         now=pd.Timestamp("2026-09-20T18:30:00Z"))
     assert publish.picks.RELEASED_KEY in log
     assert rec["total"] == 1, "the archived lock must not be counted"
+
+
+def test_a_pick_grades_by_side_whatever_the_result_calls_the_club():
+    from leagues import picks as core
+    entry = {"pick": "Internazionale", "pick_side": "home"}
+    res = {"home": "Inter Milan", "away": "Arsenal", "home_goals": 2, "away_goals": 1}
+    assert core.grade(entry, res)["graded"] == "correct"
+    assert core.grade({"pick": "Internazionale"}, res)["graded"] == "wrong"   # the old name trap
