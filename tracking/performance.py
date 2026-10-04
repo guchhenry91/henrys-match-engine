@@ -212,6 +212,8 @@ def summarize(entries) -> dict:
             continue
         won = _won(e)
         price = price_of(e)
+        if e.get("did_not_play"):
+            won = None               # bet365 voids a non-runner: stake back, not a loss
         if won is None:
             if e.get("graded"):
                 voids += 1

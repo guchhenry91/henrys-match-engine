@@ -109,3 +109,16 @@ def test_stamp_only_on_the_run_that_locked():
     entry = {"pick": "Arsenal", "p_pick": 0.62, "locked_at": "2026-10-03T10:00:00Z"}
     lockstamp.stamp_match(entry, _market(), "Arsenal", "Chelsea", NOW)
     assert "odds" not in entry and "value" not in entry
+
+
+def test_a_non_runner_is_a_loss_in_the_hit_rate_but_void_for_profit():
+    """bet365 voids a player who never comes on; the hit rate keeps the harsh reading."""
+    from tracking import performance
+    entry = {"market": "shots", "player": "X", "p_pick": 0.7, "book_price": 1.5}
+    dnp = picks.grade_prop(entry, {"goals": 0, "shots": 0, "sot": 0, "minutes": 0})
+    played = picks.grade_prop(entry, {"goals": 0, "shots": 0, "sot": 0, "minutes": 74})
+    unknown = picks.grade_prop(entry, None)
+    assert dnp["graded"] == "wrong" and dnp.get("did_not_play") is True
+    assert not played.get("did_not_play") and not unknown.get("did_not_play")
+    s = performance.summarize([dnp, played])
+    assert s["bets"] == 1 and s["voids"] == 1 and s["profit"] == -1.0

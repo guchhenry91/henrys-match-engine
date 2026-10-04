@@ -57,15 +57,16 @@ def _fixture_key(date_iso, home, away):
 
 
 def _understat_cover(league):
-    """(team, date) pairs Understat already covers -- never spend quota on these."""
+    """((team, date) sides Understat covers, (team, date, player) it has a row for)."""
     try:
         a = players.match_player_stats(league)
     except Exception as exc:
         print(f"  {league}: Understat unreadable ({exc}); treating as uncovered")
-        return set()
+        return set(), set()
     if a.empty:
-        return set()
-    return {(r["team"], pd.to_datetime(r["date"]).date()) for _, r in a.iterrows()}
+        return set(), set()
+    days = pd.to_datetime(a["date"]).dt.date
+    return (set(zip(a["team"], days)), set(zip(a["team"], days, a["player"])))
 
 
 def wanted(league):
@@ -138,14 +139,18 @@ def main(now=None):
         want = wanted(league)
         if not want:
             continue
-        have_us = _understat_cover(league)
+        have_us, have_rows = _understat_cover(league)
         cached = cache.get(league, {})
         for (date, home, away), squads in sorted(want.items()):
             if _fixture_key(date.isoformat(), home, away) in cached:
                 continue
-            # If Understat already covers every side we hold a pick for, the
-            # better feed has it and this one should not spend a request.
-            if all((t, date) in have_us for t in squads if t):
+            # If Understat already covers every side we hold a pick for AND has a
+            # row for every picked player, the better feed has it all and this one
+            # should not spend a request. A picked player with NO Understat row is
+            # either a non-runner or a man who never shot; only API-Football's
+            # minutes can tell, and profit treats the first as a void.
+            if all((t, date) in have_us for t in squads if t) and all(
+                    (t, date, pl) in have_rows for t, names in squads.items() if t for pl in names):
                 continue
             todo.append((league, date, home, away, squads))
 

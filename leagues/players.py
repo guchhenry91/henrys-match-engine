@@ -486,7 +486,9 @@ def api_match_stats(league: str):
             rows.append({"date": pd.Timestamp(entry["date"]), "team": st.get("team"),
                          "player": name, "goals": int(st.get("goals") or 0),
                          "shots": int(st.get("shots") or 0),
-                         "sot": int(st.get("sot") or 0)})
+                         "sot": int(st.get("sot") or 0),
+                         # None when the feed did not say; 0 = in the squad, never on
+                         "minutes": st.get("minutes")})
     return (pd.DataFrame(rows) if rows else empty), covered
 
 

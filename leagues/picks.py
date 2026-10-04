@@ -243,6 +243,16 @@ def grade_prop(entry: dict, actual: dict | None) -> dict:
     out["void"] = False
     out["actual"] = None if actual is None else int(got)
     out["graded"] = "correct" if got >= line else "wrong"
+    # DID NOT PLAY, where API-Football says so (0 minutes, in the squad). The HIT
+    # RATE keeps the harsh reading above; the PROFIT figures treat it as bet365
+    # does -- a void, stake returned (tracking/performance.summarize). Only set on
+    # positive evidence: no minutes figure means nothing is assumed.
+    mins = (actual or {}).get("minutes")
+    try:
+        if mins is not None and not pd.isna(mins) and int(mins) == 0 and got == 0:
+            out["did_not_play"] = True
+    except (TypeError, ValueError):
+        pass
     return out
 
 
