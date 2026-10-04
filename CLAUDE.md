@@ -120,7 +120,9 @@ engine stays pure-stdlib, the league engine needs pandas/scipy/penaltyblog.
 - `data/leagues/best.json` — cross-league **match-winner** picks at p>=0.65.
 - `data/leagues/player_picks.json` — cross-league **player** picks in three markets:
   anytime goalscorer, 2+ shot attempts, 1+ shot on target. Bars are PER MARKET
-  (`PLAYER_PICK_MIN_PROB` in publish.py): goalscorer **0.40**, shots **0.70**, SOT
+  (`PLAYER_PICK_MIN_PROB` in publish.py): now goalscorer **0.276**, shots **0.497**, SOT
+  **0.511** -- the SAME selectivity as the original 0.40 / 0.70 / 0.62, re-expressed on
+  the shrunk probability scale (see the comment there). The original reasoning: goalscorer **0.40**, shots **0.70**, SOT
   **0.62**. Goalscorer is lower because a team scores ~1.5 goals and one man takes
   a share, so the best anytime price in any of these leagues is ~50% -- a 0.70 bar
   there would publish an empty section forever. SOT was lowered from 0.70 to 0.62

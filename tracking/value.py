@@ -52,7 +52,11 @@ def assess(p, fair_p=None, price=None, price_is_bet365=False) -> dict | None:
     p, fair_p, price = _f(p), _f(fair_p), _f(price)
     if p is None or not 0.0 < p < 1.0:
         return None
-    out = {"min_price": round((1.0 + MIN_EV) / p, 2)}
+    # The minimum price is only quoted against SOME market evidence. With neither a
+    # price nor a fair chance on record it would rest on the raw model alone -- the
+    # number the trust audit found over-confident -- and read too generous (a 75%
+    # favourite "worth it at 1.37+"). Shown once a price exists (review, 2026-10-04).
+    out = {"min_price": round((1.0 + MIN_EV) / p, 2) if (price or fair_p) else None}
     if price_is_bet365 and price and price > 1.0:
         ref, basis = price, "bet365"
     elif fair_p and 0.0 < fair_p < 1.0:
@@ -71,6 +75,9 @@ def _is_bet365(pick: dict) -> bool:
     return any(str(pick.get(k) or "").lower() == "bet365" for k in ("line_source", "book"))
 
 
+WINNER_GAP = 0.08
+
+
 def annotate_line_board(payload: dict) -> int:
     """NFL / NBA / MLB boards: props carry probability, book_p (the fair chance of
     the side taken) and book_price; winners carry p_pick and book_p_pick."""
@@ -78,6 +85,13 @@ def annotate_line_board(payload: dict) -> int:
     for g in payload.get("games") or []:
         v = assess(g.get("p_pick"), g.get("book_p_pick"),
                    g.get("book_price"), _is_bet365(g))
+        # A TEAM model far from the book is more likely wrong than clever: the
+        # 2026-10-01 audit found the biggest disagreements did worst, and Elo cannot
+        # see injuries. Beyond WINNER_GAP no value is claimed.
+        raw, book = g.get("p_model", g.get("p_pick")), g.get("book_p_pick")
+        if v and v.get("value") and raw is not None and book is not None                 and abs(float(raw) - float(book)) > WINNER_GAP:
+            v.update(value=False, stake=0.0,
+                     note=f"model and book differ by {abs(float(raw) - float(book)):.0%}: treated as no edge")
         g["value"] = v
         n += bool(v and v.get("value"))
     for block in (payload.get("props") or {}).values():

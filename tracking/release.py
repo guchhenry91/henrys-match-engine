@@ -38,8 +38,10 @@ def status_map(sport: str) -> dict:
         except Exception:
             continue
         for market, s in perf.items():
+            # Stakes follow the VALUE picks' own record (performance.bet_status);
+            # a board published before that existed earns nothing.
             if isinstance(s, dict) and s.get("status"):
-                out[market] = s["status"]
+                out[market] = s.get("bet_status") or "testing"
     return out
 
 

@@ -244,8 +244,34 @@ def summarize(entries) -> dict:
                 "beat_rate": round(beat, 4) if beat is not None else None,
                 "avg_move": round(sum(sizes) / len(sizes), 4) if sizes else None},
     }
+    out["clv"]["z"] = round(clv_z, 2) if clv_z is not None else None
     out["status"], out["status_note"] = status(out, clv_z)
     return out
+
+
+def bet_status(s: dict):
+    """Whether a market has EARNED STAKES -- judged on its VALUE picks alone.
+
+    A market's ordinary status is earned by every pick it published, chosen on
+    probability. The Bet list stakes only the value subset: exactly the picks where
+    the model disagrees with the book, which the 2026-10-01 audit found do WORST. So
+    stakes are earned by that subset's own record, at two standard errors -- about
+    twenty market cells are re-tested every run, and at one SE some would turn
+    "promising" by luck (review, 2026-10-04)."""
+    n, roi, se = s["bets"], s["roi"], s["roi_se"]
+    roi_z = (roi / se) if (roi is not None and se) else None
+    pairs = s["clv"]["ours"] + s["clv"]["against"]
+    clv_z = s["clv"].get("z")
+    if n < MIN_JUDGE:
+        return "testing", f"{n} value bets priced so far; {MIN_JUDGE} needed before any stake"
+    strong = (roi_z is not None and roi_z >= Z) or (pairs >= 30 and clv_z is not None and clv_z >= Z)
+    if strong and roi > 0:
+        if n >= MIN_PROVEN:
+            return "proven", "Its value picks are profitable beyond what luck explains"
+        return "promising", "Its value picks are ahead by two standard errors"
+    if n >= MIN_LOSING and roi < 0:
+        return "losing", "Its value picks are behind at the prices taken: do not bet"
+    return "testing", "Its value picks are not yet clearly ahead"
 
 
 def status(s: dict, clv_z=None):
@@ -276,6 +302,13 @@ def by_market(entries, market_of) -> dict:
         groups.setdefault(market_of(e), []).append(e)
     out = {m: summarize(rows) for m, rows in groups.items() if m}
     out["all"] = summarize(entries)
+    # STAKES are earned by each market's VALUE picks only (bet_status above).
+    for m, rows in list(groups.items()) + [("all", entries)]:
+        if m not in out:
+            continue
+        vs = summarize([e for e in rows if ((e.get("value") or {}).get("value")) is True])
+        out[m]["bet_status"], out[m]["bet_status_note"] = bet_status(vs)
+        out[m]["value_bets"] = vs["bets"]
     # The Phase 2 rule on trial: only the picks that were VALUE when they locked
     # (tracking/value.py). If this line does not beat "all", the rule is not working.
     out["value_plays"] = summarize([e for e in entries

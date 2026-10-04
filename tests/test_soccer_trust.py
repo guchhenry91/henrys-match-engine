@@ -59,3 +59,14 @@ def test_one_sided_markets_are_never_blended_toward_a_vigged_price():
     rows = trust.rows([{"kind": "prop", "market": "anytime_touchdown", "graded": "correct",
                         "p_pick": 0.5, "book_p": 0.69}], "prop")
     assert rows == []
+
+
+def test_a_pick_pulled_below_fifty_percent_leaves_a_fifty_percent_board():
+    payload = {"games": [], "props": {"rushing_yards": {"picks": [
+        {"probability": 0.58, "book_p": 0.47},                     # 0.58 -> 0.47: drops
+        {"probability": 0.62, "book_p": 0.55},                     # stays above 50%
+        {"probability": 0.15, "book_p": 0.12, "market": "hr"},     # long shot: untouched
+        {"probability": 0.58, "book_p": 0.47, "locked": True}]}}}  # frozen: never removed
+    trust.apply_line_board(payload, {"prop": {"w": 0.0}, "winner": {"w": 0.0}})
+    probs = [p["probability"] for p in payload["props"]["rushing_yards"]["picks"]]
+    assert probs == [0.55, 0.12, 0.58]

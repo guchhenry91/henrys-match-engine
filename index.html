@@ -418,7 +418,7 @@
   .pftag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
     padding:2px 7px;border-radius:999px;border:1px solid currentColor;opacity:.92;white-space:nowrap}
   .pftag.proven{color:var(--lime)} .pftag.promising{color:var(--cyan)}
-  .pftag.testing{color:var(--mut,#8a93a6)} .pftag.losing{color:var(--hot)}
+  .pftag.testing{color:var(--mut,#8a93a6)} .pftag.losing{color:var(--hot)} .pftag.nobet{color:var(--hot)}
   .pftag.value{color:#0b1220;background:var(--lime);border-color:var(--lime)}
   .pftag.news{color:#0b1220;background:var(--amber);border-color:var(--amber)}
   /* Phase 4: a pick in a market that is LOSING at the prices taken fades back. */
@@ -1398,7 +1398,10 @@ function newsTag(p){
 // or Proven in Betting performance. Elsewhere the value verdict still shows, but
 // as "track only": paper-bet it until the market's own record says otherwise.
 const BETTABLE=new Set(["promising","proven"]);
-const marketEarned=(sport,market)=>BETTABLE.has((perfOf(sport,market)||{}).status);
+// Stakes follow the VALUE picks' own record (tracking/performance.bet_status), not the
+// market's overall status, which every probability-chosen pick feeds.
+const betStatus=(sport,market)=>(perfOf(sport,market)||{}).bet_status||"testing";
+const marketEarned=(sport,market)=>BETTABLE.has(betStatus(sport,market));
 function valueBits(x, sport, market){
   const v=x&&x.value;
   if(!v||!v.min_price) return "";
@@ -1409,6 +1412,10 @@ function valueBits(x, sport, market){
       ? `bet365 price not on record; estimated about ${v.ref_price} from the sharp books (${v.ev>0?"+":""}${(100*v.ev).toFixed(1)}%). Check bet365: worth it at ${v.min_price} or better.`
       : `No price on record. Check bet365: worth it at ${v.min_price} or better.`;
   const tag=v.value?`<span class="pftag value" title="${esc(tip)}">Value${est?" (est.)":""}</span>`:"";
+  // NO BET AT THIS PRICE: a likely winner is not a good bet when the price is shorter
+  // than the minimum worth taking (e.g. a 75% favourite at 1.27 needs 1.37+).
+  if(v.basis==="bet365"&&v.value===false&&v.ref_price)
+    return `<span class="pftag nobet" title="${esc(tip)}">No bet at ${Number(v.ref_price).toFixed(2)}</span><span class="bsn b365" title="${esc(tip)}">needs ${v.min_price.toFixed(2)}+</span>`;
   const earned=!sport||marketEarned(sport,market);
   const stake=v.value&&v.stake?(earned?` · stake ${+(100*v.stake).toFixed(2)}%`:" · track only"):"";
   return `${tag}<span class="bsn b365" title="${esc(tip)}">bet365 ${v.min_price.toFixed(2)}+${stake}</span>`;
@@ -1758,8 +1765,9 @@ function betList(){
     if(!isValue(x)) return;
     const when=new Date(x.kickoff||x.tipoff||x.date);
     if(isNaN(when)||when<now) return;
-    const st=(perfOf(sport,market)||{}).status||"testing";
-    if(st==="losing"){ losing++; return; }
+    const st=betStatus(sport,market);
+    // A market LOSING overall is never listed, even as track-only.
+    if(st==="losing"||(perfOf(sport,market)||{}).status==="losing"){ losing++; return; }
     (BETTABLE.has(st)?bet:watch).push({sport,market,x,row,when,st});
   };
   const lineBoard=(sport,d,rowFn,gameFn)=>{
@@ -1807,7 +1815,7 @@ function priceEdges(){
   return `<section class="glass settled"><div class="slist">${all.map(e=>{
     // A stake only once price edges have EARNED it on their own graded record, the
     // same rule as every other pick (review, 2026-10-04); until then, track only.
-    const src=e.player?DATA.edges_nfl:DATA.edges_soccer, earned=BETTABLE.has((((src||{}).performance||{}).all||{}).status);
+    const src=e.player?DATA.edges_nfl:DATA.edges_soccer, earned=BETTABLE.has((((src||{}).performance||{}).all||{}).bet_status);
     const [t,sub]=edgeTitle(e), price=e.b365_latest??e.b365, ev=e.ev_latest??e.ev, st=earned?edgeStake(e.fair_p,price):0;
     return `<div class="srow"><div class="be"><b>${esc(t)}</b>
       <span>${esc(sub)} · ${whenStr(e.date||e.kickoff)} · bet365 ${Number(price).toFixed(2)} vs fair ${(1/e.fair_p).toFixed(2)} (${esc(e.exchange?"Betfair Exchange":"Pinnacle"+(e.basis==="line-adjusted"?", line-adjusted":""))})${st?` · stake ${+(100*st).toFixed(2)}%`:" · track only (edges have not earned a stake yet)"}</span></div>

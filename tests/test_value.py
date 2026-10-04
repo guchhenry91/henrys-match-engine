@@ -3,8 +3,14 @@ from tracking import value as v
 
 
 def test_min_price_is_where_the_pick_returns_three_percent():
-    a = v.assess(0.55)
+    a = v.assess(0.55, fair_p=0.50)
     assert a["min_price"] == round(1.03 / 0.55, 2)       # 1.87
+
+
+def test_no_minimum_price_without_any_market_evidence():
+    """On the raw model alone the minimum price reads too generous (review 2026-10-04)."""
+    a = v.assess(0.55)
+    assert a["min_price"] is None
     assert a["value"] is None and a["stake"] == 0.0        # no price to judge at
 
 
@@ -35,10 +41,22 @@ def test_stake_is_quarter_kelly_capped_at_two_percent():
 
 
 def test_board_annotation_marks_bet365_lines_and_counts_value():
-    board = {"games": [{"p_pick": 0.6, "book_p_pick": 0.5}],
+    board = {"games": [{"p_pick": 0.57, "book_p_pick": 0.5}],   # 7pt gap: within WINNER_GAP
              "props": {"rushing_yards": {"picks": [
                  {"probability": 0.56, "book_p": 0.5, "book_price": 1.95, "line_source": "bet365"},
                  {"probability": 0.51, "book_p": 0.5, "book_price": 1.95, "line_source": "pinnacle"}]}}}
     assert v.annotate_line_board(board) == 2
     picks = board["props"]["rushing_yards"]["picks"]
     assert picks[0]["value"]["basis"] == "bet365" and picks[1]["value"]["value"] is False
+
+
+def test_a_team_model_far_from_the_book_claims_no_value():
+    near = {"games": [{"p_pick": 0.55, "p_model": 0.55, "book_p_pick": 0.50, "book_price": 2.0, "book": "bet365"}], "props": {}}
+    far = {"games": [{"p_pick": 0.53, "p_model": 0.62, "book_p_pick": 0.44, "book_price": 2.6, "book": "bet365"}], "props": {}}
+    assert v.annotate_line_board(near) == 1
+    assert v.annotate_line_board(far) == 0 and far["games"][0]["value"]["stake"] == 0.0
+
+
+def test_winners_default_to_little_trust():
+    from tracking import trust
+    assert trust.DEFAULT_W_WINNER <= 0.1 < trust.DEFAULT_W

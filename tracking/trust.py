@@ -35,6 +35,10 @@ ROOT = Path(__file__).resolve().parent.parent
 ONE_SIDED = {"anytime_touchdown"}
 MIN_PICKS = 100
 DEFAULT_W = 0.25
+# Team winners (Elo) start lower: the props record says the model should barely move
+# off the book, and Elo cannot see injuries or a changed quarterback. 0.25 produced
+# "value" on 2.2-2.6 underdogs where Elo disagreed with bet365 by 9-15 points.
+DEFAULT_W_WINNER = 0.10
 LOGS = {"mlb": ROOT / "data-raw" / "mlb" / "picks_log.json",
         "nba": ROOT / "data-raw" / "nba" / "picks_log.json",
         "nfl": ROOT / "data-raw" / "nfl" / "picks_log.json"}
@@ -88,7 +92,8 @@ def weights() -> dict:
             elif pool_fit:
                 entry = {"w": pool_fit["w"], "n": len(pooled), "basis": "other sports pooled"}
             else:
-                entry = {"w": DEFAULT_W, "n": len(pooled), "basis": "default (too few graded)"}
+                entry = {"w": DEFAULT_W_WINNER if kind == "winner" else DEFAULT_W,
+                         "n": len(pooled), "basis": "default (too few graded)"}
             out.setdefault(s, {})[kind] = entry
     return out
 
@@ -118,6 +123,15 @@ def apply_line_board(payload: dict, sport_weights: dict) -> None:
             p["probability"] = round(market_blend.blend(raw, float(b), wp), 4)
             p["edge"] = round(p["probability"] - float(b), 4)
             p["trust_w"] = wp
+        # ONE NUMBER PER PICK. A pick chosen at 50%+ on the raw model that falls below
+        # 50% once pulled toward the book contradicts the board's own rule (Hampton at
+        # 47.6% on a "50%+" board). It leaves the board; long shots chosen on edge
+        # (home runs, under 50% from the start) are not affected.
+        kept = [p for p in (block or {}).get("picks") or []
+                if p.get("locked") or p.get("probability") is None
+                or not (float(p.get("p_model") or 0) >= 0.5 > float(p["probability"]))]
+        if block and "picks" in block and len(kept) != len(block["picks"]):
+            block["picks"] = kept
     payload["model_trust"] = sport_weights
 
 
