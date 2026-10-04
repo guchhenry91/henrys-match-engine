@@ -53,6 +53,26 @@ def _get(url: str, opener=urllib.request.urlopen, timeout=60):
 
 
 def schedule(opener=urllib.request.urlopen) -> pd.DataFrame:
+    """Every game of the season, one row each: from the NBA's CDN, or -- when the
+    CDN refuses -- from The Odds API copy kept by scripts/sync_nba_odds.py.
+
+    THE CDN ANSWERS "ACCESS DENIED" FROM OUTSIDE ITS ALLOWED NETWORKS. Checked
+    2026-10-04: a UK browser, the UK home line and Cloudflare (Europe and North
+    America) were all refused, though GitHub's runners had been served until
+    2026-10-02. The Odds API lists the same games for free (its /events) and the
+    finals for 2 credits (/scores), so the board keeps a schedule either way."""
+    try:
+        return cdn_schedule(opener)
+    except Exception as exc:
+        fallback = odds_schedule()
+        if fallback.empty:
+            raise
+        print(f"NBA CDN schedule unavailable ({type(exc).__name__}); using The Odds API "
+              f"schedule ({len(fallback)} games)")
+        return fallback
+
+
+def cdn_schedule(opener=urllib.request.urlopen) -> pd.DataFrame:
     """Every game of the season on the CDN, one row each."""
     raw = _get(SCHEDULE_URL, opener)
     rows = []
@@ -127,7 +147,9 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
         have = _load(stage)
         known = set(have["GAME_ID"].astype(str)) if not have.empty else set()
         todo = sched[(sched["stage"] == stage) & (sched["status"] == FINAL)
-                     & ~sched["game_id"].isin(known)].sort_values("tipoff")
+                     & ~sched["game_id"].isin(known)
+                     # Odds API numbering ("0029...") has no CDN box score to ask for.
+                     & ~sched["game_id"].astype(str).str.startswith("0029")].sort_values("tipoff")
         new = []
         for _, g in todo.iterrows():
             if budget <= 0:
@@ -168,3 +190,77 @@ def current_teams() -> dict:
     rows = rows.sort_values(["GAME_DATE", "GAME_ID"])
     latest = rows.groupby("PLAYER_ID").tail(1)
     return {int(r.PLAYER_ID): r.TEAM_ABBREVIATION for r in latest.itertuples()}
+
+
+# ---- The Odds API schedule (fallback) ------------------------------------------------
+ODDS_SCHEDULE = ROOT / "data-raw" / "nba" / "odds_schedule.json"
+SCHED_COLUMNS = ["game_id", "stage", "tipoff", "game_date", "home_team", "away_team",
+                 "home_score", "away_score", "status", "neutral"]
+
+
+def _load_odds_store() -> dict:
+    try:
+        return json.loads(ODDS_SCHEDULE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"ids": {}, "games": {}}
+
+
+def odds_schedule() -> pd.DataFrame:
+    """The schedule as last saved from The Odds API (empty if never saved)."""
+    games = _load_odds_store().get("games") or {}
+    return pd.DataFrame(list(games.values()), columns=SCHED_COLUMNS)
+
+
+def _eastern_date(iso: str) -> str:
+    from zoneinfo import ZoneInfo
+    t = pd.Timestamp(iso)
+    t = t.tz_localize("UTC") if t.tzinfo is None else t.tz_convert("UTC")
+    return t.tz_convert(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
+
+
+def update_odds_schedule(events: list, scores: list, team_codes: dict, now) -> dict:
+    """Fold The Odds API's /events and /scores into the saved schedule.
+
+    GAME IDS ARE PERMANENT. Each Odds API event gets the next number in a series no
+    real NBA id uses ("0029" + 6 digits; real ids are "002" + the season, e.g.
+    "00226..."), recorded once and never reassigned -- picks freeze and grade on the
+    game id, so an id that changed between runs would orphan them. Numeric, because
+    nba/board.py derives a placeholder id from the last seven digits."""
+    store = _load_odds_store()
+    ids, games = store.setdefault("ids", {}), store.setdefault("games", {})
+    now_t = pd.Timestamp(now)
+    now_t = now_t.tz_localize("UTC") if now_t.tzinfo is None else now_t.tz_convert("UTC")
+    for ev in list(events or []) + list(scores or []):
+        home, away = team_codes.get(ev.get("home_team")), team_codes.get(ev.get("away_team"))
+        if not home or not away or not ev.get("id") or not ev.get("commence_time"):
+            continue
+        if ev["id"] not in ids:
+            ids[ev["id"]] = f"0029{len(ids) + 1:06d}"
+        gid = ids[ev["id"]]
+        tip = pd.Timestamp(ev["commence_time"])
+        tip = tip.tz_localize("UTC") if tip.tzinfo is None else tip.tz_convert("UTC")
+        row = games.get(gid) or {}
+        row.update({
+            "game_id": gid, "tipoff": tip.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "game_date": _eastern_date(ev["commence_time"]),
+            "stage": REGULAR if _eastern_date(ev["commence_time"]) >= config.REGULAR_SEASON_START else PRESEASON,
+            "home_team": home, "away_team": away, "neutral": False,
+        })
+        row.setdefault("home_score", None)
+        row.setdefault("away_score", None)
+        if ev.get("completed"):
+            by_name = {x.get("name"): x.get("score") for x in ev.get("scores") or []}
+            hs, as_ = by_name.get(ev["home_team"]), by_name.get(ev["away_team"])
+            if hs is not None and as_ is not None:
+                row.update(home_score=int(hs), away_score=int(as_), status=FINAL)
+        if row.get("status") != FINAL:
+            row["status"] = 1 if tip > now_t else 2
+        games[gid] = row
+    store["updated"] = now_t.isoformat()
+    store["_note"] = ("NBA schedule from The Odds API, used while the NBA's CDN refuses. "
+                      "Written by scripts/sync_nba_odds.py -- never by hand.")
+    ODDS_SCHEDULE.parent.mkdir(parents=True, exist_ok=True)
+    tmp = ODDS_SCHEDULE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(store, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    tmp.replace(ODDS_SCHEDULE)
+    return store

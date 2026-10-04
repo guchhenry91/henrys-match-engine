@@ -21,6 +21,10 @@ SEASONS = tuple(range(2012, 2027))
 # The season being PLAYED (2027 == 2026-27, from October 2026). Completed seasons
 # above come from the committed history; this one from the NBA's CDN box scores.
 CURRENT_SEASON = 2027
+# Opening night of the 2026-27 regular season (The Odds API's first listed game).
+# Only used when the schedule comes from The Odds API (nba/current.odds_schedule),
+# which does not say whether a game is preseason.
+REGULAR_SEASON_START = "2026-10-20"
 
 # 2011-12 was the LOCKOUT season: 66 games a team, not 82, so its 1,980 team rows
 # are correct rather than a truncated download. Noted because a row-count sanity

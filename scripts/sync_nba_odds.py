@@ -132,18 +132,44 @@ def run(client, sched_rows, now=None, store=None) -> dict:
     return store
 
 
-def main() -> int:
+def refresh_odds_schedule(client, now=None) -> None:
+    """Keep The Odds API's copy of the schedule: /events (free) for what is coming,
+    /scores?daysFrom=3 (2 credits) for the finals. Used only while the CDN refuses."""
+    now = now or datetime.now(timezone.utc)
+    events = client.get(f"sports/{bl.SPORT_KEY}/events", sport="nba",
+                        purpose="nba: schedule (CDN refused)") or []
     try:
-        sched = current.schedule()
+        scores = client.get(f"sports/{bl.SPORT_KEY}/scores", sport="nba",
+                            purpose="nba: finals (CDN refused)", est=2, daysFrom=3) or []
+    except (oc.BudgetExceeded, RuntimeError) as exc:
+        print(f"  NBA finals not fetched: {exc}")
+        scores = []
+    store = current.update_odds_schedule(events, scores, bl.TEAM_CODES, now)
+    print(f"Odds API schedule: {len(store['games'])} games kept, "
+          f"{len(events)} listed, {sum(1 for s in scores if s.get('completed'))} finals")
+
+
+def main() -> int:
+    client = oc.Client() if oc.enabled() else None
+    try:
+        sched = current.cdn_schedule()
     except Exception as exc:
-        print(f"NBA schedule unavailable from the CDN ({exc}); nothing synced")
-        return 0
+        print(f"NBA CDN schedule unavailable ({type(exc).__name__}: {exc})")
+        if client is None:
+            print("The Odds API is switched off too; no schedule this run")
+            return 0
+        try:
+            refresh_odds_schedule(client)
+            sched = current.schedule()
+        except Exception as exc2:
+            print(f"NBA schedule unavailable from The Odds API too ({exc2}); nothing synced")
+            print(client.report())
+            return 0
     counts = current.sync(sched)
     print(f"box scores: {counts}")
-    if not oc.enabled():
+    if client is None:
         print("The Odds API is switched off (ODDS_API_ENABLED); no NBA lines this run")
         return 0
-    client = oc.Client()
     try:
         store = run(client, sched.to_dict("records"))
     except (oc.Disabled, oc.BudgetExceeded, RuntimeError) as exc:
