@@ -1,4 +1,892 @@
 {
+  "PL": {
+    "xi": 0.003,
+    "xg_weight": 0.75,
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 380,
+      "accuracy": 0.4868421052631579,
+      "rps": 0.2072846910138982,
+      "brier": 0.6135041064083571,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.2072846910138982,
+      "model_accuracy_on_market_subset": 0.4868421052631579,
+      "market_accuracy": 0.49473684210526314,
+      "market_rps": 0.20449146861486855,
+      "market_brier": 0.6077370146246498
+    },
+    "sweep_winner": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 760,
+      "accuracy": 0.5631578947368421,
+      "rps": 0.19464689170846605,
+      "brier": 0.5645947369942982,
+      "n_seeded": 3,
+      "market_n": 760,
+      "model_rps_on_market_subset": 0.19464689170846605,
+      "model_accuracy_on_market_subset": 0.5631578947368421,
+      "market_accuracy": 0.5776315789473684,
+      "market_rps": 0.18845041128644052,
+      "market_brier": 0.5509667910353023
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 380,
+      "accuracy": 0.4868421052631579,
+      "rps": 0.2072846910138982,
+      "brier": 0.6135041064083571,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.2072846910138982,
+      "model_accuracy_on_market_subset": 0.4868421052631579,
+      "market_accuracy": 0.49473684210526314,
+      "market_rps": 0.20449146861486855,
+      "market_brier": 0.6077370146246498
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 380
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19475,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.19488,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19495,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19499,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19524,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.19527,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19531,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19559,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19607,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19638,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19656,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 1140,
+        "hit_rate_pct": 53.8,
+        "priced_n": 1140,
+        "avg_price": 1.914,
+        "roi_at_b365_close_pct": -4.3,
+        "roi_se_pct": 2.8
+      },
+      {
+        "min_prob": 0.6,
+        "n": 267,
+        "hit_rate_pct": 69.7,
+        "priced_n": 267,
+        "avg_price": 1.368,
+        "roi_at_b365_close_pct": -7.1,
+        "roi_se_pct": 3.8
+      },
+      {
+        "min_prob": 0.65,
+        "n": 150,
+        "hit_rate_pct": 74.7,
+        "priced_n": 150,
+        "avg_price": 1.286,
+        "roi_at_b365_close_pct": -6.0,
+        "roi_se_pct": 4.6
+      },
+      {
+        "min_prob": 0.7,
+        "n": 83,
+        "hit_rate_pct": 81.9,
+        "priced_n": 83,
+        "avg_price": 1.212,
+        "roi_at_b365_close_pct": -1.7,
+        "roi_se_pct": 5.2
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 380,
+        "hit_rate_pct": 48.7,
+        "priced_n": 380,
+        "avg_price": 1.999,
+        "roi_at_b365_close_pct": -8.9,
+        "roi_se_pct": 5.1
+      },
+      {
+        "min_prob": 0.6,
+        "n": 55,
+        "hit_rate_pct": 69.1,
+        "priced_n": 55,
+        "avg_price": 1.373,
+        "roi_at_b365_close_pct": -6.5,
+        "roi_se_pct": 8.7
+      },
+      {
+        "min_prob": 0.65,
+        "n": 22,
+        "hit_rate_pct": 72.7,
+        "priced_n": 22,
+        "avg_price": 1.277,
+        "roi_at_b365_close_pct": -9.0,
+        "roi_se_pct": 12.4
+      },
+      {
+        "min_prob": 0.7,
+        "n": 12,
+        "hit_rate_pct": 83.3,
+        "priced_n": 12,
+        "avg_price": 1.213,
+        "roi_at_b365_close_pct": 0.7,
+        "roi_se_pct": 13.7
+      }
+    ],
+    "n": 1140,
+    "accuracy": 0.537719298245614,
+    "rps": 0.19885949147694346,
+    "brier": 0.5808978601323178,
+    "n_seeded": 4,
+    "market_n": 1140,
+    "model_rps_on_market_subset": 0.19885949147694346,
+    "model_accuracy_on_market_subset": 0.537719298245614,
+    "market_accuracy": 0.55,
+    "market_rps": 0.19379743039591651,
+    "market_brier": 0.5698901988984182
+  },
+  "LALIGA": {
+    "xi": 0.003,
+    "xg_weight": 0.75,
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 380,
+      "accuracy": 0.5394736842105263,
+      "rps": 0.20043495603959932,
+      "brier": 0.5815598118636741,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20043495603959932,
+      "model_accuracy_on_market_subset": 0.5394736842105263,
+      "market_accuracy": 0.5447368421052632,
+      "market_rps": 0.1957786058701988,
+      "market_brier": 0.5716509492588124
+    },
+    "sweep_winner": {
+      "xi": 0.0018,
+      "xg_weight": 0.75,
+      "n": 760,
+      "accuracy": 0.5394736842105263,
+      "rps": 0.18995086795068614,
+      "brier": 0.5721548413504164,
+      "n_seeded": 2,
+      "market_n": 760,
+      "model_rps_on_market_subset": 0.18995086795068614,
+      "model_accuracy_on_market_subset": 0.5394736842105263,
+      "market_accuracy": 0.5552631578947368,
+      "market_rps": 0.1850583732818206,
+      "market_brier": 0.5621738568526428
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 380,
+      "accuracy": 0.5263157894736842,
+      "rps": 0.20017627803286323,
+      "brier": 0.5807483159044545,
+      "n_seeded": 1,
+      "market_n": 380,
+      "model_rps_on_market_subset": 0.20017627803286323,
+      "model_accuracy_on_market_subset": 0.5263157894736842,
+      "market_accuracy": 0.5447368421052632,
+      "market_rps": 0.1957786058701988,
+      "market_brier": 0.5716509492588124
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": -0.00025867800673610135,
+      "lo": -0.0014959430330983216,
+      "hi": 0.0009683745691637647,
+      "n": 380
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.18995,
+        "sweep_n": 760,
+        "reason": "won the sweep but the paired holdout CI was not entirely below zero"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19007,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19023,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19065,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19066,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.19123,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.19145,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.19154,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.1919,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19239,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.19338,
+        "sweep_n": 760,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 1140,
+        "hit_rate_pct": 54.3,
+        "priced_n": 1140,
+        "avg_price": 1.994,
+        "roi_at_b365_close_pct": 1.0,
+        "roi_se_pct": 2.9
+      },
+      {
+        "min_prob": 0.6,
+        "n": 200,
+        "hit_rate_pct": 81.0,
+        "priced_n": 200,
+        "avg_price": 1.349,
+        "roi_at_b365_close_pct": 8.0,
+        "roi_se_pct": 3.8
+      },
+      {
+        "min_prob": 0.65,
+        "n": 136,
+        "hit_rate_pct": 85.3,
+        "priced_n": 136,
+        "avg_price": 1.288,
+        "roi_at_b365_close_pct": 9.5,
+        "roi_se_pct": 4.0
+      },
+      {
+        "min_prob": 0.7,
+        "n": 59,
+        "hit_rate_pct": 91.5,
+        "priced_n": 59,
+        "avg_price": 1.22,
+        "roi_at_b365_close_pct": 11.8,
+        "roi_se_pct": 4.6
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 380,
+        "hit_rate_pct": 53.9,
+        "priced_n": 380,
+        "avg_price": 2.029,
+        "roi_at_b365_close_pct": 2.4,
+        "roi_se_pct": 5.2
+      },
+      {
+        "min_prob": 0.6,
+        "n": 61,
+        "hit_rate_pct": 85.2,
+        "priced_n": 61,
+        "avg_price": 1.353,
+        "roi_at_b365_close_pct": 13.6,
+        "roi_se_pct": 6.4
+      },
+      {
+        "min_prob": 0.65,
+        "n": 41,
+        "hit_rate_pct": 90.2,
+        "priced_n": 41,
+        "avg_price": 1.266,
+        "roi_at_b365_close_pct": 13.9,
+        "roi_se_pct": 6.1
+      },
+      {
+        "min_prob": 0.7,
+        "n": 22,
+        "hit_rate_pct": 95.5,
+        "priced_n": 22,
+        "avg_price": 1.217,
+        "roi_at_b365_close_pct": 15.8,
+        "roi_se_pct": 5.7
+      }
+    ],
+    "n": 1140,
+    "accuracy": 0.5429824561403509,
+    "rps": 0.19376529982570123,
+    "brier": 0.5760614817664242,
+    "n_seeded": 3,
+    "market_n": 1140,
+    "model_rps_on_market_subset": 0.19376529982570123,
+    "model_accuracy_on_market_subset": 0.5429824561403509,
+    "market_accuracy": 0.5517543859649123,
+    "market_rps": 0.18863178414461335,
+    "market_brier": 0.5653328876546994
+  },
+  "BUNDESLIGA": {
+    "xi": 0.003,
+    "xg_weight": 0.75,
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 306,
+      "accuracy": 0.5490196078431373,
+      "rps": 0.1963452530205678,
+      "brier": 0.5766614980272786,
+      "n_seeded": 2,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.1963452530205678,
+      "model_accuracy_on_market_subset": 0.5490196078431373,
+      "market_accuracy": 0.565359477124183,
+      "market_rps": 0.19005719163177381,
+      "market_brier": 0.5618184045532181
+    },
+    "sweep_winner": {
+      "xi": 0.0045,
+      "xg_weight": 1.0,
+      "n": 468,
+      "accuracy": 0.5085470085470085,
+      "rps": 0.20201042480480466,
+      "brier": 0.5980999107228328,
+      "n_seeded": 3,
+      "market_n": 468,
+      "model_rps_on_market_subset": 0.20201042480480466,
+      "model_accuracy_on_market_subset": 0.5085470085470085,
+      "market_accuracy": 0.5341880341880342,
+      "market_rps": 0.1976182430900259,
+      "market_brier": 0.5870172306567075
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 306,
+      "accuracy": 0.5392156862745098,
+      "rps": 0.1971419704938679,
+      "brier": 0.5782802383420477,
+      "n_seeded": 2,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.1971419704938679,
+      "model_accuracy_on_market_subset": 0.5392156862745098,
+      "market_accuracy": 0.565359477124183,
+      "market_rps": 0.19005719163177381,
+      "market_brier": 0.5618184045532181
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.0007967174733000709,
+      "lo": -0.0009405360538044632,
+      "hi": 0.00254001793169091,
+      "n": 306
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.20201,
+        "sweep_n": 468,
+        "reason": "won the sweep but the paired holdout CI was not entirely below zero"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.20239,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.2025,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.20345,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.20361,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.20364,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.2039,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.20447,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.20628,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.20652,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.20668,
+        "sweep_n": 468,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 774,
+        "hit_rate_pct": 52.5,
+        "priced_n": 774,
+        "avg_price": 1.946,
+        "roi_at_b365_close_pct": -5.5,
+        "roi_se_pct": 3.5
+      },
+      {
+        "min_prob": 0.6,
+        "n": 164,
+        "hit_rate_pct": 75.0,
+        "priced_n": 164,
+        "avg_price": 1.341,
+        "roi_at_b365_close_pct": -0.5,
+        "roi_se_pct": 4.7
+      },
+      {
+        "min_prob": 0.65,
+        "n": 109,
+        "hit_rate_pct": 75.2,
+        "priced_n": 109,
+        "avg_price": 1.273,
+        "roi_at_b365_close_pct": -5.1,
+        "roi_se_pct": 5.4
+      },
+      {
+        "min_prob": 0.7,
+        "n": 69,
+        "hit_rate_pct": 84.1,
+        "priced_n": 69,
+        "avg_price": 1.211,
+        "roi_at_b365_close_pct": 1.9,
+        "roi_se_pct": 5.5
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 306,
+        "hit_rate_pct": 54.9,
+        "priced_n": 306,
+        "avg_price": 1.994,
+        "roi_at_b365_close_pct": 1.3,
+        "roi_se_pct": 5.6
+      },
+      {
+        "min_prob": 0.6,
+        "n": 55,
+        "hit_rate_pct": 81.8,
+        "priced_n": 55,
+        "avg_price": 1.358,
+        "roi_at_b365_close_pct": 11.4,
+        "roi_se_pct": 7.5
+      },
+      {
+        "min_prob": 0.65,
+        "n": 36,
+        "hit_rate_pct": 80.6,
+        "priced_n": 36,
+        "avg_price": 1.279,
+        "roi_at_b365_close_pct": 3.8,
+        "roi_se_pct": 9.0
+      },
+      {
+        "min_prob": 0.7,
+        "n": 25,
+        "hit_rate_pct": 80.0,
+        "priced_n": 25,
+        "avg_price": 1.204,
+        "roi_at_b365_close_pct": -3.6,
+        "roi_se_pct": 10.0
+      }
+    ],
+    "n": 774,
+    "accuracy": 0.524547803617571,
+    "rps": 0.2002512937854697,
+    "brier": 0.5903306458684345,
+    "n_seeded": 5,
+    "market_n": 774,
+    "model_rps_on_market_subset": 0.2002512937854697,
+    "model_accuracy_on_market_subset": 0.524547803617571,
+    "market_accuracy": 0.5465116279069767,
+    "market_rps": 0.1946289901879262,
+    "market_brier": 0.5770549040576536
+  },
+  "LIGUE1": {
+    "xi": 0.003,
+    "xg_weight": 0.75,
+    "selection": "incumbent retained",
+    "incumbent": {
+      "xi": 0.003,
+      "xg_weight": 0.75,
+      "n": 306,
+      "accuracy": 0.5098039215686274,
+      "rps": 0.203556492956823,
+      "brier": 0.5906087399791647,
+      "n_seeded": 1,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.203556492956823,
+      "model_accuracy_on_market_subset": 0.5098039215686274,
+      "market_accuracy": 0.5359477124183006,
+      "market_rps": 0.20034041931326046,
+      "market_brier": 0.5820444303123221
+    },
+    "sweep_winner": {
+      "xi": 0.0018,
+      "xg_weight": 0.5,
+      "n": 612,
+      "accuracy": 0.5343137254901961,
+      "rps": 0.2104824813943133,
+      "brier": 0.6006167659032469,
+      "n_seeded": 1,
+      "market_n": 612,
+      "model_rps_on_market_subset": 0.2104824813943133,
+      "model_accuracy_on_market_subset": 0.5343137254901961,
+      "market_accuracy": 0.5310457516339869,
+      "market_rps": 0.20386142260881313,
+      "market_brier": 0.5873706899398342
+    },
+    "holdout": {
+      "season_from": "2025-07-01",
+      "n": 306,
+      "accuracy": 0.5261437908496732,
+      "rps": 0.20386756308803702,
+      "brier": 0.5913653932468154,
+      "n_seeded": 1,
+      "market_n": 306,
+      "model_rps_on_market_subset": 0.20386756308803702,
+      "model_accuracy_on_market_subset": 0.5261437908496732,
+      "market_accuracy": 0.5359477124183006,
+      "market_rps": 0.20034041931326046,
+      "market_brier": 0.5820444303123221
+    },
+    "holdout_vs_incumbent_rps_ci": {
+      "mean": 0.00031107013121400525,
+      "lo": -0.001306776318534399,
+      "hi": 0.0019271128760796835,
+      "n": 306
+    },
+    "promotion_rule": "challenger ships only if the paired 95% bootstrap CI of holdout RPS difference lies entirely below zero",
+    "rejected": [
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.21048,
+        "sweep_n": 612,
+        "reason": "won the sweep but the paired holdout CI was not entirely below zero"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.21071,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.21094,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.21105,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0018,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.2113,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.21141,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.5,
+        "sweep_rps": 0.21166,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.003,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.21212,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.75,
+        "sweep_rps": 0.21212,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 0.0,
+        "sweep_rps": 0.21228,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      },
+      {
+        "xi": 0.0045,
+        "xg_weight": 1.0,
+        "sweep_rps": 0.21311,
+        "sweep_n": 612,
+        "reason": "lost the sweep"
+      }
+    ],
+    "tiers_full": [
+      {
+        "min_prob": 0.0,
+        "n": 918,
+        "hit_rate_pct": 52.0,
+        "priced_n": 918,
+        "avg_price": 1.954,
+        "roi_at_b365_close_pct": -4.3,
+        "roi_se_pct": 3.2
+      },
+      {
+        "min_prob": 0.6,
+        "n": 158,
+        "hit_rate_pct": 70.3,
+        "priced_n": 158,
+        "avg_price": 1.411,
+        "roi_at_b365_close_pct": -3.4,
+        "roi_se_pct": 5.1
+      },
+      {
+        "min_prob": 0.65,
+        "n": 78,
+        "hit_rate_pct": 73.1,
+        "priced_n": 78,
+        "avg_price": 1.33,
+        "roi_at_b365_close_pct": -4.2,
+        "roi_se_pct": 6.8
+      },
+      {
+        "min_prob": 0.7,
+        "n": 36,
+        "hit_rate_pct": 77.8,
+        "priced_n": 36,
+        "avg_price": 1.256,
+        "roi_at_b365_close_pct": -3.0,
+        "roi_se_pct": 9.0
+      }
+    ],
+    "tiers_holdout": [
+      {
+        "min_prob": 0.0,
+        "n": 306,
+        "hit_rate_pct": 51.0,
+        "priced_n": 306,
+        "avg_price": 1.95,
+        "roi_at_b365_close_pct": -7.6,
+        "roi_se_pct": 5.5
+      },
+      {
+        "min_prob": 0.6,
+        "n": 63,
+        "hit_rate_pct": 71.4,
+        "priced_n": 63,
+        "avg_price": 1.393,
+        "roi_at_b365_close_pct": -3.6,
+        "roi_se_pct": 7.9
+      },
+      {
+        "min_prob": 0.65,
+        "n": 35,
+        "hit_rate_pct": 80.0,
+        "priced_n": 35,
+        "avg_price": 1.299,
+        "roi_at_b365_close_pct": 2.7,
+        "roi_se_pct": 9.0
+      },
+      {
+        "min_prob": 0.7,
+        "n": 18,
+        "hit_rate_pct": 83.3,
+        "priced_n": 18,
+        "avg_price": 1.225,
+        "roi_at_b365_close_pct": 1.1,
+        "roi_se_pct": 11.1
+      }
+    ],
+    "n": 918,
+    "accuracy": 0.5196078431372549,
+    "rps": 0.20872759657382486,
+    "brier": 0.5984758250606715,
+    "n_seeded": 2,
+    "market_n": 918,
+    "model_rps_on_market_subset": 0.20872759657382486,
+    "model_accuracy_on_market_subset": 0.5196078431372549,
+    "market_accuracy": 0.5326797385620915,
+    "market_rps": 0.20268775484362891,
+    "market_brier": 0.5855952700639969
+  },
   "SERIEA": {
     "xi": 0.003,
     "xg_weight": 0.75,
@@ -8,11 +896,11 @@
       "xg_weight": 0.75,
       "n": 380,
       "accuracy": 0.5210526315789473,
-      "rps": 0.20201482665942083,
-      "brier": 0.5961733766202558,
+      "rps": 0.2020375219653939,
+      "brier": 0.5962502552814677,
       "n_seeded": 1,
       "market_n": 380,
-      "model_rps_on_market_subset": 0.20201482665942083,
+      "model_rps_on_market_subset": 0.2020375219653939,
       "model_accuracy_on_market_subset": 0.5210526315789473,
       "market_accuracy": 0.5394736842105263,
       "market_rps": 0.19612249491547964,
@@ -23,11 +911,11 @@
       "xg_weight": 0.75,
       "n": 760,
       "accuracy": 0.5328947368421053,
-      "rps": 0.18915651451477458,
-      "brier": 0.5823723018510137,
+      "rps": 0.1891513125580759,
+      "brier": 0.5823640292470618,
       "n_seeded": 3,
       "market_n": 760,
-      "model_rps_on_market_subset": 0.18915651451477458,
+      "model_rps_on_market_subset": 0.1891513125580759,
       "model_accuracy_on_market_subset": 0.5328947368421053,
       "market_accuracy": 0.5473684210526316,
       "market_rps": 0.18443116507248633,
@@ -37,11 +925,11 @@
       "season_from": "2025-07-01",
       "n": 380,
       "accuracy": 0.5210526315789473,
-      "rps": 0.20201482665942083,
-      "brier": 0.5961733766202558,
+      "rps": 0.2020375219653939,
+      "brier": 0.5962502552814677,
       "n_seeded": 1,
       "market_n": 380,
-      "model_rps_on_market_subset": 0.20201482665942083,
+      "model_rps_on_market_subset": 0.2020375219653939,
       "model_accuracy_on_market_subset": 0.5210526315789473,
       "market_accuracy": 0.5394736842105263,
       "market_rps": 0.19612249491547964,
@@ -58,28 +946,28 @@
       {
         "xi": 0.003,
         "xg_weight": 1.0,
-        "sweep_rps": 0.18919,
+        "sweep_rps": 0.18918,
         "sweep_n": 760,
         "reason": "lost the sweep"
       },
       {
         "xi": 0.0045,
         "xg_weight": 0.75,
-        "sweep_rps": 0.1893,
+        "sweep_rps": 0.18929,
         "sweep_n": 760,
         "reason": "lost the sweep"
       },
       {
         "xi": 0.0045,
         "xg_weight": 1.0,
-        "sweep_rps": 0.18938,
+        "sweep_rps": 0.18937,
         "sweep_n": 760,
         "reason": "lost the sweep"
       },
       {
         "xi": 0.0018,
         "xg_weight": 0.75,
-        "sweep_rps": 0.18941,
+        "sweep_rps": 0.1894,
         "sweep_n": 760,
         "reason": "lost the sweep"
       },
@@ -93,7 +981,7 @@
       {
         "xi": 0.003,
         "xg_weight": 0.5,
-        "sweep_rps": 0.18949,
+        "sweep_rps": 0.18948,
         "sweep_n": 760,
         "reason": "lost the sweep"
       },
@@ -114,7 +1002,7 @@
       {
         "xi": 0.0018,
         "xg_weight": 0.0,
-        "sweep_rps": 0.19115,
+        "sweep_rps": 0.19114,
         "sweep_n": 760,
         "reason": "lost the sweep"
       },
@@ -137,53 +1025,85 @@
       {
         "min_prob": 0.0,
         "n": 1140,
-        "hit_rate_pct": 52.9
+        "hit_rate_pct": 52.9,
+        "priced_n": 1140,
+        "avg_price": 1.972,
+        "roi_at_b365_close_pct": -3.0,
+        "roi_se_pct": 2.9
       },
       {
         "min_prob": 0.6,
         "n": 199,
-        "hit_rate_pct": 71.4
+        "hit_rate_pct": 71.4,
+        "priced_n": 199,
+        "avg_price": 1.378,
+        "roi_at_b365_close_pct": -2.7,
+        "roi_se_pct": 4.4
       },
       {
         "min_prob": 0.65,
         "n": 100,
-        "hit_rate_pct": 75.0
+        "hit_rate_pct": 75.0,
+        "priced_n": 100,
+        "avg_price": 1.338,
+        "roi_at_b365_close_pct": -0.3,
+        "roi_se_pct": 5.9
       },
       {
         "min_prob": 0.7,
-        "n": 44,
-        "hit_rate_pct": 70.5
+        "n": 45,
+        "hit_rate_pct": 71.1,
+        "priced_n": 45,
+        "avg_price": 1.287,
+        "roi_at_b365_close_pct": -8.9,
+        "roi_se_pct": 8.9
       }
     ],
     "tiers_holdout": [
       {
         "min_prob": 0.0,
         "n": 380,
-        "hit_rate_pct": 52.1
+        "hit_rate_pct": 52.1,
+        "priced_n": 380,
+        "avg_price": 1.975,
+        "roi_at_b365_close_pct": -4.6,
+        "roi_se_pct": 5.0
       },
       {
         "min_prob": 0.6,
         "n": 59,
-        "hit_rate_pct": 71.2
+        "hit_rate_pct": 71.2,
+        "priced_n": 59,
+        "avg_price": 1.346,
+        "roi_at_b365_close_pct": -4.6,
+        "roi_se_pct": 8.0
       },
       {
         "min_prob": 0.65,
         "n": 22,
-        "hit_rate_pct": 72.7
+        "hit_rate_pct": 72.7,
+        "priced_n": 22,
+        "avg_price": 1.309,
+        "roi_at_b365_close_pct": -5.9,
+        "roi_se_pct": 12.7
       },
       {
         "min_prob": 0.7,
         "n": 10,
-        "hit_rate_pct": 80.0
+        "hit_rate_pct": 80.0,
+        "priced_n": 10,
+        "avg_price": 1.303,
+        "roi_at_b365_close_pct": 1.5,
+        "roi_se_pct": 17.2
       }
     ],
     "n": 1140,
     "accuracy": 0.5289473684210526,
-    "rps": 0.19344261856299,
-    "brier": 0.5869726601074279,
+    "rps": 0.19344671569384858,
+    "brier": 0.5869927712585304,
     "n_seeded": 4,
     "market_n": 1140,
-    "model_rps_on_market_subset": 0.19344261856299,
+    "model_rps_on_market_subset": 0.19344671569384858,
     "model_accuracy_on_market_subset": 0.5289473684210526,
     "market_accuracy": 0.5447368421052632,
     "market_rps": 0.18832827502015076,
@@ -193,11 +1113,27 @@
     "tiers": [
       {
         "min_prob": 0.0,
-        "n": 1140,
-        "hit_rate_pct": 52.9,
-        "league_min_pct": 52.9,
-        "league_max_pct": 52.9,
+        "n": 5112,
+        "hit_rate_pct": 53.2,
+        "league_min_pct": 52.0,
+        "league_max_pct": 54.3,
         "by_league": {
+          "PL": {
+            "n": 1140,
+            "hit_rate_pct": 53.8
+          },
+          "LALIGA": {
+            "n": 1140,
+            "hit_rate_pct": 54.3
+          },
+          "BUNDESLIGA": {
+            "n": 774,
+            "hit_rate_pct": 52.5
+          },
+          "LIGUE1": {
+            "n": 918,
+            "hit_rate_pct": 52.0
+          },
           "SERIEA": {
             "n": 1140,
             "hit_rate_pct": 52.9
@@ -206,11 +1142,27 @@
       },
       {
         "min_prob": 0.6,
-        "n": 199,
-        "hit_rate_pct": 71.4,
-        "league_min_pct": 71.4,
-        "league_max_pct": 71.4,
+        "n": 988,
+        "hit_rate_pct": 73.3,
+        "league_min_pct": 69.7,
+        "league_max_pct": 81.0,
         "by_league": {
+          "PL": {
+            "n": 267,
+            "hit_rate_pct": 69.7
+          },
+          "LALIGA": {
+            "n": 200,
+            "hit_rate_pct": 81.0
+          },
+          "BUNDESLIGA": {
+            "n": 164,
+            "hit_rate_pct": 75.0
+          },
+          "LIGUE1": {
+            "n": 158,
+            "hit_rate_pct": 70.3
+          },
           "SERIEA": {
             "n": 199,
             "hit_rate_pct": 71.4
@@ -219,11 +1171,27 @@
       },
       {
         "min_prob": 0.65,
-        "n": 100,
-        "hit_rate_pct": 75.0,
-        "league_min_pct": 75.0,
-        "league_max_pct": 75.0,
+        "n": 573,
+        "hit_rate_pct": 77.1,
+        "league_min_pct": 73.1,
+        "league_max_pct": 85.3,
         "by_league": {
+          "PL": {
+            "n": 150,
+            "hit_rate_pct": 74.7
+          },
+          "LALIGA": {
+            "n": 136,
+            "hit_rate_pct": 85.3
+          },
+          "BUNDESLIGA": {
+            "n": 109,
+            "hit_rate_pct": 75.2
+          },
+          "LIGUE1": {
+            "n": 78,
+            "hit_rate_pct": 73.1
+          },
           "SERIEA": {
             "n": 100,
             "hit_rate_pct": 75.0
@@ -232,14 +1200,30 @@
       },
       {
         "min_prob": 0.7,
-        "n": 44,
-        "hit_rate_pct": 70.5,
-        "league_min_pct": 70.5,
-        "league_max_pct": 70.5,
+        "n": 292,
+        "hit_rate_pct": 82.2,
+        "league_min_pct": 71.1,
+        "league_max_pct": 91.5,
         "by_league": {
+          "PL": {
+            "n": 83,
+            "hit_rate_pct": 81.9
+          },
+          "LALIGA": {
+            "n": 59,
+            "hit_rate_pct": 91.5
+          },
+          "BUNDESLIGA": {
+            "n": 69,
+            "hit_rate_pct": 84.1
+          },
+          "LIGUE1": {
+            "n": 36,
+            "hit_rate_pct": 77.8
+          },
           "SERIEA": {
-            "n": 44,
-            "hit_rate_pct": 70.5
+            "n": 45,
+            "hit_rate_pct": 71.1
           }
         }
       }
