@@ -927,7 +927,7 @@ football, which is why it matters more than the missing count suggests.
   worse pick; freezing never is a worse record.**
 - **The cap** stops the first run back from a multi-day outage freezing a whole
   matchweek at once on stale numbers.
-- Every locking path writes the heartbeat — the fast locker AND `publish` — because
+- The fast locker (`scripts/lock_picks.py`) writes the heartbeat (publish does not; corrected 2026-10-04), because
   what matters is the gap between runs that *could* have frozen something.
 - A missing or corrupt heartbeat degrades to the plain floor, never wider.
 
