@@ -1805,9 +1805,12 @@ function priceEdges(){
     .sort((a,b)=>(b.ev_latest??b.ev)-(a.ev_latest??a.ev));
   if(!all.length) return `<div class="glass rowc">${emptyRow("No bet365 price beats the sharp market right now. Soccer prices appear about a week before kickoff; NFL once bet365 and Pinnacle post the same players.")}</div>`;
   return `<section class="glass settled"><div class="slist">${all.map(e=>{
-    const [t,sub]=edgeTitle(e), price=e.b365_latest??e.b365, ev=e.ev_latest??e.ev, st=edgeStake(e.fair_p,price);
+    // A stake only once price edges have EARNED it on their own graded record, the
+    // same rule as every other pick (review, 2026-10-04); until then, track only.
+    const src=e.player?DATA.edges_nfl:DATA.edges_soccer, earned=BETTABLE.has((((src||{}).performance||{}).all||{}).status);
+    const [t,sub]=edgeTitle(e), price=e.b365_latest??e.b365, ev=e.ev_latest??e.ev, st=earned?edgeStake(e.fair_p,price):0;
     return `<div class="srow"><div class="be"><b>${esc(t)}</b>
-      <span>${esc(sub)} · ${whenStr(e.date||e.kickoff)} · bet365 ${Number(price).toFixed(2)} vs fair ${(1/e.fair_p).toFixed(2)} (${esc(e.exchange?"Betfair Exchange":"Pinnacle"+(e.basis==="line-adjusted"?", line-adjusted":""))})${st?` · stake ${+(100*st).toFixed(2)}%`:""}</span></div>
+      <span>${esc(sub)} · ${whenStr(e.date||e.kickoff)} · bet365 ${Number(price).toFixed(2)} vs fair ${(1/e.fair_p).toFixed(2)} (${esc(e.exchange?"Betfair Exchange":"Pinnacle"+(e.basis==="line-adjusted"?", line-adjusted":""))})${st?` · stake ${+(100*st).toFixed(2)}%`:" · track only (edges have not earned a stake yet)"}</span></div>
       <div class="sty"><small>Expected</small><b class="pos">+${(100*ev).toFixed(1)}%</b></div>
       <span class="pftag value">Price edge</span></div>`;}).join("")}</div></section>`;
 }

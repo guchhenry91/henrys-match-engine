@@ -35,7 +35,7 @@ from leagues.odds import DIV, FEED
 ROOT = Path(__file__).resolve().parent.parent
 LOG = ROOT / "data-raw" / "leagues" / "mispriced_log.json"
 MIN_EV = 0.03
-OVERROUND_OK = (0.97, 1.06)      # the exchange's book must add up to about 100%
+OVERROUND_OK = (0.98, 1.025)     # a THIN exchange book (over 2.5%) de-vigs with ~2-3% error, the size of MIN_EV
 LONDON = ZoneInfo("Europe/London")
 LEAGUE_OF = {v: k for k, v in DIV.items()}
 
