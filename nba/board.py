@@ -40,7 +40,12 @@ BOARD_HOURS = 36.0           # games listed this far ahead
 LOOKAHEAD_DAYS = 7           # before the season: show the next slate within a week
 TOP_PER_MARKET = 3           # per game, per market -- a shortlist, not a database
 MIN_PROBABILITY = 0.50       # never publish a leg the model itself makes a dog
-HISTORY_SEASONS = config.TRAIN_SEASONS + 1
+# EVERY completed season, as the gate used (scripts/nba_backtest.py builds features over
+# all of config.SEASONS). The career median, history rate and games_before are built
+# from the whole history; reading only the last six seasons asked the live model a
+# different question from the one the gate validated (review, 2026-10-04). Training
+# is still bounded to config.TRAIN_SEASONS by the filter in prop_picks.
+HISTORY_SEASONS = len(config.SEASONS)
 
 
 def _read(path) -> dict:
@@ -148,6 +153,18 @@ def player_rows(history_rows: pd.DataFrame) -> pd.DataFrame:
     return rows.dropna(subset=["GAME_ID", "PLAYER_ID", "game_date"])
 
 
+def build_upcoming(rows: pd.DataFrame, synth_df: pd.DataFrame, market: str) -> pd.DataFrame:
+    """features.build over the history plus the upcoming placeholders (GAME_ID < 0),
+    each player's 1st, 2nd... upcoming game in its own pass so no placeholder is ever
+    another placeholder's "previous game". History rows appear once."""
+    nth = synth_df.sort_values(["game_date", "GAME_ID"]).groupby("PLAYER_ID").cumcount()
+    parts = [features.build(pd.concat([rows, synth_df[nth.reindex(synth_df.index) == k]],
+                                      ignore_index=True), market)
+             for k in sorted(nth.unique())]
+    return pd.concat([parts[0][parts[0]["GAME_ID"] >= 0]] + [b[b["GAME_ID"] < 0] for b in parts],
+                     ignore_index=True)
+
+
 def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=None,
                collect=None) -> tuple:
     """({market: [picks]}, {market: held_back_count}) at bookmaker lines only.
@@ -222,13 +239,19 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
     if not synth:
         return {m: [] for m in config.MARKETS}, {}
     allrows = pd.concat([rows, pd.DataFrame(synth)], ignore_index=True)
+    synth_df = pd.DataFrame(synth)
     out, held = {}, {}
     shrink = published_shrink()
     for market in config.MARKETS:
         if market not in released:
             out[market] = []
             continue
-        built = features.build(allrows, market)
+        # ONE UPCOMING GAME PER PLAYER AT A TIME. Features are ENTERING (shift(1)), so
+        # a team playing tonight and tomorrow would see tonight's placeholder -- zero
+        # points, zero rebounds -- as its "previous game" when tomorrow is priced,
+        # dragging every form feature down. Each player's 1st, 2nd... upcoming game is
+        # built in its own pass, with no other placeholder of his in it.
+        built = build_upcoming(rows, synth_df, market)
         is_synth = built["GAME_ID"] < 0
         train = built[~is_synth & (built["season"] >= config.CURRENT_SEASON - config.TRAIN_SEASONS)]
         spread = features.augment_lines(train, market)
@@ -255,7 +278,11 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
                 below += 1
                 continue
             row = features.at_line(ask.loc[[idx]], float(quote["line"]))
-            step = int(round(float(quote["line"]) - float(r["base_line"]))) if per_step else None
+            offset = int(round(float(quote["line"]) - float(r["base_line"])))
+            steps = config.LINE_STEPS[market]
+            if not min(steps) <= offset <= max(steps):
+                continue                  # outside the range of lines the gate tested
+            step = offset if per_step else None
             if step not in models:
                 continue                  # a line outside the steps the gate tested
             model = models[step]

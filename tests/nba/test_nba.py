@@ -281,3 +281,18 @@ def test_a_scored_season_is_never_in_its_own_training_set():
         train = frame[(frame["season"] < season)
                       & (frame["season"] >= season - config.TRAIN_SEASONS)]
         assert season not in set(train["season"])
+
+
+def test_tomorrows_game_never_sees_tonights_placeholder():
+    """Back-to-back: tomorrow's form must come from real games, not tonight's
+    zero-stat placeholder (review, 2026-10-04)."""
+    from nba import board
+    hist = _rows(1, [30.0] * 12)
+    hist["GAME_ID"] = range(1, 13)
+    last = hist["game_date"].max()
+    synth = pd.DataFrame([dict(hist.iloc[-1], GAME_ID=-1, game_date=last + pd.Timedelta(days=2), PTS=0.0),
+                          dict(hist.iloc[-1], GAME_ID=-2, game_date=last + pd.Timedelta(days=3), PTS=0.0)])
+    built = board.build_upcoming(hist, synth, "points")
+    ask = built[built["GAME_ID"] < 0].set_index("GAME_ID")
+    assert ask.loc[-1, "form5"] == ask.loc[-2, "form5"] == 30.0
+    assert (built["GAME_ID"] >= 0).sum() == len(features.build(hist, "points"))   # history once

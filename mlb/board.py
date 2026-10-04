@@ -194,8 +194,18 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
             print(f"  {market}: dropped " + ", ".join(f"{n} {r}" for r, n in dropped.items()))
         if not synth:
             continue
-        allrows = pd.concat([rows, pd.DataFrame(synth)], ignore_index=True)
-        built = features.build(allrows, market)
+        # ONE UPCOMING GAME PER PLAYER AT A TIME. Features are ENTERING (shift(1)):
+        # priced together, a player's second game (tomorrow, or a doubleheader's
+        # nightcap) would see the first game's zero-stat placeholder as his last
+        # game. Each player's 1st, 2nd... upcoming game is built in its own pass.
+        synth_df = pd.DataFrame(synth)
+        nth = synth_df.sort_values(["game_date", "GAME_ID"]).groupby("PLAYER_ID").cumcount()
+        parts = [features.build(pd.concat([rows, synth_df[nth.reindex(synth_df.index) == k]],
+                                          ignore_index=True), market)
+                 for k in sorted(nth.unique())]
+        is_real = [~b["GAME_ID"].astype(str).str.startswith("NEXT") for b in parts]
+        built = pd.concat([parts[0][is_real[0]]] + [b[~r] for b, r in zip(parts, is_real)],
+                          ignore_index=True)
         is_synth = built["GAME_ID"].astype(str).str.startswith("NEXT")
         train = features.augment_lines(built[~is_synth], market)
         ask = built[is_synth]
