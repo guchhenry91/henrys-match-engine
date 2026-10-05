@@ -1,6 +1,6 @@
 {
   "_note": "Manual kickoff-time overrides. fixturedownload.com is the ONLY fixture source and its DateUtc is wrong for some fixtures: on 2026-08-15 every La Liga matchday-1 kickoff was exactly 10 hours early, because the feed published the LOCAL time on a 12-hour clock with the PM dropped and then labelled it 'Z' (19:30 CEST -> '07:30Z'; true UTC 17:30). A wrong kickoff freezes the pick hours early -- before any confirmed XI exists -- and hides the fixture from every board once the fake time passes. Keys are 'Home|Away' in CANONICAL club names, unique within a season. Values are the true kickoff in UTC. VERIFIED ONLY: two independent sources or an official club announcement, same bar as transfers.json. Never extrapolate the +10h pattern onto an unverified fixture -- the plausibility guard in fixtures.py already stops an unverified bad time from locking a pick, so a missing entry is safe and a guessed one is not.",
-  "_verified_on": "2026-08-15",
+  "_verified_on": "2026-10-05",
   "LALIGA": {
     "Alaves|Getafe": {
       "utc": "2026-08-15T17:30:00Z",
@@ -96,6 +96,89 @@
       "sources": [
         "laliga.com official: horarios de la primera jornada de LALIGA EA SPORTS 2026/27",
         "athletic-club.eus official: LaLiga announce kick-off times for first three 2026/27 fixtures"
+      ]
+    }
+  },
+  "BUNDESLIGA": {
+    "Dortmund|Werder Bremen": {
+      "utc": "2026-10-09T18:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "20:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Fri 18:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Fri 20:30 CEST"
+      ]
+    },
+    "Paderborn|Stuttgart": {
+      "utc": "2026-10-10T13:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "15:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sat 13:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sat 15:30 CEST"
+      ]
+    },
+    "Union Berlin|Elversberg": {
+      "utc": "2026-10-10T13:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "15:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sat 13:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sat 15:30 CEST"
+      ]
+    },
+    "Mainz|Leverkusen": {
+      "utc": "2026-10-10T13:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "15:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sat 13:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sat 15:30 CEST"
+      ]
+    },
+    "Augsburg|Bayern Munich": {
+      "utc": "2026-10-10T13:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "15:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sat 13:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sat 15:30 CEST"
+      ]
+    },
+    "Hoffenheim|Hamburg": {
+      "utc": "2026-10-10T13:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "15:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sat 13:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sat 15:30 CEST"
+      ]
+    },
+    "RB Leipzig|Ein Frankfurt": {
+      "utc": "2026-10-10T16:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "18:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sat 16:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sat 18:30 CEST"
+      ]
+    },
+    "FC Koln|M'gladbach": {
+      "utc": "2026-10-11T13:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "15:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sun 13:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sun 15:30 CEST"
+      ]
+    },
+    "Freiburg|Schalke 04": {
+      "utc": "2026-10-11T15:30:00Z",
+      "feed_said": "2026-10-09T00:00:00Z",
+      "local": "17:30 CEST",
+      "sources": [
+        "bundesliga.com matchday 5 schedule: Sun 15:30 UK/UTC",
+        "ran.de Bundesliga Spielplan 5. Spieltag: Sun 17:30 CEST"
       ]
     }
   }
