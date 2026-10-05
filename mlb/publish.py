@@ -137,7 +137,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     picks_mod.grade(log, finals, box, covered)
     void_unplayed(log, now)
     manifest.stamp(log.values(), "mlb")      # which model made each new pick
-    release.mark(log.values(), "mlb", performance.market_of)   # official or tracked
+    release.mark(log.values(), "mlb", performance.market_of, now=now)   # official or tracked
     picks_mod.save_log(log)
     for g in payload["games"]:
         e = log.get(picks_mod.game_key(g))

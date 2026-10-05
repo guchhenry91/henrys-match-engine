@@ -809,8 +809,8 @@ def build(league: str = "PL") -> dict:
 
     manifest.stamp(log.values(), "soccer")       # which model made each new pick
     manifest.stamp(pl_log.values(), "soccer")
-    release.mark(log.values(), "soccer", lambda e: "match_winner")   # official or tracked
-    release.mark(pl_log.values(), "soccer", lambda e: e.get("market"))
+    release.mark(log.values(), "soccer", lambda e: "match_winner", now=now)   # official or tracked
+    release.mark(pl_log.values(), "soccer", lambda e: e.get("market"), now=now)
     picks.save_log(log, log_path)
     picks.save_log(pl_log, pl_log_path)
 

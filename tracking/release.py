@@ -47,7 +47,13 @@ def status_map(sport: str) -> dict:
 
 def mark(entries, sport: str, market_of, statuses: dict | None = None, now=None) -> int:
     """Set entry["release"] on recently frozen picks. Returns how many were official."""
-    now = now or datetime.now(timezone.utc)
+    # The RUN's time, not the wall clock: a run (or a test) labels the picks it froze
+    # itself. Accepts a pandas Timestamp; a naive time is UTC.
+    now = now if now is not None else datetime.now(timezone.utc)
+    if hasattr(now, "to_pydatetime"):
+        now = now.to_pydatetime()
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
     statuses = status_map(sport) if statuses is None else statuses
     official = 0
     for e in entries:

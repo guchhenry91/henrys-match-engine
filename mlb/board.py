@@ -240,7 +240,7 @@ def props_and_totals(games_ahead: pd.DataFrame, odds_store: dict, released: list
 
         alts = {str(k): (v or {}).get("alt") or {} for k, v in odds_games.items()}
         # Each player's last five games of THIS stat, for the card's strip.
-        past = allrows[~allrows["GAME_ID"].astype(str).str.startswith("NEXT")]
+        past = rows                    # history only (the placeholders are never "past")
         last5 = recent.last_n(past, ask["PLAYER_ID"], spec["stat"])
         picks = []
         for idx, r in ask.iterrows():

@@ -202,7 +202,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
                 "PTS": r.PTS, "REB": r.REB, "AST": r.AST, "FG3M": r.FG3M}
     picks_mod.grade(log, finals, box, covered)
     manifest.stamp(log.values(), "nba")      # which model made each new pick
-    release.mark(log.values(), "nba", performance.market_of)   # official or tracked
+    release.mark(log.values(), "nba", performance.market_of, now=now)   # official or tracked
     picks_mod.save_log(log)
     _show_frozen(payload, log)
     value.annotate_line_board(payload)     # on the frozen line and price

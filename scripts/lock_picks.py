@@ -95,7 +95,7 @@ def lock_matches(now, window=None) -> list:
             changed = True
         if changed:
             manifest.stamp(log.values(), "soccer")      # which model made each new pick
-            release.mark(log.values(), "soccer", lambda e: "match_winner")
+            release.mark(log.values(), "soccer", lambda e: "match_winner", now=now)
             picks.save_log(log, log_path)
     return frozen
 
@@ -143,7 +143,7 @@ def lock_players(now, window=None) -> list:
         frozen.append(f"{pick['player']} {pick['market']} ({hours * 60:.0f}m out)")
     for log_path, log in logs.values():
         manifest.stamp(log.values(), "soccer")
-        release.mark(log.values(), "soccer", lambda e: e.get("market"))
+        release.mark(log.values(), "soccer", lambda e: e.get("market"), now=now)
         picks.save_log(log, log_path)
     return frozen
 
@@ -199,7 +199,8 @@ def lock_nfl(now) -> list:
     for section in ("games", "props"):
         manifest.stamp([e for k, e in log[section].items() if not k.startswith("_")], "nfl")
         release.mark([e for k, e in log[section].items() if not k.startswith("_")], "nfl",
-                     (lambda e: "team_winner") if section == "games" else (lambda e: e.get("market")))
+                     (lambda e: "team_winner") if section == "games" else (lambda e: e.get("market")),
+                     now=now)
     picks.save_log(log, nfl_picks.PICKS_LOG)
     after = _nfl_locked_count()
     return [f"NFL {after - before} pick(s)"] if after > before else []

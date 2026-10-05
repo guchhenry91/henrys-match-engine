@@ -459,6 +459,7 @@ def freeze_and_grade(payload: dict, now=None, stats=None, results=None) -> dict:
     for section in (GAMES_KEY, PROPS_KEY):
         manifest.stamp([e for k, e in log[section].items() if not k.startswith("_")], "nfl")
         release.mark([e for k, e in log[section].items() if not k.startswith("_")], "nfl",
-                     (lambda e: "team_winner") if section == GAMES_KEY else performance.market_of)
+                     (lambda e: "team_winner") if section == GAMES_KEY else performance.market_of,
+                     now=now)
     core.save_log(log, PICKS_LOG)
     return record(log)
