@@ -65,18 +65,19 @@ def season_label(season: int) -> str:
     return f"{season - 1}-{str(season)[-2:]}"
 
 
-def _fetch(season: int, side: str, attempts: int = 3) -> dict:
+def _fetch(season: int, side: str, attempts: int = 3,
+           season_type: str = "Regular Season", timeout: float = 90) -> dict:
     params = {
         "Counter": "0", "DateFrom": "", "DateTo": "", "Direction": "DESC",
         "LeagueID": "00", "PlayerOrTeam": side, "Season": season_label(season),
-        "SeasonType": "Regular Season", "Sorter": "DATE",
+        "SeasonType": season_type, "Sorter": "DATE",
     }
     url = BASE + "?" + urllib.parse.urlencode(params)
     last = None
     for attempt in range(1, attempts + 1):
         try:
             request = urllib.request.Request(url, headers=HEADERS)
-            with urllib.request.urlopen(request, timeout=90) as response:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
                 return json.loads(response.read().decode("utf-8"))
         except Exception as exc:                      # noqa: BLE001 - reported below
             last = exc

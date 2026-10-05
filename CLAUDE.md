@@ -1133,7 +1133,14 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
 - Odds API spend: up to 8 credits a check (4 markets + their 4 alternate ladders), at
   most two checks a game, plus 1 credit a run for match odds -- roughly 100-120 a day
   on a full slate (corrected 2026-10-04; it said 4 credits and ~55 a day). While the
-  NBA CDN refuses, +2 credits a run for /scores (nba/current.odds_schedule). Shared scheduling/parsing lives in
+  NBA CDN refuses, +2 credits a run for /scores (nba/current.odds_schedule).
+  BOX SCORES while the CDN refuses (2026-10-05): `nba.current.sync_from_stats` fills
+  every finished game it could not supply from stats.nba.com's season leaguegamelog
+  (preseason and regular, one request per stage, only while games are missing). The
+  Henryade proxy proved stats.nba.com answers from Cloudflare. Rows are re-keyed to the
+  SCHEDULE's game id by date + team pair, because picks grade on that id (the Odds API
+  schedule's "0029..." stand-ins). Without this, no preseason team moves were seen and
+  no regular-season prop could ever grade. Shared scheduling/parsing lives in
   `oddsapi/props.py`, also used by the NFL gap-fill.
 
 NFL yardage props are likewise published on bookmaker lines only

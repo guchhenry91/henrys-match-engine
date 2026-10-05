@@ -139,7 +139,7 @@ def _load(stage: str) -> pd.DataFrame:
 
 
 def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
-         sleeper=time.sleep) -> dict:
+         sleeper=time.sleep, fetch=None) -> dict:
     """Fetch box scores for finished games not already kept. Returns counts."""
     DIR.mkdir(parents=True, exist_ok=True)
     added, failed, budget = {}, 0, MAX_BOX_FETCHES
@@ -168,8 +168,65 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
             out.to_csv(tmp, index=False)
             tmp.replace(_path(stage))
         added[stage] = len({r["GAME_ID"] for r in new})
+        # THE CDN REFUSES CLOUDFLARE (and the Odds API schedule's games have no CDN
+        # box score at all), so finished games it could not supply come from
+        # stats.nba.com's season game log instead -- one request per stage.
+        have = _load(stage)
+        known = set(have["GAME_ID"].astype(str)) if not have.empty else set()
+        missing = sched[(sched["stage"] == stage) & (sched["status"] == FINAL)
+                        & ~sched["game_id"].astype(str).isin(known)]
+        # A test's stand-in opener means no network: only a stand-in fetch may run.
+        live = fetch is not None or opener is urllib.request.urlopen
+        if not missing.empty and live:
+            try:
+                added[stage] = added.get(stage, 0) + sync_from_stats(sched, stage, fetch)
+            except Exception as exc:
+                print(f"  stats.nba.com {STATS_TYPE[stage]} log unavailable "
+                      f"({type(exc).__name__}: {exc}); {len(missing)} game(s) still missing")
     return {"regular_games_added": added.get(REGULAR, 0),
             "preseason_games_added": added.get(PRESEASON, 0), "failed": failed}
+
+
+STATS_TYPE = {REGULAR: "Regular Season", PRESEASON: "Pre Season"}
+
+
+def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None) -> int:
+    """Add this season's player rows from stats.nba.com's leaguegamelog (the same
+    endpoint, headers and columns as the history, nba.data). Returns games added.
+
+    GAME IDS ARE THE SCHEDULE'S. Picks freeze and grade on the schedule's game id,
+    which is a stand-in ("0029...") while the schedule comes from The Odds API, so
+    each row is re-keyed by its date and the two teams (US Eastern dates on both
+    sides; the tricodes match nba.book_lines.TEAM_CODES). A row the schedule does
+    not list keeps the NBA's own id -- it still tells current_teams where a player
+    is, and simply cannot grade anything."""
+    from nba import data
+    fetch = fetch or (lambda st: data._fetch(config.CURRENT_SEASON, "P", attempts=2,
+                                             season_type=st, timeout=45))
+    block = fetch(STATS_TYPE[stage])["resultSets"][0]
+    rows = pd.DataFrame(block["rowSet"], columns=block["headers"])
+    if rows.empty:
+        return 0
+    rows = rows[[c for c in COLUMNS if c in rows.columns]].copy()
+    rows["MIN"] = pd.to_numeric(rows["MIN"], errors="coerce").fillna(0)
+    rows = rows[rows["MIN"] > 0]
+    rows["GAME_DATE"] = rows["GAME_DATE"].astype(str).str[:10]
+    rows["GAME_ID"] = rows["GAME_ID"].astype(str).str.zfill(10)
+    by_pair = {(str(g.game_date)[:10], frozenset((g.home_team, g.away_team))): str(g.game_id)
+               for g in sched[sched["stage"] == stage].itertuples()}
+    opp = rows["MATCHUP"].astype(str).str.split(r"\s+(?:@|vs\.)\s+", regex=True).str[-1]
+    rows["GAME_ID"] = [by_pair.get((d, frozenset((t, o))), gid) for d, t, o, gid in
+                       zip(rows["GAME_DATE"], rows["TEAM_ABBREVIATION"], opp, rows["GAME_ID"])]
+    have = _load(stage)
+    before = set(have["GAME_ID"].astype(str)) if not have.empty else set()
+    out = pd.concat([have, rows], ignore_index=True)
+    out["GAME_ID"] = out["GAME_ID"].astype(str)
+    out = out.drop_duplicates(subset=["GAME_ID", "PLAYER_ID"], keep="first")
+    DIR.mkdir(parents=True, exist_ok=True)
+    tmp = _path(stage).with_suffix(".csv.tmp")
+    out.to_csv(tmp, index=False)
+    tmp.replace(_path(stage))
+    return len(set(out["GAME_ID"]) - before)
 
 
 def player_games() -> pd.DataFrame:
