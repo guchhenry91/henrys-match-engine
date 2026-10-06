@@ -1402,6 +1402,12 @@ const BETTABLE=new Set(["promising","proven"]);
 // market's overall status, which every probability-chosen pick feeds.
 const betStatus=(sport,market)=>(perfOf(sport,market)||{}).bet_status||"testing";
 const marketEarned=(sport,market)=>BETTABLE.has(betStatus(sport,market));
+// tracking/gate.py: this kind of pick (market and side) has not earned its place
+// on its own graded record, so its value verdict is withdrawn. Still tracked, so
+// it comes back by itself if the record recovers.
+function heldTag(p){
+  return p&&p.held_back?`<span class="mk w" title="${esc("Held back: "+p.held_back+". Still tracked; returns automatically if its record recovers.")}">Held back</span>`:"";
+}
 function valueBits(x, sport, market){
   const v=x&&x.value;
   if(!v||!v.min_price) return "";
@@ -1554,7 +1560,7 @@ function nflPropTableRow(p, full){
       ${tiles(p.last_five, x=>td?x>0:(p.line!=null?(under?x<p.line:x>p.line):null), x=>td?(x>0?"TD":"0"):Math.round(x), "Last five games")}${
       (p.ladder_up||[]).length?`<div class="lup" title="The bookmaker's higher lines for this player, each with its chance of hitting and its price">
         <span>Higher lines · ${esc(p.ladder_up[0].book)}</span>${p.ladder_up.map(r=>`<i>${r.line}+ <b>${pc(r.p)}%</b> <small>${Number(r.price).toFixed(2)}</small></i>`).join("")}</div>`:""}</div>
-    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${valueBits(p,"nfl",p.market)}${newsTag(p)}${
+    <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${heldTag(p)}${valueBits(p,"nfl",p.market)}${newsTag(p)}${
       p.line_source&&p.line_source!=="model"?`${lineNote(p)}`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
       p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
@@ -2329,7 +2335,7 @@ function nbaPropTableRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · averaging ${p.form5} ${NBAUNIT[p.market]||""} in ${p.min5} min${
         p.club_source==="last season"?" · team from last season":""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span>${lineLastFive(p)}${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${valueBits(p,"nba",p.market)}${newsTag(p)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${NBAUNIT[p.market]||""}</b>${status}${perfTag("nba",p.market)}${heldTag(p)}${valueBits(p,"nba",p.market)}${newsTag(p)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null
@@ -2374,7 +2380,7 @@ function mlbPropTableRow(p){
     <div class="be"><div class="beb">MLB · ${esc(MLBMK[p.market]||p.market)}</div>
       <b>${esc(p.player)}</b>
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · last five average ${p.form5} ${u}</span>${lineLastFive(p)}${ladderStrip(p)}</div>
-    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${valueBits(p,"mlb",p.market)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    <div class="bs"><b class="sel">${p.side==="under"?"Under":"Over"} ${p.line} ${u}</b><span class="tier ${t.cls}">${t.label}</span>${perfTag("mlb",p.market)}${heldTag(p)}${valueBits(p,"mlb",p.market)}${lineNote(p)}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(p.probability)}
     ${valCell(`${lineBook(p)} line`, p.line)}
     ${p.book_price!=null

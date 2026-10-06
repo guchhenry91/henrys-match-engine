@@ -762,7 +762,8 @@ def build() -> dict:
             sharp = json.loads((ROOT / "data-raw" / "nfl" / "odds_api_props.json").read_text(encoding="utf-8")).get("games") or {}
         except Exception:
             b365, sharp = {}, {}
-        mis = nfl_mispricing.update(nfl_mispricing.scan(b365, sharp), slate, stats_for)
+        mis = nfl_mispricing.update(nfl_mispricing.scan(b365, sharp), slate, stats_for,
+                                    sharp=sharp, b365=b365)
         from tracking import performance as _perf
         mis["performance"] = _perf.by_market(mis["settled"], lambda e: e["market"])
         OUT.mkdir(parents=True, exist_ok=True)
@@ -906,6 +907,12 @@ def main():
     # Profit at the frozen price and closing-line value, per market.
     from tracking import performance
     _log = picks.core.load_log(picks.PICKS_LOG)
+    # Each kind of pick earns its place from its own record (tracking/gate.py).
+    from tracking import gate
+    held = gate.apply(payload, gate.report(
+        e for k, e in (_log.get(picks.PROPS_KEY) or {}).items() if not k.startswith("_")))
+    if held:
+        print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["performance"] = performance.by_market(
         [dict(e, kind="winner") for k, e in (_log.get(picks.GAMES_KEY) or {}).items()
          if not k.startswith("_") and e.get("graded")]

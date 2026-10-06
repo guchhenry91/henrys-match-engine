@@ -133,7 +133,50 @@ def key(e) -> str:
     return f"{e['game']}|{e['market']}|{e['player']}|{e['side']}|{e['line']}"
 
 
-def update(found: list, games: dict, stats_for, now=None) -> dict:
+def stamp_close(e: dict, sharp_game: dict | None, b365_game: dict | None) -> bool:
+    """Pinnacle's LAST pre-kickoff fair chance for this bet, and bet365's last price.
+
+    The check must come AFTER the edge was flagged and BEFORE kickoff, or "the
+    close" would just be the price the flag was made at -- and an edge always beats
+    itself. Same maths as scan(): the yes price for a touchdown, else the de-vigged
+    over, line-adjusted where Pinnacle's line differs from bet365's."""
+    checks = (sharp_game or {}).get("checks") or []
+    if not checks:
+        return False
+    last = datetime.fromisoformat(str(checks[-1]).replace("Z", "+00:00"))
+    ko = datetime.fromisoformat(str(e["kickoff"]).replace("Z", "+00:00"))
+    first = datetime.fromisoformat(str(e["first_seen"]).replace("Z", "+00:00"))
+    if not first < last < ko:
+        return False
+    p = match_player(((sharp_game or {}).get("props") or {}).get(e["market"]) or {}, e["player"])
+    if not p or str(p.get("book", "")).lower() != "pinnacle":
+        return False
+    if e["market"] == TD:
+        if p.get("over") is None:
+            return False
+        prob = float(p["over"])
+    else:
+        fo = _fair_over(p)
+        if fo is None:
+            return False
+        pl, bl = float(p.get("line") or 0), float(e["line"])
+        if pl == bl:
+            over = fo
+        elif abs(bl - pl) <= MAX_GAP[e["market"]]:
+            mu = pl + SPREAD[e["market"]] * _phi_inv(fo)
+            over = 1.0 - _phi((bl - mu) / SPREAD[e["market"]])
+        else:
+            return False
+        prob = over if e["side"] == "over" else 1.0 - over
+    b = match_player(((b365_game or {}).get(e["market"])) or {}, e["player"]) or {}
+    late = b.get("odd") if e["market"] == TD else b.get(f"odd_{e['side']}")
+    e["close_p"] = round(prob, 4)
+    e["close_price"] = float(late) if late else float(e["b365"])
+    e["close_at"] = last.isoformat()
+    return True
+
+
+def update(found: list, games: dict, stats_for, now=None, sharp=None, b365=None) -> dict:
     """Log flags at first sight; grade finished ones.
 
     games: "HOME|AWAY" -> {"kickoff", "season", "week"} for the slate being priced.
@@ -157,6 +200,9 @@ def update(found: list, games: dict, stats_for, now=None) -> dict:
         if e.get("graded"):
             continue
         ko = datetime.fromisoformat(str(e["kickoff"]).replace("Z", "+00:00"))
+        # Once it has kicked off, the last Pinnacle check before kickoff is the close.
+        if ko <= now and "close_p" not in e and sharp is not None:
+            stamp_close(e, sharp.get(e["game"]), (b365 or {}).get(e["game"]))
         if (now - ko).total_seconds() < 4 * 3600:
             continue
         row = stats_for(int(e["season"]), int(e["week"]), e["player"], e["game"].split("|"))

@@ -1188,6 +1188,29 @@ unfiltered. On 2026-09-27 this would have removed 6 of 179 picks, all benched or
   board must be judged against the price, not a 50% bar.
 
 
+## Plan after the 2026-10-06 research (what actually makes money)
+Research across consumer AI pick apps, the pro syndicates and the academic work found
+that the edge with real-money evidence is PRICE, not prediction: a soft book (bet365)
+paying more than the sharp market's fair price. The app already flags these
+(leagues/mispricing.py vs the Betfair Exchange, nfl/mispricing.py vs Pinnacle) at the
+top of the Bet list. Two things were added:
+- **Closing-line check on price edges.** Football: after the match, football-data's
+  season file gives the exchange's CLOSING prices; each edge gets `close_p`,
+  `close_price`, `close_ev` (`mispricing.stamp_close`; an Asian handicap whose line
+  moved is not compared). NFL: the last Pinnacle check AFTER the flag and BEFORE
+  kickoff is the close (`nfl/mispricing.stamp_close`); the flag's own check never
+  counts, or an edge would always beat itself. `performance.clv` scores them.
+- **Each kind of pick earns its place** (`tracking/gate.py`, NFL/NBA/MLB props): a
+  market+side with 20+ graded picks is HELD BACK when it wins 2 SE below its own
+  stated chances or loses 2 SE at the prices taken. Held picks stay frozen and graded
+  (so they recover automatically) but lose their value verdict, so they never reach
+  the Bet list; `payload["gate"]` publishes the per-group numbers. First run: MLB
+  hits overs held (19 of 42 vs 27 expected); home runs NOT held (5 of 45 vs 6.1 --
+  long shots losing the margin, not a model failure).
+- `history.fetch_csv` downloads each live-season file ONCE per run (`_FETCHED`): the
+  model fit, the bet365 closing stamp and the edge check all read it.
+
+
 ## Model audit, 2026-09-27 (all sports) -- what was fixed and why
 - **Live NFL rows were one game stale** (priced from the LAST game's row: form missing
   that game, last week's opponent/venue/rest). Now `publish.next_game_frame` builds a

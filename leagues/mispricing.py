@@ -137,7 +137,64 @@ def settle(e, hg: int, ag: int) -> float | None:
     return total / len(halves)
 
 
-def update(found: list, results: dict, now=None, log_path=None) -> dict:
+# CLOSING prices, the fast verdict on an edge. football-data's season file carries
+# bet365's and the exchange's prices at kickoff for every played match. An edge
+# whose price still beats the exchange's CLOSING fair chance was real value when
+# taken -- the standard test of a betting edge, visible after a few dozen bets
+# where profit needs hundreds.
+CLOSE_COLS = {
+    "match_result": ({"home": "B365CH", "draw": "B365CD", "away": "B365CA"},
+                     {"home": "BFECH", "draw": "BFECD", "away": "BFECA"}, None),
+    "over_under_2.5": ({"over": "B365C>2.5", "under": "B365C<2.5"},
+                       {"over": "BFEC>2.5", "under": "BFEC<2.5"}, None),
+    "asian_handicap": ({"home": "B365CAHH", "away": "B365CAHA"},
+                       {"home": "BFECAHH", "away": "BFECAHA"}, "AHCh"),
+}
+
+
+def closing_rows(texts: dict) -> dict:
+    """{(league, date, home, away): season-file row} from {league: CSV text}."""
+    out = {}
+    for league, text in (texts or {}).items():
+        try:
+            frame = pd.read_csv(io.StringIO(text), encoding="latin-1")
+        except Exception:
+            continue
+        for _, r in frame.iterrows():
+            try:
+                home, away = canonical(r["HomeTeam"], league), canonical(r["AwayTeam"], league)
+                day = datetime.strptime(str(r["Date"]), "%d/%m/%Y").date().isoformat()
+            except (UnknownTeam, KeyError, TypeError, ValueError):
+                continue
+            out[(league, day, home, away)] = r
+    return out
+
+
+def stamp_close(e: dict, row) -> bool:
+    """Closing fair chance and bet365 price on one logged edge. True if stamped."""
+    book, exch, line_col = CLOSE_COLS[e["market"]]
+    if line_col is not None:
+        try:
+            if float(row.get(line_col)) != float(e["line"]):
+                return False                 # the handicap moved: no like-for-like close
+        except (TypeError, ValueError):
+            return False
+    order = list(exch)
+    fair = _fair([_f(row.get(exch[s])) for s in order]) if all(
+        _f(row.get(exch[s])) for s in order) else None
+    if fair is None:
+        return False
+    p = fair[order.index(e["selection"])]
+    e["open"] = {"p": e["fair_p"], "price": e["b365"], "book": "bet365"}
+    e["close_p"] = round(p, 4)
+    e["close_price"] = _f(row.get(book[e["selection"]]))
+    # The edge measured against the SHARP CLOSE: positive means the price taken
+    # still beat the exchange's final verdict on this outcome.
+    e["close_ev"] = round(e["close_p"] * float(e["b365"]) - 1.0, 4)
+    return True
+
+
+def update(found: list, results: dict, now=None, log_path=None, closes=None) -> dict:
     """Log new flags at their first price, grade finished ones; returns the payload."""
     now = now or datetime.now(timezone.utc)
     log_file = Path(log_path) if log_path else LOG
@@ -156,7 +213,10 @@ def update(found: list, results: dict, now=None, log_path=None) -> dict:
     for k, e in log.items():
         if e.get("graded"):
             continue
-        res = results.get((e["league_key"], e["date"][:10], e["home"], e["away"]))
+        match = (e["league_key"], e["date"][:10], e["home"], e["away"])
+        if "close_p" not in e and (closes or {}).get(match) is not None:
+            stamp_close(e, closes[match])
+        res = results.get(match)
         if res is None:
             continue
         units = settle(e, *res)

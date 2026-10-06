@@ -20,7 +20,7 @@ from leagues import (config, dataset, fixtures, lockwindow, odds, parlays, picks
 # dozen call sites and several tests reference publish.actual_standings.
 from leagues.standings import actual_standings, unrecorded_fixtures  # noqa: F401
 from leagues import closing, prop_odds, shot_odds
-from leagues import mispricing
+from leagues import history, mispricing
 from leagues import odds_history
 from leagues import lockstamp, prop_calibration
 from tracking import manifest, performance, release, trust, value
@@ -1403,9 +1403,19 @@ def main(argv=None):
             # The price archive (leagues/odds_history.py): one snapshot per change.
             n_snap = odds_history.record(feed, path=PICKS_DIR / "odds_history.json")
             print(f"  odds history: {n_snap} fixture(s) with a new price snapshot")
+            # Closing prices from the season files (history.fetch_csv downloads each
+            # once per run, so the model fit's copy is reused here).
+            texts = {}
+            for lg_key in config.LEAGUES:
+                try:
+                    texts[lg_key] = history.fetch_csv(history.current_fd_season(),
+                                                      config.get(lg_key).fd_code)
+                except Exception as exc:
+                    print(f"  {lg_key}: closing prices unavailable ({type(exc).__name__})")
             mis = mispricing.update(mispricing.scan(feed),
                                     mispricing.results_from_boards(OUT),
-                                    log_path=PICKS_DIR / "mispriced_log.json")
+                                    log_path=PICKS_DIR / "mispriced_log.json",
+                                    closes=mispricing.closing_rows(texts))
             mis["performance"] = performance.by_market(mis["settled"], lambda e: e["market"])
             (OUT / "mispriced.json").write_text(json.dumps(mis, indent=2, default=str),
                                                 encoding="utf-8")

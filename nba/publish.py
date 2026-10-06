@@ -17,7 +17,7 @@ reason, so a board with picks needs no second design.
 import json
 
 from scripts import json_safe
-from tracking import manifest, release
+from tracking import gate, manifest, release
 from tracking import news_edge, performance, trust, value
 from datetime import datetime, timezone
 from pathlib import Path
@@ -206,6 +206,10 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     picks_mod.save_log(log)
     _show_frozen(payload, log)
     value.annotate_line_board(payload)     # on the frozen line and price
+    # Each kind of pick earns its place from its own record (tracking/gate.py).
+    held = gate.apply(payload, gate.report(log.values()))
+    if held:
+        print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["record"] = picks_mod.record(log)
     payload["performance"] = performance.by_market(
         [e for e in log.values() if isinstance(e, dict) and e.get("graded")],

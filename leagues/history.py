@@ -65,6 +65,12 @@ def fetch_csv(season: str, div: str, now=None) -> str:
     live = season == current_fd_season(now)
     if path.exists() and not live:
         return path.read_text(encoding="latin-1")
+    # ONE download per file per run. The season in progress is asked for by the
+    # model fit, the bet365 closing stamp (leagues/closing.py) and the price-edge
+    # closing check (leagues/mispricing.py); refetching each time tripled the
+    # requests to a small free site that has already answered 503 to over-asking.
+    if (season, div) in _FETCHED:
+        return _FETCHED[(season, div)]
 
     url = URL.format(season=season, div=div)
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
@@ -81,7 +87,11 @@ def fetch_csv(season: str, div: str, now=None) -> str:
     tmp = path.with_suffix(".csv.tmp")
     tmp.write_text(text, encoding="latin-1")
     tmp.replace(path)                    # atomic: never leave a half-written cache
+    _FETCHED[(season, div)] = text
     return text
+
+
+_FETCHED: dict = {}                      # this process's live-season downloads
 # Average closing odds; fall back to Bet365 closing, then Bet365 pre-match.
 ODDS_SETS = [("AvgCH", "AvgCD", "AvgCA"), ("B365CH", "B365CD", "B365CA"),
              ("B365H", "B365D", "B365A")]
