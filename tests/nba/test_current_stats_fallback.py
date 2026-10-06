@@ -25,7 +25,7 @@ def test_preseason_rows_are_rekeyed_to_the_schedule_game_and_dnp_dropped(tmp_pat
              "L", 30, 20, 5, 5, 2]]
     asked = []
     out = current.sync(sched, opener=lambda *a, **k: None, sleeper=lambda s: None,
-                       fetch=lambda st: asked.append(st) or _log(rows))
+                       fetch=lambda st: asked.append(st) or _log(rows), today="2026-10-21")
     assert asked == ["Pre Season"] and out["preseason_games_added"] == 2
     got = current._load(current.PRESEASON)
     tatum = got[got["PLAYER_NAME"] == "Jayson Tatum"].iloc[0]
@@ -35,7 +35,7 @@ def test_preseason_rows_are_rekeyed_to_the_schedule_game_and_dnp_dropped(tmp_pat
     assert current.current_teams()[1628369] == "BOS"
     # Covered now: a second run asks nothing more.
     current.sync(sched, opener=lambda *a, **k: None, sleeper=lambda s: None,
-                 fetch=lambda st: asked.append(st) or _log(rows))
+                 fetch=lambda st: asked.append(st) or _log(rows), today="2026-10-21")
     assert asked == ["Pre Season"]
 
 
@@ -48,3 +48,25 @@ def test_a_stand_in_opener_never_reaches_the_network(tmp_path, monkeypatch):
     from nba import data
     monkeypatch.setattr(data, "_fetch", lambda *a, **k: (_ for _ in ()).throw(AssertionError("network")))
     current.sync(sched, opener=lambda *a, **k: None, sleeper=lambda s: None)
+
+
+def test_preseason_is_asked_for_even_when_the_schedule_lists_none(tmp_path, monkeypatch):
+    """The Odds API schedule carries regular-season games only; before opening
+    night the preseason log is fetched anyway, keeping the NBA's own ids."""
+    monkeypatch.setattr(current, "DIR", tmp_path)
+    sched = pd.DataFrame([{"game_id": "0029000001", "stage": current.REGULAR, "tipoff": "x",
+                           "game_date": "2026-10-20", "home_team": "BOS", "away_team": "NYK",
+                           "home_score": None, "away_score": None, "status": 1,
+                           "neutral": False}])
+    rows = [["22026", 1628369, "Jayson Tatum", 1, "BOS", 12600003, "2026-10-04",
+             "BOS vs. NYK", "W", 28, 25, 7, 4, 3]]
+    asked = []
+    out = current.sync(sched, opener=lambda *a, **k: None, sleeper=lambda s: None,
+                       fetch=lambda st: asked.append(st) or _log(rows), today="2026-10-06")
+    assert asked == ["Pre Season"] and out["preseason_games_added"] == 1
+    assert current._load(current.PRESEASON)["GAME_ID"].tolist() == ["0012600003"]
+    assert current.current_teams()[1628369] == "BOS"
+    # From opening night on, an empty preseason schedule asks nothing.
+    current.sync(sched, opener=lambda *a, **k: None, sleeper=lambda s: None,
+                 fetch=lambda st: asked.append(st) or _log(rows), today="2026-10-20")
+    assert asked == ["Pre Season"]

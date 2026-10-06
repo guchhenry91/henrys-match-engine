@@ -139,9 +139,10 @@ def _load(stage: str) -> pd.DataFrame:
 
 
 def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
-         sleeper=time.sleep, fetch=None) -> dict:
+         sleeper=time.sleep, fetch=None, today: str | None = None) -> dict:
     """Fetch box scores for finished games not already kept. Returns counts."""
     DIR.mkdir(parents=True, exist_ok=True)
+    today = today or _eastern_date(pd.Timestamp.now(tz="UTC").isoformat())
     added, failed, budget = {}, 0, MAX_BOX_FETCHES
     for stage in (PRESEASON, REGULAR):
         have = _load(stage)
@@ -177,7 +178,11 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
                         & ~sched["game_id"].astype(str).isin(known)]
         # A test's stand-in opener means no network: only a stand-in fetch may run.
         live = fetch is not None or opener is urllib.request.urlopen
-        if not missing.empty and live:
+        # The Odds API schedule lists NO preseason games, so nothing is ever
+        # "missing" there -- yet preseason box scores are where 2026-27 trades and
+        # signings first show (current_teams). Until opening night, ask anyway.
+        preseason_window = stage == PRESEASON and today < config.REGULAR_SEASON_START
+        if (not missing.empty or preseason_window) and live:
             try:
                 added[stage] = added.get(stage, 0) + sync_from_stats(sched, stage, fetch)
             except Exception as exc:
