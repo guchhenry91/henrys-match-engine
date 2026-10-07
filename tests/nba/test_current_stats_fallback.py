@@ -70,3 +70,42 @@ def test_preseason_is_asked_for_even_when_the_schedule_lists_none(tmp_path, monk
     current.sync(sched, opener=lambda *a, **k: None, sleeper=lambda s: None,
                  fetch=lambda st: asked.append(st) or _log(rows), today="2026-10-20")
     assert asked == ["Pre Season"]
+
+
+class _Reply:
+    def __init__(self, body):
+        self.body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+    def read(self):
+        return self.body
+
+
+def test_league_log_asks_the_stats_proxy_first(monkeypatch):
+    import json
+    monkeypatch.setenv("STATE_URL", "https://worker.example/")
+    seen = []
+
+    def opener(req, timeout):
+        seen.append(req.full_url)
+        return _Reply(json.dumps(_log([])).encode())
+    out = current.league_log("Pre Season", opener=opener)
+    assert out["resultSets"][0]["rowSet"] == []
+    assert seen == ["https://worker.example/api/nba/leaguegamelog?season=2026-27"
+                    "&season_type=Pre+Season"]
+
+
+def test_league_log_falls_back_to_stats_nba_com(monkeypatch):
+    from nba import data
+    asked = []
+    monkeypatch.setattr(data, "_fetch", lambda *a, **k: asked.append(k) or _log([]))
+
+    def opener(req, timeout):
+        return _Reply(b'{"error": "Not Found"}')
+    current.league_log("Pre Season", opener=opener)
+    assert asked and asked[0]["season_type"] == "Pre Season" and asked[0]["attempts"] == 1

@@ -195,6 +195,37 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
 STATS_TYPE = {REGULAR: "Regular Season", PRESEASON: "Pre Season"}
 
 
+PROXY_URL = "https://henrys-match-engine.henrys-edge-engine.workers.dev"
+
+
+def league_log(season_type: str, opener=urllib.request.urlopen) -> dict:
+    """stats.nba.com's whole-league player log for this season.
+
+    stats.nba.com ignores this job's container (2026-10-06: two 45s waits, nothing),
+    but answers the Worker's own stats proxy (guchhenry91/nba-stats-proxy,
+    /api/nba/leaguegamelog), so that is asked first; a direct request is the
+    fallback. Same JSON either way."""
+    import os
+    import urllib.parse
+    from nba import data
+    base = (os.environ.get("STATE_URL") or PROXY_URL).rstrip("/")
+    url = base + "/api/nba/leaguegamelog?" + urllib.parse.urlencode(
+        {"season": data.season_label(config.CURRENT_SEASON), "season_type": season_type})
+    try:
+        with opener(urllib.request.Request(url, headers={"User-Agent": "henrys-match-engine"}),
+                    timeout=40) as r:
+            payload = json.loads(r.read().decode("utf-8"))
+        if "resultSets" not in payload:
+            raise RuntimeError(payload.get("error") or "no resultSets")
+        print(f"  stats.nba.com {season_type} log via the stats proxy")
+        return payload
+    except Exception as exc:
+        print(f"  stats proxy {season_type} log unavailable ({type(exc).__name__}: {exc}); "
+              f"asking stats.nba.com directly")
+    return data._fetch(config.CURRENT_SEASON, "P", attempts=1, season_type=season_type,
+                       timeout=45)
+
+
 def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None) -> int:
     """Add this season's player rows from stats.nba.com's leaguegamelog (the same
     endpoint, headers and columns as the history, nba.data). Returns games added.
@@ -205,10 +236,7 @@ def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None) -> int:
     sides; the tricodes match nba.book_lines.TEAM_CODES). A row the schedule does
     not list keeps the NBA's own id -- it still tells current_teams where a player
     is, and simply cannot grade anything."""
-    from nba import data
-    fetch = fetch or (lambda st: data._fetch(config.CURRENT_SEASON, "P", attempts=2,
-                                             season_type=st, timeout=45))
-    block = fetch(STATS_TYPE[stage])["resultSets"][0]
+    block = (fetch or league_log)(STATS_TYPE[stage])["resultSets"][0]
     rows = pd.DataFrame(block["rowSet"], columns=block["headers"])
     if rows.empty:
         return 0
