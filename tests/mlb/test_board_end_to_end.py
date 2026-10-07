@@ -5,6 +5,8 @@ test passed and every live MLB run crashed at publish for two days. This runs th
 same function the live job runs -- every market, the model fits, the last-five
 strip, the ladders -- so a crash there fails the tests instead of the board.
 """
+import math
+
 import pandas as pd
 
 from mlb import board, config, current
@@ -34,11 +36,17 @@ def test_every_mlb_market_builds_on_real_history(monkeypatch):
     starter = pit[pit["BFP"] >= 18].groupby("PLAYER_ID").tail(1).tail(1)
     assert len(batters) >= 2 and len(starter) == 1, "fixture data missing from the repo"
 
+    # The model is gated only within LINE_STEPS of a pitcher's own median, so a
+    # fixed line fails whenever the newest starter is a high-strikeout arm (it
+    # did on 2026-10-07: Chris Sale, median 7, asked about 4.5). Quote his own.
+    k_med = float(pit.loc[pit["PLAYER_ID"] == starter["PLAYER_ID"].iloc[0], "K"].median())
+    k_line = min(max(math.floor(k_med + 0.5) - 0.5, config.MIN_LINE["strikeouts"]),
+                 config.MAX_LINE["strikeouts"])
     props = {"hits": {n: _quote(0.5, 0.62) for n in batters["NAME"]},
              "hrr": {n: _quote(1.5) for n in batters["NAME"]},
              "hr": {n: _quote(0.5, 0.12) for n in batters["NAME"]},
              "rbi": {n: _quote(0.5, 0.3) for n in batters["NAME"]},
-             "strikeouts": {starter["NAME"].iloc[0]: _quote(4.5)}}
+             "strikeouts": {starter["NAME"].iloc[0]: _quote(k_line)}}
     odds = {"games": {"1": {"props": props, "alt": {},
                             "team_totals": {"home": _quote(3.5), "away": _quote(3.5)}}}}
     games = pd.DataFrame([{"game_pk": 1, "home_team": "ATL", "away_team": "PHI",
