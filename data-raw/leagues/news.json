@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-09-20",
+  "_verified_on": "2026-10-08",
   "PL": {
     "Arsenal": {
       "out": [
@@ -2609,7 +2609,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-08T17:13:44Z",
+      "checked": "2026-10-08T19:11:54Z",
       "lineup_api_attempted_fixture": 1575168,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -2673,7 +2673,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-08T17:13:44Z",
+      "checked": "2026-10-08T19:11:54Z",
       "lineup_api_attempted_fixture": 1575165,
       "lineup_api_attempted_at": "2026-09-12T15:38:48.759631+00:00",
       "lineup_api_rungs": [
@@ -2855,7 +2855,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-08T17:13:44Z",
+      "checked": "2026-10-08T19:11:54Z",
       "lineup_api_attempted_fixture": 1552759,
       "lineup_api_attempted_at": "2026-09-13T15:00:07.177817+00:00",
       "lineup_api_rungs": [
@@ -3129,9 +3129,11 @@
       ]
     },
     "Lyon": {
-      "out": [],
+      "out": [
+        "Moussa Niakhaté"
+      ],
       "doubt": [],
-      "note": "Ahead of the 9 Oct Lens match: one tracker (starting11.com, no last-updated date) lists Duranville, Tagliafico, Himbert and Niakhate as out. Niakhate (knee, picked up on September international duty with Senegal) gets a second, dated mention (Goal.com) but that report's own year is unconfirmed, so still short of this file's two-independent-source bar -- reported here, not acted on. No Lens or Lyon player on today's player_picks board is affected either way.",
+      "note": "Ahead of the 9 Oct Lens match: Niakhaté (hamstring) now confirmed OUT -- left the Senegal camp in Marseille after the 4 Oct friendly vs Comores, an MRI confirmed the injury, and he returned to Lyon for treatment. Corroborated across multiple independent outlets (foot-africa.com, africasoccer.com, foot01.com, lyonmag.com, afrik-foot.com), all citing L'Equipe's forfeit report for the Lens fixture; also flagged as a doubt for the 15 Oct Europa League game vs Crystal Palace. Duranville, Tagliafico and Himbert remain only on the uncorroborated starting11.com tracker -- still not acted on. No Lens or Lyon player on today's player_picks board is affected either way.",
       "automation": {
         "checked_at": "2026-09-19T17:31:53.529889Z",
         "feeds_ok": [
@@ -3144,7 +3146,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-08T17:13:44Z",
+      "checked": "2026-10-08T19:11:54Z",
       "lineup_api_attempted_fixture": 1552750,
       "lineup_api_attempted_at": "2026-09-04T16:24:56.701452+00:00",
       "lineup_api_rungs": [
