@@ -352,9 +352,10 @@ def build(sched: pd.DataFrame, now, released: list, ruled_out=None) -> dict:
     hist_rows = data.player_games(
         seasons=config.SEASONS[-HISTORY_SEASONS:]) if len(games_ahead) else pd.DataFrame()
     if len(games_ahead) and (odds_store.get("games") or {}):
-        props, held = prop_picks(player_rows(hist_rows), games_ahead, odds_store,
-                                 current.current_teams(), released, ruled_out=ruled_out,
-                                 collect=game_props)
+        rows = player_rows(hist_rows)
+        props, held = prop_picks(rows, games_ahead, odds_store,
+                                 current.current_teams(_name_index(rows)), released,
+                                 ruled_out=ruled_out, collect=game_props)
     else:
         props, held = {m: [] for m in config.MARKETS}, {}
     return {"games": teams, "props": props, "held_back": held, "game_props": game_props,

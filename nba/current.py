@@ -267,19 +267,43 @@ def player_games() -> pd.DataFrame:
     return _load(REGULAR)
 
 
-def current_teams() -> dict:
-    """PLAYER_ID -> team tricode, from the newest box score each player is in.
-
-    Regular season beats preseason for the same date order, simply because it is
-    later. A player with no box score this season is absent -- the caller falls
-    back to last season and says so, rather than assuming he stayed."""
+def _latest_box_rows() -> pd.DataFrame:
     frames = [f for f in (_load(PRESEASON), _load(REGULAR)) if not f.empty]
     if not frames:
-        return {}
+        return pd.DataFrame(columns=COLUMNS)
     rows = pd.concat(frames, ignore_index=True)
     rows = rows.sort_values(["GAME_DATE", "GAME_ID"])
-    latest = rows.groupby("PLAYER_ID").tail(1)
-    return {int(r.PLAYER_ID): r.TEAM_ABBREVIATION for r in latest.itertuples()}
+    return rows.groupby("PLAYER_ID").tail(1)
+
+
+def box_name_teams() -> dict:
+    """{norm name: team} from each player's newest box score -- what a roster must
+    agree with before it is used (nba.rosters.check)."""
+    from nfl.odds import norm_name
+    return {norm_name(r.PLAYER_NAME): r.TEAM_ABBREVIATION
+            for r in _latest_box_rows().itertuples()}
+
+
+def current_teams(names: dict | None = None) -> dict:
+    """PLAYER_ID -> team tricode: the newest of his box score and the roster.
+
+    Box scores say where a player last PLAYED; the roster (nba.rosters, given
+    `names` = {norm name: PLAYER_ID}) says where he IS, so it wins over any box
+    score from before the day it was fetched -- a summer trade shows before his new
+    team has played. A box score from that day or later wins over the roster (a
+    trade since). Regular season beats preseason for the same date order, simply
+    because it is later. A player in neither is absent -- the caller falls back to
+    last season and says so, rather than assuming he stayed."""
+    latest = _latest_box_rows()
+    out = {int(r.PLAYER_ID): r.TEAM_ABBREVIATION for r in latest.itertuples()}
+    if names:
+        from nba import rosters
+        roster, day = rosters.teams_for(names)
+        played = {int(r.PLAYER_ID): str(r.GAME_DATE)[:10] for r in latest.itertuples()}
+        for pid, team in roster.items():
+            if day is None or played.get(pid, "") < day:
+                out[pid] = team
+    return out
 
 
 # ---- The Odds API schedule (fallback) ------------------------------------------------

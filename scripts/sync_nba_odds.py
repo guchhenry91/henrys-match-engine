@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from nba import book_lines as bl
-from nba import current
+from nba import current, rosters
 from oddsapi import client as oc
 from oddsapi import props as shared
 
@@ -150,6 +150,11 @@ def refresh_odds_schedule(client, now=None) -> None:
 
 
 def main() -> int:
+    # Current rosters first: free, and needed whatever happens to the schedule.
+    try:
+        print(f"rosters: {rosters.sync(current.box_name_teams())}")
+    except Exception as exc:                      # noqa: BLE001 - never sinks the run
+        print(f"rosters: unavailable ({type(exc).__name__}: {exc})")
     client = oc.Client() if oc.enabled() else None
     try:
         sched = current.cdn_schedule()

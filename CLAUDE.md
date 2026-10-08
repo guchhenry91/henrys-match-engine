@@ -1143,6 +1143,16 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
   no regular-season prop could ever grade. Shared scheduling/parsing lives in
   `oddsapi/props.py`, also used by the NFL gap-fill.
 
+ROSTERS (2026-10-08, `nba/rosters.py` -> `data-raw/nba/rosters.json`): box scores only
+know where a player last PLAYED, so before opening night every team without a preseason
+game sat on last season (10 of 30 on 8 Oct; Durant, Trae Young, LeBron all on old teams).
+Sleeper's free player list (one request, no key) is the roster, ESPN team rosters the
+fallback; refreshed at most every 20h by `scripts/sync_nba_odds.py`. Joined by name
+(shared names dropped). Used only if all 30 teams have 13+ players AND it agrees with
+>= 90% of the players our box scores know (both scored 100% of 327/325 on 8 Oct). In
+`current.current_teams(names)` the roster beats box scores older than its fetch day; a
+box score from that day on beats the roster.
+
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.
 
