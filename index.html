@@ -1704,7 +1704,7 @@ function settledRow(r){
   }
   const res=x.result;
   // A winner-only result (MLB/NBA: just the winning team's code) still shows the matchup.
-  const teams=(typeof res==="string"&&res&&!/\d/.test(res)&&x.home&&x.away)?`${esc(x.home)} vs ${esc(x.away)} · ${esc(res)} won`
+  const teams=(typeof res==="string"&&res&&!/\d/.test(res)&&x.home&&x.away)?`${esc(x.home)} vs ${esc(x.away)} · ${esc(res.replace(/ won$/,""))} won`
     :(typeof res==="string"&&res)?esc(res)
     :`${esc(x.home)} ${res&&typeof res==="object"?`${res.home_goals}–${res.away_goals}`:"vs"} ${esc(x.away)}`;
   return `<div class="srow"><div class="be"><div class="beb">${esc(x.league||"")} · Match winner</div>
