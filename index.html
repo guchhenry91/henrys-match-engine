@@ -1686,17 +1686,26 @@ function winChip(x){
   if(g==="void") return `<span class="wv void">VOID</span>`;
   return `<span class="wv loss">LOSS</span>`;
 }
+// The matchup on a settled prop, whatever the sport calls it: MLB/NBA carry team and
+// opponent; an NFL prop's `home` can be a yes/no flag, never a team ("true vs TB").
+function propTeams(x){
+  const h=(typeof x.home==="string"&&x.home)?x.home:(x.team||"");
+  const a=x.away||x.opponent||"";
+  return h||a?`${h} vs ${a}`:"";
+}
 function settledRow(r){
   const x=r.x;
   if(r.kind==="prop"){
     const lg=x.league||LG[x.league_key]||(gsport==="nfl"?"NFL":gsport==="mlb"?"MLB":gsport==="nba"?"NBA":"");
     return `<div class="srow"><div class="be"><div class="beb">${esc(lg)} · ${esc(PMK[x.market]||gradeName(x.market))}</div>
       <b>${esc(x.player)} · ${esc(propSel(x))}</b>
-      <span>${esc(x.home||"")} vs ${esc(x.away||"")} · ${esc(actualLabel(x))} · settled ${whenStr(r.date)}</span></div>
+      <span>${esc(propTeams(x))} · ${esc(actualLabel(x))} · settled ${whenStr(r.date)}</span></div>
       <div class="sty"><small>Type</small><b>Player prop</b></div>${winChip(x)}</div>`;
   }
   const res=x.result;
-  const teams=(typeof res==="string"&&res)?esc(res)
+  // A winner-only result (MLB/NBA: just the winning team's code) still shows the matchup.
+  const teams=(typeof res==="string"&&res&&!/\d/.test(res)&&x.home&&x.away)?`${esc(x.home)} vs ${esc(x.away)} · ${esc(res)} won`
+    :(typeof res==="string"&&res)?esc(res)
     :`${esc(x.home)} ${res&&typeof res==="object"?`${res.home_goals}–${res.away_goals}`:"vs"} ${esc(x.away)}`;
   return `<div class="srow"><div class="be"><div class="beb">${esc(x.league||"")} · Match winner</div>
     <b>${esc(x.pick||"—")}${x.p_pick!=null?` · ${pc(x.p_pick)}%`:""}</b>
