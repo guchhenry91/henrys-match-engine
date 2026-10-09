@@ -1,6 +1,6 @@
 {
  "_note": "Manual current-window transfer overrides. Understat has no 2026-27 data yet, so summer-window moves (and late 2025-26 ones) are invisible without this file. Keys are EXACT Understat spellings, resolved by scripts/apply_transfers.py. Value = new canonical club, or null if the player left this league. Verified by per-league agents requiring two independent sources or an official announcement; rumours excluded.",
- "_verified_on": "2026-09-11",
+ "_verified_on": "2026-10-09",
  "_held_back": {
   "LIGUE1": {
    "Sekou Mara": "Strasbourg (Transfermarkt only -- two pages, one source)",
@@ -798,6 +798,16 @@
     "verified_by": "agent web search, current reporting as of 2026-09-11",
     "result": "all 26 confirmed still at the club shown; no transfers.json changes required. Haraldsson, Lepaul (extended to 2030, called into France squad) and Diop all playing regularly, no transfer activity. Giroud suffered a left-knee knock in an Aug 15 pre-season friendly but tests came back clean and he returned to training within the week -- resolved, not a live concern. One team-news item actioned instead (not a transfer): Panichelli (Strasbourg) confirmed still out with the ACL tear reported in the 2026-09-09 sweep -- no return date, has not played since March 2026 -- now written to news.json LIGUE1.Strasbourg.out (it had not been added on 2026-09-09 despite being noted) so publish.py drops his goalscorer prop.",
     "not_checked": "No fixtures fell in the 45min-3h Best Picks window this run (earliest is Osasuna v Espanol 2026-09-12T14:15Z, ~26h out) -- full STEP 2-5 team-news research was not triggered beyond the Panichelli correction above. Friday: six_scores.json updated for matchweek 4 (bet365 6 Scores Challenge check, Thu/Fri only)."
+   },
+   {
+    "date": "2026-10-09T19:14Z",
+    "scope": "matchday-news board check (leagues-matchday-news task)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 21,
+    "method": "web search per distinct player on the live player_picks.json 'upcoming' board: Lautaro Martinez, Marcus Thuram (Inter), Lamine Yamal, Fermin Lopez (Barcelona), Vinicius Junior (Real Madrid), Matheus Cunha, Bruno Fernandes, Bryan Mbeumo (Manchester United), Harry Kane (Bayern Munich), Nico Paz (Como), Esteban Lepaul (Rennes), Serhou Guirassy (Dortmund), Deniz Undav (Stuttgart), Erling Haaland (Manchester City), Nikola Krstovic (Atalanta), Donyell Malen (Roma), Sofiane Diop (Nice), Ludovic Ajorque (Brest), Romulo (RB Leipzig), Odsonne Edouard, Florian Thauvin (Lens)",
+    "verified_by": "agent web search (3 parallel regional sweeps), current reporting as of 2026-10-09",
+    "result": "all 21 confirmed still at the club shown; no transfers.json changes required. Vinicius Junior's Real Madrid extension to June 2032 (announced 2026-08-06, ESPN + Al Jazeera) explicitly closes out the earlier Arsenal speculation. Guirassy, Undav and Romulo corroborated via club-specific reporting (Dortmund denying a Fenerbahce bid in June; Stuttgart in extension talks; starting11.com's Leipzig tracker). No mid-season transfer window is open, consistent with all 21 showing no movement.",
+    "not_checked": "Fitness/injury findings from this same sweep (Real Madrid, Barcelona, Bundesliga and Ligue 1 clubs) were actioned separately in data-raw/leagues/news.json, not here -- this entry covers only the club-affiliation (transfer) check."
    }
   ],
   "known_gaps": [
