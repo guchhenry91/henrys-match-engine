@@ -1932,7 +1932,7 @@ function pendingRows(){
   if(gsport==="soccer"){
     Object.keys(FILES).forEach(k=>((DATA[FILES[k]]||{}).season||[]).forEach(m=>{
       if(m.pick&&!m.graded&&!m.result&&past(m.date)) out.push({kind:"team",date:m.date}); }));
-    (((DATA.player_picks||{}).awaiting_data)||[]).forEach(p=>{ if(past(p.date)) out.push({kind:"prop",date:p.date}); });
+    (((DATA.player_picks||{}).awaiting_data)||[]).forEach(p=>{ if(past(p.date)) out.push({kind:"prop",date:p.date,market:p.market}); });
   }
   if(gsport==="ucl")
     (((DATA.ucl||{}).matches)||[]).forEach(m=>{ if(m.locked&&!m.graded&&past(m.date||m.kickoff)) out.push({kind:"team",date:m.date||m.kickoff}); });
@@ -1940,9 +1940,25 @@ function pendingRows(){
     const b=DATA[gsport]||{};
     (b.games||[]).forEach(g=>{ const t=g.kickoff||g.tipoff; if(!g.graded&&past(t)) out.push({kind:"team",date:t}); });
     Object.values(b.props||{}).forEach(blk=>((blk||{}).picks||[]).forEach(p=>{
-      const t=p.kickoff||p.tipoff||p.date; if(!p.graded&&past(t)) out.push({kind:"prop",date:t}); }));
+      const t=p.kickoff||p.tipoff||p.date; if(!p.graded&&past(t)) out.push({kind:"prop",date:t,market:p.market}); }));
   }
   return out;
+}
+// The same day headers for any list of graded picks (the Matches list, one market).
+function dayGrouped(items, rowFn, kind, market){
+  const when=x=>x.date||x.kickoff||x.tipoff;
+  const sorted=items.slice().sort((a,b)=>new Date(when(b))-new Date(when(a)));
+  const tally={}, blank=()=>({w:0,l:0,v:0,p:0});
+  sorted.forEach(x=>{ const t=tally[resultDay(when(x))]=tally[resultDay(when(x))]||blank();
+    const g=x.void?"void":x.graded; if(g==="correct") t.w++; else if(g==="void") t.v++; else t.l++; });
+  pendingRows().filter(r=>r.kind===kind&&(!market||r.market===market)).forEach(r=>{
+    const k=resultDay(r.date); (tally[k]=tally[k]||blank()).p++; });
+  let html="", cur=null;
+  sorted.forEach(x=>{ const k=resultDay(when(x));
+    if(k!==cur){ cur=k; const t=tally[k];
+      html+=`<div class="sday"><b>${esc(resultDayLabel(when(x)))}</b><span>${t.w} W · ${t.l} L · ${t.p} pending${t.v?` · ${t.v} void`:""}</span></div>`; }
+    html+=rowFn(x); });
+  return html;
 }
 function latestSettled(){
   const all=settledRows();
@@ -2948,7 +2964,7 @@ function propMarketBlock(market){
   return `<div class="eyebrow">${esc(name)} · ${rows.length} graded</div>
     <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
       <div class="l">${tallyLine(t)}</div></div>
-    <div class="glass rowc">${rows.map(r=>gradedPropRow(r,false)).join("")}</div>
+    <div class="glass rowc">${dayGrouped(rows, r=>gradedPropRow(r,false), "prop", market)}</div>
     <p class="note">${gsport!=="soccer"?"Every settled pick in this market. VOID means the player did not play or the pick was tainted; a pick waiting on its box score stays pending, never a loss.":`Every settled pick in this market. A pick with no shot row grades MISS rather than void — the feed cannot separate "did not play" from "played, never shot", so the harsher reading is taken deliberately: it can understate the record, never inflate it. VOID means the pick was tainted or the player was confirmed out before kickoff.`}</p>`;
 }
 
@@ -2959,7 +2975,7 @@ function everyMatchBlock(){
   return `<div class="eyebrow">${esc(GMATCH_LABEL[gsport]||"Every match pick")} · ${all.length} graded</div>
     <div class="glass stat"><div class="k">${t.correct}–${t.wrong}</div>
       <div class="l">${tallyLine(t)} · every match called, at any confidence</div></div>
-    <div class="glass rowc">${all.map(gradedMatchRow).join("")}</div>
+    <div class="glass rowc">${dayGrouped(all, gradedMatchRow, "team")}</div>
     <p class="note">This counts every match the model called, not only those that cleared the Best Picks bar — the fuller and less flattering number.</p>`;
 }
 
