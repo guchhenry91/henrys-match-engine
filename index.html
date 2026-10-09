@@ -408,6 +408,8 @@
   .settled .sech h2{font-size:28px}
   .settled .sech p{text-align:left;margin-top:8px;max-width:none}
   .slist{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .sday{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 14px;border-top:1px solid var(--line);background:rgba(255,255,255,.035)}
+  .sday:first-child{border-top:0} .sday b{font-size:.9em} .sday span{font-size:.82em;color:var(--mut,#8a93a6)}
   .srow{display:grid;grid-template-columns:minmax(0,1fr) 130px 70px;align-items:center;border-top:1px solid var(--line)}
   .srow:first-child{border-top:0}
   .srow>div{padding:14px 18px;display:flex;flex-direction:column;min-width:0}
@@ -1913,18 +1915,61 @@ function viewGame(){
 }
 
 const SETTLED_SHOW=25;
+// RESULTS BY DAY. A US sport's day is its own (US Eastern) calendar day, so Thursday
+// Night Football is Thursday's result, not Friday's; soccer days are UK days.
+function dayTz(){ return (gsport==="nfl"||gsport==="nba"||gsport==="mlb")?"America/New_York":"Europe/London"; }
+function resultDay(iso){
+  const d=new Date(iso); if(isNaN(d)) return "";
+  return new Intl.DateTimeFormat("en-CA",{timeZone:dayTz(),year:"numeric",month:"2-digit",day:"2-digit"}).format(d);
+}
+function resultDayLabel(iso){
+  const d=new Date(iso); if(isNaN(d)) return "";
+  return new Intl.DateTimeFormat("en-GB",{timeZone:dayTz(),weekday:"short",day:"numeric",month:"short"}).format(d);
+}
+// Frozen picks whose game has started but is not graded yet: {kind, date}.
+function pendingRows(){
+  const now=Date.now(), out=[], past=t=>t&&new Date(t)<now;
+  if(gsport==="soccer"){
+    Object.keys(FILES).forEach(k=>((DATA[FILES[k]]||{}).season||[]).forEach(m=>{
+      if(m.pick&&!m.graded&&!m.result&&past(m.date)) out.push({kind:"team",date:m.date}); }));
+    (((DATA.player_picks||{}).awaiting_data)||[]).forEach(p=>{ if(past(p.date)) out.push({kind:"prop",date:p.date}); });
+  }
+  if(gsport==="ucl")
+    (((DATA.ucl||{}).matches)||[]).forEach(m=>{ if(m.locked&&!m.graded&&past(m.date||m.kickoff)) out.push({kind:"team",date:m.date||m.kickoff}); });
+  if(gsport==="nfl"||gsport==="nba"||gsport==="mlb"){
+    const b=DATA[gsport]||{};
+    (b.games||[]).forEach(g=>{ const t=g.kickoff||g.tipoff; if(!g.graded&&past(t)) out.push({kind:"team",date:t}); });
+    Object.values(b.props||{}).forEach(blk=>((blk||{}).picks||[]).forEach(p=>{
+      const t=p.kickoff||p.tipoff||p.date; if(!p.graded&&past(t)) out.push({kind:"prop",date:t}); }));
+  }
+  return out;
+}
 function latestSettled(){
   const all=settledRows();
   if(!all.length) return "";
   const nT=all.filter(r=>r.kind==="team").length, nP=all.length-nT;
   const rows=all.filter(r=>rkind==="all"||r.kind===rkind);
   const shown=rall?rows:rows.slice(0,SETTLED_SHOW);
+  // Each day's tally comes from ALL of that day's results in this view, not just
+  // the rows shown, so "Show all" never changes a day's numbers.
+  const tally={};
+  rows.forEach(r=>{ const k=resultDay(r.date), t=tally[k]=tally[k]||{w:0,l:0,v:0,p:0};
+    const g=r.x.void?"void":r.x.graded; if(g==="correct") t.w++; else if(g==="void") t.v++; else t.l++; });
+  pendingRows().filter(r=>rkind==="all"||r.kind===rkind).forEach(r=>{
+    const k=resultDay(r.date); (tally[k]=tally[k]||{w:0,l:0,v:0,p:0}).p++; });
+  let html="", cur=null;
+  shown.forEach(r=>{
+    const k=resultDay(r.date);
+    if(k!==cur){ cur=k; const t=tally[k]||{w:0,l:0,v:0,p:0};
+      html+=`<div class="sday"><b>${esc(resultDayLabel(r.date))}</b><span>${t.w} W · ${t.l} L · ${t.p} pending${t.v?` · ${t.v} void`:""}</span></div>`; }
+    html+=settledRow(r);
+  });
   const chip=(k,l,n)=>`<button class="chip ${rkind===k?"on":""}" type="button" onclick="setRKind('${k}')">${l} <span class="rng">${n}</span></button>`;
   return `<section class="glass settled">
     <div class="sech"><div><div class="eb">Latest settled</div><h2>Newest graded results</h2>
       <p>Team predictions and player props that finished most recently appear here first.</p></div>
       <div class="chips">${chip("all","All",all.length)}${chip("team","Team picks",nT)}${chip("prop","Player props",nP)}</div></div>
-    <div class="slist">${shown.map(settledRow).join("")||emptyRow("Nothing settled in this view yet")}</div>
+    <div class="slist">${html||emptyRow("Nothing settled in this view yet")}</div>
     ${rows.length>shown.length?`<button class="dbtn more" type="button" onclick="showAllSettled()">Show all ${rows.length}</button>`:""}
   </section>`;
 }
