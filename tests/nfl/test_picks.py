@@ -323,3 +323,13 @@ def test_lock_checks_skip_games_already_frozen(tmp_path):
     p = tmp_path / "log.json"
     p.write_text(json.dumps({"props": {"k": {"game_id": "2026_05_PIT_CLE"}}, "games": {}}))
     assert s.frozen_games(p) == {"CLE|PIT"}
+
+
+def test_a_settled_prop_shows_its_side_and_teams():
+    """An under that won must read "Under", and the matchup "DAL vs TB", not "true vs TB"."""
+    log = {"games": {}, "props": {"k": {
+        "market": "receiving_yards", "player": "CeeDee Lamb", "team": "DAL", "home": True,
+        "away": "TB", "side": "under", "line": 83.5, "actual": 9.0, "graded": "correct",
+        "kickoff": "2026-10-09T00:15:00+00:00"}}}
+    row = picks.settled(log)[0]
+    assert row["side"] == "under" and row["home"] == "DAL" and row["away"] == "TB"

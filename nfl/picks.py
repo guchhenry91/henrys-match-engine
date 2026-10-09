@@ -217,9 +217,16 @@ def settled(log: dict) -> list:
             if kind == "game":
                 row.update(pick=entry.get("pick"), result=entry.get("result"))
             else:
+                # THE SIDE, or the page assumes "Over": an under that won (CeeDee
+                # Lamb under 83.5, 9 yards) read as "Over 83.5 -- WIN" (2026-10-09).
+                # On a prop entry `home` is a flag (or his team) and `away` his
+                # OPPONENT, so the row reads "his team vs opponent", never "true vs TB".
                 row.update(market=entry.get("market"), player=entry.get("player"),
                            team=entry.get("team"), line=entry.get("line"),
-                           actual=entry.get("actual"))
+                           side=entry.get("side") or "over",
+                           actual=entry.get("actual"),
+                           home=entry.get("team") or entry.get("home"),
+                           away=entry.get("away"))
             out.append(row)
     out.sort(key=lambda r: str(r.get("kickoff") or ""), reverse=True)
     return out
