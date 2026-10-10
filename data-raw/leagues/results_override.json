@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-09-20",
+  "_verified_on": "2026-10-10",
   "LALIGA": {
     "Ath Madrid|Real Madrid": {
       "home_goals": 2,
@@ -668,6 +668,15 @@
       "api_status": "FT",
       "sources": [
         "API-Football fixture 1570401: Valencia 2-3 Sociedad, status FT"
+      ]
+    },
+    "Real Madrid|Villarreal": {
+      "home_goals": 1,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "futboltotal.futbol: Real Madrid vs Villarreal, La Liga 2026-10-10, Full Time 1-0 (Yan Diomande 62')",
+        "livesoccer.planetsport.com match detail: Real Madrid 1-0 Villarreal, same scorer/minute (Diomande 62')"
       ]
     }
   },
@@ -2045,6 +2054,42 @@
         "AllFootball fulltime report: Marseille 1-2 PSG, Full Time (Ferran Torres, Marquinhos for PSG; Angel Gomes for Marseille)",
         "Yahoo Sports / Get French Football News player ratings: Marseille 1-2 PSG, Marquinhos and Ferran Torres secure Le Classique win for PSG"
       ]
+    },
+    "Brest|Angers": {
+      "home_goals": 5,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "futboltotal.futbol: Stade Brestois 29 vs Angers, Ligue 1 2026-10-10, Full Time 5-1 (HT 4-0)",
+        "footmercato.net live match report: Brest 5-1 Angers, terminé"
+      ]
+    },
+    "Lorient|Paris FC": {
+      "home_goals": 1,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "futboltotal.futbol: Lorient vs Paris FC, Ligue 1 2026-10-10, Full Time 1-0 (Gabin Bernardeau 68')",
+        "livesoccer.planetsport.com match detail: Lorient 1-0 Paris FC, same scorer/minute (Bernardeau 68')"
+      ]
+    },
+    "Monaco|Toulouse": {
+      "home_goals": 2,
+      "away_goals": 2,
+      "status": "FT",
+      "sources": [
+        "futboltotal.futbol: Monaco vs Toulouse, Ligue 1 2026-10-10, Full Time 2-2 (Monaco led 2-0 at HT)",
+        "footmercato.net live match report: Monaco 2-2 Toulouse, terminé"
+      ]
+    },
+    "Paris SG|Le Mans": {
+      "home_goals": 3,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "futboltotal.futbol: Paris Saint-Germain vs Le Mans, Ligue 1 Matchday 6 2026-10-10, Full Time 3-1",
+        "livesoccer.planetsport.com match detail: Paris Saint-Germain 3-1 Le Mans, Full Time, same score"
+      ]
     }
   },
   "SERIEA": {
@@ -2362,6 +2407,15 @@
       "sources": [
         "Yahoo Sports (AP): Milan 3-0 Lecce, goals Pulisic, Rabiot, Moreira, Full Time",
         "sempremilan.com match report: AC Milan 3-0 Lecce, Pulisic, Rabiot and Moreira score, San Siro 100th birthday"
+      ]
+    },
+    "Napoli|Frosinone": {
+      "home_goals": 3,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "futboltotal.futbol: Napoli vs Frosinone, Serie A Matchday 6 2026-10-10, Full Time 3-0 (De Bruyne pen 29' & 90+4', Lang 32')",
+        "ontourfootball.com and starting11.com (independently corroborating): Napoli 3-0 Frosinone, Full Time"
       ]
     }
   },
