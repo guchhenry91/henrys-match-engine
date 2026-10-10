@@ -1,5 +1,24 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-05",
-  "players": {}
+  "_verified_on": "2026-10-10",
+  "players": {
+    "Ashton Jeanty": {
+      "status": "doubt",
+      "team": "LV",
+      "note": "Questionable, ankle/foot -- declining practice trend this week (full Wed, limited Thu, DNP Fri). Source: patriots.com official Week 5 injury report (Patriots vs Raiders), Fri Oct 9 2026.",
+      "checked": "2026-10-10T15:19:16Z"
+    },
+    "Alvin Kamara": {
+      "status": "doubt",
+      "team": "NO",
+      "note": "Questionable, back -- did not practice Wednesday, limited since. Source: thevikingage.com Vikings/Saints tracker, updated Fri Oct 9 2026 2:30pm CST from official practice-report data.",
+      "checked": "2026-10-10T15:19:16Z"
+    },
+    "Keenan Allen": {
+      "status": "doubt",
+      "team": "IND",
+      "note": "Questionable, groin -- missed the previous game, limited practice all week. Source: legionreport.com (Colts vs Steelers tracker), checked 10 Oct 2026.",
+      "checked": "2026-10-10T15:19:16Z"
+    }
+  }
 }
