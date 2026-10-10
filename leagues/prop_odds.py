@@ -64,12 +64,30 @@ def load() -> dict:
         return {}
 
 
+def _find(prices: dict, player) -> list:
+    """Prices whose name is this player. The exact (normalised) name first; only if
+    that finds nothing, a name whose words all appear in the other one -- bet365
+    writes "Vinicius Jr." for Vinicius Junior and "Romulo da Cruz" for Romulo. The
+    caller still demands exactly ONE hit in the fixture, so a shared word that fits
+    two players ("Gabriel") prices neither."""
+    want = norm_name(player)
+    hits = [odd for name, odd in prices.items() if norm_name(name) == want]
+    if hits or not want:
+        return hits
+    w = set(want.split())
+    out = []
+    for name, odd in prices.items():
+        n = set(norm_name(name).split())
+        if n and (n <= w or w <= n):
+            out.append(odd)
+    return out
+
+
 def price_for(league_key: str, match_id, player: str, store: dict | None = None):
     """bet365's anytime-scorer price for one player in one fixture, or None."""
     fixtures = (store if store is not None else load()).get("fixtures") or {}
     entry = fixtures.get(fixture_key(league_key, match_id)) or {}
-    want = norm_name(player)
-    hits = [odd for name, odd in (entry.get("anytime") or {}).items() if norm_name(name) == want]
+    hits = _find(entry.get("anytime") or {}, player)
     return hits[0] if len(hits) == 1 and hits[0] <= MAX_ODDS else None
 
 
@@ -82,8 +100,7 @@ def attach(upcoming: list, store: dict | None = None) -> int:
             continue
         entry = fixtures.get(fixture_key(pick["league_key"], pick["id"])) or {}
         prices = entry.get("anytime") or {}
-        want = norm_name(pick.get("player"))
-        hits = [odd for name, odd in prices.items() if norm_name(name) == want]
+        hits = _find(prices, pick.get("player"))
         if len(hits) != 1 or hits[0] > MAX_ODDS:
             continue                      # absent, ambiguous or implausible: unpriced
         odd = hits[0]

@@ -50,3 +50,14 @@ def test_only_scorer_fixtures_inside_the_window_and_not_recently_checked_are_due
     store = {"fixtures": {"PL#4": {"checked_at": "2026-10-09T06:00:00+00:00"}}}
     due = sync.due_fixtures(board, store, now)
     assert [d[1] for d in due] == [1]
+
+
+def test_bet365_short_or_long_name_matches_only_when_it_fits_one_player():
+    store = {"fixtures": {"LALIGA#79": {"anytime": {
+        "Vinicius Jr.": 2.1, "Kylian Mbappe": 1.4, "Gabriel Jesus": 1.73,
+        "Gabriel Veiga": 4.0, "Romulo da Cruz": 2.0}}}}
+    assert prop_odds.price_for("LALIGA", 79, "Vinícius Júnior", store=store) == 2.1
+    assert prop_odds.price_for("LALIGA", 79, "Rómulo", store=store) == 2.0
+    assert prop_odds.price_for("LALIGA", 79, "Kylian Mbappé", store=store) == 1.4
+    assert prop_odds.price_for("LALIGA", 79, "Gabriel", store=store) is None   # two Gabriels
+    assert prop_odds.price_for("LALIGA", 79, "Jude Bellingham", store=store) is None
