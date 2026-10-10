@@ -60,3 +60,15 @@ def test_on_cloudflare_the_pipeline_is_read_from_the_job_queue(monkeypatch):
     runs = hc._runs("nba.yml")
     assert "job=nba" in seen["url"] and "ns=live" in seen["url"]
     assert [r["conclusion"] for r in runs] == ["success", "failure"]   # running is skipped
+
+
+def test_mlb_board_is_not_stale_across_its_normal_overnight_gap(monkeypatch):
+    from datetime import datetime, timezone
+    now = datetime(2026, 10, 10, 12, 33, tzinfo=timezone.utc)
+    boards = {"data/mlb/board.json": {"status": "live", "updated": "2026-10-09T22:02:00+00:00"},
+              "data-raw/mlb/picks_log.json": {}}
+    monkeypatch.setattr(hc, "_read", lambda rel: boards.get(rel))
+    monkeypatch.setitem(hc.LAST_OK, "mlb.yml", 14.5)
+    r = hc.Report()
+    hc.line_sport(r, now, "MLB", "mlb", "tipoff")
+    assert [c["status"] for c in r.checks if c["check"] == "board"] == ["ok"]
