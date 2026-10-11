@@ -1,9 +1,10 @@
 """The gate for the rebuilt soccer player props (leagues/forecast.py).
 
 Walk-forward: each scored season is forecast by a model trained on the
-TRAIN_SEASONS before it, all five leagues pooled. Every candidate (anyone who
-appeared for the team in its last few matches) is scored, and NOT APPEARING IS A
-LOSS -- the way the record grades. Two readings:
+TRAIN_SEASONS before it, all five leagues pooled. A player who does not play is
+VOID (as the record grades it), so only players who took the field are scored, on
+the model's chance GIVEN that he plays. A pick is only published for a likely
+starter (P(start) >= MIN_START) or a confirmed one. Two readings:
   * before lineups (the role model guesses who starts);
   * with the confirmed XI (starters known; the bench's chance of coming on from
     the role model).
@@ -29,11 +30,13 @@ REPORT = ROOT / "data-raw" / "leagues" / "props_forecast_report.json"
 SCORED = (2022, 2023, 2024, 2025)
 BARS = {"goal": 0.40, "shots": 0.62, "sot": 0.62}
 PER_MATCH = 3
+MIN_START = 0.5
 
 
 def published(frame, p, y, bar):
-    f = pd.DataFrame({"m": frame["match_id"].to_numpy(), "p": p, "y": y})
-    f = f[f["p"] >= bar].sort_values("p", ascending=False).groupby("m").head(PER_MATCH)
+    f = pd.DataFrame({"m": frame["match_id"].to_numpy(), "p": p, "y": y,
+                      "s": frame["p_start"].to_numpy()})
+    f = f[(f["p"] >= bar) & (f["s"] >= MIN_START)].sort_values("p", ascending=False).groupby("m").head(PER_MATCH)
     if f.empty:
         return {"n": 0}
     return {"n": int(len(f)), "said": round(float(f["p"].mean()), 4),
@@ -65,9 +68,13 @@ def main() -> int:
         test = frame[frame["season"] == season]
         model = fc.PropForecast().fit(train)
         pre, xi = model.predict(test), model.predict(test, lineup_roles(model, test))
+        played = (test["role"] > 0).to_numpy()            # did not play = void
         for m, col in fc.MARKETS.items():
-            acc[m]["pre"].append(pre[m]); acc[m]["xi"].append(xi[m])
-            acc[m]["y"].append(test[col].to_numpy(float)); acc[m]["rows"].append(test[["match_id"]])
+            acc[m]["pre"].append(pre[m][played]); acc[m]["xi"].append(xi[m][played])
+            acc[m]["y"].append(test[col].to_numpy(float)[played])
+            acc[m]["rows"].append(pd.DataFrame({"match_id": test["match_id"].to_numpy()[played],
+                                                "p_start_pre": pre["p_start"][played],
+                                                "p_start_xi": xi["p_start"][played]}))
         print(f"  {season}: {len(test)} rows, {time.time() - t0:.0f}s", flush=True)
     report = {"generated_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
               "scored_seasons": list(SCORED), "bars": BARS, "per_match": PER_MATCH, "markets": {}}
@@ -76,6 +83,7 @@ def main() -> int:
         out = {"n": int(len(y)), "base_rate": round(float(y.mean()), 4)}
         for k in ("pre", "xi"):
             p = np.concatenate(acc[m][k])
+            rows = rows.assign(p_start=rows[f"p_start_{k}"])
             ll = float(-np.mean(y * np.log(np.clip(p, 1e-6, 1)) + (1 - y) * np.log(np.clip(1 - p, 1e-6, 1))))
             out[k] = {"calibration": dist.calibration(p, y), "logloss": round(ll, 4),
                       "published": published(rows, p, y, BARS[m]),

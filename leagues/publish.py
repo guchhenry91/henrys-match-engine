@@ -24,6 +24,7 @@ from leagues import history, mispricing
 from leagues import odds_history
 from leagues import lockstamp, prop_calibration
 from leagues import forecast_board
+from leagues import names as club_names
 from tracking import manifest, performance, release, trust, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
@@ -230,6 +231,11 @@ PLAYER_PICK_MIN_PROB = {"goal": 0.276, "shots": 0.497, "sot": 0.511}
 PROP_FIELD = {"goal": "anytime_pct", "shots": "p_shots_2plus", "sot": "p_sot_1plus"}
 # Player props come from the REBUILT model (leagues/forecast_board.py) at its gated bars.
 PROPS_REBUILT = True
+
+
+def _norm_player(n) -> str:
+    from nfl import odds as odds_mod
+    return odds_mod.norm_name(str(n or ""))
 
 
 def _bar(market: str) -> float:
@@ -668,6 +674,15 @@ def build(league: str = "PL") -> dict:
                 print(f"  props [{forecast_board.ENGINE}]: {home} v {away} not found "
                       f"in the forecast; no player picks")
             else:
+                # bet365's anytime price as a second opinion (logged; combined once
+                # real-line weights are adopted -- forecast_board.scorer_weights).
+                try:
+                    _store = prop_odds.load()
+                    forecast_board.second_opinion(
+                        fcast, lambda n: prop_odds.price_for(league, m["match_id"], n, store=_store),
+                        league, m["date"])
+                except Exception as exc:                   # noqa: BLE001
+                    print(f"  bet365 second opinion skipped ({type(exc).__name__}: {exc})")
                 squad_props = forecast_board.apply(squad_props, fcast)
 
         # Player picks clearing their market's bar, frozen on the SAME schedule as
@@ -685,6 +700,9 @@ def build(league: str = "PL") -> dict:
             # At most PER_MATCH per market a match, best first -- the rule the gate scored.
             ranked = sorted(squad_props, key=lambda p: -(p.get(field) or 0))
             if PROPS_REBUILT:
+                # A pick on a player who does not play is void, so only a likely
+                # (or confirmed) starter is worth publishing.
+                ranked = [p for p in ranked if (p.get("start_pct") or 0) >= forecast_board.MIN_START]
                 ranked = ranked[:forecast_board.PER_MATCH]
             for p in ranked:
                 if p[field] < bar:
@@ -769,6 +787,10 @@ def build(league: str = "PL") -> dict:
                     "bar": _bar(market),
                     "engine": p.get("engine"),
                     "start_pct": p.get("start_pct"),
+                    # bet365's own chance (raw, 1/price) where it quotes him: the
+                    # second opinion, shown beside ours.
+                    "b365_p": p.get("b365_p") if market == "goal" else None,
+                    "combined_with_bet365": bool(p.get("combined_with_bet365")) if market == "goal" else False,
                     "news_checked_hours_ago": players.news_checked_age_hours(
                         news, (home, away)),
                     "unavailable": p["player"] in unavailable,
@@ -1326,6 +1348,12 @@ def build_player_picks() -> dict:
                 idx.update({(r["player"], r["day"]): r
                             for _, r in actuals.iterrows()})
                 covered |= _covered_sides(actuals)
+        try:
+            appeared, lineup_sides = forecast_board.fc.appearances(
+                league, forecast_board._season_year(datetime.now(timezone.utc)))
+        except Exception as exc:                           # noqa: BLE001
+            print(f"  player-picks: {league} lineups unavailable ({type(exc).__name__})")
+            appeared, lineup_sides = set(), set()
         for key, entry in log.items():
             parts = str(key).split(":")
             if len(parts) < 4 or parts[0] != season_tag:
@@ -1350,6 +1378,17 @@ def build_player_picks() -> dict:
                 uncovered.append(item)
                 continue
             actual = idx.get((entry["player"], day))
+            # DID HE PLAY? A player missing from a lineup we hold is VOID (as
+            # bet365 settles); one in it is graded, shots or not. With no lineup
+            # and no stat row there is no evidence either way: stays PENDING.
+            team_c = club_names.canonical(str(entry.get("team")), league)
+            if (team_c, day) in lineup_sides:
+                if (_norm_player(entry["player"]), day) not in appeared:
+                    settled.append(picks.void_did_not_play(entry) | item)
+                    continue
+            elif actual is None:
+                uncovered.append(item)
+                continue
             settled.append(picks.grade_prop(entry, None if actual is None
                                             else dict(actual)) | item)
 
@@ -1442,6 +1481,14 @@ def main(argv=None):
             ok = sum(f.result() for f in futures)
     else:
         ok = sum(_publish_one(lg, FILE_FOR[lg]) for lg in known)
+    if PROPS_REBUILT and forecast_board._STATE.get("model") is not None:
+        try:
+            fitted = forecast_board.learn()
+            g = fitted.get("goal") or {}
+            print(f"  bet365 second opinion: {len(forecast_board.PRICED)} priced this run; "
+                  f"{'adopted' if g.get('adopted') else 'waiting ' + str((fitted.get('_waiting') or {}).get('goal', 0)) + '/300 graded' if not g else 'not adopted'}")
+        except Exception as exc:                           # noqa: BLE001
+            print(f"  bet365 second opinion log failed ({type(exc).__name__}: {exc})")
     # Cross-league high-confidence board, built from the frozen picks of every
     # league that just published.
     # Cross-league boards must represent one complete four-league refresh. If a

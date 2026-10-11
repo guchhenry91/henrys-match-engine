@@ -1055,6 +1055,8 @@ function rebuildBanner(k){
     const r=src.record_rebuilt||{};
     const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
     return `<div class="glass warnbox">Player picks run the REBUILT model: it forecasts who starts, who comes on and what each does, then publishes scorers at ${Math.round(100*eng.bars.goal)}%+ and shots / on-target at ${Math.round(100*eng.bars.shots)}%+. `+
+      `Each chance is IF HE PLAYS: a player who does not play is void, as bet365 settles it, and only likely or confirmed starters are picked. `+
+      `bet365's scorer price is shown beside ours as a second opinion; it is blended in only once 300 real priced picks have graded and the blend proves better. `+
       `Tested on four past seasons in all five leagues, its picks landed at the rate stated.${rec} Still proving itself live.</div>`;
   }
   if(eng){

@@ -123,3 +123,16 @@ football-data.co.uk, Understat.
   still calibrated. No after-the-fact recalibration; `record_rebuilt` on the board.
   Still to do for soccer: the bet365 scorer price as a second opinion once real
   graded prices accumulate (combine_fit), and a historical price check.
+- 2026-10-11: SOCCER: a player who does not play is now VOID (owner's decision, as
+  bet365 settles), decided from Understat's match lineups (`forecast.appearances`);
+  with no lineup and no stat row a pick stays pending. Applies to the whole record,
+  old picks included. The model's chances are now IF HE PLAYS, published only for a
+  likely or confirmed starter. Re-gated: scorer 1,583 said 47.4% landed 46.6%; 2+
+  shots 7,993 said 70.9% landed 71.8%; on target 4,549 said 68.9% landed 68.2%.
+- 2026-10-11: SOCCER: bet365's anytime price is the scorer's second opinion. Every
+  quoted player's price is logged with the forecast (`data-raw/leagues/priced_scorer_lines.json`),
+  graded from the match rows (did not play = void), and at 300 graded the blend
+  weights are fitted and adopted only if better out-of-fold
+  (`data-raw/leagues/scorer_combine_weights.json`). Until then the forecast stands
+  alone and bet365's chance is shown beside it. Only 15 past picks carried a price,
+  too few to test a blend on history.

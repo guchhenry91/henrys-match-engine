@@ -232,13 +232,11 @@ def grade_prop(entry: dict, actual: dict | None) -> dict:
     `actual` is his row from players.match_player_stats, or None when he has no
     shot events in the fixture.
 
-    None is graded WRONG, not void. It means one of two things -- he did not play,
-    or he played and never had a shot -- and the shot feed cannot tell them apart.
-    A bookmaker voids the first and settles the second as a loss. Given we cannot
-    distinguish them, we take the HARSHER reading on purpose: expected minutes are
-    part of what the model claims, so a man the model expected to play and start
-    shooting who did neither is a miss. This can only ever understate the record,
-    never inflate it, which is the direction an honest scoreboard should err in.
+    A PLAYER WHO DID NOT PLAY IS VOID (owner's decision, 2026-10-11), as bet365
+    settles it. The caller decides that from the match LINEUP (Understat's
+    per-match rosters, leagues/forecast.appearances) before calling this; here,
+    API-Football's 0 minutes in the squad also voids. None here means he played and
+    had no shot event: graded on zero.
     """
     out = dict(entry)
     if entry.get("tainted"):
@@ -259,8 +257,15 @@ def grade_prop(entry: dict, actual: dict | None) -> dict:
     try:
         if mins is not None and not pd.isna(mins) and int(mins) == 0 and got == 0:
             out["did_not_play"] = True
+            out.update(void=True, graded="void", void_reason="did not play")
     except (TypeError, ValueError):
         pass
+    return out
+
+
+def void_did_not_play(entry: dict) -> dict:
+    out = dict(entry)
+    out.update(void=True, graded="void", did_not_play=True, void_reason="did not play")
     return out
 
 

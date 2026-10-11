@@ -1203,6 +1203,10 @@ honouring news (out / doubtful) and confirmed XIs; `apply` replaces the old numb
 drops players with no read. Bars 40% scorer, 62% shots and on target, top 3 a match;
 picks carry `engine`, skip `prop_calibration`, and the payload has `record_rebuilt`.
 If the model cannot run, no player picks are published (never the old model's).
+DID NOT PLAY = VOID (2026-10-11, owner's decision): judged from Understat lineups; no lineup
+and no stat row = pending. Chances are "if he plays"; only start_pct >= 50 is picked.
+bet365 scorer price = second opinion: logged/graded/re-fitted at 300 (`forecast_board.learn`),
+blended only once adopted.
 
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.

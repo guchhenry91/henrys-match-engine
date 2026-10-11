@@ -54,3 +54,37 @@ def test_apply_replaces_numbers_and_drops_unread_players():
 def test_match_forecast_none_when_model_not_prepared(monkeypatch):
     monkeypatch.setattr(fb, "_STATE", {})
     assert fb.match_forecast("PL", "A", "B", "2026-10-12 19:00") is None
+
+
+def test_second_opinion_logs_and_stays_alone_until_adopted(tmp_path, monkeypatch):
+    monkeypatch.setattr(fb, "WEIGHTS", tmp_path / "w.json")
+    monkeypatch.setattr(fb, "PRICED", [])
+    rows = [{"player": "Striker", "player_id": 10, "anytime_pct": 45.0, "understat_match": 99},
+            {"player": "Unpriced", "player_id": 11, "anytime_pct": 20.0, "understat_match": 99}]
+    fb.second_opinion(rows, lambda n: 2.0 if n == "Striker" else None, "PL", "2026-10-12T19:00:00+00:00")
+    assert rows[0]["b365_p"] == 0.5 and rows[0]["anytime_pct"] == 45.0     # forecast alone
+    assert len(fb.PRICED) == 1 and fb.PRICED[0]["game_id"] == "PL:99"
+    import json
+    (tmp_path / "w.json").write_text(json.dumps({"goal": {"w": [0.5, 0.5, 0.0]}}))
+    fb.second_opinion(rows[:1], lambda n: 2.0, "PL", "2026-10-12T19:00:00+00:00")
+    assert rows[0]["combined_with_bet365"] and 40 < rows[0]["anytime_pct"] < 50
+
+
+def test_grade_void_when_player_absent(tmp_path):
+    import json
+    from datetime import datetime, timezone
+    from tracking import combine_fit
+    log = tmp_path / "l.json"
+    log.write_text(json.dumps({"a": {"line": 0.5, "y": None, "player_id": 1},
+                               "b": {"line": 0.5, "y": None, "player_id": 2}}))
+    combine_fit.grade(log, lambda e: "void" if e["player_id"] == 1 else 1.0)
+    out = json.loads(log.read_text())
+    assert out["a"]["y"] == "void" and out["b"]["y"] == 1
+
+
+def test_did_not_play_is_void():
+    from leagues import picks
+    e = {"market": "goal", "player": "X"}
+    assert picks.void_did_not_play(e)["graded"] == "void"
+    assert picks.grade_prop(e, {"goals": 0, "minutes": 0})["graded"] == "void"
+    assert picks.grade_prop(e, None)["graded"] == "wrong"          # played, no shot event

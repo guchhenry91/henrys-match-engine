@@ -12,9 +12,13 @@ forecast: who starts, who comes on, and what each does in either case.
   * news: a player ruled OUT does not play; DOUBTFUL halves his chance of featuring;
     a confirmed XI fixes the starters, and the named bench comes on at the rate the
     role model gives;
+  * chances are IF HE PLAYS -- a player who does not play is VOID (owner's call,
+    2026-10-11, as bet365 settles) -- and only a likely or confirmed starter
+    (MIN_START) is published;
   * published at BARS, which the gate measured landing at the rate stated
-    (2022-25, all five leagues: scorer 46.6% said / 47.7% landed, 2+ shots 69/70,
-    on target 68/68). No after-the-fact recalibration is applied.
+    (2022-25, five leagues, players who played: scorer 47.4% said / 46.6% landed
+    n=1,583; 2+ shots 70.9/71.8; on target 68.9/68.2). No after-the-fact
+    recalibration is applied.
 Picks carry engine=ENGINE.
 """
 from __future__ import annotations
@@ -27,10 +31,22 @@ import pandas as pd
 
 from leagues import forecast as fc
 from leagues import names
+from tracking import combine_fit
 
 ENGINE = "forecast-v1"
 BARS = {"goal": 0.40, "shots": 0.62, "sot": 0.62}
 PER_MATCH = 3
+MIN_START = 50.0              # publish only a likely (or confirmed) starter, in %
+# BET365'S SCORER PRICE AS A SECOND OPINION. Every quoted player's price is logged with
+# the forecast (PRICED_LOG), graded from the match rows (did not play = void), and once
+# 300 are graded the weights in final = sigmoid(a*logit(forecast) + b*logit(bet365) + c)
+# are fitted and ADOPTED only if they beat the forecast alone out-of-fold. Until then
+# the forecast stands alone (it is what the gate measured) and bet365 is shown beside it.
+ROOT = fc.ROOT
+PRICED_LOG = ROOT / "data-raw" / "leagues" / "priced_scorer_lines.json"
+WEIGHTS = ROOT / "data-raw" / "leagues" / "scorer_combine_weights.json"
+ALONE = (1.0, 0.0, 0.0)
+PRICED: list = []             # this run's priced lines, recorded by publish.main
 HORIZON_DAYS = 10
 DOUBT_FACTOR = 0.5
 SUB_MINUTES = 20.0
@@ -159,8 +175,60 @@ def match_forecast(league, home, away, kickoff, unavailable=(), doubtful=(),
                     "start_pct": round(100 * float(roles[i, 2]), 1),
                     "expected_minutes": round(mins, 1),
                     "penalty_taker": bool((r.pen_share or 0) >= 0.5),
-                    "engine": ENGINE})
+                    "understat_match": int(mid), "engine": ENGINE})
     return res
+
+
+def scorer_weights():
+    return combine_fit.adopted(WEIGHTS).get("goal") or ALONE
+
+
+def second_opinion(forecast: list, price_of, league: str, kickoff) -> None:
+    """Attach bet365's anytime price to each forecast row it quotes, log the pair, and
+    -- once real-line weights are adopted -- combine them into the scorer chance."""
+    w = scorer_weights()
+    for p in forecast:
+        try:
+            price = price_of(p["player"])
+        except Exception:                                  # noqa: BLE001
+            price = None
+        if not price or float(price) <= 1.0:
+            continue
+        pb = 1.0 / float(price)                            # raw: the fit absorbs the margin
+        pm = p["anytime_pct"] / 100.0
+        p["b365_p"] = round(pb, 4)
+        p["p_model_goal"] = round(pm, 4)
+        PRICED.append({"game_id": f"{league}:{p['understat_match']}", "player_id": p["player_id"],
+                       "market": "goal", "line": 0.5, "tipoff": str(kickoff), "side": "over",
+                       "p_model": pm, "book_p": pb})
+        if w != ALONE:
+            p["anytime_pct"] = round(100 * combine_fit._apply(
+                w, np.array([[combine_fit._logit(pm), combine_fit._logit(pb)]]))[0], 1)
+            p["combined_with_bet365"] = True
+
+
+def learn(now=None) -> dict:
+    """Record this run's priced lines, grade finished ones, re-fit at 300."""
+    now = now or datetime.now(timezone.utc)
+    combine_fit.record(PRICED_LOG, PRICED, now)
+    rows = {}
+
+    def _actual(e):
+        league, mid = e["game_id"].split(":")
+        if league not in rows:
+            year = _season_year(now)
+            f = fc.MATCHES_DIR / f"{league}_{year}.csv.gz"
+            rows[league] = pd.read_csv(f, usecols=["match_id", "player_id", "goals"]) if f.exists() else pd.DataFrame()
+        r = rows[league]
+        if r.empty:
+            return None
+        m = r[r["match_id"] == int(mid)]
+        if m.empty:
+            return None                                    # not played or not filed yet
+        hit = m[m["player_id"] == int(e["player_id"])]
+        return "void" if hit.empty else float(hit["goals"].iloc[0])
+    combine_fit.grade(PRICED_LOG, _actual)
+    return combine_fit.refit(PRICED_LOG, WEIGHTS, {"goal": scorer_weights()}, now)
 
 
 def apply(squad_props: list, forecast: list) -> list:
@@ -177,6 +245,9 @@ def apply(squad_props: list, forecast: list) -> list:
         for k in ("anytime_pct", "p_shots_2plus", "p_sot_1plus", "appearance_pct",
                   "expected_minutes", "penalty_taker", "start_pct", "engine"):
             q[k] = f[k]
+        for k in ("b365_p", "p_model_goal", "combined_with_bet365"):
+            if k in f:
+                q[k] = f[k]
         q["exp_shots"] = q["exp_sot"] = None      # the old model's counts, not this one's
         out.append(q)
     return out

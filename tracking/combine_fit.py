@@ -93,6 +93,9 @@ def grade(path: Path, actual) -> int:
         a = actual(e)
         if a is None:
             continue
+        if a == "void":                               # did not play: never a bet
+            e["y"] = "void"
+            continue
         if float(a) == e["line"]:
             e["y"] = "push"
         else:

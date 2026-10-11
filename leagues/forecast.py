@@ -274,10 +274,32 @@ class PropForecast:
         return self.out[market].predict_proba(x)[:, 1]
 
     def predict(self, rows: pd.DataFrame, roles: np.ndarray | None = None) -> dict:
-        """{market: P} plus 'p_start', 'p_sub'. `roles` overrides the role model
-        (a confirmed XI)."""
+        """{market: P(market | he PLAYS)} plus 'p_start', 'p_sub'. A player who does
+        not play is VOID, as bet365 settles, so the chance is conditional on taking
+        the field: starting and coming on, weighted by how likely each is. `roles`
+        overrides the role model (a confirmed XI)."""
         r = self.roles(rows) if roles is None else roles
-        out = {"p_start": r[:, 2], "p_sub": r[:, 1]}
+        play = np.clip(r[:, 1] + r[:, 2], 1e-6, None)
+        out = {"p_start": r[:, 2], "p_sub": r[:, 1], "p_play": r[:, 1] + r[:, 2]}
         for m in MARKETS:
-            out[m] = r[:, 2] * self.conditional(rows, m, True) + r[:, 1] * self.conditional(rows, m, False)
+            out[m] = (r[:, 2] * self.conditional(rows, m, True)
+                      + r[:, 1] * self.conditional(rows, m, False)) / play
         return out
+
+
+def appearances(league: str, season: int, base: Path | None = None) -> tuple[set, set]:
+    """({(norm player, date)} who APPEARED, {(canonical team, date)} whose lineup we
+    hold) for one league-season, from Understat's per-match rosters -- which list
+    every player who took the field, shots or not. What decides a VOID: a player
+    missing from a lineup we hold did not play."""
+    from leagues import names
+    from nfl import odds as odds_mod
+    f = Path(base or MATCHES_DIR) / f"{league}_{season}.csv.gz"
+    if not f.exists():
+        return set(), set()
+    d = pd.read_csv(f, usecols=["date", "team", "player"])
+    day = pd.to_datetime(d["date"].astype(str).str[:10]).dt.date
+    appeared = set(zip(d["player"].map(lambda n: odds_mod.norm_name(str(n))), day))
+    sides = {(names.canonical(t, league), dd) for t, dd in zip(d["team"], day)}
+    return appeared, sides
+
