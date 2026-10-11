@@ -252,3 +252,41 @@ def test_the_daily_cap_counts_the_dashboard_relay_too(tmp_path, monkeypatch):
     assert c.day_used() == 950
     with pytest.raises(oc.BudgetExceeded):
         c.preflight("sports/basketball_nba/odds", 60)
+
+
+EVENT = {"id": "abc", "commence_time": "2026-10-21T23:30:00Z", "home_team": "Boston Celtics",
+         "away_team": "New York Knicks", "bookmakers": [
+             {"key": "pinnacle", "markets": [
+                 {"key": "player_points", "outcomes": [
+                     {"name": "Over", "description": "Jayson Tatum", "point": 26.5, "price": 1.9},
+                     {"name": "Under", "description": "Jayson Tatum", "point": 26.5, "price": 1.95}]},
+                 {"key": "player_points_alternate", "outcomes": [
+                     {"name": "Over", "description": "Jayson Tatum", "point": 30.5, "price": 2.9}]}]},
+             {"key": "draftkings", "markets": [
+                 {"key": "player_points", "outcomes": [
+                     {"name": "Over", "description": "Jayson Tatum", "point": 25.5, "price": 1.8}]},
+                 {"key": "player_points_alternate", "outcomes": [
+                     {"name": "Over", "description": "Jayson Tatum", "point": 31.5, "price": 3.2}]}]}]}
+
+
+def test_every_paid_reply_is_archived_for_the_rebuild(tmp_path):
+    from tracking import line_archive
+    fake = Fake(body=EVENT)
+    c = _client(tmp_path, fake, archive_dir=tmp_path / "lines")
+    _props(c)
+    got = line_archive.load("nba", base=tmp_path / "lines")
+    # Main market from every book; the alternate ladder only from the first book.
+    assert len(got) == 4
+    assert set(got["book"]) == {"pinnacle", "draftkings"}
+    alts = got[got["market"] == "player_points_alternate"]
+    assert list(alts["book"]) == ["pinnacle"] and list(alts["line"]) == [30.5]
+    assert set(got["seen_at"]) == {NOW.isoformat(timespec="seconds")}
+    _props(c)                                   # a second check appends, kept apart by time
+    assert len(line_archive.load("nba", base=tmp_path / "lines")) == 8
+
+
+def test_a_test_client_never_writes_the_repo_archive(tmp_path, monkeypatch):
+    from tracking import line_archive
+    monkeypatch.setattr(line_archive, "DIR", tmp_path / "repo_lines")
+    _props(_client(tmp_path, Fake(body=EVENT)))
+    assert not (tmp_path / "repo_lines").exists()

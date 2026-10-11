@@ -92,11 +92,15 @@ def _is_historical(path: str) -> bool:
 class Client:
     def __init__(self, key=None, dry_run=False, opener=urllib.request.urlopen,
                  ledger_path=None, clock=None, sleeper=time.sleep,
-                 historical_allowance: int = 0):
+                 historical_allowance: int = 0, archive_dir=None):
         self.key = key or os.environ.get("ODDS_API_KEY") or ""
         self.dry_run = dry_run
         self.opener = opener
         self.ledger_path = Path(ledger_path or LEDGER)
+        # Every paid reply is archived (tracking/line_archive.py) -- by default only
+        # for the live ledger, so a test with its own ledger never writes the repo.
+        self.archive_dir = archive_dir if archive_dir is not None else (
+            None if ledger_path else "default")
         self.clock = clock or (lambda: datetime.now(timezone.utc))
         self.sleeper = sleeper
         self.historical_allowance = int(historical_allowance)
@@ -233,6 +237,14 @@ class Client:
         spent = self._read_usage(headers, fallback=est)
         self._usage_fresh = self._usage_fresh or self.month_used() is not None
         self._record(path, sport, purpose, spent)
+        if spent and self.archive_dir and payload and path.rstrip("/").endswith("odds"):
+            try:
+                from tracking import line_archive
+                line_archive.record(
+                    sport, payload, self.clock().isoformat(timespec="seconds"),
+                    base=None if self.archive_dir == "default" else Path(self.archive_dir))
+            except Exception as exc:                  # noqa: BLE001 - never costs a run
+                print(f"  line archive: not written ({type(exc).__name__}: {exc})")
         if _is_historical(path):
             self.historical_used += spent
         return payload
