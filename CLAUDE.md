@@ -1,5 +1,12 @@
 # Henry's Match Engine
 
+> **MODEL REBUILD IN PROGRESS (agreed 2026-10-11) -- read `docs/REBUILD_PLAN.md` first.**
+> Four independent reviews found the prop models read bookmakers' lines backwards
+> (trained on self-made lines with the line as an input) and that selection picked the
+> model's own mistakes. The rebuild forecasts each stat's full distribution instead,
+> combines it with the market, and is judged on wins at the stated rate. Do not add new
+> filter/tier/blend layers on top of the old models; the plan replaces them.
+
 Static site deployed on Render. The live product (index.html) is a four-league
 football predictor -- Premier League, La Liga, Bundesliga, Ligue 1. Six tabs:
 Today (overview), Best Picks, Player Picks, Parlay, Tables, Grades, plus each
