@@ -634,7 +634,9 @@ def build() -> dict:
     built = None
     if REBUILT and any(slate.values()):
         try:
-            built = forecast_board.frame([p for ps in slate.values() for p in ps])
+            out_now = {n: (r or {}).get("team") for n, r in injuries.items()
+                       if (r or {}).get("status") == "out"}
+            built = forecast_board.frame([p for ps in slate.values() for p in ps], ruled_out=out_now)
         except Exception as exc:
             # Never fall back to the old model's numbers: no rebuilt read, no prop picks.
             print(f"::warning::rebuilt NFL forecast unavailable ({type(exc).__name__}: {exc}); "
@@ -656,6 +658,12 @@ def build() -> dict:
             for pick in priced:
                 game_props.setdefault(str(pick["game_id"]), {}).setdefault(market, []).append(pick)
             board = forecast_board.select(priced)
+            if forecast_board.ALT_ON and market != "anytime_touchdown":
+                alts = forecast_board.select_alt(priced, board)
+                board = sorted(board + alts, key=lambda p: -p["probability"])
+                print(f"  {market}: {len(alts)} alternate-line pick(s)")
+            for pick in priced:
+                pick.pop("alt_candidate", None)
             for pick in board:
                 pick["on_board"] = True
             props[market] = {"released": True, "picks": board, "engine": forecast_board.ENGINE,

@@ -36,6 +36,9 @@ ROLL = ("targets", "receptions", "receiving_yards", "carries", "rushing_yards", 
         "receiving_air_yards", "passing_air_yards", "offense_pct", "touchdowns",
         "rushing_tds", "receiving_tds")
 TRAIN_SEASONS = 5
+# TEAMMATES OUT: what each listed-Out player leaves behind, from the OFFICIAL pre-game
+# report (what a bettor could know), never from who turned out to be missing.
+VACATED = ("vac_target_share", "vac_air_share", "vac_carry_share", "vac_qb")
 RAW = ["player_id", "player_display_name", "position", "season", "week", "season_type",
        "game_id", "team", "opponent_team", "completions", "attempts", "passing_yards",
        "passing_tds", "passing_air_yards", "carries", "rushing_yards", "rushing_tds",
@@ -115,9 +118,70 @@ def _context(d: pd.DataFrame) -> pd.DataFrame:
     return d
 
 
-def build(d: pd.DataFrame) -> pd.DataFrame:
+def out_reports(seasons) -> pd.DataFrame:
+    """[player_id, team, season, week] for every player the official pre-game report
+    listed OUT. Doubtful is left aside: the live feed (API-NFL) folds Doubtful into
+    Questionable, so live and history can only agree on Out."""
+    frames = []
+    for s in seasons:
+        try:
+            raw = data._read_csv(data.INJURIES_URL.format(season=s), f"injuries_{s}.csv",
+                                 max_age_hours=6 if s >= data.config.CURRENT_SEASON else None)
+        except Exception:
+            continue
+        raw = raw[raw["report_status"] == "Out"]
+        frames.append(raw.rename(columns={"gsis_id": "player_id"})[["player_id", "team", "season", "week"]])
+    if not frames:
+        return pd.DataFrame(columns=["player_id", "team", "season", "week"])
+    out = pd.concat(frames, ignore_index=True).dropna()
+    out["season"], out["week"] = out["season"].astype(int), out["week"].astype(int)
+    return out.drop_duplicates()
+
+
+def _vacated(d: pd.DataFrame, outs: pd.DataFrame) -> pd.DataFrame:
+    """Per (team, season, week): the share of the team's targets, air yards and
+    carries -- and its quarterback's drop-backs -- held by players listed Out, read
+    from each one's form going INTO that week (the last 8 games he played, within a
+    year). Zero where nobody is out."""
+    cols = list(VACATED)
+    if outs is None or outs.empty:
+        return pd.DataFrame(columns=["team", "season", "week"] + cols)
+    played = d[~d["is_next"]].sort_values("gameday")
+    g = played.groupby("player_id", sort=False)
+    post = pd.DataFrame({
+        "player_id": played["player_id"], "gameday": played["gameday"],
+        "position": played["position"],
+        "ts": g["target_share"].transform(lambda x: x.ewm(span=8, min_periods=1).mean()),
+        "ay": g["air_yards_share"].transform(lambda x: x.ewm(span=8, min_periods=1).mean()),
+        "car": g["carries"].transform(lambda x: x.ewm(span=8, min_periods=1).mean()),
+        "att": g["attempts"].transform(lambda x: x.ewm(span=8, min_periods=1).mean()),
+    }).dropna(subset=["gameday"]).sort_values("gameday")
+    when = (d.dropna(subset=["gameday"]).groupby(["team", "season", "week"])["gameday"].min()
+            .rename("gameday").reset_index())
+    o = outs.merge(when, on=["team", "season", "week"], how="inner")
+    if o.empty:
+        return pd.DataFrame(columns=["team", "season", "week"] + cols)
+    o["player_id"] = o["player_id"].astype(str)
+    post["player_id"] = post["player_id"].astype(str)
+    o = pd.merge_asof(o.sort_values("gameday"), post, on="gameday", by="player_id",
+                      allow_exact_matches=False, tolerance=pd.Timedelta(days=365))
+    o = o.dropna(subset=["ts"])
+    team_car = (played.groupby(["team", "season"])["carries"].sum()
+                / played.groupby(["team", "season"])["game_id"].nunique()).rename("tc").reset_index()
+    o = o.merge(team_car, on=["team", "season"], how="left")
+    o["tc"] = o["tc"].fillna(26.0)
+    o["vac_target_share"] = o["ts"].fillna(0)
+    o["vac_air_share"] = o["ay"].fillna(0)
+    o["vac_carry_share"] = (o["car"].fillna(0) / o["tc"]).clip(upper=1)
+    o["vac_qb"] = np.where(o["position"] == "QB",
+                           (o["att"].fillna(0) / 35.0).clip(upper=1), 0.0)
+    return o.groupby(["team", "season", "week"], as_index=False)[cols].sum()
+
+
+def build(d: pd.DataFrame, outs: pd.DataFrame | None = None) -> pd.DataFrame:
     """ENTERING features per player-week. Upcoming games may be appended with
-    is_next=True and NaN stats; they get features, not targets."""
+    is_next=True and NaN stats; they get features, not targets. `outs` is
+    out_reports(...) plus, for upcoming games, the live report's Out players."""
     d = d.copy()
     if "is_next" not in d:
         d["is_next"] = False
@@ -161,11 +225,14 @@ def build(d: pd.DataFrame) -> pd.DataFrame:
             last = latest.groupby("opponent_team")[base].apply(lambda x: x.ewm(span=8).mean().iloc[-1])
         miss = d["is_next"] & d[col].isna()
         d.loc[miss, col] = d.loc[miss, key].map(last)
+    vac = _vacated(d, outs)
+    d = d.drop(columns=[c for c in VACATED if c in d]).merge(vac, on=["team", "season", "week"], how="left")
+    d[list(VACATED)] = d[list(VACATED)].fillna(0.0)
     return d.sort_values(["gameday", "game_id", "player_id"]).reset_index(drop=True)
 
 
-def features(market: str) -> list:
-    base = ["pos", "home", "games_before", "rest_days", "new_season", "spread_team",
+def features(market: str, vacated: bool = True) -> list:
+    base = (list(VACATED) if vacated else []) + ["pos", "home", "games_before", "rest_days", "new_season", "spread_team",
             "implied_team", "implied_opp", "total_line", "dome", "wind", "temp",
             "team_attempts_in", "team_carries_in", "def_passing_yards_in", "def_rushing_yards_in",
             "receiving_yards_per_targets", "rushing_yards_per_carries", "passing_yards_per_attempts"]
@@ -187,10 +254,10 @@ def eligible(frame: pd.DataFrame, market: str) -> pd.Series:
 
 
 class MarketModel:
-    def __init__(self, market: str, seed: int = 0):
+    def __init__(self, market: str, seed: int = 0, vacated: bool = True):
         self.market = market
         self.stat = MARKETS[market]["stat"]
-        self.cols = features(market)
+        self.cols = features(market, vacated)
         self.binary = market == "anytime_touchdown"
         self.seed = seed
         self.model, self.spread = None, None

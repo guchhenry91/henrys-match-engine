@@ -33,6 +33,8 @@ def _isolated(tmp_path, monkeypatch):
     def _no_feed():
         raise OSError("no network in tests")
     monkeypatch.setattr(publish.mispricing, "fetch", _no_feed)
+    # Nor the rebuilt props model: training it means a network sync and a minute's fit.
+    monkeypatch.setattr(publish.forecast_board, "prepare", lambda *a, **k: {})
     before = _snapshot()
     yield
     changed = sorted(str(p.relative_to(ROOT)) for p, h in _snapshot().items()

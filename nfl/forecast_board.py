@@ -43,6 +43,13 @@ WEIGHTS = ROOT / "data-raw" / "nfl" / "combine_weights.json"
 ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
 TOP_PER_MARKET = 3
+# ALTERNATE LINES: the book's lower rungs, where overs are likelier. A rung is a pick
+# only at ALT_BAR or above AND with the forecast at least as sure as the book; the
+# highest such rung (the best price) is the one taken, at most ALT_PER_GAME a game.
+ALT_ON = True
+ALT_BAR = 0.70
+ALT_PER_GAME = 2
+DEFAULT_OVERROUND = 1.05
 HISTORY_SEASONS = 6               # five to train on, plus one for entering features
 
 
@@ -68,12 +75,45 @@ def combine(p_model: float, p_book: float, w) -> float:
     return 1.0 / (1.0 + math.exp(-(a * lg(p_model) + b * lg(p_book) + c)))
 
 
-def frame(projections: list, history: pd.DataFrame | None = None) -> pd.DataFrame:
+def live_outs(ruled_out: dict, history: pd.DataFrame, projections: list) -> pd.DataFrame:
+    """The live report's OUT players as out_reports rows for the upcoming game of
+    their team. `ruled_out` is {name: team or None}; names join to player ids within
+    the team where the report names one, and a name shared by two players is skipped."""
+    from nfl import odds as odds_mod
+    last = history.sort_values(["season", "week"]).groupby("player_id").tail(1)
+    by_name = {}
+    for r in last.itertuples():
+        by_name.setdefault(odds_mod.norm_name(str(r.player_display_name)), []).append((r.player_id, r.team))
+    games = {}
+    for p in projections:
+        try:
+            gid = str(p["game_id"])
+            games[p["team"]] = (int(gid.split("_")[0]), int(gid.split("_")[1]))
+        except (KeyError, ValueError, IndexError):
+            continue
+    rows = []
+    for name, team in (ruled_out or {}).items():
+        cands = by_name.get(odds_mod.norm_name(str(name))) or []
+        if team:
+            cands = [c for c in cands if c[1] == team] or cands
+        if len(cands) != 1:
+            continue
+        pid, last_team = cands[0]
+        team = team or last_team
+        if team in games:
+            rows.append({"player_id": pid, "team": team, "season": games[team][0], "week": games[team][1]})
+    return pd.DataFrame(rows, columns=["player_id", "team", "season", "week"])
+
+
+def frame(projections: list, history: pd.DataFrame | None = None, ruled_out: dict | None = None) -> pd.DataFrame:
     """Built features: every player-week of history plus ONE upcoming row per
-    (player, game) on the slate. `history` (fc.load output) may be passed in."""
+    (player, game) on the slate. `history` (fc.load output) may be passed in.
+    `ruled_out` ({name: team}) are this week's OUT players: their teammates' rows
+    carry what they leave behind (nfl/forecast._vacated)."""
+    first = config.CURRENT_SEASON - HISTORY_SEASONS
+    seasons = range(first, config.CURRENT_SEASON + 1)
     if history is None:
-        first = config.CURRENT_SEASON - HISTORY_SEASONS
-        history = fc.load(range(first, config.CURRENT_SEASON + 1))
+        history = fc.load(seasons)
     last = history.sort_values(["season", "week"]).groupby("player_id").tail(1).set_index("player_id")
     synth, seen = [], set()
     for p in projections:
@@ -92,7 +132,9 @@ def frame(projections: list, history: pd.DataFrame | None = None) -> pd.DataFram
     rows = history.assign(is_next=False)
     if synth:
         rows = pd.concat([rows, fc._context(pd.DataFrame(synth))], ignore_index=True)
-    return fc.build(rows)
+    outs = pd.concat([fc.out_reports(seasons), live_outs(ruled_out, history, projections)],
+                     ignore_index=True).drop_duplicates()
+    return fc.build(rows, outs)
 
 
 def _train(built: pd.DataFrame) -> pd.DataFrame:
@@ -108,6 +150,51 @@ def select(priced: list) -> list:
         by_game.setdefault(str(p["game_id"]), []).append(p)
     return sorted([p for ps in by_game.values() for p in ps[:TOP_PER_MARKET]],
                   key=lambda p: -p["probability"])
+
+
+def _alt_rung(p: dict, model, mu: float, w):
+    """The highest rung BELOW the main line clearing ALT_BAR with the forecast at least
+    as sure as the book, or None. The book's rung price is one-sided, so its chance
+    is de-vigged by the main line's own overround."""
+    ladder = p.get("ladder") or {}
+    if not ladder.get("rungs") or p.get("line") is None:
+        return None
+    over_price, over_p = p.get("book_price"), p.get("book_p")
+    overround = DEFAULT_OVERROUND
+    if over_price and over_p:
+        overround = max((1.0 / float(over_price)) / float(over_p), 1.0)
+    best = None
+    for r in sorted(ladder["rungs"], key=lambda r: r["line"]):
+        line, price = float(r["line"]), float(r.get("price") or 0)
+        if line >= float(p["line"]) or price <= 1.0:
+            continue
+        pb = min((1.0 / price) / overround, 0.99)
+        pm = float(model.spread.p_over(np.array([mu]), np.array([line]))[0])
+        pc = combine(pm, pb, w)
+        if pc >= ALT_BAR and pm >= pb:
+            best = {"line": line, "price": price, "book": ladder.get("book"),
+                    "probability": round(pc, 4), "p_model": round(pm, 4), "book_p": round(pb, 4)}
+    return best
+
+
+def select_alt(priced: list, taken: list) -> list:
+    """Alternate-line picks for players with no main-line pick, best first."""
+    have = {(str(p["game_id"]), p.get("player_id")) for p in taken}
+    cands = []
+    for p in priced:
+        a = p.get("alt_candidate")
+        if not a or (str(p["game_id"]), p.get("player_id")) in have:
+            continue
+        q = {k: v for k, v in p.items() if k != "alt_candidate"}
+        q.update({"side": "over", "alt": True, "line": a["line"], "book_price": a["price"],
+                  "book": a["book"], "line_source": "alternate", "probability": a["probability"],
+                  "p_model": a["p_model"], "book_p": a["book_p"],
+                  "edge": round(a["probability"] - a["book_p"], 4)})
+        cands.append(q)
+    by_game = {}
+    for q in sorted(cands, key=lambda q: -q["probability"]):
+        by_game.setdefault(str(q["game_id"]), []).append(q)
+    return [q for qs in by_game.values() for q in qs[:ALT_PER_GAME]]
 
 
 def price(market: str, projections: list, built: pd.DataFrame, w=None) -> list:
@@ -131,6 +218,7 @@ def price(market: str, projections: list, built: pd.DataFrame, w=None) -> list:
         mu = model.mean(rows)
         p_over = model.spread.p_over(mu, np.array([float(p["line"]) for p in todo]))
     out = []
+    model_ = model
     for p, pm, m in zip(todo, p_over, mu):
         pb = float(p["book_p"])
         pc = combine(float(pm), pb, w)
@@ -145,6 +233,8 @@ def price(market: str, projections: list, built: pd.DataFrame, w=None) -> list:
         if side == "under":
             q["book_price"] = p.get("book_price_under")
         q["edge"] = round(q["probability"] - q["book_p"], 4)
+        if ALT_ON and m is not None:
+            q["alt_candidate"] = _alt_rung(p, model_, float(m), w)
         out.append(q)
     out.sort(key=lambda p: -p["probability"])
     return out

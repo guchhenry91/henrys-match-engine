@@ -100,3 +100,26 @@ football-data.co.uk, Understat.
     a TD pick is the book's own favourite that the forecast agrees with ("yes" only).
   - Next for NFL: an injury-report-based teammates-out feature, and the alternate
     ladders (higher-probability rungs) once the line archive has real NFL alt lines.
+- 2026-10-11: NFL teammates-out (official pre-game report, Out only -- the live feed
+  folds Doubtful into Questionable) gated A/B and ON: the forecast's pull rose
+  (passing a 0.17 -> 0.21, receiving 0.18 -> 0.21), published picks roughly doubled
+  and stayed calibrated (passing 290 said 67.6% landed 68.3%; receiving 544 said
+  64.8% landed 65.4%). TD unchanged (a = 0).
+- 2026-10-11: NFL alternate lines ON (`nfl/forecast_board.ALT_*`): the book's lower
+  rungs, the highest one at 70%+ combined where the forecast is at least as sure as
+  the book, for players without a main-line pick, max 2 a game. Simulated rungs:
+  passing said 77.0% landed 83.0% (n=1,141), rushing 76.6/85.5 (2,733), receiving
+  74.1/76.2 (6,566) -- at or above the stated rate. Real alt lines are being archived.
+- 2026-10-11: SOCCER PROPS REBUILT (`leagues/forecast.py`, `leagues/forecast_board.py`,
+  gate `scripts/soccer_props_gate.py` -> `data-raw/leagues/props_forecast_report.json`).
+  Per player per match from Understat's per-match rows (`data-raw/leagues/understat_matches/`,
+  kept current by `scripts/sync_understat_matches.py`, run by the board itself): a role
+  model (start / bench / out) and per-market outcome models given the role, with
+  penalty share, per-90 form, team and opponent xG form, home. Not appearing is a loss.
+  Walk-forward 2022-25, five leagues, published (top 3 a match per market):
+  anytime scorer at 40%+: 1,106 said 46.6% landed 47.7% (old model: said ~42%,
+  landed 16-30%); 2+ shots at 62%+: 5,076 said 69.4% landed 70.3%; 1+ on target at
+  62%+: 2,477 said 67.8% landed 68.4%. With the confirmed XI, about twice the picks,
+  still calibrated. No after-the-fact recalibration; `record_rebuilt` on the board.
+  Still to do for soccer: the bet365 scorer price as a second opinion once real
+  graded prices accumulate (combine_fit), and a historical price check.

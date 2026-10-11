@@ -1190,6 +1190,20 @@ on the board; priced lines logged to `data-raw/nfl/priced_lines.json` and re-fit
 docs/REBUILD_PLAN.md for the gate's numbers. If the forecast cannot load, the board
 publishes no props rather than the old model's.
 
+NFL TEAMMATES OUT + ALTERNATE LINES (2026-10-11): `nfl/forecast._vacated` (targets, air
+yards, carries, QB drop-backs left by players listed OUT on the official report; live from
+injuries.json "out") -- gated A/B, on. `forecast_board._alt_rung`/`select_alt`: lower ladder
+rungs at 70%+ where the forecast is at least as sure as the book; picks carry `alt: true`
+and their own record key (`picks.prop_key` ":alt").
+
+SOCCER PLAYER PROPS ON THE REBUILT MODEL (2026-10-11): `leagues/publish.PROPS_REBUILT`.
+`leagues/forecast_board.prepare()` (called once in `publish.main`) syncs Understat per-match
+rows and trains the role + outcome models (~1 min); `match_forecast` prices each fixture,
+honouring news (out / doubtful) and confirmed XIs; `apply` replaces the old numbers and
+drops players with no read. Bars 40% scorer, 62% shots and on target, top 3 a match;
+picks carry `engine`, skip `prop_calibration`, and the payload has `record_rebuilt`.
+If the model cannot run, no player picks are published (never the old model's).
+
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.
 

@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "data-raw" / "nfl" / "forecast_report.json"
 SCORED = (2021, 2022, 2023, 2024, 2025)
 PUBLISH_BAR = 0.62
+ALT_BAR = 0.70
 OPP = {"passing_yards": ("attempts", "passing_yards_per_attempts"),
        "rushing_yards": ("carries", "rushing_yards_per_carries"),
        "receiving_yards": ("targets", "receiving_yards_per_targets")}
@@ -53,11 +54,28 @@ def published(p, y, bar, p_model=None):
             "landed": round(float(side_y[pick].mean()), 4) if pick.any() else None}
 
 
+VACATED = True
+
+
+def _alt(pc, pb, y, ids, pm, need_model):
+    """One rung per player-game: the HIGHEST line clearing ALT_BAR (the best price),
+    optionally only where the forecast is at least as sure as the book."""
+    ok = pc >= ALT_BAR
+    if need_model:
+        ok &= pm >= pb
+    f = pd.DataFrame({"id": ids[ok], "p": pc[ok], "y": y[ok], "b": pb[ok]})
+    f = f.sort_values("p").groupby("id").head(1)            # lowest chance = highest line
+    if f.empty:
+        return {"n": 0}
+    return {"n": int(len(f)), "said": round(float(f["p"].mean()), 4),
+            "landed": round(float(f["y"].mean()), 4), "book_said": round(float(f["b"].mean()), 4)}
+
+
 def score(frame, market, season, rng):
     train = frame[(frame["season"] < season) & (frame["season"] >= season - fc.TRAIN_SEASONS)]
     test = frame[(frame["season"] == season) & fc.eligible(frame, market)
                  & (frame["season_type"] == "REG")].copy()
-    model = fc.MarketModel(market).fit(train)
+    model = fc.MarketModel(market, vacated=VACATED).fit(train)
     stat = fc.MARKETS[market]["stat"]
     y_raw = test[stat].to_numpy(float)
     noise = np.exp(rng.normal(0, 0.25, len(test)))
@@ -85,8 +103,18 @@ def score(frame, market, season, rng):
     book_line = np.maximum(np.floor(book_mu * med_ratio) + 0.5, 0.5)
     book = model.spread.p_over(book_mu, book_line)
     p = model.spread.p_over(mu, book_line)
+    # THE ALTERNATE LADDER: lower lines the book rates likelier to go over (its own
+    # 35th / 25th / 15th percentile -> about 65 / 75 / 85% over).
+    alt_p, alt_b, alt_y, alt_id = [], [], [], []
+    for qq in (0.35, 0.25, 0.15):
+        qi = int(round(qq * (model.spread.q - 1)))
+        rung = np.maximum(np.floor(book_mu * model.spread.quant[band, qi]) + 0.5, 0.5)
+        ok = rung < book_line
+        alt_p.append(model.spread.p_over(mu, rung)[ok]); alt_b.append(model.spread.p_over(book_mu, rung)[ok])
+        alt_y.append((y_raw > rung).astype(float)[ok]); alt_id.append(np.arange(len(test))[ok] + season * 10**6)
     return {"mech": (np.concatenate(mech_p), np.concatenate(mech_y)),
             "inf": (p, (y_raw > book_line).astype(float), book),
+            "alt": tuple(np.concatenate(v) for v in (alt_p, alt_b, alt_y, alt_id)),
             "mu": (mu, y_raw)}
 
 
@@ -132,9 +160,15 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--markets", default=",".join(fc.MARKETS))
     ap.add_argument("--report", default=str(REPORT))
+    ap.add_argument("--no-vacated", action="store_true", help="A/B: without teammates out")
     args = ap.parse_args()
+    global VACATED
+    VACATED = not args.no_vacated
     t0 = time.time()
-    frame = fc.build(fc.load(range(min(SCORED) - fc.TRAIN_SEASONS - 1, 2027)))
+    seasons = range(min(SCORED) - fc.TRAIN_SEASONS - 1, 2027)
+    frame = fc.build(fc.load(seasons), fc.out_reports(seasons))
+    print(f"teammates out: {int((frame['vac_target_share'] > 0).sum())} player-weeks with a "
+          f"listed-Out teammate's targets", flush=True)
     print(f"features: {len(frame)} player-weeks in {time.time() - t0:.0f}s", flush=True)
     report = {"generated_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
               "scored_seasons": list(SCORED), "publish_bar": PUBLISH_BAR, "markets": {}}
@@ -160,12 +194,20 @@ def main() -> int:
                            "calibration": dist.calibration(comb, y[first:]),
                            "would_publish_agree": published(comb, y[first:], PUBLISH_BAR, p[first:]),
                            "would_publish_70": published(comb, y[first:], 0.70, p[first:])}
+        if parts[0].get("alt") is not None:
+            # Alternate rungs, scored on the seasons after the first (weights from it).
+            ap_ = [np.concatenate([q["alt"][i] for q in parts[1:]]) for i in range(4)]
+            pc = combine_fit._apply(w, np.column_stack([_logit(ap_[0]), _logit(ap_[1])]))
+            out["alternate"] = {"rungs": int(len(pc)),
+                                "book_favourite_70": _alt(pc, ap_[1], ap_[2], ap_[3], ap_[1], False),
+                                "forecast_backed_70": _alt(pc, ap_[1], ap_[2], ap_[3], ap_[0], True)}
+            print(f"  {market} alternate: {out['alternate']}", flush=True)
         report["markets"][market] = out
         print(f"{market}: n={out['n']} MAE {out.get('mae')} mech ECE {out['mechanical']['ece']} | model alone "
               f"{out['model_alone']} | book alone {out['book_alone']} | COMBINED w={out['combined']['weights_model_book_const']} "
               f"ECE {out['combined']['calibration']['ece']} publish {out['combined']['would_publish_agree']} "
               f"@70 {out['combined']['would_publish_70']}", flush=True)
-        live_models[market] = fc.MarketModel(market).fit(
+        live_models[market] = fc.MarketModel(market, vacated=VACATED).fit(
             frame[(frame["season"] < 2026) & (frame["season"] >= 2026 - fc.TRAIN_SEASONS)])
     report["real_bet365_lines_2026"] = real_lines(frame, live_models, weights)
     print("REAL bet365 lines 2026:", json.dumps(report["real_bet365_lines_2026"]), flush=True)

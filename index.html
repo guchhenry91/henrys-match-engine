@@ -1048,8 +1048,15 @@ function render(k){
 // rebuilt model passes its gate, every model pick is shown for tracking only.
 const REBUILD={on:true,since:"11 Oct 2026"};
 function rebuildBanner(k){
-  const src={NBA:DATA.nba,NFL:DATA.nfl}[k]||{};
+  const pp=DATA.player_picks||{};
+  const src={NBA:DATA.nba,NFL:DATA.nfl,players:pp}[k]||{};
   const eng=src.engine;
+  if(k==="players" && eng){
+    const r=src.record_rebuilt||{};
+    const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
+    return `<div class="glass warnbox">Player picks run the REBUILT model: it forecasts who starts, who comes on and what each does, then publishes scorers at ${Math.round(100*eng.bars.goal)}%+ and shots / on-target at ${Math.round(100*eng.bars.shots)}%+. `+
+      `Tested on four past seasons in all five leagues, its picks landed at the rate stated.${rec} Still proving itself live.</div>`;
+  }
   if(eng){
     const r=(src.record_rebuilt||{}).props||{};
     const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
@@ -1558,6 +1565,7 @@ function lineBook(p){return LINE_BOOKS[p.line_source]||p.book||"Book";}
 // bet365's own, the card says so plainly -- bet only at this exact line.
 function lineNote(p){
   const b=lineBook(p);
+  if(p.alt) return `<span class="bsn b365" style="color:var(--amber)" title="An alternate (lower) line from ${esc(p.book||"the book")}'s ladder at ${Number(p.book_price||0).toFixed(2)}: likelier to land, shorter price. Graded at this line.">Alt line ${p.line} · ${esc(p.book||"")} ${p.book_price?Number(p.book_price).toFixed(2):""}</span>`;
   if(String(p.line_source||"").toLowerCase()==="bet365") return `<span class="bsn">bet365 line</span>`;
   const tip=`This pick is graded at ${b}'s line of ${p.line}. If bet365's line is different, this pick does not apply to your bet — only bet at bet365 if it offers the same line (or a better one for your side).`;
   return `<span class="bsn b365" style="color:var(--amber)" title="${esc(tip)}">${esc(b)} line ${p.line} — bet only at this line</span>`;

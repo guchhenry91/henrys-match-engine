@@ -23,6 +23,7 @@ from leagues import closing, prop_odds, shot_odds
 from leagues import history, mispricing
 from leagues import odds_history
 from leagues import lockstamp, prop_calibration
+from leagues import forecast_board
 from tracking import manifest, performance, release, trust, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
@@ -227,6 +228,12 @@ def model_params(league: str) -> dict:
 # scorer reads weaker than the old 40% for the SAME player -- that is the point.
 PLAYER_PICK_MIN_PROB = {"goal": 0.276, "shots": 0.497, "sot": 0.511}
 PROP_FIELD = {"goal": "anytime_pct", "shots": "p_shots_2plus", "sot": "p_sot_1plus"}
+# Player props come from the REBUILT model (leagues/forecast_board.py) at its gated bars.
+PROPS_REBUILT = True
+
+
+def _bar(market: str) -> float:
+    return forecast_board.BARS[market] if PROPS_REBUILT else PLAYER_PICK_MIN_PROB[market]
 
 
 def _confidence(p_pick: float) -> int:
@@ -643,6 +650,25 @@ def build(league: str = "PL") -> dict:
             playing_time=playing_time,
             confirmed_starters=confirmed_starters,
             confirmed_bench=confirmed_bench)
+        # THE REBUILT MODEL (leagues/forecast_board.py): the numbers come from the
+        # per-match forecast. If it cannot run, no player picks are published at all
+        # rather than the old model's.
+        rebuilt_ok = True
+        if PROPS_REBUILT:
+            try:
+                fcast = forecast_board.match_forecast(
+                    league, home, away, m["date"], unavailable=unavailable, doubtful=doubtful,
+                    starters=confirmed_starters, bench=confirmed_bench)
+            except Exception as exc:                       # noqa: BLE001
+                print(f"  props [{forecast_board.ENGINE}] failed for {home} v {away}: "
+                      f"{type(exc).__name__}: {exc}")
+                fcast = None
+            if fcast is None:
+                rebuilt_ok = False
+                print(f"  props [{forecast_board.ENGINE}]: {home} v {away} not found "
+                      f"in the forecast; no player picks")
+            else:
+                squad_props = forecast_board.apply(squad_props, fcast)
 
         # Player picks clearing their market's bar, frozen on the SAME schedule as
         # the match pick so both boards are graded under one discipline. A doubtful
@@ -653,8 +679,14 @@ def build(league: str = "PL") -> dict:
         for market, field in PROP_FIELD.items():
             if market == "sot" and not shots_ok:
                 continue          # synthetic ratio, not a measurement -- see above
-            bar = PLAYER_PICK_MIN_PROB[market] * 100.0
-            for p in squad_props:
+            if PROPS_REBUILT and not rebuilt_ok:
+                continue
+            bar = _bar(market) * 100.0
+            # At most PER_MATCH per market a match, best first -- the rule the gate scored.
+            ranked = sorted(squad_props, key=lambda p: -(p.get(field) or 0))
+            if PROPS_REBUILT:
+                ranked = ranked[:forecast_board.PER_MATCH]
+            for p in ranked:
                 if p[field] < bar:
                     continue
                 # A confirmed XI is a strong SIGNAL, not a precondition -- see
@@ -669,13 +701,16 @@ def build(league: str = "PL") -> dict:
                 # (prop_calibration), with the raw model probability kept beside it.
                 fits = _prop_fits()
                 shown = prop_calibration.apply_p(prob, fits[market]) if market in fits else prob
+                if PROPS_REBUILT:
+                    shown = prob              # gated as published: no after-the-fact refit
+                is_new = pkey not in pl_log
                 if hours_out <= _lock_window() and not bool(m.get("time_suspect")):
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=shown, p_model=prob,
                                          confidence=_confidence(shown),
                                          kickoff=m["date"], now=now,
-                                         bar=PLAYER_PICK_MIN_PROB[market],
+                                         bar=_bar(market),
                                          lineup_confirmed=lineup_ready,
                                          appearance_pct=p.get("appearance_pct"),
                                          expected_minutes=p.get("expected_minutes"),
@@ -685,6 +720,8 @@ def build(league: str = "PL") -> dict:
                                          unavailable=p["player"] in unavailable,
                                          team_attribution=p["team"])
                     pprov = False
+                    if is_new and p.get("engine"):
+                        pe["engine"] = p["engine"]
                     # The price at lock and the value verdict (leagues/lockstamp.py).
                     lockstamp.stamp_prop(pe, league, m["match_id"], now)
                 else:
@@ -729,7 +766,9 @@ def build(league: str = "PL") -> dict:
                     "last_five": (form5.get(p["player"], {})
                                   .get(picks.PROP_MARKETS[market][0], [])),
                     "last_five_line": picks.PROP_MARKETS[market][1],
-                    "bar": PLAYER_PICK_MIN_PROB[market],
+                    "bar": _bar(market),
+                    "engine": p.get("engine"),
+                    "start_pct": p.get("start_pct"),
                     "news_checked_hours_ago": players.news_checked_age_hours(
                         news, (home, away)),
                     "unavailable": p["player"] in unavailable,
@@ -1330,11 +1369,18 @@ def build_player_picks() -> dict:
     }
     return {
         "updated": datetime.now(timezone.utc).isoformat(),
-        "min_probability": PLAYER_PICK_MIN_PROB,
+        "min_probability": forecast_board.BARS if PROPS_REBUILT else PLAYER_PICK_MIN_PROB,
         "markets": {k: v[2] for k, v in picks.PROP_MARKETS.items()},
         "record": picks.record(settled),
         "record_by_market": by_market,
         "record_by_lineup": by_lineup,
+        # The REBUILT model's own record, kept apart from the old model's picks.
+        "record_rebuilt": picks.record([s for s in settled if s.get("engine") == forecast_board.ENGINE]),
+        "record_rebuilt_by_market": {mk: picks.record([s for s in settled if s.get("market") == mk
+                                                       and s.get("engine") == forecast_board.ENGINE])
+                                     for mk in picks.PROP_MARKETS},
+        "engine": ({"name": forecast_board.ENGINE, "bars": forecast_board.BARS, "since": "2026-10-11"}
+                   if PROPS_REBUILT else None),
         # Union of two sources, because the settled path alone is too late.
         # `ungradeable` is only appended when a league FAILS TO GRADE a settled
         # pick, so on 2026-08-21 six Bundesliga picks sat on the board flagged
@@ -1376,6 +1422,14 @@ def main(argv=None):
             continue
         attempted += 1
         known.append(league)
+    if PROPS_REBUILT and known:
+        # Train the rebuilt props model ONCE, before any league (and any worker
+        # thread) asks it about a fixture.
+        try:
+            forecast_board.prepare()
+        except Exception as exc:                           # noqa: BLE001
+            print(f"::warning::rebuilt props model unavailable ({type(exc).__name__}: {exc}); "
+                  f"no player picks this run")
     workers = max(1, min(int(os.environ.get("PUBLISH_WORKERS", "1")), len(known)))
     if workers > 1 and len(known) > 1:
         # The leagues use disjoint source/cache paths and output files. Two
@@ -1460,7 +1514,8 @@ def main(argv=None):
         # the sanity check failed every run from 2026-09-27 21:22 UTC, the first
         # run where a market had enough graded picks to be recalibrated.
         kept = [x for x in pp["upcoming"]
-                if (x.get("p_pick") or 0) >= PLAYER_PICK_MIN_PROB.get(x.get("market"), 0)]
+                if (x.get("p_pick") or 0) >= (x.get("bar") if x.get("engine") else
+                                              PLAYER_PICK_MIN_PROB.get(x.get("market"), 0))]
         if len(kept) < len(pp["upcoming"]):
             print(f"  {len(pp['upcoming']) - len(kept)} player pick(s) fell below their "
                   f"market's bar once recalibrated; not shown")

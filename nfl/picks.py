@@ -57,6 +57,8 @@ def prop_key(pick: dict) -> str:
     """One prop per player per market per game -- and per SIDE, since an under
     on the same player and line is a different bet."""
     key = f"{pick.get('game_id')}:{pick['market']}:{pick.get('player_id')}"
+    if pick.get("alt"):
+        return key + ":alt"            # an alternate line is a different bet again
     return key + ":under" if pick.get("side") == "under" else key
 
 
@@ -342,6 +344,7 @@ def _lock_props(payload, log, now):
                 entry["trust_w"] = pick.get("trust_w")
                 # Which model made it (nfl/forecast_board.ENGINE), and its forecast.
                 entry["engine"] = pick.get("engine")
+                entry["alt"] = bool(pick.get("alt"))
                 entry["mu"] = pick.get("mu")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")

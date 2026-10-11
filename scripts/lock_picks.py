@@ -137,6 +137,8 @@ def lock_players(now, window=None) -> list:
                         unavailable=pick.get("unavailable"),
                         team_attribution=pick.get("team_attribution"),
                         p_model=pick.get("p_model"))
+        if pick.get("engine"):
+            log[key]["engine"] = pick["engine"]       # which model made it
         # The price at lock and the value verdict (leagues/lockstamp.py).
         lockstamp.stamp_prop(log[key], league, pick["id"], now,
                              prop_store=prop_store, shots_store=shots_store)
