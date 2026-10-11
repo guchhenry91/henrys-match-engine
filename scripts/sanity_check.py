@@ -115,10 +115,19 @@ def check_league(fn, key, n_teams, releg):
                 fail(tag, f"prop for {x['player']} of unrelated team {x['team']}")
             if not (0 <= x["anytime_pct"] <= 100):
                 fail(tag, f"{x['player']} anytime {x['anytime_pct']}")
-            if x["exp_shots"] < 0 or x["exp_sot"] < 0:
-                fail(tag, f"{x['player']} negative shots")
-            if x["exp_sot"] > x["exp_shots"] + 1e-9:
-                fail(tag, f"{x['player']} SOT {x['exp_sot']} > shots {x['exp_shots']}")
+            # The rebuilt props (leagues/forecast_board.py) forecast probabilities, not
+            # shot counts, and blank exp_shots/exp_sot on purpose -- check the counts
+            # only where they exist, and the probabilities wherever they exist.
+            es, et = x.get("exp_shots"), x.get("exp_sot")
+            if es is not None and et is not None:
+                if es < 0 or et < 0:
+                    fail(tag, f"{x['player']} negative shots")
+                if et > es + 1e-9:
+                    fail(tag, f"{x['player']} SOT {et} > shots {es}")
+            for k in ("p_shots_2plus", "p_sot_1plus"):
+                v = x.get(k)
+                if v is not None and not (0 <= v <= 100):
+                    fail(tag, f"{x['player']} {k} {v}% outside 0-100")
             if x["anytime_pct"] > 85:
                 warn(tag, f"{x['player']} anytime {x['anytime_pct']}% looks too high")
         for team in (m["home"], m["away"]):
