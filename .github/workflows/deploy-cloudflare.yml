@@ -127,10 +127,10 @@ jobs:
       - uses: actions/setup-node@v4
         if: steps.idle.outputs.idle == 'true'
         with:
-          node-version: "20"
+          node-version: "22"      # wrangler 4.14x needs Node 22+
       # The lockfile's wrangler (the version the laptop deploys with) and the
       # @cloudflare/containers package worker.js imports. A bare `npx wrangler@4`
-      # reused an older wrangler on the runner that has no --containers-rollout=none.
+      # on Node 20 fell back to an old wrangler without --containers-rollout=none.
       - name: Install wrangler from the lockfile
         if: steps.idle.outputs.idle == 'true'
         run: npm ci --no-audit --no-fund
