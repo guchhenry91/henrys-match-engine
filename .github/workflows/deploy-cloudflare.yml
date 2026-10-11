@@ -128,15 +128,21 @@ jobs:
         if: steps.idle.outputs.idle == 'true'
         with:
           node-version: "20"
+      # The lockfile's wrangler (the version the laptop deploys with) and the
+      # @cloudflare/containers package worker.js imports. A bare `npx wrangler@4`
+      # reused an older wrangler on the runner that has no --containers-rollout=none.
+      - name: Install wrangler from the lockfile
+        if: steps.idle.outputs.idle == 'true'
+        run: npm ci --no-audit --no-fund
 
       - name: Deploy the page and Worker (containers untouched)
         if: steps.idle.outputs.idle == 'true' && steps.plan.outputs.containers != 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: npx --yes wrangler@4 deploy --containers-rollout=none
+        run: npx wrangler deploy --containers-rollout=none
 
       - name: Deploy the page, Worker AND rebuilt containers
         if: steps.idle.outputs.idle == 'true' && steps.plan.outputs.containers == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: npx --yes wrangler@4 deploy
+        run: npx wrangler deploy
