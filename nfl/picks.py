@@ -340,6 +340,9 @@ def _lock_props(payload, log, now):
                 # plays can be scored apart from the rest.
                 entry["value"] = pick.get("value")
                 entry["trust_w"] = pick.get("trust_w")
+                # Which model made it (nfl/forecast_board.ENGINE), and its forecast.
+                entry["engine"] = pick.get("engine")
+                entry["mu"] = pick.get("mu")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the

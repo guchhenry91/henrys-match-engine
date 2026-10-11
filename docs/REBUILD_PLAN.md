@@ -82,3 +82,21 @@ football-data.co.uk, Understat.
   (`nba/forecast_board.py`, engine `forecast-v1`). Combination weights come from a
   SIMULATED informed book; re-fit them on the real-line archive once ~300 NBA picks
   have graded.
+- 2026-10-11: NBA teammates-out feature and real-line weight re-fit (300 graded) live.
+- 2026-10-11: NFL forecast model built, gated and wired into the live board
+  (`nfl/forecast.py`, `nfl/forecast_board.py`, `scripts/nfl_forecast_gate.py` ->
+  `data-raw/nfl/forecast_report.json`). Findings, stated plainly:
+  - The forecast alone is badly overconfident against a book that knows usage (said
+    ~0.77, landed 0.52-0.62). Books set yardage lines at their MEDIAN (bet365's 2026
+    fair over averages 0.500), so a free weight on the book's chance explodes; the
+    combination now holds the book's weight at 1 and learns only the forecast's pull
+    (`tracking/combine_fit.fit_offset`): a = 0.17 passing, 0.06 rushing, 0.18
+    receiving, 0 TD.
+  - Published at 62%+ in the 2022-25 walk-forward: passing 180 picks said 67% landed
+    76%; receiving 270 said 65% landed 72%; rushing 5. On real 2026 bet365 lines
+    (63/69/143) nothing clears the bar -- yardage main lines are near coin flips, and
+    the board says so by publishing little.
+  - Anytime TD: the forecast adds nothing over a book that knows touches (a = 0), so
+    a TD pick is the book's own favourite that the forecast agrees with ("yes" only).
+  - Next for NFL: an injury-report-based teammates-out feature, and the alternate
+    ladders (higher-probability rungs) once the line archive has real NFL alt lines.

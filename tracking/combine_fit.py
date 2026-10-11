@@ -113,10 +113,19 @@ def _apply(w, x):
 
 
 def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
-          min_n: int = MIN_N) -> dict:
+          min_n: int = MIN_N, offset: bool = False) -> dict:
     """Re-fit each market with min_n graded lines; adopt only on better OOF log-loss.
-    `current` is {market: (a, b, c)} in force now. Returns the weights file content."""
+    `current` is {market: (a, b, c)} in force now. `offset` holds the book's weight at
+    1 (fit_offset) -- for books whose lines sit near 50/50. Returns the weights file."""
     from sklearn.linear_model import LogisticRegression
+
+    def fit(x, y):
+        if offset:
+            ex = lambda v: 1 / (1 + np.exp(-v))
+            return fit_offset(ex(x[:, 0]), ex(x[:, 1]), y)
+        lr = LogisticRegression(C=1.0).fit(x, y)
+        return (round(float(lr.coef_[0][0]), 4), round(float(lr.coef_[0][1]), 4),
+                round(float(lr.intercept_[0]), 4))
     log = _load(log_path)
     out = _load(weights_path)
     by_market = {}
@@ -133,13 +142,10 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
         oof = np.zeros(len(y))
         for k in range(5):
             tr, te = folds != k, folds == k
-            lr = LogisticRegression(C=1.0).fit(x[tr], y[tr])
-            oof[te] = lr.predict_proba(x[te])[:, 1]
-        cur = current.get(market) or (0.3, 0.7, 0.0)
+            oof[te] = _apply(fit(x[tr], y[tr]), x[te])
+        cur = current.get(market) or ((0.0, 1.0, 0.0) if offset else (0.3, 0.7, 0.0))
         old_ll, new_ll = _logloss(_apply(cur, x), y), _logloss(oof, y)
-        lr = LogisticRegression(C=1.0).fit(x, y)
-        fitted = (round(float(lr.coef_[0][0]), 4), round(float(lr.coef_[0][1]), 4),
-                  round(float(lr.intercept_[0]), 4))
+        fitted = fit(x, y)
         adopt = new_ll < old_ll
         entry = {"n": len(es), "fitted_at": now.isoformat(timespec="seconds"),
                  "candidate": list(fitted), "logloss_current": round(old_ll, 5),
@@ -160,3 +166,23 @@ def adopted(weights_path: Path) -> dict:
     """{market: (a, b, c)} for markets with adopted weights."""
     return {m: tuple(v["w"]) for m, v in _load(weights_path).items()
             if isinstance(v, dict) and v.get("w")}
+
+
+def fit_offset(p_model, p_book, y, l2: float = 1.0):
+    """(a, 1.0, c): the book's logit taken AS GIVEN (weight fixed at 1), learning only
+    how much the forecast moves it. Used where the book's chance barely varies (lines
+    set at the median sit near 50/50): a free book weight then has nothing to fit and
+    explodes. A mild L2 on a and c keeps a thin sample from overreaching, and a is
+    kept >= 0: a forecast that only ever pulls AGAINST its own reading is given no
+    say rather than a reversed one."""
+    from scipy.optimize import minimize
+    xm, off = _logit(p_model), _logit(p_book)
+    y = np.asarray(y, float)
+
+    def loss(w):
+        z = w[0] * xm + off + w[1]
+        p = 1 / (1 + np.exp(-z))
+        ll = -np.sum(y * np.log(np.clip(p, 1e-9, 1)) + (1 - y) * np.log(np.clip(1 - p, 1e-9, 1)))
+        return ll + l2 * (w[0] ** 2 + w[1] ** 2)
+    w = minimize(loss, np.zeros(2), method="L-BFGS-B", bounds=[(0.0, 3.0), (-3.0, 3.0)]).x
+    return round(float(w[0]), 4), 1.0, round(float(w[1]), 4)

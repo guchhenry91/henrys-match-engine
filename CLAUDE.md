@@ -1179,6 +1179,17 @@ once a market has 300 graded the weights are re-fitted and ADOPTED only if they 
 current ones on 5-fold out-of-fold log-loss (`data-raw/nba/combine_weights.json`).
 `forecast_board.weights()` prefers adopted weights over the gate's simulated-book ones.
 
+REBUILT MODEL LIVE FOR NFL PROPS (2026-10-11): `nfl/publish.REBUILT`. The old projection
+path still picks WHO is on the slate and the book's line; `nfl/forecast_board.py` prices
+each on `nfl/forecast.py` (Poisson GBM yards with an empirical spread, GBM TD classifier;
+role, snaps, spread/total implied points, opponent, weather) and combines with the book
+holding the book's weight at 1 (`combine_fit.fit_offset`). Publishes at 62%+ with the
+forecast agreeing, max 3 a game, TD "yes" only, `engine: forecast-v1`; `record_rebuilt`
+on the board; priced lines logged to `data-raw/nfl/priced_lines.json` and re-fitted at
+300 graded (`data-raw/nfl/combine_weights.json`). Expect FEW yardage picks -- see
+docs/REBUILD_PLAN.md for the gate's numbers. If the forecast cannot load, the board
+publishes no props rather than the old model's.
+
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.
 

@@ -96,3 +96,46 @@ def calibration(p, y, bins: int = 10) -> dict:
         table.append((round(s, 4), round(l, 4), int(len(chunk))))
         ece += len(chunk) / len(p) * abs(s - l)
     return {"ece": round(ece, 4), "n": int(len(p)), "table": table}
+
+
+class EmpiricalRatio:
+    """P(Y > line) for a skewed, zero-heavy stat (NFL yards), learned from results.
+
+    Yards are not a tidy count: a receiver's day is a few catches plus the odd long
+    one, with a real chance of nothing at all. Rather than assume a shape, keep the
+    OUT-OF-FOLD ratio r = actual / forecast mean, by band of forecast mean (a 250-yard
+    passer and a 20-yard tight end do not spread alike), and read
+        P(Y > line) = share of the band's r above line / mu.
+    Stored as 201 quantiles per band, so it is small enough to save."""
+
+    def __init__(self, bands: int = 10, q: int = 201):
+        self.bands, self.q = bands, q
+        self.edges, self.quant = None, None
+
+    def fit(self, mu, y):
+        mu, y = np.asarray(mu, float), np.asarray(y, float)
+        ok = np.isfinite(mu) & np.isfinite(y) & (mu > 0)
+        mu, y = mu[ok], y[ok]
+        qs = np.quantile(mu, np.linspace(0, 1, self.bands + 1))
+        qs[0], qs[-1] = -np.inf, np.inf
+        self.edges = np.unique(qs)
+        idx = np.clip(np.searchsorted(self.edges, mu, side="right") - 1, 0, len(self.edges) - 2)
+        grid = np.linspace(0, 1, self.q)
+        self.quant = np.array([np.quantile(y[idx == b] / mu[idx == b], grid)
+                               for b in range(len(self.edges) - 1)])
+        return self
+
+    def p_over(self, mu, line):
+        mu = np.atleast_1d(np.asarray(mu, float))
+        line = np.broadcast_to(np.asarray(line, float), mu.shape)
+        idx = np.clip(np.searchsorted(self.edges, mu, side="right") - 1, 0, len(self.quant) - 1)
+        grid = np.linspace(0, 1, self.q)
+        out = np.empty(len(mu))
+        for i, (b, m, l) in enumerate(zip(idx, mu, line)):
+            # CDF of the ratio at line/mu, read off the stored quantiles.
+            out[i] = 1.0 - np.interp(l / max(m, 1e-6), self.quant[b], grid, left=0.0, right=1.0)
+        return np.clip(out, 0.001, 0.999)
+
+    def to_dict(self):
+        return {"edges": [None if not np.isfinite(e) else float(e) for e in self.edges],
+                "quant": self.quant.round(4).tolist()}

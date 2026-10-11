@@ -28,6 +28,7 @@ from nfl import mispricing as nfl_mispricing
 from tracking import news_edge
 from nfl import book_lines
 from nfl import market_blend
+from nfl import forecast_board
 from nfl import selection
 from nfl import news as player_news
 from nfl.model import PropModel
@@ -44,6 +45,9 @@ MIN_PROBABILITY = 0.50      # never publish a leg the model itself makes a dog
 # the model is TRAINED, but it is never the line a published pick stands on: a
 # line no one offers is not a bet anyone can make. Anytime TD has no line.
 REQUIRE_BOOK_LINE = True
+# The rebuilt model prices the props (nfl/forecast_board.py, docs/REBUILD_PLAN.md).
+# Off, the old PropModel + market blend path below runs as before.
+REBUILT = True
 
 
 def _report() -> dict:
@@ -610,25 +614,55 @@ def build() -> dict:
 
     props, awaiting_book, game_props = {}, {}, {}
     blend_w = market_blend.weights()
+    # WHO is on the slate and at WHAT book line: the old projection path (rosters,
+    # depth chart, injuries, the book's quote). The NUMBER comes from the rebuilt
+    # model when REBUILT is on (nfl/forecast_board.py, docs/REBUILD_PLAN.md).
+    slate = {}
     for market in config.MARKETS:
-        if market not in released:
+        if market not in released and not REBUILT:
+            continue
+        slate[market] = player_projections(player_weeks, history, market, upcoming,
+                                           injuries=injuries,
+                                           roster_index=roster_index,
+                                           rosters_complete=rosters_complete,
+                                           depth_index=depth_index,
+                                           depth_trusted=depth_trusted,
+                                           book_quotes={k: (v or {}).get(market) or {}
+                                                        for k, v in quotes.items()},
+                                           alt_quotes={k: (v or {}).get(market) or {}
+                                                       for k, v in alts.items()})
+    built = None
+    if REBUILT and any(slate.values()):
+        try:
+            built = forecast_board.frame([p for ps in slate.values() for p in ps])
+        except Exception as exc:
+            # Never fall back to the old model's numbers: no rebuilt read, no prop picks.
+            print(f"::warning::rebuilt NFL forecast unavailable ({type(exc).__name__}: {exc}); "
+                  f"no prop picks this run")
+    w_rebuilt = forecast_board.weights() if REBUILT else {}
+    for market in config.MARKETS:
+        if market not in slate:
             props[market] = {"released": False, "picks": []}
             continue
-        projections = player_projections(player_weeks, history, market, upcoming,
-                                         injuries=injuries,
-                                         roster_index=roster_index,
-                                         rosters_complete=rosters_complete,
-                                         depth_index=depth_index,
-                                         depth_trusted=depth_trusted,
-                                         book_quotes={k: (v or {}).get(market) or {}
-                                                      for k, v in quotes.items()},
-                                         alt_quotes={k: (v or {}).get(market) or {}
-                                                     for k, v in alts.items()})
+        projections = slate[market]
         if REQUIRE_BOOK_LINE and market != "anytime_touchdown":
             waiting = sum(1 for p in projections if p.get("line_source") == "model")
             projections = [p for p in projections if p.get("line_source") != "model"]
             awaiting_book[market] = waiting
             print(f"  {market}: {waiting} projection(s) held back -- no bookmaker line yet")
+        if REBUILT:
+            priced = forecast_board.price(market, projections, built, w_rebuilt.get(market)) \
+                if built is not None else []
+            for pick in priced:
+                game_props.setdefault(str(pick["game_id"]), {}).setdefault(market, []).append(pick)
+            board = forecast_board.select(priced)
+            for pick in board:
+                pick["on_board"] = True
+            props[market] = {"released": True, "picks": board, "engine": forecast_board.ENGINE,
+                             "awaiting_book_line": awaiting_book.get(market, 0)}
+            print(f"  {market} [{forecast_board.ENGINE}]: {len(priced)} priced, {len(board)} "
+                  f"published at {forecast_board.PUBLISH_BAR:.0%}+")
+            continue
         # PULLED TOWARD THE BOOK (nfl/market_blend.py). The raw model is
         # overconfident on yardage in the live record, so only the fitted share w
         # of its disagreement with the book's de-vigged price is kept. The raw
@@ -887,6 +921,37 @@ def build() -> dict:
     }
 
 
+def _rebuilt_weights(payload) -> None:
+    """Log every rebuilt-priced line, grade them, re-fit the combination weights."""
+    if not REBUILT:
+        return
+    from tracking import combine_fit
+    now = datetime.now(timezone.utc)
+    priced = [dict(p, tipoff=p.get("kickoff")) for markets in (payload.get("game_props") or {}).values()
+              for ps in (markets or {}).values() for p in ps or [] if p.get("engine")]
+    combine_fit.record(forecast_board.PRICED_LOG, priced, now)
+    try:
+        stats = picks.grading_stats(config.CURRENT_SEASON)
+        covered = picks.covered_games(stats)
+        lookup = picks._stats_lookup(stats)
+    except Exception as exc:
+        print(f"  combine weights: no player feed to grade with ({type(exc).__name__})")
+        return
+
+    def _actual(e):
+        season, week = picks.season_week(e["game_id"])
+        row = lookup.get((str(e["player_id"]), season, week))
+        if row is None:
+            return None                     # no row: not played, or not filed -- never graded
+        raw = row.get(config.MARKETS.get(e["market"]))
+        return 0.0 if raw is None or pd.isna(raw) else float(raw)
+    combine_fit.grade(forecast_board.PRICED_LOG, _actual)
+    fitted = combine_fit.refit(forecast_board.PRICED_LOG, forecast_board.WEIGHTS,
+                               forecast_board.weights(), now, offset=True)
+    print(f"  combine weights: {({m: v.get('adopted') for m, v in fitted.items() if isinstance(v, dict) and 'adopted' in v})} "
+          f"waiting {fitted.get('_waiting', {})}")
+
+
 def main():
     payload = build()
     # FREEZE AND GRADE BEFORE WRITING. Done here rather than inside build() so the
@@ -907,10 +972,22 @@ def main():
     # Profit at the frozen price and closing-line value, per market.
     from tracking import performance
     _log = picks.core.load_log(picks.PICKS_LOG)
+    # THE REBUILT MODEL LEARNS ITS WEIGHTS FROM REAL LINES (tracking/combine_fit.py):
+    # every priced line logged (last quote before kickoff), graded from the player
+    # feed, and re-fitted once a market has 300 -- the book's weight held at 1.
+    _rebuilt_weights(payload)
     # Each kind of pick earns its place from its own record (tracking/gate.py).
+    # The gate judges the REBUILT model on its own record only: the old model's
+    # losses must not hold back picks it never made.
     from tracking import gate
-    held = gate.apply(payload, gate.report(
-        e for k, e in (_log.get(picks.PROPS_KEY) or {}).items() if not k.startswith("_")))
+    rebuilt = {k: e for k, e in (_log.get(picks.PROPS_KEY) or {}).items()
+               if not k.startswith("_") and e.get("engine") == forecast_board.ENGINE}
+    held = gate.apply(payload, gate.report(rebuilt.values()))
+    payload["record_rebuilt"] = picks.record({picks.PROPS_KEY: rebuilt})
+    payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
+                         "since": "2026-10-11",
+                         "note": "Forecasts each player's game and combines it with the "
+                                 "bookmaker's price; publishes a side only at the bar or above."}
     if held:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["performance"] = performance.by_market(

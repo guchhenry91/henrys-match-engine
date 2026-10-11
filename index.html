@@ -1048,12 +1048,14 @@ function render(k){
 // rebuilt model passes its gate, every model pick is shown for tracking only.
 const REBUILD={on:true,since:"11 Oct 2026"};
 function rebuildBanner(k){
-  const eng=(DATA.nba||{}).engine;
-  if(k==="NBA" && eng){
-    const r=((DATA.nba||{}).record_rebuilt||{}).props||{};
+  const src={NBA:DATA.nba,NFL:DATA.nfl}[k]||{};
+  const eng=src.engine;
+  if(eng){
+    const r=(src.record_rebuilt||{}).props||{};
     const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
-    return `<div class="glass warnbox">NBA runs the REBUILT model: it forecasts each player's stat and combines it with the bookmaker's price, `+
-      `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${rec} `+
+    const extra=k==="NFL"?" On yardage it publishes only where the forecast is very sure, so expect few picks; anytime TD picks are the book's favourites the forecast agrees with.":"";
+    return `<div class="glass warnbox">${k} runs the REBUILT model: it forecasts each player's game and combines it with the bookmaker's price, `+
+      `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${extra}${rec} `+
       `Still proving itself — judge it by whether its picks win at the rate stated.</div>`;
   }
   return `<div class="glass warnbox">Model rebuild in progress (since ${REBUILD.since}). `+
