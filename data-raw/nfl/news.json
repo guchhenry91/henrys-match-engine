@@ -1,24 +1,276 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-10",
+  "_verified_on": "2026-10-11",
   "players": {
     "Ashton Jeanty": {
       "status": "doubt",
       "team": "LV",
-      "note": "Questionable, ankle/foot -- declining practice trend this week (full Wed, limited Thu, DNP Fri). Source: patriots.com official Week 5 injury report (Patriots vs Raiders), Fri Oct 9 2026.",
-      "checked": "2026-10-10T15:19:16Z"
+      "note": "Questionable, ankle/foot (official Week 5 Friday designation, not Doubtful) -- fully participated Wed, limited Thu, DNP Fri; traveling with the team, expected to 'do his best to go'. Source: raiders.com/patriots.com Friday injury report, corroborated by tsn.ca (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
     },
     "Alvin Kamara": {
       "status": "doubt",
       "team": "NO",
-      "note": "Questionable, back -- did not practice Wednesday, limited since. Source: thevikingage.com Vikings/Saints tracker, updated Fri Oct 9 2026 2:30pm CST from official practice-report data.",
-      "checked": "2026-10-10T15:19:16Z"
+      "note": "Questionable, back (official Week 5 Friday designation, not Doubtful). Source: neworleanssaints.com official Friday injury report (9 Oct 2026), corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
     },
     "Keenan Allen": {
       "status": "doubt",
       "team": "IND",
-      "note": "Questionable, groin -- missed the previous game, limited practice all week. Source: legionreport.com (Colts vs Steelers tracker), checked 10 Oct 2026.",
-      "checked": "2026-10-10T15:19:16Z"
+      "note": "Questionable, groin -- confirmed by Colts' official Friday report. Source: roundtable.io/colts (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Saquon Barkley": {
+      "status": "out",
+      "team": "PHI",
+      "note": "Out, hamstring. Source: philadelphiaeagles.com Friday injury report, corroborated by inquirer.com (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "DeVonta Smith": {
+      "status": "out",
+      "team": "PHI",
+      "note": "Out, hamstring. Source: philadelphiaeagles.com Friday injury report, corroborated by inquirer.com (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Caleb Williams": {
+      "status": "out",
+      "team": "CHI",
+      "note": "Out, hamstring (Grade 2 strain, 'week-to-week' per HC Ben Johnson); did not practice all week. Tyson Bagent to start. Source: bleachernation.com, corroborated by si.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "De'Von Achane": {
+      "status": "out",
+      "team": "MIA",
+      "note": "Out (IR), knee. Source: legionreport.com aggregated official report (checked 11 Oct 2026 04:41 ET), corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Caleb Douglas": {
+      "status": "out",
+      "team": "MIA",
+      "note": "Out, ankle (already missing multiple weeks). Source: legionreport.com, corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Justin Joly": {
+      "status": "out",
+      "team": "MIA",
+      "note": "Out, concussion (depth TE). Source: legionreport.com, corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Mack Hollins": {
+      "status": "out",
+      "team": "NE",
+      "note": "Out, calf. Source: patriots.com official Friday injury report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Jalen Nailor": {
+      "status": "out",
+      "team": "LV",
+      "note": "Out, concussion. Source: raiders.com reporting, corroborated by tsn.ca (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Dont'e Thornton": {
+      "status": "out",
+      "team": "LV",
+      "note": "Out, hamstring. Source: raiders.com reporting, corroborated by tsn.ca (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Breece Hall": {
+      "status": "out",
+      "team": "NYJ",
+      "note": "Out, quad (did not practice all week). Source: newyorkjets.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Adonai Mitchell": {
+      "status": "out",
+      "team": "NYJ",
+      "note": "Out, finger. Source: newyorkjets.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Dillon Gabriel": {
+      "status": "out",
+      "team": "CLE",
+      "note": "Out, back (official team designation despite full practice participation this week -- flagged as worth a final pre-kickoff recheck). Source: clevelandbrowns.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Carsen Ryan": {
+      "status": "out",
+      "team": "CLE",
+      "note": "Out, calf (depth TE). Source: clevelandbrowns.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Tylan Wallace": {
+      "status": "out",
+      "team": "CLE",
+      "note": "Out, knee. Source: clevelandbrowns.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Michael Pittman Jr.": {
+      "status": "out",
+      "team": "PIT",
+      "note": "Out, foot (re-aggravated plantar fasciitis; HC Mike McCarthy said multiple weeks, IR possible). NOTE: traded from IND to PIT earlier in 2026 -- now a Steeler. Source: steelersnow.com, corroborated by bolavip.com/ksl.com (8-9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Alec Pierce": {
+      "status": "out",
+      "team": "IND",
+      "note": "Out (IR), heel -- aggravated surgically-repaired left heel from Week 2, placed on IR ~23 Sep, earliest return Week 7. Source: playerprofiler.com, corroborated by nbcsports.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Chris Brooks": {
+      "status": "out",
+      "team": "GB",
+      "note": "Out, ankle (depth RB, DNP all week). Source: packers.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Savion Williams": {
+      "status": "out",
+      "team": "GB",
+      "note": "Out (IR), ankle (depth WR). Source: packers.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Tank Dell": {
+      "status": "out",
+      "team": "HOU",
+      "note": "Out, knee. Source: houstontexans.com official injury report, corroborated by legionreport.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Marcus Mariota": {
+      "status": "out",
+      "team": "WAS",
+      "note": "Out, knee. Source: thefantasyfootballers.com, corroborated by roundtable.io/SI.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Stefon Diggs": {
+      "status": "out",
+      "team": "WAS",
+      "note": "Out, hamstring. Source: thefantasyfootballers.com, corroborated by roundtable.io.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Quentin Johnston": {
+      "status": "out",
+      "team": "LAC",
+      "note": "Out, chest. Source: chargers.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Brenen Thompson": {
+      "status": "out",
+      "team": "LAC",
+      "note": "Out, quad. Source: chargers.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Zach Charbonnet": {
+      "status": "out",
+      "team": "SEA",
+      "note": "Out, knee (also on PUP). Source: seahawks.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Lamar Jackson": {
+      "status": "out",
+      "team": "BAL",
+      "note": "Out, ankle -- HC Jesse Minter confirmed directly he 'will not play'; Tyler Huntley to make his first start of the season. Source: baltimoreravens.com official report, corroborated by NBC Sports/Roundtable.io.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Jaylen Wright": {
+      "status": "doubt",
+      "team": "MIA",
+      "note": "Questionable, foot (likely next man up behind Achane). Source: legionreport.com, corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Ja'Marr Chase": {
+      "status": "doubt",
+      "team": "CIN",
+      "note": "Questionable, concussion protocol (full practice participant Friday, 'real chance of playing'). Source: atozsports.com Friday report (9 Oct 2026), corroborated by legionreport.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Tee Higgins": {
+      "status": "doubt",
+      "team": "CIN",
+      "note": "Questionable, groin/neck ('game-time decision'). Source: atozsports.com Friday report (9 Oct 2026), corroborated by legionreport.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Rhamondre Stevenson": {
+      "status": "doubt",
+      "team": "NE",
+      "note": "Questionable, knee. Source: patriots.com official Friday injury report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Justin Jefferson": {
+      "status": "doubt",
+      "team": "MIN",
+      "note": "Questionable, ankle (practiced Thu/Fri, 'should be on the right side of questionable' per HC Kevin O'Connell). Source: vikings.com, corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Jordan Addison": {
+      "status": "doubt",
+      "team": "MIN",
+      "note": "Questionable, hamstring ('good bet' to play). Source: vikings.com, corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Tim Patrick": {
+      "status": "doubt",
+      "team": "NYJ",
+      "note": "Questionable, groin. Source: newyorkjets.com official Friday report (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Rico Dowdle": {
+      "status": "doubt",
+      "team": "PIT",
+      "note": "Questionable, toe (returned to limited practice Wed/Thu after 2+ weeks out; Jaylen Warren has been the lead back). Source: steelersnow.com, corroborated by draftsharks.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Darius Slayton": {
+      "status": "doubt",
+      "team": "IND",
+      "note": "Questionable, knee. Source: roundtable.io/colts (9 Oct 2026).",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Carnell Tate": {
+      "status": "doubt",
+      "team": "TEN",
+      "note": "Questionable, back -- limited Thu/Fri; HC Robert Saleh said Friday he's 'good to go'. Source: tennesseetitans.com official report, corroborated by rotoballer.com.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "David Martin-Robinson": {
+      "status": "doubt",
+      "team": "TEN",
+      "note": "Questionable, hamstring. Source: tennesseetitans.com official report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Terry McLaurin": {
+      "status": "doubt",
+      "team": "WAS",
+      "note": "Questionable, hamstring -- limited all week, game-time decision. Source: thefantasyfootballers.com, corroborated by SI.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Trey Lance": {
+      "status": "doubt",
+      "team": "LAC",
+      "note": "Doubtful, groin (backup QB; Justin Herbert starts). Source: chargers.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Ladd McConkey": {
+      "status": "doubt",
+      "team": "LAC",
+      "note": "Questionable, foot. Source: chargers.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Charlie Kolar": {
+      "status": "doubt",
+      "team": "LAC",
+      "note": "Questionable, forearm. Source: chargers.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "George Holani": {
+      "status": "doubt",
+      "team": "SEA",
+      "note": "Questionable, ribs/knee (limited all week). Source: seahawks.com official Week 5 report.",
+      "checked": "2026-10-11T09:16:27Z"
+    },
+    "Zay Flowers": {
+      "status": "doubt",
+      "team": "BAL",
+      "note": "Questionable, foot -- limited practice all week, 'very much in doubt' per Newsweek. Source: baltimoreravens.com report, corroborated by Newsweek.",
+      "checked": "2026-10-11T09:16:27Z"
     }
   }
 }
