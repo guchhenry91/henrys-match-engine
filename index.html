@@ -1039,7 +1039,7 @@ function render(k){
   else if(k==="game") h=viewGame();
   else if(k==="UCL") h=viewUCL();
   else h=viewLeague(k);
-  if(REBUILD.on && k!=="tables") h=rebuildBanner()+h;
+  if(REBUILD.on && k!=="tables") h=rebuildBanner(k)+h;
   app.innerHTML=h; chrome(); window.scrollTo(0,0);
 }
 
@@ -1047,7 +1047,15 @@ function render(k){
 // reviews found the prop models read bookmakers' lines backwards; until each sport's
 // rebuilt model passes its gate, every model pick is shown for tracking only.
 const REBUILD={on:true,since:"11 Oct 2026"};
-function rebuildBanner(){
+function rebuildBanner(k){
+  const eng=(DATA.nba||{}).engine;
+  if(k==="NBA" && eng){
+    const r=((DATA.nba||{}).record_rebuilt||{}).props||{};
+    const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
+    return `<div class="glass warnbox">NBA runs the REBUILT model: it forecasts each player's stat and combines it with the bookmaker's price, `+
+      `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${rec} `+
+      `Still proving itself — judge it by whether its picks win at the rate stated.</div>`;
+  }
   return `<div class="glass warnbox">Model rebuild in progress (since ${REBUILD.since}). `+
     `Picks shown here come from the old model and are kept for tracking only — not betting advice. `+
     `Each sport switches to the rebuilt model once it passes its test; the record keeps grading meanwhile.</div>`;

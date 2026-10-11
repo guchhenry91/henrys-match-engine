@@ -47,16 +47,22 @@ def load_history(seasons=None) -> pd.DataFrame:
 
 def _prep(rows: pd.DataFrame) -> pd.DataFrame:
     d = rows.copy()
-    d["MIN"] = pd.to_numeric(d["MIN"], errors="coerce").fillna(0.0)
-    d = d[d["MIN"] > 0].copy()
+    if "is_next" not in d:
+        d["is_next"] = False
+    d["is_next"] = d["is_next"].fillna(False).astype(bool)
+    d["MIN"] = pd.to_numeric(d["MIN"], errors="coerce")
+    # Played games, plus the upcoming game being forecast (its stats are unknown).
+    d = d[(d["MIN"].fillna(0) > 0) | d["is_next"]].copy()
     d["game_date"] = pd.to_datetime(d["GAME_DATE"].astype(str).str[:10])
     m = d["MATCHUP"].astype(str)
     d["home"] = m.str.contains("vs.", regex=False).astype(float)
     d["opp"] = m.str.split(r"\s+(?:@|vs\.)\s+", regex=True).str[-1]
     d["team"] = d["TEAM_ABBREVIATION"]
     d["GAME_ID"] = d["GAME_ID"].astype(str)
+    # A column a feed did not carry stays MISSING, never zero: zero shot attempts
+    # would read as a player who stopped shooting. The rolling means skip gaps.
     for c in RATE_COLS:
-        d[c] = pd.to_numeric(d.get(c), errors="coerce").fillna(0.0)
+        d[c] = pd.to_numeric(d[c], errors="coerce") if c in d else np.nan
     return d.sort_values(["game_date", "GAME_ID", "PLAYER_ID"]).reset_index(drop=True)
 
 
@@ -99,10 +105,11 @@ def build(rows: pd.DataFrame) -> pd.DataFrame:
         d[f"min_ewm{span}"] = mins.transform(lambda s, k=span: s.shift(1).ewm(span=k, min_periods=1).mean())
     d["min_sd10"] = mins.transform(lambda s: s.shift(1).rolling(10, min_periods=3).std())
     for c in RATE_COLS:
+        mins_where = d["MIN"].where(d[c].notna())      # minutes only where the stat exists
         for span in (10, 40):
             num = d[c].groupby(d["PLAYER_ID"]).transform(
                 lambda s, k=span: s.shift(1).ewm(span=k, min_periods=1).mean())
-            den = d.groupby("PLAYER_ID")["MIN"].transform(
+            den = mins_where.groupby(d["PLAYER_ID"]).transform(
                 lambda s, k=span: s.shift(1).ewm(span=k, min_periods=1).mean())
             d[f"{c}_pm{span}"] = num / den.clip(lower=1)
     d["usage_pm10"] = d["FGA_pm10"] + 0.44 * d["FTA_pm10"] + d["TOV_pm10"]
@@ -144,7 +151,7 @@ class StatModel:
                                              l2_regularization=1.0, random_state=self.seed)
 
     def fit(self, train: pd.DataFrame):
-        train = train[train["games_before"] >= 3]
+        train = train[(train["games_before"] >= 3) & ~train["is_next"] & train[self.stat].notna()]
         x, y = train[self.cols], train[self.stat].astype(float)
         # Dispersion from OUT-OF-FOLD means (2 folds by season), never from the rows
         # a model was fitted on -- in-sample residuals are too small and would make

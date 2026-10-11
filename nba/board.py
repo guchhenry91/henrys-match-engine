@@ -352,10 +352,11 @@ def build(sched: pd.DataFrame, now, released: list, ruled_out=None) -> dict:
     hist_rows = data.player_games(
         seasons=config.SEASONS[-HISTORY_SEASONS:]) if len(games_ahead) else pd.DataFrame()
     if len(games_ahead) and (odds_store.get("games") or {}):
-        rows = player_rows(hist_rows)
-        props, held = prop_picks(rows, games_ahead, odds_store,
-                                 current.current_teams(_name_index(rows)), released,
-                                 ruled_out=ruled_out, collect=game_props)
+        # THE REBUILT MODEL (docs/REBUILD_PLAN.md): forecast the stat, combine with
+        # the book's price. The old prop_picks below stays for reference only.
+        from nba import forecast_board
+        props, held = forecast_board.picks(games_ahead, odds_store, ruled_out=ruled_out,
+                                           collect=game_props)
     else:
         props, held = {m: [] for m in config.MARKETS}, {}
     return {"games": teams, "props": props, "held_back": held, "game_props": game_props,

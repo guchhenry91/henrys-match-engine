@@ -90,7 +90,8 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
                 "book_price": p.get("book_price"), "edge": p.get("edge"),
                 "availability": p.get("availability"), "side": p.get("side", "over"),
                 "p_model": p.get("p_model"), "value": p.get("value"),
-                "trust_w": p.get("trust_w"), "locked_at": stamp}
+                "trust_w": p.get("trust_w"), "engine": p.get("engine"),
+                "mu": p.get("mu"), "locked_at": stamp}
             frozen += 1
     return frozen
 

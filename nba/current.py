@@ -44,7 +44,9 @@ MAX_BOX_FETCHES = 80           # per run; a normal night is ~7, a missed week ~5
 REGULAR, PRESEASON = "002", "001"
 FINAL = 3                      # gameStatus: 1 scheduled, 2 live, 3 final
 COLUMNS = ["SEASON_ID", "PLAYER_ID", "PLAYER_NAME", "TEAM_ID", "TEAM_ABBREVIATION",
-           "GAME_ID", "GAME_DATE", "MATCHUP", "WL", "MIN", "PTS", "REB", "AST", "FG3M"]
+           "GAME_ID", "GAME_DATE", "MATCHUP", "WL", "MIN", "PTS", "REB", "AST", "FG3M",
+           # The rebuilt forecast (nba/forecast.py) reads usage and pace too.
+           "FGA", "FTA", "FG3A", "TOV", "OREB", "DREB"]
 
 
 def _get(url: str, opener=urllib.request.urlopen, timeout=60):
@@ -122,6 +124,9 @@ def box_rows(game_id: str, game_date: str, opener=urllib.request.urlopen) -> lis
                 "WL": "W" if won else "L", "MIN": minutes,
                 "PTS": s.get("points"), "REB": s.get("reboundsTotal"),
                 "AST": s.get("assists"), "FG3M": s.get("threePointersMade"),
+                "FGA": s.get("fieldGoalsAttempted"), "FTA": s.get("freeThrowsAttempted"),
+                "FG3A": s.get("threePointersAttempted"), "TOV": s.get("turnovers"),
+                "OREB": s.get("reboundsOffensive"), "DREB": s.get("reboundsDefensive"),
             })
     return rows
 

@@ -1160,6 +1160,17 @@ fallback; refreshed at most every 20h by `scripts/sync_nba_odds.py`. Joined by n
 `current.current_teams(names)` the roster beats box scores older than its fetch day; a
 box score from that day on beats the roster.
 
+REBUILT MODEL LIVE FOR NBA PROPS (2026-10-11, docs/REBUILD_PLAN.md): `nba/forecast.py`
+forecasts each player's stat distribution (Poisson GBM mean on entering features from
+`data-raw/nba/history_full/` + this season's box scores, negative binomial spread);
+`nba/forecast_board.py` reads the chance at the BOOK'S line, combines it with the book's
+de-vigged chance (weights per stat from `data-raw/nba/forecast_report.json`, made by
+`scripts/nba_forecast_gate.py`), and publishes a side at >= 62% where the forecast agrees.
+Picks carry `engine: forecast-v1`; trust re-blending skips them, the gate judges only
+their own record, and the board publishes `record_rebuilt` separately. Gate (walk-forward
+2021-26 vs an informed book): published picks said/landed PTS 66.2/66.0, REB 68.5/68.2,
+AST 68.1/68.0, 3PM 75.0/74.5. The old `board.prop_picks` stays in the file, unused.
+
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.
 

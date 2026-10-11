@@ -207,10 +207,20 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     _show_frozen(payload, log)
     value.annotate_line_board(payload)     # on the frozen line and price
     # Each kind of pick earns its place from its own record (tracking/gate.py).
-    held = gate.apply(payload, gate.report(log.values()))
+    # The gate judges the REBUILT model on its own record only (docs/REBUILD_PLAN.md):
+    # the old model's losses must not hold back picks it never made.
+    from nba import forecast_board
+    rebuilt = {k: e for k, e in log.items()
+               if isinstance(e, dict) and e.get("engine") == forecast_board.ENGINE}
+    held = gate.apply(payload, gate.report(rebuilt.values()))
     if held:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["record"] = picks_mod.record(log)
+    payload["record_rebuilt"] = picks_mod.record(rebuilt)
+    payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
+                         "since": "2026-10-11",
+                         "note": "Forecasts each player's stat and combines it with the "
+                                 "bookmaker's price; publishes a side only at the bar or above."}
     payload["performance"] = performance.by_market(
         [e for e in log.values() if isinstance(e, dict) and e.get("graded")],
         performance.market_of)

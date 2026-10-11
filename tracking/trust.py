@@ -118,6 +118,8 @@ def apply_line_board(payload: dict, sport_weights: dict) -> None:
                 continue
             if market in ONE_SIDED or p.get("market") in ONE_SIDED:
                 continue
+            if p.get("engine"):
+                continue          # a rebuilt model's pick already combines model and book
             raw = float(p.get("p_model", p["probability"]))
             p["p_model"] = round(raw, 4)
             p["probability"] = round(market_blend.blend(raw, float(b), wp), 4)
@@ -128,7 +130,7 @@ def apply_line_board(payload: dict, sport_weights: dict) -> None:
         # 47.6% on a "50%+" board). It leaves the board; long shots chosen on edge
         # (home runs, under 50% from the start) are not affected.
         kept = [p for p in (block or {}).get("picks") or []
-                if p.get("locked") or p.get("probability") is None
+                if p.get("locked") or p.get("probability") is None or p.get("engine")
                 or not (float(p.get("p_model") or 0) >= 0.5 > float(p["probability"]))]
         if block and "picks" in block and len(kept) != len(block["picks"]):
             block["picks"] = kept

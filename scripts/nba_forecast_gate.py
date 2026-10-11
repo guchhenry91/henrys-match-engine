@@ -131,13 +131,17 @@ def main() -> int:
         out["combined"] = {"weights_model_book_const": coefs,
                            "calibration": dist.calibration(comb, y_inf[first:]),
                            "would_publish": published(comb, y_inf[first:], PUBLISH_BAR),
-                           "would_publish_70": published(comb, y_inf[first:], 0.70)}
+                           "would_publish_70": published(comb, y_inf[first:], 0.70),
+                           # ...and only where the FORECAST itself favours the same side
+                           "would_publish_agree": published(
+                               np.where((comb >= 0.5) == (p_inf[first:] >= 0.5), comb, 0.5),
+                               y_inf[first:], PUBLISH_BAR)}
         report["stats"][stat] = out
         print(f"{stat}: n={out['n']} MAE {out['mae']} (naive {out['mae_naive']}) | mechanical ECE "
               f"{out['mechanical']['ece']} | vs informed book: model alone {out['model_alone_would_publish']}"
               f" book alone {out['book_alone_would_publish']} | COMBINED w={out['combined']['weights_model_book_const']}"
               f" ECE {out['combined']['calibration']['ece']} publish@62 {out['combined']['would_publish']}"
-              f" @70 {out['combined']['would_publish_70']}", flush=True)
+              f" @70 {out['combined']['would_publish_70']} agree@62 {out['combined']['would_publish_agree']}", flush=True)
     REPORT.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(f"done in {time.time() - t0:.0f}s -> {REPORT}")
     return 0

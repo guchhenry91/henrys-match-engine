@@ -74,3 +74,11 @@ minutes, player stats, bet365 scorer prices), API-NFL (injuries + bet365 NFL pro
 check whether nflverse injuries/depth charts can replace it before cancelling). Free:
 nflverse, Retrosheet + MLB StatsAPI, stats.nba.com via the Worker proxy, Sleeper,
 football-data.co.uk, Understat.
+
+## Progress
+- 2026-10-11: foundation done (line archive, tracking-only banner, plan). History pulled:
+  NBA full (main), NFL / MLB / Understat per-match (branch `history-data`).
+- 2026-10-11: NBA forecast model built, gated and wired into the live board
+  (`nba/forecast_board.py`, engine `forecast-v1`). Combination weights come from a
+  SIMULATED informed book; re-fit them on the real-line archive once ~300 NBA picks
+  have graded.
