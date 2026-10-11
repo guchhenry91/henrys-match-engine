@@ -14,9 +14,10 @@ name: Deploy to Cloudflare
 # run asks for it.
 #
 # NEVER WHILE A JOB RUNS. A Worker deploy restarts the Durable Objects that drive
-# the job containers, so every deploy first waits until the D1 `jobs` table has
-# nothing running or queued (a read-only SELECT). If the queue never goes quiet
-# within the wait, the deploy is skipped, not forced; the hourly run picks it up.
+# the job containers, so every deploy first waits until the Worker's /api/jobs-busy
+# says no job is running or queued (read-only, from D1 `jobs`; no token needed). If
+# the queue never goes quiet within the wait, the deploy is skipped, not forced; the
+# hourly run picks it up.
 #
 # NOTHING IS UPLOADED when the live site already serves exactly this build
 # (site-version.json) and no container change is due.
@@ -35,10 +36,6 @@ on:
 concurrency:
   group: cloudflare-deploy
   cancel-in-progress: true
-
-env:
-  ACCOUNT_ID: 91cd3c13e1deccadc2eb1f337bc40c99
-  D1_ID: ec8195ba-a46c-45a6-ab59-2b5acc657473
 
 jobs:
   deploy:
@@ -105,19 +102,17 @@ jobs:
         id: idle
         if: steps.token.outputs.ok == 'true'
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SITE: ${{ vars.CLOUDFLARE_SITE_URL }}
         run: |
-          # Read-only: one SELECT on the jobs table. Anything but a clean 0 counts
-          # as busy, so a failed check can only delay a deploy, never cut a job off.
+          # Read-only: the Worker's /api/jobs-busy (a yes/no from the D1 jobs table).
+          # Anything but a clean "false" counts as busy, so a failed check can only
+          # delay a deploy, never cut a job off.
           busy() {
-            n=$(curl -s -m 20 -X POST \
-                  "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/d1/database/$D1_ID/query" \
-                  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
-                  --data '{"sql":"SELECT COUNT(*) AS n FROM jobs WHERE status IN ('"'"'running'"'"','"'"'queued'"'"')"}' \
-                | python -c "import json,sys;d=json.load(sys.stdin);print(d['result'][0]['results'][0]['n'] if d.get('success') else 'error: '+str(d.get('errors')))" 2>/dev/null \
-                || echo "error: no response")
-            echo "jobs running or queued: $n"
-            [ "$n" != "0" ]
+            b=$(curl -s -m 20 "${SITE:-https://henrys-match-engine.henrys-edge-engine.workers.dev}/api/jobs-busy" \
+                | python -c "import json,sys;print(str(json.load(sys.stdin)['busy']).lower())" 2>/dev/null \
+                || echo "unknown")
+            echo "job running or queued: $b"
+            [ "$b" != "false" ]
           }
           for i in $(seq 1 40); do          # up to ~30 minutes
             if ! busy; then

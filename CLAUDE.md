@@ -325,7 +325,7 @@ only stores the code.
   from a local run**: it would replace the live, append-only copy.
 - **A push to main deploys the page and the Worker automatically**
   (`.github/workflows/deploy-cloudflare.yml`, secret CLOUDFLARE_API_TOKEN): it waits
-  until the D1 `jobs` table has nothing running or queued, then runs
+  until `/api/jobs-busy` (Worker, read-only) says no job is running or queued, then runs
   `wrangler deploy --containers-rollout=none`, so the job containers are untouched.
   The containers are rebuilt only when Dockerfile.jobs, Dockerfile.proxy,
   requirements.txt or cloudflare/container/ change (or a manual run with

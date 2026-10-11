@@ -580,6 +580,15 @@ export default {
     if (path === "/api/config") return json({ oddsKey: "", oddsRelay: "/api/odds/v4" }, 200, CORS);
     if (isProxyPath(path)) return getContainer(env.STATS_PROXY, "web").fetch(request);
     if (path === "/api/health") return json({ ok: true, mode: env.JOBS_MODE || "off", at: new Date().toISOString() });
+    // For the GitHub deploy workflow: a deploy restarts the Durable Objects that drive
+    // the job containers, so it waits until this says false. Only a yes/no -- no job
+    // names, times or logs -- so it needs no token.
+    if (path === "/api/jobs-busy") {
+      const row = await env.DB.prepare(
+        "SELECT COUNT(*) AS n FROM jobs WHERE status IN ('running','queued')").first();
+      return new Response(JSON.stringify({ busy: Number((row || {}).n || 0) > 0 }),
+        { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+    }
     if (path.startsWith("/internal/")) return internal(request, env, ctx, path);
     if (path.startsWith("/data/")) return serveData(request, env);
     return serveAsset(request, env);
