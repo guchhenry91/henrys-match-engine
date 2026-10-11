@@ -14,6 +14,7 @@ Writes, per league and season (Understat's year = the year the season STARTS):
 Resumable: a finished league-season file is skipped.
 """
 import argparse
+import concurrent.futures as cf
 import gzip
 import json
 import sys
@@ -29,6 +30,7 @@ LEAGUES = {"PL": "EPL", "LALIGA": "La_liga", "BUNDESLIGA": "Bundesliga",
 HEADERS = {"User-Agent": "Mozilla/5.0", "X-Requested-With": "XMLHttpRequest",
            "Accept-Encoding": "gzip"}
 PAUSE = 0.35
+WORKERS = 4
 
 
 def get(url: str, tries: int = 4):
@@ -54,20 +56,27 @@ def league_season(code: str, year: int, out: Path) -> str:
     league = get(f"https://understat.com/getLeagueData/{LEAGUES[code]}/{year}")
     matches = [m for m in league.get("dates") or [] if m.get("isResult")]
     players, shots = [], []
-    for i, m in enumerate(matches):
+
+    def one(m):
         data = get(f"https://understat.com/getMatchData/{m['id']}")
-        meta = {"match_id": m["id"], "datetime": m.get("datetime"),
-                "home": m["h"]["title"], "away": m["a"]["title"],
-                "home_goals": m["goals"]["h"], "away_goals": m["goals"]["a"],
-                "home_xg": m["xG"]["h"], "away_xg": m["xG"]["a"]}
-        for side in ("h", "a"):
-            for row in ((data.get("rosters") or {}).get(side) or {}).values():
-                players.append({**meta, **row})
-            for row in (data.get("shots") or {}).get(side) or []:
-                shots.append({**meta, **row})
         time.sleep(PAUSE)
-        if (i + 1) % 100 == 0:
-            print(f"    {code} {year}: {i + 1}/{len(matches)}", flush=True)
+        return m, data
+
+    # FOUR AT A TIME: one request every ~2.5s each, so about 1.5 a second overall --
+    # still gentle on a free site, and a 9-season pull takes hours, not a day.
+    with cf.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        for i, (m, data) in enumerate(pool.map(one, matches)):
+            meta = {"match_id": m["id"], "datetime": m.get("datetime"),
+                    "home": m["h"]["title"], "away": m["a"]["title"],
+                    "home_goals": m["goals"]["h"], "away_goals": m["goals"]["a"],
+                    "home_xg": m["xG"]["h"], "away_xg": m["xG"]["a"]}
+            for side in ("h", "a"):
+                for row in ((data.get("rosters") or {}).get(side) or {}).values():
+                    players.append({**meta, **row})
+                for row in (data.get("shots") or {}).get(side) or []:
+                    shots.append({**meta, **row})
+            if (i + 1) % 100 == 0:
+                print(f"    {code} {year}: {i + 1}/{len(matches)}", flush=True)
     out.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(shots).to_csv(sfile, index=False, compression="gzip")
     pd.DataFrame(players).to_csv(pfile, index=False, compression="gzip")
@@ -77,7 +86,7 @@ def league_season(code: str, year: int, out: Path) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--first", type=int, default=2017)
-    ap.add_argument("--last", type=int, default=2025)
+    ap.add_argument("--last", type=int, default=2026)
     ap.add_argument("--out", default=str(ROOT / "data-raw" / "leagues" / "history_full" / "understat"))
     args = ap.parse_args()
     failed = []
