@@ -34,6 +34,10 @@ def build(now=None, sched=None) -> dict:
     evidence = {m: {k: v.get(k) for k in KEYS if k in v} for m, v in markets.items()}
     released = sorted(m for m, v in markets.items() if v.get("released"))
     withheld = sorted(m for m, v in markets.items() if not v.get("released"))
+    if board.REBUILT:
+        from mlb import forecast_board
+        released = sorted(m for m, r in forecast_board.RULE.items() if r != "held")
+        withheld = sorted(m for m, r in forecast_board.RULE.items() if r == "held")
     live = board.build(sched, now, released) if sched is not None else None
     status = "live" if live is not None else "evidence_only"
     return {
@@ -151,8 +155,26 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
                           "book_p": e["book_p"], "book_price": e["book_price"],
                           "edge": e["edge"], "locked": True})
     value.annotate_line_board(payload)     # on the frozen line and price
-    # Each kind of pick earns its place from its own record (tracking/gate.py).
-    held = gate.apply(payload, gate.report(log.values()))
+    # Each kind of pick earns its place from its own record (tracking/gate.py) --
+    # the REBUILT model judged on its own record only.
+    from mlb import forecast_board
+    rebuilt = {k: e for k, e in log.items()
+               if isinstance(e, dict) and e.get("engine") == forecast_board.ENGINE}
+    held = gate.apply(payload, gate.report(rebuilt.values() if board.REBUILT else log.values()))
+    payload["record_rebuilt"] = picks_mod.record(rebuilt)
+    if board.REBUILT:
+        payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
+                             "since": "2026-10-12", "rules": forecast_board.RULE,
+                             "note": "Forecasts each player's whole stat distribution; hits and "
+                                     "RBIs need the bookmaker on the same side, strikeouts and team "
+                                     "runs blend the forecast with the bookmaker's price; H+R+RBI "
+                                     "and home runs are priced but held back."}
+        try:
+            fitted = forecast_board.learn(payload, now)
+            print(f"  combine weights: {({m: v.get('adopted') for m, v in fitted.items() if isinstance(v, dict) and 'adopted' in v})} "
+                  f"waiting {fitted.get('_waiting', {})}")
+        except Exception as exc:                           # noqa: BLE001
+            print(f"  combine weights: skipped ({type(exc).__name__}: {exc})")
     if held:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["record"] = picks_mod.record(log)

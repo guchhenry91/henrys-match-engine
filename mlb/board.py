@@ -32,6 +32,8 @@ REPORT = ROOT / "data-raw" / "mlb" / "backtest_report.json"
 BOARD_HOURS = 36.0
 TOP_PER_MARKET = 3
 MIN_PROBABILITY = 0.50
+# Props and team totals come from the REBUILT model (mlb/forecast_board.py).
+REBUILT = True
 UPCOMING = ("Scheduled", "Pre-Game", "Warmup")
 
 
@@ -303,8 +305,21 @@ def build(sched: pd.DataFrame, now, released: list) -> dict:
     if games_ahead.empty:
         return {"games": [], "props": {m: [] for m in config.MARKETS},
                 "odds_checked_at": odds_store.get("updated")}
+    avail = current.availability(games_ahead)
+    if REBUILT:
+        # The rebuilt model prices every prop and team total (mlb/forecast_board.py).
+        # If it cannot run, no props are published -- never the old model's.
+        from mlb import forecast_board
+        try:
+            props = forecast_board.props(games_ahead, odds_store, avail, collect=game_props,
+                                         unavailable=unavailable)
+        except Exception as exc:                           # noqa: BLE001
+            print(f"::warning::rebuilt MLB model unavailable ({type(exc).__name__}: {exc}); "
+                  f"no props this run")
+            props = {m: [] for m in config.MARKETS}
+    else:
+        props = props_and_totals(games_ahead, odds_store, released, avail, collect=game_props)
     return {"games": team_picks(sched, games_ahead, odds_store),
-            "props": props_and_totals(games_ahead, odds_store, released,
-                                      current.availability(games_ahead), collect=game_props),
+            "props": props,
             "game_props": game_props,
             "odds_checked_at": odds_store.get("updated")}

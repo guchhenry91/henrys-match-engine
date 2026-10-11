@@ -1049,7 +1049,7 @@ function render(k){
 const REBUILD={on:true,since:"11 Oct 2026"};
 function rebuildBanner(k){
   const pp=DATA.player_picks||{};
-  const src={NBA:DATA.nba,NFL:DATA.nfl,players:pp}[k]||{};
+  const src={NBA:DATA.nba,NFL:DATA.nfl,MLB:DATA.mlb,players:pp}[k]||{};
   const eng=src.engine;
   if(k==="players" && eng){
     const r=src.record_rebuilt||{};
@@ -1062,7 +1062,7 @@ function rebuildBanner(k){
   if(eng){
     const r=(src.record_rebuilt||{}).props||{};
     const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
-    const extra=k==="NFL"?" On yardage it publishes only where the forecast is very sure, so expect few picks; anytime TD picks are the book's favourites the forecast agrees with.":"";
+    const extra=k==="MLB"?" Hits and RBI picks need the bookmaker on the same side; strikeouts and team runs blend the forecast with the bookmaker's price; hits+runs+RBIs and home runs are priced but held back until real results earn them a place.":k==="NFL"?" On yardage it publishes only where the forecast is very sure, so expect few picks; anytime TD picks are the book's favourites the forecast agrees with.":"";
     return `<div class="glass warnbox">${k} runs the REBUILT model: it forecasts each player's game and combines it with the bookmaker's price, `+
       `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${extra}${rec} `+
       `Still proving itself — judge it by whether its picks win at the rate stated.</div>`;

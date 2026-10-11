@@ -119,11 +119,12 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
           min_n: int = MIN_N, offset: bool = False) -> dict:
     """Re-fit each market with min_n graded lines; adopt only on better OOF log-loss.
     `current` is {market: (a, b, c)} in force now. `offset` holds the book's weight at
-    1 (fit_offset) -- for books whose lines sit near 50/50. Returns the weights file."""
+    1 (fit_offset) -- for books whose lines sit near 50/50; True for every market, or
+    a set of the markets it applies to. Returns the weights file."""
     from sklearn.linear_model import LogisticRegression
 
-    def fit(x, y):
-        if offset:
+    def fit(x, y, market=None):
+        if offset is True or (offset and market in offset):
             ex = lambda v: 1 / (1 + np.exp(-v))
             return fit_offset(ex(x[:, 0]), ex(x[:, 1]), y)
         lr = LogisticRegression(C=1.0).fit(x, y)
@@ -145,10 +146,10 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
         oof = np.zeros(len(y))
         for k in range(5):
             tr, te = folds != k, folds == k
-            oof[te] = _apply(fit(x[tr], y[tr]), x[te])
+            oof[te] = _apply(fit(x[tr], y[tr], market), x[te])
         cur = current.get(market) or ((0.0, 1.0, 0.0) if offset else (0.3, 0.7, 0.0))
         old_ll, new_ll = _logloss(_apply(cur, x), y), _logloss(oof, y)
-        fitted = fit(x, y)
+        fitted = fit(x, y, market)
         adopt = new_ll < old_ll
         entry = {"n": len(es), "fitted_at": now.isoformat(timespec="seconds"),
                  "candidate": list(fitted), "logloss_current": round(old_ll, 5),

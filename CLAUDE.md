@@ -1236,6 +1236,14 @@ must be on his team's ACTIVE roster, a batter in the posted lineup once there is
 a strikeouts prop only for the probable starter. A failed roster call leaves that team
 unfiltered. On 2026-09-27 this would have removed 6 of 179 picks, all benched or absent.
 
+REBUILT MODEL LIVE FOR MLB PROPS AND TEAM TOTALS (2026-10-12): `mlb/board.REBUILT`;
+`mlb/forecast_board.props` prices every quoted player on `mlb/forecast.py` (a count
+classifier per market). RULE: hits/RBI = model's chance with the book on the same side;
+strikeouts/team runs = blended (book weight 1); H+R+RBI and HR = HELD (priced, logged,
+not published). `engine: forecast-v1`, `record_rebuilt`, `payload["engine"]["rules"]`;
+`forecast_board.learn` logs/grades/re-fits at 300 (`data-raw/mlb/priced_lines.json`,
+`combine_weights.json`). If the model cannot run, no props are published.
+
 - **Data: Retrosheet game-level CSVs** (`https://www.retrosheet.org/downloads/{y}/{y}csvs.zip`):
   player-by-game batting and pitching lines, gameinfo and teamstats. Trimmed to the
   columns used and committed as `data-raw/mlb/history/*.csv.gz` (~15 MB); the raw

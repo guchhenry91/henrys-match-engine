@@ -136,3 +136,22 @@ football-data.co.uk, Understat.
   (`data-raw/leagues/scorer_combine_weights.json`). Until then the forecast stands
   alone and bet365's chance is shown beside it. Only 15 past picks carried a price,
   too few to test a blend on history.
+- 2026-10-12: MLB REBUILT (`mlb/forecast.py`, `mlb/forecast_board.py`, gate
+  `scripts/mlb_forecast_gate.py` -> `data-raw/mlb/forecast_report.json`). One
+  gradient-boosted classifier over the COUNT itself per market (0, 1, 2 ... hits; 0-12+
+  strikeouts), so any line is read off the full distribution with no assumed shape.
+  Inputs: per-PA rates (short/long), PAs and usual lineup slot, the opposing (probable)
+  starter's K rate and depth, the opponent lineup's K rate vs starters, both teams' run
+  form, park factors. Walk-forward 2021-25: calibrated at every line (ECE 0.005-0.008).
+  Rules per market:
+  - hits, RBI -- the model's own chance, the book must agree on the side (the simulated
+    book did not know the opposing starter or park, so no blend weight from it is
+    trusted): hits said 66.8% landed 66.3%; RBI 71.3/71.5.
+  - strikeouts, team runs -- blended with the book (book weight 1): Ks said 67.8% landed
+    67.5%; team runs 65.4/63.2.
+  - H+R+RBI and home runs HELD: H+R+RBI landed 45% of 22 real lines stated at 66%
+    (one day, but a red flag); HR "yes" never reaches 62%. Both stay priced and logged.
+  Every priced line is logged (`data-raw/mlb/priced_lines.json`) and graded from box
+  scores (did not start = void); at 300 graded a market's weights are re-fitted and,
+  if adopted, it moves to the blended rule. The real-line check reads the live log
+  copied to /tmp; it covers only the last regular-season day (~270 lines).
