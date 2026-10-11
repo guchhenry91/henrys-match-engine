@@ -1,68 +1,147 @@
 name: Deploy to Cloudflare
 
-# Publishes the site to the Cloudflare Worker (wrangler.jsonc, cloudflare/worker.js),
-# replacing Render's deploy hook.
+# Publishes the site page and the Worker code to Cloudflare (wrangler.jsonc,
+# cloudflare/worker.js) whenever main changes, so no laptop is needed for a deploy.
 #
-# WHY workflow_run. Bot commits are pushed with GITHUB_TOKEN, and GitHub does not
-# start other workflows for those pushes -- which is why every refresh workflow
-# had to POST Render's hook itself. workflow_run fires when a named workflow
-# FINISHES, whoever started it, so one deploy follows every refresh with no change
-# to the refresh workflows. Human and news-routine pushes arrive through `push`.
+# THE JOB CONTAINERS ARE LEFT ALONE. The jobs download main's code on every run
+# (cloudflare/container/run_job.py), so an ordinary push -- index.html, data,
+# Python -- needs NO new container image. A container rollout SIGTERMs a running
+# job (exit -15), and a CI runner has no Docker build cache, so a plain
+# `wrangler deploy` here would build a "new" image and roll it out on every push.
+# Ordinary deploys therefore use --containers-rollout=none (Worker + page only).
+# The containers are rebuilt ONLY when their inputs change (Dockerfile.jobs,
+# Dockerfile.proxy, requirements.txt, cloudflare/container/), or when a manual
+# run asks for it.
 #
-# ALWAYS THE NEWEST main. Refreshes overlap; a deploy built from an older checkout
-# could replace newer boards with older ones. Each run checks out main as it is
-# NOW, a newer run cancels an older one still in flight, and nothing is uploaded
-# when the live site already serves exactly this content (site-version.json).
+# NEVER WHILE A JOB RUNS. A Worker deploy restarts the Durable Objects that drive
+# the job containers, so every deploy first waits until the D1 `jobs` table has
+# nothing running or queued (a read-only SELECT). If the queue never goes quiet
+# within the wait, the deploy is skipped, not forced; the hourly run picks it up.
+#
+# NOTHING IS UPLOADED when the live site already serves exactly this build
+# (site-version.json) and no container change is due.
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "41 * * * *"        # catch-up for a deploy skipped while jobs ran
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Leagues refresh", "NFL refresh", "NBA refresh", "MLB refresh", "Health check", "Lock picks"]
-    types: [completed]
+    inputs:
+      containers:
+        description: "Also rebuild and roll out the job/proxy containers"
+        type: boolean
+        default: false
 
 concurrency:
   group: cloudflare-deploy
   cancel-in-progress: true
 
+env:
+  ACCOUNT_ID: 91cd3c13e1deccadc2eb1f337bc40c99
+  D1_ID: ec8195ba-a46c-45a6-ab59-2b5acc657473
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 45
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Build the site folder
         run: python scripts/build_site.py
-      - name: Skip if the live site already has this content
-        id: same
+
+      - name: Decide what needs deploying
+        id: plan
         env:
           SITE: ${{ vars.CLOUDFLARE_SITE_URL }}
+          BEFORE: ${{ github.event.before }}
+          FORCE_CONTAINERS: ${{ inputs.containers }}
         run: |
+          containers=false
+          if [ "$FORCE_CONTAINERS" = "true" ]; then
+            containers=true
+          elif [ "${{ github.event_name }}" = "push" ] && [ -n "$BEFORE" ] \
+               && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            if git diff --name-only "$BEFORE" HEAD -- Dockerfile.jobs Dockerfile.proxy \
+                 requirements.txt cloudflare/container/ | grep -q .; then
+              containers=true
+            fi
+          fi
           want=$(python -c "import json;print(json.load(open('_site/site-version.json'))['hash'])")
           have=""
           if [ -n "$SITE" ]; then
             have=$(curl -s -m 15 "$SITE/site-version.json" | python -c "import json,sys;print(json.load(sys.stdin).get('hash',''))" 2>/dev/null || true)
           fi
-          echo "built $want, live ${have:-unknown}"
-          if [ -n "$have" ] && [ "$have" = "$want" ]; then echo "same=true" >> "$GITHUB_OUTPUT"; fi
-      - uses: actions/setup-node@v4
-        if: steps.same.outputs.same != 'true'
-        with:
-          node-version: "20"
-      - name: Deploy
-        if: steps.same.outputs.same != 'true'
+          echo "page: built $want, live ${have:-unknown}; containers: $containers"
+          if [ "$containers" != "true" ] && [ -n "$have" ] && [ "$have" = "$want" ]; then
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "Live site already serves this build; nothing to deploy."
+          else
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          fi
+          echo "containers=$containers" >> "$GITHUB_OUTPUT"
+
+      - name: Check the deploy token
+        id: token
+        if: steps.plan.outputs.deploy == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-            echo "::warning::CLOUDFLARE_API_TOKEN is not set -- Cloudflare deploy skipped (Render still serves the site)."
-            exit 0
+            echo "::warning::CLOUDFLARE_API_TOKEN is not set -- Cloudflare deploy skipped; the live page stays as it is until a deploy runs."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
           fi
-          npx --yes wrangler@4 deploy
+
+      - name: Wait until no job is running
+        id: idle
+        if: steps.token.outputs.ok == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # Read-only: one SELECT on the jobs table. Anything but a clean 0 counts
+          # as busy, so a failed check can only delay a deploy, never cut a job off.
+          busy() {
+            n=$(curl -s -m 20 -X POST \
+                  "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/d1/database/$D1_ID/query" \
+                  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+                  --data '{"sql":"SELECT COUNT(*) AS n FROM jobs WHERE status IN ('"'"'running'"'"','"'"'queued'"'"')"}' \
+                | python -c "import json,sys;d=json.load(sys.stdin);print(d['result'][0]['results'][0]['n'] if d.get('success') else 'error: '+str(d.get('errors')))" 2>/dev/null \
+                || echo "error: no response")
+            echo "jobs running or queued: $n"
+            [ "$n" != "0" ]
+          }
+          for i in $(seq 1 40); do          # up to ~30 minutes
+            if ! busy; then
+              echo "idle=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 45
+          done
+          echo "::warning::Jobs kept running for 30 minutes -- deploy skipped so none is cut off; the hourly run will retry."
+          echo "idle=false" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        if: steps.idle.outputs.idle == 'true'
+        with:
+          node-version: "20"
+
+      - name: Deploy the page and Worker (containers untouched)
+        if: steps.idle.outputs.idle == 'true' && steps.plan.outputs.containers != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx --yes wrangler@4 deploy --containers-rollout=none
+
+      - name: Deploy the page, Worker AND rebuilt containers
+        if: steps.idle.outputs.idle == 'true' && steps.plan.outputs.containers == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx --yes wrangler@4 deploy

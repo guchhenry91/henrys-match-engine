@@ -323,9 +323,14 @@ only stores the code.
   at the cutover; read live boards from the site URL. A repo copy wins over D1 only when
   it changed in the repo since D1 saved it -- so **never commit a picks log or board
   from a local run**: it would replace the live, append-only copy.
-- **Changing index.html, the Worker or the containers needs `npx wrangler deploy`**
-  (with Docker Desktop running; `python -m scripts.build_site` first for the page).
-  A push alone changes only what the JOBS run. Do not start a job while a container
+- **A push to main deploys the page and the Worker automatically**
+  (`.github/workflows/deploy-cloudflare.yml`, secret CLOUDFLARE_API_TOKEN): it waits
+  until the D1 `jobs` table has nothing running or queued, then runs
+  `wrangler deploy --containers-rollout=none`, so the job containers are untouched.
+  The containers are rebuilt only when Dockerfile.jobs, Dockerfile.proxy,
+  requirements.txt or cloudflare/container/ change (or a manual run with
+  `containers: true`). A manual `npx wrangler deploy` still works (Docker Desktop
+  running, `python -m scripts.build_site` first). Do not start a job while a container
   rollout is in progress -- the rollout stops running jobs (exit -15).
 - Also in the Worker: `/api/soccer/live`; the Henryade dashboard's stats proxy
   (`Dockerfile.proxy`, built from guchhenry91/nba-stats-proxy); and the dashboard's
