@@ -41,13 +41,25 @@ TOP_PER_MARKET = 3              # per game, per market
 HISTORY_SEASONS = 6             # five to train on, plus one for entering features
 
 
+PRICED_LOG = ROOT / "data-raw" / "nba" / "priced_lines.json"
+WEIGHTS = ROOT / "data-raw" / "nba" / "combine_weights.json"
+
+
 def weights() -> dict:
-    """{stat: (a, b, c)} from the gate; missing -> lean on the book (0.3, 0.7, 0)."""
+    """{stat: (a, b, c)}: weights re-fitted on REAL graded lines where adopted
+    (tracking/combine_fit.py, data-raw/nba/combine_weights.json), otherwise the gate's
+    from its simulated book; missing altogether -> lean on the book (0.3, 0.7, 0)."""
+    out = {}
     try:
         stats = json.loads(REPORT.read_text(encoding="utf-8"))["stats"]
-        return {s: tuple(v["combined"]["weights_model_book_const"]) for s, v in stats.items()}
+        out = {s: tuple(v["combined"]["weights_model_book_const"]) for s, v in stats.items()}
     except Exception:
-        return {}
+        pass
+    from tracking import combine_fit
+    for market, w in combine_fit.adopted(WEIGHTS).items():
+        if market in fc.MARKET_STAT:
+            out[fc.MARKET_STAT[market]] = w
+    return out
 
 
 def combine(p_model: float, p_book: float, w) -> float:

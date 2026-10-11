@@ -201,6 +201,25 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
             box[(str(r.GAME_ID), int(r.PLAYER_ID))] = {
                 "PTS": r.PTS, "REB": r.REB, "AST": r.AST, "FG3M": r.FG3M}
     picks_mod.grade(log, finals, box, covered)
+    # THE REBUILT MODEL LEARNS ITS WEIGHTS FROM REAL LINES (tracking/combine_fit.py):
+    # every priced line logged (last quote before tip-off), graded from the box
+    # scores, and the forecast-vs-book weights re-fitted once a stat has 300.
+    from nba import forecast_board
+    from tracking import combine_fit
+    priced = [p for markets in (payload.get("game_props") or {}).values()
+              for ps in (markets or {}).values() for p in ps or [] if p.get("engine")]
+    combine_fit.record(forecast_board.PRICED_LOG, priced, now)
+
+    def _actual(e):
+        if e["game_id"] not in covered:
+            return None
+        row = box.get((e["game_id"], int(e["player_id"])))
+        return None if row is None else row.get(config.MARKETS.get(e["market"], ""))
+    combine_fit.grade(forecast_board.PRICED_LOG, _actual)
+    current_w = {m: forecast_board.weights().get(s) for m, s in forecast_board.fc.MARKET_STAT.items()}
+    fitted = combine_fit.refit(forecast_board.PRICED_LOG, forecast_board.WEIGHTS, current_w, now)
+    print(f"  combine weights: {({m: v.get('adopted') for m, v in fitted.items() if isinstance(v, dict) and 'adopted' in v})} "
+          f"waiting {fitted.get('_waiting', {})}")
     manifest.stamp(log.values(), "nba")      # which model made each new pick
     release.mark(log.values(), "nba", performance.market_of, now=now)   # official or tracked
     picks_mod.save_log(log)

@@ -1170,6 +1170,14 @@ Picks carry `engine: forecast-v1`; trust re-blending skips them, the gate judges
 their own record, and the board publishes `record_rebuilt` separately. Gate (walk-forward
 2021-26 vs an informed book): published picks said/landed PTS 66.2/66.0, REB 68.5/68.2,
 AST 68.1/68.0, 3PM 75.0/74.5. The old `board.prop_picks` stays in the file, unused.
+TEAMMATES OUT (2026-10-11): `forecast._vacated` -- share of the rotation's usage missing
+(history: rotation players with no row; live: the news file's ruled-out players). Gated
+A/B: better MAE in all four stats, +27% points picks at the same calibration.
+WEIGHTS FROM REAL LINES (`tracking/combine_fit.py`): every priced line is logged
+(`data-raw/nba/priced_lines.json`, last quote before tip-off), graded from box scores, and
+once a market has 300 graded the weights are re-fitted and ADOPTED only if they beat the
+current ones on 5-fold out-of-fold log-loss (`data-raw/nba/combine_weights.json`).
+`forecast_board.weights()` prefers adopted weights over the gate's simulated-book ones.
 
 NFL yardage props are likewise published on bookmaker lines only
 (`nfl.publish.REQUIRE_BOOK_LINE`); players no book quotes are held back and counted.
