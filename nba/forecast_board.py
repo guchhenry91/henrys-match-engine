@@ -138,7 +138,15 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
     out, held = {m: [] for m in config.MARKETS}, {}
     if not synth:
         return out, held
-    frame = fc.build(pd.concat([rows, pd.DataFrame(synth)], ignore_index=True))
+    # TEAMMATES OUT: the news file's ruled-out players, on the team they are on now,
+    # are the absences the forecast redistributes usage for (nba/forecast._vacated).
+    out_players = {}
+    for name in ruled:
+        pid = names.get(name)
+        team = (teams_now.get(pid) or last_team.get(pid)) if pid is not None else None
+        if team:
+            out_players.setdefault(team, set()).add(pid)
+    frame = fc.build(pd.concat([rows, pd.DataFrame(synth)], ignore_index=True), out_players)
     train = frame[~frame["is_next"] & (frame["season"] >= config.CURRENT_SEASON - fc.TRAIN_SEASONS)]
     ask = frame[frame["is_next"]]
     w = weights()

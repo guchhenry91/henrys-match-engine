@@ -86,9 +86,52 @@ def _team_games(d: pd.DataFrame) -> pd.DataFrame:
     return t[["GAME_ID", "team", "pace_in"] + [f"allow_{s}_in" for s in STATS]]
 
 
-def build(rows: pd.DataFrame) -> pd.DataFrame:
+def _vacated(d: pd.DataFrame, out_players: dict | None) -> pd.DataFrame:
+    """Per team-game: how much of the team's usual usage is MISSING.
+
+    The rotation is every player who played for the team in any of its last three
+    games averaging 15+ minutes. In a played game, a rotation player with no row is
+    absent; for an UPCOMING game nobody's row exists yet, so only the players the
+    news has ruled OUT (`out_players`: {team: {PLAYER_ID}}) count as absent. A player
+    who has left the team drops out of its rotation after three games.
+
+    vac_usage = possessions-used per game (ewm) of the absent; vac_share = that over
+    the whole rotation's. The GBM learns who inherits it (a guard's usage goes to the
+    other guards and the stars, not the backup centre)."""
+    out_players = out_players or {}
+    used = d["FGA"] + 0.44 * d["FTA"] + d["TOV"]
+    d = d.assign(_u=used.groupby(d["PLAYER_ID"]).transform(lambda s: s.ewm(span=10, min_periods=1).mean()),
+                 _m=d["MIN"].groupby(d["PLAYER_ID"]).transform(lambda s: s.ewm(span=10, min_periods=1).mean()))
+    rows = {}
+    order = d.sort_values(["team", "game_date", "GAME_ID"])
+    for (team, _date, gid), grp in order.groupby(["team", "game_date", "GAME_ID"], sort=False):
+        rows.setdefault(team, []).append((gid, grp))
+    out = []
+    for team, games in rows.items():
+        recent = []                              # the last three PLAYED games' rosters
+        for gid, grp in games:
+            rot = {}
+            for roster in recent:
+                rot.update(roster)
+            rot = {p: v for p, v in rot.items() if v[1] >= 15}
+            nxt = bool(grp["is_next"].all())
+            if nxt:
+                absent = set(rot) & set(out_players.get(team, ()))
+            else:
+                absent = set(rot) - set(grp["PLAYER_ID"])
+            vac = sum(rot[p][0] for p in absent if np.isfinite(rot[p][0]))
+            tot = sum(v[0] for v in rot.values() if np.isfinite(v[0]))
+            out.append((gid, team, vac, vac / tot if tot > 0 else 0.0))
+            if not nxt:
+                recent.append({int(p): (u, m) for p, u, m in zip(grp["PLAYER_ID"], grp["_u"], grp["_m"])})
+                recent = recent[-3:]
+    return pd.DataFrame(out, columns=["GAME_ID", "team", "vac_usage", "vac_share"])
+
+
+def build(rows: pd.DataFrame, out_players: dict | None = None) -> pd.DataFrame:
     """Player-game rows with ENTERING features. Upcoming games may be appended as
-    rows with NaN stats (MIN > 0 placeholder) -- they get features, not targets."""
+    rows with NaN stats and is_next=True -- they get features, not targets.
+    `out_players` ({team: {PLAYER_ID}}) says who is ruled out of upcoming games."""
     d = _prep(rows)
     d = d.sort_values(["PLAYER_ID", "game_date", "GAME_ID"]).reset_index(drop=True)
     g = d.groupby("PLAYER_ID", sort=False)
@@ -117,6 +160,7 @@ def build(rows: pd.DataFrame) -> pd.DataFrame:
         d[f"{s}_last"] = g[s].shift(1)
     team = _team_games(d)
     d = d.merge(team, on=["GAME_ID", "team"], how="left")
+    d = d.merge(_vacated(d, out_players), on=["GAME_ID", "team"], how="left")
     opp = team.rename(columns={"team": "opp", "pace_in": "opp_pace_in"})
     opp = opp[["GAME_ID", "opp", "opp_pace_in"] + [f"allow_{s}_in" for s in STATS]].rename(
         columns={f"allow_{s}_in": f"opp_allow_{s}_in" for s in STATS})
@@ -126,8 +170,8 @@ def build(rows: pd.DataFrame) -> pd.DataFrame:
     return d.sort_values(["game_date", "GAME_ID", "PLAYER_ID"]).reset_index(drop=True)
 
 
-def features(stat: str) -> list:
-    base = ["home", "rest_days", "b2b", "games_before", "season_games_before", "new_season",
+def features(stat: str, vacated: bool = True) -> list:
+    base = (["vac_usage", "vac_share"] if vacated else []) + ["home", "rest_days", "b2b", "games_before", "season_games_before", "new_season",
             "min_last", "min_ewm3", "min_ewm10", "min_ewm40", "min_sd10", "usage_pm10",
             "pace_in", "opp_pace_in", f"opp_allow_{stat}_in", "day_of_season", f"{stat}_last"]
     rates = [f"{c}_pm{k}" for c in RATE_COLS for k in (10, 40)]
@@ -137,9 +181,9 @@ def features(stat: str) -> list:
 class StatModel:
     """Mean forecast (Poisson GBM) + NB dispersion for one stat."""
 
-    def __init__(self, stat: str, seed: int = 0):
+    def __init__(self, stat: str, seed: int = 0, vacated: bool = True):
         self.stat = stat
-        self.cols = features(stat)
+        self.cols = features(stat, vacated)
         self.seed = seed
         self.model = None
         self.disp = None
