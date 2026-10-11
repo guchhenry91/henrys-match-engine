@@ -1039,7 +1039,18 @@ function render(k){
   else if(k==="game") h=viewGame();
   else if(k==="UCL") h=viewUCL();
   else h=viewLeague(k);
+  if(REBUILD.on && k!=="tables") h=rebuildBanner()+h;
   app.innerHTML=h; chrome(); window.scrollTo(0,0);
+}
+
+// THE MODEL REBUILD (docs/REBUILD_PLAN.md, agreed 2026-10-11). Four independent
+// reviews found the prop models read bookmakers' lines backwards; until each sport's
+// rebuilt model passes its gate, every model pick is shown for tracking only.
+const REBUILD={on:true,since:"11 Oct 2026"};
+function rebuildBanner(){
+  return `<div class="glass warnbox">Model rebuild in progress (since ${REBUILD.since}). `+
+    `Picks shown here come from the old model and are kept for tracking only — not betting advice. `+
+    `Each sport switches to the rebuilt model once it passes its test; the record keeps grading meanwhile.</div>`;
 }
 
 // CONFIDENCE, THE ONE THE RECORD IS KEPT BY. These are leagues/publish.py's
@@ -1846,6 +1857,12 @@ function viewBetList(){
   let h=sectHead("No model needed","Price edges · bet365 pays more than the sharp market",
     "bet365's price beats the Betfair Exchange (soccer) or Pinnacle (NFL) fair price by 3%+ — positive expected value whatever any model says. Take the price shown or better; each edge is tracked and graded.");
   h+=priceEdges();
+  if(REBUILD.on){
+    h+=sectHead("Model bets paused","Bet list · paused for the rebuild",
+      "No model pick is recommended as a bet while the models are rebuilt. The price edges above need no model.");
+    h+=trustLine();
+    return h;
+  }
   h+=sectHead("Phase 4 · narrow down",`Bet list · ${bet.length} pick${bet.length===1?"":"s"}`,
     "Value at bet365 AND in a market whose own record has earned a bet. Check bet365's price is at or above the minimum shown before you bet.");
   h+=bet.length
