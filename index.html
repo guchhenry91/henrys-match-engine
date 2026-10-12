@@ -1064,29 +1064,10 @@ function provingPanel(pv, updated, engine){
     `<table style="width:100%;font-size:.86em;margin-top:6px"><tr><th align=left>Market</th><th>Graded</th><th>Said</th><th>Landed</th><th>Void</th><th align=left>Status</th></tr>${rows}</table></div>${stamp}`;
 }
 function rebuildBanner(k){
-  const pp=DATA.player_picks||{};
-  const src={NBA:DATA.nba,NFL:DATA.nfl,MLB:DATA.mlb,players:pp}[k]||{};
-  const eng=src.engine;
-  if(k==="players" && eng){
-    const r=src.record_rebuilt||{};
-    const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
-    return `<div class="glass warnbox">Player picks run the REBUILT model: it forecasts who starts, who comes on and what each does, then publishes scorers at ${Math.round(100*eng.bars.goal)}%+ and shots / on-target at ${Math.round(100*eng.bars.shots)}%+. `+
-      `Each chance is IF HE PLAYS: a player who does not play is void, as bet365 settles it, and only likely or confirmed starters are picked. `+
-      `bet365's scorer price is shown beside ours as a second opinion; it is blended in only once 300 real priced picks have graded and the blend proves better. `+
-      `Tested on four past seasons in all five leagues, its picks landed at the rate stated.${rec} Still proving itself live.</div>`+provingPanel(src.proving, src.updated, (src.engine||{}).name);
-  }
-  if(eng){
-    const r=(src.record_rebuilt||{}).props||{};
-    const rec=(r.correct||0)+(r.wrong||0)?` Its own record so far: ${r.correct}-${r.wrong}.`:" Its record starts with the first graded pick.";
-    const extra=k==="MLB"?" Hits and RBI picks need the bookmaker on the same side; strikeouts and team runs blend the forecast with the bookmaker's price; hits+runs+RBIs and home runs are priced but held back until real results earn them a place.":k==="NFL"?" On yardage it publishes only where the forecast is very sure, so expect few picks; anytime TD picks are the book's favourites the forecast agrees with.":"";
-    return `<div class="glass warnbox">${k} runs the REBUILT model: it forecasts each player's game and combines it with the bookmaker's price, `+
-      `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${extra}${rec} `+
-      `Still proving itself — judge it by whether its picks win at the rate stated.</div>`+provingPanel(src.proving, src.updated, (src.engine||{}).name);
-  }
-  // Rebuild finished 12 Oct 2026: every sport's props run the rebuilt model (banners
-  // above) and the team-winner models passed their calibration check, so pages
-  // without a rebuilt engine carry no banner.
-  return "";
+  // No explanatory banner (owner, 2026-10-12): each rebuilt sport shows only its
+  // "Is it working?" panel -- stated chance against what landed, per market.
+  const src={NBA:DATA.nba,NFL:DATA.nfl,MLB:DATA.mlb,players:DATA.player_picks||{}}[k]||{};
+  return src.engine?provingPanel(src.proving, src.updated, src.engine.name):"";
 }
 
 // CONFIDENCE, THE ONE THE RECORD IS KEPT BY. These are leagues/publish.py's
