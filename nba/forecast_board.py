@@ -43,6 +43,9 @@ TOP_PER_MARKET = 3              # per game, per market
 #   PTS MAE 4.908 vs 4.939, ECE 0.022 vs 0.027; REB 1.976 vs 1.981, ECE 0.0061 vs 0.0073;
 #   AST 1.463 vs 1.465, combined ECE 0.0087 vs 0.0113, @70 landed 0.743 vs 0.734;
 #   FG3M 0.985 vs 0.984 -- no gain, so threes stay without it.
+# Re-run after the report-name parser fix (third review): PTS 4.907, REB 1.976, AST 1.462,
+# FG3M 0.984 (no gain) -- same decision. Both arms are kept for re-checking:
+# data-raw/nba/forecast_report_reported.json and forecast_report_noreported.json.
 VACATED_STATS = frozenset({"PTS", "REB", "AST"})
 VACATED = bool(VACATED_STATS)
 HISTORY_SEASONS = 6             # five to train on, plus one for entering features
