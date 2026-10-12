@@ -5,7 +5,8 @@ For the REBUILT engine's graded picks only:
   said         average stated chance
   landed       share that won, with a 95% Wilson interval
   voids        picks voided (did not play, push) and their share
-  clv          closing-line value where a closing price is on record
+  clv          closing-line value where a closing price is on record (same line)
+  line_move    where the closing line moved off ours: the share that moved our way
   status       "unproven" below MIN_PROVEN graded; then "on target" when landed is at
                least said - SLACK, else "behind". "behind (early)" is raised before
                MIN_PROVEN when even the top of the interval sits below said -- a
@@ -60,6 +61,10 @@ def summary(entries, market_of=lambda e: e.get("market"), engine: str = ENGINE) 
         lo, hi = _wilson(won, n)
         clv = [performance.clv(e) for e in settled]
         clv = [c for c in clv if c[0] is not None]
+        # Where the closing line MOVED off ours (scripts/close_props.py), the price
+        # cannot be compared; which way it moved still says who the market agreed with.
+        moves = [(e.get("closing") or {}).get("moved") for e in settled]
+        moves = [m for m in moves if m in ("ours", "against")]
         if n < MIN_PROVEN:
             status = "behind (early)" if (n >= 30 and hi is not None and hi < said) else "unproven"
         else:
@@ -72,6 +77,8 @@ def summary(entries, market_of=lambda e: e.get("market"), engine: str = ENGINE) 
             "void_rate": round(voids / (n + voids), 4) if (n + voids) else None,
             "clv": ({"n": len(clv), "beat_close": round(sum(c[0] == "ours" for c in clv) / len(clv), 4),
                      "avg": round(sum(c[1] for c in clv) / len(clv), 4)} if clv else None),
+            "line_move": ({"n": len(moves), "ours": round(moves.count("ours") / len(moves), 4)}
+                          if moves else None),
             "status": status, "needed": max(MIN_PROVEN - n, 0),
         }
     return out

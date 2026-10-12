@@ -38,6 +38,7 @@ JOBS = {
     ]],
     "lock": [[
         ("Freeze picks due to kick off", PY + "scripts.lock_picks", "gate"),
+        ("Closing prices for locked props", PY + "scripts.close_props", "soft"),
     ]],
     "leagues": [
         [   # the fast lock job (saved on its own, like its own commit)

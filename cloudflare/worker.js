@@ -422,6 +422,9 @@ export const SLOTS = [
   ...[0, 3, 6, 9, 12, 15, 18, 21].map((h) => [h, 15, "leagues"]),
   [6, 0, "leagues", 2],
   ...[...Array(13).keys()].flatMap((i) => [5, 15, 25, 35, 45, 55].map((m) => [11 + i, m, "lock"])),
+  // 00:00-04:59 too: late NBA tips and Sunday-night NFL need their closing price
+  // (scripts/close_props.py runs inside the lock job).
+  ...[0, 1, 2, 3, 4].flatMap((h) => [5, 15, 25, 35, 45, 55].map((m) => [h, m, "lock"])),
   [5, 0, "nfl"], [9, 0, "nfl"], [16, 0, "nfl"],
   [8, 30, "nfl_backtest", 2], [8, 30, "nfl", 2],
   [15, 0, "nba"], [21, 30, "nba"],

@@ -127,9 +127,10 @@ def clv(entry: dict):
     """
     close_p = entry.get("close_p")
     price = _taken_price(entry)
-    # close_price is written only by leagues/closing.py (bet365's closing 1X2 from
-    # football-data, after kickoff). Elsewhere close_p is the quote AT LOCK -- the
-    # price taken, not a close -- and scoring it would measure nothing.
+    # close_price is written only by a real close: leagues/closing.py (bet365's
+    # closing 1X2 from football-data) and scripts/close_props.py (the prop's line in
+    # the last 20 minutes, same line only). Elsewhere close_p is the quote AT LOCK --
+    # the price taken, not a close -- and scoring it would measure nothing.
     if close_p is None or price is None or entry.get("close_price") is None:
         return None, None
     if "after the fact" in str(entry.get("price_from") or ""):

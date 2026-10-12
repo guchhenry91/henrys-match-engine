@@ -1116,6 +1116,10 @@ Three paid APIs. Every limit is enforced in code BEFORE a request is sent.
   not price, soccer player props (unless API-Football's own odds carry them), and
   NBA/MLB lines. At most TWO odds checks per game -- board build and 60-90 min
   before the lock -- never live odds.
+- **Closing check (owner approved 2026-10-12, ~100-200 credits a day):** ONE more
+  look per game that has a LOCKED player prop (NBA, NFL, MLB), inside the last 20
+  minutes before the start, asking only the markets those picks need
+  (`scripts/close_props.py`, a soft step of the lock job). Still never live odds.
 - Rollout: phase 0 (client, no credits) done; phase 1 coverage probe (<= 60
   credits) next, then NFL gap-fill, soccer props, NBA board, MLB (spring 2027).
 

@@ -1056,7 +1056,7 @@ function provingPanel(pv, updated, engine){
   const rows=Object.entries(pv).map(([m,v])=>{
     const col=v.status==="on target"?"var(--lime)":v.status.startsWith("behind")?"var(--hot)":"var(--sub)";
     const rng=v.landed_95&&v.landed_95[0]!=null?` <small>(${pc(v.landed_95[0])}–${pc(v.landed_95[1])})</small>`:"";
-    const clv=v.clv?` · beat the close ${pc(v.clv.beat_close)} of ${v.clv.n}`:"";
+    const clv=(v.clv?` · beat the close ${pc(v.clv.beat_close)} of ${v.clv.n}`:"")+(v.line_move?` · line moved our way ${pc(v.line_move.ours)} of ${v.line_move.n}`:"");
     return `<tr><td>${esc(m.replace(/_/g," "))}</td><td>${v.n}</td><td>${pc(v.said)}</td><td>${pc(v.landed)}${rng}</td>`+
       `<td>${v.void_rate==null?"—":pc(v.void_rate)}</td><td style="color:${col}">${esc(v.status)}${v.needed?` <small>(${v.needed} more to prove)</small>`:""}${clv}</td></tr>`;
   }).join("");
