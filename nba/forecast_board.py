@@ -31,13 +31,14 @@ from forecast import dist
 from nba import config, current
 from nba import forecast as fc
 from nfl import odds as odds_mod
-from tracking import recent
+from tracking import combine_fit, recent
 
 ROOT = Path(__file__).resolve().parent.parent
 REPORT = ROOT / "data-raw" / "nba" / "forecast_report.json"
 ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
 TOP_PER_MARKET = 3              # per game, per market
+VACATED = False                 # teammates-out off until it can be trained on pre-game reports
 HISTORY_SEASONS = 6             # five to train on, plus one for entering features
 
 
@@ -48,14 +49,15 @@ WEIGHTS = ROOT / "data-raw" / "nba" / "combine_weights.json"
 def weights() -> dict:
     """{stat: (a, b, c)}: weights re-fitted on REAL graded lines where adopted
     (tracking/combine_fit.py, data-raw/nba/combine_weights.json), otherwise the gate's
-    from its simulated book; missing altogether -> lean on the book (0.3, 0.7, 0)."""
+    from its simulated book CAPPED to trust the book (combine_fit.prior: book weight 1,
+    forecast pull <= 0.2) until real lines earn more."""
     out = {}
     try:
         stats = json.loads(REPORT.read_text(encoding="utf-8"))["stats"]
-        out = {s: tuple(v["combined"]["weights_model_book_const"]) for s, v in stats.items()}
+        out = {s: combine_fit.prior(v["combined"]["weights_model_book_const"])
+               for s, v in stats.items()}
     except Exception:
         pass
-    from tracking import combine_fit
     for market, w in combine_fit.adopted(WEIGHTS).items():
         if market in fc.MARKET_STAT:
             out[fc.MARKET_STAT[market]] = w
@@ -165,7 +167,9 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
     real = rows.copy()
     real["game_date"] = pd.to_datetime(real["GAME_DATE"].astype(str).str[:10])
     for market, stat in fc.MARKET_STAT.items():
-        model = fc.StatModel(stat).fit(train)
+        # vacated=False (review, 2026-10-12): the teammates-out feature was trained on
+        # who actually sat (known after the game) but is fed only the injury report live.
+        model = fc.StatModel(stat, vacated=VACATED).fit(train)
         mu = model.mean(ask)
         alpha = model.disp(mu)
         last5 = recent.last_n(real, ask["PLAYER_ID"], stat, played="MIN")

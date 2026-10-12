@@ -24,7 +24,7 @@ def test_select_top_per_game():
 
 def test_rules_hold_hrr_and_hr():
     assert fb.RULE["hrr"] == "held" and fb.RULE["hr"] == "held"
-    assert fb.RULE["hits"] == "veto" and fb.RULE["strikeouts"] == "combined"
+    assert fb.RULE["hits"] == "combined" and fb.RULE["strikeouts"] == "held"
 
 
 def test_count_model_reads_any_line_off_the_distribution():

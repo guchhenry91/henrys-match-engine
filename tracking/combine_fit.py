@@ -25,6 +25,18 @@ from pathlib import Path
 import numpy as np
 
 MIN_N = 300
+# TRUST THE BOOK BY DEFAULT (four-reviewer audit, 2026-10-12). Until a market's weights
+# are re-fitted on REAL graded lines and adopted, the book's chance counts in full
+# (b = 1), the forecast may only nudge it (a <= A_CAP), and no constant is applied --
+# the gates' simulated books were weaker than real ones, so their weights trusted the
+# forecast far more than any real line has earned.
+A_CAP = 0.2
+
+
+def prior(w) -> tuple:
+    """The default weights for a market not yet proven on real lines."""
+    a = float(w[0]) if w else 0.0
+    return (round(min(max(a, 0.0), A_CAP), 4), 1.0, 0.0)
 
 
 def _logit(p):
@@ -115,12 +127,54 @@ def _apply(w, x):
     return 1 / (1 + np.exp(-(a * x[:, 0] + b * x[:, 1] + c)))
 
 
+PUBLISH_BAR = 0.62
+TAIL_MIN = 30           # would-publish picks needed before the tail can be judged
+TAIL_SLACK = 0.02       # landed may trail stated by at most this
+BOOTSTRAPS = 400
+
+
+def _folds(es) -> np.ndarray:
+    """Five folds by GAME, so lines from one game never sit on both sides of a split."""
+    import zlib
+    return np.array([zlib.crc32(str(e.get("game_id")).encode()) % 5 for e in es])
+
+
+def _significant_gain(p_old, p_new, y, groups, seed=0) -> tuple:
+    """(mean log-loss gain, lower 95% bound) of the candidate over the weights in force,
+    bootstrapped over GAMES -- a gain inside the noise is not a gain."""
+    eps = 1e-6
+    ll = lambda p: -(y * np.log(np.clip(p, eps, 1)) + (1 - y) * np.log(np.clip(1 - p, eps, 1)))
+    d = ll(p_old) - ll(p_new)
+    keys, inv = np.unique(groups, return_inverse=True)
+    sums = np.bincount(inv, weights=d)
+    counts = np.bincount(inv)
+    rng = np.random.default_rng(seed)
+    boots = []
+    for _ in range(BOOTSTRAPS):
+        pick = rng.integers(0, len(keys), len(keys))
+        boots.append(sums[pick].sum() / max(counts[pick].sum(), 1))
+    return float(d.mean()), float(np.percentile(boots, 2.5))
+
+
+def _tail(p, y) -> dict:
+    """What the published picks would have done: the side >= PUBLISH_BAR."""
+    side = np.where(p >= 0.5, p, 1 - p)
+    won = np.where(p >= 0.5, y, 1 - y)
+    m = side >= PUBLISH_BAR
+    return {"n": int(m.sum()), "said": round(float(side[m].mean()), 4) if m.any() else None,
+            "landed": round(float(won[m].mean()), 4) if m.any() else None}
+
+
 def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
           min_n: int = MIN_N, offset: bool = False) -> dict:
-    """Re-fit each market with min_n graded lines; adopt only on better OOF log-loss.
-    `current` is {market: (a, b, c)} in force now. `offset` holds the book's weight at
-    1 (fit_offset) -- for books whose lines sit near 50/50; True for every market, or
-    a set of the markets it applies to. Returns the weights file."""
+    """Re-fit each market with min_n graded lines. ADOPT ONLY IF (audit 2026-10-12):
+      * the out-of-fold gain in log-loss over the weights IN FORCE is real -- its 95%
+        lower bound, bootstrapped by game, is above zero;
+      * the candidate's would-publish tail (>= PUBLISH_BAR) landed at least its stated
+        rate less TAIL_SLACK, on TAIL_MIN+ picks;
+    with folds grouped by game. `current` is {market: (a, b, c)} actually in force.
+    `offset` holds the book's weight at 1 (fit_offset): True, or a set of markets.
+    Adoption changes weights only -- never a board's publishing rule."""
     from sklearn.linear_model import LogisticRegression
 
     def fit(x, y, market=None):
@@ -142,18 +196,32 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
             continue
         x = np.column_stack([_logit([e["p_model"] for e in es]), _logit([e["p_book"] for e in es])])
         y = np.array([e["y"] for e in es], float)
-        folds = np.arange(len(y)) % 5
+        folds = _folds(es)
         oof = np.zeros(len(y))
         for k in range(5):
             tr, te = folds != k, folds == k
+            if not te.any() or tr.sum() < 20:
+                oof[te] = _apply(current.get(market) or (0.0, 1.0, 0.0), x[te])
+                continue
             oof[te] = _apply(fit(x[tr], y[tr], market), x[te])
-        cur = current.get(market) or ((0.0, 1.0, 0.0) if offset else (0.3, 0.7, 0.0))
-        old_ll, new_ll = _logloss(_apply(cur, x), y), _logloss(oof, y)
+        cur = current.get(market) or (0.0, 1.0, 0.0)
+        p_cur = _apply(cur, x)
+        gain, lower = _significant_gain(p_cur, oof, y, np.array([str(e.get("game_id")) for e in es]))
+        tail = _tail(oof, y)
+        tail_ok = (tail["n"] >= TAIL_MIN and tail["landed"] is not None
+                   and tail["landed"] >= tail["said"] - TAIL_SLACK)
         fitted = fit(x, y, market)
-        adopt = new_ll < old_ll
+        adopt = lower > 0 and tail_ok
         entry = {"n": len(es), "fitted_at": now.isoformat(timespec="seconds"),
-                 "candidate": list(fitted), "logloss_current": round(old_ll, 5),
-                 "logloss_candidate_oof": round(new_ll, 5), "adopted": adopt}
+                 "candidate": list(fitted), "in_force": list(cur),
+                 "logloss_current": round(_logloss(p_cur, y), 5),
+                 "logloss_candidate_oof": round(_logloss(oof, y), 5),
+                 "gain": round(gain, 5), "gain_lower95": round(lower, 5),
+                 "tail_candidate_oof": tail, "tail_current": _tail(p_cur, y),
+                 "adopted": adopt,
+                 "why": ("adopted" if adopt else
+                         "gain inside the noise" if lower <= 0 else
+                         "would-publish picks landed below their stated rate")}
         if adopt:
             entry["w"] = list(fitted)
         elif (out.get(market) or {}).get("w"):

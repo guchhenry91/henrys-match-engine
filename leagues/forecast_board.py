@@ -74,6 +74,18 @@ def _upcoming(now) -> pd.DataFrame:
     naive = now.replace(tzinfo=None)
     up = up[(up["date"] >= naive - pd.Timedelta(hours=6))
             & (up["date"] <= naive + pd.Timedelta(days=HORIZON_DAYS))]
+    # ONE UPCOMING MATCH PER TEAM (review, 2026-10-12): a team's second fixture in the
+    # window would see its first as a match every player missed (status 0), dragging
+    # down every appearance feature. The later one is forecast once the first is played.
+    up = up.sort_values("date")
+    first = set()
+    keep = []
+    for r in up.itertuples():
+        if (r.league, r.home) in first or (r.league, r.away) in first:
+            continue
+        first |= {(r.league, r.home), (r.league, r.away)}
+        keep.append(r.Index)
+    up = up.loc[keep]
     sides = []
     for r in up.itertuples():
         for team, opp, home in ((r.home, r.away, 1), (r.away, r.home, 0)):

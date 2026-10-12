@@ -238,6 +238,28 @@ def _norm_player(n) -> str:
     return odds_mod.norm_name(str(n or ""))
 
 
+STALE_PENDING_HOURS = 72
+
+
+def _stale(uncovered: list) -> list:
+    now = pd.Timestamp.now("UTC")
+    out = []
+    for u in uncovered:
+        try:
+            age = (now - pd.Timestamp(u.get("date"))).total_seconds() / 3600.0
+        except Exception:
+            continue
+        if age > STALE_PENDING_HOURS:
+            out.append({"player": u.get("player"), "market": u.get("market"),
+                        "league": u.get("league"), "date": u.get("date"),
+                        "fixture": f"{u.get('home')} v {u.get('away')}",
+                        "hours_waiting": round(age)})
+    if out:
+        print(f"::warning::{len(out)} player pick(s) pending more than {STALE_PENDING_HOURS}h "
+              f"after kick-off: " + "; ".join(f"{x['player']} ({x['fixture']})" for x in out[:6]))
+    return sorted(out, key=lambda x: -x["hours_waiting"])
+
+
 def _bar(market: str) -> float:
     return forecast_board.BARS[market] if PROPS_REBUILT else PLAYER_PICK_MIN_PROB[market]
 
@@ -1382,7 +1404,7 @@ def build_player_picks() -> dict:
             # bet365 settles); one in it is graded, shots or not. With no lineup
             # and no stat row there is no evidence either way: stays PENDING.
             team_c = club_names.canonical(str(entry.get("team")), league)
-            if (team_c, day) in lineup_sides:
+            if (team_c, day) in lineup_sides and actual is None:
                 if (_norm_player(entry["player"]), day) not in appeared:
                     settled.append(picks.void_did_not_play(entry) | item)
                     continue
@@ -1437,6 +1459,10 @@ def build_player_picks() -> dict:
               "date": u.get("date"), "fixture": f"{u.get('home')} v {u.get('away')}"}
              for u in uncovered),
             key=lambda u: (u["date"] or "", u["player"] or "")),
+        # WAITING TOO LONG (review, 2026-10-12): a pick pending more than 72h after
+        # kick-off is no longer "the feed is late" -- it needs a look (a lineup the
+        # feeds never filed, a name they spell differently). Listed and warned on.
+        "stale_pending": _stale(uncovered),
         "ungradeable_leagues": sorted(set(ungradeable) | {
             u["league"] for u in upcoming if u.get("gradeable") is False}),
         "_incomplete": incomplete,     # non-empty -> caller must NOT publish
@@ -1466,6 +1492,8 @@ def main(argv=None):
         # thread) asks it about a fixture.
         try:
             forecast_board.prepare()
+        except ImportError:
+            raise                 # a missing library is a broken deploy: fail the job loudly
         except Exception as exc:                           # noqa: BLE001
             print(f"::warning::rebuilt props model unavailable ({type(exc).__name__}: {exc}); "
                   f"no player picks this run")

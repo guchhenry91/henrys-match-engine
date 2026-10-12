@@ -637,6 +637,8 @@ def build() -> dict:
             out_now = {n: (r or {}).get("team") for n, r in injuries.items()
                        if (r or {}).get("status") == "out"}
             built = forecast_board.frame([p for ps in slate.values() for p in ps], ruled_out=out_now)
+        except ImportError:
+            raise                 # a missing library is a broken deploy: fail the job loudly
         except Exception as exc:
             # Never fall back to the old model's numbers: no rebuilt read, no prop picks.
             print(f"::warning::rebuilt NFL forecast unavailable ({type(exc).__name__}: {exc}); "

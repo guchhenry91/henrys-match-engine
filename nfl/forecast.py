@@ -231,9 +231,12 @@ def build(d: pd.DataFrame, outs: pd.DataFrame | None = None) -> pd.DataFrame:
     return d.sort_values(["gameday", "game_id", "player_id"]).reset_index(drop=True)
 
 
+# WEATHER IS NOT AN INPUT (review, 2026-10-12): nflverse fills temp/wind only after a
+# game is played, so every live row had it blank while training rows had it filled --
+# the live forecast was taking a path the model barely saw. Dome (known in advance) stays.
 def features(market: str, vacated: bool = True) -> list:
     base = (list(VACATED) if vacated else []) + ["pos", "home", "games_before", "rest_days", "new_season", "spread_team",
-            "implied_team", "implied_opp", "total_line", "dome", "wind", "temp",
+            "implied_team", "implied_opp", "total_line", "dome",
             "team_attempts_in", "team_carries_in", "def_passing_yards_in", "def_rushing_yards_in",
             "receiving_yards_per_targets", "rushing_yards_per_carries", "passing_yards_per_attempts"]
     return base + [f"{c}_e{k}" for c in ROLL for k in (3, 8)]

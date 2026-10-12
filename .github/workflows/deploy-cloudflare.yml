@@ -51,6 +51,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+      # THE TESTS GATE THE DEPLOY. The jobs pull main's Python on every run, so a push
+      # is live the moment it lands; a failing test stops the page/Worker deploy and
+      # makes the failure visible here rather than as an empty board later.
+      - name: Install the engine's dependencies
+        run: pip install -r requirements.txt
+      - name: Run the tests
+        run: python -m pytest -q -p no:cacheprovider
       - name: Build the site folder
         run: python scripts/build_site.py
 
@@ -64,6 +72,12 @@ jobs:
           containers=false
           if [ "$FORCE_CONTAINERS" = "true" ]; then
             containers=true
+          elif [ "${{ github.event_name }}" = "schedule" ] \
+               && git log --since="26 hours ago" --name-only --format= -- Dockerfile.jobs \
+                    Dockerfile.proxy requirements.txt cloudflare/container/ | grep -q .; then
+            # The hourly catch-up: a container change pushed while jobs were busy was
+            # skipped then; roll it out now rather than never.
+            containers=true
           elif [ "${{ github.event_name }}" = "push" ] && [ -n "$BEFORE" ] \
                && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
             if git diff --name-only "$BEFORE" HEAD -- Dockerfile.jobs Dockerfile.proxy \
@@ -75,6 +89,9 @@ jobs:
           have=""
           if [ -n "$SITE" ]; then
             have=$(curl -s -m 15 "$SITE/site-version.json" | python -c "import json,sys;print(json.load(sys.stdin).get('hash',''))" 2>/dev/null || true)
+          fi
+          if [ "${{ github.event_name }}" = "schedule" ] && [ -n "$have" ] && [ "$have" = "$want" ]; then
+            containers=false     # nothing was skipped: the live site already has this build
           fi
           echo "page: built $want, live ${have:-unknown}; containers: $containers"
           if [ "$containers" != "true" ] && [ -n "$have" ] && [ "$have" = "$want" ]; then

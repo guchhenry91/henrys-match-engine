@@ -52,7 +52,9 @@ PUBLISH_BAR = 0.62
 TOP_PER_MARKET = 3
 HISTORY_SEASONS = 6
 OVER_ONLY = {"hr"}
-RULE = {"hits": "veto", "rbi": "veto", "strikeouts": "combined", "team_runs": "combined",
+# Audit 2026-10-12: every market trusts the book by default (combine_fit.prior), and
+# strikeouts are held (27 real lines: model said 54% over, 30% landed).
+RULE = {"hits": "combined", "rbi": "combined", "strikeouts": "held", "team_runs": "combined",
         "hrr": "held", "hr": "held"}
 OFFSET_MARKETS = {"strikeouts", "team_runs"}       # median-set lines: book weight held at 1
 
@@ -61,7 +63,8 @@ def weights() -> dict:
     out = {}
     try:
         markets = json.loads(REPORT.read_text(encoding="utf-8"))["markets"]
-        out = {m: tuple(v["combined"]["weights_model_book_const"]) for m, v in markets.items()}
+        out = {m: combine_fit.prior(v["combined"]["weights_model_book_const"])
+               for m, v in markets.items()}
     except Exception:
         pass
     out.update(combine_fit.adopted(WEIGHTS))
@@ -180,13 +183,13 @@ def props(games_ahead: pd.DataFrame, odds_store: dict, avail=None, collect=None,
         mu_all = model.mean(rows)
         last5 = recent.last_n(frames[kind][~frames[kind]["is_next"].fillna(False).astype(bool)],
                               rows["PLAYER_ID"], stat)
-        priced, rule = [], ("combined" if market in adopted else RULE[market])
+        priced, rule = [], RULE[market]          # adoption changes weights, never the rule
         for (pid, gid), pm, mu, line in zip(keys, pm_all, mu_all, lines):
             g, team, opp, home, q, name = meta[(market, pid, gid)]
             if q.get("over") is None:
                 continue
             pb = float(q["over"])
-            rule = "combined" if market in adopted else RULE[market]
+            rule = RULE[market]
             pc = float(pm) if rule in ("veto", "held") else combine(float(pm), pb, w.get(market))
             side = "over" if pc >= 0.5 else "under"
             if side == "under" and not q.get("odd_under"):

@@ -313,6 +313,8 @@ def build(sched: pd.DataFrame, now, released: list) -> dict:
         try:
             props = forecast_board.props(games_ahead, odds_store, avail, collect=game_props,
                                          unavailable=unavailable)
+        except ImportError:
+            raise                 # a missing library is a broken deploy: fail the job loudly
         except Exception as exc:                           # noqa: BLE001
             print(f"::warning::rebuilt MLB model unavailable ({type(exc).__name__}: {exc}); "
                   f"no props this run")

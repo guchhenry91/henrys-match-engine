@@ -46,10 +46,13 @@ TOP_PER_MARKET = 3
 # ALTERNATE LINES: the book's lower rungs, where overs are likelier. A rung is a pick
 # only at ALT_BAR or above AND with the forecast at least as sure as the book; the
 # highest such rung (the best price) is the one taken, at most ALT_PER_GAME a game.
-ALT_ON = True
+# PAUSED (four-reviewer audit, 2026-10-12): validated only against the weakest
+# simulation, and a one-sided rung carries 8-12% margin, not the main line's ~5%.
+# Back on once real alternate-line prices have been logged and graded.
+ALT_ON = False
 ALT_BAR = 0.70
 ALT_PER_GAME = 2
-DEFAULT_OVERROUND = 1.05
+DEFAULT_OVERROUND = 1.10            # a rung's own margin is wider than the main line's
 HISTORY_SEASONS = 6               # five to train on, plus one for entering features
 
 
@@ -58,7 +61,9 @@ def weights() -> dict:
     out = {}
     try:
         markets = json.loads(REPORT.read_text(encoding="utf-8"))["markets"]
-        out = {m: tuple(v["combined"]["weights_model_book_const"]) for m, v in markets.items()}
+        from tracking import combine_fit
+        out = {m: combine_fit.prior(v["combined"]["weights_model_book_const"])
+               for m, v in markets.items()}
     except Exception:
         pass
     from tracking import combine_fit
@@ -141,9 +146,14 @@ def _train(built: pd.DataFrame) -> pd.DataFrame:
     return built[~built["is_next"] & (built["season"] >= config.CURRENT_SEASON - fc.TRAIN_SEASONS)]
 
 
+# TRACKING ONLY (audit, 2026-10-12): anytime TD has a = 0 -- its pick is the book's own
+# favourite, and its gate overstated (said 85.5%, landed 80.9%). Priced and logged.
+HELD = {"anytime_touchdown"}
+
+
 def select(priced: list) -> list:
     keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
-                   and (p["market"] != "anytime_touchdown" or p["side"] == "over")],
+                   and p["market"] not in HELD],
                   key=lambda p: -p["probability"])
     by_game = {}
     for p in keep:
@@ -162,7 +172,7 @@ def _alt_rung(p: dict, model, mu: float, w):
     over_price, over_p = p.get("book_price"), p.get("book_p")
     overround = DEFAULT_OVERROUND
     if over_price and over_p:
-        overround = max((1.0 / float(over_price)) / float(over_p), 1.0)
+        overround = max((1.0 / float(over_price)) / float(over_p), DEFAULT_OVERROUND)
     best = None
     for r in sorted(ladder["rungs"], key=lambda r: r["line"]):
         line, price = float(r["line"]), float(r.get("price") or 0)

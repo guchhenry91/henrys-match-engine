@@ -57,3 +57,26 @@ def test_refit_waits_then_adopts_only_when_better(tmp_path):
     # Already-good weights are NOT replaced by a fit that is no better out of fold.
     out = cf.refit(path, wpath, {"points": (0.1, 1.0, 0.0)}, NOW)
     assert out["points"]["logloss_candidate_oof"] >= out["points"]["logloss_current"] - 0.002
+
+
+def test_refit_refuses_a_gain_inside_the_noise(tmp_path):
+    """The book is right and in force; a re-fit on pure noise must not be adopted."""
+    rng = np.random.default_rng(3)
+    path, wpath = tmp_path / "priced.json", tmp_path / "w.json"
+    picks, truth = [], {}
+    for i in range(400):
+        pm, pb = rng.uniform(0.3, 0.7), rng.uniform(0.3, 0.7)
+        picks.append(_pick(i, pm, pb))
+        truth[f"g{i}"] = 25 if rng.uniform() < pb else 10
+    cf.record(path, picks, NOW)
+    cf.grade(path, lambda e: truth[e["game_id"]])
+    out = cf.refit(path, wpath, {"points": (0.0, 1.0, 0.0)}, NOW)
+    assert out["points"]["adopted"] is False and not cf.adopted(wpath)
+    assert out["points"]["why"] in ("gain inside the noise",
+                                    "would-publish picks landed below their stated rate")
+
+
+def test_folds_keep_a_game_together():
+    es = [{"game_id": "g1"}, {"game_id": "g1"}, {"game_id": "g2"}]
+    f = cf._folds(es)
+    assert f[0] == f[1]
