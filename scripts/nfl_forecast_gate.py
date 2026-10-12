@@ -55,6 +55,7 @@ def published(p, y, bar, p_model=None):
 
 
 VACATED = True
+WEATHER = False
 
 
 def _alt(pc, pb, y, ids, pm, need_model):
@@ -75,7 +76,14 @@ def score(frame, market, season, rng):
     train = frame[(frame["season"] < season) & (frame["season"] >= season - fc.TRAIN_SEASONS)]
     test = frame[(frame["season"] == season) & fc.eligible(frame, market)
                  & (frame["season_type"] == "REG")].copy()
-    model = fc.MarketModel(market, vacated=VACATED).fit(train)
+    model = fc.MarketModel(market, vacated=VACATED, weather=WEATHER).fit(train)
+    if WEATHER:
+        # Judge weather as it will be USED: a kick-off forecast, not the recorded value.
+        # Forecast-sized error on the test rows (temperature sd 3F, wind sd 3.5 mph).
+        test = test.copy()
+        out_ = test["dome"] == 0
+        test.loc[out_, "temp"] = test.loc[out_, "temp"] + rng.normal(0, 3.0, int(out_.sum()))
+        test.loc[out_, "wind"] = (test.loc[out_, "wind"] + rng.normal(0, 3.5, int(out_.sum()))).clip(lower=0)
     stat = fc.MARKETS[market]["stat"]
     y_raw = test[stat].to_numpy(float)
     noise = np.exp(rng.normal(0, 0.25, len(test)))
@@ -161,9 +169,11 @@ def main() -> int:
     ap.add_argument("--markets", default=",".join(fc.MARKETS))
     ap.add_argument("--report", default=str(REPORT))
     ap.add_argument("--no-vacated", action="store_true", help="A/B: without teammates out")
+    ap.add_argument("--weather", action="store_true", help="A/B: with kick-off weather (forecast-noised)")
     args = ap.parse_args()
-    global VACATED
+    global VACATED, WEATHER
     VACATED = not args.no_vacated
+    WEATHER = args.weather
     t0 = time.time()
     seasons = range(min(SCORED) - fc.TRAIN_SEASONS - 1, 2027)
     frame = fc.build(fc.load(seasons), fc.out_reports(seasons))
@@ -207,7 +217,7 @@ def main() -> int:
               f"{out['model_alone']} | book alone {out['book_alone']} | COMBINED w={out['combined']['weights_model_book_const']} "
               f"ECE {out['combined']['calibration']['ece']} publish {out['combined']['would_publish_agree']} "
               f"@70 {out['combined']['would_publish_70']}", flush=True)
-        live_models[market] = fc.MarketModel(market, vacated=VACATED).fit(
+        live_models[market] = fc.MarketModel(market, vacated=VACATED, weather=WEATHER).fit(
             frame[(frame["season"] < 2026) & (frame["season"] >= 2026 - fc.TRAIN_SEASONS)])
     report["real_bet365_lines_2026"] = real_lines(frame, live_models, weights)
     print("REAL bet365 lines 2026:", json.dumps(report["real_bet365_lines_2026"]), flush=True)

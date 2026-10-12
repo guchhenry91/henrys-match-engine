@@ -99,7 +99,11 @@ def games_table() -> pd.DataFrame:
     for c in ("spread_line", "total_line", "wind", "temp", "home_score", "away_score"):
         g[c] = pd.to_numeric(g.get(c), errors="coerce")
     g["gameday"] = pd.to_datetime(g["gameday"], errors="coerce")
-    g["dome"] = g.get("roof", pd.Series("", index=g.index)).astype(str).isin(["dome", "closed"]).astype(float)
+    from nfl import weather
+    roof = g.get("roof", pd.Series("", index=g.index))
+    sid = g.get("stadium_id", pd.Series("", index=g.index))
+    # Indoor: dome / closed, or a retractable roof not yet declared for a future game.
+    g["dome"] = [float(weather.indoor(r, s)) for r, s in zip(roof, sid)]
     return g
 
 
@@ -114,6 +118,16 @@ def _context(d: pd.DataFrame) -> pd.DataFrame:
     d["spread_team"] = sign * d["spread_line"]
     d["implied_team"] = (d["total_line"] + d["spread_team"]) / 2.0
     d["implied_opp"] = d["total_line"] - d["implied_team"]
+    # Upcoming outdoor games: nflverse has no weather until after the game, so the
+    # stadium's kick-off FORECAST stands in (nfl/weather.py, refreshed by the board).
+    from nfl import weather
+    fc_wx = weather.load()
+    if fc_wx:
+        miss = d["temp"].isna() & d["wind"].isna() & (d["dome"] == 0)
+        if miss.any():
+            vals = d.loc[miss, "game_id"].map(lambda gid: fc_wx.get(str(gid), (np.nan, np.nan)))
+            d.loc[miss, "temp"] = [v[0] for v in vals]
+            d.loc[miss, "wind"] = [v[1] for v in vals]
     d["wind"] = d["wind"].where(d["dome"] == 0, 0.0)
     return d
 
@@ -231,11 +245,21 @@ def build(d: pd.DataFrame, outs: pd.DataFrame | None = None) -> pd.DataFrame:
     return d.sort_values(["gameday", "game_id", "player_id"]).reset_index(drop=True)
 
 
-# WEATHER IS NOT AN INPUT (review, 2026-10-12): nflverse fills temp/wind only after a
-# game is played, so every live row had it blank while training rows had it filled --
-# the live forecast was taking a path the model barely saw. Dome (known in advance) stays.
-def features(market: str, vacated: bool = True) -> list:
-    base = (list(VACATED) if vacated else []) + ["pos", "home", "games_before", "rest_days", "new_season", "spread_team",
+# WEATHER (2026-10-12): nflverse fills temp/wind only AFTER a game, so live rows had them
+# blank while training rows had them filled. It was taken out; it comes back only with
+# the stadium's kick-off forecast filling live rows (nfl/weather.py) AND only if the gate
+# (test rows given forecast-sized error) shows it helps -- see WEATHER.
+# GATE, 2026-10-12 (scripts/nfl_forecast_gate --weather vs without, 2024-2026):
+# MAE passing 65.38 vs 65.38, rushing 22.04 vs 22.01, receiving 21.40 vs 21.39; on the
+# real 2026 bet365 lines the model's log-loss was WORSE with it in all four markets
+# (passing 0.735 vs 0.701). The lines already carry the weather. Off; re-test with
+# --weather if the feature set changes.
+WEATHER = False
+
+
+def features(market: str, vacated: bool = True, weather: bool | None = None) -> list:
+    wx = WEATHER if weather is None else weather
+    base = (list(VACATED) if vacated else []) + (["wind", "temp"] if wx else []) + ["pos", "home", "games_before", "rest_days", "new_season", "spread_team",
             "implied_team", "implied_opp", "total_line", "dome",
             "team_attempts_in", "team_carries_in", "def_passing_yards_in", "def_rushing_yards_in",
             "receiving_yards_per_targets", "rushing_yards_per_carries", "passing_yards_per_attempts"]
@@ -257,10 +281,10 @@ def eligible(frame: pd.DataFrame, market: str) -> pd.Series:
 
 
 class MarketModel:
-    def __init__(self, market: str, seed: int = 0, vacated: bool = True):
+    def __init__(self, market: str, seed: int = 0, vacated: bool = True, weather: bool | None = None):
         self.market = market
         self.stat = MARKETS[market]["stat"]
-        self.cols = features(market, vacated)
+        self.cols = features(market, vacated, weather)
         self.binary = market == "anytime_touchdown"
         self.seed = seed
         self.model, self.spread = None, None
