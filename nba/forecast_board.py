@@ -129,6 +129,9 @@ def select(priced: list) -> list:
     forecast itself on the same side (a pick the model argues against is the book's
     pick, not ours -- the gate showed requiring agreement costs ~2% of picks and no
     accuracy), at most TOP_PER_MARKET per game, best first."""
+    # THE PRICE CHECK (tracking/pricecheck.py): only picks worth betting at bet365.
+    from tracking import pricecheck
+    priced = [p for p in priced if pricecheck.passes(p)]
     keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5],
                   key=lambda p: -p["probability"])
     by_game = {}
@@ -210,4 +213,6 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
         held[market] = 0            # (players simply not quoted in this market are not "held")
         print(f"  {market} [{ENGINE}]: {len(priced)} priced, {len(out[market])} published "
               f"at {PUBLISH_BAR:.0%}+", flush=True)
+    from tracking import pricecheck
+    out = pricecheck.one_per_player(out)        # one pick per player per game
     return out, held

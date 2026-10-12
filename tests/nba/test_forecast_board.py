@@ -11,7 +11,8 @@ def test_combine_leans_on_both_and_is_neutral_at_even():
 
 
 def _p(name, prob, p_model, game="g1"):
-    return {"player": name, "probability": prob, "p_model": p_model, "game_id": game}
+    return {"player": name, "probability": prob, "p_model": p_model, "game_id": game,
+            "book_price": 2.0, "book_p": 0.5}
 
 
 def test_select_needs_the_bar_and_the_forecast_on_the_same_side():
@@ -23,3 +24,13 @@ def test_select_needs_the_bar_and_the_forecast_on_the_same_side():
 def test_select_caps_each_game():
     priced = [_p(f"P{i}", 0.70 + i / 100, 0.6) for i in range(5)]
     assert len(fb.select(priced)) == fb.TOP_PER_MARKET
+
+
+def test_select_drops_a_likely_pick_priced_too_short():
+    """70% at 1.30 loses money (needs 1.43): the price check keeps it off the board."""
+    short = dict(_p("short", 0.70, 0.70), book_price=1.30, book="bet365")
+    fair = dict(_p("fair", 0.70, 0.70), book_price=1.60, book="bet365")
+    out = fb.select([short, fair])
+    assert [p["player"] for p in out] == ["fair"]
+    assert short["price_check"]["reason"] == "price too short"
+    assert short["price_check"]["break_even_price"] == 1.43

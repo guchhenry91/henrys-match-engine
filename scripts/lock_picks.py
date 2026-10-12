@@ -114,6 +114,8 @@ def lock_players(now, window=None) -> list:
             continue
         if pick.get("time_suspect"):
             continue             # a kickoff we do not trust is never locked against
+        if pick.get("awaiting_price"):
+            continue             # no price yet: the price check has not passed (tracking/pricecheck)
         hours = _hours_out(pick["date"], now)
         if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
             continue

@@ -81,6 +81,9 @@ def combine(p_model: float, p_book: float, w) -> float:
 
 
 def select(priced: list) -> list:
+    # THE PRICE CHECK (tracking/pricecheck.py): only picks worth betting at bet365.
+    from tracking import pricecheck
+    priced = [p for p in priced if pricecheck.passes(p)]
     keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
                    and (p["market"] not in OVER_ONLY or p["side"] == "over")],
                   key=lambda p: -p["probability"])
@@ -223,8 +226,9 @@ def props(games_ahead: pd.DataFrame, odds_store: dict, avail=None, collect=None,
         for p in out[market]:
             p["on_board"] = True
         print(f"  {market} [{ENGINE}]: {len(priced)} priced, {len(out[market])} published "
-              f"at {PUBLISH_BAR:.0%}+", flush=True)
-    return out
+              f"at {PUBLISH_BAR:.0%}+ and worth the price", flush=True)
+    from tracking import pricecheck
+    return pricecheck.one_per_player(out)        # one pick per player per game
 
 
 def learn(payload: dict, now) -> dict:

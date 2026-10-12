@@ -8,7 +8,7 @@ from tracking import combine_fit
 
 def _p(market="receiving_yards", game="2026_06_A_B", prob=0.7, p_model=0.8, side="over", player="x"):
     return {"market": market, "game_id": game, "probability": prob, "p_model": p_model,
-            "side": side, "player": player}
+            "side": side, "player": player, "book_price": 2.0, "book_p": 0.5}
 
 
 def test_select_needs_bar_and_agreement():

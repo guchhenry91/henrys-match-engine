@@ -25,6 +25,7 @@ from leagues import odds_history
 from leagues import lockstamp, prop_calibration
 from leagues import forecast_board
 from leagues import names as club_names
+from tracking import pricecheck
 from tracking import manifest, performance, release, trust, value
 from leagues.model import (LeagueModel, promoted_priors, score_for_outcome,
                            top_scorelines, scoreline_grid, outcome_probs,
@@ -713,6 +714,10 @@ def build(league: str = "PL") -> dict:
         # already pushed his probability down, so if he still clears the bar the
         # model is saying the pick survives the doubt.
         player_picks = []
+        try:
+            _prop_store, _shot_store = prop_odds.load(), shot_odds.load()
+        except Exception:                                  # noqa: BLE001
+            _prop_store, _shot_store = {}, {}
         for market, field in PROP_FIELD.items():
             if market == "sot" and not shots_ok:
                 continue          # synthetic ratio, not a measurement -- see above
@@ -744,7 +749,31 @@ def build(league: str = "PL") -> dict:
                 if PROPS_REBUILT:
                     shown = prob              # gated as published: no after-the-fact refit
                 is_new = pkey not in pl_log
-                if hours_out <= _lock_window() and not bool(m.get("time_suspect")):
+                # THE PRICE CHECK (tracking/pricecheck.py): bet365's anytime price for
+                # a scorer pick; a US book's fair chance (bet365 estimated from it) for
+                # shots / on target. Too short -> not published. No price yet -> shown
+                # as "awaiting price" (so the odds sync fetches it) but never locked.
+                pc_pick = {"probability": shown}
+                awaiting_price = False
+                if PROPS_REBUILT:
+                    try:
+                        if market == "goal":
+                            _pr = prop_odds.price_for(league, m["match_id"], p["player"], store=_prop_store)
+                            if _pr:
+                                pc_pick.update(book_price=float(_pr), book="bet365")
+                        else:
+                            _q = shot_odds.quote_for(league, m["match_id"], market, p["player"], _shot_store)
+                            if _q:
+                                pc_pick.update(book_price=_q.get("odd_over"), book_p=_q.get("over"),
+                                               book=_q.get("book"))
+                    except Exception:                      # noqa: BLE001
+                        pass
+                    pc = pricecheck.check(pc_pick, is_bet365=pc_pick.get("book") == "bet365")
+                    if pc.get("reason") == "price too short" and is_new:
+                        continue                            # likely, but not worth the price
+                    awaiting_price = pc.get("reason") == "no price"
+                if (hours_out <= _lock_window() and not bool(m.get("time_suspect"))
+                        and not (awaiting_price and is_new)):
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=shown, p_model=prob,
@@ -793,6 +822,11 @@ def build(league: str = "PL") -> dict:
                     "exp_sot": p.get("exp_sot"),
                     "lineup_confirmed": lineup_ready,
                     "gradeable": can_grade,
+                    "price_check": pc_pick.get("price_check"),
+                    # No price yet: shown so the odds sync fetches one, never locked
+                    # (scripts/lock_picks.py honours this too).
+                    "awaiting_price": awaiting_price and pprov,
+                    "kind_note": ("less likely than not -- a price pick" if shown < 0.5 else None),
                     # Audit fields, published so a lock made by
                     # scripts/lock_picks.py is identical to one made here rather
                     # than a thinner version of it. p_pick alone answers "was he
@@ -818,6 +852,15 @@ def build(league: str = "PL") -> dict:
                     "unavailable": p["player"] in unavailable,
                     "team_attribution": p["team"],
                 })
+        # ONE PICK PER PLAYER PER MATCH (audit 2026-10-12): the best of his markets by
+        # expected return at the price, then chance; frozen picks always stay.
+        best = {}
+        for x in player_picks:
+            sc = (not x["provisional"], ((x.get("price_check") or {}).get("ev") or -9), x["p_pick"])
+            if x["player"] not in best or sc > best[x["player"]][0]:
+                best[x["player"]] = (sc, id(x))
+        keep_ids = {v[1] for v in best.values()}
+        player_picks = [x for x in player_picks if id(x) in keep_ids or not x["provisional"]]
         player_picks.sort(key=lambda x: -x["p_pick"])
 
         out_matches.append({

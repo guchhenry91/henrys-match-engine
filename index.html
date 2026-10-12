@@ -1440,9 +1440,21 @@ const marketEarned=(sport,market)=>BETTABLE.has(betStatus(sport,market));
 function heldTag(p){
   return p&&p.held_back?`<span class="mk w" title="${esc("Held back: "+p.held_back+". Still tracked; returns automatically if its record recovers.")}">Held back</span>`:"";
 }
+// THE PRICE CHECK (tracking/pricecheck.py, 2026-10-12): every rebuilt pick says the
+// odds it breaks even at and its expected return at bet365's price (or an estimate).
+function priceCheckBits(x){
+  const c=x&&x.price_check; if(!c) return "";
+  if(x.awaiting_price) return `<span class="bsn" title="No price on record yet; the pick is not locked until one is fetched and passes the price check.">Awaiting price · breaks even at ${c.break_even_price}</span>`;
+  if(c.ref_price==null) return "";
+  const est=c.basis==="estimate"?" (est.)":"";
+  const ev=`${c.ev>=0?"+":""}${(100*c.ev).toFixed(1)}%`;
+  const tip=`Breaks even at ${c.break_even_price}. At bet365${est} ${Number(c.ref_price).toFixed(2)} the expected return is ${ev} per unit. Picks below break-even are not published.`;
+  return `<span class="bsn${c.ok?"":" b365"}" title="${esc(tip)}">${c.ok?"":"Price too short · "}bet365${est} ${Number(c.ref_price).toFixed(2)} · breaks even ${c.break_even_price} · ${ev}</span>`;
+}
 function valueBits(x, sport, market){
+  const pc=priceCheckBits(x);
   const v=x&&x.value;
-  if(!v||!v.min_price) return "";
+  if(!v||!v.min_price) return pc;
   const est=v.basis==="estimate";
   const tip=v.basis==="bet365"
     ? `bet365 ${v.ref_price}: ${v.ev>0?"+":""}${(100*v.ev).toFixed(1)}% expected return. Worth it at ${v.min_price} or better.`
@@ -1456,7 +1468,7 @@ function valueBits(x, sport, market){
     return `<span class="pftag nobet" title="${esc(tip)}">No bet at ${Number(v.ref_price).toFixed(2)}</span><span class="bsn b365" title="${esc(tip)}">needs ${v.min_price.toFixed(2)}+</span>`;
   const earned=!sport||marketEarned(sport,market);
   const stake=v.value&&v.stake?(earned?` · stake ${+(100*v.stake).toFixed(2)}%`:" · track only"):"";
-  return `${tag}<span class="bsn b365" title="${esc(tip)}">bet365 ${v.min_price.toFixed(2)}+${stake}</span>`;
+  return `${pc}${tag}<span class="bsn b365" title="${esc(tip)}">bet365 ${v.min_price.toFixed(2)}+${stake}</span>`;
 }
 function setFLeague(l){ fleague=l; render(cur); }
 function setRKind(k){ rkind=k; rall=false; render(cur); }

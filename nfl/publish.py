@@ -753,6 +753,12 @@ def build() -> dict:
         props[market] = {"released": True, "picks": trimmed,
                          "awaiting_book_line": awaiting_book.get(market, 0)}
 
+    if REBUILT:
+        # ONE PICK PER PLAYER PER GAME (tracking/pricecheck.one_per_player).
+        from tracking import pricecheck
+        kept = pricecheck.one_per_player({m: b.get("picks") or [] for m, b in props.items()})
+        for m, picks_ in kept.items():
+            props[m]["picks"] = picks_
     # ALSO QUOTED: players a book prices that the model does not (rookies with no
     # NFL history, lines below what it was tested on, tiny roles, deep depth).
     # Shown on the game pages with the book's own line and price, never a model
