@@ -100,6 +100,9 @@ def lock_matches(now, window=None) -> list:
     return frozen
 
 
+XI_WAIT_HOURS = 1.0       # leagues/forecast_board.XI_WAIT_HOURS (kept light: no model import)
+
+
 def lock_players(now, window=None) -> list:
     """Freeze player picks for anything inside the window."""
     path = OUT / "player_picks.json"
@@ -119,6 +122,9 @@ def lock_players(now, window=None) -> list:
         hours = _hours_out(pick["date"], now)
         if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
             continue
+        if (pick.get("engine") and not pick.get("lineup_confirmed")
+                and hours > XI_WAIT_HOURS and (window or LOCK_WINDOW_HOURS) <= LOCK_WINDOW_HOURS):
+            continue             # wait for the confirmed XI while runs are frequent
         log_path = PICKS_DIR / league.lower() / "player_picks_log.json"
         if league not in logs:
             logs[league] = (log_path, picks.load_log(log_path))

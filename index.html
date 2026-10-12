@@ -1047,6 +1047,22 @@ function render(k){
 // reviews found the prop models read bookmakers' lines backwards; until each sport's
 // rebuilt model passes its gate, every model pick is shown for tracking only.
 const REBUILD={on:true,since:"11 Oct 2026"};
+// THE PROVING PANEL (tracking/proving.py): per market, the rebuilt model's stated
+// chance against what landed, with its 95% range. Real money waits for "on target".
+function provingPanel(pv, updated, engine){
+  const stamp=`<div style="font-size:.78em;color:var(--sub);margin:4px 2px">Engine ${esc(engine||"?")} · board updated ${updated?esc(new Date(updated).toLocaleString()):"unknown"}</div>`;
+  if(!pv||!Object.keys(pv).length) return stamp;
+  const pc=x=>x==null?"—":`${(100*x).toFixed(1)}%`;
+  const rows=Object.entries(pv).map(([m,v])=>{
+    const col=v.status==="on target"?"var(--lime)":v.status.startsWith("behind")?"var(--hot)":"var(--sub)";
+    const rng=v.landed_95&&v.landed_95[0]!=null?` <small>(${pc(v.landed_95[0])}–${pc(v.landed_95[1])})</small>`:"";
+    const clv=v.clv?` · beat the close ${pc(v.clv.beat_close)} of ${v.clv.n}`:"";
+    return `<tr><td>${esc(m.replace(/_/g," "))}</td><td>${v.n}</td><td>${pc(v.said)}</td><td>${pc(v.landed)}${rng}</td>`+
+      `<td>${v.void_rate==null?"—":pc(v.void_rate)}</td><td style="color:${col}">${esc(v.status)}${v.needed?` <small>(${v.needed} more to prove)</small>`:""}${clv}</td></tr>`;
+  }).join("");
+  return `<div class="glass" style="padding:10px 12px;margin:8px 0;overflow-x:auto"><b>Is it working?</b> <small>Rebuilt model only. A market is proven after 300 graded picks landing at its stated rate — no real money before that.</small>`+
+    `<table style="width:100%;font-size:.86em;margin-top:6px"><tr><th align=left>Market</th><th>Graded</th><th>Said</th><th>Landed</th><th>Void</th><th align=left>Status</th></tr>${rows}</table></div>${stamp}`;
+}
 function rebuildBanner(k){
   const pp=DATA.player_picks||{};
   const src={NBA:DATA.nba,NFL:DATA.nfl,MLB:DATA.mlb,players:pp}[k]||{};
@@ -1057,7 +1073,7 @@ function rebuildBanner(k){
     return `<div class="glass warnbox">Player picks run the REBUILT model: it forecasts who starts, who comes on and what each does, then publishes scorers at ${Math.round(100*eng.bars.goal)}%+ and shots / on-target at ${Math.round(100*eng.bars.shots)}%+. `+
       `Each chance is IF HE PLAYS: a player who does not play is void, as bet365 settles it, and only likely or confirmed starters are picked. `+
       `bet365's scorer price is shown beside ours as a second opinion; it is blended in only once 300 real priced picks have graded and the blend proves better. `+
-      `Tested on four past seasons in all five leagues, its picks landed at the rate stated.${rec} Still proving itself live.</div>`;
+      `Tested on four past seasons in all five leagues, its picks landed at the rate stated.${rec} Still proving itself live.</div>`+provingPanel(src.proving, src.updated, (src.engine||{}).name);
   }
   if(eng){
     const r=(src.record_rebuilt||{}).props||{};
@@ -1065,7 +1081,7 @@ function rebuildBanner(k){
     const extra=k==="MLB"?" Hits and RBI picks need the bookmaker on the same side; strikeouts and team runs blend the forecast with the bookmaker's price; hits+runs+RBIs and home runs are priced but held back until real results earn them a place.":k==="NFL"?" On yardage it publishes only where the forecast is very sure, so expect few picks; anytime TD picks are the book's favourites the forecast agrees with.":"";
     return `<div class="glass warnbox">${k} runs the REBUILT model: it forecasts each player's game and combines it with the bookmaker's price, `+
       `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${extra}${rec} `+
-      `Still proving itself — judge it by whether its picks win at the rate stated.</div>`;
+      `Still proving itself — judge it by whether its picks win at the rate stated.</div>`+provingPanel(src.proving, src.updated, (src.engine||{}).name);
   }
   return `<div class="glass warnbox">Model rebuild in progress (since ${REBUILD.since}). `+
     `Picks shown here come from the old model and are kept for tracking only — not betting advice. `+

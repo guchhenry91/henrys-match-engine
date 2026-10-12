@@ -1000,6 +1000,8 @@ def main():
                if not k.startswith("_") and e.get("engine") == forecast_board.ENGINE}
     held = gate.apply(payload, gate.report(rebuilt.values()))
     payload["record_rebuilt"] = picks.record({picks.PROPS_KEY: rebuilt})
+    from tracking import proving
+    payload["proving"] = proving.summary(rebuilt.values())
     payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
                          "since": "2026-10-11",
                          "note": "Forecasts each player's game and combines it with the "

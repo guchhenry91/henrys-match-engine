@@ -236,6 +236,8 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["record"] = picks_mod.record(log)
     payload["record_rebuilt"] = picks_mod.record(rebuilt)
+    from tracking import proving
+    payload["proving"] = proving.summary(rebuilt.values())
     payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
                          "since": "2026-10-11",
                          "note": "Forecasts each player's stat and combines it with the "

@@ -242,6 +242,11 @@ def _norm_player(n) -> str:
 STALE_PENDING_HOURS = 72
 
 
+def _proving(settled):
+    from tracking import proving
+    return proving.summary(settled)
+
+
 def _stale(uncovered: list) -> list:
     now = pd.Timestamp.now("UTC")
     out = []
@@ -772,8 +777,11 @@ def build(league: str = "PL") -> dict:
                     if pc.get("reason") == "price too short" and is_new:
                         continue                            # likely, but not worth the price
                     awaiting_price = pc.get("reason") == "no price"
+                wait_for_xi = (PROPS_REBUILT and is_new and not lineup_ready
+                               and hours_out > forecast_board.XI_WAIT_HOURS
+                               and _lock_window() <= LOCK_WINDOW_HOURS)
                 if (hours_out <= _lock_window() and not bool(m.get("time_suspect"))
-                        and not (awaiting_price and is_new)):
+                        and not (awaiting_price and is_new) and not wait_for_xi):
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=shown, p_model=prob,
@@ -1478,6 +1486,8 @@ def build_player_picks() -> dict:
         "record": picks.record(settled),
         "record_by_market": by_market,
         "record_by_lineup": by_lineup,
+        # Is each market doing what it says? (tracking/proving.py)
+        "proving": _proving(settled),
         # The REBUILT model's own record, kept apart from the old model's picks.
         "record_rebuilt": picks.record([s for s in settled if s.get("engine") == forecast_board.ENGINE]),
         "record_rebuilt_by_market": {mk: picks.record([s for s in settled if s.get("market") == mk

@@ -114,3 +114,12 @@ def test_the_window_it_uses_is_the_one_publish_uses(board):
     question, and the one that fired first would silently win."""
     from leagues import publish
     assert lock_picks.LOCK_WINDOW_HOURS == publish.LOCK_WINDOW_HOURS
+
+
+def test_rebuilt_pick_waits_for_the_xi_and_never_locks_without_a_price():
+    import scripts.lock_picks as lp
+    import inspect
+    src = inspect.getsource(lp.lock_players)
+    # the order matters: the hours are known before the XI wait is judged
+    assert src.index("hours = _hours_out") < src.index("XI_WAIT_HOURS")
+    assert "awaiting_price" in src

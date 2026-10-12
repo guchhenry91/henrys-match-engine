@@ -36,7 +36,14 @@ from tracking import combine_fit
 ENGINE = "forecast-v1"
 BARS = {"goal": 0.40, "shots": 0.62, "sot": 0.62}
 PER_MATCH = 3
-MIN_START = 50.0              # publish only a likely (or confirmed) starter, in %
+# Publish only a LIKELY starter (75%+, audit 2026-10-12: at 50% one in two is a coin flip
+# on being benched) or a confirmed one.
+MIN_START = 75.0
+# WAIT FOR THE XI: while the confirmed lineup is not out and kick-off is more than this
+# far away, a pick is not frozen yet -- PROVIDED the locker is running often (the lock
+# window at its floor). When runs are sparse it locks as before: a pick frozen early
+# is a worse pick, a pick never frozen is a worse record (CLAUDE.md, lock window).
+XI_WAIT_HOURS = 1.0
 # BET365'S SCORER PRICE AS A SECOND OPINION. Every quoted player's price is logged with
 # the forecast (PRICED_LOG), graded from the match rows (did not play = void), and once
 # 300 are graded the weights in final = sigmoid(a*logit(forecast) + b*logit(bet365) + c)

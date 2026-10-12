@@ -162,6 +162,8 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
                if isinstance(e, dict) and e.get("engine") == forecast_board.ENGINE}
     held = gate.apply(payload, gate.report(rebuilt.values() if board.REBUILT else log.values()))
     payload["record_rebuilt"] = picks_mod.record(rebuilt)
+    from tracking import proving
+    payload["proving"] = proving.summary(rebuilt.values())
     if board.REBUILT:
         payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
                              "since": "2026-10-12", "rules": forecast_board.RULE,
