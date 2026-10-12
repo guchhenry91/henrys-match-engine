@@ -163,7 +163,10 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
         team = (teams_now.get(pid) or last_team.get(pid)) if pid is not None else None
         if team:
             out_players.setdefault(team, set()).add(pid)
-    frame = fc.build(pd.concat([rows, pd.DataFrame(synth)], ignore_index=True), out_players)
+    # Played games' absences come from the official pre-game report, as in training
+    # (nba/injury_report.py); without VACATED the feature is unused, so skip the work.
+    reported = fc.report_outs(rows) if VACATED else None
+    frame = fc.build(pd.concat([rows, pd.DataFrame(synth)], ignore_index=True), out_players, reported)
     train = frame[~frame["is_next"] & (frame["season"] >= config.CURRENT_SEASON - fc.TRAIN_SEASONS)]
     ask = frame[frame["is_next"]]
     w = weights()

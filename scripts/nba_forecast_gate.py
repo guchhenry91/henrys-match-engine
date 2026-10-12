@@ -44,8 +44,11 @@ VACATED = True
 ELO = False
 
 
+TRAIN_FROM = 0           # --train-from: the official injury reports start in 2021-22
+
+
 def score_season(frame, stat, season):
-    train = frame[(frame["season"] < season) & (frame["season"] >= season - fc.TRAIN_SEASONS)]
+    train = frame[(frame["season"] < season) & (frame["season"] >= max(season - fc.TRAIN_SEASONS, TRAIN_FROM))]
     test = frame[(frame["season"] == season) & (frame["games_before"] >= 5)
                  & (frame["min_ewm10"] >= MIN_ROLE_MIN)].copy()
     model = fc.StatModel(stat, vacated=VACATED, elo=ELO).fit(train)
@@ -101,15 +104,23 @@ def main() -> int:
     ap.add_argument("--seasons", default=",".join(map(str, SCORED)))
     ap.add_argument("--no-vacated", action="store_true", help="A/B: without teammates-out")
     ap.add_argument("--elo", action="store_true", help="A/B: with the pre-game Elo gap")
+    ap.add_argument("--reported", action="store_true",
+                    help="teammates-out from the official pre-game injury report, not the box score")
+    ap.add_argument("--train-from", type=int, default=0)
     ap.add_argument("--report", default=str(REPORT))
     args = ap.parse_args()
+    global TRAIN_FROM
+    TRAIN_FROM = args.train_from
     global VACATED
     VACATED = not args.no_vacated
     global ELO
     ELO = args.elo
     t0 = time.time()
     rows = fc.load_history()
-    frame = fc.build(rows)
+    reported = fc.report_outs(rows) if args.reported else None
+    if reported is not None:
+        print(f"official report: {len(reported)} player-days listed OUT", flush=True)
+    frame = fc.build(rows, reported=reported)
     print(f"features built: {len(frame)} player-games in {time.time() - t0:.0f}s", flush=True)
     report = {"generated_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
               "scored_seasons": [int(s) for s in args.seasons.split(",")],
@@ -157,6 +168,8 @@ def main() -> int:
               f" @70 {out['combined']['would_publish_70']} agree@62 {out['combined']['would_publish_agree']}", flush=True)
     report["vacated"] = VACATED
     report["elo"] = ELO
+    report["reported"] = bool(args.reported)
+    report["train_from"] = TRAIN_FROM
     Path(args.report).write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(f"done in {time.time() - t0:.0f}s -> {args.report}")
     return 0

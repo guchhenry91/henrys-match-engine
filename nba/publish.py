@@ -22,7 +22,7 @@ from tracking import news_edge, performance, trust, value
 from datetime import datetime, timezone
 from pathlib import Path
 
-from nba import board, book_lines, config, current
+from nba import board, book_lines, config, current, injury_report
 from nba import picks as picks_mod
 from nfl.news import load_player_news
 
@@ -99,6 +99,12 @@ def build(now=None, sched=None) -> dict:
         except Exception as exc:
             print(f"NBA schedule unavailable ({exc}); publishing evidence only")
     ruled_out = [n for n, e in news.items() if (e or {}).get("status") == "out"]
+    # The official pre-game report: what teammates-out was trained on (nba/injury_report).
+    from nba import forecast_board
+    if forecast_board.VACATED and sched is not None:
+        for name in injury_report.refresh(config.CURRENT_SEASON, now):
+            last, _, first = name.partition(",")
+            ruled_out.append(f"{first.strip()} {last.strip()}".strip())
     out_state = news_edge.remember(ROOT / "data-raw" / "nba" / "out_since.json",
                                    {n: e for n, e in news.items() if (e or {}).get("status") == "out"})
     live = board.build(sched, now, released, ruled_out=ruled_out) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},

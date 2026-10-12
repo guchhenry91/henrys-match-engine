@@ -86,7 +86,38 @@ def _team_games(d: pd.DataFrame) -> pd.DataFrame:
     return t[["GAME_ID", "team", "pace_in"] + [f"allow_{s}_in" for s in STATS]]
 
 
-def _vacated(d: pd.DataFrame, out_players: dict | None) -> pd.DataFrame:
+INJURY_DIR = Path(__file__).resolve().parent.parent / "data-raw" / "nba" / "injury_reports"
+
+
+def _norm(name) -> str:
+    from nfl import odds as odds_mod
+    s = str(name or "")
+    if "," in s:                                      # the report writes "Last, First"
+        last, first = s.split(",", 1)
+        s = f"{first.strip()} {last.strip()}"
+    return odds_mod.norm_name(s)
+
+
+def report_outs(rows: pd.DataFrame, base: Path | None = None) -> set:
+    """{(game_date, PLAYER_ID)}: players the OFFICIAL pre-game report listed OUT
+    (scripts/export_nba_injury_reports.py) -- what was knowable before tip-off. Names
+    are joined to ids through the box scores; a name two players share is dropped."""
+    base = Path(base or INJURY_DIR)
+    files = sorted(base.glob("*.csv.gz")) if base.exists() else []
+    if not files:
+        return set()
+    rep = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
+    rep = rep[rep["status"] == "Out"]
+    names = rows[["PLAYER_ID", "PLAYER_NAME"]].dropna().drop_duplicates()
+    names["key"] = names["PLAYER_NAME"].map(_norm)
+    counts = names.groupby("key")["PLAYER_ID"].nunique()
+    uniq = names[names["key"].map(counts) == 1].drop_duplicates("key").set_index("key")["PLAYER_ID"]
+    rep["pid"] = rep["player"].map(_norm).map(uniq)
+    rep = rep.dropna(subset=["pid"])
+    return {(pd.Timestamp(d).normalize(), int(p)) for d, p in zip(rep["date"], rep["pid"])}
+
+
+def _vacated(d: pd.DataFrame, out_players: dict | None, reported: set | None = None) -> pd.DataFrame:
     """Per team-game: how much of the team's usual usage is MISSING.
 
     The rotation is every player who played for the team in any of its last three
@@ -105,11 +136,11 @@ def _vacated(d: pd.DataFrame, out_players: dict | None) -> pd.DataFrame:
     rows = {}
     order = d.sort_values(["team", "game_date", "GAME_ID"])
     for (team, _date, gid), grp in order.groupby(["team", "game_date", "GAME_ID"], sort=False):
-        rows.setdefault(team, []).append((gid, grp))
+        rows.setdefault(team, []).append((gid, _date, grp))
     out = []
     for team, games in rows.items():
         recent = []                              # the last three PLAYED games' rosters
-        for gid, grp in games:
+        for gid, _date, grp in games:
             rot = {}
             for roster in recent:
                 rot.update(roster)
@@ -117,6 +148,11 @@ def _vacated(d: pd.DataFrame, out_players: dict | None) -> pd.DataFrame:
             nxt = bool(grp["is_next"].all())
             if nxt:
                 absent = set(rot) & set(out_players.get(team, ()))
+            elif reported is not None:
+                # As knowable BEFORE tip-off: listed OUT on that day's official report
+                # (2026-10-12; was "no box-score row", which only the result reveals).
+                day = pd.Timestamp(_date).normalize()
+                absent = {p for p in rot if (day, int(p)) in reported}
             else:
                 absent = set(rot) - set(grp["PLAYER_ID"])
             vac = sum(rot[p][0] for p in absent if np.isfinite(rot[p][0]))
@@ -159,7 +195,7 @@ def _elo(d: pd.DataFrame) -> pd.DataFrame:
     return out.drop_duplicates(["GAME_ID", "team"])
 
 
-def build(rows: pd.DataFrame, out_players: dict | None = None) -> pd.DataFrame:
+def build(rows: pd.DataFrame, out_players: dict | None = None, reported: set | None = None) -> pd.DataFrame:
     """Player-game rows with ENTERING features. Upcoming games may be appended as
     rows with NaN stats and is_next=True -- they get features, not targets.
     `out_players` ({team: {PLAYER_ID}}) says who is ruled out of upcoming games."""
@@ -191,7 +227,7 @@ def build(rows: pd.DataFrame, out_players: dict | None = None) -> pd.DataFrame:
         d[f"{s}_last"] = g[s].shift(1)
     team = _team_games(d)
     d = d.merge(team, on=["GAME_ID", "team"], how="left")
-    d = d.merge(_vacated(d, out_players), on=["GAME_ID", "team"], how="left")
+    d = d.merge(_vacated(d, out_players, reported), on=["GAME_ID", "team"], how="left")
     d = d.merge(_elo(d), on=["GAME_ID", "team"], how="left")
     opp = team.rename(columns={"team": "opp", "pace_in": "opp_pace_in"})
     opp = opp[["GAME_ID", "opp", "opp_pace_in"] + [f"allow_{s}_in" for s in STATS]].rename(
