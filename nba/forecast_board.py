@@ -38,7 +38,13 @@ REPORT = ROOT / "data-raw" / "nba" / "forecast_report.json"
 ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
 TOP_PER_MARKET = 3              # per game, per market
-VACATED = False                 # teammates-out off until it can be trained on pre-game reports
+# TEAMMATES OUT, trained on the official pre-game injury report (nba/injury_report).
+# Gate 2026-10-12 (scored 2025+2026, trained 2022 on, with vs without):
+#   PTS MAE 4.908 vs 4.939, ECE 0.022 vs 0.027; REB 1.976 vs 1.981, ECE 0.0061 vs 0.0073;
+#   AST 1.463 vs 1.465, combined ECE 0.0087 vs 0.0113, @70 landed 0.743 vs 0.734;
+#   FG3M 0.985 vs 0.984 -- no gain, so threes stay without it.
+VACATED_STATS = frozenset({"PTS", "REB", "AST"})
+VACATED = bool(VACATED_STATS)
 HISTORY_SEASONS = 6             # five to train on, plus one for entering features
 
 
@@ -173,9 +179,8 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
     real = rows.copy()
     real["game_date"] = pd.to_datetime(real["GAME_DATE"].astype(str).str[:10])
     for market, stat in fc.MARKET_STAT.items():
-        # vacated=False (review, 2026-10-12): the teammates-out feature was trained on
-        # who actually sat (known after the game) but is fed only the injury report live.
-        model = fc.StatModel(stat, vacated=VACATED).fit(train)
+        # Teammates-out: trained and fed on the same official report (see VACATED_STATS).
+        model = fc.StatModel(stat, vacated=stat in VACATED_STATS).fit(train)
         mu = model.mean(ask)
         alpha = model.disp(mu)
         last5 = recent.last_n(real, ask["PLAYER_ID"], stat, played="MIN")

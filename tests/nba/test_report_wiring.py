@@ -36,3 +36,8 @@ def test_report_outs_map_names_to_ids(tmp_path):
         tmp_path / "2026.csv.gz", index=False, compression="gzip")
     rows = pd.DataFrame({"PLAYER_ID": [1, 2], "PLAYER_NAME": ["Jayson Tatum", "Jaylen Brown"]})
     assert fc.report_outs(rows, tmp_path) == {(pd.Timestamp("2026-01-15"), 1)}
+
+
+def test_teammates_out_is_on_where_the_gate_passed():
+    assert forecast_board.VACATED_STATS == {"PTS", "REB", "AST"}
+    assert forecast_board.VACATED
