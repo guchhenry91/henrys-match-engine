@@ -135,3 +135,29 @@ def test_refit_waits_for_new_lines_and_revokes_when_the_book_wins(tmp_path):
         cf.fit_offset = monkey
     assert out["points"]["n"] == 600 and out["points"]["adopted"] is False
     assert "revoked" in out["points"] and "points" not in cf.adopted(wpath)
+
+
+def test_record_skips_a_row_with_no_line_and_keeps_the_rest(tmp_path):
+    """Live NFL, 2026-10-12: one anytime-TD row with line None sank the whole log."""
+    path = tmp_path / "priced.json"
+    bad = dict(_pick(1, 0.6, 0.5), line=None)
+    n = cf.record(path, [bad, _pick(2, 0.6, 0.5)], NOW)
+    assert n == 1 and list(cf._load(path)) == ["g2:2:points"]
+
+
+def test_nfl_td_rows_are_logged_as_a_half_line(monkeypatch):
+    from nfl import publish
+    seen = []
+
+    def capture(path, priced, now):
+        seen.extend(priced)
+        raise RuntimeError("stop here")              # the caller's guard returns
+    monkeypatch.setattr(publish, "REBUILT", True)
+    monkeypatch.setattr(cf, "record", capture)
+    td = {"engine": "forecast-v1", "market": "anytime_touchdown", "line": None,
+          "kickoff": "2026-10-13T00:15:00+00:00", "p_model": 0.3, "book_p": 0.35}
+    yd = {"engine": "forecast-v1", "market": "rushing_yards", "line": 55.5,
+          "kickoff": "2026-10-13T00:15:00+00:00", "p_model": 0.5, "book_p": 0.5}
+    publish._rebuilt_weights({"game_props": {"g": {"anytime_touchdown": [td], "rushing_yards": [yd]}}})
+    assert sorted(p["line"] for p in seen) == [0.5, 55.5]
+    assert all(p["tipoff"] == "2026-10-13T00:15:00+00:00" for p in seen)

@@ -88,8 +88,8 @@ def record(path: Path, priced: list, now: datetime) -> int:
     n = 0
     for p in priced:
         over = _over(p)
-        if over is None or p.get("tipoff") is None:
-            continue
+        if over is None or p.get("tipoff") is None or p.get("line") is None:
+            continue                                  # one unusable row never sinks the batch
         key = f"{p['game_id']}:{p['player_id']}:{p['market']}"
         old = log.get(key) or {}
         if old.get("y") is not None:

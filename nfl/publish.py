@@ -943,7 +943,10 @@ def _rebuilt_weights(payload) -> None:
         return
     from tracking import combine_fit
     now = datetime.now(timezone.utc)
-    priced = [dict(p, tipoff=p.get("kickoff")) for markets in (payload.get("game_props") or {}).values()
+    # Anytime TD carries no numeric line: it is "over 0.5 touchdowns".
+    priced = [dict(p, tipoff=p.get("kickoff"),
+                   line=0.5 if p.get("line") is None and p.get("market") == "anytime_touchdown" else p.get("line"))
+              for markets in (payload.get("game_props") or {}).values()
               for ps in (markets or {}).values() for p in ps or [] if p.get("engine")]
     try:
         combine_fit.record(forecast_board.PRICED_LOG, priced, now)
