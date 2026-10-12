@@ -342,7 +342,7 @@ def prop_picks(rows, games_ahead, odds_store, teams_now, released, ruled_out=Non
     return out, held
 
 
-def build(sched: pd.DataFrame, now, released: list, ruled_out=None) -> dict:
+def build(sched: pd.DataFrame, now, released: list, ruled_out=None, vacated_out=None) -> dict:
     """{"games", "props", "held_back", "odds_checked_at"} for nba.publish."""
     games_ahead = slate(sched, now)
     odds_store = _read(ODDS)
@@ -356,6 +356,7 @@ def build(sched: pd.DataFrame, now, released: list, ruled_out=None) -> dict:
         # the book's price. The old prop_picks below stays for reference only.
         from nba import forecast_board
         props, held = forecast_board.picks(games_ahead, odds_store, ruled_out=ruled_out,
+                                           vacated_out=vacated_out,
                                            collect=game_props)
     else:
         props, held = {m: [] for m in config.MARKETS}, {}

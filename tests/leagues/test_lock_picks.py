@@ -123,3 +123,19 @@ def test_rebuilt_pick_waits_for_the_xi_and_never_locks_without_a_price():
     # the order matters: the hours are known before the XI wait is judged
     assert src.index("hours = _hours_out") < src.index("XI_WAIT_HOURS")
     assert "awaiting_price" in src
+
+
+def test_xi_status_reads_the_confirmed_lineup(monkeypatch):
+    """A benched player is never frozen, a starter locks as confirmed (third review)."""
+    from scripts import lock_picks as lp
+    from leagues import players
+    xi = [f"P{i}" for i in range(10)] + ["Bukayo Saka"]
+    monkeypatch.setattr(players, "load_news", lambda league: {
+        "Arsenal": {"lineup_confirmed": True, "starters": xi, "bench": ["Gabriel Jesus"]},
+        "Chelsea": {"lineup_confirmed": False, "starters": []}})
+    cache = {}
+    pick = {"league_key": "PL", "team": "Arsenal"}
+    assert lp._xi_status(dict(pick, player="Bukayo Saka"), cache) == "starts"
+    assert lp._xi_status(dict(pick, player="Gabriel Jesus"), cache) == "benched"
+    assert lp._xi_status(dict(pick, player="Nobody Here"), cache) == "absent"
+    assert lp._xi_status({"league_key": "PL", "team": "Chelsea", "player": "X"}, cache) is None

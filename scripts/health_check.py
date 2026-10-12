@@ -239,6 +239,23 @@ def telegram(text):
         print(f"WARNING: Telegram alert failed ({type(exc).__name__})")
 
 
+def engines(r):
+    """Every props board must be the REBUILT model's (third review, 2026-10-12): on
+    12 Oct the NFL publish crashed and the retired model's board stayed up, looking
+    current, for hours."""
+    for sport, rel in (("NFL", "data/nfl/board.json"), ("NBA", "data/nba/board.json"),
+                       ("MLB", "data/mlb/board.json"), ("Soccer", "data/leagues/player_picks.json")):
+        d = _read(rel)
+        if d is None:
+            continue
+        eng = d.get("engine")
+        if eng:
+            name = eng.get("name", "?") if isinstance(eng, dict) else eng
+            r.add(sport, "engine", "ok", f"rebuilt model ({name})")
+        else:
+            r.add(sport, "engine", "fail", "board was not built by the rebuilt model -- its last publish failed or predates it")
+
+
 def run(now=None, check_workflows=True) -> dict:
     now = now or datetime.now(timezone.utc)
     r = Report()
@@ -250,6 +267,7 @@ def run(now=None, check_workflows=True) -> dict:
     line_sport(r, now, "NBA", "nba", "tipoff")
     line_sport(r, now, "MLB", "mlb", "tipoff")
     mlb_boxes(r, now)
+    engines(r)
     odds_budget(r)
     if check_workflows:
         workflows(r, now)
@@ -266,8 +284,10 @@ def main():
     for c in rep["checks"]:
         print(f"[{c['status'].upper():4s}] {c['sport']:9s} {c['check']:16s} {c['message']}")
     print(f"overall: {rep['status']}")
-    if problems != before or not OUT.exists():
-        OUT.write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8")
+    # Written EVERY run (third review): written only on change, its checked_at read
+    # 36 hours old while every check was in fact current. Telegram still only on change.
+    OUT.write_text(json.dumps(rep, indent=1) + "\n", encoding="utf-8")
+    if problems != before or not prev:
         print(f"status changed -> wrote {OUT.relative_to(ROOT)}")
         bad = [c for c in rep["checks"] if c["status"] != "ok"]
         if bad:

@@ -100,7 +100,32 @@ def lock_matches(now, window=None) -> list:
     return frozen
 
 
-XI_WAIT_HOURS = 1.0       # leagues/forecast_board.XI_WAIT_HOURS (kept light: no model import)
+XI_WAIT_HOURS = 0.5       # leagues/forecast_board.XI_WAIT_HOURS (kept light: no model import)
+
+
+def _xi_status(pick: dict, news_cache: dict) -> str | None:
+    """"starts", "benched", "absent" from the CONFIRMED XI in news.json (refreshed by
+    this job's own lineup step), or None while no XI is confirmed. The board's
+    lineup_confirmed flag lags by a full soccer refresh; this reads the XI directly so
+    a benched player is never frozen (third review, 2026-10-12)."""
+    league = pick.get("league_key")
+    if league not in news_cache:
+        try:
+            from leagues import players
+            news_cache[league] = players.load_news(league)
+        except Exception:                                  # noqa: BLE001
+            news_cache[league] = {}
+    entry = news_cache[league].get(pick.get("team")) or {}
+    starters = entry.get("starters") or []
+    if entry.get("lineup_confirmed") is not True or len(starters) != 11:
+        return None
+    from nfl.odds import norm_name
+    name = norm_name(str(pick.get("player") or ""))
+    if name in {norm_name(str(n)) for n in starters}:
+        return "starts"
+    if name in {norm_name(str(n)) for n in entry.get("bench") or []}:
+        return "benched"
+    return "absent"
 
 
 def lock_players(now, window=None) -> list:
@@ -109,7 +134,7 @@ def lock_players(now, window=None) -> list:
     if not path.exists():
         return []
     payload = json.loads(path.read_text(encoding="utf-8"))
-    frozen, logs = [], {}
+    frozen, logs, news_cache = [], {}, {}
     shots_store, prop_store = shot_odds.load(), prop_odds.load()
     for pick in payload.get("upcoming", []):
         league = pick.get("league_key")
@@ -122,7 +147,11 @@ def lock_players(now, window=None) -> list:
         hours = _hours_out(pick["date"], now)
         if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
             continue
-        if (pick.get("engine") and not pick.get("lineup_confirmed")
+        xi = _xi_status(pick, news_cache) if pick.get("engine") else None
+        if xi in ("benched", "absent"):
+            continue             # not in the confirmed XI: never frozen (a void at best)
+        confirmed = bool(pick.get("lineup_confirmed")) or xi == "starts"
+        if (pick.get("engine") and not confirmed
                 and hours > XI_WAIT_HOURS and (window or LOCK_WINDOW_HOURS) <= LOCK_WINDOW_HOURS):
             continue             # wait for the confirmed XI while runs are frequent
         log_path = PICKS_DIR / league.lower() / "player_picks_log.json"
@@ -137,7 +166,7 @@ def lock_players(now, window=None) -> list:
                         confidence=int(pick.get("confidence") or 0),
                         kickoff=pick["date"], now=now,
                         bar=pick.get("bar"),
-                        lineup_confirmed=pick.get("lineup_confirmed"),
+                        lineup_confirmed=confirmed or pick.get("lineup_confirmed"),
                         appearance_pct=pick.get("appearance_pct"),
                         expected_minutes=pick.get("expected_minutes"),
                         news_checked_hours_ago=pick.get("news_checked_hours_ago"),
@@ -147,6 +176,8 @@ def lock_players(now, window=None) -> list:
                         p_model=pick.get("p_model"))
         if pick.get("engine"):
             log[key]["engine"] = pick["engine"]       # which model made it
+        if pick.get("price_check"):
+            log[key]["price_check"] = pick["price_check"]   # the price it was approved at
         # The price at lock and the value verdict (leagues/lockstamp.py).
         lockstamp.stamp_prop(log[key], league, pick["id"], now,
                              prop_store=prop_store, shots_store=shots_store)

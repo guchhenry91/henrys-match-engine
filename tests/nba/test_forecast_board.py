@@ -12,7 +12,7 @@ def test_combine_leans_on_both_and_is_neutral_at_even():
 
 def _p(name, prob, p_model, game="g1"):
     return {"player": name, "probability": prob, "p_model": p_model, "game_id": game,
-            "book_price": 2.0, "book_p": 0.5}
+            "book_price": 2.0, "book_p": p_model, "book": "bet365"}
 
 
 def test_select_needs_the_bar_and_the_forecast_on_the_same_side():

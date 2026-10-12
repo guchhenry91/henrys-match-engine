@@ -302,12 +302,33 @@ def _lock_games(payload, log, now):
             game["tainted"] = bool(entry.get("tainted"))
 
 
+def _ruled_out_now(now) -> set:
+    """Players the team-news file (inactives, late scratches) has ruled OUT, read at
+    lock time: the board may be hours older than the inactives list (third review)."""
+    try:
+        from nfl.news import load_player_news
+        from nfl.odds import norm_name
+        news = load_player_news(ROOT / "data-raw" / "nfl" / "news.json", now=now)
+        return {norm_name(n) for n, e in news.items() if (e or {}).get("status") == "out"}
+    except Exception:                                      # noqa: BLE001
+        return set()
+
+
 def _lock_props(payload, log, now):
+    out_now = None
     for market, block in (payload.get("props") or {}).items():
         if not block.get("released"):
             continue                      # withheld market: nothing to freeze
         for pick in block.get("picks", []):
             key, kickoff = prop_key(pick), pick.get("kickoff")
+            if key not in log:
+                if out_now is None:
+                    out_now = _ruled_out_now(now)
+                from nfl.odds import norm_name
+                if norm_name(str(pick.get("player") or "")) in out_now:
+                    pick["lockable"] = False
+                    pick["dropped"] = "ruled out after the board was built"
+                    continue
             if not pick.get("game_id") or not kickoff or not pick.get("player_id"):
                 pick["lockable"] = False
                 continue
@@ -346,6 +367,9 @@ def _lock_props(payload, log, now):
                 entry["engine"] = pick.get("engine")
                 entry["alt"] = bool(pick.get("alt"))
                 entry["mu"] = pick.get("mu")
+                # The price the pick was approved at (tracking/pricecheck): profit and
+                # closing-line value are scored there, at bet365 (third review).
+                entry["price_check"] = pick.get("price_check")
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the

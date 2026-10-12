@@ -100,14 +100,22 @@ def build(now=None, sched=None) -> dict:
             print(f"NBA schedule unavailable ({exc}); publishing evidence only")
     ruled_out = [n for n, e in news.items() if (e or {}).get("status") == "out"]
     # The official pre-game report: what teammates-out was trained on (nba/injury_report).
+    # Its OUT players are removed from picks like the news file's; but ONLY the report
+    # feeds teammates-out (training never saw the news file), and with no report today
+    # teammates-out is off rather than read as "nobody is out" (third review).
     from nba import forecast_board
+    report = {"ok": False, "out": [], "why": "not fetched"}
     if forecast_board.VACATED and sched is not None:
-        for name in injury_report.refresh(config.CURRENT_SEASON, now):
-            last, _, first = name.partition(",")
-            ruled_out.append(f"{first.strip()} {last.strip()}".strip())
+        report = injury_report.fetch_today(config.CURRENT_SEASON, now)
+    report_names = []
+    for name in report["out"]:
+        last, _, first = name.partition(",")
+        report_names.append(f"{first.strip()} {last.strip()}".strip())
+    ruled_out += report_names
     out_state = news_edge.remember(ROOT / "data-raw" / "nba" / "out_since.json",
                                    {n: e for n, e in news.items() if (e or {}).get("status") == "out"})
-    live = board.build(sched, now, released, ruled_out=ruled_out) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},
+    live = board.build(sched, now, released, ruled_out=ruled_out,
+                       vacated_out=report_names if report["ok"] else None) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},
          "odds_checked_at": None}
     season_started = sched is not None and bool(
         ((sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)).any())
@@ -141,6 +149,10 @@ def build(now=None, sched=None) -> dict:
         "odds": {"checked_at": live.get("odds_checked_at"),
                  "books": ["Pinnacle", "DraftKings", "FanDuel"],
                  "source": "The Odds API"},
+        # Whether teammates-out had today's official report to read (third review).
+        "injury_report": {"ok": report["ok"], "day": report.get("day"), "slot": report.get("slot"),
+                          "out": len(report["out"]), "why": report.get("why"),
+                          "teammates_out": bool(report["ok"])},
         "news": {"players_flagged": len(news),
                  "source": "data-raw/nba/news.json (cloud team-news routine)",
                  "applied_to": "player props: OUT removed, doubtful flagged"},
@@ -223,7 +235,8 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
         return None if row is None else row.get(config.MARKETS.get(e["market"], ""))
     combine_fit.grade(forecast_board.PRICED_LOG, _actual)
     current_w = {m: forecast_board.weights().get(s) for m, s in forecast_board.fc.MARKET_STAT.items()}
-    fitted = combine_fit.refit(forecast_board.PRICED_LOG, forecast_board.WEIGHTS, current_w, now)
+    fitted = combine_fit.refit(forecast_board.PRICED_LOG, forecast_board.WEIGHTS, current_w, now,
+                               offset=True)        # shrink form: the book moved part way
     print(f"  combine weights: {({m: v.get('adopted') for m, v in fitted.items() if isinstance(v, dict) and 'adopted' in v})} "
           f"waiting {fitted.get('_waiting', {})}")
     manifest.stamp(log.values(), "nba")      # which model made each new pick
@@ -244,6 +257,11 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     payload["record_rebuilt"] = picks_mod.record(rebuilt)
     from tracking import proving
     payload["proving"] = proving.summary(rebuilt.values())
+    try:
+        from tracking import combine_fit as _cf
+        payload["learning"] = _cf.learning(forecast_board.PRICED_LOG, forecast_board.WEIGHTS)
+    except Exception as exc:                       # noqa: BLE001
+        print(f"  learning summary unavailable ({type(exc).__name__})")
     payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
                          "since": "2026-10-11",
                          "note": "Forecasts each player's stat and combines it with the "

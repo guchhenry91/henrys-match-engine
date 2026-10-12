@@ -37,6 +37,9 @@ JOBS = {
         ("Re-fit the vacancy correction", PY + "scripts.fit_nfl_vacancy", "gate"),
     ]],
     "lock": [[
+        # The confirmed XIs first (60/45/30/15-minute ladder, quota-guarded), so the
+        # locker can refuse a benched player instead of waiting for a full refresh.
+        ("Refresh confirmed lineups", PY + "scripts.sync_lineups", "soft"),
         ("Freeze picks due to kick off", PY + "scripts.lock_picks", "gate"),
         ("Closing prices for locked props", PY + "scripts.close_props", "soft"),
         # Free and idle-cheap: NFL props grade within minutes of nflverse publishing,

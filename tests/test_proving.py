@@ -17,3 +17,32 @@ def test_unproven_then_on_target_and_voids_counted():
 def test_behind_early_when_clearly_missing():
     es = [_e(0.7, "correct")] * 15 + [_e(0.7, "wrong")] * 35
     assert proving.summary(es)["hits"]["status"] == "behind (early)"
+
+
+def _priced(p, g, price, close_p=None):
+    e = dict(_e(p, g), book_price=price, book="bet365",
+             price_check={"ref_price": price, "basis": "bet365"})
+    if close_p is not None:
+        e.update(close_p=close_p, close_price=price)
+    return e
+
+
+def test_on_target_is_not_bettable_without_profit():
+    """Calibrated at 68% but priced at 1.45 (needs 69%): on target, not bettable."""
+    es = [_priced(0.68, "correct", 1.45)] * 211 + [_priced(0.68, "wrong", 1.45)] * 99
+    s = proving.summary(es)["hits"]
+    assert s["status"] == "on target" and s["roi"] < 0 and s["bettable"] is False
+
+
+def test_bettable_needs_a_real_profit_edge():
+    win = [_priced(0.62, "correct", 1.80)] * 220 + [_priced(0.62, "wrong", 1.80)] * 100
+    s = proving.summary(win)["hits"]
+    assert s["status"] == "on target" and s["roi_lo95"] > 0 and s["bettable"] is True
+
+
+def test_bettable_by_beating_the_close():
+    """Profit not yet significant, but the price taken beats the close clearly."""
+    es = ([_priced(0.60, "correct", 1.70, close_p=0.62)] * 190
+          + [_priced(0.60, "wrong", 1.70, close_p=0.63)] * 120)
+    s = proving.summary(es)["hits"]
+    assert s["roi"] >= 0 and s["clv_z"] >= 2 and s["bettable"] is True

@@ -126,7 +126,9 @@ def clv(entry: dict):
     price stamped after the fact is not a price anyone took.
     """
     close_p = entry.get("close_p")
-    price = _taken_price(entry)
+    # Scored at the price a bet365 customer could take (third review): a Pinnacle or
+    # DraftKings price beating its own close says nothing about bet365.
+    price = price_of(entry)
     # close_price is written only by a real close: leagues/closing.py (bet365's
     # closing 1X2 from football-data) and scripts/close_props.py (the prop's line in
     # the last 20 minutes, same line only). Elsewhere close_p is the quote AT LOCK --
@@ -175,6 +177,15 @@ def price_of(entry: dict):
     bet365's; otherwise ESTIMATED from the quoting book's fair chance, and never
     better than the price that book actually offered."""
     price = _taken_price(entry)
+    # The price the pick was APPROVED at (tracking/pricecheck, frozen with it): bet365's
+    # own, or the bet365 estimate the check used -- never better than the book's quote.
+    pc = entry.get("price_check") or {}
+    try:
+        ref = float(pc.get("ref_price"))
+    except (TypeError, ValueError):
+        ref = None
+    if ref and ref > 1.0:
+        return ref if pc.get("basis") == "bet365" or price is None else round(min(price, ref), 3)
     if price is None or _is_bet365(entry):
         return price
     fair = entry.get("book_p", entry.get("book_p_pick"))

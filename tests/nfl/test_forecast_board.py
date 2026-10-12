@@ -8,7 +8,7 @@ from tracking import combine_fit
 
 def _p(market="receiving_yards", game="2026_06_A_B", prob=0.7, p_model=0.8, side="over", player="x"):
     return {"market": market, "game_id": game, "probability": prob, "p_model": p_model,
-            "side": side, "player": player, "book_price": 2.0, "book_p": 0.5}
+            "side": side, "player": player, "book_price": 2.0, "book_p": p_model, "book": "bet365"}
 
 
 def test_select_needs_bar_and_agreement():
@@ -45,7 +45,7 @@ def test_fit_offset_stable_when_book_is_flat():
     pm = rng.uniform(0.2, 0.8, 3000)
     y = (rng.uniform(size=3000) < 0.5 + 0.3 * (pm - 0.5)).astype(float)
     a, b, c = combine_fit.fit_offset(pm, np.full(3000, 0.5), y)
-    assert b == 1.0 and 0.0 < a < 1.5 and abs(c) < 0.2
+    assert abs(a + b - 1.0) < 1e-9 and 0.0 < a <= 1.0 and abs(c) < 0.2   # shrink form
 
 
 def test_fit_offset_never_reverses_the_forecast():

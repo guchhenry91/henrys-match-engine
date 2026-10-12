@@ -183,3 +183,43 @@ simulated books were weaker than real ones, real lines leaned the wrong way, and
    rest identical), so it stays off. NBA gate re-run with teammates-out off to match
    live. MLB lineup slot/handedness/bullpen and football team-goal inputs wait until
    the basics are proven on real lines.
+
+## Third review (2026-10-12) and what changed
+All four reviewers scored the rebuild 6/10: "ready to prove, not ready for real money".
+Every point they raised is addressed:
+1. **Shrink, don't stack.** The prior was sigmoid(a*logit(forecast) + 1*logit(book)), which
+   ADDED the forecast's confidence to the book's: a forecast agreeing with a 72% book read
+   75.6%, so every favourite looked like value. Weights are now (a, 1-a, c) -- the book
+   moved a fraction a toward the forecast (`combine_fit.prior`, `shrink`, `fit_offset`).
+   NBA and the soccer scorer re-fit in the same form.
+2. **Price check** (`tracking/pricecheck.py`): +3% expected return (was 0), bet365's
+   margin estimated at 7.5% on two-way props and 12% on one-sided markets (was 5%), and
+   no pick where the forecast is more than 15 points from the book (`MAX_GAP`). One pick
+   per player keeps the highest stated chance, not the highest return. Soccer is judged
+   on the forecast pulled toward the market (`leagues/forecast_board.checked_p`), and that
+   chance is what is published and frozen. CONSEQUENCE, stated plainly: with the default
+   pull of 0.2 a model pick can rarely clear +3% at bet365, so boards will publish few
+   or no model picks until a market earns more weight on real lines.
+3. **Re-learning** judges the picks that would actually publish under the price check
+   (`combine_fit._tail`), needs 100 of them (was 30), re-tests only after 50 new graded
+   lines, and drops adopted weights that the book alone later beats. Every priced line
+   (published or not) is logged and graded, including soccer shots / on target
+   (`priced_shot_lines.json`); boards publish `learning` (n of 300 per market).
+4. **Proving panel**: "on target" also needs the top of its interval to reach the stated
+   rate; "bettable" (proven at bet365) needs profit >= 0 at the approved prices AND a
+   profit lower bound above zero or closing-line value z >= 2. Profit and CLV are scored
+   at the bet365 price each pick was approved at (`price_check` frozen with every pick).
+5. **Closing check** compares a line move with the SAME book's line before the lock
+   ("unknown" otherwise); CLV only on our exact line, at the bet365 price.
+6. **Site honesty**: a board not built by the rebuilt model, or 26h+ stale, says so; an
+   empty panel says "Unproven ... Do not stake"; old and rebuilt records are shown apart;
+   price edges show their own record and stay at <= 0.5% stakes until 300+ beat the
+   close; shown-but-never-frozen soccer player picks are counted. The health check fails
+   a board without the rebuilt engine and rewrites health.json every run.
+7. **Locks**: the lock job polls confirmed XIs and the locker never freezes a benched
+   player (`lock_picks._xi_status`); NFL props drop players the news file ruled OUT after
+   the board was built; NBA teammates-out reads the official report only, and is off for
+   a run with no report today (`injury_report.fetch_today`, board `injury_report`).
+8. **Ops**: jobs run the `tested` branch, moved by the deploy workflow only after the
+   tests pass; NFL grading on the lock job refreshes `record_rebuilt`/`proving` and waits
+   30 minutes between feed downloads; NFL publish no longer crashes on string player ids.

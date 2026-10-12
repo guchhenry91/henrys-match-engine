@@ -242,6 +242,16 @@ def _norm_player(n) -> str:
 STALE_PENDING_HOURS = 72
 
 
+def _learning() -> dict:
+    try:
+        from tracking import combine_fit
+        out = combine_fit.learning(forecast_board.PRICED_LOG, forecast_board.WEIGHTS)
+        out.update(combine_fit.learning(forecast_board.SHOT_LOG, forecast_board.SHOT_WEIGHTS))
+        return out
+    except Exception:                                      # noqa: BLE001
+        return {}
+
+
 def _proving(settled):
     from tracking import proving
     return proving.summary(settled)
@@ -709,6 +719,10 @@ def build(league: str = "PL") -> dict:
                     forecast_board.second_opinion(
                         fcast, lambda n: prop_odds.price_for(league, m["match_id"], n, store=_store),
                         league, m["date"])
+                    _sstore = shot_odds.load()
+                    forecast_board.shots_second_opinion(
+                        fcast, lambda mk, n: shot_odds.quote_for(league, m["match_id"], mk, n, _sstore),
+                        league, m["date"])
                 except Exception as exc:                   # noqa: BLE001
                     print(f"  bet365 second opinion skipped ({type(exc).__name__}: {exc})")
                 squad_props = forecast_board.apply(squad_props, fcast)
@@ -758,7 +772,7 @@ def build(league: str = "PL") -> dict:
                 # a scorer pick; a US book's fair chance (bet365 estimated from it) for
                 # shots / on target. Too short -> not published. No price yet -> shown
                 # as "awaiting price" (so the odds sync fetches it) but never locked.
-                pc_pick = {"probability": shown}
+                pc_pick = {"probability": shown, "market": market}
                 awaiting_price = False
                 if PROPS_REBUILT:
                     try:
@@ -773,10 +787,22 @@ def build(league: str = "PL") -> dict:
                                                book=_q.get("book"))
                     except Exception:                      # noqa: BLE001
                         pass
+                    # JUDGED ON THE FORECAST PULLED TOWARD THE MARKET (third review): the
+                    # raw forecast's price check picked exactly where it disagreed with
+                    # the market most -- the subset the gate never scored. Until real-line
+                    # weights are adopted, the market's fair chance moves only part of the
+                    # way toward the forecast; that is the chance published and frozen.
+                    p_chk = forecast_board.checked_p(market, prob, pc_pick.get("book_price"),
+                                                     pc_pick.get("book_p"))
+                    if p_chk is not None:
+                        fair = (pc_pick.get("book_p") if market != "goal"
+                                else forecast_board.scorer_fair(pc_pick["book_price"]))
+                        pc_pick.update(probability=p_chk, p_model=prob, book_p=fair)
+                        shown = p_chk
                     pc = pricecheck.check(pc_pick, is_bet365=pc_pick.get("book") == "bet365")
-                    if pc.get("reason") == "price too short" and is_new:
-                        continue                            # likely, but not worth the price
                     awaiting_price = pc.get("reason") == "no price"
+                    if not awaiting_price and (not pc.get("ok") or shown < bar / 100.0) and is_new:
+                        continue                            # likely, but not worth the price
                 wait_for_xi = (PROPS_REBUILT and is_new and not lineup_ready
                                and hours_out > forecast_board.XI_WAIT_HOURS
                                and _lock_window() <= LOCK_WINDOW_HOURS)
@@ -799,11 +825,15 @@ def build(league: str = "PL") -> dict:
                     pprov = False
                     if is_new and p.get("engine"):
                         pe["engine"] = p["engine"]
+                    if is_new and pc_pick.get("price_check"):
+                        pe["price_check"] = pc_pick["price_check"]  # the price it was approved at
                     # The price at lock and the value verdict (leagues/lockstamp.py).
                     lockstamp.stamp_prop(pe, league, m["match_id"], now)
                 else:
-                    pe = {"p_pick": round(prob, 4), "p_model": round(prob, 4),
-                          "confidence": _confidence(prob)}
+                    # What the fast locker (scripts/lock_picks.py) will freeze: the
+                    # chance the price check judged, not the raw forecast.
+                    pe = {"p_pick": round(shown, 4), "p_model": round(prob, 4),
+                          "confidence": _confidence(shown)}
                     pprov = True
                 player_picks.append({
                     "market": market,
@@ -1286,7 +1316,44 @@ def append_history(best: dict, players: dict) -> list:
     return hist
 
 
-def build_player_picks() -> dict:
+SHOWN_LOG = PICKS_DIR / "player_picks_shown.json"
+SHOWN_KEEP_DAYS = 21
+
+
+def _load_shown() -> dict:
+    try:
+        return json.loads(SHOWN_LOG.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _unrecorded_players(shown: dict, frozen: set, now=None, write: bool = True) -> dict:
+    """Played player picks that were shown but never frozen; prunes the shown log."""
+    now = now or datetime.now(timezone.utc)
+    keep, gone = {}, []
+    for k, v in shown.items():
+        try:
+            ko = pd.Timestamp(v["kickoff"])
+            ko = ko.tz_localize("UTC") if ko.tzinfo is None else ko.tz_convert("UTC")
+        except Exception:
+            continue
+        if (now - ko.to_pydatetime()).days > SHOWN_KEEP_DAYS:
+            continue
+        keep[k] = v
+        if ko.to_pydatetime() <= now and k not in frozen:
+            gone.append({**v, "key": k})
+    if write:
+        try:
+            SHOWN_LOG.parent.mkdir(parents=True, exist_ok=True)
+            SHOWN_LOG.write_text(json.dumps(keep, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        except Exception:                                  # noqa: BLE001
+            pass
+    gone.sort(key=lambda v: v["kickoff"], reverse=True)
+    return {"count": len(gone), "awaiting_price": sum(v["awaiting_price"] for v in gone),
+            "recent": gone[:20], "window_days": SHOWN_KEEP_DAYS}
+
+
+def build_player_picks(record_shown: bool = False) -> dict:
     """The cross-league player board: goalscorer, shot attempts, shots on target.
 
     Same discipline as build_best_picks -- upcoming is read from the freshly
@@ -1305,10 +1372,12 @@ def build_player_picks() -> dict:
     # they need their own bucket -- otherwise they vanish from the page
     # entirely and a reader cannot tell a pick is still owed a result.
     uncovered = []
+    frozen_keys, shown = set(), _load_shown()
     for league, fname in FILE_FOR.items():
         lg = config.get(league)
         season_tag = lg.fixture_slug.rsplit("-", 1)[-1]
         log = picks.load_log(PICKS_DIR / lg.key.lower() / "player_picks_log.json")
+        frozen_keys |= {k for k in log if not str(k).startswith("_")}
 
         try:
             payload = json.loads((OUT / fname).read_text(encoding="utf-8"))
@@ -1319,6 +1388,11 @@ def build_player_picks() -> dict:
                 upcoming.append({**pp, "league": lg.name, "league_key": league,
                                  "id": m["id"], "date": m["date"],
                                  "home": m["home"], "away": m["away"]})
+                shown[f"{season_tag}:{m['id']}:{pp.get('market')}:{pp.get('player')}"] = {
+                    "kickoff": str(m["date"]), "player": pp.get("player"),
+                    "market": pp.get("market"), "league": lg.name,
+                    "fixture": f"{m['home']} v {m['away']}",
+                    "awaiting_price": bool(pp.get("awaiting_price"))}
 
         if not log:
             continue
@@ -1488,6 +1562,9 @@ def build_player_picks() -> dict:
         "record_by_lineup": by_lineup,
         # Is each market doing what it says? (tracking/proving.py)
         "proving": _proving(settled),
+        # How far each market is toward earning more than the default nudge, from
+        # every priced line (tracking/combine_fit.learning).
+        "learning": _learning(),
         # The REBUILT model's own record, kept apart from the old model's picks.
         "record_rebuilt": picks.record([s for s in settled if s.get("engine") == forecast_board.ENGINE]),
         "record_rebuilt_by_market": {mk: picks.record([s for s in settled if s.get("market") == mk
@@ -1518,6 +1595,10 @@ def build_player_picks() -> dict:
         "stale_pending": _stale(uncovered),
         "ungradeable_leagues": sorted(set(ungradeable) | {
             u["league"] for u in upcoming if u.get("gradeable") is False}),
+        # SHOWN BUT NEVER FROZEN (third review, 2026-10-12): a player pick on the board
+        # that kicked off without a freeze leaves no trace in the record otherwise --
+        # price check failed at lock, never priced, benched, or no locking run in time.
+        "unrecorded_player_picks": _unrecorded_players(shown, frozen_keys, write=record_shown),
         "_incomplete": incomplete,     # non-empty -> caller must NOT publish
         "upcoming": upcoming,
         "settled": settled[:120],
@@ -1628,7 +1709,7 @@ def main(argv=None):
             print(f"wrote {bp} - {len(best['upcoming'])} upcoming high-confidence "
                   f"picks, record {r['correct']}-{r['wrong']}")
 
-        pp = build_player_picks()
+        pp = build_player_picks(record_shown=True)
         pp_all = pp.pop("_all_settled", pp["settled"])
         pp["performance"] = performance.by_market(pp_all, lambda e: e.get("market"))
         # bet365's anytime-scorer price and the edge against it, where fetched

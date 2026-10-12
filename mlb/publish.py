@@ -164,6 +164,11 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     payload["record_rebuilt"] = picks_mod.record(rebuilt)
     from tracking import proving
     payload["proving"] = proving.summary(rebuilt.values())
+    try:
+        from tracking import combine_fit as _cf
+        payload["learning"] = _cf.learning(forecast_board.PRICED_LOG, forecast_board.WEIGHTS)
+    except Exception as exc:                       # noqa: BLE001
+        print(f"  learning summary unavailable ({type(exc).__name__})")
     if board.REBUILT:
         payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
                              "since": "2026-10-12", "rules": forecast_board.RULE,

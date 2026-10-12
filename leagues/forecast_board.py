@@ -43,7 +43,7 @@ MIN_START = 75.0
 # far away, a pick is not frozen yet -- PROVIDED the locker is running often (the lock
 # window at its floor). When runs are sparse it locks as before: a pick frozen early
 # is a worse pick, a pick never frozen is a worse record (CLAUDE.md, lock window).
-XI_WAIT_HOURS = 1.0
+XI_WAIT_HOURS = 0.5          # lineups are polled at 60/45/30/15 min by the lock job too
 # BET365'S SCORER PRICE AS A SECOND OPINION. Every quoted player's price is logged with
 # the forecast (PRICED_LOG), graded from the match rows (did not play = void), and once
 # 300 are graded the weights in final = sigmoid(a*logit(forecast) + b*logit(bet365) + c)
@@ -202,6 +202,64 @@ def scorer_weights():
     return combine_fit.adopted(WEIGHTS).get("goal") or ALONE
 
 
+# bet365's anytime-scorer price is one-sided; its margin per player is assumed here
+# (anytime markets run ~20% over the book) to turn the price into a fair chance. The
+# real relationship is learned from PRICED_LOG, where the RAW price is logged.
+SCORER_MARGIN = 0.20
+# Shots / on target: every priced line (published or not) logged against the forecast
+# and graded from the match rows, so the pull toward the US book can be learned too.
+SHOT_LOG = ROOT / "data-raw" / "leagues" / "priced_shot_lines.json"
+SHOT_WEIGHTS = ROOT / "data-raw" / "leagues" / "shot_combine_weights.json"
+SHOT_LINES = {"shots": ("p_shots_2plus", 1.5, "shots"), "sot": ("p_sot_1plus", 0.5, "sot")}
+SHOT_PRICED: list = []
+
+
+def scorer_fair(price) -> float | None:
+    try:
+        return min(1.0 / (float(price) * (1.0 + SCORER_MARGIN)), 0.99)
+    except (TypeError, ValueError, ZeroDivisionError):
+        return None
+
+
+def checked_p(market: str, p_model: float, price=None, fair=None) -> float | None:
+    """The chance a soccer pick is price-checked, published and frozen on (third
+    review, 2026-10-12): weights adopted on real lines where they exist; otherwise the
+    market's fair chance moved only combine_fit.A_CAP of the way toward the forecast.
+    None when there is no market price to judge against."""
+    if market == "goal":
+        if not price or float(price) <= 1.0:
+            return None
+        w = combine_fit.adopted(WEIGHTS).get("goal")
+        if w:
+            x = np.array([[combine_fit._logit(p_model), combine_fit._logit(1.0 / float(price))]])
+            return round(float(combine_fit._apply(w, x)[0]), 4)
+        return round(combine_fit.shrink(p_model, scorer_fair(price)), 4)
+    if fair is None or not 0.0 < float(fair) < 1.0:
+        return None
+    w = combine_fit.adopted(SHOT_WEIGHTS).get(market)
+    if w:
+        x = np.array([[combine_fit._logit(p_model), combine_fit._logit(float(fair))]])
+        return round(float(combine_fit._apply(w, x)[0]), 4)
+    return round(combine_fit.shrink(p_model, float(fair)), 4)
+
+
+def shots_second_opinion(forecast: list, quote_of, league: str, kickoff) -> None:
+    """Log every shots / on-target line the US book quotes for this match against the
+    forecast -- unpublished ones too, so learning is not limited to what was picked."""
+    for p in forecast:
+        for market, (field, line, _col) in SHOT_LINES.items():
+            try:
+                q = quote_of(market, p["player"])
+            except Exception:                              # noqa: BLE001
+                q = None
+            if not q or q.get("over") is None or p.get(field) is None:
+                continue
+            SHOT_PRICED.append({"game_id": f"{league}:{p['understat_match']}",
+                                "player_id": p["player_id"], "market": market, "line": line,
+                                "tipoff": str(kickoff), "side": "over",
+                                "p_model": float(p[field]) / 100.0, "book_p": float(q["over"])})
+
+
 def second_opinion(forecast: list, price_of, league: str, kickoff) -> None:
     """Attach bet365's anytime price to each forecast row it quotes, log the pair, and
     -- once real-line weights are adopted -- combine them into the scorer chance."""
@@ -247,7 +305,36 @@ def learn(now=None) -> dict:
         hit = m[m["player_id"] == int(e["player_id"])]
         return "void" if hit.empty else float(hit["goals"].iloc[0])
     combine_fit.grade(PRICED_LOG, _actual)
-    return combine_fit.refit(PRICED_LOG, WEIGHTS, {"goal": scorer_weights()}, now)
+    try:
+        learn_shots(now)
+    except Exception as exc:                               # noqa: BLE001
+        print(f"  shots line log failed ({type(exc).__name__}: {exc})")
+    return combine_fit.refit(PRICED_LOG, WEIGHTS, {"goal": scorer_weights()}, now, offset=True)
+
+
+def learn_shots(now) -> dict:
+    """Record, grade and (at 300) re-fit the shots / on-target lines."""
+    combine_fit.record(SHOT_LOG, SHOT_PRICED, now)
+    rows = {}
+
+    def _actual(e):
+        league, mid = e["game_id"].split(":")
+        if league not in rows:
+            f = fc.MATCHES_DIR / f"{league}_{_season_year(now)}.csv.gz"
+            rows[league] = (pd.read_csv(f, usecols=["match_id", "player_id", "shots", "sot"])
+                            if f.exists() else pd.DataFrame())
+        r = rows[league]
+        if r.empty:
+            return None
+        m = r[r["match_id"] == int(mid)]
+        if m.empty:
+            return None
+        hit = m[m["player_id"] == int(e["player_id"])]
+        return "void" if hit.empty else float(hit[SHOT_LINES[e["market"]][2]].iloc[0])
+    combine_fit.grade(SHOT_LOG, _actual)
+    prior = {k: combine_fit.prior((combine_fit.A_CAP,)) for k in SHOT_LINES}
+    prior.update(combine_fit.adopted(SHOT_WEIGHTS))
+    return combine_fit.refit(SHOT_LOG, SHOT_WEIGHTS, prior, now, offset=True)
 
 
 def apply(squad_props: list, forecast: list) -> list:

@@ -135,3 +135,36 @@ def test_only_jobs_that_use_a_cache_restore_it():
     assert "cache/soccerdata.tar.gz" in jobs.CACHE_FOR["leagues"]
     for job in ("lock", "health", "nba", "mlb"):
         assert job not in jobs.CACHE_FOR
+
+
+def test_jobs_download_the_tested_branch_and_fall_back_to_main(tmp_path, monkeypatch):
+    """Third review: only code that passed the tests runs in a job."""
+    import io, sys, tarfile, urllib.error
+    sys.path.insert(0, "cloudflare/container")
+    import run_job
+    buf = io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w:gz") as t:
+        data = b"x"
+        info = tarfile.TarInfo("henrys-match-engine-abc/README.md"); info.size = 1
+        t.addfile(info, io.BytesIO(data))
+    blob = buf.getvalue()
+    seen = []
+
+    class R(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def opener(url, timeout=0):
+        seen.append(url.rsplit("/", 1)[-1])
+        if url.endswith("/tested") and fail_tested:
+            raise urllib.error.HTTPError(url, 404, "nf", {}, None)
+        return R(blob)
+    monkeypatch.setattr(run_job, "WORK", tmp_path / "w")
+    monkeypatch.setattr(run_job, "CODE", tmp_path / "w" / "repo")
+    monkeypatch.setattr(run_job.urllib.request, "urlopen", opener)
+    fail_tested = False
+    run_job.download_code()
+    assert seen == ["tested"] and (tmp_path / "w" / "repo" / "README.md").exists()
+    seen.clear(); fail_tested = True
+    run_job.download_code()
+    assert seen == ["tested", "main"]

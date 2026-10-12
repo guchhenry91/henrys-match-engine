@@ -47,7 +47,8 @@ def stake(p: float, price: float) -> float:
     return round(s, 4) if s >= MIN_STAKE else 0.0
 
 
-def assess(p, fair_p=None, price=None, price_is_bet365=False) -> dict | None:
+def assess(p, fair_p=None, price=None, price_is_bet365=False,
+           margin: float = BET365_MARGIN) -> dict | None:
     """The value verdict for one pick. None when it has no probability."""
     p, fair_p, price = _f(p), _f(fair_p), _f(price)
     if p is None or not 0.0 < p < 1.0:
@@ -60,7 +61,7 @@ def assess(p, fair_p=None, price=None, price_is_bet365=False) -> dict | None:
     if price_is_bet365 and price and price > 1.0:
         ref, basis = price, "bet365"
     elif fair_p and 0.0 < fair_p < 1.0:
-        ref, basis = 1.0 / (fair_p * (1.0 + BET365_MARGIN)), "estimate"
+        ref, basis = 1.0 / (fair_p * (1.0 + margin)), "estimate"
     else:
         out.update(basis=None, value=None, stake=0.0)
         return out

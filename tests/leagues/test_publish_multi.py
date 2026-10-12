@@ -54,7 +54,7 @@ def test_main_writes_one_atomic_file_per_league(tmp_path, monkeypatch):
     monkeypatch.setattr(publish, "OUT", tmp_path)
     monkeypatch.setattr(publish, "build", _STUB)
     monkeypatch.setattr(publish, "build_best_picks", lambda: _EMPTY_BEST)
-    monkeypatch.setattr(publish, "build_player_picks", lambda: _EMPTY_PLAYERS)
+    monkeypatch.setattr(publish, "build_player_picks", lambda **kw: _EMPTY_PLAYERS)
     publish.main([])                       # no arg -> all leagues
     written = sorted(p.name for p in tmp_path.glob("*.json"))
     # DERIVED FROM THE CONFIG, not restated. This list was written out by hand and
@@ -79,7 +79,7 @@ def test_one_league_failing_does_not_block_the_others(tmp_path, monkeypatch):
 
     monkeypatch.setattr(publish, "build", flaky)
     monkeypatch.setattr(publish, "build_best_picks", lambda: _EMPTY_BEST)
-    monkeypatch.setattr(publish, "build_player_picks", lambda: _EMPTY_PLAYERS)
+    monkeypatch.setattr(publish, "build_player_picks", lambda **kw: _EMPTY_PLAYERS)
     # Seed a PRE-EXISTING laliga.json. Asserting against an empty directory could
     # not tell "correctly skipped" from "silently left stale", which is the actual
     # hazard -- an aborted league leaving last week's file for the gate to pass.
@@ -102,7 +102,7 @@ def test_single_league_arg_writes_only_that_file(tmp_path, monkeypatch):
     monkeypatch.setattr(publish, "OUT", tmp_path)
     monkeypatch.setattr(publish, "build", _STUB)
     monkeypatch.setattr(publish, "build_best_picks", lambda: _EMPTY_BEST)
-    monkeypatch.setattr(publish, "build_player_picks", lambda: _EMPTY_PLAYERS)
+    monkeypatch.setattr(publish, "build_player_picks", lambda **kw: _EMPTY_PLAYERS)
     publish.main(["PL"])                    # quick-iteration path
     assert sorted(p.name for p in tmp_path.glob("*.json")) == ["pl.json"]
 

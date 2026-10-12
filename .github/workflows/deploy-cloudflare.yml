@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
-      contents: read
+      contents: write          # to move the `tested` branch after the tests pass
     steps:
       - uses: actions/checkout@v4
         with:
@@ -59,6 +59,11 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run the tests
         run: python -m pytest -q -p no:cacheprovider
+      # THE JOBS RUN ONLY TESTED CODE (third review, 2026-10-12). The containers download
+      # the `tested` branch (cloudflare/container/run_job.py), which moves here and only
+      # here, after the tests pass -- a push that fails its tests never reaches a job.
+      - name: Mark this commit as tested
+        run: git push --force origin HEAD:refs/heads/tested
       - name: Build the site folder
         run: python scripts/build_site.py
 

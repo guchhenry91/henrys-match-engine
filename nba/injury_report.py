@@ -32,13 +32,18 @@ STATUSES = ("Out", "Doubtful", "Questionable", "Probable", "Available")
 ROW = re.compile(r"([A-Z][A-Za-z'\.\- ]*?(?: Jr\.| Sr\.| II| III| IV| V)?,\s*[A-Z][A-Za-z'\.\- ]*?)\s{2,}"
                  r"(" + "|".join(STATUSES) + r")\b")
 TEAMS = ("Hawks|Celtics|Nets|Hornets|Bulls|Cavaliers|Mavericks|Nuggets|Pistons|Warriors|Rockets|"
-         "Pacers|Clippers|Lakers|Grizzlies|Heat|Bucks|Timberwolves|Pelicans|Knicks|Thunder|Magic|"
-         "76ers|Suns|Trail Blazers|Kings|Spurs|Raptors|Jazz|Wizards")
+         "Pacers|Clippers|Lakers|Grizzlies|Heat|Bucks|Timberwolves|Pelicans|Knicks|City ?Thunder|Thunder|"
+         "Magic|76ers|Suns|Trail ?Blazers|Kings|Spurs|Raptors|Jazz|Wizards")
+# The layout sometimes glues a suffix to the surname ("LivelyII,Dereck").
+GLUED_SUFFIX = re.compile(r"([a-z])(Jr\.|Sr\.|II|III|IV)(?=,)")
 # Text the layout puts in front of a player on the same line: a matchup code, a team.
 PREFIX = re.compile(r"^.*?\b(?:" + TEAMS + r")\s+|^(?:[A-Z]{2,3}(?:@[A-Z]{2,3})?\s+)+")
 
 
 def clean(name: str) -> str:
+    """The player's "Last, First" with any matchup / team text in front removed --
+    also run on names already stored, so a parser fix reaches old seasons too."""
+    name = GLUED_SUFFIX.sub(r"\1 \2", str(name or ""))
     prev = None
     while prev != name:
         prev, name = name, PREFIX.sub("", name).strip()
@@ -100,16 +105,23 @@ def latest(now=None, opener=urllib.request.urlopen):
 
 
 def refresh(season: int, now=None, opener=urllib.request.urlopen, base: Path | None = None) -> list:
-    """Today's OUT names ("Last, First"), with today's rows written into the season's
-    file (replacing any earlier fetch of the same day). [] when there is no report."""
+    """Today's OUT names ("Last, First"); [] when there is no report. See fetch_today."""
+    return fetch_today(season, now, opener, base)["out"]
+
+
+def fetch_today(season: int, now=None, opener=urllib.request.urlopen, base: Path | None = None) -> dict:
+    """{"ok", "day", "slot", "out", "listed", "why"}: today's report, with its rows
+    written into the season's file (replacing an earlier fetch of the same day).
+    ok=False when there is no report -- the board must then NOT read "nobody is out"
+    into teammates-out (third review, 2026-10-12)."""
     try:
         got = latest(now, opener)
     except Exception as exc:                           # noqa: BLE001
         print(f"  injury report unavailable ({type(exc).__name__})")
-        return []
+        return {"ok": False, "out": [], "why": f"fetch failed ({type(exc).__name__})"}
     if not got:
         print("  injury report: none published yet today")
-        return []
+        return {"ok": False, "out": [], "why": "none published yet today"}
     day, slot, rows = got
     base = Path(base or DIR)
     base.mkdir(parents=True, exist_ok=True)
@@ -122,4 +134,4 @@ def refresh(season: int, now=None, opener=urllib.request.urlopen, base: Path | N
     frame.to_csv(path, index=False, compression="gzip")
     out = [p for p, s in rows if s == "Out"]
     print(f"  injury report {day} {slot}: {len(out)} OUT of {len(rows)} listed")
-    return out
+    return {"ok": True, "day": day, "slot": slot, "out": out, "listed": len(rows), "why": None}

@@ -9,9 +9,10 @@ sport, now carries:
                     otherwise an ESTIMATE of bet365's price from another book's fair
                     chance less a typical bet365 margin (tracking/value.py) -- marked
                     "estimate" on the page;
-  break_even_price  the lowest odds at which the pick's stated chance breaks even;
+  break_even_price  the odds at which the pick's stated chance breaks even;
+  min_price         the lowest odds worth taking: the stated chance returns MIN_EV;
   ev                the expected return per unit staked at ref_price;
-  ok                ev >= MIN_EV.
+  ok                ev >= MIN_EV and the forecast within MAX_GAP of the book.
 
 A pick with ok=False is NOT published on the board (it stays on the game page,
 flagged short_price). A pick with no price at all cannot be checked and is not
@@ -22,25 +23,58 @@ from __future__ import annotations
 
 from tracking import value
 
-MIN_EV = 0.0             # break-even or better at the reference price
+# THIRD REVIEW, 2026-10-12 -- all four reviewers: "EV >= 0" was passing picks whose
+# edge came from the combining formula, not from skill, at an optimistic bet365 price.
+MIN_EV = 0.03            # at least +3% expected return at the reference price
+# bet365's margin where only another book's fair chance is known. Two-way player
+# props run ~7.5% over the book; one-sided markets (anytime TD, home runs, soccer
+# shots / on target as bet builders) carry far more.
+PROP_MARGIN = 0.075
+ONE_SIDED_MARGIN = 0.12
+ONE_SIDED = {"anytime_touchdown", "hr", "shots", "sot"}
+# A forecast far from the book is more often wrong than clever: the 2026-10-01 audit
+# found the biggest disagreements landed 49%. Beyond this gap (in chance, same side)
+# no pick is published, as WINNER_GAP does for team winners (tracking/value.py).
+MAX_GAP = 0.15
+
+
+def margin_for(pick: dict) -> float:
+    return ONE_SIDED_MARGIN if (pick.get("market") in ONE_SIDED or pick.get("fair") is False) \
+        else PROP_MARGIN
+
+
+def gap(pick: dict, fair_key: str = "book_p"):
+    """|forecast - book| for the side taken, or None when either is missing."""
+    try:
+        return abs(float(pick["p_model"]) - float(pick[fair_key]))
+    except (KeyError, TypeError, ValueError):
+        return None
 
 
 def check(pick: dict, prob_key: str = "probability", fair_key: str = "book_p",
-          price_key: str = "book_price", is_bet365: bool | None = None) -> dict:
+          price_key: str = "book_price", is_bet365: bool | None = None,
+          margin: float | None = None) -> dict:
     """Annotate `pick` with price_check and return it."""
     p = pick.get(prob_key)
     b365 = value._is_bet365(pick) if is_bet365 is None else is_bet365
-    v = value.assess(p, None if b365 else pick.get(fair_key), pick.get(price_key), b365)
+    v = value.assess(p, None if b365 else pick.get(fair_key), pick.get(price_key), b365,
+                     margin=margin_for(pick) if margin is None else margin)
     try:
         be = round(1.0 / float(p), 2)
+        mp = round((1.0 + MIN_EV) / float(p), 2)
     except (TypeError, ValueError, ZeroDivisionError):
-        be = None
+        be = mp = None
+    g = gap(pick, fair_key)
     if not v or v.get("ev") is None:
-        out = {"ok": False, "reason": "no price", "break_even_price": be}
+        out = {"ok": False, "reason": "no price", "break_even_price": be, "min_price": mp}
     else:
-        out = {"ok": v["ev"] >= MIN_EV, "ref_price": v["ref_price"], "basis": v["basis"],
-               "ev": v["ev"], "break_even_price": be,
-               "reason": None if v["ev"] >= MIN_EV else "price too short"}
+        reason = (None if v["ev"] >= MIN_EV else "price too short")
+        if reason is None and g is not None and g > MAX_GAP:
+            reason = "forecast too far from the book"
+        out = {"ok": reason is None, "ref_price": v["ref_price"], "basis": v["basis"],
+               "ev": v["ev"], "break_even_price": be, "min_price": mp,
+               "gap": None if g is None else round(g, 4),
+               "reason": reason}
     pick["price_check"] = out
     if not out["ok"]:
         pick["short_price"] = out.get("reason") == "price too short"
@@ -54,12 +88,14 @@ def passes(pick: dict, **kw) -> bool:
 def one_per_player(board: dict) -> dict:
     """ONE PICK PER PLAYER PER GAME across markets (audit, 2026-10-12): the same
     striker on scorer, shots and on target is one bet three times. Keeps the highest
-    expected return, then the highest chance. `board` is {market: [picks]}."""
+    stated chance, then expected return -- ranking on expected return first would
+    favour the pick where the forecast disagrees with the book most (third review).
+    `board` is {market: [picks]}."""
     best = {}
     for market, picks in board.items():
         for p in picks or []:
             key = (str(p.get("game_id")), str(p.get("player_id") or p.get("player")))
-            score = ((p.get("price_check") or {}).get("ev") or -9, p.get("probability") or 0)
+            score = (p.get("probability") or 0, (p.get("price_check") or {}).get("ev") or -9)
             if key not in best or score > best[key][0]:
                 best[key] = (score, market, id(p))
     keep = {v[2] for v in best.values()}

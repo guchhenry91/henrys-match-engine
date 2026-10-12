@@ -2,6 +2,7 @@
 
 docs/REBUILD_PLAN.md. A rebuilt board's final chance is
     sigmoid(a * logit(forecast) + b * logit(book) + c)
+(by default b = 1 - a and c = 0: the book moved part of the way to the forecast),
 and its first weights come from the gate's SIMULATED informed book. This module
 replaces them with weights fitted on what actually happened:
 
@@ -31,12 +32,24 @@ MIN_N = 300
 # the gates' simulated books were weaker than real ones, so their weights trusted the
 # forecast far more than any real line has earned.
 A_CAP = 0.2
+# SHRINK, DON'T STACK (third review, 2026-10-12). The prior used to be
+# sigmoid(a*logit(forecast) + 1*logit(book)): the forecast's confidence ADDED on top of
+# the book's full confidence, so a forecast that merely agreed with a 72% book read
+# 75.6% -- every favourite looked like value at bet365 with no disagreement at all.
+# Weights are now (a, 1 - a, c): the book's logit moved a fraction a of the way toward
+# the forecast's. A forecast equal to the book leaves the book's chance unchanged.
 
 
 def prior(w) -> tuple:
     """The default weights for a market not yet proven on real lines."""
-    a = float(w[0]) if w else 0.0
-    return (round(min(max(a, 0.0), A_CAP), 4), 1.0, 0.0)
+    a = round(min(max(float(w[0]) if w else 0.0, 0.0), A_CAP), 4)
+    return (a, round(1.0 - a, 4), 0.0)
+
+
+def shrink(p_model: float, p_book: float, a: float = A_CAP) -> float:
+    """The book's chance moved a fraction `a` (in logit) toward the forecast's."""
+    lm, lb = float(_logit(p_model)), float(_logit(p_book))
+    return float(1 / (1 + np.exp(-(lb + a * (lm - lb)))))
 
 
 def _logit(p):
@@ -131,9 +144,15 @@ def _apply(w, x):
 
 
 PUBLISH_BAR = 0.62
-TAIL_MIN = 30           # would-publish picks needed before the tail can be judged
+# would-publish picks needed before the tail can be judged: at n=30 one standard
+# error is ~8.5 points, at 100 ~4.6 (third review, 2026-10-12)
+TAIL_MIN = 100
 TAIL_SLACK = 0.02       # landed may trail stated by at most this
 BOOTSTRAPS = 400
+# Re-test only after this many NEW graded lines since the last fit: re-testing every run
+# on a growing log is repeated peeking at the same data (third review, 2026-10-12).
+REFIT_STEP = 50
+BOOK_ALONE = (0.0, 1.0, 0.0)
 
 
 def _folds(es) -> np.ndarray:
@@ -159,11 +178,22 @@ def _significant_gain(p_old, p_new, y, groups, seed=0) -> tuple:
     return float(d.mean()), float(np.percentile(boots, 2.5))
 
 
-def _tail(p, y) -> dict:
-    """What the published picks would have done: the side >= PUBLISH_BAR."""
+def _tail(p, y, pm=None, pb=None) -> dict:
+    """What the PUBLISHED picks would have done. With the forecast's and the book's
+    chances (pm, pb) that is what tracking/pricecheck would let through -- the side at
+    PUBLISH_BAR or more, +MIN_EV at bet365's estimated price, the forecast within
+    MAX_GAP of the book; scoring everything over the bar instead would judge picks the
+    board never shows (third review). Without them, the side at PUBLISH_BAR or more."""
     side = np.where(p >= 0.5, p, 1 - p)
     won = np.where(p >= 0.5, y, 1 - y)
     m = side >= PUBLISH_BAR
+    if pm is not None and pb is not None:
+        from tracking import pricecheck
+        pm, pb = np.asarray(pm, float), np.asarray(pb, float)
+        fair = np.where(p >= 0.5, pb, 1 - pb)
+        mod = np.where(p >= 0.5, pm, 1 - pm)
+        ev = side / (np.clip(fair, 1e-6, 1) * (1 + pricecheck.PROP_MARGIN)) - 1
+        m &= (ev >= pricecheck.MIN_EV) & (np.abs(mod - fair) <= pricecheck.MAX_GAP) & (mod >= 0.5)
     return {"n": int(m.sum()), "said": round(float(side[m].mean()), 4) if m.any() else None,
             "landed": round(float(won[m].mean()), 4) if m.any() else None}
 
@@ -197,6 +227,9 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
         if len(es) < min_n:
             out.setdefault("_waiting", {})[market] = len(es)
             continue
+        last = out.get(market) or {}
+        if last.get("n") and len(es) < int(last["n"]) + REFIT_STEP:
+            continue                                  # too few new lines to look again
         x = np.column_stack([_logit([e["p_model"] for e in es]), _logit([e["p_book"] for e in es])])
         y = np.array([e["y"] for e in es], float)
         folds = _folds(es)
@@ -210,9 +243,12 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
         cur = current.get(market) or (0.0, 1.0, 0.0)
         p_cur = _apply(cur, x)
         gain, lower = _significant_gain(p_cur, oof, y, np.array([str(e.get("game_id")) for e in es]))
-        tail = _tail(oof, y)
-        tail_ok = (tail["n"] >= TAIL_MIN and tail["landed"] is not None
-                   and tail["landed"] >= tail["said"] - TAIL_SLACK)
+        pm_, pb_ = 1 / (1 + np.exp(-x[:, 0])), 1 / (1 + np.exp(-x[:, 1]))
+        tail = _tail(oof, y, pm_, pb_)
+        # No would-publish picks: nothing on the board can lose, so the log-loss gain
+        # alone decides. Some, but too few to judge: wait. Enough: they must land.
+        tail_ok = tail["n"] == 0 or (tail["n"] >= TAIL_MIN and tail["landed"] is not None
+                                     and tail["landed"] >= tail["said"] - TAIL_SLACK)
         fitted = fit(x, y, market)
         adopt = lower > 0 and tail_ok
         entry = {"n": len(es), "fitted_at": now.isoformat(timespec="seconds"),
@@ -220,15 +256,27 @@ def refit(log_path: Path, weights_path: Path, current: dict, now: datetime,
                  "logloss_current": round(_logloss(p_cur, y), 5),
                  "logloss_candidate_oof": round(_logloss(oof, y), 5),
                  "gain": round(gain, 5), "gain_lower95": round(lower, 5),
-                 "tail_candidate_oof": tail, "tail_current": _tail(p_cur, y),
+                 "tail_candidate_oof": tail, "tail_current": _tail(p_cur, y, pm_, pb_),
                  "adopted": adopt,
                  "why": ("adopted" if adopt else
                          "gain inside the noise" if lower <= 0 else
+                         f"too few would-publish picks to judge ({tail['n']} of {TAIL_MIN})"
+                         if tail["n"] < TAIL_MIN else
                          "would-publish picks landed below their stated rate")}
         if adopt:
             entry["w"] = list(fitted)
         elif (out.get(market) or {}).get("w"):
-            entry["w"] = out[market]["w"]           # keep previously adopted weights
+            # REVOCATION (third review): adopted weights are re-tested each time against
+            # the book alone; if the book is now significantly better, they are dropped
+            # and the market returns to the default nudge.
+            kept = out[market]["w"]
+            g_b, lo_b = _significant_gain(_apply(kept, x), _apply(BOOK_ALONE, x), y,
+                                          np.array([str(e.get("game_id")) for e in es]))
+            if lo_b > 0:
+                entry["revoked"] = {"w": kept, "book_gain": round(g_b, 5), "gain_lower95": round(lo_b, 5)}
+                entry["why"] = "adopted weights revoked: the book alone is now better"
+            else:
+                entry["w"] = kept                   # keep previously adopted weights
         out[market] = entry
         (out.get("_waiting") or {}).pop(market, None)
     out["_note"] = ("Forecast-vs-book combination weights fitted on REAL graded lines "
@@ -244,14 +292,15 @@ def adopted(weights_path: Path) -> dict:
 
 
 def fit_offset(p_model, p_book, y, l2: float = 1.0):
-    """(a, 1.0, c): the book's logit taken AS GIVEN (weight fixed at 1), learning only
-    how much the forecast moves it. Used where the book's chance barely varies (lines
-    set at the median sit near 50/50): a free book weight then has nothing to fit and
-    explodes. A mild L2 on a and c keeps a thin sample from overreaching, and a is
-    kept >= 0: a forecast that only ever pulls AGAINST its own reading is given no
-    say rather than a reversed one."""
+    """(a, 1 - a, c): the book's logit taken AS GIVEN, learning only how far toward the
+    forecast to move it -- z = logit(book) + a*(logit(forecast) - logit(book)) + c.
+    Used where the book's chance barely varies (lines set at the median sit near
+    50/50): a free book weight then has nothing to fit and explodes. A mild L2 on a
+    and c keeps a thin sample from overreaching, and 0 <= a <= 1: a forecast that only
+    ever pulls AGAINST its own reading is given no say rather than a reversed one."""
     from scipy.optimize import minimize
-    xm, off = _logit(p_model), _logit(p_book)
+    off = _logit(p_book)
+    xm = _logit(p_model) - off
     y = np.asarray(y, float)
 
     def loss(w):
@@ -259,5 +308,22 @@ def fit_offset(p_model, p_book, y, l2: float = 1.0):
         p = 1 / (1 + np.exp(-z))
         ll = -np.sum(y * np.log(np.clip(p, 1e-9, 1)) + (1 - y) * np.log(np.clip(1 - p, 1e-9, 1)))
         return ll + l2 * (w[0] ** 2 + w[1] ** 2)
-    w = minimize(loss, np.zeros(2), method="L-BFGS-B", bounds=[(0.0, 3.0), (-3.0, 3.0)]).x
-    return round(float(w[0]), 4), 1.0, round(float(w[1]), 4)
+    w = minimize(loss, np.zeros(2), method="L-BFGS-B", bounds=[(0.0, 1.0), (-3.0, 3.0)]).x
+    a = round(float(w[0]), 4)
+    return a, round(1.0 - a, 4), round(float(w[1]), 4)
+
+
+def learning(log_path: Path, weights_path: Path) -> dict:
+    """{market: {graded, adopted, why}} for the board: how far each market is toward
+    earning more than the default nudge, from EVERY priced line (third review)."""
+    log, w = _load(log_path), _load(weights_path)
+    out = {}
+    for e in log.values():
+        if isinstance(e, dict) and e.get("market"):
+            m = out.setdefault(e["market"], {"graded": 0, "adopted": False, "why": None})
+            m["graded"] += e.get("y") in (0, 1)
+    for m, v in w.items():
+        if isinstance(v, dict) and m in out:
+            out[m]["adopted"] = bool(v.get("w"))
+            out[m]["why"] = None if v.get("w") else v.get("why")
+    return out

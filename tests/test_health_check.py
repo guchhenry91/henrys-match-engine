@@ -72,3 +72,15 @@ def test_mlb_board_is_not_stale_across_its_normal_overnight_gap(monkeypatch):
     r = hc.Report()
     hc.line_sport(r, now, "MLB", "mlb", "tipoff")
     assert [c["status"] for c in r.checks if c["check"] == "board"] == ["ok"]
+
+
+def test_a_board_not_built_by_the_rebuilt_model_fails(tmp_path, monkeypatch):
+    import json
+    from scripts import health_check as hc
+    boards = {"data/nfl/board.json": {"updated": "x"},
+              "data/nba/board.json": {"engine": {"name": "forecast-v1"}}}
+    monkeypatch.setattr(hc, "_read", lambda rel: boards.get(rel))
+    r = hc.Report()
+    hc.engines(r)
+    got = {c["sport"]: c["status"] for c in r.checks}
+    assert got == {"NFL": "fail", "NBA": "ok"}

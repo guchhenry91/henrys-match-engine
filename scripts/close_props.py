@@ -8,10 +8,12 @@ shows up in a few hundred. Until now the "close" on a prop was the lock-time quo
 What it does, on the frequent lock job: for NBA, NFL and MLB player props that are
 LOCKED, not yet closed, and start within CLOSE_MINUTES, fetch that game's lines once
 (only the markets those picks need, Pinnacle first) and stamp on each entry:
-  closing     {line, p (de-vigged chance of OUR side), price, book, at, moved}
+  closing     {line, p (de-vigged chance of OUR side), price, book, at, moved,
+              line_before}; "moved" compares the closing book's line with that SAME
+              book's line at the last check before the lock ("unknown" without one)
   close_p / close_price   only when the closing line is the line we took -- a
-              different line is a different bet, so its price says nothing
-              about ours; "moved" records which way the line went instead.
+              different line is a different bet, so its price says nothing about
+              ours. Scored at the bet365 price in tracking/performance.clv.
 Never rewrites a stamped entry. Never fatal: a failed fetch leaves the pick as it was.
 
 COST: one /events/{id}/odds call per game with a locked prop, priced at the number of
@@ -84,8 +86,15 @@ def due(entries: dict, start_key: str, markets: set, now: datetime) -> dict:
     return out
 
 
-def stamp(entry: dict, quote: dict | None, now: datetime) -> None:
-    """Write the closing quote onto one locked prop."""
+def stamp(entry: dict, quote: dict | None, now: datetime, before: dict | None = None) -> None:
+    """Write the closing quote onto one locked prop.
+
+    `before` is the SAME source's quote from the last check before the lock (the odds
+    store). The line MOVED only if that book's own line moved: comparing the close
+    with the line we took from another book (bet365 56.5 vs Pinnacle 58.5) records a
+    move when nothing moved (third review). CLOSING-LINE VALUE needs the closing line
+    to be OUR line -- the fair closing chance of exactly the bet we took -- and is
+    scored at the bet365 price (tracking/performance.clv)."""
     at = now.isoformat(timespec="seconds")
     if not quote or quote.get("line") is None:
         entry["closing"] = {"at": at, "line": None}           # looked; not quoted at the close
@@ -93,11 +102,17 @@ def stamp(entry: dict, quote: dict | None, now: datetime) -> None:
     side = entry.get("side") or "over"
     line, ours = float(quote["line"]), float(entry["line"])
     p, price = quote.get(side), quote.get(f"odd_{side}")
-    moved = ("same" if line == ours else
-             "ours" if (line > ours) == (side == "over") else "against")
+    same_book = bool(before and before.get("line") is not None
+                     and str(before.get("book") or "").lower() == str(quote.get("book") or "").lower())
+    if not same_book:
+        moved = "unknown"                                    # no same-book line before the lock
+    else:
+        was = float(before["line"])
+        moved = ("same" if line == was else
+                 "ours" if (line > was) == (side == "over") else "against")
     entry["closing"] = {"line": line, "p": p, "price": price, "book": quote.get("book"),
-                        "at": at, "moved": moved}
-    if moved == "same" and p is not None and price:
+                        "at": at, "moved": moved, "line_before": before.get("line") if before else None}
+    if line == ours and p is not None and price:
         entry["close_p"] = round(float(p), 4)
         entry["close_price"] = float(price)
 
@@ -145,8 +160,10 @@ def run(client, now=None, only=None) -> dict:
                 continue
             calls += 1
             props = bl.parse_event(payload) or {}
+            before_props = (store.get(gkey) or {}).get("props") or {}
             for e in es:
-                stamp(e, odds_mod.match_player(props.get(e["market"]) or {}, e["player"]), now)
+                stamp(e, odds_mod.match_player(props.get(e["market"]) or {}, e["player"]), now,
+                      odds_mod.match_player(before_props.get(e["market"]) or {}, e["player"]))
                 stamped += 1
         if stamped or any("closing" in e for e in todo.values()):
             cfg["log"].write_text(json.dumps(log, indent=2, sort_keys=True) + "\n", encoding="utf-8")

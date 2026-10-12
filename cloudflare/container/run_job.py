@@ -108,9 +108,22 @@ def api(method, path, body=None, timeout=120, tries=4):
 
 
 def download_code():
-    url = f"https://codeload.github.com/{REPO}/tar.gz/refs/heads/main"
-    with urllib.request.urlopen(url, timeout=300) as r:
-        raw = r.read()
+    # THE TESTED COMMIT (third review, 2026-10-12): `tested` is moved by the deploy
+    # workflow only after the test suite passes on main, so a push that fails its
+    # tests never runs here. main is the fallback only if `tested` cannot be fetched.
+    raw, ref = None, None
+    for ref in ("tested", "main"):
+        try:
+            url = f"https://codeload.github.com/{REPO}/tar.gz/refs/heads/{ref}"
+            with urllib.request.urlopen(url, timeout=300) as r:
+                raw = r.read()
+            break
+        except urllib.error.HTTPError as exc:
+            if exc.code != 404 or ref == "main":
+                raise
+            log("code: no `tested` branch yet -- falling back to main")
+    if raw is None:
+        raise RuntimeError("code download failed")
     if CODE.exists():
         shutil.rmtree(CODE)
     WORK.mkdir(parents=True, exist_ok=True)
@@ -118,7 +131,7 @@ def download_code():
         top = t.getmembers()[0].name.split("/")[0]
         t.extractall(WORK, filter="data")
     (WORK / top).rename(CODE)
-    log(f"code: main downloaded ({len(raw) // 1024} KB)")
+    log(f"code: {ref} downloaded ({len(raw) // 1024} KB)")
 
 
 def tracked_files():

@@ -182,3 +182,27 @@ def test_the_fallback_feed_does_not_mask_a_primary_outage(frozen_losses, monkeyp
     assert pp["_incomplete"] == ["Premier League"]
     assert pp["ungradeable_leagues"] == []
     assert pp["record"]["total"] == 0
+
+
+def test_shown_but_never_frozen_player_picks_are_counted(tmp_path, monkeypatch):
+    """Third review: a pick on the board that kicked off unfrozen must leave a trace."""
+    from datetime import datetime, timezone
+    from leagues import publish
+    monkeypatch.setattr(publish, "SHOWN_LOG", tmp_path / "shown.json")
+    now = datetime(2026, 10, 12, 20, 0, tzinfo=timezone.utc)
+    shown = {"2026:1:shots:A": {"kickoff": "2026-10-12T19:00:00+00:00", "player": "A",
+                                "market": "shots", "league": "PL", "fixture": "X v Y",
+                                "awaiting_price": False},
+             "2026:1:goal:B": {"kickoff": "2026-10-12T19:00:00+00:00", "player": "B",
+                               "market": "goal", "league": "PL", "fixture": "X v Y",
+                               "awaiting_price": True},
+             "2026:2:sot:C": {"kickoff": "2026-10-13T19:00:00+00:00", "player": "C",
+                              "market": "sot", "league": "PL", "fixture": "Z v W",
+                              "awaiting_price": False},
+             "2026:0:sot:OLD": {"kickoff": "2026-09-01T19:00:00+00:00", "player": "D",
+                                "market": "sot", "league": "PL", "fixture": "old",
+                                "awaiting_price": False}}
+    out = publish._unrecorded_players(shown, frozen={"2026:1:shots:A"}, now=now)
+    assert out["count"] == 1 and out["awaiting_price"] == 1 and out["recent"][0]["player"] == "B"
+    import json
+    assert "2026:0:sot:OLD" not in json.loads((tmp_path / "shown.json").read_text())   # pruned

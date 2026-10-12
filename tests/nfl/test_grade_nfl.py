@@ -89,3 +89,27 @@ def test_a_changed_record_rewrites_the_board(tmp_path, monkeypatch):
     grade_nfl.main(now=NOW)
     written = json.loads(board.read_text(encoding="utf-8"))
     assert written["record"] == new and written["settled"] == [{"graded": "correct"}]
+
+
+def test_feed_is_not_redownloaded_within_the_retry_window(tmp_path, monkeypatch):
+    import json
+    import pandas as pd
+    from nfl import picks
+    from scripts import grade_nfl as g
+    monkeypatch.setattr(g, "ATTEMPT", tmp_path / "attempt.json")
+    board = tmp_path / "board.json"
+    rec = {"team_winner": {"correct": 0, "wrong": 0}, "props": {"correct": 0, "wrong": 0, "pending": 1}}
+    board.write_text(json.dumps({"record": rec, "settled": []}))     # nothing new will land
+    monkeypatch.setattr(g, "BOARD", board)
+    monkeypatch.setattr(g, "due", lambda log, now: ["k"])
+    monkeypatch.setattr(picks.core, "load_log", lambda p: {})
+    monkeypatch.setattr(picks, "record", lambda log: rec)
+    monkeypatch.setattr(picks, "settled", lambda log: [])
+    calls = []
+    monkeypatch.setattr(picks, "freeze_and_grade", lambda payload, now: calls.append(now) or rec)
+    t0 = pd.Timestamp("2026-10-12T04:00:00Z")
+    g.main(now=t0)                                  # downloads, finds nothing new
+    g.main(now=t0 + pd.Timedelta(minutes=10))       # inside the window: no download
+    g.main(now=t0 + pd.Timedelta(minutes=20))       # still inside (not reset by the skip)
+    g.main(now=t0 + pd.Timedelta(minutes=31))       # window over: looks again
+    assert len(calls) == 2

@@ -28,7 +28,8 @@ def _setup(tmp_path, monkeypatch, entries):
     from nba import book_lines as nba_bl
     log, store = tmp_path / "log.json", tmp_path / "store.json"
     log.write_text(json.dumps(entries))
-    store.write_text(json.dumps({"games": {"g1": {"event_id": "ev1"}}}))
+    store.write_text(json.dumps({"games": {"g1": {"event_id": "ev1", "props": {"points": {
+        "Josh Hart": {"line": 10.5, "book": "Pinnacle", "over": 0.5, "under": 0.5}}}}}}))
     monkeypatch.setattr(cp, "sports", lambda: {"nba": {
         "log": log, "section": None, "store": store, "bl": nba_bl, "start": "tipoff",
         "store_key": lambda e: str(e.get("game_id"))}})
@@ -48,7 +49,7 @@ def test_same_line_stamps_a_scoreable_close(tmp_path, monkeypatch):
     out = cp.run(client, now=NOW)
     assert out == {"nba": {"games": 1, "picks": 1}}
     e = json.loads(log.read_text())["a"]
-    assert e["closing"]["moved"] == "same" and e["close_price"] == 1.80
+    assert e["closing"]["moved"] == "unknown" and e["close_price"] == 1.80   # no lock-time quote of his
     assert 0.5 < e["close_p"] < 0.6                      # de-vigged over
     assert client.calls[0][1]["markets"] == "player_points"
     from tracking import performance

@@ -108,6 +108,8 @@ def report_outs(rows: pd.DataFrame, base: Path | None = None) -> set:
         return set()
     rep = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
     rep = rep[rep["status"] == "Out"]
+    from nba import injury_report
+    rep = rep.assign(player=rep["player"].map(injury_report.clean))   # parser fixes reach stored seasons
     names = rows[["PLAYER_ID", "PLAYER_NAME"]].dropna().drop_duplicates()
     names["key"] = names["PLAYER_NAME"].map(_norm)
     counts = names.groupby("key")["PLAYER_ID"].nunique()

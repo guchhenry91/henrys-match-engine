@@ -147,7 +147,8 @@ def select(priced: list) -> list:
                   key=lambda p: -p["probability"])
 
 
-def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -> tuple:
+def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
+          vacated_out=None) -> tuple:
     """({market: [picks]}, {market: unpriced count}) on the rebuilt model."""
     odds_games = odds_store.get("games") or {}
     rows = history_rows()
@@ -161,17 +162,20 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
     out, held = {m: [] for m in config.MARKETS}, {}
     if not synth:
         return out, held
-    # TEAMMATES OUT: the news file's ruled-out players, on the team they are on now,
-    # are the absences the forecast redistributes usage for (nba/forecast._vacated).
+    # TEAMMATES OUT: the OFFICIAL REPORT's OUT players (vacated_out), on the team they
+    # are on now, are the absences the forecast redistributes usage for -- the same
+    # source it was trained on. None = no report today: teammates-out is off this run
+    # rather than reading "nobody is out" (third review, 2026-10-12).
+    use_vacated = VACATED and vacated_out is not None
     out_players = {}
-    for name in ruled:
+    for name in ({odds_mod.norm_name(n) for n in vacated_out} if use_vacated else ()):
         pid = names.get(name)
         team = (teams_now.get(pid) or last_team.get(pid)) if pid is not None else None
         if team:
             out_players.setdefault(team, set()).add(pid)
     # Played games' absences come from the official pre-game report, as in training
     # (nba/injury_report.py); without VACATED the feature is unused, so skip the work.
-    reported = fc.report_outs(rows) if VACATED else None
+    reported = fc.report_outs(rows) if use_vacated else None
     frame = fc.build(pd.concat([rows, pd.DataFrame(synth)], ignore_index=True), out_players, reported)
     train = frame[~frame["is_next"] & (frame["season"] >= config.CURRENT_SEASON - fc.TRAIN_SEASONS)]
     ask = frame[frame["is_next"]]
@@ -180,7 +184,7 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None) -
     real["game_date"] = pd.to_datetime(real["GAME_DATE"].astype(str).str[:10])
     for market, stat in fc.MARKET_STAT.items():
         # Teammates-out: trained and fed on the same official report (see VACATED_STATS).
-        model = fc.StatModel(stat, vacated=stat in VACATED_STATS).fit(train)
+        model = fc.StatModel(stat, vacated=use_vacated and stat in VACATED_STATS).fit(train)
         mu = model.mean(ask)
         alpha = model.disp(mu)
         last5 = recent.last_n(real, ask["PLAYER_ID"], stat, played="MIN")

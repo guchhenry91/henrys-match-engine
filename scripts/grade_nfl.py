@@ -29,6 +29,19 @@ BOARD = ROOT / "data" / "nfl" / "board.json"
 # A game is worth checking once it has had time to finish (NFL games run about
 # three and a quarter hours, overtime included).
 GAME_LENGTH_HOURS = 3.5
+# On the 10-minute lock job the player feed would be downloaded every run until nflverse
+# files the games (the lock job has no nflverse cache). After a look that found nothing
+# new, wait this long before downloading again (third review, 2026-10-12).
+RETRY_MINUTES = 30
+ATTEMPT = ROOT / "data-raw" / "nfl" / "_grade_attempt.json"
+
+
+def _recently_tried(now) -> bool:
+    try:
+        last = pd.Timestamp(json.loads(ATTEMPT.read_text(encoding="utf-8"))["at"])
+    except Exception:
+        return False
+    return (now - last) < pd.Timedelta(minutes=RETRY_MINUTES)
 
 
 def due(log: dict, now) -> list:
@@ -61,8 +74,14 @@ def main(now=None) -> int:
     waiting = due(log, now)
     payload = json.loads(BOARD.read_text(encoding="utf-8"))
     before = (payload.get("record"), payload.get("settled"))
-    if waiting:
+    downloaded = False
+    if waiting and _recently_tried(now):
+        print(f"NFL: {len(waiting)} pick(s) await a grade; feed checked under "
+              f"{RETRY_MINUTES} min ago, not downloading again yet")
+        payload["record"] = picks.record(log)
+    elif waiting:
         payload["record"] = picks.freeze_and_grade(payload, now=now)
+        downloaded = True
     else:
         # NO NETWORK, but still refresh the record from the log. A pick frozen by
         # this job's lock step never reached the board otherwise: DEN @ KC was
@@ -71,7 +90,15 @@ def main(now=None) -> int:
         # no pick at all.
         print("NFL: no finished game awaiting a grade")
         payload["record"] = picks.record(log)
-    payload["settled"] = picks.settled(picks.core.load_log(picks.PICKS_LOG))
+    full = picks.core.load_log(picks.PICKS_LOG)
+    payload["settled"] = picks.settled(full)
+    # The rebuilt model's own record and proving panel move with each grade too
+    # (third review: they lagged until the next full NFL run).
+    from tracking import proving
+    rebuilt = {k: e for k, e in (full.get(picks.PROPS_KEY) or {}).items()
+               if not k.startswith("_") and isinstance(e, dict) and e.get("engine") == proving.ENGINE}
+    payload["record_rebuilt"] = picks.record({picks.PROPS_KEY: rebuilt})
+    payload["proving"] = proving.summary(rebuilt.values())
     rec = payload["record"]
     print(f"NFL: {len(waiting)} finished pick(s) checked -> team winner "
           f"{rec['team_winner']['correct']}-{rec['team_winner']['wrong']}, props "
@@ -79,6 +106,8 @@ def main(now=None) -> int:
           f"{rec['props']['pending']} props still pending")
     if (payload["record"], payload["settled"]) == before:
         print("NFL: record unchanged (feed has not filed those games yet)")
+        if downloaded:                    # only a real look restarts the wait
+            ATTEMPT.write_text(json.dumps({"at": now.isoformat()}) + "\n", encoding="utf-8")
         return 0
     tmp = BOARD.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

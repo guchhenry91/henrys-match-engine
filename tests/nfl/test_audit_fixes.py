@@ -49,3 +49,18 @@ def test_an_under_wins_below_the_line_and_pushes_on_it():
 def test_an_under_is_its_own_frozen_bet():
     pick = {"game_id": "G", "market": "rushing_yards", "player_id": "P"}
     assert nfl_picks.prop_key(pick) != nfl_picks.prop_key(dict(pick, side="under"))
+
+
+def test_lock_drops_a_player_ruled_out_after_the_board_was_built(monkeypatch):
+    """Third review: the board can be hours older than the inactives list."""
+    from datetime import datetime, timezone
+    from nfl import picks
+    now = datetime(2026, 10, 18, 15, 30, tzinfo=timezone.utc)
+    monkeypatch.setattr(picks, "_ruled_out_now", lambda now: {"jahmyr gibbs"})
+    pick = {"market": "rushing_yards", "player": "Jahmyr Gibbs", "player_id": "00-1",
+            "team": "DET", "game_id": "2026_07_DET_GB", "kickoff": "2026-10-18T17:00:00+00:00",
+            "probability": 0.64, "side": "over", "line": 70.5}
+    log = {}
+    picks._lock_props({"props": {"rushing_yards": {"released": True, "picks": [pick]}}}, log, now)
+    assert not [k for k in log if not k.startswith("_")]
+    assert pick["dropped"] == "ruled out after the board was built"

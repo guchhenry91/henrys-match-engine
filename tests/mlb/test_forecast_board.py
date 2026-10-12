@@ -7,7 +7,7 @@ from mlb import forecast_board as fb
 
 def _p(market="hits", game="1", prob=0.7, p_model=0.7, side="over", player="x"):
     return {"market": market, "game_id": game, "probability": prob, "p_model": p_model,
-            "side": side, "player": player, "book_price": 2.0, "book_p": 0.5}
+            "side": side, "player": player, "book_price": 2.0, "book_p": p_model, "book": "bet365"}
 
 
 def test_select_bar_agreement_and_hr_yes_only():
