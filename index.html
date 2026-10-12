@@ -1716,7 +1716,8 @@ function todayTableRow(r){
   const score=r.result?`${r.result.home_goals}-${r.result.away_goals}`:null;
   const l=score?null:liveFor(r, r.lgKey);
   const verdict=r.void?`<span class="res void">void</span>`:r.graded?`<span class="res ${r.graded}">${r.graded}</span>`:"";
-  const state=score?`Final ${score}`:l?`${esc(liveClock(l))} · ${l.home_goals}-${l.away_goals}`:"Not started";
+  const begun=r.date&&new Date(r.date)<new Date();     // kicked off, no result on file yet
+  const state=score?`Final ${score}`:l?`${esc(liveClock(l))} · ${l.home_goals}-${l.away_goals}`:begun?"Awaiting result":"Not started";
   return `<div class="brow click" onclick="${r.go}">${timeCell(r.date)}
     <div class="be"><div class="beb">${esc(r.comp||"")} · Winner</div>
       <b>${esc(r.home)} vs ${esc(r.away)}</b>
