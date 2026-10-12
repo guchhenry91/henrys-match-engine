@@ -155,3 +155,31 @@ football-data.co.uk, Understat.
   scores (did not start = void); at 300 graded a market's weights are re-fitted and,
   if adopted, it moves to the blended rule. The real-line check reads the live log
   copied to /tmp; it covers only the last regular-season day (~270 lines).
+
+## Four-reviewer audit of the rebuild (2026-10-12) and what changed
+Sharp trader, modeller, props trader and risk auditor (reports kept outside the repo)
+agreed: the redesign is right and calibrated against real results, but the gates'
+simulated books were weaker than real ones, real lines leaned the wrong way, and
+"wins first" without a price check still loses money. The owner approved all fixes:
+1. Trust the book by default (`combine_fit.prior`: book weight 1, forecast pull <= 0.2,
+   no constant) in every sport until real lines are adopted.
+2. Real lines are the proof: `tracking/proving.py` panel per market on every page
+   ("unproven" until 300 graded at the stated rate). No real money before that.
+3. Strict re-learning: adopt only a real (95% bound, grouped by game) gain whose
+   would-publish picks landed at their stated rate; never change a publishing rule.
+4. PRICE CHECK (`tracking/pricecheck.py`): published only if break-even or better at
+   bet365's price (or an estimate); every pick shows break-even odds and expected return.
+5. NFL alternate lines paused (rung margin floored at 10%); NFL TD and MLB strikeouts
+   tracking-only.
+6. Bugs: NFL weather no longer an input; NBA teammates-out off (trained after the fact);
+   soccer next match per team only; void only with no stat row; 72h pending alert;
+   tests gate the deploy; a missing library fails the job.
+7. Football: 75% start chance, and new picks wait for the confirmed XI while runs are
+   frequent. One pick per player per game everywhere.
+8. Closing-line value shown where a close exists; a pre-start odds check for props
+   would cost credits and awaits the owner's approval.
+9. Missing inputs: NBA pre-game Elo gap (stand-in for the spread, which is not on
+   hand historically) built and A/B-gated -- no change (PTS MAE 4.900 vs 4.901, the
+   rest identical), so it stays off. NBA gate re-run with teammates-out off to match
+   live. MLB lineup slot/handedness/bullpen and football team-goal inputs wait until
+   the basics are proven on real lines.

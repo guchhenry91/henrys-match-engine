@@ -1,5 +1,10 @@
 # Henry's Match Engine
 
+> **AUDIT FIXES (2026-10-12):** every board now (a) trusts the book until real lines prove
+> the model (`tracking/combine_fit.prior`), (b) publishes only picks worth the price at
+> bet365 (`tracking/pricecheck.py`), (c) one pick per player per game, and (d) shows a
+> per-market proving panel (`tracking/proving.py`). See docs/REBUILD_PLAN.md, last section.
+
 > **MODEL REBUILD IN PROGRESS (agreed 2026-10-11) -- read `docs/REBUILD_PLAN.md` first.**
 > Four independent reviews found the prop models read bookmakers' lines backwards
 > (trained on self-made lines with the line as an input) and that selection picked the

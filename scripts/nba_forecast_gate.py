@@ -41,11 +41,14 @@ BOOK_MIN_SD = 5.0           # a book's minutes projection misses by ~5 minutes  
 VACATED = True
 
 
+ELO = False
+
+
 def score_season(frame, stat, season):
     train = frame[(frame["season"] < season) & (frame["season"] >= season - fc.TRAIN_SEASONS)]
     test = frame[(frame["season"] == season) & (frame["games_before"] >= 5)
                  & (frame["min_ewm10"] >= MIN_ROLE_MIN)].copy()
-    model = fc.StatModel(stat, vacated=VACATED).fit(train)
+    model = fc.StatModel(stat, vacated=VACATED, elo=ELO).fit(train)
     mu = model.mean(test)
     alpha = model.disp(mu)
     y = test[stat].to_numpy(float)
@@ -97,10 +100,13 @@ def main() -> int:
     ap.add_argument("--stats", default=",".join(fc.STATS))
     ap.add_argument("--seasons", default=",".join(map(str, SCORED)))
     ap.add_argument("--no-vacated", action="store_true", help="A/B: without teammates-out")
+    ap.add_argument("--elo", action="store_true", help="A/B: with the pre-game Elo gap")
     ap.add_argument("--report", default=str(REPORT))
     args = ap.parse_args()
     global VACATED
     VACATED = not args.no_vacated
+    global ELO
+    ELO = args.elo
     t0 = time.time()
     rows = fc.load_history()
     frame = fc.build(rows)
@@ -150,6 +156,7 @@ def main() -> int:
               f" ECE {out['combined']['calibration']['ece']} publish@62 {out['combined']['would_publish']}"
               f" @70 {out['combined']['would_publish_70']} agree@62 {out['combined']['would_publish_agree']}", flush=True)
     report["vacated"] = VACATED
+    report["elo"] = ELO
     Path(args.report).write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(f"done in {time.time() - t0:.0f}s -> {args.report}")
     return 0

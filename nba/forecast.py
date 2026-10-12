@@ -128,6 +128,37 @@ def _vacated(d: pd.DataFrame, out_players: dict | None) -> pd.DataFrame:
     return pd.DataFrame(out, columns=["GAME_ID", "team", "vac_usage", "vac_share"])
 
 
+ELO_K, ELO_HOME, ELO_REGRESS = 10.0, 55.0, 0.35      # data-raw/nba/elo_params.json
+
+
+def _elo(d: pd.DataFrame) -> pd.DataFrame:
+    """Per team-game: the PRE-game Elo gap (team minus opponent, home edge included).
+    The expected margin is what decides blowouts -- and a blowout is what sits a
+    starter for the fourth quarter. Historical point spreads are not on hand; the
+    ratings the board already uses for team winners stand in for them. Upcoming games
+    get today's ratings (played games only ever update them)."""
+    g = (d.groupby(["GAME_ID", "game_date", "season", "team", "opp"], as_index=False)
+         .agg(home=("home", "max"), pts=("PTS", "sum"), nxt=("is_next", "max")))
+    homes = g[g["home"] >= 0.5].merge(
+        g[["GAME_ID", "team", "pts"]].rename(columns={"team": "opp", "pts": "opp_pts"}),
+        on=["GAME_ID", "opp"], how="left").sort_values(["game_date", "GAME_ID"])
+    rating, season_seen, rows = {}, None, []
+    for r in homes.itertuples():
+        if r.season != season_seen:
+            rating = {t: 1500 + (v - 1500) * (1 - ELO_REGRESS) for t, v in rating.items()}
+            season_seen = r.season
+        rh, ra = rating.setdefault(r.team, 1500.0), rating.setdefault(r.opp, 1500.0)
+        diff = rh + ELO_HOME - ra
+        rows += [(r.GAME_ID, r.team, diff), (r.GAME_ID, r.opp, -diff)]
+        if not r.nxt and pd.notna(r.pts) and pd.notna(r.opp_pts) and r.pts != r.opp_pts:
+            exp = 1 / (1 + 10 ** (-diff / 400))
+            delta = ELO_K * ((1.0 if r.pts > r.opp_pts else 0.0) - exp)
+            rating[r.team], rating[r.opp] = rh + delta, ra - delta
+    out = pd.DataFrame(rows, columns=["GAME_ID", "team", "elo_diff"])
+    out["elo_abs"] = out["elo_diff"].abs()
+    return out.drop_duplicates(["GAME_ID", "team"])
+
+
 def build(rows: pd.DataFrame, out_players: dict | None = None) -> pd.DataFrame:
     """Player-game rows with ENTERING features. Upcoming games may be appended as
     rows with NaN stats and is_next=True -- they get features, not targets.
@@ -161,6 +192,7 @@ def build(rows: pd.DataFrame, out_players: dict | None = None) -> pd.DataFrame:
     team = _team_games(d)
     d = d.merge(team, on=["GAME_ID", "team"], how="left")
     d = d.merge(_vacated(d, out_players), on=["GAME_ID", "team"], how="left")
+    d = d.merge(_elo(d), on=["GAME_ID", "team"], how="left")
     opp = team.rename(columns={"team": "opp", "pace_in": "opp_pace_in"})
     opp = opp[["GAME_ID", "opp", "opp_pace_in"] + [f"allow_{s}_in" for s in STATS]].rename(
         columns={f"allow_{s}_in": f"opp_allow_{s}_in" for s in STATS})
@@ -170,8 +202,10 @@ def build(rows: pd.DataFrame, out_players: dict | None = None) -> pd.DataFrame:
     return d.sort_values(["game_date", "GAME_ID", "PLAYER_ID"]).reset_index(drop=True)
 
 
-def features(stat: str, vacated: bool = True) -> list:
-    base = (["vac_usage", "vac_share"] if vacated else []) + ["home", "rest_days", "b2b", "games_before", "season_games_before", "new_season",
+# ELO GAP: built and A/B-gated 2026-10-12 (no change in MAE or calibration in any of the
+# four stats -- pace and defence already carry team strength), so it is OFF by default.
+def features(stat: str, vacated: bool = True, elo: bool = False) -> list:
+    base = (["vac_usage", "vac_share"] if vacated else []) + (["elo_diff", "elo_abs"] if elo else []) + ["home", "rest_days", "b2b", "games_before", "season_games_before", "new_season",
             "min_last", "min_ewm3", "min_ewm10", "min_ewm40", "min_sd10", "usage_pm10",
             "pace_in", "opp_pace_in", f"opp_allow_{stat}_in", "day_of_season", f"{stat}_last"]
     rates = [f"{c}_pm{k}" for c in RATE_COLS for k in (10, 40)]
@@ -181,9 +215,9 @@ def features(stat: str, vacated: bool = True) -> list:
 class StatModel:
     """Mean forecast (Poisson GBM) + NB dispersion for one stat."""
 
-    def __init__(self, stat: str, seed: int = 0, vacated: bool = True):
+    def __init__(self, stat: str, seed: int = 0, vacated: bool = True, elo: bool = False):
         self.stat = stat
-        self.cols = features(stat, vacated)
+        self.cols = features(stat, vacated, elo)
         self.seed = seed
         self.model = None
         self.disp = None
