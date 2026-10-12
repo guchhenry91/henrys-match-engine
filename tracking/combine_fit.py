@@ -86,7 +86,10 @@ def record(path: Path, priced: list, now: datetime) -> int:
             tip = tip.replace(tzinfo=timezone.utc)
         if now >= tip:
             continue                                  # never a quote from after tip-off
-        log[key] = {"game_id": str(p["game_id"]), "player_id": int(p["player_id"]),
+        pid = p["player_id"]
+        # NBA/MLB ids are numbers; NFL's are gsis strings ("00-0039875").
+        pid = int(pid) if str(pid).lstrip("-").isdigit() else str(pid)
+        log[key] = {"game_id": str(p["game_id"]), "player_id": pid,
                     "market": p["market"], "line": float(p["line"]), "tipoff": str(p["tipoff"]),
                     "p_model": round(over[0], 5), "p_book": round(over[1], 5),
                     "seen_at": now.isoformat(timespec="seconds"), "y": None}

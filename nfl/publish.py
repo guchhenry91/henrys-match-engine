@@ -945,7 +945,11 @@ def _rebuilt_weights(payload) -> None:
     now = datetime.now(timezone.utc)
     priced = [dict(p, tipoff=p.get("kickoff")) for markets in (payload.get("game_props") or {}).values()
               for ps in (markets or {}).values() for p in ps or [] if p.get("engine")]
-    combine_fit.record(forecast_board.PRICED_LOG, priced, now)
+    try:
+        combine_fit.record(forecast_board.PRICED_LOG, priced, now)
+    except Exception as exc:                 # logging lines must never sink the board
+        print(f"::warning::combine weights: priced lines not logged ({type(exc).__name__}: {exc})")
+        return
     try:
         stats = picks.grading_stats(config.CURRENT_SEASON)
         covered = picks.covered_games(stats)

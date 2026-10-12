@@ -80,3 +80,22 @@ def test_folds_keep_a_game_together():
     es = [{"game_id": "g1"}, {"game_id": "g1"}, {"game_id": "g2"}]
     f = cf._folds(es)
     assert f[0] == f[1]
+
+
+def test_record_keeps_nfl_string_player_ids(tmp_path):
+    """The 2026-10-12 05:00 NFL publish crashed on int('00-0039875')."""
+    from datetime import datetime, timezone
+    from tracking import combine_fit as cf
+    path = tmp_path / "lines.json"
+    picks = [{"game_id": "2026_06_BUF_NYJ", "player_id": "00-0039875", "market": "rushing_yards",
+              "line": 55.5, "tipoff": "2026-10-18T17:00:00Z", "side": "over",
+              "p_model": 0.6, "book_p": 0.5, "probability": 0.55},
+             {"game_id": "0022600001", "player_id": 1630596, "market": "points",
+              "line": 20.5, "tipoff": "2026-10-20T23:00:00Z", "side": "over",
+              "p_model": 0.6, "book_p": 0.5, "probability": 0.55}]
+    now = datetime(2026, 10, 12, 5, 0, tzinfo=timezone.utc)
+    cf.record(path, picks, now)
+    import json
+    ids = sorted(str(e["player_id"]) for e in json.loads(path.read_text()).values()
+                 if isinstance(e, dict) and "player_id" in e)
+    assert "00-0039875" in ids
