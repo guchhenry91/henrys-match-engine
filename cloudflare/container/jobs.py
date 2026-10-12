@@ -39,6 +39,9 @@ JOBS = {
     "lock": [[
         ("Freeze picks due to kick off", PY + "scripts.lock_picks", "gate"),
         ("Closing prices for locked props", PY + "scripts.close_props", "soft"),
+        # Free and idle-cheap: NFL props grade within minutes of nflverse publishing,
+        # not at the next soccer refresh (up to three hours later overnight).
+        ("Grade finished NFL games", PY + "scripts.grade_nfl", "soft"),
     ]],
     "leagues": [
         [   # the fast lock job (saved on its own, like its own commit)

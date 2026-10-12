@@ -1043,10 +1043,10 @@ function render(k){
   app.innerHTML=h; chrome(); window.scrollTo(0,0);
 }
 
-// THE MODEL REBUILD (docs/REBUILD_PLAN.md, agreed 2026-10-11). Four independent
-// reviews found the prop models read bookmakers' lines backwards; until each sport's
-// rebuilt model passes its gate, every model pick is shown for tracking only.
-const REBUILD={on:true,since:"11 Oct 2026"};
+// THE MODEL REBUILD (docs/REBUILD_PLAN.md, 11-12 Oct 2026): done. `on` keeps each
+// rebuilt sport's banner and proving panel; `betsPaused` keeps model picks off the
+// Bet list until their market is "on target" on the proving panel.
+const REBUILD={on:true,since:"11 Oct 2026",betsPaused:true};
 // THE PROVING PANEL (tracking/proving.py): per market, the rebuilt model's stated
 // chance against what landed, with its 95% range. Real money waits for "on target".
 function provingPanel(pv, updated, engine){
@@ -1083,9 +1083,10 @@ function rebuildBanner(k){
       `and publishes a side only at ${Math.round(100*eng.publish_bar)}%+ where the forecast agrees.${extra}${rec} `+
       `Still proving itself — judge it by whether its picks win at the rate stated.</div>`+provingPanel(src.proving, src.updated, (src.engine||{}).name);
   }
-  return `<div class="glass warnbox">Model rebuild in progress (since ${REBUILD.since}). `+
-    `Picks shown here come from the old model and are kept for tracking only — not betting advice. `+
-    `Each sport switches to the rebuilt model once it passes its test; the record keeps grading meanwhile.</div>`;
+  // Rebuild finished 12 Oct 2026: every sport's props run the rebuilt model (banners
+  // above) and the team-winner models passed their calibration check, so pages
+  // without a rebuilt engine carry no banner.
+  return "";
 }
 
 // CONFIDENCE, THE ONE THE RECORD IS KEPT BY. These are leagues/publish.py's
@@ -1905,9 +1906,9 @@ function viewBetList(){
   let h=sectHead("No model needed","Price edges · bet365 pays more than the sharp market",
     "bet365's price beats the Betfair Exchange (soccer) or Pinnacle (NFL) fair price by 3%+ — positive expected value whatever any model says. Take the price shown or better; each edge is tracked and graded.");
   h+=priceEdges();
-  if(REBUILD.on){
-    h+=sectHead("Model bets paused","Bet list · paused for the rebuild",
-      "No model pick is recommended as a bet while the models are rebuilt. The price edges above need no model.");
+  if(REBUILD.betsPaused){
+    h+=sectHead("Model bets paused","Bet list · until a market proves itself",
+      "No model pick is recommended as a bet until its market is \u201con target\u201d after 300 graded picks (see each sport\u2019s \u201cIs it working?\u201d panel). The price edges above need no model.");
     h+=trustLine();
     return h;
   }
