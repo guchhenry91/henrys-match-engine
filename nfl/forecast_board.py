@@ -152,9 +152,10 @@ HELD = {"anytime_touchdown"}
 
 
 def select(priced: list) -> list:
-    # THE PRICE CHECK (tracking/pricecheck.py): only picks worth betting at bet365.
+    # VALUE OR PROVING (tracking/pricecheck.qualifies, owner 2026-10-12): +3% at bet365,
+    # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
-    priced = [p for p in priced if pricecheck.passes(p)]
+    priced = [p for p in priced if pricecheck.qualifies(p)]
     keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
                    and p["market"] not in HELD],
                   key=lambda p: -p["probability"])

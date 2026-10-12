@@ -223,3 +223,16 @@ Every point they raised is addressed:
 8. **Ops**: jobs run the `tested` branch, moved by the deploy workflow only after the
    tests pass; NFL grading on the lock job refreshes `record_rebuilt`/`proving` and waits
    30 minutes between feed downloads; NFL publish no longer crashes on string player ids.
+
+## Value and proving picks (owner's decision, 2026-10-12)
+The strict price check left every board empty (MLB: 131 lines priced, best -3.5% at bet365),
+so no market could ever build the record it needs. Boards now carry two kinds of pick
+(`tracking/pricecheck.qualifies`):
+- **value**: +3% expected return at bet365. Eligible for the Bet list once its market is proven.
+- **proving**: not value at this price, but a real contender -- at the chance bar, the model
+  at least 2 points SURER than the book's fair chance (`MIN_BACKING`) and within 15 points of
+  it. Frozen and graded so the market can prove itself; shown "Proving pick - not a bet";
+  never a value verdict or stake. A model merely equal to the book is the book's pick and
+  is not published. Soccer picks with no price yet are proving picks on the model alone
+  (it was checked on 1,583 real outcomes) and now freeze like any other.
+- MLB RBI unders are no longer published (juiced side; live record 43-29 vs the book's 68%).

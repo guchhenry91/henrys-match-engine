@@ -142,8 +142,8 @@ def lock_players(now, window=None) -> list:
             continue
         if pick.get("time_suspect"):
             continue             # a kickoff we do not trust is never locked against
-        if pick.get("awaiting_price"):
-            continue             # no price yet: the price check has not passed (tracking/pricecheck)
+        if pick.get("awaiting_price") and pick.get("pick_kind") != "proving":
+            continue             # no price yet and not a proving pick (tracking/pricecheck.qualifies)
         hours = _hours_out(pick["date"], now)
         if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
             continue
@@ -178,6 +178,8 @@ def lock_players(now, window=None) -> list:
             log[key]["engine"] = pick["engine"]       # which model made it
         if pick.get("price_check"):
             log[key]["price_check"] = pick["price_check"]   # the price it was approved at
+        if pick.get("pick_kind"):
+            log[key]["pick_kind"] = pick["pick_kind"]       # value or proving
         # The price at lock and the value verdict (leagues/lockstamp.py).
         lockstamp.stamp_prop(log[key], league, pick["id"], now,
                              prop_store=prop_store, shots_store=shots_store)

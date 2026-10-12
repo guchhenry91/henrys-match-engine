@@ -51,7 +51,9 @@ ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
 TOP_PER_MARKET = 3
 HISTORY_SEASONS = 6
-OVER_ONLY = {"hr"}
+# RBI unders are the juiced side (about 1.36): the live record went 43-29 (60%) where the
+# book said 68% (props-trader review, 2026-10-11), so only overs are published there.
+OVER_ONLY = {"hr", "rbi"}
 # Audit 2026-10-12: every market trusts the book by default (combine_fit.prior), and
 # strikeouts are held (27 real lines: model said 54% over, 30% landed).
 RULE = {"hits": "combined", "rbi": "combined", "strikeouts": "held", "team_runs": "combined",
@@ -81,9 +83,10 @@ def combine(p_model: float, p_book: float, w) -> float:
 
 
 def select(priced: list) -> list:
-    # THE PRICE CHECK (tracking/pricecheck.py): only picks worth betting at bet365.
+    # VALUE OR PROVING (tracking/pricecheck.qualifies, owner 2026-10-12): +3% at bet365,
+    # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
-    priced = [p for p in priced if pricecheck.passes(p)]
+    priced = [p for p in priced if pricecheck.qualifies(p)]
     keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
                    and (p["market"] not in OVER_ONLY or p["side"] == "over")],
                   key=lambda p: -p["probability"])

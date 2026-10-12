@@ -49,3 +49,29 @@ def test_one_pick_per_player_keeps_the_highest_stated_chance():
     c = {"game_id": "g", "player_id": 8, "probability": 0.65, "price_check": {"ev": 0.04}}
     out = pricecheck.one_per_player({"shots": [a, c], "goal": [b]})
     assert out == {"shots": [a, c], "goal": []} and b["on_board"] is False
+
+
+def test_qualifies_value_proving_or_nothing():
+    """Owner 2026-10-12: real contenders only -- value at bet365, or the model backs it."""
+    value = {"probability": 0.66, "p_model": 0.70, "book_p": 0.62, "book_price": 1.62, "book": "bet365"}
+    assert pricecheck.qualifies(value) and value["pick_kind"] == "value"
+    proving = {"probability": 0.66, "p_model": 0.70, "book_p": 0.66, "book_price": 1.48, "book": "bet365"}
+    assert pricecheck.qualifies(proving) and proving["pick_kind"] == "proving"
+    weaker = {"probability": 0.66, "p_model": 0.60, "book_p": 0.66, "book_price": 1.45, "book": "bet365"}
+    assert not pricecheck.qualifies(weaker)                    # model less sure than the book
+    wild = {"probability": 0.70, "p_model": 0.90, "book_p": 0.60, "book_price": 1.55, "book": "bet365"}
+    assert not pricecheck.qualifies(wild)                      # 30 points from the book
+
+
+def test_a_proving_pick_never_gets_a_value_verdict():
+    from tracking import value
+    pick = {"probability": 0.66, "p_model": 0.70, "book_p": 0.62, "book_price": 1.80,
+            "book": "bet365", "pick_kind": "proving"}
+    payload = {"props": {"hits": {"picks": [pick]}}}
+    value.annotate_line_board(payload)
+    assert pick["value"]["value"] is False and pick["value"]["stake"] == 0.0
+
+
+def test_a_model_merely_equal_to_the_book_is_not_backing_it():
+    equal = {"probability": 0.77, "p_model": 0.77, "book_p": 0.77, "book_price": 1.25, "book": "bet365"}
+    assert not pricecheck.qualifies(equal)

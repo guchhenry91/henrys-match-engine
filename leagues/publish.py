@@ -799,15 +799,22 @@ def build(league: str = "PL") -> dict:
                                 else forecast_board.scorer_fair(pc_pick["book_price"]))
                         pc_pick.update(probability=p_chk, p_model=prob, book_p=fair)
                         shown = p_chk
-                    pc = pricecheck.check(pc_pick, is_bet365=pc_pick.get("book") == "bet365")
+                    # VALUE OR PROVING (owner, 2026-10-12): +3% at bet365, or a real
+                    # contender the model backs. With no price yet the pick is a proving
+                    # pick on the model alone -- the soccer model was checked on 1,583
+                    # real outcomes -- and is frozen and graded like any other.
+                    qualifies = pricecheck.qualifies(pc_pick, is_bet365=pc_pick.get("book") == "bet365")
+                    pc = pc_pick["price_check"]
                     awaiting_price = pc.get("reason") == "no price"
-                    if not awaiting_price and (not pc.get("ok") or shown < bar / 100.0) and is_new:
-                        continue                            # likely, but not worth the price
+                    if awaiting_price:
+                        pc_pick["pick_kind"] = "proving"
+                    elif (not qualifies or shown < bar / 100.0) and is_new:
+                        continue                            # not a contender at this price
                 wait_for_xi = (PROPS_REBUILT and is_new and not lineup_ready
                                and hours_out > forecast_board.XI_WAIT_HOURS
                                and _lock_window() <= LOCK_WINDOW_HOURS)
                 if (hours_out <= _lock_window() and not bool(m.get("time_suspect"))
-                        and not (awaiting_price and is_new) and not wait_for_xi):
+                        and not wait_for_xi):
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=shown, p_model=prob,
@@ -827,6 +834,8 @@ def build(league: str = "PL") -> dict:
                         pe["engine"] = p["engine"]
                     if is_new and pc_pick.get("price_check"):
                         pe["price_check"] = pc_pick["price_check"]  # the price it was approved at
+                    if is_new and pc_pick.get("pick_kind"):
+                        pe["pick_kind"] = pc_pick["pick_kind"]      # value or proving
                     # The price at lock and the value verdict (leagues/lockstamp.py).
                     lockstamp.stamp_prop(pe, league, m["match_id"], now)
                 else:
@@ -861,6 +870,7 @@ def build(league: str = "PL") -> dict:
                     "lineup_confirmed": lineup_ready,
                     "gradeable": can_grade,
                     "price_check": pc_pick.get("price_check"),
+                    "pick_kind": pc_pick.get("pick_kind"),
                     # No price yet: shown so the odds sync fetches one, never locked
                     # (scripts/lock_picks.py honours this too).
                     "awaiting_price": awaiting_price and pprov,

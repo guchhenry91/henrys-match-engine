@@ -1459,13 +1459,17 @@ function heldTag(p){
 function priceCheckBits(x){
   const c=x&&x.price_check; if(!c) return "";
   const worth=c.min_price?` · worth it at ${c.min_price}+`:"";
-  if(x.awaiting_price) return `<span class="bsn" title="No price on record yet; the pick is not locked until one is fetched and passes the price check.">Awaiting price${worth}</span>`;
-  if(c.ref_price==null) return "";
+  // VALUE OR PROVING (owner, 2026-10-12): a proving pick is a real contender the model
+  // backs, frozen and graded so its market can prove itself -- never a bet at this price.
+  const proving=x.pick_kind==="proving";
+  const tag=proving?`<span class="mk w" title="A contender the model backs: chance at the bar, the model at least as sure as the bookmaker and within 15 points of it. Frozen and graded to prove the market; not a bet at this price.">Proving pick · not a bet</span> `:"";
+  if(x.awaiting_price) return `${tag}<span class="bsn" title="No price on record yet.">Awaiting price${worth}</span>`;
+  if(c.ref_price==null) return tag;
   const est=c.basis==="estimate"?" (est.)":"";
   const ev=`${c.ev>=0?"+":""}${(100*c.ev).toFixed(1)}%`;
-  const why=c.ok?"":c.reason==="forecast too far from the book"?"Forecast too far from the book · ":"Price too short · ";
-  const tip=`Breaks even at ${c.break_even_price}; worth taking at ${c.min_price} or better (+3% expected return). At bet365${est} ${Number(c.ref_price).toFixed(2)} the expected return is ${ev} per unit. Only picks at +3% or better, with the forecast within 15 points of the book, are published.`;
-  return `<span class="bsn${c.ok?"":" b365"}" title="${esc(tip)}">${why}bet365${est} ${Number(c.ref_price).toFixed(2)}${worth} · ${ev}</span>`;
+  const why=c.ok||proving?"":c.reason==="forecast too far from the book"?"Forecast too far from the book · ":"Price too short · ";
+  const tip=`Breaks even at ${c.break_even_price}; worth taking at ${c.min_price} or better (+3% expected return). At bet365${est} ${Number(c.ref_price).toFixed(2)} the expected return is ${ev} per unit.`;
+  return `${tag}<span class="bsn${c.ok?"":" b365"}" title="${esc(tip)}">${why}bet365${est} ${Number(c.ref_price).toFixed(2)}${worth} · ${ev}</span>`;
 }
 function valueBits(x, sport, market){
   const pc=priceCheckBits(x);

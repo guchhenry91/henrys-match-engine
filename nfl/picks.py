@@ -370,6 +370,7 @@ def _lock_props(payload, log, now):
                 # The price the pick was approved at (tracking/pricecheck): profit and
                 # closing-line value are scored there, at bet365 (third review).
                 entry["price_check"] = pick.get("price_check")
+                entry["pick_kind"] = pick.get("pick_kind")      # value or proving
                 entry["player_id"] = pick.get("player_id")
                 entry["game_id"] = pick.get("game_id")
                 # Same reason as the games: the settled row has to name the

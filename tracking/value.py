@@ -98,6 +98,9 @@ def annotate_line_board(payload: dict) -> int:
     for block in (payload.get("props") or {}).values():
         for p in (block or {}).get("picks") or []:
             v = assess(p.get("probability"), p.get("book_p"), p.get("book_price"), _is_bet365(p))
+            if v and p.get("pick_kind") == "proving":
+                # A proving pick failed the price check: never a value verdict or stake.
+                v.update(value=False, stake=0.0, note="proving pick: not value at this price")
             p["value"] = v
             n += bool(v and v.get("value"))
     return n
@@ -120,8 +123,11 @@ def annotate_soccer_player(pick: dict) -> dict | None:
     fair = None if b365 else pick.get("book_p")
     # Shots / on target are judged on the model pulled toward the book's fair chance
     # (tracking/trust.soccer_value_p); a goal pick has only bet365's vigged price.
-    return assess(trust.soccer_value_p(pick.get("p_pick"), fair, "prop") if fair is not None
-                  else pick.get("p_pick"), fair, pick.get("book_price"), b365)
+    v = assess(trust.soccer_value_p(pick.get("p_pick"), fair, "prop") if fair is not None
+               else pick.get("p_pick"), fair, pick.get("book_price"), b365)
+    if v and pick.get("pick_kind") == "proving":
+        v.update(value=False, stake=0.0, note="proving pick: not value at this price")
+    return v
 
 
 def annotate_game_props(game_props: dict) -> int:

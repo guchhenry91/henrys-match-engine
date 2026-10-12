@@ -14,8 +14,9 @@ sport, now carries:
   ev                the expected return per unit staked at ref_price;
   ok                ev >= MIN_EV and the forecast within MAX_GAP of the book.
 
-A pick with ok=False is NOT published on the board (it stays on the game page,
-flagged short_price). A pick with no price at all cannot be checked and is not
+A pick with ok=False can still be published as a PROVING pick when the model backs it
+(`qualifies`); it is never offered as a bet. Otherwise it stays on the game page,
+flagged short_price. A pick with no price at all cannot be checked and is not
 published either -- except where the caller lets it wait for a price (soccer shots,
 whose price is fetched only for picks already on the board) without ever locking it.
 """
@@ -36,6 +37,10 @@ ONE_SIDED = {"anytime_touchdown", "hr", "shots", "sot"}
 # found the biggest disagreements landed 49%. Beyond this gap (in chance, same side)
 # no pick is published, as WINNER_GAP does for team winners (tracking/value.py).
 MAX_GAP = 0.15
+# A proving pick needs the model GENUINELY behind it: at least this much surer than the
+# book's fair chance. A model merely equal to the book adds nothing -- that is the
+# book's pick, and the live record showed those land below the book (owner, 2026-10-12).
+MIN_BACKING = 0.02
 
 
 def margin_for(pick: dict) -> float:
@@ -83,6 +88,37 @@ def check(pick: dict, prob_key: str = "probability", fair_key: str = "book_p",
 
 def passes(pick: dict, **kw) -> bool:
     return check(pick, **kw)["ok"]
+
+
+def model_backs(pick: dict, fair_key: str = "book_p") -> bool:
+    """The forecast is at least MIN_BACKING surer than the book's fair chance of the same
+    side, and within MAX_GAP of it: book and model both favour it, the model genuinely
+    more, without the wild disagreements that did worst in the 2026-10-01 audit."""
+    g = gap(pick, fair_key)
+    try:
+        return (g is not None and g <= MAX_GAP
+                and float(pick["p_model"]) >= float(pick[fair_key]) + MIN_BACKING)
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
+def qualifies(pick: dict, **kw) -> bool:
+    """Owner's decision, 2026-10-12: the boards carry two kinds of pick.
+      value    -- passes the price check: +3% at bet365. Eligible for the Bet list once
+                  its market is proven.
+      proving  -- not value at this price, but a real contender: the caller's chance bar
+                  is met AND the model backs it (model_backs). Frozen and graded so the
+                  market can prove itself; never offered as a bet.
+    Anything else (a forecast weaker than the book, or far from it) is not published.
+    Sets pick["pick_kind"]; returns True for either kind."""
+    ok = check(pick, **kw)["ok"]
+    if ok:
+        pick["pick_kind"] = "value"
+        return True
+    if model_backs(pick, kw.get("fair_key", "book_p")):
+        pick["pick_kind"] = "proving"
+        return True
+    return False
 
 
 def one_per_player(board: dict) -> dict:

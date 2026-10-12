@@ -26,11 +26,14 @@ def test_select_caps_each_game():
     assert len(fb.select(priced)) == fb.TOP_PER_MARKET
 
 
-def test_select_drops_a_likely_pick_priced_too_short():
+def test_select_keeps_a_short_priced_contender_as_proving_only():
     """70% at 1.30 loses money (needs 1.43): the price check keeps it off the board."""
-    short = dict(_p("short", 0.70, 0.70), book_price=1.30, book="bet365")
+    short = dict(_p("short", 0.70, 0.70), book_price=1.30, book="bet365", book_p=0.66)   # model backs it
     fair = dict(_p("fair", 0.70, 0.70), book_price=1.60, book="bet365")
     out = fb.select([short, fair])
-    assert [p["player"] for p in out] == ["fair"]
+    # Owner 2026-10-12: a likely pick the model backs is published as a PROVING pick --
+    # frozen and graded, never a bet at that price. Only the fair-priced one is value.
+    assert sorted(p["player"] for p in out) == ["fair", "short"]
+    assert short["pick_kind"] == "proving" and fair["pick_kind"] == "value"
     assert short["price_check"]["reason"] == "price too short"
     assert short["price_check"]["break_even_price"] == 1.43
