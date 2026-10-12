@@ -41,7 +41,8 @@ def _recently_tried(now) -> bool:
         last = pd.Timestamp(json.loads(ATTEMPT.read_text(encoding="utf-8"))["at"])
     except Exception:
         return False
-    return (now - last) < pd.Timedelta(minutes=RETRY_MINUTES)
+    # A stamp from the future (clock skew, a test's fixed date) is not "recent".
+    return pd.Timedelta(0) <= (now - last) < pd.Timedelta(minutes=RETRY_MINUTES)
 
 
 def due(log: dict, now) -> list:

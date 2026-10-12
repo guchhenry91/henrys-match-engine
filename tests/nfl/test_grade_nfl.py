@@ -7,11 +7,19 @@ the twice-daily NFL refresh. This rides the frequent lock job instead.
 import json
 
 import pandas as pd
+import pytest
 
 from nfl import picks
 from scripts import grade_nfl
 
 NOW = pd.Timestamp("2026-09-14T10:00:00Z")
+
+
+@pytest.fixture(autouse=True)
+def _private_attempt_file(tmp_path, monkeypatch):
+    """Never read the live retry stamp (data-raw/nfl/_grade_attempt.json): on the
+    server that file exists and made a test skip its download (2026-10-12)."""
+    monkeypatch.setattr(grade_nfl, "ATTEMPT", tmp_path / "_grade_attempt.json")
 
 
 def _entry(kickoff, graded=None, void=False):
