@@ -1,15 +1,8 @@
 {
   "_note": "bet365's 6 Scores Challenge selection. bet365 PRE-SELECT the six Premier League fixtures each week -- you cannot choose them -- and there is no feed for them, so this file is filled in from their published list. Keys are 'Home|Away' in CANONICAL club names as they appear in data/leagues/pl.json. Leave `fixtures` empty when the week's six are not published yet: the board then says so rather than inventing a selection.",
   "_expectation": "MEASURED, not hoped for. On the held-out season the model's correct-score accuracy in the Premier League is 11.84% per fixture, against 12.37% for simply writing 1-1 on every line (scripts/correct_score_check.py). Expect ~0.7 correct out of 6, with 3+ correct in roughly 3% of weeks. This board is published as an honest test of that, not as a tip sheet.",
-  "_verified_on": "2026-10-08",
-  "matchweek": 6,
-  "fixtures": [
-    "Chelsea|Bournemouth",
-    "Aston Villa|Brentford",
-    "Manchester United|Tottenham",
-    "Crystal Palace|Nottingham Forest",
-    "Hull|Everton",
-    "Liverpool|Manchester City"
-  ],
-  "_source": "Verified 2026-10-08: aceodds.com's 6 Scores Challenge page now lists all six confirmed (none TBC) for the 10th/11th October window, submission deadline Saturday 10 Oct 15:00 -- Chelsea v Bournemouth, Aston Villa v Brentford, Manchester United v Tottenham, Crystal Palace v Nottingham Forest, Hull v Everton, Liverpool v Manchester City. All six match canonical names and dates exactly against pl.json's matchweek 6 list (10/11 Oct 2026), which also corroborates them."
+  "_verified_on": "2026-10-13",
+  "matchweek": 7,
+  "fixtures": [],
+  "_source": "Checked 2026-10-13 for matchweek 7 (17/18 Oct window): everytip.co.uk currently shows international qualifiers (Ireland v Austria etc, no PL fixtures); aceodds.com still shows the prior round (Chelsea v Bournemouth and co., 10/11 Oct); bettingodds.com's newest indexed article is gameweek 5 (19/20 Sep); olbg.com/footyaccumulators/cityam pages found were all older rounds (April, September) or mixed in non-PL competitions. No aggregator has yet published a dated, confirmed six for matchweek 7, so fixtures left empty rather than guessed -- due for a re-check closer to kickoff."
 }
