@@ -12,5 +12,6 @@ def test_the_tier_rank_puts_strong_then_solid_first():
 
 def test_every_board_uses_it():
     # Today, Best Picks, soccer props, NFL games + props, NBA games + props, UCL,
-    # MLB games + props. UCL sorts twice: matches bet365 has priced, then the unpriced.
-    assert HTML.count(".sort(strongFirst(") == 11
+    # MLB games + props. UCL sorts twice: matches bet365 has priced, then the unpriced;
+    # and once more for its player props.
+    assert HTML.count(".sort(strongFirst(") == 12

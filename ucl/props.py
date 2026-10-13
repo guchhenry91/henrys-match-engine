@@ -154,6 +154,9 @@ def forecast(fixtures: list, news: dict, now, season: int) -> dict:
     frame = fc.build(league)
     train = frame[~frame["is_next"] & (frame["season"] >= year - fc.TRAIN_SEASONS)]
     model = fc.PropForecast().fit(train)
+    # Each player's last five league appearances, for the board's form tiles.
+    recent = (league.sort_values("date").groupby("player_id").tail(5)
+              .groupby("player_id")[["goals", "shots", "sot"]].agg(list).to_dict("index"))
     out = {}
     for b in batches(fixtures):
         rows = features(league, b, year)
@@ -182,7 +185,9 @@ def forecast(fixtures: list, news: dict, now, season: int) -> dict:
                 "p_shots_2plus": round(100 * float(pred["shots"][i]), 1),
                 "start_pct": round(100 * float(roles[i, 2]), 1),
                 "appearance_pct": round(100 * float(roles[i, 1] + roles[i, 2]), 1),
-                "penalty_taker": bool((r.pen_share or 0) >= 0.5)})
+                "penalty_taker": bool((r.pen_share or 0) >= 0.5),
+                "last_five": {k: [int(x) for x in v]
+                              for k, v in (recent.get(int(r.player_id)) or {}).items()}})
     return out
 
 
@@ -218,6 +223,7 @@ def candidates(fixture: dict, rows: list, odds_store: dict) -> list:
             no_price = pc["price_check"].get("reason") == "no price"
             if no_price:
                 pc["pick_kind"] = "proving"            # on the model alone, as the league does
+                pc["awaiting_price"] = True            # the card shows "worth it at X+"
             elif not ok or pc["probability"] < bar:
                 continue
             out.append({"fixture_id": fixture["fid"], "kickoff": fixture["kickoff"],
@@ -226,9 +232,12 @@ def candidates(fixture: dict, rows: list, odds_store: dict) -> list:
                         "player": r["player"], "team": r["team"],
                         "p_pick": round(float(pc["probability"]), 4), "p_model": round(prob, 4),
                         "start_pct": r.get("start_pct"), "appearance_pct": r.get("appearance_pct"),
+                        "last_five": (r.get("last_five") or {}).get(picks.PROP_MARKETS[market][0], []),
+                        "last_five_line": picks.PROP_MARKETS[market][1],
                         "penalty_taker": r.get("penalty_taker"),
                         "book_price": pc.get("book_price"), "price_check": pc["price_check"],
-                        "pick_kind": pc.get("pick_kind"), "bar": bar, "engine": ENGINE})
+                        "pick_kind": pc.get("pick_kind"), "awaiting_price": pc.get("awaiting_price", False),
+                        "bar": bar, "engine": ENGINE})
     return out
 
 
@@ -250,7 +259,8 @@ def lock_one(log: dict, pick: dict, now) -> dict:
                         confidence=_confidence(pick["p_pick"]), kickoff=pick["kickoff"],
                         now=now, bar=pick.get("bar"), appearance_pct=pick.get("appearance_pct"),
                         p_model=pick.get("p_model"))
-    for k in ("fixture_id", "home", "away", "engine", "pick_kind", "price_check", "start_pct"):
+    for k in ("fixture_id", "home", "away", "engine", "pick_kind", "price_check", "start_pct",
+              "last_five", "last_five_line"):
         if pick.get(k) is not None:
             e[k] = pick[k]
     if pick.get("book_price"):
@@ -409,6 +419,7 @@ def build(matches: list, news: dict, now=None, season: int | None = None,
                          "team": e["team"], "p_pick": e["p_pick"], "p_model": e.get("p_model"),
                          "pick_kind": e.get("pick_kind"), "price_check": e.get("price_check"),
                          "book_price": e.get("odds"), "start_pct": e.get("start_pct"),
+                         "last_five": e.get("last_five"), "last_five_line": e.get("last_five_line"),
                          "locked": True, "locked_at": e.get("locked_at"), "engine": ENGINE})
     try:
         graded = grade(log, now, client, espn_opener)
