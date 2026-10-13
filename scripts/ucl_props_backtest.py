@@ -95,9 +95,38 @@ def verdict(pub: dict) -> dict:
             "why": None if ok else f"said {pub['said']:.1%}, landed {pub['landed']:.1%}"}
 
 
+ESPN = ROOT / "data-raw" / "ucl" / "espn_history.json"
+
+
+def espn_fixtures(raw: dict) -> dict:
+    """The same fixtures with ESPN's player lines (shots INCLUDING blocked, as bet365's
+    Opta-settled markets count them) in API-Football's shape (ucl/espn.py)."""
+    from ucl.espn import same_club
+    esp = json.loads(ESPN.read_text(encoding="utf-8"))["fixtures"]
+    out = {}
+    for fid, f in raw.items():
+        e = esp.get(fid)
+        if not e:
+            continue
+        players = []
+        for p in e["players"]:
+            club = f["home"] if same_club(p["team"], f["home"]) else (
+                f["away"] if same_club(p["team"], f["away"]) else None)
+            if club:
+                players.append({"team": club, "player": p["player"],
+                                "minutes": 90 if p["played"] else 0,
+                                "substitute": not p["started"], "goals": p["goals"],
+                                "shots": p["shots"], "sot": p["sot"]})
+        out[fid] = {**f, "players": players}
+    return out
+
+
 def main() -> int:
     t0 = time.time()
     raw = json.loads(HISTORY.read_text(encoding="utf-8"))["fixtures"]
+    source = "espn" if "--espn" in sys.argv else "api-football"
+    if source == "espn":
+        raw = espn_fixtures(raw)
     fixtures = {}
     for i, (fid, f) in enumerate(sorted(raw.items())):
         h, a = to_understat(f["home"]), to_understat(f["away"])
@@ -145,7 +174,7 @@ def main() -> int:
     except Exception:
         lg = {}
     report = {"generated_at": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
-              "seasons": seasons, "fixtures": len(fixtures), "candidates": candidates,
+              "outcomes_from": source, "seasons": seasons, "fixtures": len(fixtures), "candidates": candidates,
               "joined_to_api": joined, "bars": BARS, "per_match": PER_MATCH,
               "min_start": MIN_START, "rule": {"min_published": MIN_PUBLISHED, "slack": SLACK},
               "markets": {}}
@@ -166,7 +195,8 @@ def main() -> int:
         print(f"{m}: base {out['base_rate']} | all said {out['xi']['said_all']} | "
               f"XI ECE {out['xi']['calibration']['ece']} pub {out['xi']['published']} "
               f"-> {'PASS' if out['pass'] else 'FAIL'} {out['xi']['verdict'].get('why') or ''}", flush=True)
-    REPORT.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
+    path = REPORT.with_name("props_backtest_report_espn.json") if source == "espn" else REPORT
+    path.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(f"done in {time.time() - t0:.0f}s")
     return 0
 
