@@ -728,14 +728,19 @@ pick more than 15 points from the book is flagged "model disagrees". No bet365 p
 **The fast locker freezes UCL picks too** (`lock_picks.lock_ucl`, shared
 `ucl.publish.lock_one`), so a slow soccer refresh can no longer lose a match.
 
-**Player props (2026-10-13, owner's request): anytime scorer and 1+ on target only,
+**Player props (2026-10-13, owner's request): anytime scorer, 2+ shots, 1+ on target,
 matches between two big-five clubs only** (`ucl/props.py`, names `ucl/props_names.py`).
 Tested first: `scripts/ucl_props_backtest.py` priced 307 past UCL matches (2021-22..2025-26,
 stats fetched by `.github/workflows/ucl-player-history.yml` ->
 `data-raw/ucl/player_history.json`) from league form alone -> scorer 166 picks said
 47.5% / landed 45.2%, on target 458 said 70.3% / landed 72.9% (league gate 47.2/45.4,
-68.9/68.5): PASS. 2+ shots NOT published: API-Football's shot counts leave out blocked
-shots (9.6 a side vs Understat's ~17), so it would be graded on another definition.
+68.9/68.5): PASS. 2+ SHOTS: API-Football's player shots leave out blocked shots (9.6 a
+side), but bet365 settles on Opta, which counts them -- so shots are tested and GRADED
+from ESPN's free per-player totalShots, blocked included (`ucl/espn.py`,
+`data-raw/ucl/espn_history.json`, `--espn` -> `props_backtest_report_espn.json`):
+423 picks before lineups said 72.9 / landed 70.5 = PASS (how these picks lock; with the
+XI it reads 74.1 / 68.9, so confirmed-starter numbers run hot). Shots and on target
+have no bet365 price -> proving only.
 Same rules as league props: start >= 75%, bars 40% / 62%, top 3 a match, one pick per
 player; scorer checked against bet365's anytime price (`sync_ucl_odds`, bet 92) ->
 value or proving; on target has no bet365 price -> proving only. Forecast cached in

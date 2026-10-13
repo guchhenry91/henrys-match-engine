@@ -69,3 +69,30 @@ def test_a_player_who_did_not_play_is_void(monkeypatch):
                      "statistics": [{"games": {"minutes": None}, "shots": {}, "goals": {}}]}]}]
     out = props.build([], {}, now="2026-10-15T00:00:00Z", odds_store={}, client=Client())
     assert out["record"]["sot"]["void"] == 1
+
+
+def test_shots_pick_is_graded_from_espn_blocked_shots_included(monkeypatch):
+    import io
+    import json as _json
+    from ucl import espn
+    monkeypatch.setattr(espn, "PACE", 0)
+    rows = [_row("Erling Haaland", 30, 50) | {"p_shots_2plus": 80.0}]
+    monkeypatch.setattr(props, "forecast", lambda *a, **k: {"77": rows})
+    match = {"id": 77, "kickoff": KICK, "home": "Manchester City", "away": "Paris Saint Germain"}
+    out = props.build([match], {}, now="2026-10-14T18:00:00Z", odds_store={})
+    assert [(p["market"], p.get("locked")) for p in out["upcoming"]] == [("shots", True)]
+
+    def opener(req, timeout=30):
+        url = req.full_url
+        if "scoreboard" in url:
+            body = {"events": [{"id": "5", "competitions": [{"competitors": [
+                {"homeAway": "home", "team": {"displayName": "Manchester City"}},
+                {"homeAway": "away", "team": {"displayName": "Paris Saint-Germain"}}]}]}]}
+        else:
+            body = {"rosters": [{"team": {"displayName": "Manchester City"}, "roster": [
+                {"athlete": {"displayName": "Erling Haaland"}, "starter": True,
+                 "stats": [{"name": "appearances", "value": 1}, {"name": "totalShots", "value": 3},
+                           {"name": "shotsOnTarget", "value": 1}, {"name": "totalGoals", "value": 0}]}]}]}
+        return io.BytesIO(_json.dumps(body).encode())
+    out = props.build([], {}, now="2026-10-15T00:00:00Z", odds_store={}, espn_opener=opener)
+    assert out["record"]["shots"]["correct"] == 1

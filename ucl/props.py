@@ -1,14 +1,17 @@
-"""Champions League player props: anytime goalscorer and 1+ shot on target.
+"""Champions League player props: anytime goalscorer, 2+ shots, 1+ shot on target.
 
 ONLY WHAT PASSED ITS TEST (scripts/ucl_props_backtest.py, 2026-10-13, 307 past
 Champions League matches between big-five clubs, 2021-22 to 2025-26): priced from
 league form alone, the published picks landed where they said --
   goal  166 picks, said 47.5%, landed 45.2% (league gate: 47.2 / 45.4)
   sot   458 picks, said 70.3%, landed 72.9% (league gate: 68.9 / 68.5)
-2+ SHOTS IS NOT PUBLISHED. API-Football, the only feed with Champions League player
-stats, leaves blocked shots out of its count (9.6 shots a side against Understat's
-~17 for the same clubs), so "2+ shots" would be graded on a different definition from
-the one the model learned -- it "failed" 74% said / 57% landed for that reason.
+2+ SHOTS IS TESTED AND GRADED ON ESPN (ucl/espn.py). bet365 settles shots on Opta,
+which counts blocked shots; API-Football's player shots leave them out (57% landed for
+74% said -- a definition gap, not a model one). On ESPN's counts, blocked included:
+  shots 423 picks before lineups, said 72.9%, landed 70.5% -- PASS, and that is how
+  these picks lock (no Champions League lineup feed). With the XI known it reads
+  74.1 / 68.9, so the confirmed-starter reading runs hot; shots picks have no bet365
+  price anyway and are proving picks only.
 
 Scope: both clubs in the big five (ucl/props_names.py). The model (leagues/forecast.py)
 needs Understat's per-match player data, which exists for nobody else.
@@ -37,7 +40,8 @@ LOG = ROOT / "data-raw" / "ucl" / "props_log.json"
 CACHE = ROOT / "data-raw" / "ucl" / "props_forecast.json"
 STATS = ROOT / "data-raw" / "ucl" / "player_stats.json"
 ENGINE = "forecast-v1-ucl"
-MARKETS = {"goal": ("anytime_pct", 0.40), "sot": ("p_sot_1plus", 0.62)}
+MARKETS = {"goal": ("anytime_pct", 0.40), "shots": ("p_shots_2plus", 0.62),
+           "sot": ("p_sot_1plus", 0.62)}
 MIN_START = 75.0
 PER_MATCH = 3
 HORIZON_HOURS = 48.0
@@ -175,6 +179,7 @@ def forecast(fixtures: list, news: dict, now, season: int) -> dict:
                 "player": r.player, "player_id": int(r.player_id),
                 "anytime_pct": round(100 * float(pred["goal"][i]), 1),
                 "p_sot_1plus": round(100 * float(pred["sot"][i]), 1),
+                "p_shots_2plus": round(100 * float(pred["shots"][i]), 1),
                 "start_pct": round(100 * float(roles[i, 2]), 1),
                 "appearance_pct": round(100 * float(roles[i, 1] + roles[i, 2]), 1),
                 "penalty_taker": bool((r.pen_share or 0) >= 0.5)})
@@ -281,7 +286,41 @@ def fetch_stats(fids: list, client=None) -> dict:
     return store
 
 
-def grade(log: dict, now, client=None) -> int:
+def espn_stats(log: dict, keys: list, opener=None) -> dict:
+    """ESPN player lines (shots INCLUDING blocked) for the fixtures of `keys`, cached in
+    STATS under "espn:<fixture id>", players' clubs in the board's spelling. Never
+    fatal: a match ESPN cannot be found for stays pending."""
+    from ucl import espn
+    store = _load(STATS, {"fixtures": {}})
+    have = store.setdefault("fixtures", {})
+    days = {}
+    kw = {"opener": opener} if opener else {}
+    for k in keys:
+        e = log[k]
+        fid = f"espn:{e['fixture_id']}"
+        if fid in have:
+            continue
+        day = str(e["kickoff"])[:10]
+        try:
+            if day not in days:
+                days[day] = espn.events_on(day, **kw)
+            home, away = e.get("home") or "", e.get("away") or ""
+            eid = espn.find_event(days[day], (home, to_understat(home)), (away, to_understat(away)))
+            if not eid:
+                continue
+            players = []
+            for p in espn.players(eid, **kw):
+                club = home if espn.same_club(p["team"], home) else (
+                    away if espn.same_club(p["team"], away) else p["team"])
+                players.append({**p, "team": club, "minutes": 90 if p.get("played") else 0})
+            have[fid] = {"event": eid, "players": players}
+        except Exception as exc:                          # noqa: BLE001
+            print(f"  UCL props: ESPN stats for {e.get('home')} v {e.get('away')} unavailable ({exc})")
+    _save(STATS, store)
+    return have
+
+
+def grade(log: dict, now, client=None, espn_opener=None) -> int:
     """Grade every frozen prop whose match has finished. A player API-Football does not
     list as playing is VOID; a fixture whose stats are not filed stays pending."""
     from leagues.players import resolve_squad_name
@@ -289,11 +328,16 @@ def grade(log: dict, now, client=None) -> int:
                and (_utc(now) - _utc(e["kickoff"])).total_seconds() / 3600 >= GRADE_AFTER_HOURS]
     if not pending:
         return 0
-    stats = fetch_stats(sorted({log[k]["fixture_id"] for k in pending}), client)["fixtures"]
+    api = [k for k in pending if log[k]["market"] != "shots"]
+    stats = dict(fetch_stats(sorted({log[k]["fixture_id"] for k in api}), client)["fixtures"]
+                 if api else {})
+    shots = [k for k in pending if log[k]["market"] == "shots"]
+    if shots:
+        stats.update(espn_stats(log, shots, espn_opener))
     n = 0
     for k in pending:
         e = log[k]
-        fx = stats.get(e["fixture_id"])
+        fx = stats.get(("espn:" if e["market"] == "shots" else "") + e["fixture_id"])
         if not fx:
             continue
         squad = [p for p in fx["players"] if p["team"] == e["team"]]
@@ -313,7 +357,8 @@ def grade(log: dict, now, client=None) -> int:
 # ---------------------------------------------------------------- the board section
 
 def build(matches: list, news: dict, now=None, season: int | None = None,
-          lock_window: float = 2.0, odds_store: dict | None = None, client=None) -> dict:
+          lock_window: float = 2.0, odds_store: dict | None = None, client=None,
+          espn_opener=None) -> dict:
     """The "props" section of data/ucl/board.json. Never fatal to the caller."""
     from ucl import config, market
     now = _utc(now if now is not None else datetime.now(timezone.utc))
@@ -366,7 +411,7 @@ def build(matches: list, news: dict, now=None, season: int | None = None,
                          "book_price": e.get("odds"), "start_pct": e.get("start_pct"),
                          "locked": True, "locked_at": e.get("locked_at"), "engine": ENGINE})
     try:
-        graded = grade(log, now, client)
+        graded = grade(log, now, client, espn_opener)
     except Exception as exc:                              # noqa: BLE001
         print(f"  UCL props: grading failed ({exc})")
         graded = 0
