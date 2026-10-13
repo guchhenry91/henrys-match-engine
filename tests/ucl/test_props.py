@@ -1,0 +1,71 @@
+"""Champions League player props (ucl/props.py): selection, locking, grading."""
+import pandas as pd
+import pytest
+
+from ucl import props
+
+KICK = "2026-10-14T19:00:00+00:00"
+FIX = {"fid": "77", "mid": -77, "kickoff": KICK, "date": KICK, "home": "Manchester City",
+       "away": "Paris Saint Germain", "home_us": "Manchester City", "away_us": "Paris Saint Germain",
+       "hours": 1.0}
+
+
+def _row(name, goal, sot, start=90.0, team="Manchester City"):
+    return {"team": team, "player": name, "player_id": 1, "anytime_pct": goal,
+            "p_sot_1plus": sot, "start_pct": start, "appearance_pct": 95.0}
+
+
+@pytest.fixture(autouse=True)
+def _paths(tmp_path, monkeypatch):
+    for k in ("LOG", "CACHE", "STATS"):
+        monkeypatch.setattr(props, k, tmp_path / f"{k}.json")
+
+
+def test_only_likely_starters_above_the_bar():
+    rows = [_row("A", 50, 80), _row("B", 50, 80, start=60), _row("C", 20, 40)]
+    out = props.candidates(FIX, rows, {})
+    assert {p["player"] for p in out} == {"A"}
+    assert all(p["pick_kind"] == "proving" for p in out)      # no prices: proving only
+
+
+def test_scorer_price_too_short_is_dropped():
+    store = {"fixtures": {"77": {"anytime": {"A": 1.5}}}}
+    out = props.candidates(FIX, [_row("A", 50, 10)], store)
+    assert out == []
+
+
+def test_eligible_needs_two_big_five_clubs():
+    now = pd.Timestamp("2026-10-14T12:00:00Z")
+    ms = [{"id": 1, "kickoff": KICK, "home": "Manchester City", "away": "Paris Saint Germain"},
+          {"id": 2, "kickoff": KICK, "home": "Slovan Bratislava", "away": "VfB Stuttgart"}]
+    assert [f["fid"] for f in props.eligible(ms, now)] == ["1"]
+
+
+def test_build_locks_one_pick_per_player_and_grades(monkeypatch):
+    rows = [_row("Erling Haaland", 48, 77)]
+    monkeypatch.setattr(props, "forecast", lambda *a, **k: {"77": rows})
+    match = {"id": 77, "kickoff": KICK, "home": "Manchester City", "away": "Paris Saint Germain"}
+    out = props.build([match], {}, now="2026-10-14T18:00:00Z", odds_store={})
+    assert [(p["player"], p["market"], p.get("locked")) for p in out["upcoming"]] == \
+        [("Erling Haaland", "sot", True)]
+
+    class Client:
+        def get(self, path, **kw):
+            return [{"team": {"name": "Manchester City"}, "players": [{"player": {"id": 9, "name": "E. Haaland"},
+                     "statistics": [{"games": {"minutes": 90}, "shots": {"total": 4, "on": 2}, "goals": {"total": 1}}]}]}]
+    out = props.build([], {}, now="2026-10-15T00:00:00Z", odds_store={}, client=Client())
+    assert out["record"]["sot"]["correct"] == 1
+    assert out["upcoming"] == []
+
+
+def test_a_player_who_did_not_play_is_void(monkeypatch):
+    monkeypatch.setattr(props, "forecast", lambda *a, **k: {"77": [_row("Erling Haaland", 48, 77)]})
+    match = {"id": 77, "kickoff": KICK, "home": "Manchester City", "away": "Paris Saint Germain"}
+    props.build([match], {}, now="2026-10-14T18:00:00Z", odds_store={})
+
+    class Client:
+        def get(self, path, **kw):
+            return [{"team": {"name": "Manchester City"}, "players": [{"player": {"id": 9, "name": "E. Haaland"},
+                     "statistics": [{"games": {"minutes": None}, "shots": {}, "goals": {}}]}]}]
+    out = props.build([], {}, now="2026-10-15T00:00:00Z", odds_store={}, client=Client())
+    assert out["record"]["sot"]["void"] == 1

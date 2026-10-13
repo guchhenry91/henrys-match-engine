@@ -1667,6 +1667,31 @@ function uclPrice(m){
   const o=m.locked&&m.odds!=null?m.odds:odds[side];
   return o?valCell("bet365",`<span style="font-size:14px">${Number(o).toFixed(2)}</span>`):valCell("Price","—","off");
 }
+// CHAMPIONS LEAGUE PLAYER PICKS (ucl/props.py): anytime scorer and 1+ on target, for
+// matches between two big-five clubs only -- what passed the test on 307 past matches.
+function uclPropRow(p){
+  const kind=p.pick_kind==="value"?`<span class="tier t-strong">Value at bet365</span>`
+    :`<span class="tier">Proving pick · not a bet</span>`;
+  const price=p.book_price?` · bet365 ${Number(p.book_price).toFixed(2)}`:(p.market==="sot"?" · no bet365 price for this market":" · no bet365 price yet");
+  return `<div class="rw static"><div class="info"><b>${esc(p.player)} · ${esc(p.label||p.market)}</b>
+    <span>${esc(p.team)} · ${esc(p.home)} v ${esc(p.away)} · ${whenStr(p.kickoff)}${price}${p.start_pct!=null?` · starts ${Math.round(p.start_pct)}%`:""}</span></div>
+    ${kind}<div class="conf" style="min-width:88px"><b>${Math.round(100*p.p_pick)}%</b><span>${p.locked?"locked":"if he plays"}</span></div></div>`;
+}
+function uclPropsSection(d){
+  const pr=d&&d.props; if(!pr) return "";
+  const up=pr.upcoming||[];
+  let h=sectHead("Player picks","Champions League · scorer and shot on target",
+    "Only matches between two clubs from the big five leagues — the model needs their league data. Proving picks are tracked to earn a record, not offered as bets.");
+  h+=up.length?`<div class="glass rowc">${up.map(uclPropRow).join("")}</div>`
+    :`<div class="glass rowc">${emptyRow("No player picks in the next 48 hours")}</div>`;
+  return h;
+}
+function uclPropsRecord(d){
+  const r=(d&&d.props&&d.props.record)||{};
+  const bit=(x,t)=>x&&(x.total||x.pending)?`${t} ${x.correct||0}–${x.wrong||0}${x.pending?` (${x.pending} pending)`:""}${x.void?` · ${x.void} void`:""}`:"";
+  const parts=[bit(r.goal,"Scorer"),bit(r.sot,"On target")].filter(Boolean);
+  return parts.length?`<div class="glass stat"><div class="k" style="font-size:20px">${parts.join(" · ")}</div><div class="l">Champions League player picks · a player who does not play is void</div></div>`:"";
+}
 function uclUnrecorded(d){
   const un=(d&&d.unrecorded)||[];
   if(!un.length) return "";
@@ -2756,6 +2781,7 @@ function viewUCL(){
   const live=(d.matches||[]).filter(inBoard), isPriced=m=>m.basis!=="model only"||m.locked;
   const ms=[...live.filter(isPriced).sort(strongFirst(byTime)),
             ...live.filter(m=>!isPriced(m)).sort(strongFirst(byTime))];
+  h+=uclPropsSection(d);
   h+=sectHead("Henry's live model",`League phase · ${ms.length} fixture${ms.length===1?"":"s"}`,
     ms.length>40?"Showing the first 40 — pick a match date above to narrow the list.":"");
   h+=ms.length?btable(PCOLS,ms.slice(0,40).map(uclTableRow).join(""))
@@ -3041,6 +3067,7 @@ function uclGradeSummary(){
     ? `<div class="glass stat"><div class="k">${rec.correct}–${rec.wrong}</div>
         <div class="l">${Math.round(100*(rec.hit_rate||0))}% of ${rec.settled} graded${rec.pending?` · ${rec.pending} pending`:""}${rec.void?` · ${rec.void} void`:""}${uclRecordSplit(DATA.ucl)}</div></div>`
     : gradeEmpty("No Champions League pick has settled yet.");
+  h+=uclPropsRecord(DATA.ucl);
   h+=uclUnrecorded(DATA.ucl);
   if(gradedMatches("ucl").length)
     h+=`<div class="glass rowc"><div class="rw" onclick="setFilter('matches')">

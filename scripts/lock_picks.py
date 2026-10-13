@@ -239,7 +239,20 @@ def lock_ucl(now, window=None) -> list:
         frozen.append(f"UCL {match['home']} v {match['away']} ({hours * 60:.0f}m out)")
     if frozen:
         picks.save_log(log, ucl_publish.PICKS_LOG)
-    return frozen
+    # Champions League player props (ucl/props.py), the same way.
+    from ucl import props as ucl_props
+    plog, pfrozen = picks.load_log(ucl_props.LOG), []
+    for pick in ((payload.get("props") or {}).get("upcoming") or []):
+        if ucl_props.key_of(pick) in plog or not pick.get("kickoff"):
+            continue
+        hours = _hours_out(pick["kickoff"], now)
+        if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
+            continue
+        ucl_props.lock_one(plog, pick, now)
+        pfrozen.append(f"UCL {pick['player']} {pick['market']} ({hours * 60:.0f}m out)")
+    if pfrozen:
+        picks.save_log(plog, ucl_props.LOG)
+    return frozen + pfrozen
 
 
 def lock_nfl(now) -> list:

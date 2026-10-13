@@ -38,6 +38,7 @@ from forecast import dist
 from leagues import forecast as fc
 from leagues.players import resolve_squad_name
 from scripts.soccer_props_gate import BARS, MIN_START, PER_MATCH, published
+from ucl.props import batches, features
 from ucl.props_names import to_understat
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,42 +47,6 @@ REPORT = ROOT / "data-raw" / "ucl" / "props_backtest_report.json"
 LEAGUE_REPORT = ROOT / "data-raw" / "leagues" / "props_forecast_report.json"
 MIN_PUBLISHED = 60
 SLACK = 0.03
-
-
-def batches(fixtures: list) -> list:
-    """Fixtures in date order, cut so no club appears twice in one batch."""
-    out, cur, seen = [], [], set()
-    for f in sorted(fixtures, key=lambda f: f["date"]):
-        clubs = {f["home_us"], f["away_us"]}
-        if clubs & seen:
-            out.append(cur)
-            cur, seen = [], set()
-        cur.append(f)
-        seen |= clubs
-    if cur:
-        out.append(cur)
-    return out
-
-
-def upcoming_rows(batch: list, season: int) -> pd.DataFrame:
-    rows = []
-    for f in batch:
-        for team, opp, home in ((f["home_us"], f["away_us"], 1), (f["away_us"], f["home_us"], 0)):
-            rows.append({"league": "UCL", "season": season, "match_id": f["mid"],
-                         "date": pd.Timestamp(f["date"]), "team": team, "opponent": opp,
-                         "is_home": home})
-    return pd.DataFrame(rows)
-
-
-def features(league: pd.DataFrame, batch: list, season: int) -> pd.DataFrame:
-    """Entering features for one batch, from league matches before it only."""
-    first = pd.Timestamp(min(f["date"] for f in batch))
-    teams = {c for f in batch for c in (f["home_us"], f["away_us"])}
-    d = league[(league["date"] < first) & (league["season"] >= season - 1)]
-    pids = set(d.loc[d["team"].isin(teams), "player_id"])
-    d = d[d["team"].isin(teams) | d["player_id"].isin(pids)]
-    built = fc.build(d, upcoming_rows(batch, season))
-    return built[built["is_next"]].copy()
 
 
 def outcomes(rows: pd.DataFrame, fx: dict) -> pd.DataFrame:

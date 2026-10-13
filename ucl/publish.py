@@ -307,6 +307,16 @@ def record(log: dict, basis: str | None = None) -> dict:
     }
 
 
+def _props(matches: list) -> dict | None:
+    """Champions League player props (ucl/props.py) -- never fatal to the board."""
+    try:
+        from ucl import props
+        return props.build(matches, club_news(), lock_window=lockwindow.window())
+    except Exception as exc:                              # noqa: BLE001
+        print(f"  UCL props skipped: {type(exc).__name__}: {exc}")
+        return None
+
+
 def build() -> dict:
     history = data.matches()
     depth = data.history_depth(history)
@@ -390,6 +400,7 @@ def build() -> dict:
         "record_market": record(log, "with market"),
         "record_model_only": record(log, "model only"),
         "unrecorded": unrecorded(log),
+        "props": _props(matches),
         "market": {"priced": priced, "book": "bet365", "a": market.A_CAP,
                    "max_gap": market.MAX_GAP},
         # The picks behind the record, so the Grades tab can show which hit

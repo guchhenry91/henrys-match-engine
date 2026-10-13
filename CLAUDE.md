@@ -728,6 +728,22 @@ pick more than 15 points from the book is flagged "model disagrees". No bet365 p
 **The fast locker freezes UCL picks too** (`lock_picks.lock_ucl`, shared
 `ucl.publish.lock_one`), so a slow soccer refresh can no longer lose a match.
 
+**Player props (2026-10-13, owner's request): anytime scorer and 1+ on target only,
+matches between two big-five clubs only** (`ucl/props.py`, names `ucl/props_names.py`).
+Tested first: `scripts/ucl_props_backtest.py` priced 307 past UCL matches (2021-22..2025-26,
+stats fetched by `.github/workflows/ucl-player-history.yml` ->
+`data-raw/ucl/player_history.json`) from league form alone -> scorer 166 picks said
+47.5% / landed 45.2%, on target 458 said 70.3% / landed 72.9% (league gate 47.2/45.4,
+68.9/68.5): PASS. 2+ shots NOT published: API-Football's shot counts leave out blocked
+shots (9.6 a side vs Understat's ~17), so it would be graded on another definition.
+Same rules as league props: start >= 75%, bars 40% / 62%, top 3 a match, one pick per
+player; scorer checked against bet365's anytime price (`sync_ucl_odds`, bet 92) ->
+value or proving; on target has no bet365 price -> proving only. Forecast cached in
+`data-raw/ucl/props_forecast.json` (rebuilt every 3h, 45 min inside 3h; ~1.5 min of
+container time, only when such a match is within 48h). Locked by publish and the fast
+locker into `data-raw/ucl/props_log.json`; graded from API-Football per-player stats
+(`player_stats.json`); did not play = void.
+
 NFL now locks and grades too — see the NFL section above.
 
 ---

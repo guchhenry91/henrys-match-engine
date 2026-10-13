@@ -70,12 +70,12 @@ def test_sync_pages_and_keeps_the_first_price(tmp_path, monkeypatch):
                 {"value": "Home", "odd": "1.5"}, {"value": "Draw", "odd": "4"}, {"value": "Away", "odd": "6"}]}]}]}]
     now = pd.Timestamp("2026-10-13T10:00:00Z").to_pydatetime()
     sync_ucl_odds.main(now=now, client=Fake())
-    assert calls == [1]
+    assert calls == [1, 1]          # match winner, then anytime scorer
     first = json.loads((tmp_path / "odds.json").read_text())["fixtures"]["5"]
     assert first["open"] == first["odds"]
     # inside the recheck interval: no call
     sync_ucl_odds.main(now=now + pd.Timedelta(hours=1), client=Fake())
-    assert calls == [1]
+    assert calls == [1, 1]
 
 
 @pytest.fixture
