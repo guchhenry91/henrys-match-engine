@@ -2752,9 +2752,10 @@ function viewUCL(){
       <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
 
   // Matches bet365 has priced first (the next matchday); unpriced ones, weeks away, after.
-  const priced=m=>m.basis!=="model only"||m.locked?0:1;
-  const ms=(d.matches||[]).filter(inBoard)
-    .sort((x,y)=>priced(x)-priced(y)||strongFirst((a,b)=>new Date(a.kickoff||a.date)-new Date(b.kickoff||b.date))(x,y));
+  const byTime=(a,b)=>new Date(a.kickoff||a.date)-new Date(b.kickoff||b.date);
+  const live=(d.matches||[]).filter(inBoard), isPriced=m=>m.basis!=="model only"||m.locked;
+  const ms=[...live.filter(isPriced).sort(strongFirst(byTime)),
+            ...live.filter(m=>!isPriced(m)).sort(strongFirst(byTime))];
   h+=sectHead("Henry's live model",`League phase · ${ms.length} fixture${ms.length===1?"":"s"}`,
     ms.length>40?"Showing the first 40 — pick a match date above to narrow the list.":"");
   h+=ms.length?btable(PCOLS,ms.slice(0,40).map(uclTableRow).join(""))
