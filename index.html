@@ -1650,18 +1650,47 @@ function uclNews(m){
   return bits.length?`<span class="bsn" style="margin-top:4px">Team news · ${bits.join(" · ")}</span>`:"";
 }
 
+// THE MARKET CHECK (ucl/market.py). The model learns from European results only and
+// overrates clubs that beat weak sides in qualifying, so bet365's chance leads and the
+// model may only nudge it. No bet365 price = model only, never a Best pick.
+function uclMarket(m){
+  if(m.basis==="model only")
+    return `<span class="bsn" style="margin-top:4px">Model only · no bet365 price yet · not a pick to back</span>`;
+  if(m.disagrees&&m.market_note)
+    return `<span class="bsn" style="margin-top:4px;color:var(--warn,#e0a83a)">⚠ ${esc(m.market_note)}</span>`;
+  return m.basis==="with market"?`<span class="bsn" style="margin-top:4px">Checked against bet365 · model and market agree</span>`:"";
+}
+function uclPrice(m){
+  const mk=m.market||{}, odds=mk.odds||{};
+  const side=m.pick===m.home?"home":(m.pick===m.away?"away":"draw");
+  const o=m.locked&&m.odds!=null?m.odds:odds[side];
+  return o?valCell("bet365",`<span style="font-size:14px">${Number(o).toFixed(2)}</span>`):valCell("Price","—","off");
+}
+function uclUnrecorded(d){
+  const un=(d&&d.unrecorded)||[];
+  if(!un.length) return "";
+  return `<div class="eyebrow" style="margin-top:14px">Played with no pick recorded · not in the record (${un.length})</div>
+    <div class="glass rowc">${un.map(u=>`<div class="rw static"><div class="info"><b>${esc(u.home)} v ${esc(u.away)}</b>
+      <span>${whenStr(u.kickoff)}${u.result?` · finished ${esc(u.result)}`:""} · no pick was frozen before kick-off</span></div></div>`).join("")}</div>`;
+}
+function uclRecordSplit(d){
+  const a=(d&&d.record_market)||{}, b=(d&&d.record_model_only)||{};
+  const bit=(r,t)=>r.settled?`${t} ${r.correct}–${r.wrong}`:(r.pending?`${t} ${r.pending} pending`:"");
+  const parts=[bit(a,"checked against bet365"),bit(b,"model only (before the bet365 check)")].filter(Boolean);
+  return parts.length?` · ${parts.join(" · ")}`:"";
+}
 function uclTableRow(m){
   const t=nflTier(m.p_pick);
   const status=m.graded?winChip(m):`<span class="tier ${t.cls}">${t.label}</span>`;
   return `<div class="brow">${timeCell(m.kickoff||m.date)}
     <div class="be"><div class="beb">Champions League · Match winner</div>
       <b>${esc(m.home)} vs ${esc(m.away)}</b>
-      <span>Model selection: <em>${esc(m.pick)}</em> · pot ${m.home_pot} v pot ${m.away_pot} · ${
-        m.home_matches}/${m.away_matches} prior matches${(m.thin||[]).length?" · thin history":""}</span>${uclNews(m)}</div>
+      <span>Pick: <em>${esc(m.pick)}</em> · pot ${m.home_pot} v pot ${m.away_pot} · ${
+        m.home_matches}/${m.away_matches} prior matches${(m.thin||[]).length?" · thin history":""}</span>${uclMarket(m)}${uclNews(m)}</div>
     <div class="bs">${status}${m.locked?`<span class="bsn">Locked</span>`:""}</div>
     ${probCell(m.p_pick)}
     ${valCell("Home · draw · away",`<span style="font-size:14px">${pc(m.p_home)} · ${pc(m.p_draw)} · ${pc(m.p_away)}</span>`)}
-    ${valCell("Price","—","off")}</div>`;
+    ${uclPrice(m)}</div>`;
 }
 
 const SIXCOLS=["Time","Event / selection","Score","Probability","Runner-up","Cost"];
@@ -2715,7 +2744,8 @@ function viewUCL(){
     h+=`<div class="glass stat"><div class="k">${rec.correct}–${rec.wrong}</div>
       <div class="l">Champions League picks · ${Math.round(100*rec.hit_rate)}% of ${rec.settled} graded${
         rec.pending?` · ${rec.pending} pending`:""}${
-        rec.void?` · ${rec.void} void`:""}</div></div>`;
+        rec.void?` · ${rec.void} void`:""}${uclRecordSplit(d)}${
+        (d.unrecorded||[]).length?` · ${(d.unrecorded||[]).length} played match${(d.unrecorded||[]).length===1?"":"es"} not recorded (see Results)`:""}</div></div>`;
   else if(rec.pending)
     h+=`<div class="glass stat"><div class="k">${rec.pending}</div>
       <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
@@ -3005,8 +3035,9 @@ function uclGradeSummary(){
   let h=`<div class="eyebrow">Champions League track record</div>`;
   h+=rec.settled
     ? `<div class="glass stat"><div class="k">${rec.correct}–${rec.wrong}</div>
-        <div class="l">${Math.round(100*(rec.hit_rate||0))}% of ${rec.settled} graded${rec.pending?` · ${rec.pending} pending`:""}${rec.void?` · ${rec.void} void`:""}</div></div>`
+        <div class="l">${Math.round(100*(rec.hit_rate||0))}% of ${rec.settled} graded${rec.pending?` · ${rec.pending} pending`:""}${rec.void?` · ${rec.void} void`:""}${uclRecordSplit(DATA.ucl)}</div></div>`
     : gradeEmpty("No Champions League pick has settled yet.");
+  h+=uclUnrecorded(DATA.ucl);
   if(gradedMatches("ucl").length)
     h+=`<div class="glass rowc"><div class="rw" onclick="setFilter('matches')">
       <div class="info"><b>Every pick</b><span>${tallyLine(tally(gradedMatches("ucl")))}</span></div>

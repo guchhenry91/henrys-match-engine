@@ -57,6 +57,7 @@ JOBS = {
             ("Validate data JSON", PY + "scripts.validate_data_json", "gate"),
             ("Refresh Champions League history", PY + "scripts.sync_ucl_history", "soft"),
             ("Champions League gate", PY + "scripts.ucl_backtest", "soft"),
+            ("Fetch bet365 Champions League prices", PY + "scripts.sync_ucl_odds", "soft"),
             ("Champions League board", PY + "ucl.publish", "soft"),
             ("Refresh current rosters", PY + "scripts.sync_rosters", "soft"),
             ("Audit rosters", PY + "scripts.roster_integrity_check", "soft"),

@@ -715,6 +715,19 @@ for the record to drift.
 so the board shows 0 matches and the record 0-0. The machinery therefore cannot be
 proven by watching it, and is covered by `tests/ucl/test_picks.py` instead.
 
+**Checked against bet365 (2026-10-13, owner's request).** The model learns from European
+results only, so clubs that beat minnows in qualifying were overrated (it picked Slovan
+over Stuttgart at bet365 ~1.30 Stuttgart, Sabah over Slavia). `ucl/market.py` now takes
+bet365's 1X2 (API-Football, `scripts/sync_ucl_odds.py` -> `data-raw/ucl/odds.json`,
+every 2h, a few requests), de-vigs it, and publishes the book's chance moved at most 20%
+toward the model (3-way form of `combine_fit.shrink`); the pick follows that. A model
+pick more than 15 points from the book is flagged "model disagrees". No bet365 price =
+"model only", never a Best pick. Frozen picks carry `basis`, `odds`, `p_book`,
+`model_pick`; the board splits `record_market` / `record_model_only` and lists
+`unrecorded` played games (seven matchday-1 games were lost to the old scheduler).
+**The fast locker freezes UCL picks too** (`lock_picks.lock_ucl`, shared
+`ucl.publish.lock_one`), so a slow soccer refresh can no longer lose a match.
+
 NFL now locks and grades too — see the NFL section above.
 
 ---

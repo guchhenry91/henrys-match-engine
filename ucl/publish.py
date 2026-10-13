@@ -22,7 +22,7 @@ from leagues import picks
 from leagues import lockwindow
 from leagues.config import LOCK_WINDOW_HOURS
 from leagues.model import promoted_priors
-from ucl import backtest, config, data
+from ucl import backtest, config, data, market
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "ucl"
@@ -141,12 +141,7 @@ def freeze_and_grade(matches: list, now=None) -> tuple[dict, dict]:
 
         hours_out = (kickoff - now).total_seconds() / 3600.0
         if key not in log and hours_out <= lockwindow.window(now):
-            frozen = picks.lock_pick(log, key, match["pick"], match["confidence"],
-                                     kickoff, now=now, p_pick=match["p_pick"],
-                                     board=bool(match.get("best_pick")))
-            # The side, so grading never depends on how a result spells the club.
-            frozen["pick_side"] = ("home" if match["pick"] == match.get("home")
-                                   else "away" if match["pick"] == match.get("away") else "draw")
+            lock_one(log, match, now)
 
         entry = log.get(key)
         if not entry:
@@ -181,6 +176,58 @@ def freeze_and_grade(matches: list, now=None) -> tuple[dict, dict]:
 
     picks.save_log(log, PICKS_LOG)
     return log, record(log)
+
+
+def lock_one(log: dict, match: dict, now) -> dict:
+    """Freeze one displayed match pick -- shared by publish and the fast locker
+    (scripts/lock_picks.lock_ucl), so both freeze exactly the same fields."""
+    key = str(match["id"])
+    if key in log:
+        return log[key]                   # already frozen: never rewritten
+    frozen = picks.lock_pick(log, key, match["pick"], match["confidence"],
+                             match["kickoff"], now=now, p_pick=match["p_pick"],
+                             board=bool(match.get("best_pick")))
+    # The side, so grading never depends on how a result spells the club.
+    frozen["pick_side"] = ("home" if match["pick"] == match.get("home")
+                           else "away" if match["pick"] == match.get("away") else "draw")
+    # What the pick stood on (ucl/market.py): with bet365's price, or the model alone.
+    frozen["basis"] = match.get("basis") or "model only"
+    mk = match.get("market") or {}
+    if mk:
+        frozen["odds"] = (mk.get("odds") or {}).get(frozen["pick_side"])
+        frozen["p_book"] = (mk.get("p_book") or {}).get(frozen["pick_side"])
+    if match.get("model_pick") is not None:
+        frozen["model_pick"] = match["model_pick"]
+        frozen["disagrees"] = bool(match.get("disagrees"))
+    return frozen
+
+
+def unrecorded(log: dict) -> list:
+    """Played league-phase fixtures that never got a frozen pick.
+
+    Shown on the page beside the record, as the league boards do: a record that
+    silently leaves out the games it missed describes only the ones that happened
+    to kick off near a run (seven matchday-1 games, 8-9 Sep, were lost that way)."""
+    try:
+        raw = json.loads(FIXTURES.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    try:
+        results = data.results_by_id()
+    except Exception:
+        results = {}
+    out = []
+    for f in raw.get("fixtures") or []:
+        key = str(f.get("id"))
+        if not f.get("played") or key in log:
+            continue
+        res = results.get(key) or {}
+        out.append({"id": key, "home": f.get("home"), "away": f.get("away"),
+                    "kickoff": f.get("kickoff") or f.get("date"),
+                    "matchday": f.get("matchday"),
+                    "result": (f"{res['home_goals']}-{res['away_goals']}" if res else None)})
+    out.sort(key=lambda r: str(r.get("kickoff") or ""), reverse=True)
+    return out
 
 
 def settled(log: dict, matches: list) -> list:
@@ -226,18 +273,24 @@ def settled(log: dict, matches: list) -> list:
             "date": entry.get("kickoff"),
             "result": result,
             "tainted": bool(entry.get("tainted")),
+            "basis": entry.get("basis") or "model only",
+            "odds": entry.get("odds"),
+            "model_pick": entry.get("model_pick"),
         })
     out.sort(key=lambda r: str(r.get("kickoff") or ""), reverse=True)
     return out
 
 
-def record(log: dict) -> dict:
-    """correct/wrong/void/pending over every frozen UCL pick."""
+def record(log: dict, basis: str | None = None) -> dict:
+    """correct/wrong/void/pending over every frozen UCL pick (or one basis only:
+    "with market" -- checked against bet365 -- or "model only")."""
     counts = {"correct": 0, "wrong": 0, "void": 0, "pending": 0}
     by_confidence = {}
     for key, entry in log.items():
         if key.startswith("_"):
             continue                      # _released archive, never a pick
+        if basis and (entry.get("basis") or "model only") != basis:
+            continue
         verdict = entry.get("graded") or "pending"
         counts[verdict] = counts.get(verdict, 0) + 1
         tier = by_confidence.setdefault(str(entry.get("confidence")),
@@ -306,6 +359,8 @@ def build() -> dict:
             "thin": sorted({t for t in (home, away)
                             if depth.get(t, 0) < config.THIN_HISTORY}),
         })
+    # bet365's prices: the book is trusted, the model may only nudge it (ucl/market.py).
+    priced = market.annotate(matches, _confidence)
     news = club_news()
     for m in matches:
         m["news"] = {side: news[m[side]] for side in ("home", "away")
@@ -330,14 +385,22 @@ def build() -> dict:
         "clubs": clubs,
         "matches": matches,
         "record": rec,
+        # Picks frozen with bet365's price on them vs on the model alone (all of
+        # matchday 1, before the market check existed).
+        "record_market": record(log, "with market"),
+        "record_model_only": record(log, "model only"),
+        "unrecorded": unrecorded(log),
+        "market": {"priced": priced, "book": "bet365", "a": market.A_CAP,
+                   "max_gap": market.MAX_GAP},
         # The picks behind the record, so the Grades tab can show which hit
         # and which missed rather than only a total.
         "settled": settled(log, matches),
         "evidence": evidence(),
         "caveats": [
             "Strengths come from Champions League and qualifying results only -- "
-            "domestic form is not an input, so a club in poor league form still "
-            "carries its European record.",
+            "domestic form is not an input, so a club that beat weak sides in "
+            "qualifying looks stronger than it is. That is why each pick is checked "
+            "against bet365: the book's chance leads and the model only nudges it.",
             f"{sum(1 for c in clubs if c['basis'] == 'seeded')} club(s) have no "
             f"Champions League history in the loaded window and are seeded at the "
             f"weakest sides' strength; "

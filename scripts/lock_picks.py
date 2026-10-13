@@ -212,6 +212,36 @@ def lock_parlays(now) -> list:
     return [f"{gained} parlay(s)"] if gained > 0 else []
 
 
+def lock_ucl(now, window=None) -> list:
+    """Freeze the Champions League board's picks from the board it last published.
+
+    The board used to freeze only inside the soccer refresh (ucl.publish), so a slow
+    or failed refresh near kickoff left a played match with no pick: seven of the
+    eighteen matchday-1 games never entered the record. Same rule as everything
+    here: freeze exactly what the board shows, inside the lock window, never after
+    kickoff. pandas-only -- ucl.publish's model imports are not needed to freeze."""
+    board_path = ROOT / "data" / "ucl" / "board.json"
+    if not board_path.exists():
+        return []
+    payload = json.loads(board_path.read_text(encoding="utf-8"))
+    from ucl import publish as ucl_publish
+    log = picks.load_log(ucl_publish.PICKS_LOG)
+    frozen = []
+    for match in payload.get("matches", []):
+        if not match.get("lockable", True) or match.get("id") is None or not match.get("kickoff"):
+            continue
+        if not match.get("pick") or match.get("p_pick") is None or str(match["id"]) in log:
+            continue
+        hours = _hours_out(match["kickoff"], now)
+        if hours <= 0 or hours > (window or LOCK_WINDOW_HOURS):
+            continue
+        ucl_publish.lock_one(log, match, now)
+        frozen.append(f"UCL {match['home']} v {match['away']} ({hours * 60:.0f}m out)")
+    if frozen:
+        picks.save_log(log, ucl_publish.PICKS_LOG)
+    return frozen
+
+
 def lock_nfl(now) -> list:
     """Freeze the NFL board's picks from the board it already published.
 
@@ -268,6 +298,10 @@ def main():
     matches = lock_matches(now, window)
     players = lock_players(now, window)
     accas = lock_parlays(now)
+    try:
+        matches += lock_ucl(now, window)
+    except Exception as exc:                 # never let the UCL sink soccer locking
+        print(f"  Champions League locking skipped: {exc}")
     try:
         nfl = lock_nfl(now)
     except Exception as exc:                 # never let NFL sink soccer locking
