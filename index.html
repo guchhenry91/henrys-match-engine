@@ -1655,9 +1655,10 @@ function uclNews(m){
 // model may only nudge it. No bet365 price = model only, never a Best pick.
 function uclMarket(m){
   if(m.basis==="model only")
-    return `<span class="bsn" style="margin-top:4px">Model only · no bet365 price yet · not a pick to back</span>`;
-  if(m.disagrees&&m.market_note)
+    return `<span class="bsn" style="margin-top:4px">Model only for now · bet365 has not priced this match yet · it is checked against bet365 before kick-off</span>`;
+  if(m.market_note_kind==="overruled"||(m.disagrees&&!m.market_note_kind))
     return `<span class="bsn" style="margin-top:4px;color:var(--warn,#e0a83a)">⚠ ${esc(m.market_note)}</span>`;
+  if(m.market_note) return `<span class="bsn" style="margin-top:4px">${esc(m.market_note)}</span>`;
   return m.basis==="with market"?`<span class="bsn" style="margin-top:4px">Checked against bet365 · model and market agree</span>`:"";
 }
 function uclPrice(m){
@@ -1681,7 +1682,7 @@ function uclRecordSplit(d){
 }
 function uclTableRow(m){
   const t=nflTier(m.p_pick);
-  const status=m.graded?winChip(m):`<span class="tier ${t.cls}">${t.label}</span>`;
+  const status=m.graded?winChip(m):(m.basis==="model only"&&!m.locked?`<span class="tier">Not priced yet</span>`:`<span class="tier ${t.cls}">${t.label}</span>`);
   return `<div class="brow">${timeCell(m.kickoff||m.date)}
     <div class="be"><div class="beb">Champions League · Match winner</div>
       <b>${esc(m.home)} vs ${esc(m.away)}</b>
@@ -2750,8 +2751,10 @@ function viewUCL(){
     h+=`<div class="glass stat"><div class="k">${rec.pending}</div>
       <div class="l">Picks frozen and awaiting results · nothing graded yet</div></div>`;
 
+  // Matches bet365 has priced first (the next matchday); unpriced ones, weeks away, after.
+  const priced=m=>m.basis!=="model only"||m.locked?0:1;
   const ms=(d.matches||[]).filter(inBoard)
-    .sort(strongFirst((x,y)=>new Date(x.kickoff||x.date)-new Date(y.kickoff||y.date)));
+    .sort((x,y)=>priced(x)-priced(y)||strongFirst((a,b)=>new Date(a.kickoff||a.date)-new Date(b.kickoff||b.date))(x,y));
   h+=sectHead("Henry's live model",`League phase · ${ms.length} fixture${ms.length===1?"":"s"}`,
     ms.length>40?"Showing the first 40 — pick a match date above to narrow the list.":"");
   h+=ms.length?btable(PCOLS,ms.slice(0,40).map(uclTableRow).join(""))

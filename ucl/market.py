@@ -98,7 +98,8 @@ def apply(match: dict, quote: dict | None, confidence) -> None:
         match["basis"] = "model only"
         match["market"] = None
         match["best_pick"] = False
-        match["market_note"] = "no bet365 price yet -- model only, not a pick to back"
+        match["market_note_kind"] = "unpriced"
+        match["market_note"] = "bet365 has not priced this match yet; checked before kick-off"
         return
     book = devig(odds)
     both = combine(model, book)
@@ -116,12 +117,23 @@ def apply(match: dict, quote: dict | None, confidence) -> None:
                        "checked_at": quote.get("checked_at")}
     match["model_gap"] = round(gap, 3)
     match["disagrees"] = gap > MAX_GAP
-    if match["disagrees"]:
-        match["market_note"] = (f"model alone said {name[model_side]} {model[model_side]:.0%}; "
-                                f"bet365 makes it {book[model_side]:.0%} -- the model "
-                                f"overrates sides it knows from weak European opposition, "
-                                f"so the pick follows the market")
+    pm, pb = f"{model[model_side]:.0%}", f"{book[model_side]:.0%}"
+    if model_side != side:
+        # The model picked a different side from the one the combined chance favours.
+        match["market_note_kind"] = "overruled"
+        match["market_note"] = (f"Model alone picked {name[model_side]} ({pm}); bet365 gives that "
+                                f"only {pb} and makes {name[side]} the favourite -- the pick "
+                                f"follows bet365")
+    elif match["disagrees"] and model[model_side] < book[model_side]:
+        match["market_note_kind"] = "less_sure"
+        match["market_note"] = (f"Same pick as bet365. The model alone was less sure "
+                                f"({pm} against bet365's {pb}), so the chance shown leans on bet365")
+    elif match["disagrees"]:
+        match["market_note_kind"] = "more_sure"
+        match["market_note"] = (f"Same pick as bet365, but the model alone was much keener "
+                                f"({pm} against bet365's {pb}) -- the chance shown leans on bet365")
     else:
+        match["market_note_kind"] = None
         match["market_note"] = None
 
 

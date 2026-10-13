@@ -35,7 +35,8 @@ POTS = {
 # Betis, Fenerbahce and AEK have all played plenty. A name mismatch and a genuine
 # debutant look identical in the data and must not be treated alike.
 NAME_TO_API = {
-    "Real Betis": "Betis",
+    "Bayern Munich": "Bayern München",   # the API's spelling since 2024
+    "Real Betis": "Real Betis",          # the 2026 feed's spelling (was "Betis")
     "Fenerbahce": "Fenerbahçe",     # the API spells it with the cedilla
     "AEK Athens": "AEK Athens FC",
     "LASK": "Lask Linz",
@@ -66,3 +67,14 @@ SEEDED_NOTE = ("no Champions League history in the loaded window; seeded at the 
 # Time decay, per day. Matches the leagues engine's XI_PER_DAY: a club's form from
 # 2013 is not evidence about it now, but it is not nothing either.
 XI_PER_DAY = 0.003
+
+# ONE CLUB, TWO SPELLINGS IN THE FEED. API-Football renamed some clubs between seasons;
+# history keyed on the raw string then splits one club into two, and the current name
+# carries only its recent matches. Bayern was fitted on 29 matches instead of ~180 and
+# priced at 46% away at Viking where bet365 said 85% (found 2026-10-13). Old spelling ->
+# the spelling the current fixture list uses. tests/ucl/test_market.py checks every
+# drawn club resolves to a pot and a real history.
+HISTORY_ALIASES = {
+    "Bayern Munich": "Bayern München",
+    "Betis": "Real Betis",
+}

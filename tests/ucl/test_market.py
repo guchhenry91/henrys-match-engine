@@ -128,3 +128,25 @@ def test_record_splits_by_basis():
     assert publish.record(log, "with market")["correct"] == 1
     assert publish.record(log, "model only")["wrong"] == 1
     assert publish.record(log)["settled"] == 2
+
+
+def test_same_pick_but_model_less_sure_is_not_called_overrating():
+    m = _match(home="Viking", away="Bayern München", p_home=0.3, p_draw=0.24, p_away=0.46,
+               pick="Bayern München", p_pick=0.46)
+    market.apply(m, {"odds": {"home": 15.0, "draw": 12.0, "away": 1.10}}, publish._confidence)
+    assert m["pick"] == "Bayern München"
+    assert m["market_note_kind"] == "less_sure"
+    assert "overrates" not in m["market_note"]
+
+
+def test_every_drawn_club_has_a_pot_and_one_history():
+    """A club renamed by the feed (Bayern Munich -> Bayern München) must not be split
+    into two clubs, or the current name carries only its recent matches."""
+    from ucl import data
+    fixtures = json.loads(publish.FIXTURES.read_text(encoding="utf-8"))["fixtures"]
+    clubs = {f["home"] for f in fixtures} | {f["away"] for f in fixtures}
+    drawn = data.drawn_clubs()
+    assert clubs <= set(drawn)
+    depth = data.history_depth(data.matches())
+    assert depth.get("Bayern München", 0) > 150
+    assert "Bayern Munich" not in depth

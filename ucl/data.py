@@ -36,6 +36,8 @@ def matches(seasons=None) -> pd.DataFrame:
     frame = pd.DataFrame(rows)
     if frame.empty:
         return frame
+    for column in ("home", "away"):
+        frame[column] = frame[column].replace(config.HISTORY_ALIASES)
     frame["date"] = pd.to_datetime(frame["date"], errors="coerce")
     frame = frame.dropna(subset=["date"])
     for column in ("home_goals", "away_goals"):
