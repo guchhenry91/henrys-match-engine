@@ -745,7 +745,7 @@ Same rules as league props: start >= 75%, bars 40% / 62%, top 3 a match, one pic
 player; scorer checked against bet365's anytime price (`sync_ucl_odds`, bet 92) ->
 value or proving; on target has no bet365 price -> proving only. Forecast cached in
 `data-raw/ucl/props_forecast.json` (rebuilt every 3h, 45 min inside 3h; ~1.5 min of
-container time, only when such a match is within 48h). Locked by publish and the fast
+container time, shown up to 7 days ahead; rebuilt every 12h beyond 48h, every 3h inside it). Locked by publish and the fast
 locker into `data-raw/ucl/props_log.json`; graded from API-Football per-player stats
 (`player_stats.json`); did not play = void.
 

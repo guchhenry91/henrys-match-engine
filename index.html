@@ -1702,7 +1702,7 @@ function uclPropsSection(d){
       +"Only matches between two clubs from the big five leagues — the model needs their league data."
       +(mk==="goal"?"":" No bet365 price for this market, so these are proving picks, not bets."));
     h+=list.length?btable(PCOLS,list.map(uclPropTableRow).join(""))
-      :`<div class="glass rowc">${emptyRow("No picks in the next 48 hours")}</div>`;
+      :`<div class="glass rowc">${emptyRow("No picks in the next 7 days — they appear about a week before each Champions League matchday")}</div>`;
   }
   return h;
 }

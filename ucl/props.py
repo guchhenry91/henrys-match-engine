@@ -44,8 +44,10 @@ MARKETS = {"goal": ("anytime_pct", 0.40), "shots": ("p_shots_2plus", 0.62),
            "sot": ("p_sot_1plus", 0.62)}
 MIN_START = 75.0
 PER_MATCH = 3
-HORIZON_HOURS = 48.0
-REBUILD_HOURS = 3.0          # a forecast is reused this long...
+HORIZON_HOURS = 7 * 24.0     # shown up to a week ahead, like the soccer props (10 days)
+FAR_HOURS = 48.0             # beyond this, nothing moves fast:
+FAR_REBUILD_HOURS = 12.0     # ...the forecast is rebuilt twice a day (container cost)
+REBUILD_HOURS = 3.0          # inside two days, every 3 hours...
 NEAR_REBUILD_HOURS = 0.75    # ...or this long once a match is inside 3 hours (news moves)
 DOUBT_FACTOR = 0.5
 GRADE_AFTER_HOURS = 2.5
@@ -140,8 +142,10 @@ def due(cache: dict, fixtures: list, now) -> bool:
         age = (_utc(now) - _utc(cache["built_at"])).total_seconds() / 3600.0
     except Exception:                                      # noqa: BLE001
         return True
-    near = min(f["hours"] for f in fixtures) <= 3.0
-    return age >= (NEAR_REBUILD_HOURS if near else REBUILD_HOURS)
+    first = min(f["hours"] for f in fixtures)
+    every = (NEAR_REBUILD_HOURS if first <= 3.0 else REBUILD_HOURS if first <= FAR_HOURS
+             else FAR_REBUILD_HOURS)
+    return age >= every
 
 
 def forecast(fixtures: list, news: dict, now, season: int) -> dict:

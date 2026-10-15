@@ -129,3 +129,12 @@ def test_a_different_first_name_still_finds_the_player_and_regrades_a_wrong_void
 def test_two_squad_players_sharing_a_surname_are_not_guessed():
     squad = [{"player": "Inaki Williams"}, {"player": "Nico Williams"}]
     assert props.find_player("Someone Williams", squad) is None
+
+
+def test_far_matches_rebuild_twice_a_day_near_ones_often():
+    now = pd.Timestamp("2026-10-15T00:00:00Z")
+    far = [{"fid": "1", "hours": 100.0}]
+    near = [{"fid": "1", "hours": 20.0}]
+    cache = {"built_at": (now - pd.Timedelta(hours=5)).isoformat(), "fixtures": {"1": []}}
+    assert not props.due(cache, far, now)
+    assert props.due(cache, near, now)
