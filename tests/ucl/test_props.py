@@ -96,3 +96,36 @@ def test_shots_pick_is_graded_from_espn_blocked_shots_included(monkeypatch):
         return io.BytesIO(_json.dumps(body).encode())
     out = props.build([], {}, now="2026-10-15T00:00:00Z", odds_store={}, espn_opener=opener)
     assert out["record"]["shots"]["correct"] == 1
+
+
+def test_a_different_first_name_still_finds_the_player_and_regrades_a_wrong_void(monkeypatch):
+    """Understat's 'Mathis Cherki' is ESPN's 'Rayan Cherki': he started, so the pick is
+    graded on his line -- and an earlier 'did not play' void is corrected."""
+    import io
+    import json as _json
+    from ucl import espn
+    monkeypatch.setattr(espn, "PACE", 0)
+    log = {"77:shots:Mathis Cherki": {"market": "shots", "player": "Mathis Cherki",
+                                      "team": "Manchester City", "fixture_id": "77", "kickoff": KICK,
+                                      "home": "Manchester City", "away": "Paris Saint Germain",
+                                      "p_pick": 0.63, "graded": "void", "void": True,
+                                      "did_not_play": True, "void_reason": "did not play"}}
+
+    def opener(req, timeout=30):
+        if "scoreboard" in req.full_url:
+            body = {"events": [{"id": "5", "competitions": [{"competitors": [
+                {"homeAway": "home", "team": {"displayName": "Manchester City"}},
+                {"homeAway": "away", "team": {"displayName": "Paris Saint-Germain"}}]}]}]}
+        else:
+            body = {"rosters": [{"team": {"displayName": "Manchester City"}, "roster": [
+                {"athlete": {"displayName": "Rayan Cherki"}, "starter": True,
+                 "stats": [{"name": "appearances", "value": 1}, {"name": "totalShots", "value": 0}]}]}]}
+        return io.BytesIO(_json.dumps(body).encode())
+    n = props.grade(log, pd.Timestamp("2026-10-15T00:00:00Z"), espn_opener=opener)
+    e = log["77:shots:Mathis Cherki"]
+    assert n == 1 and e["graded"] == "wrong" and not e.get("void") and e["matched_as"] == "Rayan Cherki"
+
+
+def test_two_squad_players_sharing_a_surname_are_not_guessed():
+    squad = [{"player": "Inaki Williams"}, {"player": "Nico Williams"}]
+    assert props.find_player("Someone Williams", squad) is None

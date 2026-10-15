@@ -330,12 +330,33 @@ def espn_stats(log: dict, keys: list, opener=None) -> dict:
     return have
 
 
-def grade(log: dict, now, client=None, espn_opener=None) -> int:
-    """Grade every frozen prop whose match has finished. A player API-Football does not
-    list as playing is VOID; a fixture whose stats are not filed stays pending."""
+def find_player(name: str, squad: list):
+    """This player's line in one club's matchday squad, or None if he is not in it.
+
+    The two feeds spell players differently (Understat's "Mathis Cherki" is ESPN's
+    "Rayan Cherki"), so a full-name join that fails falls back to the SURNAME, accepted
+    only when exactly one squad member has it. Absent from the squad by both = not in
+    the matchday squad = did not play."""
     from leagues.players import resolve_squad_name
-    pending = [k for k, e in log.items() if not k.startswith("_") and not e.get("graded")
-               and (_utc(now) - _utc(e["kickoff"])).total_seconds() / 3600 >= GRADE_AFTER_HOURS]
+    hit = resolve_squad_name(name, [p["player"] for p in squad])
+    if hit:
+        return next((p for p in squad if p["player"] == hit), None)
+    last = _norm(name).split()[-1:] if _norm(name) else []
+    same = [p for p in squad if last and _norm(p["player"]).split()[-1:] == last]
+    return same[0] if len(same) == 1 else None
+
+
+def grade(log: dict, now, client=None, espn_opener=None) -> int:
+    """Grade every frozen prop whose match has finished. A player not in his club's
+    matchday squad, or listed with no minutes, is VOID; a fixture whose stats are not
+    filed stays pending. A 'did not play' void from the last 7 days is checked again,
+    so a name the join missed is corrected rather than left void."""
+    def due(e):
+        hours = (_utc(now) - _utc(e["kickoff"])).total_seconds() / 3600
+        if not e.get("graded"):
+            return hours >= GRADE_AFTER_HOURS
+        return bool(e.get("did_not_play")) and hours <= 7 * 24
+    pending = [k for k, e in log.items() if not k.startswith("_") and due(e)]
     if not pending:
         return 0
     api = [k for k in pending if log[k]["market"] != "shots"]
@@ -353,13 +374,19 @@ def grade(log: dict, now, client=None, espn_opener=None) -> int:
         squad = [p for p in fx["players"] if p["team"] == e["team"]]
         if not squad:
             continue                                      # club not in the filed stats yet
-        hit = resolve_squad_name(e["player"], [p["player"] for p in squad])
-        p = next((p for p in squad if p["player"] == hit), None) if hit else None
+        p = find_player(e["player"], squad)
+        base = {k2: v for k2, v in e.items()
+                if k2 not in ("graded", "void", "did_not_play", "void_reason", "actual")}
         if not p or not p.get("minutes"):
-            log[k] = picks.void_did_not_play(e)
+            if e.get("graded"):
+                continue                                  # still did not play: unchanged
+            log[k] = picks.void_did_not_play(base)
         else:
-            log[k] = picks.grade_prop(e, {"goals": p.get("goals", 0), "sot": p.get("sot", 0),
-                                          "shots": p.get("shots", 0), "minutes": p["minutes"]})
+            log[k] = picks.grade_prop(base, {"goals": p.get("goals", 0), "sot": p.get("sot", 0),
+                                             "shots": p.get("shots", 0), "minutes": p["minutes"]})
+            log[k]["matched_as"] = p["player"]
+            if e.get("graded"):
+                log[k]["regraded"] = "player was missed by the name join"
         n += 1
     return n
 

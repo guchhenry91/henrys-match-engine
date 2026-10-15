@@ -1714,6 +1714,28 @@ function viewUCLProps(){
     .map(c=>`<button class="chip ${filter===c[0]?"on":""}" type="button" onclick="setFilter('${c[0]}')">${c[1]}</button>`).join("")}</div>`;
   return boardFilters(up, tierChips(up), mchips)+uclPropsRecord(d)+uclPropsSection(d);
 }
+// Every graded Champions League player pick, newest first, with what the player did --
+// the same columns as the live board.
+function uclPropResultRow(p){
+  const UNIT={goal:"goals",shots:"shots",sot:"on target"};
+  const did=p.void?(p.did_not_play?"did not play":"void")
+    :p.actual!=null?`${p.actual} ${p.market==="shots"&&p.actual===1?"shot":(UNIT[p.market]||"")}`:"—";
+  return `<div class="brow">${timeCell(p.kickoff)}
+    <div class="be"><div class="beb">Champions League · ${esc(PMK[p.market]||p.market)}</div>
+      <b>${esc(p.player)}</b>
+      <span>${esc(p.home||"")} vs ${esc(p.away||"")} · ${esc(p.team||"")}${
+        p.matched_as&&p.matched_as!==p.player?` · listed as ${esc(p.matched_as)}`:""}</span></div>
+    <div class="bs"><b class="sel">${esc(PSEL[p.market]||p.market)}</b>${winChip(p)}${priceCheckBits({...p,awaiting_price:false})}</div>
+    ${probCell(p.p_pick)}${valCell("Result",esc(did),p.void?"off":"")}${p.odds!=null
+      ? valCell("bet365",Number(p.odds).toFixed(2)) : valCell("Price","—","off")}</div>`;
+}
+function uclPropsSettled(d){
+  const st=(d&&d.props&&d.props.settled)||[];
+  if(!st.length) return "";
+  return sectHead("Player picks","Champions League · graded player picks",
+      "A player who does not take the field is void, as bet365 settles it. Shots count blocked shots.")
+    +btable(PCOLS,st.map(uclPropResultRow).join(""));
+}
 function uclPropsRecord(d){
   const r=(d&&d.props&&d.props.record)||{};
   const bit=(x,t)=>x&&(x.total||x.pending)?`${t} ${x.correct||0}–${x.wrong||0}${x.pending?` (${x.pending} pending)`:""}${x.void?` · ${x.void} void`:""}`:"";
@@ -3095,6 +3117,7 @@ function uclGradeSummary(){
         <div class="l">${Math.round(100*(rec.hit_rate||0))}% of ${rec.settled} graded${rec.pending?` · ${rec.pending} pending`:""}${rec.void?` · ${rec.void} void`:""}${uclRecordSplit(DATA.ucl)}</div></div>`
     : gradeEmpty("No Champions League pick has settled yet.");
   h+=uclPropsRecord(DATA.ucl);
+  h+=uclPropsSettled(DATA.ucl);
   h+=uclUnrecorded(DATA.ucl);
   if(gradedMatches("ucl").length)
     h+=`<div class="glass rowc"><div class="rw" onclick="setFilter('matches')">
