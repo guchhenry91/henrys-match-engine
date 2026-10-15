@@ -3004,6 +3004,9 @@ function gradedProps(sport){
   sport=sport||gsport;
   let all=[];
   if(sport==="soccer") all=((DATA.player_picks||{}).settled||[]).slice();
+  // Champions League player picks (ucl/props.py) settle into the board's props section.
+  if(sport==="ucl") all=((((DATA.ucl||{}).props||{}).settled)||[]).map(x=>({...x,
+    date:x.kickoff, league:"Champions League", colour:"#8b7bff"}));
   // NFL props settle into their own board's settled list.
   if(sport==="nfl") all=(((DATA.nfl||{}).settled)||[]).filter(p=>p.market&&p.player);
   // MLB props carry team/opponent and the game id; the matchup comes from the
