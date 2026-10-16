@@ -581,8 +581,16 @@
       "note": "Farke confirmed Wilson out until after the international break (quad); Joseph out (knee); Gruev back available after meniscus recovery. Source: Yorkshire Evening Post."
     },
     "Brentford": {
-      "out": [],
-      "doubt": [],
+      "out": [
+        "Josh Dasilva",
+        "Antoni Milambo"
+      ],
+      "doubt": [
+        "Mikkel Damsgaard",
+        "Nathan Collins",
+        "Kevin Schade",
+        "Jannik Schuster"
+      ],
       "automation": {
         "checked_at": "2026-09-17T19:23:01.895735Z",
         "feeds_ok": [
@@ -595,7 +603,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-17T19:23:01.895735Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1557372,
       "lineup_api_attempted_at": "2026-08-22T16:24:52.455570+00:00",
       "lineup_api_rungs": [
@@ -630,7 +638,8 @@
       "lineup_confirmed": true,
       "lineup_checked_at": "2026-08-22T16:24:52.455570+00:00",
       "lineup_source": "API-Football",
-      "lineup_fixture_id": 1557372
+      "lineup_fixture_id": 1557372,
+      "note": "Ahead of Liverpool (H), 17 Oct. Dasilva and Milambo out, corroborated by Sports Mole and Goal.com. Damsgaard, Collins (calf), Schade (shoulder) and Schuster doubtful -- sources disagree on which of these are closer to out vs doubt (Goal.com lists Damsgaard/Schade as out; Sports Mole/Yahoo call them doubts), so the conservative doubt reading is kept. Sports Mole also names Kaye Furo as out but no second source corroborates it, so he is left off pending confirmation."
     },
     "Tottenham": {
       "out": [
@@ -940,12 +949,14 @@
       "out": [
         "Conor Bradley",
         "Giovanni Leoni",
-        "Hugo Ekitike"
+        "Hugo Ekitike",
+        "Ryan Gravenberch"
       ],
       "doubt": [
         "Federico Chiesa",
         "Alexander Isak",
-        "Cody Gakpo"
+        "Cody Gakpo",
+        "Dominik Szoboszlai"
       ],
       "automation": {
         "checked_at": "2026-09-20T11:31:32.236503Z",
@@ -959,7 +970,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-11T09:16:27Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1557375,
       "lineup_api_attempted_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_api_rungs": [
@@ -994,7 +1005,7 @@
       "lineup_checked_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1557375,
-      "note": "Full refresh (previous check 2026-09-20 was stale). Manager change since: Arne Slot sacked 2026-05-30, Andoni Iraola now in charge. Bradley (knee, not back until late Nov), Leoni (long-term knee) and Ekitike (ruptured Achilles, not back until December) all solidly out. Chiesa moved from OUT to DOUBT -- current Oct reporting (livescore.com) describes a back issue with hope to return, not a hard out. Two NEW doubts: Isak (thigh/toe issue on Sweden duty, missed training, Iraola non-committal) and Gakpo (ankle injury on Netherlands duty vs Serbia, missed training, severity unconfirmed) -- both genuine 50/50s for the City game. Sources: Sports Mole (11 Oct preview), CaughtOffside (7-8 Oct), livescore.com."
+      "note": "Ahead of Brentford (A), 17 Oct. Bradley/Leoni/Ekitike still out (unchanged). NEW: Gravenberch serving a one-match suspension (2 bookable offences vs Man City) -- confirmed by Sports Mole and Yahoo Sports. Szoboszlai added to doubt (missed last two sessions, per Sports Mole/Yahoo), alongside existing Isak and Gakpo doubts (both still short of full training 48h out). Chiesa retained as doubt, not contradicted by new sources."
     },
     "Fulham": {
       "out": [
@@ -1327,11 +1338,13 @@
     "Villarreal": {
       "out": [
         "Pau Cabanes",
-        "Tajon Buchanan"
+        "Tajon Buchanan",
+        "Nicolas Pepe"
       ],
       "doubt": [
         "Santiago Mourino",
-        "Ilias Akhomach"
+        "Ilias Akhomach",
+        "Peter Gulacsi"
       ],
       "automation": {
         "checked_at": "2026-09-20T16:14:04.149352Z",
@@ -1345,7 +1358,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-10T15:19:16Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1570344,
       "lineup_api_attempted_at": "2026-08-23T14:39:13.414671+00:00",
       "lineup_api_rungs": [
@@ -1383,7 +1396,7 @@
       "lineup_checked_at": "2026-08-23T14:39:13.414671+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1570344,
-      "note": "Cabanes (training with Villarreal B, not first-team ready) and Buchanan (lower-leg knock on Canada duty, pending club medical) unchanged outs. New doubt: Akhomach picked up a muscle problem on Morocco duty, missed Morocco's last two matches, status pending club medical assessment (comuniate.com, ~6 Oct). Mourino unchanged."
+      "note": "Ahead of Elche (H), 17 Oct. IMPORTANT: Nicolas Pepe (board player, anytime-scorer pick) has had eye surgery and is not expected back until end of October -- out for this fixture (multiple previews, 16 Oct: Sports Mole, WhoScored-linked coverage, Footballwhispers). Cabanes and Buchanan unchanged outs. Gulacsi added to doubt -- sources disagree whether he starts or is unavailable."
     },
     "Espanol": {
       "out": [],
@@ -1614,7 +1627,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-11T09:16:27Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1570388,
       "lineup_api_attempted_at": "2026-09-15T19:19:09.147118+00:00",
       "starters": [
@@ -1650,7 +1663,8 @@
       "lineup_fixture_id": 1570388,
       "lineup_api_rungs": [
         15
-      ]
+      ],
+      "note": "Ahead of Villarreal (A), 17 Oct. No absentees found -- in fact two returns: Yago Santiago back from knee arthroscopy and Federico Redondo back from suspension (Sports Mole, 16 Oct). Out/doubt kept empty."
     },
     "Ath Madrid": {
       "out": [
@@ -1943,7 +1957,6 @@
       "out": [
         "Cesar Tarrega",
         "Diego Lopez",
-        "Dimitri Foulquier",
         "Jose Copete",
         "Mouctar Diakhaby",
         "Sergi Canos",
@@ -1951,7 +1964,8 @@
       ],
       "doubt": [
         "G. Rodriguez",
-        "Luis Rioja"
+        "Luis Rioja",
+        "Dimitri Foulquier"
       ],
       "automation": {
         "checked_at": "2026-09-20T17:45:21.186955Z",
@@ -1965,7 +1979,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-11T09:16:27Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1570383,
       "lineup_api_attempted_at": "2026-09-15T17:06:18.548020+00:00",
       "lineup_api_rungs": [
@@ -2002,7 +2016,7 @@
       "lineup_checked_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1570381,
-      "note": "Long injury list under interim coach Oscar Sanchez; Rioja trained Saturday despite discomfort and is a possible inclusion. Source: Goal.com."
+      "note": "Ahead of Ath Bilbao (H), 17 Oct. Canos/Lopez/Sadiq reconfirmed out (Sports Mole/Footballwhispers, 16 Oct). Foulquier MOVED from out to doubt -- newer reporting calls him a 'fitness doubt' rather than a hard out. Copete 'nearing a return' but still not available, kept in out. Tarrega/Diakhaby retained, not contradicted."
     },
     "Real Madrid": {
       "out": [
@@ -2161,7 +2175,8 @@
       ],
       "doubt": [
         "Angelo Stiller",
-        "Lorenz Assignon"
+        "Lorenz Assignon",
+        "Ermedin Demirovic"
       ],
       "automation": {
         "checked_at": "2026-09-19T15:58:19.813537Z",
@@ -2175,7 +2190,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-10T15:19:16Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1575168,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -2209,7 +2224,7 @@
       "lineup_checked_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1575149,
-      "note": "A fixture-dated source cites '7 out, 4 doubt' for this match without naming them -- may be 1-2 more absentees than our named list shows, but no specific new name could be confirmed. No fresh Oct-2026 item found on Stiller or Assignon beyond older pieces -- neither upgraded nor downgraded. Match already kicked off (13:30 UTC) -- pick already locked, recorded for grading context only."
+      "note": "Ahead of Hamburg (A), 17 Oct. Existing out list (Zagadou, Diehl, Sauer, Jaquez, Tomas) unchanged -- not contradicted by new reporting. Demirovic added to doubt: one preview lists him out, another places him in the predicted XI, so treated as unresolved rather than a hard out. Stiller/Assignon doubts retained, no update found either way."
     },
     "Elversberg": {
       "out": [
@@ -2434,7 +2449,13 @@
       "lineup_fixture_id": 1575175
     },
     "Union Berlin": {
-      "out": [],
+      "out": [
+        "Emmanuel Latte Lath",
+        "Andrej Ilic",
+        "Josip Juranovic",
+        "Stanley Nsoki",
+        "Andrik Markgraf"
+      ],
       "doubt": [],
       "automation": {
         "checked_at": "2026-09-17T19:23:01.895735Z",
@@ -2448,7 +2469,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-17T19:23:01.895735Z"
+      "checked": "2026-10-16T19:13:27Z",
+      "note": "Ahead of Dortmund (H), 17 Oct. Full refresh from a stale (17 Sep) entry. Latte Lath (muscle), Ilic (recovering from appendix surgery), Juranovic (Achilles/illness) and Nsoki (calf) out -- corroborated across Sports Mole, FotMob and The Hard Tackle previews (16 Oct). Markgraf out long-term after confirmed knee (ACL) surgery following a July friendly injury, per club announcement (via RotoWire)."
     },
     "Ein Frankfurt": {
       "out": [
@@ -2628,13 +2650,16 @@
       "checked": "2026-10-11T11:11:14Z"
     },
     "Dortmund": {
-      "out": [],
+      "out": [
+        "Emre Can",
+        "Giannis Konstantelias",
+        "Justin Lerma"
+      ],
       "doubt": [
         "Julian Ryerson",
-        "Nico Schlotterbeck",
         "Konstantinos Karetsas"
       ],
-      "note": "Ahead of the 9 Oct Werder Bremen match: Ryerson (rib, hurt on Norway duty, left camp early, not in the Portugal squad) doubtful -- no official confirmation either way (SABC Sport via karlobag.eu, 6 Oct). Schlotterbeck (ankle) expected to train Thursday; Kovac on his availability: 'It's possible' (Fox Sports preview, Kovac quote). Karetsas uncertain with illness picked up on international duty; Kovac: 'we'll have to see how he is' (same source). Guirassy (board player, goal + shots picks) has no injury/fitness concern in any current reporting -- confirmed as Dortmund's attacking focal point for this match.",
+      "note": "Ahead of Union Berlin (A), 17 Oct. Can, Konstantelias and Lerma injured and out (Sports Mole/Yahoo/The Hard Tackle, 16 Oct). Schlotterbeck UPGRADED out of doubt: travelled with the squad and Kovac says he expects a full squad bar the three named above (Yahoo Sports, bvb.de, 16 Oct). Ryerson and Karetsas retained as doubts (not contradicted by newer reporting). Guirassy (board player) has no fitness concern in any reporting -- confirmed as Dortmund's attacking focal point.",
       "automation": {
         "checked_at": "2026-09-19T15:58:19.813537Z",
         "feeds_ok": [
@@ -2647,7 +2672,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-09T19:14:26Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1575168,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -2655,9 +2680,16 @@
       ]
     },
     "Hamburg": {
-      "out": [],
-      "doubt": [],
-      "note": "No major injury concerns -- Polzin expected to have a full squad available (Sports Mole, Yahoo, 29 Aug). Squad departures earlier in the window (Glatzel, Balde, Mikelbrencis) are transfers, not injuries, and are already reflected in the roster.",
+      "out": [
+        "Nicolai Remberg",
+        "Patson Daka",
+        "Warmed Omari"
+      ],
+      "doubt": [
+        "Sambi Lokonga",
+        "Yussuf Poulsen"
+      ],
+      "note": "Ahead of Stuttgart (H), 17 Oct. Full refresh from a stale (17 Sep) 'no concerns' entry -- squad has since changed. Captain Remberg out for the season (cruciate ligament tear); Daka and Omari (ankle) also out. Lokonga and Poulsen doubtful, sources disagree on severity. Fabio Vieira (board player) has no fitness concern and is expected to start.",
       "automation": {
         "checked_at": "2026-09-17T19:23:01.895735Z",
         "feeds_ok": [
@@ -2670,7 +2702,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-17T19:23:01.895735Z"
+      "checked": "2026-10-16T19:13:27Z"
     },
     "Freiburg": {
       "out": [],
@@ -3570,7 +3602,10 @@
     "Roma": {
       "out": [
         "Bryan Cristante",
-        "Mile Svilar"
+        "Mile Svilar",
+        "Donyell Malen",
+        "Paulo Dybala",
+        "Manu Kone"
       ],
       "doubt": [],
       "automation": {
@@ -3585,7 +3620,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T17:10:00Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1550128,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -3622,7 +3657,7 @@
       "lineup_checked_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1550128,
-      "note": "Cristante reconfirmed out -- Gasperini (5 Oct) described a knee collateral-ligament issue and said Roma 'will not take risks'; De Roon favoured to replace him. Svilar (hand injury) also ruled out, expected back after the Nov international break; backup keeper to start. Malen and Wesley (knee knocks) both confirmed recovered and available. Donyell Malen (knock vs Inter, sat out a NT call-up as precaution) confirmed fully recovered and expected to lead the attack (fantacalcio.it interview, 9 Oct 2026; affaritaliani.it; beinsports.com)."
+      "note": "Ahead of Genoa (H), 17 Oct. CORRECTION: the prior note (9 Oct, pre-dating this) said Malen had 'confirmed fully recovered' -- since then Malen was shown a straight red card in the 1-1 at Como (11 Oct) for a reckless challenge and will serve a suspension that rules him out of Genoa (corroborated: beIN Sports, Goal.com, LiveScore, FlashScore). Malen has a Best/Player Pick on the board -- this should be treated as a hard out, not a knock. Dybala (calf strain) and Kone (grade-1 injury per MRI) both ruled out for this match per Gasperini's own press conference (romapress.net, 15-16 Oct) -- he said he hopes to have Dybala back 'next week', i.e. not for Genoa. Cristante and Svilar outs unchanged."
     },
     "Atalanta": {
       "out": [
@@ -3679,13 +3714,17 @@
     },
     "Genoa": {
       "out": [
-        "Amorim",
-        "Elias Havel",
         "Joi Xheto Nuredini",
-        "Lorenzo Venturino",
-        "Vasquez"
+        "Lorenzo Colombo",
+        "Djibril Sow",
+        "Elias Havel",
+        "Ethan Meichtry",
+        "Lorenzo Venturino"
       ],
-      "doubt": [],
+      "doubt": [
+        "Amorim",
+        "Otoa"
+      ],
       "automation": {
         "checked_at": "2026-09-20T11:31:32.236503Z",
         "feeds_ok": [
@@ -3697,7 +3736,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-20T11:19:04.696743Z",
+      "checked": "2026-10-16T19:13:27Z",
       "lineup_api_attempted_fixture": 1550112,
       "lineup_api_attempted_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_api_rungs": [
@@ -3736,7 +3775,7 @@
       "lineup_checked_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1550112,
-      "note": "Vasquez (captain) suspended. Amorim (injury, no return date), Havel (thigh, exp. return 17 Oct), Venturino (knee) and Nuredini (ACL) all confirmed out for the Parma trip -- an upgrade from last sweep's 'Amorim doubtful' reading. Sources: football-italia.net Serie A unavailable-players list, sportsdunia.com/fotmob injury pages."
+      "note": "Ahead of Roma (A), 17 Oct. Full refresh from a stale (20 Sep) entry. Colombo, Sow, Havel, Meichtry and Venturino unavailable for this match (OneFootball Serie A preview, 16 Oct, which draws on Sky Sport Italia's per-matchday unavailable-players list). Nuredini (ACL, long-term) kept as out -- not contradicted. Vasquez (previously suspended) dropped from out -- no source still lists him unavailable, suspension presumed served. Amorim DOWNGRADED from out to doubt and Otoa (muscle) added as doubt per the same preview."
     },
     "Como": {
       "out": [],
