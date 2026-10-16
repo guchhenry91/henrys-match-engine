@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-10-11",
+  "_verified_on": "2026-10-16",
   "PL": {
     "Arsenal": {
       "out": [
@@ -357,7 +357,6 @@
         "Jack Taylor"
       ],
       "doubt": [
-        "Emersonn",
         "Azar Matusiwa"
       ],
       "automation": {
@@ -372,7 +371,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-19T14:09:08Z",
+      "checked": "2026-10-16T13:30:00Z",
       "lineup_api_attempted_fixture": 1557370,
       "lineup_api_attempted_at": "2026-08-22T13:55:50.693650+00:00",
       "lineup_api_rungs": [
@@ -408,7 +407,7 @@
       "lineup_checked_at": "2026-08-22T13:55:50.693650+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1557370,
-      "note": "Taylor (knee) out. Emersonn and Matusiwa (both thigh) fitness doubts. Source: Sports Mole team news, 19 Sep."
+      "note": "Taylor (knee, out since June) still out -- confirmed again by CityXtra's 17 Oct Man City preview (16 Oct) and consistent with the 19 Sep Sports Mole note. Emersonn CLEARED and removed from doubt: manager confirmed him fit with 'no concerns', and he has since scored and assisted in a league win (multiple reports, no single clear date but consistent with recent weeks). Matusiwa (thigh/muscle surgery in the summer) stays a doubt -- East Anglian Daily Times (undated but recent) reports him back in full training with the squad and available for the matchday squad, but not yet ready to start; kept as doubt rather than cleared since no outlet has him starting."
     },
     "Sunderland": {
       "out": [
@@ -769,13 +768,9 @@
       ]
     },
     "Manchester City": {
-      "out": [
-        "Phil Foden"
-      ],
-      "doubt": [
-        "Nico O'Reilly"
-      ],
-      "note": "Foden's absence is the final match of a 3-match suspension (red card in the Sept 13 derby), not injury -- certain but short, returns for PSG on Oct 14. Haaland and Semenyo cleared from doubt: Maresca confirmed Haaland fit and starting at Anfield ('He's ready for Anfield' / 'ready for the trip to Liverpool') -- official mancity.com team-news update, corroborated by two independent match-preview reports (Yahoo Sports) naming him in the confirmed/predicted XI; Semenyo trained fully this week and is also reported starting, resolving his Ghana-duty ankle/leg swelling concern. O'Reilly stays a doubt -- reports conflict on whether he is out entirely or just doubtful after missing training following his England-squad withdrawal; still not confirmed fit as of kickoff-eve. Sources: mancity.com (Maresca presser), Yahoo Sports x2, checked 11 Oct ahead of the 15:30 kickoff at Anfield. Pick already frozen by kickoff-minus-2h lock window -- recorded for the settlement/record, not expected to move the frozen pick.",
+      "out": [],
+      "doubt": [],
+      "note": "Foden now AVAILABLE for Ipswich (Oct 17): he served the final game of his 3-match domestic ban (red card in the Sept 13 derby) at Anfield on Oct 11, and is eligible again -- Sports Mole ('Maresca boost: Man City injury, suspension list for Ipswich clash', 15 Oct) and thefalse9.com (two separate team-news/lineup pieces, 15 Oct) both report no injuries or suspensions for the Ipswich game and expect Foden to start; one outlet (CityXtra, 16 Oct) disagrees and says this IS his final banned match, but is outvoted by the more recent, more specific reporting. O'Reilly no longer listed as a doubt (Sports Mole reports no fitness concerns at all; thefalse9 pencils him in to start at left-back). Ait-Nouri, who missed the Liverpool game, was back on the bench vs PSG and is available. Sources: sportsmole.co.uk (15 Oct), thefalse9.com x2 (15 Oct).",
       "automation": {
         "checked_at": "2026-09-20T11:31:32.236503Z",
         "feeds_ok": [
@@ -788,7 +783,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-11T15:15:00Z",
+      "checked": "2026-10-16T13:30:00Z",
       "lineup_api_attempted_fixture": 1557394,
       "lineup_api_attempted_at": "2026-09-05T13:56:07.274728+00:00",
       "lineup_api_rungs": [
@@ -2478,7 +2473,9 @@
       "note": "Kristensen (ankle/ligament) and Theate (meniscus tear, out at least a month) reconfirmed. NEW: Ansgar Knauff added to OUT -- had abdominal surgery, club statement says sidelined 'for the foreseeable future' (getfootballnewsgermany.com, two articles). Arnaud Kalimuendo (shoulder) given the all-clear and back in training -- not added to either list, confirmed fit."
     },
     "Mainz": {
-      "out": [],
+      "out": [
+        "Dominik Kohr"
+      ],
       "doubt": [],
       "automation": {
         "checked_at": "2026-09-17T19:23:01.895735Z",
@@ -2492,7 +2489,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-09-17T19:23:01.895735Z"
+      "checked": "2026-10-16T13:30:00Z",
+      "note": "Kohr (ankle) out, reported until January -- corroborated by Sports Mole's 15 Oct Schalke-Mainz preview and a separate Yahoo preview, both current to this match. A third source (starting11.com, dated to this fixture) additionally lists Zentner (hand), Ruoppi (knee) and Mvumpa (shin) out and four more doubtful, but none of those names is corroborated by the two dated news-outlet previews, which name only Kohr -- left out rather than added on a single, uncorroborated source. Sources: sportsmole.co.uk, Yahoo preview (both 15 Oct 2026)."
     },
     "Paderborn": {
       "out": [
@@ -2743,7 +2741,7 @@
     },
     "Schalke 04": {
       "out": [
-        "Dejan Ljubicic",
+        "Moussa Sylla",
         "Emil Hojlund",
         "Adrian Gantenbein"
       ],
@@ -2762,8 +2760,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-11T09:16:27Z",
-      "note": "Ljubicic (knee) and Hojlund remain out. Gantenbein now out -- syndesmosis ligament injury, reported up to ~3 months (Sky Sport via weekend.at). Lasme reported back in training after a calf injury but not independently confirmed, kept as doubt. Sources: ms-aktuell.de, weekend.at, sport.sky.de.",
+      "checked": "2026-10-16T13:30:00Z",
+      "note": "Ljubicic REMOVED from out -- Sports Mole's 15 Oct Schalke-Mainz preview lists only Sylla, Hojlund and backup keeper Siebeking as absentees, with no other doubts, so he appears to have recovered (not contradicted elsewhere). Sylla ADDED to out: picked up a studs injury to his left leg in the 1-2 at Freiburg, club says 'not available for now' -- corroborated by both Recklinghäuser Zeitung and Ruhr Nachrichten (both 15 Oct, citing Schalke's own training update) and Sports Mole. Hojlund and Gantenbein (syndesmosis, ~3 months from mid-Sept, so still plausible) carried over, not contradicted by the new reporting. Lasme was doing an individual training program for 'load management' per Recklinghäuser Zeitung (15 Oct) -- unclear if he plays, kept as doubt. Captain Karaman and Schallenberg were also briefly absent from training for the same load-management reason but are not treated as doubts since the club described it as discretionary, not injury. Sources: sportsmole.co.uk, recklinghaeuser-zeitung.de, ruhrnachrichten.de (all 15 Oct 2026).",
       "lineup_api_attempted_fixture": 1575173,
       "lineup_api_attempted_at": "2026-09-20T15:22:57.710723+00:00",
       "lineup_api_rungs": [
