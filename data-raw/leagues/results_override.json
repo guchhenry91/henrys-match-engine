@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-10-10",
+  "_verified_on": "2026-10-17",
   "LALIGA": {
     "Ath Madrid|Real Madrid": {
       "home_goals": 2,
@@ -2099,6 +2099,24 @@
         "footmercato.net match report: Troyes-Marseille 0-2, 6e journee Ligue 1 McDonald's 2026/2027, 11/10, Full Time",
         "ici.fr (France Televisions) match report: Marseille wins 0-2 at Troyes in Ligue 1, Full Time"
       ]
+    },
+    "Lille|Brest": {
+      "home_goals": 1,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "news.footeo.com match report: Lille - Brest (1-1), sauve par Giroud, le LOSC cale encore et voit le podium menace, 7e journee Ligue 1, 17/10/2026, Full Time",
+        "Morning-Foot match report: Lille 1-1 Brest, Ligue 1 round 7, Balde 6' / Giroud pen 64', Full Time"
+      ]
+    },
+    "Troyes|Lens": {
+      "home_goals": 1,
+      "away_goals": 3,
+      "status": "FT",
+      "sources": [
+        "Lensois.com match report: Troyes-RC Lens (1-3), vainqueur avec un gros turnover, 7e journee Ligue 1, 17/10/2026, buts Nkada (26') pour Troyes, Monfray csc (13'), Edouard (45+2'), Aguilar (54') pour Lens, Full Time",
+        "news.footeo.com match report: Troyes - Lens (1-3), victoire convaincante mais trois blesses pour Lens avant la Ligue des champions, Full Time"
+      ]
     }
   },
   "SERIEA": {
@@ -2443,6 +2461,15 @@
       "sources": [
         "VAVEL match report: Cagliari vs Juventus 1-1, Serie A 2026-27 Matchday 6, Daniel Maldini 20', Kolo Muani 81', Oct 11 2026, Full Time",
         "ysscores.com: Juventus draw with Cagliari 1-1 in Serie A, Full Time (corroborated by juventus.com club match report, same scorers/minutes)"
+      ]
+    },
+    "Roma|Genoa": {
+      "home_goals": 2,
+      "away_goals": 0,
+      "status": "FT",
+      "sources": [
+        "sport.sky.it match report: Roma-Genoa 2-0, gol e highlights, giornata 7 Serie A 2026-27, Castro 50', Lulli 68', Full Time",
+        "redscores.com match page: Roma 2-0 Genoa, Full Time, corroborated by onefootball.com (Serie A, Roma 2-0 Genoa, first time special for Castro and Lulli)"
       ]
     }
   },
