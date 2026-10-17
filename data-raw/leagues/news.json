@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-10-16",
+  "_verified_on": "2026-10-17",
   "PL": {
     "Arsenal": {
       "out": [
@@ -371,7 +371,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T17:10:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1557370,
       "lineup_api_attempted_at": "2026-08-22T13:55:50.693650+00:00",
       "lineup_api_rungs": [
@@ -603,7 +603,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1557372,
       "lineup_api_attempted_at": "2026-08-22T16:24:52.455570+00:00",
       "lineup_api_rungs": [
@@ -792,7 +792,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T17:10:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1557394,
       "lineup_api_attempted_at": "2026-09-05T13:56:07.274728+00:00",
       "lineup_api_rungs": [
@@ -970,7 +970,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1557375,
       "lineup_api_attempted_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_api_rungs": [
@@ -1358,7 +1358,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1570344,
       "lineup_api_attempted_at": "2026-08-23T14:39:13.414671+00:00",
       "lineup_api_rungs": [
@@ -1400,7 +1400,8 @@
     },
     "Espanol": {
       "out": [
-        "Kike García"
+        "Kike García",
+        "Jofre Carreras"
       ],
       "doubt": [],
       "automation": {
@@ -1415,14 +1416,14 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T23:17:07Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1570347,
       "lineup_api_attempted_at": "2026-08-22T19:05:02.966857+00:00",
       "lineup_api_rungs": [
         45,
         30
       ],
-      "note": "Manager Manolo González confirmed in his own pre-match press conference (reported by comuniate.com and elgoldigital.com, ~8 Oct 2026) that Kike García remains out after tendon surgery (~2 months from early August). Roberto Fernández and Vanja Milinković-Savić returned fit from international duty and are available."
+      "note": "Ahead of Ath Madrid (H), 17 Oct. Kike García still out (tendon surgery). ADDED: Jofre Carreras out with a pubis/groin injury since 13 Sep -- manager Manolo González confirmed the absence in his own press conference (comuniate.com, 14 Sep, carried again in the club's rotation/team-news coverage) and Flashscore's injury tracker lists the same groin issue from 13.09.2026 with no return date set, so still open. No source gives a return date, so he is treated as out rather than doubt."
     },
     "Levante": {
       "out": [
@@ -1630,7 +1631,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1570388,
       "lineup_api_attempted_at": "2026-09-15T19:19:09.147118+00:00",
       "starters": [
@@ -1673,8 +1674,10 @@
       "out": [
         "Pablo Barrios"
       ],
-      "doubt": [],
-      "note": "Barrios out (hamstring strain). Julian Alvarez has recovered from his quad issue and is back in the squad for the derby -- available, not a fitness doubt; Simeone undecided only on starter vs bench.",
+      "doubt": [
+        "Koke"
+      ],
+      "note": "Barrios out (hamstring strain). Julian Alvarez has recovered from his quad issue and is back in the squad for the derby -- available, not a fitness doubt; Simeone undecided only on starter vs bench. NEW ahead of Espanol (A), 17 Oct: Koke added as a doubt -- sources disagree on why (getfootballnewsspain.com, 16 Oct, citing a club statement, says a left thigh muscle injury; Sports Mole, 15 Oct, says he missed the Man Utd game after his mother's death and could return), but both independently flag him as uncertain for this game, so kept as doubt with the conflict noted rather than resolved. Johnny Cardoso reported out (illness) by getfootballnewsspain.com (16 Oct) alone -- NOT added, since two other current previews (footballwhispers.com and thestatszone.com, both dated to this fixture) say Atletico have no injury concerns at all, so this is left unverified pending a second corroborating source.",
       "automation": {
         "checked_at": "2026-09-20T13:17:05.221125Z",
         "feeds_ok": [
@@ -1687,7 +1690,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T23:17:07Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1570344,
       "lineup_api_attempted_at": "2026-08-23T14:39:13.414671+00:00",
       "starters": [
@@ -2160,7 +2163,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T17:10:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1575166,
       "lineup_api_attempted_at": "2026-09-13T15:00:07.177817+00:00",
       "lineup_api_rungs": [
@@ -2193,7 +2196,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1575168,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -2468,7 +2471,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "note": "Ahead of Dortmund (H), 17 Oct. Full refresh from a stale (17 Sep) entry. Latte Lath (muscle), Ilic (recovering from appendix surgery), Juranovic (Achilles/illness) and Nsoki (calf) out -- corroborated across Sports Mole, FotMob and The Hard Tackle previews (16 Oct). Markgraf out long-term after confirmed knee (ACL) surgery following a July friendly injury, per club announcement (via RotoWire)."
     },
     "Ein Frankfurt": {
@@ -2510,7 +2513,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T17:10:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "note": "Kohr (ankle) out, reported until January -- corroborated by Sports Mole's 15 Oct Schalke-Mainz preview and a separate Yahoo preview, both current to this match. A third source (starting11.com, dated to this fixture) additionally lists Zentner (hand), Ruoppi (knee) and Mvumpa (shin) out and four more doubtful, but none of those names is corroborated by the two dated news-outlet previews, which name only Kohr -- left out rather than added on a single, uncorroborated source. Sources: sportsmole.co.uk, Yahoo preview (both 15 Oct 2026)."
     },
     "Paderborn": {
@@ -2595,7 +2598,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T17:10:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "note": "Unchanged out/doubt list, reconfirmed by a fixture-dated source. Lukeba (groin) progressing, back in full training, start vs Frankfurt 'in focus' -- trending available but still a doubt. Reitz/Baumgartner 'need more patience'. Rômulo felt ankle pain in training but no long-term concern reported -- stays a doubt, not upgraded to out. Checked again ahead of Oct 17 Bayern match: one source only (goal.com, byline 16 Oct) says Baumgartner is now OUT (not just doubt) and adds Viggo Gebel out; could not corroborate with a second publisher, so list left unchanged per the two-source policy -- reported as unverified.",
       "lineup_api_attempted_fixture": 1575169,
       "lineup_api_attempted_at": "2026-09-20T13:17:37.433063+00:00",
@@ -2671,7 +2674,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1575168,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -2701,7 +2704,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T19:13:27Z"
+      "checked": "2026-10-17T09:23:51Z"
     },
     "Freiburg": {
       "out": [],
@@ -2791,7 +2794,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T13:30:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "note": "Ljubicic REMOVED from out -- Sports Mole's 15 Oct Schalke-Mainz preview lists only Sylla, Hojlund and backup keeper Siebeking as absentees, with no other doubts, so he appears to have recovered (not contradicted elsewhere). Sylla ADDED to out: picked up a studs injury to his left leg in the 1-2 at Freiburg, club says 'not available for now' -- corroborated by both Recklinghäuser Zeitung and Ruhr Nachrichten (both 15 Oct, citing Schalke's own training update) and Sports Mole. Hojlund and Gantenbein (syndesmosis, ~3 months from mid-Sept, so still plausible) carried over, not contradicted by the new reporting. Lasme was doing an individual training program for 'load management' per Recklinghäuser Zeitung (15 Oct) -- unclear if he plays, kept as doubt. Captain Karaman and Schallenberg were also briefly absent from training for the same load-management reason but are not treated as doubts since the club described it as discretionary, not injury. Sources: sportsmole.co.uk, recklinghaeuser-zeitung.de, ruhrnachrichten.de (all 15 Oct 2026).",
       "lineup_api_attempted_fixture": 1575173,
       "lineup_api_attempted_at": "2026-09-20T15:22:57.710723+00:00",
@@ -3721,7 +3724,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T15:45:00Z",
+      "checked": "2026-10-17T09:23:51Z",
       "lineup_api_attempted_fixture": 1550123,
       "lineup_api_attempted_at": "2026-09-13T15:00:07.177817+00:00",
       "lineup_api_rungs": [
@@ -3947,7 +3950,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-16T23:17:07Z",
+      "checked": "2026-10-17T09:23:51Z",
       "note": "No new Inter-specific injury news surfaced for Oct 2026 despite targeted searches (Pavard, Zielinski, Akanji, Bisseck all clear in available reporting).",
       "lineup_api_attempted_fixture": 1550128,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
