@@ -106,7 +106,10 @@ def check_league(fn, key, n_teams, releg):
         if pp is None:
             pp = {"home": p["p_home"], "draw": p["p_draw"], "away": p["p_away"]}[p["pick_type"]]
         exp_conf = next((c for t, c in ((.70, 5), (.60, 4), (.50, 3), (.40, 2)) if pp >= t), 1)
-        if p["confidence"] != exp_conf:
+        # Even 4dp rounds 0.39996 up to 0.4000 (Levante v Ath Bilbao, 2026-10-18, failed
+        # four refreshes): within 0.0005 of a band edge either side's band is right.
+        edge = any(abs(pp - t) <= 0.0005 for t in (.70, .60, .50, .40))
+        if p["confidence"] != exp_conf and not (edge and abs(p["confidence"] - exp_conf) == 1):
             fail(tag, f"confidence {p['confidence']} but picked prob {pp:.3f} implies {exp_conf}")
 
         # props
