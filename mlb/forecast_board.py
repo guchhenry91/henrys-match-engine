@@ -86,6 +86,7 @@ def select(priced: list) -> list:
     # VALUE OR PROVING (tracking/pricecheck.qualifies, owner 2026-10-12): +3% at bet365,
     # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
+    allp = priced
     priced = [p for p in priced if pricecheck.qualifies(p)]
     keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
                    and (p["market"] not in OVER_ONLY or p["side"] == "over")],
@@ -93,8 +94,10 @@ def select(priced: list) -> list:
     by_game = {}
     for p in keep:
         by_game.setdefault(str(p["game_id"]), []).append(p)
-    return sorted([p for ps in by_game.values() for p in ps[:TOP_PER_MARKET]],
+    out = sorted([p for ps in by_game.values() for p in ps[:TOP_PER_MARKET]],
                   key=lambda p: -p["probability"])
+    pricecheck.untag_unpublished(allp, out)
+    return out
 
 
 def _probable(g, side):

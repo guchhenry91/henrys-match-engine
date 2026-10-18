@@ -137,7 +137,19 @@ def clv(entry: dict):
         return None, None
     if "after the fact" in str(entry.get("price_from") or ""):
         return None, None
-    d = float(close_p) * price - 1.0
+    # AN ESTIMATED bet365 PRICE already has the margin taken off the sharp book's fair
+    # chance, so close x that price is ~-7% on every pick (MLB audit, 2026-10-18) and
+    # could never read positive. Where the price is an estimate, the bet is scored as
+    # the sharp book scored it: its closing fair chance against its fair chance at lock.
+    basis = (entry.get("price_check") or {}).get("basis") or (entry.get("value") or {}).get("basis")
+    lock_p = entry.get("book_p")
+    if basis == "estimate" and lock_p:
+        try:
+            d = float(close_p) / float(lock_p) - 1.0
+        except (TypeError, ValueError, ZeroDivisionError):
+            return None, None
+    else:
+        d = float(close_p) * price - 1.0
     return ("flat" if abs(d) < FLAT else "ours" if d > 0 else "against"), round(d, 4)
 
 

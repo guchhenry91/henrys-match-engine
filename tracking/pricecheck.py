@@ -121,6 +121,16 @@ def qualifies(pick: dict, **kw) -> bool:
     return False
 
 
+def untag_unpublished(priced: list, kept: list) -> None:
+    """qualifies() tags pick_kind on every row it passes; a row the board's own bar
+    then drops is NOT a proving pick, and must not be shown as one on a game page
+    (MLB audit, 2026-10-18: seven unpublished rows read "Proving pick")."""
+    keep = {id(p) for p in kept}
+    for p in priced:
+        if id(p) not in keep:
+            p.pop("pick_kind", None)
+
+
 def one_per_player(board: dict) -> dict:
     """ONE PICK PER PLAYER PER GAME across markets (audit, 2026-10-12): the same
     striker on scorer, shots and on target is one bet three times. Keeps the highest

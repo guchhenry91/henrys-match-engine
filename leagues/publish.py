@@ -643,15 +643,18 @@ def build(league: str = "PL") -> dict:
         for pk in [k for k in pl_log if str(k).startswith(f"{log_key(m['match_id'])}:")]:
             if picks.release_moved_lock(pl_log, pk, m["date"], now=now):
                 released_locks.append(f"{m['home']} v {m['away']} ({pk.rsplit(':', 1)[-1]})")
-        if hours_out <= _lock_window() and not bool(m.get("time_suspect")):
+        # NEVER AFTER KICKOFF (2026-10-18: Samatta frozen 100 min into Le Havre v
+        # Auxerre after failed refreshes -- tainted, so voided). A started match that
+        # was never frozen is unrecorded, not late-locked.
+        if 0 < hours_out <= _lock_window() and not bool(m.get("time_suspect")):
             entry = picks.lock_pick(log, log_key(m["match_id"]), pick=pick,
-                                    confidence=_confidence(probs[pick]),
+                                    confidence=_confidence(round(float(probs[pick]), 4)),
                                     kickoff=m["date"], now=now,
                                     p_pick=probs[pick],
                                     board=probs[pick] >= BEST_PICK_MIN_PROB)
             provisional = False
         else:
-            entry = {"pick": pick, "confidence": _confidence(probs[pick]),
+            entry = {"pick": pick, "confidence": _confidence(round(float(probs[pick]), 4)),
                      "p_pick": round(float(probs[pick]), 4)}
             provisional = True
         # Everything the card shows must describe the FROZEN pick, not the fresh
@@ -768,6 +771,8 @@ def build(league: str = "PL") -> dict:
                 if PROPS_REBUILT:
                     shown = prob              # gated as published: no after-the-fact refit
                 is_new = pkey not in pl_log
+                if is_new and hours_out <= 0:
+                    continue          # kicked off and never frozen: not a pick any more
                 # THE PRICE CHECK (tracking/pricecheck.py): bet365's anytime price for
                 # a scorer pick; a US book's fair chance (bet365 estimated from it) for
                 # shots / on target. Too short -> not published. No price yet -> shown
@@ -813,12 +818,12 @@ def build(league: str = "PL") -> dict:
                 wait_for_xi = (PROPS_REBUILT and is_new and not lineup_ready
                                and hours_out > forecast_board.XI_WAIT_HOURS
                                and _lock_window() <= LOCK_WINDOW_HOURS)
-                if (hours_out <= _lock_window() and not bool(m.get("time_suspect"))
+                if (0 < hours_out <= _lock_window() and not bool(m.get("time_suspect"))
                         and not wait_for_xi):
                     pe = picks.lock_prop(pl_log, pkey, market=market,
                                          player=p["player"], team=p["team"],
                                          p_pick=shown, p_model=prob,
-                                         confidence=_confidence(shown),
+                                         confidence=_confidence(round(shown, 4)),
                                          kickoff=m["date"], now=now,
                                          bar=_bar(market),
                                          lineup_confirmed=lineup_ready,
@@ -842,7 +847,7 @@ def build(league: str = "PL") -> dict:
                     # What the fast locker (scripts/lock_picks.py) will freeze: the
                     # chance the price check judged, not the raw forecast.
                     pe = {"p_pick": round(shown, 4), "p_model": round(prob, 4),
-                          "confidence": _confidence(shown)}
+                          "confidence": _confidence(round(shown, 4))}
                     pprov = True
                 player_picks.append({
                     "market": market,
