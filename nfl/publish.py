@@ -650,6 +650,10 @@ def build() -> dict:
             props_status["forecast"] = (f"{type(exc).__name__}: {exc} | "
                                         + traceback.format_exc().strip().splitlines()[-3][:300])
     w_rebuilt = forecast_board.weights() if REBUILT else {}
+    try:
+        frozen_props = picks.core.load_log(picks.PICKS_LOG).get("props") or {}
+    except Exception:                                      # noqa: BLE001
+        frozen_props = {}
     for market in config.MARKETS:
         if market not in slate:
             props[market] = {"released": False, "picks": []}
@@ -679,7 +683,7 @@ def build() -> dict:
                 "priced": len(priced)}
             for pick in priced:
                 game_props.setdefault(str(pick["game_id"]), {}).setdefault(market, []).append(pick)
-            board = forecast_board.select(priced)
+            board = forecast_board.select(priced, frozen_props)
             if forecast_board.ALT_ON and market != "anytime_touchdown":
                 alts = forecast_board.select_alt(priced, board)
                 board = sorted(board + alts, key=lambda p: -p["probability"])
