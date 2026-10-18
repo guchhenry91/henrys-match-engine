@@ -1,6 +1,6 @@
 {
  "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
- "_verified_on": "2026-10-17",
+ "_verified_on": "2026-10-18",
  "PL": {
   "Arsenal": {
    "out": [
@@ -83,7 +83,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-11T17:30:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1557394,
    "lineup_api_attempted_at": "2026-09-05T13:56:07.274728+00:00",
    "lineup_api_rungs": [
@@ -672,7 +672,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-10T15:19:16Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1557372,
    "lineup_api_attempted_at": "2026-08-22T16:24:52.455570+00:00",
    "lineup_api_rungs": [
@@ -1177,7 +1177,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-10T15:19:16Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1570348,
    "lineup_api_attempted_at": "2026-08-23T17:17:30.317728+00:00",
    "lineup_api_rungs": [
@@ -1214,7 +1214,7 @@
    "lineup_checked_at": "2026-08-23T17:17:30.317728+00:00",
    "lineup_source": "API-Football",
    "lineup_fixture_id": 1570348,
-   "note": "Uche (season-ending knee) and Juanmi (long-term knee, targeting a Nov 1 return) unchanged. No fresh Oct 2026 reporting found on the five listed doubts specifically -- sourcing for this club was weak/stale across multiple searches; list kept unchanged as plausible but not freshly reverified. Recommend a direct Getafe/Marca/AS check closer to kickoff next time."
+   "note": "Uche (season-ending knee) and Juanmi (long-term knee, targeting a Nov 1 return) unchanged. No fresh Oct 2026 reporting found on the five listed doubts specifically -- sourcing for this club was weak/stale across multiple searches; list kept unchanged as plausible but not freshly reverified. Recommend a direct Getafe/Marca/AS check closer to kickoff next time. RECHECK 18 Oct ahead of Vallecano: a single-source (Comuniate, 15 Oct jornada-9 preview) flags Zaid Romero, Azon, Mangala and Unal as possibly unavailable, and Carvajal as not yet expected back -- none corroborated by a second outlet, not added. Existing out/doubt list carried forward unchanged."
   },
   "Sevilla": {
    "out": [
@@ -1236,7 +1236,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T19:15:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1570381,
    "lineup_api_attempted_at": "2026-09-11T18:40:07.623941+00:00",
    "lineup_api_rungs": [
@@ -1290,9 +1290,10 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-09-19T14:09:08Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1570341,
-   "lineup_api_attempted_at": "2026-08-15T18:50:41.015401+00:00"
+   "lineup_api_attempted_at": "2026-08-15T18:50:41.015401+00:00",
+   "note": "RECHECK 18 Oct ahead of Getafe: a single-source (Comuniate, 15 Oct jornada-9 preview, cut off) flags Ratiu as a doubt for Benat -- not corroborated by a second outlet, not added."
   },
   "Racing Santander": {
    "out": [
@@ -2079,7 +2080,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T19:15:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1570388,
    "lineup_api_attempted_at": "2026-09-15T19:19:09.147118+00:00",
    "lineup_api_rungs": [
@@ -3172,7 +3173,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T18:10:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1552770,
    "lineup_api_attempted_at": "2026-09-20T14:47:06.848321+00:00",
    "lineup_api_rungs": [
@@ -3274,7 +3275,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T18:10:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1552750,
    "lineup_api_attempted_at": "2026-09-04T16:24:56.701452+00:00",
    "lineup_api_rungs": [
@@ -3972,7 +3973,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-11T23:13:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1550110,
    "lineup_api_attempted_at": "2026-09-05T12:02:07.920958+00:00",
    "lineup_api_rungs": [
@@ -4166,7 +4167,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-10T15:19:16Z",
+   "checked": "2026-10-18T17:15:33Z",
    "note": "Bernabe and Frigan unchanged doubts. NEW: Delprato also trained only partially this week, availability 'still being assessed' (sosfanta.com, ~5-8 Oct) -- added as a third doubt. Britschgi and Sierro expected back in time for the match after returning from Switzerland duty."
   },
   "Monza": {
@@ -4184,12 +4185,13 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-11T09:16:27Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1550122,
    "lineup_api_attempted_at": "2026-09-13T12:00:15.984414+00:00",
    "lineup_api_rungs": [
     60
-   ]
+   ],
+   "note": "RECHECK 18 Oct ahead of Cagliari: TuttoMercatoWeb (16 Oct) names Lucchesi suspended (no appearance) and Goglichidze starting in his place -- single source, not corroborated elsewhere, not added as a formal out entry. No other fresh absence reporting found."
   },
   "Sassuolo": {
    "out": [
@@ -4240,7 +4242,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T18:10:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1550132,
    "lineup_api_attempted_at": "2026-09-20T15:22:57.710723+00:00",
    "lineup_api_rungs": [
@@ -4292,7 +4294,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-11T09:16:27Z",
+   "checked": "2026-10-18T17:15:33Z",
    "note": "Romano and Daniel Maldini returning from international duty, should be available. Doubts per fantamaster.it; Kevin Carlos (thigh) also separately flagged by CagliariNews24."
   },
   "Udinese": {
@@ -4336,7 +4338,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T18:10:00Z",
+   "checked": "2026-10-18T17:15:33Z",
    "lineup_api_attempted_fixture": 1550121,
    "lineup_api_attempted_at": "2026-09-12T15:38:48.759631+00:00",
    "lineup_api_rungs": [
