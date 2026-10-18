@@ -182,6 +182,16 @@ def select(priced: list) -> list:
     # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
     allp = priced
+    # A game already under way is not a pick any more: it can never be frozen.
+    now = pd.Timestamp.now(tz="UTC")
+
+    def _started(p):
+        try:
+            k = pd.Timestamp(p.get("kickoff"))
+            return (k.tz_localize("UTC") if k.tzinfo is None else k) <= now
+        except Exception:                                   # noqa: BLE001
+            return False
+    priced = [p for p in priced if not _started(p)]
     priced = [p for p in priced if pricecheck.qualifies(p)]
     keep = sorted([p for p in priced if _clears(p) and p["p_model"] >= 0.5
                    and p["market"] not in HELD
