@@ -632,6 +632,9 @@ def build() -> dict:
                                            alt_quotes={k: (v or {}).get(market) or {}
                                                        for k, v in alts.items()})
     built = None
+    # WHY A MARKET PRICED NOTHING, published on the board (props_status) -- a run that
+    # silently priced no one looked exactly like a quiet slate (2026-10-18).
+    props_status = {"forecast": None, "markets": {}}
     if REBUILT and any(slate.values()):
         try:
             out_now = {n: (r or {}).get("team") for n, r in injuries.items()
@@ -643,6 +646,9 @@ def build() -> dict:
             # Never fall back to the old model's numbers: no rebuilt read, no prop picks.
             print(f"::warning::rebuilt NFL forecast unavailable ({type(exc).__name__}: {exc}); "
                   f"no prop picks this run")
+            import traceback
+            props_status["forecast"] = (f"{type(exc).__name__}: {exc} | "
+                                        + traceback.format_exc().strip().splitlines()[-3][:300])
     w_rebuilt = forecast_board.weights() if REBUILT else {}
     for market in config.MARKETS:
         if market not in slate:
@@ -655,8 +661,22 @@ def build() -> dict:
             awaiting_book[market] = waiting
             print(f"  {market}: {waiting} projection(s) held back -- no bookmaker line yet")
         if REBUILT:
-            priced = forecast_board.price(market, projections, built, w_rebuilt.get(market)) \
-                if built is not None else []
+            try:
+                priced = forecast_board.price(market, projections, built, w_rebuilt.get(market)) \
+                    if built is not None else []
+            except Exception as exc:                   # one market must not sink the board
+                print(f"::warning::{market}: pricing failed ({type(exc).__name__}: {exc})")
+                props_status["markets"][market + "_error"] = f"{type(exc).__name__}: {exc}"[:300]
+                priced = []
+            keys = (set(built.loc[built["is_next"], "player_id"].astype(str) + "|"
+                        + built.loc[built["is_next"], "game_id"].astype(str))
+                    if built is not None else set())
+            props_status["markets"][market] = {
+                "slate": len(projections),
+                "with_book_price": sum(1 for p in projections if p.get("book_p") is not None),
+                "in_forecast": sum(1 for p in projections
+                                   if f"{p.get('player_id')}|{p.get('game_id')}" in keys),
+                "priced": len(priced)}
             for pick in priced:
                 game_props.setdefault(str(pick["game_id"]), {}).setdefault(market, []).append(pick)
             board = forecast_board.select(priced)
@@ -839,6 +859,7 @@ def build() -> dict:
         # Every priced prop per game, for the game pages (index.html viewGame),
         # and every other bookmaker quote the model has no read on.
         "game_props": game_props,
+        "props_status": props_status,
         "game_quotes": game_quotes,
         "evidence": _evidence(),
         # STATED, NOT HIDDEN. Each of these is a real hole a reader could
