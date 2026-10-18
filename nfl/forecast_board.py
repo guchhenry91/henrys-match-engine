@@ -42,6 +42,20 @@ PRICED_LOG = ROOT / "data-raw" / "nfl" / "priced_lines.json"
 WEIGHTS = ROOT / "data-raw" / "nfl" / "combine_weights.json"
 ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
+# BALANCED LINES (owner, 2026-10-18): a book line set near 50/50 can never reach 62%
+# once the forecast is pulled toward the book (combine_fit.shrink) -- the board went
+# empty. On a line whose book chance is under BALANCED_BOOK_MAX the bar is 55%: about
+# the +3% value point at typical prices, and the pick must still be value or proving.
+BALANCED_BAR = 0.55
+BALANCED_BOOK_MAX = 0.56
+
+
+def bar_for(p: dict) -> float:
+    try:
+        balanced = float(p.get("book_p")) < BALANCED_BOOK_MAX
+    except (TypeError, ValueError):
+        balanced = False
+    return BALANCED_BAR if balanced else PUBLISH_BAR
 TOP_PER_MARKET = 3
 # ALTERNATE LINES: the book's lower rungs, where overs are likelier. A rung is a pick
 # only at ALT_BAR or above AND with the forecast at least as sure as the book; the
@@ -156,7 +170,7 @@ def select(priced: list) -> list:
     # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
     priced = [p for p in priced if pricecheck.qualifies(p)]
-    keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
+    keep = sorted([p for p in priced if p["probability"] >= bar_for(p) and p["p_model"] >= 0.5
                    and p["market"] not in HELD],
                   key=lambda p: -p["probability"])
     by_game = {}

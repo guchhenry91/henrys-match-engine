@@ -37,6 +37,20 @@ ROOT = Path(__file__).resolve().parent.parent
 REPORT = ROOT / "data-raw" / "nba" / "forecast_report.json"
 ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
+# BALANCED LINES (owner, 2026-10-18): a book line set near 50/50 can never reach 62%
+# once the forecast is pulled toward the book (combine_fit.shrink) -- the board went
+# empty. On a line whose book chance is under BALANCED_BOOK_MAX the bar is 55%: about
+# the +3% value point at typical prices, and the pick must still be value or proving.
+BALANCED_BAR = 0.55
+BALANCED_BOOK_MAX = 0.56
+
+
+def bar_for(p: dict) -> float:
+    try:
+        balanced = float(p.get("book_p")) < BALANCED_BOOK_MAX
+    except (TypeError, ValueError):
+        balanced = False
+    return BALANCED_BAR if balanced else PUBLISH_BAR
 TOP_PER_MARKET = 3              # per game, per market
 # TEAMMATES OUT, trained on the official pre-game injury report (nba/injury_report).
 # Gate 2026-10-12 (scored 2025+2026, trained 2022 on, with vs without):
@@ -142,7 +156,7 @@ def select(priced: list) -> list:
     # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
     priced = [p for p in priced if pricecheck.qualifies(p)]
-    keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5],
+    keep = sorted([p for p in priced if p["probability"] >= bar_for(p) and p["p_model"] >= 0.5],
                   key=lambda p: -p["probability"])
     by_game = {}
     for p in keep:
