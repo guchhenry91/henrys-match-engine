@@ -256,6 +256,88 @@ def engines(r):
             r.add(sport, "engine", "fail", "board was not built by the rebuilt model -- its last publish failed or predates it")
 
 
+def _upcoming(rows, now, key, within_h):
+    """How many of `rows` start in the next `within_h` hours."""
+    n = 0
+    for x in rows or []:
+        h = _hours(_utc(x.get(key)), now) if isinstance(x, dict) else None
+        n += h is not None and 0 < h <= within_h
+    return n
+
+
+def props_output(r, now):
+    """A props board that went EMPTY while games are coming (2026-10-18: NFL game day,
+    every market priced, nothing published -- the owner found it, not the pipeline).
+    Nothing published is sometimes honest (no pick clears the bar), so an empty board
+    is a WARN; a crashed forecast or a broken join is a FAIL."""
+    d = _read("data/nfl/board.json") or {}
+    soon = _upcoming(d.get("games"), now, "kickoff", 36)
+    st = d.get("props_status") or {}
+    mk = st.get("markets") or {}
+    errs = [k.removesuffix("_error") for k, v in mk.items() if k.endswith("_error") and v]
+    broken = [k for k, v in mk.items() if isinstance(v, dict) and v.get("slate") and not v.get("in_forecast")]
+    picks = sum(len((v or {}).get("picks") or []) for v in (d.get("props") or {}).values()
+                if isinstance(v, dict))
+    priced = sum(v.get("priced") or 0 for v in mk.values() if isinstance(v, dict))
+    slate = sum(v.get("slate") or 0 for v in mk.values() if isinstance(v, dict))
+    if st.get("forecast") or errs or broken:
+        why = st.get("forecast") and "the forecast failed" or (
+            f"pricing failed: {', '.join(errs)}" if errs else
+            f"no player joined to the forecast: {', '.join(broken)}")
+        r.add("NFL", "props output", "fail", why)
+    elif soon and not picks:
+        r.add("NFL", "props output", "warn",
+              f"{soon} game(s) in 36h, {slate} lines, {priced} priced, 0 picks published"
+              if slate else f"{soon} game(s) in 36h and no bookmaker prop lines yet")
+    elif soon:
+        r.add("NFL", "props output", "ok", f"{picks} pick(s) for {soon} game(s) in 36h")
+
+    u = _read("data/ucl/board.json") or {}
+    soon = _upcoming(u.get("matches"), now, "kickoff", 48)
+    if soon:
+        pr = u.get("props")
+        if pr is None:
+            r.add("UCL", "props output", "fail", f"{soon} match(es) in 48h but the props section was not built")
+        elif not pr.get("upcoming"):
+            r.add("UCL", "props output", "warn", f"{soon} match(es) in 48h, 0 player picks")
+        else:
+            r.add("UCL", "props output", "ok", f"{len(pr['upcoming'])} player pick(s), {soon} match(es) in 48h")
+
+    soon = sum(_upcoming((_read(f"data/leagues/{lg}.json") or {}).get("matches"), now, "date", 36)
+               for lg in ("pl", "laliga", "bundesliga", "seriea", "ligue1"))
+    if soon:
+        n = len((_read("data/leagues/player_picks.json") or {}).get("upcoming") or [])
+        r.add("Soccer", "props output", "ok" if n else "warn",
+              f"{n} player pick(s), {soon} match(es) in 36h" if n else f"{soon} match(es) in 36h, 0 player picks")
+
+
+PICK_LOGS = (["data-raw/nfl/picks_log.json", "data-raw/ucl/picks_log.json", "data-raw/ucl/props_log.json"]
+             + [f"data-raw/leagues/{lg}/{f}" for lg in ("pl", "laliga", "bundesliga", "seriea", "ligue1")
+                for f in ("picks_log.json", "player_picks_log.json")])
+
+
+def _entries(log):
+    for k, e in (log or {}).items():
+        if isinstance(e, dict) and "locked_at" in e:
+            yield e
+        elif isinstance(e, dict):                    # NFL: {"games": {...}, "props": {...}}
+            yield from (x for x in e.values() if isinstance(x, dict) and "locked_at" in x)
+
+
+def late_locks(r, now, days=3):
+    """A pick frozen AFTER its kick-off is not a prediction (2026-10 soccer: props
+    locked mid-match after failed refreshes). Counts the last `days` days' locks."""
+    late = 0
+    for rel in PICK_LOGS:
+        for e in _entries(_read(rel)):
+            lk, ko = _utc(e.get("locked_at")), _utc(e.get("kickoff"))
+            if lk and ko and lk > ko and (_hours(now, lk) or 99 * days) <= 24 * days and not e.get("tainted"):
+                late += 1
+    r.add("All", "late locks", "fail" if late else "ok",
+          f"{late} pick(s) frozen after kick-off in the last {days} days" if late
+          else f"no pick frozen after kick-off in {days} days")
+
+
 def run(now=None, check_workflows=True) -> dict:
     now = now or datetime.now(timezone.utc)
     r = Report()
@@ -267,6 +349,8 @@ def run(now=None, check_workflows=True) -> dict:
     line_sport(r, now, "NBA", "nba", "tipoff")
     line_sport(r, now, "MLB", "mlb", "tipoff")
     mlb_boxes(r, now)
+    props_output(r, now)
+    late_locks(r, now)
     engines(r)
     odds_budget(r)
     if check_workflows:

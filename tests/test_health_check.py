@@ -84,3 +84,61 @@ def test_a_board_not_built_by_the_rebuilt_model_fails(tmp_path, monkeypatch):
     hc.engines(r)
     got = {c["sport"]: c["status"] for c in r.checks}
     assert got == {"NFL": "fail", "NBA": "ok"}
+
+
+NOW = datetime(2026, 10, 18, 15, tzinfo=timezone.utc)
+
+
+def _board(files):
+    return lambda rel: files.get(rel)
+
+
+def test_an_empty_nfl_props_board_on_game_day_is_flagged(monkeypatch):
+    """2026-10-18: NFL game day, every market priced, nothing published -- the owner
+    found it before the pipeline did."""
+    board = {"games": [{"kickoff": "2026-10-18T17:00:00+00:00"}],
+             "props_status": {"forecast": None, "markets": {
+                 "receiving_yards": {"slate": 40, "with_book_price": 40, "in_forecast": 38, "priced": 38}}},
+             "props": {"receiving_yards": {"released": True, "picks": []}}}
+    monkeypatch.setattr(hc, "_read", _board({"data/nfl/board.json": board}))
+    r = hc.Report()
+    hc.props_output(r, NOW)
+    c = [c for c in r.checks if c["sport"] == "NFL"][0]
+    assert c["status"] == "warn" and "0 picks" in c["message"]
+
+
+def test_a_broken_nfl_forecast_join_fails(monkeypatch):
+    board = {"games": [{"kickoff": "2026-10-18T17:00:00+00:00"}],
+             "props_status": {"forecast": None, "markets": {
+                 "passing_yards": {"slate": 20, "with_book_price": 20, "in_forecast": 0, "priced": 0}}},
+             "props": {}}
+    monkeypatch.setattr(hc, "_read", _board({"data/nfl/board.json": board}))
+    r = hc.Report()
+    hc.props_output(r, NOW)
+    assert r.checks[0]["status"] == "fail"
+
+
+def test_ucl_props_missing_before_a_matchday_fails(monkeypatch):
+    ucl = {"matches": [{"kickoff": "2026-10-19T19:00:00+00:00"}], "props": None}
+    monkeypatch.setattr(hc, "_read", _board({"data/ucl/board.json": ucl}))
+    r = hc.Report()
+    hc.props_output(r, NOW)
+    assert [c["status"] for c in r.checks if c["sport"] == "UCL"] == ["fail"]
+
+
+def test_no_games_means_no_props_complaint(monkeypatch):
+    monkeypatch.setattr(hc, "_read", _board({"data/nfl/board.json": {"games": [], "props": {}}}))
+    r = hc.Report()
+    hc.props_output(r, NOW)
+    assert r.checks == []
+
+
+def test_a_pick_frozen_after_kickoff_fails(monkeypatch):
+    log = {"games": {"g": {"kickoff": "2026-10-18T13:00:00+00:00",
+                           "locked_at": "2026-10-18T13:20:00+00:00"}},
+           "props": {"p": {"kickoff": "2026-10-18T13:00:00+00:00",
+                           "locked_at": "2026-10-18T12:00:00+00:00"}}}
+    monkeypatch.setattr(hc, "_read", _board({"data-raw/nfl/picks_log.json": log}))
+    r = hc.Report()
+    hc.late_locks(r, NOW)
+    assert r.checks[0]["status"] == "fail" and r.checks[0]["message"].startswith("1 pick")
