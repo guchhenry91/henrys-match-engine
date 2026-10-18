@@ -147,6 +147,18 @@ def upcoming_rows(games_ahead, odds_games, names, teams_now, last_team, ruled_ou
     return synth, meta
 
 
+def _clears(p: dict) -> bool:
+    """The chance a pick must show. A VALUE pick is judged on the published (book-led)
+    chance. A PROVING pick -- never a bet, frozen and graded so the market can earn
+    trust -- is judged on the MODEL'S own chance (62%+); model_backs already holds it
+    within 15 points of the book and 2+ above it. Judging proving picks on the
+    shrunk chance made them impossible on any line the book sets near 50/50: the
+    board published nothing at all (five-sport audit, 2026-10-18)."""
+    if p.get("pick_kind") == "proving":
+        return float(p.get("p_model") or 0) >= PUBLISH_BAR
+    return p["probability"] >= bar_for(p)
+
+
 def select(priced: list) -> list:
     """The published shortlist: combined chance at PUBLISH_BAR or more, AND the
     forecast itself on the same side (a pick the model argues against is the book's
@@ -157,7 +169,7 @@ def select(priced: list) -> list:
     from tracking import pricecheck
     allp = priced
     priced = [p for p in priced if pricecheck.qualifies(p)]
-    keep = sorted([p for p in priced if p["probability"] >= bar_for(p) and p["p_model"] >= 0.5],
+    keep = sorted([p for p in priced if _clears(p) and p["p_model"] >= 0.5],
                   key=lambda p: -p["probability"])
     by_game = {}
     for p in keep:

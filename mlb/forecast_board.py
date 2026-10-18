@@ -82,13 +82,25 @@ def combine(p_model: float, p_book: float, w) -> float:
     return 1.0 / (1.0 + math.exp(-(a * lg(p_model) + b * lg(p_book) + c)))
 
 
+def _clears(p: dict) -> bool:
+    """The chance a pick must show. A VALUE pick is judged on the published (book-led)
+    chance. A PROVING pick -- never a bet, frozen and graded so the market can earn
+    trust -- is judged on the MODEL'S own chance (62%+); model_backs already holds it
+    within 15 points of the book and 2+ above it. Judging proving picks on the
+    shrunk chance made them impossible on any line the book sets near 50/50: the
+    board published nothing at all (five-sport audit, 2026-10-18)."""
+    if p.get("pick_kind") == "proving":
+        return float(p.get("p_model") or 0) >= PUBLISH_BAR
+    return p["probability"] >= PUBLISH_BAR
+
+
 def select(priced: list) -> list:
     # VALUE OR PROVING (tracking/pricecheck.qualifies, owner 2026-10-12): +3% at bet365,
     # or a real contender the model backs (as sure as the book, within 15 points of it).
     from tracking import pricecheck
     allp = priced
     priced = [p for p in priced if pricecheck.qualifies(p)]
-    keep = sorted([p for p in priced if p["probability"] >= PUBLISH_BAR and p["p_model"] >= 0.5
+    keep = sorted([p for p in priced if _clears(p) and p["p_model"] >= 0.5
                    and (p["market"] not in OVER_ONLY or p["side"] == "over")],
                   key=lambda p: -p["probability"])
     by_game = {}

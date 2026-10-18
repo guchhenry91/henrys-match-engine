@@ -30,7 +30,7 @@ CACHE = ROOT / "data-raw" / "nfl" / "_cache"
 # normalised below so nothing downstream has to know which era it came from.
 PLAYER_STATS_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
                     "stats_player/stats_player_week_{season}.csv")
-GAMES_URL = "https://github.com/nflverse/nfldata/raw/master/data/games.csv"
+GAMES_URL = "https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv"
 INJURIES_URL = ("https://github.com/nflverse/nflverse-data/releases/download/"
                 "injuries/injuries_{season}.csv")
 # Who is ON each team right now, which the box scores cannot say. Carries gsis_id,
