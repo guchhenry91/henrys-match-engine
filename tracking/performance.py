@@ -342,6 +342,26 @@ def by_market(entries, market_of) -> dict:
     return out
 
 
+def current_model(entry: dict) -> bool:
+    """Was this pick made by the model running NOW? Player props were rebuilt on
+    11-12 Oct 2026 and carry `engine`; a prop without it is the RETIRED model's.
+    Team and match winners were not rebuilt, so they all count."""
+    if market_of(entry) in ("team_winner", "match_winner"):
+        return True
+    return bool(entry.get("engine"))
+
+
+def split_by_model(entries, market_of_fn) -> tuple:
+    """(performance of the current model, of the retired one). Owner, 2026-10-19:
+    the profit tables mixed both, so MLB read -78 units almost wholly from picks the
+    retired model made -- the current model must be judged on its own record. The
+    Bet list's earned status comes from the first only."""
+    entries = list(entries)
+    now = [e for e in entries if current_model(e)]
+    old = [e for e in entries if not current_model(e)]
+    return by_market(now, market_of_fn), (summarize(old) if old else None)
+
+
 # --- per-sport wiring ----------------------------------------------------------------
 
 def _read_games(path) -> dict:

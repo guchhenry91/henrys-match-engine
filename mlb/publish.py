@@ -205,7 +205,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     if held:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["record"] = picks_mod.record(log)
-    payload["performance"] = performance.by_market(
+    payload["performance"], payload["performance_retired"] = performance.split_by_model(
         [e for e in log.values() if isinstance(e, dict) and e.get("graded")],
         performance.market_of)
     # Every graded pick: the Results tab lists them per market, and a list cut at

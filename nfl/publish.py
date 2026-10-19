@@ -1046,7 +1046,7 @@ def main():
                                  "bookmaker's price; publishes a side only at the bar or above."}
     if held:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
-    payload["performance"] = performance.by_market(
+    payload["performance"], payload["performance_retired"] = performance.split_by_model(
         [dict(e, kind="winner") for k, e in (_log.get(picks.GAMES_KEY) or {}).items()
          if not k.startswith("_") and e.get("graded")]
         + [e for k, e in (_log.get(picks.PROPS_KEY) or {}).items()

@@ -1909,6 +1909,13 @@ function perfBlocks(sport){
   return out;
 }
 function perfOf(sport, market){ return perfBlocks(sport)[market]||null; }
+// The RETIRED props model's picks (before the 11-12 Oct rebuild), scored apart so the
+// model running now is judged on its own record (owner, 2026-10-19).
+function retiredLine(sport){
+  const r=sport==="soccer"?((DATA.player_picks||{}).performance_retired):((DATA[sport]||{}).performance_retired);
+  if(!r||!r.bets) return "";
+  return `<p class="note" style="margin:10px 2px 0;color:var(--sub)">Not counted above — the retired player-props model (replaced 11–12 Oct): ${r.bets} priced bets, ${r.wins}–${r.losses}, ${r.profit>0?"+":""}${r.profit} units.</p>`;
+}
 function perfTag(sport, market){
   const s=perfOf(sport, market);
   if(!s) return "";
@@ -1935,9 +1942,9 @@ function perfPanel(sport){
   const all=blocks.all;
   return `<section class="glass settled"><div class="sech"><div><div class="eb">Betting performance</div>
     <h2>Does it make money?</h2>
-    <p>Each graded pick scored at the price it locked on, one unit staked. "Needed" is the hit rate those prices required just to break even. Closing-line value is whether the market moved toward the pick after it first appeared — the quickest honest sign of a real edge. A market is marked <b>Proven</b> only once it is profitable over 200+ bets with evidence beyond luck; until then treat its picks as Testing.${
+    <p>Each graded pick from the model running now, scored at the price it locked on, one unit staked. "Needed" is the hit rate those prices required just to break even. Closing-line value is whether the market moved toward the pick after it first appeared — the quickest honest sign of a real edge. A market is marked <b>Proven</b> only once it is profitable over 200+ bets with evidence beyond luck; until then treat its picks as Testing.${
       all&&all.bets?` Overall: ${all.bets} priced bets, ${all.profit>0?"+":""}${all.profit} units.`:""}</p></div></div>
-    <div class="slist">${body}</div>${["nfl","nba","mlb"].includes(sport)?trustLine():""}</section>`;
+    <div class="slist">${body}</div>${retiredLine(sport)}${["nfl","nba","mlb"].includes(sport)?trustLine():""}</section>`;
 }
 
 // --- PHASE 4: the Bet list -----------------------------------------------------

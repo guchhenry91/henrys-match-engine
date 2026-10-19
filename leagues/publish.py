@@ -1726,7 +1726,8 @@ def main(argv=None):
 
         pp = build_player_picks(record_shown=True)
         pp_all = pp.pop("_all_settled", pp["settled"])
-        pp["performance"] = performance.by_market(pp_all, lambda e: e.get("market"))
+        pp["performance"], pp["performance_retired"] = performance.split_by_model(
+            pp_all, lambda e: e.get("market"))
         # bet365's anytime-scorer price and the edge against it, where fetched
         # (leagues/prop_odds.py). Shots and SOT have no bet365 market in any feed;
         # they carry a US book's price instead (leagues/shot_odds.py).

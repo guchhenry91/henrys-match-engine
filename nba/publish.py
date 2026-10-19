@@ -266,7 +266,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
                          "since": "2026-10-11",
                          "note": "Forecasts each player's stat and combines it with the "
                                  "bookmaker's price; publishes a side only at the bar or above."}
-    payload["performance"] = performance.by_market(
+    payload["performance"], payload["performance_retired"] = performance.split_by_model(
         [e for e in log.values() if isinstance(e, dict) and e.get("graded")],
         performance.market_of)
     # Every graded pick, not the newest 200: the Results tab lists them per market
