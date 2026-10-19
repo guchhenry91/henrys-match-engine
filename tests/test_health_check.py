@@ -142,3 +142,14 @@ def test_a_pick_frozen_after_kickoff_fails(monkeypatch):
     r = hc.Report()
     hc.late_locks(r, NOW)
     assert r.checks[0]["status"] == "fail" and r.checks[0]["message"].startswith("1 pick")
+
+
+def test_a_tainted_late_lock_still_counts(monkeypatch):
+    """2026-10-18: ten NFL props frozen after kick-off were tainted (voided) and the
+    check skipped them -- the problem was invisible."""
+    log = {"props": {"p": {"kickoff": "2026-10-18T13:00:00+00:00", "tainted": True,
+                           "locked_at": "2026-10-18T13:20:00+00:00"}}}
+    monkeypatch.setattr(hc, "_read", _board({"data-raw/nfl/picks_log.json": log}))
+    r = hc.Report()
+    hc.late_locks(r, NOW)
+    assert r.checks[0]["status"] == "fail"

@@ -331,7 +331,10 @@ def late_locks(r, now, days=3):
     for rel in PICK_LOGS:
         for e in _entries(_read(rel)):
             lk, ko = _utc(e.get("locked_at")), _utc(e.get("kickoff"))
-            if lk and ko and lk > ko and (_hours(now, lk) or 99 * days) <= 24 * days and not e.get("tainted"):
+            # Tainted picks count too: they are voided, so the record stays honest,
+            # but each one is a pick the pipeline made too late (2026-10-18: ten NFL
+            # props frozen after the 17:00 kick-offs, all void).
+            if lk and ko and lk > ko and (_hours(now, lk) or 99 * days) <= 24 * days:
                 late += 1
     r.add("All", "late locks", "fail" if late else "ok",
           f"{late} pick(s) frozen after kick-off in the last {days} days" if late
