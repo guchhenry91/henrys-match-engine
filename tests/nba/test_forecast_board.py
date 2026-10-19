@@ -37,3 +37,17 @@ def test_select_keeps_a_short_priced_contender_as_proving_only():
     assert short["pick_kind"] == "proving" and fair["pick_kind"] == "value"
     assert short["price_check"]["reason"] == "price too short"
     assert short["price_check"]["break_even_price"] == 1.43
+
+
+def test_no_under_on_a_player_whose_minutes_dipped_late_last_season():
+    """Opening-night audit, 2026-10-19: such players were under-forecast by 1.7 points
+    over four openers -- an under on him is the model's error, not an edge."""
+    from nba import forecast_board as fb
+    base = {"market": "rebounds", "player": "X", "player_id": 1, "game_id": "g", "line": 5.5,
+            "probability": 0.60, "p_model": 0.70, "book_p": 0.57, "book_price": 1.75,
+            "season_games_before": 0, "min_dip": 8.0}
+    assert fb._dip_under({**base, "side": "under"})
+    assert not fb._dip_under({**base, "side": "over"})
+    assert not fb._dip_under({**base, "side": "under", "season_games_before": 5})
+    assert not fb._dip_under({**base, "side": "under", "min_dip": 2.0})
+    assert fb.select([{**base, "side": "under"}]) == []

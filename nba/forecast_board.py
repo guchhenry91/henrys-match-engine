@@ -159,6 +159,20 @@ def _clears(p: dict) -> bool:
     return p["probability"] >= bar_for(p)
 
 
+# EARLY-SEASON MINUTES DIP (opening-night audit, 2026-10-19). A player whose minutes
+# fell late last season (injury return, rest, tanking) is forecast on that dip, as if
+# the summer never happened. Walk-forward over four openers: those players were
+# UNDER-forecast by 1.7 points, 0.5 rebounds, 0.4 assists (every other opener came out
+# close or slightly high). Until he has DIP_GAMES games this season, no UNDER on him.
+DIP_MIN = 5.0
+DIP_GAMES = 5
+
+
+def _dip_under(p: dict) -> bool:
+    return (p.get("side") == "under" and (p.get("min_dip") or 0) >= DIP_MIN
+            and (p.get("season_games_before") or 0) < DIP_GAMES)
+
+
 def select(priced: list) -> list:
     """The published shortlist: combined chance at PUBLISH_BAR or more, AND the
     forecast itself on the same side (a pick the model argues against is the book's
@@ -169,7 +183,10 @@ def select(priced: list) -> list:
     from tracking import pricecheck
     allp = priced
     priced = [p for p in priced if pricecheck.qualifies(p)]
-    keep = sorted([p for p in priced if _clears(p) and p["p_model"] >= 0.5],
+    for p in priced:
+        if _dip_under(p):
+            p["dropped"] = "minutes dipped late last season; the forecast underrates him early on"
+    keep = sorted([p for p in priced if _clears(p) and p["p_model"] >= 0.5 and not _dip_under(p)],
                   key=lambda p: -p["probability"])
     by_game = {}
     for p in keep:
@@ -248,6 +265,9 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
                     "edge": round(prob - book_p, 4), "mu": round(float(m_), 2),
                     "last_five": last5.get(r["PLAYER_ID"], []),
                     "games_before": int(r["games_before"]), "club_source": info["club_source"],
+                    "season_games_before": int(r["season_games_before"]),
+                    "min_dip": round(float(r["min_ewm40"] - r["min_ewm3"]), 1)
+                    if pd.notna(r["min_ewm40"]) and pd.notna(r["min_ewm3"]) else None,
                     "engine": ENGINE}
             priced.append(pick)
             if collect is not None:
