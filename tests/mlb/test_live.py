@@ -176,3 +176,25 @@ def test_a_totals_only_reply_does_not_use_up_a_check():
     store = sync.run(later, games, now=_t("2026-10-01T14:00:00"), store=store)
     assert later.event_calls == 1 and "Matt Olson" in store["games"]["9"]["props"]["hits"]
     assert len(store["games"]["9"]["checks"]) == 1
+
+
+def test_picks_on_a_postponed_game_replayed_days_later_are_voided(monkeypatch):
+    """CLE v TB 849817: rained off 17 Oct 00:00, played 18 Oct 21:08. StatsAPI's last
+    entry reads Final, so the postponement was missed and four picks frozen on the
+    original day's lineups sat pending."""
+    import io
+    import json
+    from datetime import datetime, timezone
+    from mlb import current, publish
+    raw = {"dates": [
+        {"date": "2026-10-16", "games": [{"gamePk": 849817, "gameDate": "2026-10-17T00:00:00Z",
+                                          "status": {"detailedState": "Postponed"}}]},
+        {"date": "2026-10-18", "games": [{"gamePk": 849817, "gameDate": "2026-10-18T21:08:00Z",
+                                          "status": {"detailedState": "Final"}}]}]}
+    monkeypatch.setattr(current, "game_status", lambda pks, **k: {849817: "Final"})
+    opener = lambda *a, **k: io.BytesIO(json.dumps(raw).encode())
+    log = {"a": {"kind": "prop", "game_id": "849817", "tipoff": "2026-10-17T00:00:00Z"},
+           "b": {"kind": "prop", "game_id": "849817", "tipoff": "2026-10-18T21:08:00Z"}}
+    n = publish.void_unplayed(log, datetime(2026, 10, 19, 10, tzinfo=timezone.utc), opener=opener)
+    assert n == 1 and log["a"]["graded"] == "void" and "postponed" in log["a"]["void_reason"]
+    assert not log["b"].get("graded")      # frozen for the replay itself: graded normally

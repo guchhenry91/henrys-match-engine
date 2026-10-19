@@ -147,6 +147,28 @@ def game_status(game_pks, opener=urllib.request.urlopen) -> dict:
             for day in raw.get("dates", []) for g in day.get("games", [])}
 
 
+def replayed(game_pks, opener=urllib.request.urlopen) -> dict:
+    """{game_pk: the start it was actually played at} for games POSTPONED and played
+    later. StatsAPI lists such a game twice under one id -- the postponed date and the
+    replay -- so game_status (the last entry) reads "Final" and the postponement is
+    lost (CLE v TB 849817, 17 -> 18 Oct 2026)."""
+    pks = sorted({int(k) for k in game_pks})
+    if not pks:
+        return {}
+    raw = _get(f"schedule?sportId=1&gamePks={','.join(str(k) for k in pks)}", opener)
+    seen = {}
+    for day in raw.get("dates", []):
+        for g in day.get("games", []):
+            seen.setdefault(int(g["gamePk"]), []).append(g)
+    out = {}
+    for pk, gs in seen.items():
+        if any(g["status"]["detailedState"] in NOT_PLAYED for g in gs):
+            played = [g for g in gs if g["status"]["detailedState"] in FINISHED]
+            if played:
+                out[pk] = played[-1]["gameDate"]
+    return out
+
+
 def box_rows(g: dict, opener=urllib.request.urlopen) -> dict:
     """{"batting", "pitching", "team"} rows for one finished game, history-shaped."""
     box = _get(f"game/{g['game_pk']}/boxscore", opener)

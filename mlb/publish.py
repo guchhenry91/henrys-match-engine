@@ -78,6 +78,9 @@ def build(now=None, sched=None) -> dict:
     }
 
 
+REPLAY_HOURS = 12       # a replay later than this is a different game day
+
+
 def void_unplayed(log: dict, now, opener=None) -> int:
     """VOID every pick whose game was cancelled or postponed -- as bet365 settles it.
 
@@ -100,6 +103,23 @@ def void_unplayed(log: dict, now, opener=None) -> int:
         if isinstance(e, dict) and not e.get("graded") and status.get(int(e.get("game_id") or 0)) in current.NOT_PLAYED:
             e["graded"], e["actual"] = "void", None
             e["void_reason"] = f"game {status[int(e['game_id'])].lower()}"
+            n += 1
+    # POSTPONED AND REPLAYED ANOTHER DAY: the frozen pick was made for the original
+    # date -- its lineup, starter and weather -- so it is not a prediction about the
+    # replay. Void it, as a book voids a bet on a game not played on its scheduled day.
+    try:
+        moved = current.replayed(waiting, **({"opener": opener} if opener else {}))
+    except Exception as exc:
+        print(f"  could not check replayed games ({type(exc).__name__}); left pending")
+        moved = {}
+    for e in log.values():
+        if not isinstance(e, dict) or e.get("graded") or int(e.get("game_id") or 0) not in moved:
+            continue
+        real = datetime.fromisoformat(moved[int(e["game_id"])].replace("Z", "+00:00"))
+        frozen_for = datetime.fromisoformat(str(e["tipoff"]).replace("Z", "+00:00"))
+        if real - frozen_for > timedelta(hours=REPLAY_HOURS):
+            e["graded"], e["actual"] = "void", None
+            e["void_reason"] = f"game postponed, played {real:%d %b %H:%M} UTC"
             n += 1
     if n:
         print(f"  voided {n} pick(s) on games that were not played")
