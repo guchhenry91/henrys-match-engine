@@ -32,3 +32,9 @@ def test_an_unfrozen_pick_still_leaves_when_its_game_starts():
 def test_a_graded_pick_leaves():
     frozen = {"2026_07_A_B:receiving_yards:p1": {"side": "over", "graded": "correct"}}
     assert fb.select([_row()], frozen) == []
+
+
+def test_a_proving_pick_needs_the_model_at_60():
+    """Owner, 2026-10-19: proving picks at 60% on the model's own chance."""
+    assert fb._clears({"pick_kind": "proving", "p_model": 0.605, "probability": 0.52, "book_p": 0.5})
+    assert not fb._clears({"pick_kind": "proving", "p_model": 0.595, "probability": 0.52, "book_p": 0.5})

@@ -42,6 +42,10 @@ PRICED_LOG = ROOT / "data-raw" / "nfl" / "priced_lines.json"
 WEIGHTS = ROOT / "data-raw" / "nfl" / "combine_weights.json"
 ENGINE = "forecast-v1"
 PUBLISH_BAR = 0.62
+# PROVING PICKS (owner, 2026-10-19): the model's own chance needed for a proving pick
+# -- tracked and graded, never a bet. 62% gave 11 picks over a 12-game Sunday; 60%
+# gave 18 on the same slate.
+PROVING_BAR = 0.60
 # BALANCED LINES (owner, 2026-10-18): a book line set near 50/50 can never reach 62%
 # once the forecast is pulled toward the book (combine_fit.shrink) -- the board went
 # empty. On a line whose book chance is under BALANCED_BOOK_MAX the bar is 55%: about
@@ -168,12 +172,12 @@ HELD = {"anytime_touchdown"}
 def _clears(p: dict) -> bool:
     """The chance a pick must show. A VALUE pick is judged on the published (book-led)
     chance. A PROVING pick -- never a bet, frozen and graded so the market can earn
-    trust -- is judged on the MODEL'S own chance (62%+); model_backs already holds it
+    trust -- is judged on the MODEL'S own chance (PROVING_BAR); model_backs already holds it
     within 15 points of the book and 2+ above it. Judging proving picks on the
     shrunk chance made them impossible on any line the book sets near 50/50: the
     board published nothing at all (five-sport audit, 2026-10-18)."""
     if p.get("pick_kind") == "proving":
-        return float(p.get("p_model") or 0) >= PUBLISH_BAR
+        return float(p.get("p_model") or 0) >= PROVING_BAR
     return p["probability"] >= bar_for(p)
 
 
