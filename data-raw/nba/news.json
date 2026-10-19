@@ -1,5 +1,12 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": null,
-  "players": {}
+  "_verified_on": "2026-10-19",
+  "players": {
+    "Anfernee Simons": {
+      "status": "doubt",
+      "team": "PHI",
+      "note": "Questionable for Tuesday's game at New York, left hamstring tightness/soreness. Source: NBA official injury report, Injury-Report_2026-10-19_07_00PM.pdf (ak-static.cms.nba.com).",
+      "checked": "2026-10-19T23:15:00Z"
+    }
+  }
 }
