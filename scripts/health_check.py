@@ -324,10 +324,10 @@ def _entries(log):
             yield from (x for x in e.values() if isinstance(x, dict) and "locked_at" in x)
 
 
-def late_locks(r, now, days=3):
+def late_locks(r, now, days=1):
     """A pick frozen AFTER its kick-off is not a prediction (2026-10 soccer: props
     locked mid-match after failed refreshes). Counts the last `days` days' locks."""
-    late = 0
+    late, where = 0, set()
     for rel in PICK_LOGS:
         for e in _entries(_read(rel)):
             lk, ko = _utc(e.get("locked_at")), _utc(e.get("kickoff"))
@@ -336,9 +336,12 @@ def late_locks(r, now, days=3):
             # props frozen after the 17:00 kick-offs, all void).
             if lk and ko and lk > ko and (_hours(now, lk) or 99 * days) <= 24 * days:
                 late += 1
+                where.add(rel.split("/")[1] + ("" if "leagues" not in rel else "/" + rel.split("/")[2]))
+    # One day, not three: the check runs every few hours, and a three-day window kept
+    # the alarm red for days over late locks already fixed (19 Oct).
     r.add("All", "late locks", "fail" if late else "ok",
-          f"{late} pick(s) frozen after kick-off in the last {days} days" if late
-          else f"no pick frozen after kick-off in {days} days")
+          f"{late} pick(s) frozen after kick-off in the last {24 * days}h ({', '.join(sorted(where))})"
+          if late else f"no pick frozen after kick-off in the last {24 * days}h")
 
 
 def run(now=None, check_workflows=True) -> dict:
