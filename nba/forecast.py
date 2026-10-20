@@ -237,17 +237,44 @@ def build(rows: pd.DataFrame, out_players: dict | None = None, reported: set | N
     d = d.merge(opp, on=["GAME_ID", "opp"], how="left")
     d = d.drop(columns=[f"allow_{s}_in" for s in STATS])
     d["day_of_season"] = (d["game_date"] - d.groupby("season")["game_date"].transform("min")).dt.days
+    d = _prev_season(d)
     return d.sort_values(["game_date", "GAME_ID", "PLAYER_ID"]).reset_index(drop=True)
+
+
+def _prev_season(d: pd.DataFrame) -> pd.DataFrame:
+    """THE SUMMER GAP (opening-night audit, 2026-10-19). The recent-form features read
+    a player's LAST games -- after a summer, often an injury return or end-of-season
+    rest -- as his form now: over four openers, players whose minutes fell late the
+    season before were under-forecast by 1.7 points. These give the model his whole
+    previous season (the last one he played): mean minutes, each stat per game, and
+    how far his final games fell below that. All known before the season starts."""
+    played = d[d["MIN"].notna()]
+    per = played.groupby(["PLAYER_ID", "season"]).agg(
+        min_prev=("MIN", "mean"), **{f"{s}_prev": (s, "mean") for s in STATS}).reset_index()
+    per = per.sort_values(["PLAYER_ID", "season"])
+    per["next_season"] = per.groupby("PLAYER_ID")["season"].shift(-1)
+    # each season looks back to the last season he played before it
+    seasons = d[["PLAYER_ID", "season"]].drop_duplicates().sort_values(["PLAYER_ID", "season"])
+    look = pd.merge_asof(seasons.assign(key=seasons["season"] - 1).sort_values("key"),
+                         per.drop(columns="next_season").rename(columns={"season": "key"}).sort_values("key"),
+                         on="key", by="PLAYER_ID", direction="backward")
+    d = d.merge(look.drop(columns="key"), on=["PLAYER_ID", "season"], how="left")
+    d["min_vs_prev"] = d["min_ewm3"] - d["min_prev"]
+    return d
 
 
 # ELO GAP: built and A/B-gated 2026-10-12 (no change in MAE or calibration in any of the
 # four stats -- pace and defence already carry team strength), so it is OFF by default.
+PREV_SEASON = False    # the previous-season features above; OFF until the A/B gate passes
+
+
 def features(stat: str, vacated: bool = True, elo: bool = False) -> list:
     base = (["vac_usage", "vac_share"] if vacated else []) + (["elo_diff", "elo_abs"] if elo else []) + ["home", "rest_days", "b2b", "games_before", "season_games_before", "new_season",
             "min_last", "min_ewm3", "min_ewm10", "min_ewm40", "min_sd10", "usage_pm10",
             "pace_in", "opp_pace_in", f"opp_allow_{stat}_in", "day_of_season", f"{stat}_last"]
     rates = [f"{c}_pm{k}" for c in RATE_COLS for k in (10, 40)]
-    return base + rates
+    prev = ["min_prev", f"{stat}_prev", "min_vs_prev"] if PREV_SEASON else []
+    return base + rates + prev
 
 
 class StatModel:
