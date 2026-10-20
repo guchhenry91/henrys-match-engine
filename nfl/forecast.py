@@ -206,6 +206,12 @@ def build(d: pd.DataFrame, outs: pd.DataFrame | None = None) -> pd.DataFrame:
     d["games_before"] = g.cumcount()
     d["rest_days"] = (d["gameday"] - g["gameday"].shift(1)).dt.days.clip(upper=21).fillna(21)
     d["new_season"] = (d["season"] != g["season"].shift(1)).astype(float)
+    # BACK FROM MISSED GAMES (walk-forward audit, 2026-10-20): see RETURN_ADJ below.
+    off = (d["gameday"] - g["gameday"].shift(1)).dt.days
+    d["days_off"] = off.clip(upper=84).fillna(84)
+    d["games_missed"] = np.where(d["new_season"] == 1, 0,
+                                 ((off.fillna(7) - 7) / 7).round().clip(lower=0, upper=10))
+    d["returning"] = ((d["games_missed"] >= 1) & (d["days_off"] >= 16)).astype(float)
     for c in ROLL:
         s = pd.to_numeric(d[c], errors="coerce")
         for span in (3, 8):
@@ -280,6 +286,24 @@ def eligible(frame: pd.DataFrame, market: str) -> pd.Series:
     return pos & role & (frame["games_before"] >= 2)
 
 
+# BACK FROM MISSED GAMES (walk-forward audit 2021-25, 2026-10-20). A player returning
+# after missing games (16+ days, same season) is eased in, but the forecast reads his
+# pre-injury games: it overrated such players -- receiving yards +16.7% (n=651),
+# anytime TD +28.7% (n=704), passing +5.5%, rushing +4.1%. Adding days-off features
+# did not move it (too few such rows for the trees), so the forecast is corrected by
+# the measured ratio: yards x factor, TD by a logit shift. Each season's correction,
+# fitted on the other four, left bias within 1% in all four markets; the factors were
+# steady (receiving 0.83-0.89 by season).
+RETURN_ADJ = {"receiving_yards": 0.857, "rushing_yards": 0.961, "passing_yards": 0.948,
+              "anytime_touchdown": -0.33}
+
+
+def _returning(rows) -> np.ndarray:
+    if "returning" not in rows:
+        return np.zeros(len(rows), dtype=bool)
+    return rows["returning"].fillna(0).to_numpy(float) > 0
+
+
 class MarketModel:
     def __init__(self, market: str, seed: int = 0, vacated: bool = True, weather: bool | None = None):
         self.market = market
@@ -319,9 +343,12 @@ class MarketModel:
         return self
 
     def mean(self, rows):
-        return np.clip(self.model.predict(rows[self.cols]), 0.5, None)
+        mu = np.clip(self.model.predict(rows[self.cols]), 0.5, None)
+        return np.where(_returning(rows), mu * RETURN_ADJ[self.market], mu)
 
     def p_over(self, rows, lines):
         if self.binary:
-            return self.model.predict_proba(rows[self.cols])[:, 1]
+            p = np.clip(self.model.predict_proba(rows[self.cols])[:, 1], 1e-4, 1 - 1e-4)
+            z = np.log(p / (1 - p)) + np.where(_returning(rows), RETURN_ADJ[self.market], 0.0)
+            return 1 / (1 + np.exp(-z))
         return self.spread.p_over(self.mean(rows), lines)

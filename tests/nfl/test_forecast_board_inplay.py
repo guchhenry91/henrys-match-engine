@@ -38,3 +38,20 @@ def test_a_proving_pick_needs_the_model_at_60():
     """Owner, 2026-10-19: proving picks at 60% on the model's own chance."""
     assert fb._clears({"pick_kind": "proving", "p_model": 0.605, "probability": 0.52, "book_p": 0.5})
     assert not fb._clears({"pick_kind": "proving", "p_model": 0.595, "probability": 0.52, "book_p": 0.5})
+
+
+def test_a_player_back_from_missed_games_is_forecast_lower():
+    """Walk-forward audit 2026-10-20: returning players were overrated (receiving
+    +17%, TD +29%); the forecast is scaled by the measured ratio."""
+    import numpy as np
+    import pandas as pd
+    from nfl import forecast as fc
+
+    class Stub:
+        def predict(self, x):
+            return np.full(len(x), 50.0)
+    m = fc.MarketModel("receiving_yards")
+    m.model = Stub()
+    rows = pd.DataFrame({c: [0.0, 0.0] for c in m.cols}).assign(returning=[0.0, 1.0])
+    mu = m.mean(rows)
+    assert mu[0] == 50.0 and abs(mu[1] - 50.0 * fc.RETURN_ADJ["receiving_yards"]) < 1e-9
