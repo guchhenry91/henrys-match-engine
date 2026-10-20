@@ -126,6 +126,41 @@ def score(frame, market, season, rng):
             "mu": (mu, y_raw)}
 
 
+SLACK = 0.03
+MIN_PICKS = 200
+
+
+def _rule(said, landed, mask):
+    n = int(mask.sum())
+    if n == 0:
+        return {"n": 0, "said": None, "landed": None, "pass": False}
+    s_, l_ = float(said[mask].mean()), float(landed[mask].mean())
+    return {"n": n, "said": round(s_, 4), "landed": round(l_, 4),
+            "pass": bool(n >= MIN_PICKS and l_ >= s_ - SLACK)}
+
+
+def live_rules(p_model, p_book, y, a):
+    """THE BOARD'S RULES AS APPLIED LIVE, on the LIVE blend (review, 2026-10-20): the
+    published chance is the book's moved a fraction `a` (combine_fit.prior of the
+    gate's weights) toward the forecast. Each rule: what it would STATE, what landed."""
+    blend = np.array([combine_fit.shrink(m, b_, a) for m, b_ in zip(p_model, p_book)])
+    over = blend >= 0.5
+    sb, sm, sk = (np.where(over, v, 1 - v) for v in (blend, p_model, p_book))
+    won = np.where(over, y, 1 - y)
+    agree = sm >= 0.5
+    backs = (sm >= sk + 0.02) & (np.abs(sm - sk) <= 0.15)
+    out = {"blend_a": round(float(a), 4), "main": {}, "proving_on_blend": {}, "proving_on_model": {}}
+    for bar in (0.52, 0.54, 0.55, 0.56, 0.58, 0.60, 0.62):
+        out["main"][f"{bar:.2f}"] = _rule(sb, won, agree & (sb >= bar))
+        out["proving_on_blend"][f"{bar:.2f}"] = _rule(sb, won, backs & (sb >= bar))
+    out["balanced_55"] = _rule(sb, won, agree & (sk < 0.56) & (sb >= 0.55))
+    for bar in (0.60, 0.62):
+        out["proving_on_model"][f"{bar:.2f}"] = {
+            "stated_model": _rule(sm, won, backs & (sm >= bar)),
+            "stated_blend": _rule(sb, won, backs & (sm >= bar))}
+    return out
+
+
 def real_lines(frame, models, weights=None):
     """The live log's 2026 bet365 props, re-asked of the new model."""
     try:
@@ -200,6 +235,7 @@ def main() -> int:
         w = combine_fit.fit_offset(p[:first], b[:first], y[:first])
         comb = combine_fit._apply(w, np.column_stack([_logit(p[first:]), _logit(b[first:])]))
         weights[market] = w
+        out["live"] = live_rules(p, b, y, combine_fit.prior(w)[0])
         out["combined"] = {"weights_model_book_const": list(w),
                            "calibration": dist.calibration(comb, y[first:]),
                            "would_publish_agree": published(comb, y[first:], PUBLISH_BAR, p[first:]),

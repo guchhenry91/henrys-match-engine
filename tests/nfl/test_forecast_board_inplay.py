@@ -55,3 +55,11 @@ def test_a_player_back_from_missed_games_is_forecast_lower():
     rows = pd.DataFrame({c: [0.0, 0.0] for c in m.cols}).assign(returning=[0.0, 1.0])
     mu = m.mean(rows)
     assert mu[0] == 50.0 and abs(mu[1] - 50.0 * fc.RETURN_ADJ["receiving_yards"]) < 1e-9
+
+
+def test_the_board_carries_how_proving_picks_landed():
+    """NFL gate 2026-10-20: proving picks at the model's 60% landed 52-58%, not ~63%."""
+    t = fb.tested_proving()
+    assert set(t) >= {"receiving_yards", "rushing_yards", "passing_yards"}
+    for m in ("receiving_yards", "rushing_yards", "passing_yards"):
+        assert t[m]["landed"] < t[m]["model_said"]

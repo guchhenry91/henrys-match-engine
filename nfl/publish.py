@@ -1041,6 +1041,8 @@ def main():
         print(f"  learning summary unavailable ({type(exc).__name__})")
     payload["engine"] = {"name": forecast_board.ENGINE, "publish_bar": forecast_board.PUBLISH_BAR,
                          "proving_bar": forecast_board.PROVING_BAR,
+                         # How picks chosen by the proving rule landed in the gate.
+                         "proving_tested": forecast_board.tested_proving(),
                          "since": "2026-10-11",
                          "note": "Forecasts each player's game and combines it with the "
                                  "bookmaker's price; publishes a side only at the bar or above."}

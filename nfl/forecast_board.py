@@ -46,6 +46,26 @@ PUBLISH_BAR = 0.62
 # -- tracked and graded, never a bet. 62% gave 11 picks over a 12-game Sunday; 60%
 # gave 18 on the same slate.
 PROVING_BAR = 0.60
+# TESTED 2026-10-20 (scripts/nfl_forecast_gate.py "live", 2021-25 vs an informed book):
+# proving picks at the model's 60%+ land well BELOW what the model alone says (it says
+# ~63%; receiving landed 55.5%, passing 57.7%, rushing 52.3%) and slightly ABOVE the
+# published book-led chance (~52%). So the published chance is the honest one to show,
+# and the board carries each market's tested landing rate (tested_proving below).
+
+
+def tested_proving() -> dict:
+    """{market: {"n", "model_said", "landed"}} -- how picks chosen by this rule landed."""
+    try:
+        markets = json.loads(REPORT.read_text(encoding="utf-8"))["markets"]
+    except Exception:
+        return {}
+    out = {}
+    for m, v in markets.items():
+        r = (((v.get("live") or {}).get("proving_on_model") or {}).get(f"{PROVING_BAR:.2f}") or {})
+        s = r.get("stated_model") or {}
+        if s.get("n"):
+            out[m] = {"n": s["n"], "model_said": s["said"], "landed": s["landed"]}
+    return out
 # BALANCED LINES (owner, 2026-10-18): a book line set near 50/50 can never reach 62%
 # once the forecast is pulled toward the book (combine_fit.shrink) -- the board went
 # empty. On a line whose book chance is under BALANCED_BOOK_MAX the bar is 55%: about

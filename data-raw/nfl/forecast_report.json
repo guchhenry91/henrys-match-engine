@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T08:20:23+00:00",
+ "generated_at": "2026-10-20T10:42:17+00:00",
  "scored_seasons": [
   2021,
   2022,
@@ -78,6 +78,133 @@
     "landed": null
    },
    "mae": 65.35,
+   "live": {
+    "blend_a": 0.1579,
+    "main": {
+     "0.52": {
+      "n": 1853,
+      "said": 0.5645,
+      "landed": 0.6163,
+      "pass": true
+     },
+     "0.54": {
+      "n": 1173,
+      "said": 0.5848,
+      "landed": 0.6257,
+      "pass": true
+     },
+     "0.55": {
+      "n": 909,
+      "said": 0.5965,
+      "landed": 0.6414,
+      "pass": true
+     },
+     "0.56": {
+      "n": 755,
+      "said": 0.6051,
+      "landed": 0.6477,
+      "pass": true
+     },
+     "0.58": {
+      "n": 494,
+      "said": 0.624,
+      "landed": 0.6457,
+      "pass": true
+     },
+     "0.60": {
+      "n": 309,
+      "said": 0.6445,
+      "landed": 0.6926,
+      "pass": true
+     },
+     "0.62": {
+      "n": 195,
+      "said": 0.6658,
+      "landed": 0.7128,
+      "pass": false
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 178,
+      "said": 0.523,
+      "landed": 0.6124,
+      "pass": false
+     },
+     "0.54": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     },
+     "0.55": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     },
+     "0.56": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     },
+     "0.58": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     },
+     "0.60": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     },
+     "0.62": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 298,
+       "said": 0.6263,
+       "landed": 0.5772,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 298,
+       "said": 0.5207,
+       "landed": 0.5772,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 189,
+       "said": 0.6349,
+       "landed": 0.6032,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 189,
+       "said": 0.5223,
+       "landed": 0.6032,
+       "pass": false
+      }
+     }
+    },
+    "balanced_55": {
+     "n": 908,
+     "said": 0.5965,
+     "landed": 0.6421,
+     "pass": true
+    }
+   },
    "combined": {
     "weights_model_book_const": [
      0.1579,
@@ -236,6 +363,133 @@
     "landed": 1.0
    },
    "mae": 22.0,
+   "live": {
+    "blend_a": 0.0442,
+    "main": {
+     "0.52": {
+      "n": 1217,
+      "said": 0.5304,
+      "landed": 0.6031,
+      "pass": true
+     },
+     "0.54": {
+      "n": 170,
+      "said": 0.5539,
+      "landed": 0.6353,
+      "pass": false
+     },
+     "0.55": {
+      "n": 79,
+      "said": 0.5645,
+      "landed": 0.6456,
+      "pass": false
+     },
+     "0.56": {
+      "n": 37,
+      "said": 0.5759,
+      "landed": 0.6486,
+      "pass": false
+     },
+     "0.58": {
+      "n": 8,
+      "said": 0.6048,
+      "landed": 0.75,
+      "pass": false
+     },
+     "0.60": {
+      "n": 5,
+      "said": 0.6161,
+      "landed": 0.8,
+      "pass": false
+     },
+     "0.62": {
+      "n": 2,
+      "said": 0.6295,
+      "landed": 1.0,
+      "pass": false
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 47,
+      "said": 0.5355,
+      "landed": 0.5745,
+      "pass": false
+     },
+     "0.54": {
+      "n": 10,
+      "said": 0.5781,
+      "landed": 0.8,
+      "pass": false
+     },
+     "0.55": {
+      "n": 7,
+      "said": 0.5925,
+      "landed": 0.8571,
+      "pass": false
+     },
+     "0.56": {
+      "n": 4,
+      "said": 0.6195,
+      "landed": 0.75,
+      "pass": false
+     },
+     "0.58": {
+      "n": 4,
+      "said": 0.6195,
+      "landed": 0.75,
+      "pass": false
+     },
+     "0.60": {
+      "n": 4,
+      "said": 0.6195,
+      "landed": 0.75,
+      "pass": false
+     },
+     "0.62": {
+      "n": 2,
+      "said": 0.6295,
+      "landed": 1.0,
+      "pass": false
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 734,
+       "said": 0.6285,
+       "landed": 0.5232,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 734,
+       "said": 0.5094,
+       "landed": 0.5232,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 487,
+       "said": 0.6378,
+       "landed": 0.5359,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 487,
+       "said": 0.5105,
+       "landed": 0.5359,
+       "pass": true
+      }
+     }
+    },
+    "balanced_55": {
+     "n": 71,
+     "said": 0.5601,
+     "landed": 0.6338,
+     "pass": false
+    }
+   },
    "combined": {
     "weights_model_book_const": [
      0.0442,
@@ -394,6 +648,133 @@
     "landed": null
    },
    "mae": 21.36,
+   "live": {
+    "blend_a": 0.1643,
+    "main": {
+     "0.52": {
+      "n": 9738,
+      "said": 0.5503,
+      "landed": 0.5563,
+      "pass": true
+     },
+     "0.54": {
+      "n": 5401,
+      "said": 0.5671,
+      "landed": 0.5903,
+      "pass": true
+     },
+     "0.55": {
+      "n": 3821,
+      "said": 0.5763,
+      "landed": 0.6155,
+      "pass": true
+     },
+     "0.56": {
+      "n": 2663,
+      "said": 0.5856,
+      "landed": 0.6354,
+      "pass": true
+     },
+     "0.58": {
+      "n": 1226,
+      "said": 0.6051,
+      "landed": 0.6542,
+      "pass": true
+     },
+     "0.60": {
+      "n": 550,
+      "said": 0.6257,
+      "landed": 0.7255,
+      "pass": true
+     },
+     "0.62": {
+      "n": 237,
+      "said": 0.6481,
+      "landed": 0.7722,
+      "pass": true
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 1413,
+      "said": 0.5261,
+      "landed": 0.5343,
+      "pass": true
+     },
+     "0.54": {
+      "n": 53,
+      "said": 0.5517,
+      "landed": 0.5849,
+      "pass": false
+     },
+     "0.55": {
+      "n": 24,
+      "said": 0.559,
+      "landed": 0.5417,
+      "pass": false
+     },
+     "0.56": {
+      "n": 6,
+      "said": 0.5722,
+      "landed": 0.6667,
+      "pass": false
+     },
+     "0.58": {
+      "n": 1,
+      "said": 0.5843,
+      "landed": 1.0,
+      "pass": false
+     },
+     "0.60": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     },
+     "0.62": {
+      "n": 0,
+      "said": null,
+      "landed": null,
+      "pass": false
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 2069,
+       "said": 0.6263,
+       "landed": 0.5553,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 2069,
+       "said": 0.5223,
+       "landed": 0.5553,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 1279,
+       "said": 0.6364,
+       "landed": 0.559,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 1279,
+       "said": 0.5248,
+       "landed": 0.559,
+       "pass": true
+      }
+     }
+    },
+    "balanced_55": {
+     "n": 3820,
+     "said": 0.5763,
+     "landed": 0.6154,
+     "pass": true
+    }
+   },
    "combined": {
     "weights_model_book_const": [
      0.1643,
@@ -550,6 +931,133 @@
     "n": 14135,
     "said": 0.8486,
     "landed": 0.7863
+   },
+   "live": {
+    "blend_a": 0.2,
+    "main": {
+     "0.52": {
+      "n": 15257,
+      "said": 0.8129,
+      "landed": 0.7761,
+      "pass": false
+     },
+     "0.54": {
+      "n": 14944,
+      "said": 0.8188,
+      "landed": 0.7805,
+      "pass": false
+     },
+     "0.55": {
+      "n": 14808,
+      "said": 0.8213,
+      "landed": 0.7821,
+      "pass": false
+     },
+     "0.56": {
+      "n": 14656,
+      "said": 0.8241,
+      "landed": 0.7843,
+      "pass": false
+     },
+     "0.58": {
+      "n": 14290,
+      "said": 0.8306,
+      "landed": 0.7905,
+      "pass": false
+     },
+     "0.60": {
+      "n": 13937,
+      "said": 0.8367,
+      "landed": 0.7968,
+      "pass": false
+     },
+     "0.62": {
+      "n": 13521,
+      "said": 0.8436,
+      "landed": 0.8025,
+      "pass": false
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 2502,
+      "said": 0.6914,
+      "landed": 0.6914,
+      "pass": true
+     },
+     "0.54": {
+      "n": 2398,
+      "said": 0.6984,
+      "landed": 0.6989,
+      "pass": true
+     },
+     "0.55": {
+      "n": 2353,
+      "said": 0.7013,
+      "landed": 0.7025,
+      "pass": true
+     },
+     "0.56": {
+      "n": 2305,
+      "said": 0.7044,
+      "landed": 0.7067,
+      "pass": true
+     },
+     "0.58": {
+      "n": 2187,
+      "said": 0.7116,
+      "landed": 0.7165,
+      "pass": true
+     },
+     "0.60": {
+      "n": 2071,
+      "said": 0.7184,
+      "landed": 0.731,
+      "pass": true
+     },
+     "0.62": {
+      "n": 1951,
+      "said": 0.7251,
+      "landed": 0.736,
+      "pass": true
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 2421,
+       "said": 0.758,
+       "landed": 0.7001,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 2421,
+       "said": 0.6961,
+       "landed": 0.7001,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 2334,
+       "said": 0.7635,
+       "landed": 0.7112,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 2334,
+       "said": 0.7016,
+       "landed": 0.7112,
+       "pass": true
+      }
+     }
+    },
+    "balanced_55": {
+     "n": 610,
+     "said": 0.5763,
+     "landed": 0.5754,
+     "pass": true
+    }
    },
    "combined": {
     "weights_model_book_const": [

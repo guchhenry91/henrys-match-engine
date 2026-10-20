@@ -1607,6 +1607,14 @@ function lineNote(p){
   return `<span class="bsn b365" style="color:var(--amber)" title="${esc(tip)}">${esc(b)} line ${p.line} — bet only at this line</span>`;
 }
 
+// THE MODEL ALONE OVERSTATES (NFL gate, 2026-10-20): proving picks it rated ~63% landed
+// 52-58%. So its own number is never shown bare: next to it, what such picks landed.
+function nflRawTag(p){
+  const t=(((DATA.nfl||{}).engine||{}).proving_tested||{})[p.market];
+  if(t&&p.pick_kind==="proving")
+    return `<span class="bsn" title="The model on its own says ${pc(p.p_model)}%, but in testing (${t.n.toLocaleString()} picks chosen this way) it said ${pc(t.model_said)}% and ${pc(t.landed)}% landed. The chance shown is the bookmaker-led one.">Tested: picks like this landed ${pc(t.landed)}%</span>`;
+  return `<span class="bsn" title="The model on its own, before being pulled toward the book's price -- on its own it has been overconfident; the chance shown is the bookmaker-led one">Raw model ${pc(p.p_model)}%</span>`;
+}
 function nflPropTableRow(p, full){
   const td=p.market==="anytime_touchdown";
   const t=nflTier(p.probability);
@@ -1630,7 +1638,7 @@ function nflPropTableRow(p, full){
     <div class="bs"><b class="sel">${esc(sel)}</b>${status}${perfTag("nfl",p.market)}${heldTag(p)}${valueBits(p,"nfl",p.market)}${newsTag(p)}${
       p.line_source&&p.line_source!=="model"?`${lineNote(p)}`
       :p.line_source==="model"?`<span class="bsn">Model line — no book quotes him</span>`:""}${
-      p.p_model!=null?`<span class="bsn" title="The model on its own, before being pulled toward the book's price">Raw model ${pc(p.p_model)}%</span>`:""}</div>
+      p.p_model!=null?nflRawTag(p):""}</div>
     ${probCell(p.probability)}
     ${td?valCell("5-game avg",avg):valCell(p.line_source&&p.line_source!=="model"?`${lineBook(p)} line`:"Model line",p.line!=null?p.line:"—")}
     ${p.book_price!=null
