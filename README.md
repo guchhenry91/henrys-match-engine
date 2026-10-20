@@ -1,59 +1,81 @@
 # Henry's Match Engine
 
-A statistical football predictor for the Premier League, La Liga, Bundesliga, and Ligue 1 — match outcomes, player props, and model-built parlays, all graded against real results with a frozen, no-hindsight pick log.
+A multi-sport betting predictor: football (Premier League, La Liga, Bundesliga, Serie A, Ligue 1 and the Champions League), NFL, NBA and MLB. It makes team picks and player-prop picks, checks each one against the bookmaker's price, freezes it before kick-off and grades it against the real result. Every record on the site is built from those frozen picks, never from a re-score after the fact.
 
-**Live site:** [worldcup-nnxg.onrender.com](https://worldcup-nnxg.onrender.com)
+**Live site:** [henrys-match-engine.henrys-edge-engine.workers.dev](https://henrys-match-engine.henrys-edge-engine.workers.dev)
 
-Also included: an archived World Cup 2026 tournament predictor, kept exactly as it finished (final record 64-26 of 90, 71%, champion Spain).
+Also included: the archived World Cup 2026 predictor (`worldcup.html`), kept exactly as it finished (64-26 of 90, 71%, champion Spain).
 
-## What this is
+## How a pick is made
 
-A Dixon-Coles / xG-blended statistical model — not machine learning, not a black box. Team strengths are fitted from five seasons of results and expected-goals data, time-weighted so recent form matters more, and shrunk toward the league mean so a small sample never produces an extreme number. Promoted clubs are seeded from their actual second-tier form rather than a generic fallback.
+Every sport goes through the same five steps.
 
-Every published probability is graded honestly:
-- A pick **locks 45 minutes before kickoff** and is never rewritten, even if the model would call it differently by full time. The published record reflects the genuine pre-match call, not a hindsight re-score.
-- The match model is **walk-forward backtested against de-vigged closing bookmaker odds** — the honest benchmark for "does this actually know something." Right now it doesn't reliably beat the closing line, and that's stated plainly rather than hidden. A [calibration chart](#the-boards) tracks whether a stated confidence (e.g. 70%) actually lands that often once results come in.
-- Player props are graded from actual shot events, not season averages — a market cannot be settled by data it wasn't measured against.
+1. **Forecast.** A statistical model forecasts the outcome: a team's chance to win, or a player's whole stat distribution (not just an average), so it can give a chance for any line.
+2. **Combine with the bookmaker.** Bookmakers are usually better informed than the model, especially about playing time. So the chance the site shows is the **bookmaker's chance moved part of the way toward the model's**, at most 20% until real results prove the model deserves more. The model's own number is kept, but on its own it has tested as overconfident against realistic lines, so it is never the headline.
+3. **Price check (bet365).** A pick is either:
+   - a **value pick**: at least +3% expected return at bet365's price, with the model within 15 points of the bookmaker; or
+   - a **proving pick**: the model is at least 2 points more confident than the bookmaker, but the price isn't good enough to bet. Proving picks are shown, tagged *not a bet*, and graded so each market can prove itself.
+4. **Freeze.** Picks freeze before the start: soccer and NFL inside the lock window (2 hours, widening if the scheduler has been slow), NBA and MLB on the last run before tip-off or within 2 hours. A frozen pick is never rewritten, and nothing is frozen after kick-off.
+5. **Grade and earn trust.** Graded picks are scored at the price they froze on, with closing-line value where available. A market only reaches the **Bet list** once its own record shows profit at bet365's prices. Until then its picks are tracking-only.
 
-## The boards
+## What each model does
 
-| Board | What it is |
-|---|---|
-| **Best Picks** | Cross-league match-winner picks at ≥65% model confidence |
-| **Player Picks** | Anytime goalscorer, 2+ shot attempts, 1+ shot on target — graded per market, since a 45% goalscorer pick and an 80% shots pick are both near their market's ceiling |
-| **Parlays** | Model-built accumulators, one leg per match so the combined probability is a genuine product of independent legs, not a guess |
-| **Tables** | Actual league standings (points, goal difference) from results played so far |
-| **Grades** | The full track record per market, plus a calibration chart comparing stated confidence to real hit rate |
+### Soccer (five leagues)
+- **Match picks:** a Dixon-Coles model (`leagues/model.py`) fitted on results and expected goals from football-data.co.uk and Understat, weighted toward recent form and shrunk toward the league average. Promoted clubs are seeded from their real second-division season. Best Picks are match winners at 65%+.
+- **Player picks** (anytime scorer, 2+ shot attempts, 1+ shot on target): a model of each player's chance to start or come on, plus his chance of the outcome if he plays, trained on Understat's per-match player data (`leagues/forecast.py`). It reads team news and the confirmed XI, and a player benched or missing from the XI is never frozen. Bars: 40% scorer, 62% shots and on target. Prices come from bet365 (scorer) and US books (shots).
+- **Grading:** from Understat shot events, with API-Football as the fallback. A player who didn't play is void.
 
-## Honest limitations
+### Champions League
+- **Match picks:** a model fitted on sixteen seasons of European results, checked against bet365's 1X2 odds and leaning on bet365 when they disagree (`ucl/market.py`).
+- **Player props:** only for matches between two clubs from the big five leagues, priced from the players' league form (`ucl/props.py`), graded from API-Football and ESPN.
 
-- **The model does not currently beat the closing market.** A blend of the model with the market's own line puts zero weight on the model — verified, published, not spun.
-- **Bundesliga player props cannot be graded.** The upstream shot-event feed crashes for that league, so its player picks publish but are excluded from the record rather than faked or silently dropped.
-- **The props gate validates rate estimation, not the probabilities on the board.** `leagues/props_backtest.py` tests whether the per-90 rates are estimated well, scored as season-total MAE against a baseline — and it is handed each player's *actual* minutes. The board publishes per-match probabilities, which are those rates run through a minutes projection, a penalty adjustment and a rescale to the match model's lambda. So the gate is blind to minutes-projection error, which is a dominant driver of live prop accuracy, and its bar is `mae < baseline_mae` on two metrics with no minimum sample, no calibration check and no significance test. **The live record is the first real test of the published probabilities.** This is a known gap, not an oversight: Understat cannot support an honest per-match anytime-scorer curve, so the alternative would be a gate that looks rigorous and isn't.
-- **Free data sources have real limits.** Roster and transfer data come from free feeds (ESPN, Understat) with documented reconciliation logic to avoid mis-attributing a departed player — see `leagues/players.py` for how thin/incomplete sources are handled without guessing.
+### NFL
+- **Team picks:** an Elo rating model.
+- **Player props** (receiving, rushing and passing yards; anytime TD): a forecast of each player's yards or touchdown chance from his role, snaps, usage, the betting spread and total, the opponent, weather and **teammates on the official injury report** (`nfl/forecast.py`). Players returning from missed games are scaled down by a measured correction (they were overrated by 17% on receiving yards). Lines are bookmakers' lines only.
+- **Proving bar:** 60% on the model's own chance (owner's choice). In testing these picks landed 52-58%, so each one shows *"Tested: picks like this landed N%"*.
+- **Anytime TD** is priced and logged but not published.
 
-## How it's built
+### NBA
+- **Team picks:** an Elo rating model.
+- **Player props** (points, rebounds, assists, threes): a forecast of each player's stat distribution from minutes, usage, pace, opponent and teammates out (`nba/forecast.py`). On a player's first game of a season it uses his longer-run level, not the last games before the summer.
+- **Main board:** proving picks qualify on the blended chance at 55%+. Value picks need 62%, or 55% on a near 50/50 line. Both rules were tested against a simulated sharp bookmaker and land at or above what they state.
+- **Custom plays:** milestone bets ("25+ points", "10+ rebounds") on a team's three focal players, from the bookmakers' alternate lines. Overs only; the model must give 70%+, at odds of 1.40+.
+- **Monster nights:** big-night long shots (30+ points, 12+ rebounds, 10+ assists or 5+ threes, well above the player's average). Listed only when the price is long enough to pay for the misses; at most 3 a night.
+- **Playoffs** load and grade like the regular season, with a measured playoff correction: stars hold their points, role players are scaled down.
+- **Rosters** come from current rosters (Sleeper, checked against box scores) and are cross-checked daily against ESPN.
 
-- **Match model**: Dixon-Coles bivariate Poisson (`leagues/model.py`), fit on results + xG from football-data.co.uk and Understat, with empirical-Bayes shrinkage and a home-advantage term.
-- **Promoted clubs**: seeded from calibrated second-tier form (`leagues/second_tier.py`) rather than a single third-party rating source.
-- **Player props**: per-90 rates shrunk toward positional priors, rescaled to the match model's own expected goals so the player numbers can never disagree with the team prediction (`leagues/props.py`).
-- **Season simulation**: Monte Carlo over the fitted model for projected final standings, title/top-4/relegation odds (`leagues/sim.py`).
-- **Parlays**: combines the model's own already-published pick probabilities, one leg per match for independence (`leagues/parlays.py`).
-- **Validation**: walk-forward backtest vs. de-vigged closing odds (`leagues/backtest.py`, `leagues/tune.py`). The backtest runs the model that ships, promoted-club priors included, so the score covers the whole fixture list rather than quietly excluding the hardest games. Parameters are swept on the earlier seasons and the winner is re-scored on a **held-out final season**, and a challenger only replaces the shipped config if a paired 95% bootstrap interval puts it entirely ahead — rejected candidates are written to the report, not discarded. The gate emits `release_policy.json`, which `publish.py` reads, so the shipped parameters and the evidence for them are produced by one run and cannot drift apart.
-- **Publishing**: `python -m leagues.publish` fits the model, runs the simulation, builds props and parlays, locks picks inside the kickoff window, and writes the four league files plus the cross-league boards atomically.
-- **CI**: a scheduled GitHub Actions pipeline republishes through the season, validates hand-edited data files before touching the model, and deploys to Render on every push.
+### MLB
+- **Team picks:** an Elo rating model.
+- **Player props:** count models per market (`mlb/forecast.py`). Hits, RBIs and team runs are published when combined with the bookmaker. Strikeouts, hits + runs + RBIs and home runs are priced but held back.
+- Postponed games replayed on another day are voided.
+
+## What is and isn't proven
+
+- **Soccer** has the longest live record. **NBA and NFL props are new**: they're tested on past seasons but have few or no graded live picks, so they're tracking-only until their records say otherwise.
+- **There are no historical bookmaker prices for player props**, so backtests measure whether picks land at the rate they claim, not whether they make money. Profit only shows in the live record.
+- **The model alone is overconfident against sharp lines** in the NBA and NFL. That's why the site shows the blended chance.
+- **The Bet list stays small on purpose.** Most picks are proving picks until a market shows profit at bet365's prices over 200+ bets.
+
+## How it runs
+
+- **Hosting:** one Cloudflare Worker (`cloudflare/worker.js`) serves the site and queues jobs on a schedule. The jobs run in a container (`cloudflare/container/`) on the `tested` branch.
+- **Data:** the live boards and pick logs are kept in Cloudflare D1, not in the repo. The repo's `data/` files are not the live ones.
+- **Deploys:** a push to `main` deploys the site and Worker once tests pass (`.github/workflows/deploy-cloudflare.yml`).
+- **Monitoring:** a health check (`scripts/health_check.py`) runs every few hours and alerts on the site and by Telegram. It covers stale boards, failed jobs, empty prop boards before games, picks frozen late and ungraded picks.
 
 ## Running it locally
 
 ```bash
 pip install -r requirements.txt
-python -m leagues.publish PL          # one league, for quick iteration
-python -m leagues.publish             # all four leagues
-python -m pytest tests/leagues/ -q    # test suite
+python -m leagues.publish PL               # one soccer league
+python -m nba.publish                      # NBA board
+python -m scripts.nba_forecast_gate        # NBA model test (official injury report by default)
+python -m scripts.nfl_forecast_gate        # NFL model test
+python -m pytest tests/ -q                 # tests
 ```
 
-No API keys are required for the core pipeline; a free [API-Football](https://www.api-football.com/) key enables confirmed-lineup fetching (`API_FOOTBALL_KEY`) but the pipeline degrades gracefully without one.
+API keys (`API_FOOTBALL_KEY`, `ODDS_API_KEY`) unlock lineups and bookmaker prices. Without them the pipelines publish less rather than guess. Paid API use has hard daily and monthly caps (see `CLAUDE.md`).
 
 ## Stack
 
-Pure Python (pandas, scipy, [penaltyblog](https://github.com/martineastwood/penaltyblog), [soccerdata](https://github.com/probberechts/soccerdata)) on the backend; a single-file, no-build-step vanilla JS/CSS frontend (`index.html`). No framework, no bundler.
+Python (pandas, scikit-learn, scipy, [penaltyblog](https://github.com/martineastwood/penaltyblog), [soccerdata](https://github.com/probberechts/soccerdata)) for the models; a single-file vanilla JS/CSS frontend (`index.html`); Cloudflare Workers, Containers and D1 for hosting.
