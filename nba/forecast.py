@@ -260,12 +260,32 @@ def _prev_season(d: pd.DataFrame) -> pd.DataFrame:
                          on="key", by="PLAYER_ID", direction="backward")
     d = d.merge(look.drop(columns="key"), on=["PLAYER_ID", "season"], how="left")
     d["min_vs_prev"] = d["min_ewm3"] - d["min_prev"]
+    d["min_dip"] = d["min_ewm40"] - d["min_ewm3"]     # before any reset: the board's guard reads it
+    if SUMMER_RESET:
+        # A player's FIRST game of a season reads his recent minutes as his longer-run
+        # level, not the last few games before the summer: those are as often an
+        # injury return or end-of-season rest as real form. Same in training and live.
+        first = (d["season_games_before"] == 0) & d["min_ewm40"].notna()
+        for c in ("min_last", "min_ewm3"):
+            d.loc[first, c] = d.loc[first, "min_ewm40"]
+        d.loc[first, "min_ewm10"] = (d.loc[first, "min_ewm10"] + d.loc[first, "min_ewm40"]) / 2
+        for s in STATS:
+            has = first & d[f"{s}_prev"].notna()
+            d.loc[has, f"{s}_last"] = d.loc[has, f"{s}_prev"]
     return d
+
+
+SUMMER_RESET = True        # gated with PREV_SEASON above
 
 
 # ELO GAP: built and A/B-gated 2026-10-12 (no change in MAE or calibration in any of the
 # four stats -- pace and defence already carry team strength), so it is OFF by default.
-PREV_SEASON = False    # the previous-season features above; OFF until the A/B gate passes
+# Gated A/B 2026-10-20 (walk-forward 2021-26, official-report teammates-out), with the
+# first-game reset below. Overall MAE unchanged in all four stats; published picks at
+# 62% said/landed PTS 66.1/67.0 (was 66.2/66.2), REB 68.1/68.8, AST 68.1/68.0, FG3M
+# 74.8/74.7. Openers after a late-season minutes dip (four seasons, n=214): bias PTS
+# -1.74 -> -0.67, REB -0.54 -> -0.22, AST -0.43 -> -0.09, FG3M -0.18 -> 0.00.
+PREV_SEASON = True
 
 
 def features(stat: str, vacated: bool = True, elo: bool = False) -> list:

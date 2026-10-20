@@ -48,6 +48,6 @@ def test_no_under_on_a_player_whose_minutes_dipped_late_last_season():
             "season_games_before": 0, "min_dip": 8.0}
     assert fb._dip_under({**base, "side": "under"})
     assert not fb._dip_under({**base, "side": "over"})
-    assert not fb._dip_under({**base, "side": "under", "season_games_before": 5})
+    assert not fb._dip_under({**base, "side": "under", "season_games_before": 1})
     assert not fb._dip_under({**base, "side": "under", "min_dip": 2.0})
     assert fb.select([{**base, "side": "under"}]) == []

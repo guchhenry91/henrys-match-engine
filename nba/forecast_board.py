@@ -163,9 +163,11 @@ def _clears(p: dict) -> bool:
 # fell late last season (injury return, rest, tanking) is forecast on that dip, as if
 # the summer never happened. Walk-forward over four openers: those players were
 # UNDER-forecast by 1.7 points, 0.5 rebounds, 0.4 assists (every other opener came out
-# close or slightly high). Until he has DIP_GAMES games this season, no UNDER on him.
+# close or slightly high). The forecast now resets a season's first game to the longer
+# run (nba/forecast.SUMMER_RESET): the gap fell to -0.67 points, and games 2-5 were
+# already unbiased. What remains: no UNDER on such a player in his first game.
 DIP_MIN = 5.0
-DIP_GAMES = 5
+DIP_GAMES = 1
 
 
 def _dip_under(p: dict) -> bool:
@@ -266,8 +268,7 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
                     "last_five": last5.get(r["PLAYER_ID"], []),
                     "games_before": int(r["games_before"]), "club_source": info["club_source"],
                     "season_games_before": int(r["season_games_before"]),
-                    "min_dip": round(float(r["min_ewm40"] - r["min_ewm3"]), 1)
-                    if pd.notna(r["min_ewm40"]) and pd.notna(r["min_ewm3"]) else None,
+                    "min_dip": round(float(r["min_dip"]), 1) if pd.notna(r.get("min_dip")) else None,
                     "engine": ENGINE}
             priced.append(pick)
             if collect is not None:
