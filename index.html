@@ -647,8 +647,8 @@ const ICON={today:"⚡",best:"★",players:"👤",six:"🎯",parlay:"🧩",table
 // board to open and `filter` the market to select there -- the same value the
 // chips set, so the two navigations cannot disagree about what a market is.
 //
-// NBA is deliberately absent: this app has no NBA engine. Listing it would be a
-// link that looks live and does nothing, which is worse than no link at all.
+// NBA props have their own tab (viewNBA, with its market chips and custom plays),
+// so they are not repeated in this soccer/NFL quick list.
 const PROPS=[
   {id:"pp:goal",  view:"players", filter:"goal",  ic:"⚽", t:"Anytime scorer"},
   {id:"pp:shots", view:"players", filter:"shots", ic:"🥅", t:"2+ shot attempts"},
@@ -2633,7 +2633,7 @@ function nbaPlayRow(p){
       <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · forecast ${p.mu} ${NBAUNIT[p.market]||""}${p.avg!=null?` · usually ${p.avg}`:""}${
         p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span></div>
     <div class="bs"><b class="sel">${p.milestone}+ ${NBAUNIT[p.market]||""}</b>${kind}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
-    ${probCell(p.p_model)}
+    ${probCell(p.probability)}
     ${valCell(`${esc(p.book||"Book")} price`, p.book_price!=null?Number(p.book_price).toFixed(2):"—")}
     ${valCell("Expected return", ev!=null?`${ev>0?"+":""}${(ev*100).toFixed(1)}%`:"—", ev==null?"off":ev>=0?"pos":"neg")}</div>`;
 }
@@ -2644,7 +2644,7 @@ function nbaPlaysSection(d){
   let h="";
   const cu=(pl.custom||[]).filter(fit), mo=(pl.monster||[]).filter(fit);
   h+=sectHead("Custom plays",`Milestones · ${cu.length} play${cu.length===1?"":"s"}${rec(rp.custom)}`,
-    "Overs only, a team's three focal players. The model's chance is its own (70%+ needed); in two seasons replayed, its 70%+ milestones landed as often as it said. Priced on the book's alternate ladder.");
+    "Overs only, a team's three focal players, priced on the book's alternate ladder. The forecast must give it 70%+; the chance shown is the book-led one, which in the gate understated what landed (said ~66%, landed ~72%).");
   h+=cu.length?btable(PCOLS,cu.map(nbaPlayRow).join("")):`<div class="glass rowc">${emptyRow("No custom plays yet — alternate ladders usually post on game day")}</div>`;
   h+=sectHead("Monster nights",`Long shots · ${mo.length}${rec(rp.monster)}`,
     "A big night (30+ points, 12+ rebounds, 10+ assists or 5+ threes, well above his average). The model flags these 3–5x more often than chance, but most still miss — listed only where the price pays for the misses.");
@@ -2815,6 +2815,9 @@ function viewNBA(){
         :`<div class="glass rowc">${emptyRow("No lines posted yet — books usually post NBA props on game day")}</div>`;
     }
     h+=`<div class="eyebrow" style="margin-top:22px">Backtest evidence</div>`;
+    const rc=d.release_check||{};
+    if(Object.keys(rc).length) h+=`<div class="glass rowc">${Object.entries(rc).map(([m,r])=>{const x=r.main_62||{};
+      return `<div class="rw static"><div class="info"><b>${esc(NBAMK[m]||m)} · ${r.released?"live":"withheld"}</b><span>Live rule (62%+) against an informed book, 2021-26: said ${x.said!=null?pc(x.said):"—"}%, landed ${x.landed!=null?pc(x.landed):"—"}% on ${(x.n||0).toLocaleString()} lines</span></div></div>`;}).join("")}</div>`;
   }
 
   if(tw.n) h+=`<div class="glass stat"><div class="k">${pc(tw.accuracy)}%</div>
@@ -2823,7 +2826,7 @@ function viewNBA(){
   // A per-market link must actually show that market, or the label is a lie.
   const all=["points","rebounds","assists","threes"];
   const shown=(filter==="all"||filter==="team_winner")?all:all.filter(m=>m===filter);
-  h+=`<div class="eyebrow" style="margin-top:18px">${filter==="all"?"Player markets":esc(NBAMK[filter]||filter)} · ${(d.seasons_backtested||[]).length} seasons backtested</div><div class="glass rowc">`;
+  h+=`<div class="eyebrow" style="margin-top:18px">${filter==="all"?"Player markets":esc(NBAMK[filter]||filter)} · the retired model's ${(d.seasons_backtested||[]).length}-season backtest, kept for reference — it no longer decides what goes live</div><div class="glass rowc">`;
   for(const mk of shown){
     const v=ev[mk]; if(!v) continue;
     const af=v.above_floor||{};

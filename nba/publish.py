@@ -28,7 +28,29 @@ from nfl.news import load_player_news
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "nba"
-REPORT = ROOT / "data-raw" / "nba" / "backtest_report.json"
+REPORT = ROOT / "data-raw" / "nba" / "backtest_report.json"      # the retired model's: evidence only
+FORECAST_REPORT = ROOT / "data-raw" / "nba" / "forecast_report.json"
+MARKET_STAT = {"points": "PTS", "rebounds": "REB", "assists": "AST", "threes": "FG3M"}
+
+
+def released_markets() -> tuple[list, dict]:
+    """WHICH PROP MARKETS GO LIVE -- decided by the model that makes the picks (review,
+    2026-10-20: it was the retired model's backtest). A market is released when its
+    gate (scripts/nba_forecast_gate.py "live", the live blend against an informed book)
+    shows the board's own rule -- 62%+, or 55%+ on a near-even line -- landing within
+    the gate's slack of what it states. No report: nothing is released."""
+    try:
+        stats = json.loads(FORECAST_REPORT.read_text(encoding="utf-8"))["stats"]
+    except Exception:
+        return [], {}
+    why = {}
+    for market, stat in MARKET_STAT.items():
+        live = (stats.get(stat) or {}).get("live") or {}
+        main = (live.get("main") or {}).get("0.62") or {}
+        bal = live.get("balanced_55") or {}
+        why[market] = {"main_62": main, "balanced_55": bal,
+                       "released": bool(main.get("pass") and bal.get("pass"))}
+    return sorted(m for m, v in why.items() if v["released"]), why
 NEWS = ROOT / "data-raw" / "nba" / "news.json"
 
 
@@ -89,10 +111,8 @@ def build(now=None, sched=None) -> dict:
     now = now or picks_mod.now_utc()
     ev = evidence()
     news = load_player_news(NEWS)
-    released = sorted(m for m, v in ev.items()
-                      if v.get("released") and m != "team_winner")
-    withheld = sorted(m for m, v in ev.items()
-                      if not v.get("released") and m != "team_winner")
+    released, release_why = released_markets()
+    withheld = sorted(m for m in MARKET_STAT if m not in released)
     if sched is None:
         try:
             sched = current.schedule()
@@ -138,6 +158,8 @@ def build(now=None, sched=None) -> dict:
         "status": status,
         "status_note": note,
         "markets_released": released,
+        # Why each market is (or is not) live: the new model's gate of the live rules.
+        "release_check": release_why,
         "markets_withheld": withheld,
         "games": live["games"],
         "props": {m: {"released": m in released,
@@ -162,17 +184,21 @@ def build(now=None, sched=None) -> dict:
                  "applied_to": "player props: OUT removed, doubtful flagged"},
         "evidence": ev,
         "caveats": [
-            "Player props are asked at the BOOKMAKER'S line. The model is trained "
-            "across a spread of lines around each player's median and was gated at "
-            "every step of that spread (calibration within 0.04 at each), so it can "
-            "be asked about the book's number and mean it.",
-            "Edges are against the book's de-vigged price. A large edge against a "
-            "sharp book such as Pinnacle is more often the model's error than the "
-            "market's -- the record, not the edge, is the test.",
-            "A player's team is his newest box score this season, preseason "
-            "included. A player whose known team is not in the game the book lists "
-            "him for is skipped rather than guessed onto a side.",
-        ] + withheld_caveat(ev, withheld),
+            "Player props stand on a bookmaker's line. The forecast (each player's "
+            "whole stat distribution, nba/forecast.py) is combined with the book: the "
+            "chance shown is the book's, moved part of the way toward the forecast. "
+            "That published chance is what the gate checked against an informed book "
+            "(2021-26): the board's 62% and 55% rules landed at or above what they "
+            "state. The forecast alone was overconfident there, so it is never shown "
+            "as the chance.",
+            "Proving picks are not bets: the model rates them 2+ points above the "
+            "book, they are frozen and graded, and only their record can make them "
+            "bettable.",
+            "A player's team comes from the current roster (Sleeper, checked against "
+            "our box scores) or his newest box score, whichever is newer. A player "
+            "whose team is not in the game the book lists him for is skipped rather "
+            "than guessed onto a side.",
+        ] + withheld_caveat(release_why, withheld),
     }
 
 
@@ -304,7 +330,10 @@ def withheld_caveat(ev: dict, withheld: list) -> list:
         return []
     out = []
     for market in withheld:
-        why = "; ".join((ev.get(market) or {}).get("failures") or []) or "failed the gate"
+        r = ev.get(market) or {}
+        m = r.get("main_62") or {}
+        why = (f"at the 62% rule it stated {m['said']:.0%} and landed {m['landed']:.0%} "
+               f"on {m['n']} gated lines" if m.get("said") is not None else "no gate result")
         out.append(f"{market.capitalize()} is WITHHELD: {why}.")
     return out
 

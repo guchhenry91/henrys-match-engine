@@ -41,6 +41,8 @@ PUBLISH_BAR = 0.62
 # once the forecast is pulled toward the book (combine_fit.shrink) -- the board went
 # empty. On a line whose book chance is under BALANCED_BOOK_MAX the bar is 55%: about
 # the +3% value point at typical prices, and the pick must still be value or proving.
+# GATED 2026-10-20 (live blend vs an informed book, 2021-26): said/landed PTS 58.8/62.3,
+# REB 58.6/66.0, AST 57.9/65.7, FG3M 57.6/63.9 -- it understates, never overstates.
 BALANCED_BAR = 0.55
 BALANCED_BOOK_MAX = 0.56
 
@@ -147,15 +149,20 @@ def upcoming_rows(games_ahead, odds_games, names, teams_now, last_team, ruled_ou
     return synth, meta
 
 
+# PROVING PICKS ON THE PUBLISHED CHANCE (review, 2026-10-20). They were judged on the
+# model's own chance at 62%+, and against an informed book that stated 67-70% and
+# landed 57-65% (scripts/nba_forecast_gate.py "live"). On the published (book-led)
+# chance at 55%+, with the model 2+ points above the book, they landed at or above
+# what they state in rebounds, assists and threes, and within 3 points in points.
+PROVING_BAR = 0.55
+
+
 def _clears(p: dict) -> bool:
-    """The chance a pick must show. A VALUE pick is judged on the published (book-led)
-    chance. A PROVING pick -- never a bet, frozen and graded so the market can earn
-    trust -- is judged on the MODEL'S own chance (62%+); model_backs already holds it
-    within 15 points of the book and 2+ above it. Judging proving picks on the
-    shrunk chance made them impossible on any line the book sets near 50/50: the
-    board published nothing at all (five-sport audit, 2026-10-18)."""
+    """The chance a pick must show -- always the PUBLISHED (book-led) chance. VALUE:
+    bar_for (62%, or 55% on a near-even line -- both gated). PROVING: PROVING_BAR,
+    with model_backs already holding the model 2+ points above the book."""
     if p.get("pick_kind") == "proving":
-        return float(p.get("p_model") or 0) >= PUBLISH_BAR
+        return p["probability"] >= PROVING_BAR
     return p["probability"] >= bar_for(p)
 
 

@@ -119,3 +119,34 @@ def test_playoff_games_count_for_picks_and_grading():
     assert current._odds_stage(config.PLAYOFFS_START) == current.PLAYOFFS
     assert current._odds_stage("2027-01-10") == current.REGULAR
     assert current._path(current.PLAYOFFS).name.startswith("playoffs_")
+
+
+def test_proving_picks_are_judged_on_the_published_chance():
+    """Review 2026-10-20: judged on the model's own 62%+, they stated 67-70% and landed
+    57-65% against an informed book. Now the published (book-led) chance decides."""
+    from nba import forecast_board as fb
+    assert fb._clears({"pick_kind": "proving", "probability": 0.56, "p_model": 0.58, "book_p": 0.5})
+    assert not fb._clears({"pick_kind": "proving", "probability": 0.53, "p_model": 0.80, "book_p": 0.5})
+
+
+def test_markets_go_live_on_the_new_models_gate(tmp_path, monkeypatch):
+    import json
+    from nba import publish
+    ok = {"main": {"0.62": {"pass": True, "n": 900, "said": 0.64, "landed": 0.66}},
+          "balanced_55": {"pass": True}}
+    bad = {"main": {"0.62": {"pass": False, "n": 900, "said": 0.70, "landed": 0.60}},
+           "balanced_55": {"pass": True}}
+    rep = tmp_path / "r.json"
+    rep.write_text(json.dumps({"stats": {"PTS": {"live": ok}, "REB": {"live": bad},
+                                         "AST": {"live": ok}, "FG3M": {"live": ok}}}))
+    monkeypatch.setattr(publish, "FORECAST_REPORT", rep)
+    released, why = publish.released_markets()
+    assert released == ["assists", "points", "threes"] and not why["rebounds"]["released"]
+    assert "landed 60%" in publish.withheld_caveat(why, ["rebounds"])[0]
+    monkeypatch.setattr(publish, "FORECAST_REPORT", tmp_path / "missing.json")
+    assert publish.released_markets()[0] == []          # no gate, nothing live
+
+
+def test_the_live_report_releases_all_four_markets():
+    from nba import publish
+    assert publish.released_markets()[0] == ["assists", "points", "rebounds", "threes"]

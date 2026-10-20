@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-20T02:54:38+00:00",
+ "generated_at": "2026-10-20T10:29:39+00:00",
  "scored_seasons": [
   2021,
   2022,
@@ -309,6 +309,199 @@
      "said": 0.6607,
      "landed": 0.6698
     }
+   },
+   "live": {
+    "blend_a": 0.2,
+    "main": {
+     "0.52": {
+      "n": 76166,
+      "said": 0.5855,
+      "landed": 0.5903,
+      "pass": true
+     },
+     "0.54": {
+      "n": 69266,
+      "said": 0.5909,
+      "landed": 0.5948,
+      "pass": true
+     },
+     "0.55": {
+      "n": 63887,
+      "said": 0.5947,
+      "landed": 0.5986,
+      "pass": true
+     },
+     "0.56": {
+      "n": 56926,
+      "said": 0.5996,
+      "landed": 0.6046,
+      "pass": true
+     },
+     "0.58": {
+      "n": 40645,
+      "said": 0.6113,
+      "landed": 0.6207,
+      "pass": true
+     },
+     "0.60": {
+      "n": 24369,
+      "said": 0.6257,
+      "landed": 0.6395,
+      "pass": true
+     },
+     "0.62": {
+      "n": 12094,
+      "said": 0.6423,
+      "landed": 0.6617,
+      "pass": true
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 20630,
+       "said": 0.6561,
+       "landed": 0.562,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 20630,
+       "said": 0.5811,
+       "landed": 0.562,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 16987,
+       "said": 0.6659,
+       "landed": 0.5668,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 16987,
+       "said": 0.5853,
+       "landed": 0.5668,
+       "pass": true
+      }
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 24803,
+      "said": 0.5761,
+      "landed": 0.5545,
+      "pass": true
+     },
+     "0.54": {
+      "n": 23276,
+      "said": 0.5789,
+      "landed": 0.5574,
+      "pass": true
+     },
+     "0.55": {
+      "n": 20913,
+      "said": 0.5827,
+      "landed": 0.5589,
+      "pass": true
+     },
+     "0.56": {
+      "n": 17549,
+      "said": 0.588,
+      "landed": 0.5631,
+      "pass": true
+     },
+     "0.58": {
+      "n": 10069,
+      "said": 0.6014,
+      "landed": 0.5709,
+      "pass": false
+     },
+     "0.60": {
+      "n": 4456,
+      "said": 0.6169,
+      "landed": 0.5745,
+      "pass": false
+     },
+     "0.62": {
+      "n": 1484,
+      "said": 0.633,
+      "landed": 0.5768,
+      "pass": false
+     }
+    },
+    "balanced_55": {
+     "n": 34938,
+     "said": 0.5884,
+     "landed": 0.6234,
+     "pass": true
+    },
+    "custom_as_built": {
+     "stated_model": {
+      "n": 1103,
+      "said": 0.7426,
+      "landed": 0.7353,
+      "pass": true
+     },
+     "stated_blend": {
+      "n": 1103,
+      "said": 0.6569,
+      "landed": 0.7353,
+      "pass": true
+     }
+    },
+    "custom_on_blend": {
+     "0.55": {
+      "n": 3009,
+      "said": 0.6178,
+      "landed": 0.6889,
+      "pass": true
+     },
+     "0.58": {
+      "n": 2302,
+      "said": 0.6341,
+      "landed": 0.7072,
+      "pass": true
+     },
+     "0.60": {
+      "n": 1822,
+      "said": 0.6457,
+      "landed": 0.73,
+      "pass": true
+     },
+     "0.62": {
+      "n": 1415,
+      "said": 0.6561,
+      "landed": 0.7272,
+      "pass": true
+     },
+     "0.65": {
+      "n": 809,
+      "said": 0.6725,
+      "landed": 0.7392,
+      "pass": true
+     }
+    },
+    "custom_any_milestone_on_blend": {
+     "0.60": {
+      "n": 7139,
+      "said": 0.7694,
+      "landed": 0.8246,
+      "pass": true
+     },
+     "0.65": {
+      "n": 6126,
+      "said": 0.7934,
+      "landed": 0.8415,
+      "pass": true
+     },
+     "0.70": {
+      "n": 5157,
+      "said": 0.8155,
+      "landed": 0.861,
+      "pass": true
+     }
+    }
    }
   },
   "REB": {
@@ -608,6 +801,199 @@
      "n": 29933,
      "said": 0.6814,
      "landed": 0.6885
+    }
+   },
+   "live": {
+    "blend_a": 0.2,
+    "main": {
+     "0.52": {
+      "n": 77828,
+      "said": 0.5869,
+      "landed": 0.6261,
+      "pass": true
+     },
+     "0.54": {
+      "n": 65162,
+      "said": 0.598,
+      "landed": 0.6351,
+      "pass": true
+     },
+     "0.55": {
+      "n": 58917,
+      "said": 0.6036,
+      "landed": 0.6415,
+      "pass": true
+     },
+     "0.56": {
+      "n": 52692,
+      "said": 0.6093,
+      "landed": 0.6466,
+      "pass": true
+     },
+     "0.58": {
+      "n": 40668,
+      "said": 0.621,
+      "landed": 0.6587,
+      "pass": true
+     },
+     "0.60": {
+      "n": 28899,
+      "said": 0.6336,
+      "landed": 0.6736,
+      "pass": true
+     },
+     "0.62": {
+      "n": 18024,
+      "said": 0.648,
+      "landed": 0.6925,
+      "pass": true
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 21369,
+       "said": 0.658,
+       "landed": 0.6049,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 21369,
+       "said": 0.5804,
+       "landed": 0.6049,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 17053,
+       "said": 0.6702,
+       "landed": 0.6154,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 17053,
+       "said": 0.5901,
+       "landed": 0.6154,
+       "pass": true
+      }
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 24807,
+      "said": 0.5761,
+      "landed": 0.5952,
+      "pass": true
+     },
+     "0.54": {
+      "n": 18875,
+      "said": 0.5906,
+      "landed": 0.6046,
+      "pass": true
+     },
+     "0.55": {
+      "n": 16391,
+      "said": 0.5975,
+      "landed": 0.611,
+      "pass": true
+     },
+     "0.56": {
+      "n": 14335,
+      "said": 0.6036,
+      "landed": 0.6159,
+      "pass": true
+     },
+     "0.58": {
+      "n": 10669,
+      "said": 0.6152,
+      "landed": 0.6324,
+      "pass": true
+     },
+     "0.60": {
+      "n": 7334,
+      "said": 0.6268,
+      "landed": 0.637,
+      "pass": true
+     },
+     "0.62": {
+      "n": 4053,
+      "said": 0.6404,
+      "landed": 0.6531,
+      "pass": true
+     }
+    },
+    "balanced_55": {
+     "n": 26733,
+     "said": 0.5864,
+     "landed": 0.6601,
+     "pass": true
+    },
+    "custom_as_built": {
+     "stated_model": {
+      "n": 583,
+      "said": 0.7335,
+      "landed": 0.7187,
+      "pass": true
+     },
+     "stated_blend": {
+      "n": 583,
+      "said": 0.653,
+      "landed": 0.7187,
+      "pass": true
+     }
+    },
+    "custom_on_blend": {
+     "0.55": {
+      "n": 1552,
+      "said": 0.6187,
+      "landed": 0.6727,
+      "pass": true
+     },
+     "0.58": {
+      "n": 1234,
+      "said": 0.6324,
+      "landed": 0.6864,
+      "pass": true
+     },
+     "0.60": {
+      "n": 990,
+      "said": 0.6429,
+      "landed": 0.7061,
+      "pass": true
+     },
+     "0.62": {
+      "n": 739,
+      "said": 0.654,
+      "landed": 0.7037,
+      "pass": true
+     },
+     "0.65": {
+      "n": 397,
+      "said": 0.6714,
+      "landed": 0.7053,
+      "pass": true
+     }
+    },
+    "custom_any_milestone_on_blend": {
+     "0.60": {
+      "n": 3310,
+      "said": 0.7585,
+      "landed": 0.8251,
+      "pass": true
+     },
+     "0.65": {
+      "n": 2717,
+      "said": 0.7878,
+      "landed": 0.8509,
+      "pass": true
+     },
+     "0.70": {
+      "n": 2223,
+      "said": 0.8128,
+      "landed": 0.8803,
+      "pass": true
+     }
     }
    }
   },
@@ -909,6 +1295,199 @@
      "said": 0.6805,
      "landed": 0.6789
     }
+   },
+   "live": {
+    "blend_a": 0.2,
+    "main": {
+     "0.52": {
+      "n": 79492,
+      "said": 0.6019,
+      "landed": 0.6344,
+      "pass": true
+     },
+     "0.54": {
+      "n": 68234,
+      "said": 0.6137,
+      "landed": 0.6423,
+      "pass": true
+     },
+     "0.55": {
+      "n": 62481,
+      "said": 0.6201,
+      "landed": 0.6456,
+      "pass": true
+     },
+     "0.56": {
+      "n": 56767,
+      "said": 0.6266,
+      "landed": 0.65,
+      "pass": true
+     },
+     "0.58": {
+      "n": 45884,
+      "said": 0.6401,
+      "landed": 0.6574,
+      "pass": true
+     },
+     "0.60": {
+      "n": 35580,
+      "said": 0.6546,
+      "landed": 0.665,
+      "pass": true
+     },
+     "0.62": {
+      "n": 26704,
+      "said": 0.6695,
+      "landed": 0.6736,
+      "pass": true
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 23689,
+       "said": 0.6712,
+       "landed": 0.6316,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 23689,
+       "said": 0.5962,
+       "landed": 0.6316,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 19859,
+       "said": 0.683,
+       "landed": 0.6402,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 19859,
+       "said": 0.6062,
+       "landed": 0.6402,
+       "pass": true
+      }
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 27331,
+      "said": 0.5898,
+      "landed": 0.6232,
+      "pass": true
+     },
+     "0.54": {
+      "n": 22243,
+      "said": 0.6035,
+      "landed": 0.6341,
+      "pass": true
+     },
+     "0.55": {
+      "n": 19780,
+      "said": 0.6108,
+      "landed": 0.6378,
+      "pass": true
+     },
+     "0.56": {
+      "n": 17459,
+      "said": 0.6182,
+      "landed": 0.6442,
+      "pass": true
+     },
+     "0.58": {
+      "n": 13495,
+      "said": 0.6324,
+      "landed": 0.6522,
+      "pass": true
+     },
+     "0.60": {
+      "n": 10054,
+      "said": 0.647,
+      "landed": 0.662,
+      "pass": true
+     },
+     "0.62": {
+      "n": 7277,
+      "said": 0.6612,
+      "landed": 0.6769,
+      "pass": true
+     }
+    },
+    "balanced_55": {
+     "n": 20264,
+     "said": 0.579,
+     "landed": 0.6573,
+     "pass": true
+    },
+    "custom_as_built": {
+     "stated_model": {
+      "n": 1033,
+      "said": 0.7417,
+      "landed": 0.727,
+      "pass": true
+     },
+     "stated_blend": {
+      "n": 1033,
+      "said": 0.6569,
+      "landed": 0.727,
+      "pass": true
+     }
+    },
+    "custom_on_blend": {
+     "0.55": {
+      "n": 2521,
+      "said": 0.6208,
+      "landed": 0.6668,
+      "pass": true
+     },
+     "0.58": {
+      "n": 1970,
+      "said": 0.6365,
+      "landed": 0.6807,
+      "pass": true
+     },
+     "0.60": {
+      "n": 1596,
+      "said": 0.6474,
+      "landed": 0.6955,
+      "pass": true
+     },
+     "0.62": {
+      "n": 1251,
+      "said": 0.6576,
+      "landed": 0.6994,
+      "pass": true
+     },
+     "0.65": {
+      "n": 755,
+      "said": 0.6729,
+      "landed": 0.7232,
+      "pass": true
+     }
+    },
+    "custom_any_milestone_on_blend": {
+     "0.60": {
+      "n": 5790,
+      "said": 0.7607,
+      "landed": 0.8086,
+      "pass": true
+     },
+     "0.65": {
+      "n": 4949,
+      "said": 0.7838,
+      "landed": 0.8321,
+      "pass": true
+     },
+     "0.70": {
+      "n": 4060,
+      "said": 0.8075,
+      "landed": 0.8534,
+      "pass": true
+     }
+    }
    }
   },
   "FG3M": {
@@ -1209,6 +1788,199 @@
      "said": 0.7497,
      "landed": 0.7471
     }
+   },
+   "live": {
+    "blend_a": 0.2,
+    "main": {
+     "0.52": {
+      "n": 87076,
+      "said": 0.677,
+      "landed": 0.683,
+      "pass": true
+     },
+     "0.54": {
+      "n": 79241,
+      "said": 0.6915,
+      "landed": 0.6948,
+      "pass": true
+     },
+     "0.55": {
+      "n": 75097,
+      "said": 0.6996,
+      "landed": 0.702,
+      "pass": true
+     },
+     "0.56": {
+      "n": 70938,
+      "said": 0.7081,
+      "landed": 0.7089,
+      "pass": true
+     },
+     "0.58": {
+      "n": 62356,
+      "said": 0.7271,
+      "landed": 0.722,
+      "pass": true
+     },
+     "0.60": {
+      "n": 54675,
+      "said": 0.7464,
+      "landed": 0.7374,
+      "pass": true
+     },
+     "0.62": {
+      "n": 47377,
+      "said": 0.7674,
+      "landed": 0.7535,
+      "pass": true
+     }
+    },
+    "proving_on_model": {
+     "0.60": {
+      "stated_model": {
+       "n": 23896,
+       "said": 0.6912,
+       "landed": 0.6452,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 23896,
+       "said": 0.6207,
+       "landed": 0.6452,
+       "pass": true
+      }
+     },
+     "0.62": {
+      "stated_model": {
+       "n": 20776,
+       "said": 0.7033,
+       "landed": 0.6532,
+       "pass": false
+      },
+      "stated_blend": {
+       "n": 20776,
+       "said": 0.6317,
+       "landed": 0.6532,
+       "pass": true
+      }
+     }
+    },
+    "proving_on_blend": {
+     "0.52": {
+      "n": 26985,
+      "said": 0.6126,
+      "landed": 0.6355,
+      "pass": true
+     },
+     "0.54": {
+      "n": 23313,
+      "said": 0.6256,
+      "landed": 0.6479,
+      "pass": true
+     },
+     "0.55": {
+      "n": 21511,
+      "said": 0.6323,
+      "landed": 0.6545,
+      "pass": true
+     },
+     "0.56": {
+      "n": 19776,
+      "said": 0.6391,
+      "landed": 0.6606,
+      "pass": true
+     },
+     "0.58": {
+      "n": 15998,
+      "said": 0.6555,
+      "landed": 0.6716,
+      "pass": true
+     },
+     "0.60": {
+      "n": 12838,
+      "said": 0.6717,
+      "landed": 0.6858,
+      "pass": true
+     },
+     "0.62": {
+      "n": 10411,
+      "said": 0.6862,
+      "landed": 0.7001,
+      "pass": true
+     }
+    },
+    "balanced_55": {
+     "n": 13263,
+     "said": 0.5756,
+     "landed": 0.6391,
+     "pass": true
+    },
+    "custom_as_built": {
+     "stated_model": {
+      "n": 1153,
+      "said": 0.7366,
+      "landed": 0.6964,
+      "pass": false
+     },
+     "stated_blend": {
+      "n": 1153,
+      "said": 0.6554,
+      "landed": 0.6964,
+      "pass": true
+     }
+    },
+    "custom_on_blend": {
+     "0.55": {
+      "n": 3454,
+      "said": 0.6156,
+      "landed": 0.6537,
+      "pass": true
+     },
+     "0.58": {
+      "n": 2570,
+      "said": 0.633,
+      "landed": 0.6704,
+      "pass": true
+     },
+     "0.60": {
+      "n": 2053,
+      "said": 0.6439,
+      "landed": 0.6785,
+      "pass": true
+     },
+     "0.62": {
+      "n": 1541,
+      "said": 0.6552,
+      "landed": 0.6924,
+      "pass": true
+     },
+     "0.65": {
+      "n": 875,
+      "said": 0.6709,
+      "landed": 0.7166,
+      "pass": true
+     }
+    },
+    "custom_any_milestone_on_blend": {
+     "0.60": {
+      "n": 4419,
+      "said": 0.7012,
+      "landed": 0.7366,
+      "pass": true
+     },
+     "0.65": {
+      "n": 3241,
+      "said": 0.7293,
+      "landed": 0.768,
+      "pass": true
+     },
+     "0.70": {
+      "n": 2115,
+      "said": 0.758,
+      "landed": 0.791,
+      "pass": true
+     }
+    }
    }
   }
  },
@@ -1216,5 +1988,5 @@
  "elo": false,
  "reported": true,
  "train_from": 0,
- "note": "previous-season features + first-game summer reset (nba/forecast.PREV_SEASON, SUMMER_RESET); official-report teammates-out"
+ "note": "previous-season features + first-game summer reset; official-report teammates-out (default); 'live' = the board's own rules on the live blend vs an informed book"
 }

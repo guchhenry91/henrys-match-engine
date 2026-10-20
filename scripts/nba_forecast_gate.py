@@ -71,8 +71,81 @@ def score_season(frame, stat, season):
     book_p = dist.p_over(book_mu, model.disp(book_mu), book_line)
     p_inf = dist.p_over(mu, alpha, book_line)
     y_inf = (y > book_line).astype(float)
+    # 4. MILESTONES ("k+") for a team's focal players, against the same informed book:
+    #    the custom plays (nba/forecast_board.custom_plays) as they are selected live.
+    use = test["usage_pm10"].to_numpy() * test["min_ewm10"].to_numpy()
+    rank = pd.Series(use).groupby([test["GAME_ID"].to_numpy(), test["TEAM_ABBREVIATION"].to_numpy()]
+                                  ).rank(ascending=False, method="first").to_numpy()
+    focal = (rank <= 3) & (test["min_ewm10"].to_numpy() >= 26)
+    miles = []
+    for k in MILESTONES[stat]:
+        kk = np.full(len(test), k - 0.5)
+        miles.append((dist.p_over(mu[focal], alpha[focal], kk[focal]),
+                      dist.p_over(book_mu[focal], model.disp(book_mu[focal]), kk[focal]),
+                      (y[focal] >= k).astype(float)))
     return {"mu": mu, "y": y, "naive": test[f"{stat}_pm10"].to_numpy() * test["min_ewm10"].to_numpy(),
-            "mech": mech, "inf": (p_inf, y_inf, book_p)}
+            "mech": mech, "inf": (p_inf, y_inf, book_p), "miles": miles}
+
+
+MILESTONES = {"PTS": (15, 20, 25, 30, 35), "REB": (6, 8, 10, 12, 15), "AST": (4, 6, 8, 10, 12),
+              "FG3M": (2, 3, 4, 5, 6)}
+SLACK = 0.03                 # a rule passes when what landed is within this of what it said
+MIN_PICKS = 300
+
+
+def _sided(p, b, y):
+    """Each line on the side the blend favours: (blend, model, book, won) for that side."""
+    over = p >= 0.5
+    return np.where(over, p, 1 - p), over, y
+
+
+def _rule(said, landed, mask):
+    n = int(mask.sum())
+    if n == 0:
+        return {"n": 0, "said": None, "landed": None, "pass": False}
+    s, l = float(said[mask].mean()), float(landed[mask].mean())
+    return {"n": n, "said": round(s, 4), "landed": round(l, 4),
+            "pass": bool(n >= MIN_PICKS and l >= s - SLACK)}
+
+
+def live_rules(p_model, p_book, y, miles, combine_fit):
+    """THE RULES AS THE LIVE BOARD APPLIES THEM, on the LIVE blend (review, 2026-10-20).
+    Live, the published chance is combine_fit.shrink: the book's chance moved A_CAP of
+    the way (in logit) toward the forecast -- not the fitted blend scored above. Each
+    selection rule is scored on what it would STATE and what landed."""
+    a = combine_fit.A_CAP
+    blend = np.array([combine_fit.shrink(m, b, a) for m, b in zip(p_model, p_book)])
+    over = blend >= 0.5
+    side_blend = np.where(over, blend, 1 - blend)
+    side_model = np.where(over, p_model, 1 - p_model)
+    side_book = np.where(over, p_book, 1 - p_book)
+    won = np.where(over, y, 1 - y)
+    agree = side_model >= 0.5
+    backs = (side_model >= side_book + 0.02) & (np.abs(side_model - side_book) <= 0.15)
+    out = {"blend_a": a, "main": {}, "proving_on_model": {}, "proving_on_blend": {}}
+    for bar in (0.52, 0.54, 0.55, 0.56, 0.58, 0.60, 0.62):
+        out["main"][f"{bar:.2f}"] = _rule(side_blend, won, agree & (side_blend >= bar))
+        out["proving_on_blend"][f"{bar:.2f}"] = _rule(side_blend, won, backs & (side_blend >= bar))
+    # The 55% BALANCED-LINE BAR as it stands: book under 56%, blend 55%+.
+    out["balanced_55"] = _rule(side_blend, won, agree & (side_book < 0.56) & (side_blend >= 0.55))
+    # Proving picks as they stand: judged on the MODEL's own chance at 62%+.
+    for bar in (0.60, 0.62):
+        out["proving_on_model"][f"{bar:.2f}"] = {
+            "stated_model": _rule(side_model, won, backs & (side_model >= bar)),
+            "stated_blend": _rule(side_blend, won, backs & (side_model >= bar))}
+    # CUSTOM PLAYS: overs on a milestone, a price of 1.40+ (book's fair chance under
+    # ~0.67 after a 6% ladder margin), the model 2+ points above the book.
+    cm, cb, cy = (np.concatenate([m[i] for m in miles]) for i in range(3))
+    cblend = np.array([combine_fit.shrink(m, b, a) for m, b in zip(cm, cb)])
+    priced = (1.0 / (cb * 1.06)) >= 1.40
+    cback = (cm >= cb + 0.02) & (np.abs(cm - cb) <= 0.15)
+    out["custom_as_built"] = {"stated_model": _rule(cm, cy, priced & cback & (cm >= 0.70)),
+                              "stated_blend": _rule(cblend, cy, priced & cback & (cm >= 0.70))}
+    out["custom_on_blend"] = {f"{bar:.2f}": _rule(cblend, cy, priced & cback & (cblend >= bar))
+                              for bar in (0.55, 0.58, 0.60, 0.62, 0.65)}
+    out["custom_any_milestone_on_blend"] = {f"{bar:.2f}": _rule(cblend, cy, cback & (cblend >= bar))
+                                            for bar in (0.60, 0.65, 0.70)}
+    return out
 
 
 def _logit(p):
@@ -104,8 +177,13 @@ def main() -> int:
     ap.add_argument("--seasons", default=",".join(map(str, SCORED)))
     ap.add_argument("--no-vacated", action="store_true", help="A/B: without teammates-out")
     ap.add_argument("--elo", action="store_true", help="A/B: with the pre-game Elo gap")
-    ap.add_argument("--reported", action="store_true",
-                    help="teammates-out from the official pre-game injury report, not the box score")
+    # THE OFFICIAL REPORT BY DEFAULT (review, 2026-10-20): reading "who was out" from a
+    # box score uses what is only known after the game. That arm is kept for A/B only,
+    # behind a flag that says so, and its report is stamped leaky.
+    ap.add_argument("--reported", action="store_true", default=True,
+                    help="(default) teammates-out from the official pre-game injury report")
+    ap.add_argument("--box-absence-leaky", dest="reported", action="store_false",
+                    help="A/B ONLY: teammates-out from box-score absence -- uses post-game knowledge")
     ap.add_argument("--train-from", type=int, default=0)
     ap.add_argument("--report", default=str(REPORT))
     args = ap.parse_args()
@@ -160,6 +238,10 @@ def main() -> int:
                            "would_publish_agree": published(
                                np.where((comb >= 0.5) == (p_inf[first:] >= 0.5), comb, 0.5),
                                y_inf[first:], PUBLISH_BAR)}
+        from tracking import combine_fit
+        out["live"] = live_rules(p_inf, b_inf, y_inf,
+                                 [tuple(np.concatenate([q["miles"][j][i] for q in parts]) for i in range(3))
+                                  for j in range(len(MILESTONES[stat]))], combine_fit)
         report["stats"][stat] = out
         print(f"{stat}: n={out['n']} MAE {out['mae']} (naive {out['mae_naive']}) | mechanical ECE "
               f"{out['mechanical']['ece']} | vs informed book: model alone {out['model_alone_would_publish']}"
@@ -169,6 +251,8 @@ def main() -> int:
     report["vacated"] = VACATED
     report["elo"] = ELO
     report["reported"] = bool(args.reported)
+    if not args.reported:
+        report["leaky"] = "teammates-out read from box-score absence (post-game knowledge); A/B only"
     report["train_from"] = TRAIN_FROM
     Path(args.report).write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(f"done in {time.time() - t0:.0f}s -> {args.report}")
