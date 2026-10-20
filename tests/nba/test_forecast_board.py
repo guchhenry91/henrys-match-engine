@@ -129,6 +129,16 @@ def test_proving_picks_are_judged_on_the_published_chance():
     assert not fb._clears({"pick_kind": "proving", "probability": 0.53, "p_model": 0.80, "book_p": 0.5})
 
 
+def test_points_proving_bar_is_54():
+    """Owner, 2026-10-20: points proving picks at 54%+ (54-55% landed 54.4% in the gate);
+    the other markets stay at 55%, and 52-54% (landed 51%) stays out."""
+    from nba import forecast_board as fb
+    pick = {"pick_kind": "proving", "probability": 0.545, "p_model": 0.65, "book_p": 0.52}
+    assert fb._clears({**pick, "market": "points"})
+    assert not fb._clears({**pick, "market": "rebounds"})
+    assert not fb._clears({**pick, "market": "points", "probability": 0.535})
+
+
 def test_markets_go_live_on_the_new_models_gate(tmp_path, monkeypatch):
     import json
     from nba import publish

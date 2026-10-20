@@ -155,6 +155,11 @@ def upcoming_rows(games_ahead, odds_games, names, teams_now, last_team, ruled_ou
 # chance at 55%+, with the model 2+ points above the book, they landed at or above
 # what they state in rebounds, assists and threes, and within 3 points in points.
 PROVING_BAR = 0.55
+# POINTS AT 54% (owner, 2026-10-20). Points lines are set near 50/50, so at 55% the
+# board showed one points pick on opening night. Gate bands on the live blend
+# (forecast_report.json PTS live.proving_on_blend): picks at 54-55% landed 54.4%, above
+# bet365's ~53.5% break-even; picks at 52-54% landed 51.0%, so the bar stops at 54%.
+PROVING_BAR_BY_MARKET = {"points": 0.54}
 
 
 def _clears(p: dict) -> bool:
@@ -162,7 +167,7 @@ def _clears(p: dict) -> bool:
     bar_for (62%, or 55% on a near-even line -- both gated). PROVING: PROVING_BAR,
     with model_backs already holding the model 2+ points above the book."""
     if p.get("pick_kind") == "proving":
-        return p["probability"] >= PROVING_BAR
+        return p["probability"] >= PROVING_BAR_BY_MARKET.get(p.get("market"), PROVING_BAR)
     return p["probability"] >= bar_for(p)
 
 
