@@ -25,6 +25,11 @@ CURRENT_SEASON = 2027
 # Only used when the schedule comes from The Odds API (nba/current.odds_schedule),
 # which does not say whether a game is preseason.
 REGULAR_SEASON_START = "2026-10-20"
+# PLAY-IN and PLAYOFFS of 2026-27, for the same Odds API fallback (the CDN schedule
+# carries the real stage in its game ids: 005 play-in, 004 playoffs). The NBA had not
+# published the dates when this was written -- confirm them when it does.
+PLAYIN_START = "2027-04-13"
+PLAYOFFS_START = "2027-04-17"
 
 # 2011-12 was the LOCKOUT season: 66 games a team, not 82, so its 1,980 team rows
 # are correct rather than a truncated download. Noted because a row-count sanity

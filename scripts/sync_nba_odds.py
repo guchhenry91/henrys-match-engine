@@ -62,7 +62,7 @@ def run(client, sched_rows, now=None, store=None) -> dict:
         del games[gid]
 
     window = [g for g in sched_rows
-              if g["stage"] == current.REGULAR and g["status"] == 1
+              if g["stage"] in current.COUNTED and g["status"] == 1
               and 0 < (shared.utc(g["tipoff"]) - now).total_seconds() / 3600 <= bl.BOARD_HOURS]
     if not window:
         print("no NBA regular-season game inside the odds window; no credits spent")

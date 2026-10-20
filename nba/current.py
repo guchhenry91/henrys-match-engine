@@ -42,6 +42,11 @@ PAUSE_SECONDS = 0.3
 MAX_BOX_FETCHES = 80           # per run; a normal night is ~7, a missed week ~50
 
 REGULAR, PRESEASON = "002", "001"
+PLAYIN, PLAYOFFS = "005", "004"
+# Games that COUNT: picks are made, frozen and graded on them, and their box scores
+# feed the forecast. Until 2026-10-20 only the regular season did -- a playoff pick
+# could never have graded (owner's NBA playoff work, 2026-10-20).
+COUNTED = (REGULAR, PLAYIN, PLAYOFFS)
 FINAL = 3                      # gameStatus: 1 scheduled, 2 live, 3 final
 COLUMNS = ["SEASON_ID", "PLAYER_ID", "PLAYER_NAME", "TEAM_ID", "TEAM_ABBREVIATION",
            "GAME_ID", "GAME_DATE", "MATCHUP", "WL", "MIN", "PTS", "REB", "AST", "FG3M",
@@ -132,7 +137,7 @@ def box_rows(game_id: str, game_date: str, opener=urllib.request.urlopen) -> lis
 
 
 def _path(stage: str) -> Path:
-    name = "player" if stage == REGULAR else "preseason"
+    name = {REGULAR: "player", PLAYIN: "playin", PLAYOFFS: "playoffs"}.get(stage, "preseason")
     return DIR / f"{name}_{config.CURRENT_SEASON}.csv"
 
 
@@ -149,7 +154,7 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
     DIR.mkdir(parents=True, exist_ok=True)
     today = today or _eastern_date(pd.Timestamp.now(tz="UTC").isoformat())
     added, failed, budget = {}, 0, MAX_BOX_FETCHES
-    for stage in (PRESEASON, REGULAR):
+    for stage in (PRESEASON,) + COUNTED:
         have = _load(stage)
         known = set(have["GAME_ID"].astype(str)) if not have.empty else set()
         todo = sched[(sched["stage"] == stage) & (sched["status"] == FINAL)
@@ -194,10 +199,12 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
                 print(f"  stats.nba.com {STATS_TYPE[stage]} log unavailable "
                       f"({type(exc).__name__}: {exc}); {len(missing)} game(s) still missing")
     return {"regular_games_added": added.get(REGULAR, 0),
-            "preseason_games_added": added.get(PRESEASON, 0), "failed": failed}
+            "preseason_games_added": added.get(PRESEASON, 0),
+            "postseason_games_added": added.get(PLAYIN, 0) + added.get(PLAYOFFS, 0), "failed": failed}
 
 
-STATS_TYPE = {REGULAR: "Regular Season", PRESEASON: "Pre Season"}
+STATS_TYPE = {REGULAR: "Regular Season", PRESEASON: "Pre Season", PLAYIN: "PlayIn",
+              PLAYOFFS: "Playoffs"}
 
 
 PROXY_URL = "https://henrys-match-engine.henrys-edge-engine.workers.dev"
@@ -268,12 +275,14 @@ def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None) -> int:
 
 
 def player_games() -> pd.DataFrame:
-    """This season's regular-season rows, gamelog-shaped (may be empty)."""
-    return _load(REGULAR)
+    """This season's rows from games that count (regular season, play-in, playoffs),
+    gamelog-shaped (may be empty)."""
+    frames = [f for f in (_load(s) for s in COUNTED) if not f.empty]
+    return pd.concat(frames, ignore_index=True) if frames else _load(REGULAR)
 
 
 def _latest_box_rows() -> pd.DataFrame:
-    frames = [f for f in (_load(PRESEASON), _load(REGULAR)) if not f.empty]
+    frames = [f for f in (_load(s) for s in (PRESEASON,) + COUNTED) if not f.empty]
     if not frames:
         return pd.DataFrame(columns=COLUMNS)
     rows = pd.concat(frames, ignore_index=True)
@@ -337,6 +346,15 @@ def _eastern_date(iso: str) -> str:
     return t.tz_convert(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
 
 
+def _odds_stage(day: str) -> str:
+    """The stage of an Odds API game from its US date (that feed does not say)."""
+    if day >= config.PLAYOFFS_START:
+        return PLAYOFFS
+    if day >= config.PLAYIN_START:
+        return PLAYIN
+    return REGULAR if day >= config.REGULAR_SEASON_START else PRESEASON
+
+
 def update_odds_schedule(events: list, scores: list, team_codes: dict, now) -> dict:
     """Fold The Odds API's /events and /scores into the saved schedule.
 
@@ -362,7 +380,7 @@ def update_odds_schedule(events: list, scores: list, team_codes: dict, now) -> d
         row.update({
             "game_id": gid, "tipoff": tip.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "game_date": _eastern_date(ev["commence_time"]),
-            "stage": REGULAR if _eastern_date(ev["commence_time"]) >= config.REGULAR_SEASON_START else PRESEASON,
+            "stage": _odds_stage(_eastern_date(ev["commence_time"])),
             "home_team": home, "away_team": away, "neutral": False,
         })
         row.setdefault("home_score", None)

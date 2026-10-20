@@ -423,4 +423,6 @@ def stamp_nfl_log(props: dict, odds_path) -> int:
 def market_of(entry: dict) -> str:
     if entry.get("kind") == "winner" or (entry.get("pick") and not entry.get("market")):
         return "team_winner"
+    if entry.get("play"):                      # NBA custom plays / monster nights: their own rows
+        return f"{entry['play']}_{entry.get('market')}"
     return entry.get("market")

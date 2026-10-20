@@ -56,6 +56,12 @@ def prop_key(p: dict) -> str:
     return key + ":under" if p.get("side") == "under" else key
 
 
+def play_key(p: dict) -> str:
+    """A custom play or monster night: its own key per milestone, apart from the
+    main-line prop on the same player (owner, 2026-10-20)."""
+    return f"{p['game_id']}:{p['market']}:{p['player_id']}:{p['play']}:{p['line']}"
+
+
 def should_freeze(tipoff, now, last_run_before) -> bool:
     """Freeze on the last scheduled run before tip-off, or within FREEZE_HOURS."""
     hours = (shared.utc(tipoff) - shared.utc(now)).total_seconds() / 3600.0
@@ -93,6 +99,23 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
                 "trust_w": p.get("trust_w"), "engine": p.get("engine"),
                 "mu": p.get("mu"), "price_check": p.get("price_check"),
                 "pick_kind": p.get("pick_kind"), "locked_at": stamp}
+            frozen += 1
+    for kind in ("custom", "monster"):
+        for p in (payload.get("plays") or {}).get(kind) or []:
+            k = play_key(p)
+            if k in log or not should_freeze(p["tipoff"], now, last_run_before):
+                continue
+            log[k] = {
+                "kind": "play", "play": kind, "game_id": p["game_id"], "tipoff": p["tipoff"],
+                "market": p["market"], "player": p["player"], "player_id": p["player_id"],
+                "team": p["team"], "opponent": p["opponent"], "line": p["line"],
+                "milestone": p.get("milestone"), "side": "over", "line_source": p.get("line_source"),
+                "book": p.get("book"), "probability": p["probability"], "p_model": p.get("p_model"),
+                "book_p": p.get("book_p"), "book_price": p.get("book_price"),
+                "price_check": p.get("price_check"), "pick_kind": p.get("pick_kind"),
+                "value": {"value": p.get("pick_kind") == "value",
+                          "ev": (p.get("price_check") or {}).get("ev")},
+                "engine": p.get("engine"), "mu": p.get("mu"), "locked_at": stamp}
             frozen += 1
     return frozen
 
@@ -147,6 +170,29 @@ def record(log: dict) -> dict:
     return {"team_winner": tally(games), "props": tally(props),
             "props_by_market": {m: tally([e for e in props if e["market"] == m])
                                 for m in STAT}}
+
+
+def record_plays(log: dict) -> dict:
+    """{custom|monster: {"all": tally, market: tally}} -- scored apart from the main board."""
+    out = {}
+    for kind in ("custom", "monster"):
+        es = [e for e in log.values() if isinstance(e, dict) and e.get("kind") == "play"
+              and e.get("play") == kind]
+        out[kind] = {"all": _tally(es), **{m: _tally([e for e in es if e["market"] == m]) for m in STAT}}
+    return out
+
+
+def _tally(entries):
+    out = {"correct": 0, "wrong": 0, "void": 0, "pending": 0}
+    for e in entries:
+        out[e.get("graded") or "pending"] += 1
+    settled = out["correct"] + out["wrong"]
+    out["settled"] = settled
+    out["hit_rate"] = round(out["correct"] / settled, 4) if settled else None
+    said = [float(e["p_model"]) for e in entries if e.get("graded") in ("correct", "wrong")
+            and e.get("p_model") is not None]
+    out["said"] = round(sum(said) / len(said), 4) if said else None
+    return out
 
 
 def settled(log: dict, limit: int = 200) -> list:

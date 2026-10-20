@@ -118,7 +118,7 @@ def build(now=None, sched=None) -> dict:
                        vacated_out=report_names if report["ok"] else None) if sched is not None else         {"games": [], "props": {m: [] for m in config.MARKETS}, "held_back": {},
          "odds_checked_at": None}
     season_started = sched is not None and bool(
-        ((sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)).any())
+        (sched["stage"].isin(current.COUNTED) & (sched["status"] == current.FINAL)).any())
     status = "live" if sched is not None else "evidence_only"
     note = (
         "Live board. Team-winner picks are the Elo model's; every player prop "
@@ -144,6 +144,10 @@ def build(now=None, sched=None) -> dict:
                       "picks": _news_edge(apply_news(live["props"].get(m) or [], news), out_state),
                       "below_trained_floor": (live.get("held_back") or {}).get(m, 0)}
                   for m in config.MARKETS},
+        # CUSTOM PLAYS and MONSTER NIGHTS (nba/forecast_board.custom_plays): overs only,
+        # focal players, on the books' alternate ladders; frozen and scored apart.
+        "plays": {k: apply_news((live.get("plays") or {}).get(k) or [], news)
+                  for k in ("custom", "monster")},
         # Every priced prop per game, for the game pages (index.html viewGame).
         "game_props": live.get("game_props") or {},
         "odds": {"checked_at": live.get("odds_checked_at"),
@@ -178,6 +182,12 @@ def _show_frozen(payload: dict, log: dict) -> None:
         entry = log.get(picks_mod.game_key(g))
         if entry:
             g.update({"pick": entry["pick"], "p_pick": entry["p_pick"], "locked": True})
+    for kind in ("custom", "monster"):
+        for p in (payload.get("plays") or {}).get(kind) or []:
+            entry = log.get(picks_mod.play_key(p))
+            if entry:
+                p.update({"probability": entry["probability"], "p_model": entry.get("p_model"),
+                          "book_price": entry.get("book_price"), "locked": True})
     for block in payload["props"].values():
         for p in block["picks"]:
             entry = log.get(picks_mod.prop_key(p))
@@ -204,7 +214,7 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     performance.stamp_line_log(log, ROOT / "data-raw" / "nba" / "odds_api.json")
     finals, box, covered = {}, {}, set()
     if sched is not None:
-        done = sched[(sched["stage"] == current.REGULAR) & (sched["status"] == current.FINAL)]
+        done = sched[sched["stage"].isin(current.COUNTED) & (sched["status"] == current.FINAL)]
         for g in done.itertuples():
             try:
                 h, a = float(g.home_score), float(g.away_score)
@@ -249,12 +259,14 @@ def freeze_and_grade(payload: dict, sched, now=None) -> dict:
     # the old model's losses must not hold back picks it never made.
     from nba import forecast_board
     rebuilt = {k: e for k, e in log.items()
-               if isinstance(e, dict) and e.get("engine") == forecast_board.ENGINE}
+               if isinstance(e, dict) and e.get("engine") == forecast_board.ENGINE
+               and e.get("kind") != "play"}          # custom plays are scored apart
     held = gate.apply(payload, gate.report(rebuilt.values()))
     if held:
         print(f"  held back {held} pick(s): {payload['gate']['held_back']}")
     payload["record"] = picks_mod.record(log)
     payload["record_rebuilt"] = picks_mod.record(rebuilt)
+    payload["record_plays"] = picks_mod.record_plays(log)
     from tracking import proving
     payload["proving"] = proving.summary(rebuilt.values())
     try:

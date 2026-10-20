@@ -58,7 +58,7 @@ def _read(path) -> dict:
 def slate(sched: pd.DataFrame, now) -> pd.DataFrame:
     """Regular-season games still to tip, inside the board window -- or, before
     the season starts, the first game date within LOOKAHEAD_DAYS."""
-    ahead = sched[(sched["stage"] == current.REGULAR) & (sched["status"] == 1)].copy()
+    ahead = sched[sched["stage"].isin(current.COUNTED) & (sched["status"] == 1)].copy()
     ahead["t"] = pd.to_datetime(ahead["tipoff"], utc=True)
     now = pd.Timestamp(shared.utc(now))
     ahead = ahead[ahead["t"] > now]
@@ -73,7 +73,7 @@ def slate(sched: pd.DataFrame, now) -> pd.DataFrame:
 
 def current_games(sched: pd.DataFrame) -> pd.DataFrame:
     """This season's regular-season games as rows nfl.games_model understands."""
-    reg = sched[sched["stage"] == current.REGULAR].copy()
+    reg = sched[sched["stage"].isin(current.COUNTED)].copy()
     out = pd.DataFrame({
         "game_id": reg["game_id"], "season": config.CURRENT_SEASON,
         "game_date": pd.to_datetime(reg["game_date"]),
@@ -355,10 +355,12 @@ def build(sched: pd.DataFrame, now, released: list, ruled_out=None, vacated_out=
         # THE REBUILT MODEL (docs/REBUILD_PLAN.md): forecast the stat, combine with
         # the book's price. The old prop_picks below stays for reference only.
         from nba import forecast_board
+        plays = {}
         props, held = forecast_board.picks(games_ahead, odds_store, ruled_out=ruled_out,
                                            vacated_out=vacated_out,
-                                           collect=game_props)
+                                           collect=game_props, plays=plays)
     else:
-        props, held = {m: [] for m in config.MARKETS}, {}
+        props, held, plays = {m: [] for m in config.MARKETS}, {}, {}
     return {"games": teams, "props": props, "held_back": held, "game_props": game_props,
+            "plays": {"custom": plays.get("custom") or [], "monster": plays.get("monster") or []},
             "odds_checked_at": odds_store.get("updated")}

@@ -2621,6 +2621,37 @@ function nbaPropTableRow(p){
       : valCell("Price","—","off")}</div>`;
 }
 
+// NBA CUSTOM PLAYS and MONSTER NIGHTS (owner, 2026-10-20): a milestone ("25+ points")
+// from the book's alternate ladder, overs only, a team's focal players. Scored apart.
+function nbaPlayRow(p){
+  const ev=(p.price_check||{}).ev, monster=p.play==="monster";
+  const kind=p.pick_kind==="value"?`<span class="tier t-elite" title="At least +3% expected return at bet365's estimated price">Value</span>`
+    :`<span class="tier t-solid" title="Proving pick: tracked and graded, not a bet until the record earns it">Proving</span>`;
+  return `<div class="brow click" onclick="openGame('nba','${esc(String(p.game_id))}')" title="Open this game">${timeCell(p.tipoff)}
+    <div class="be"><div class="beb">NBA · ${monster?"Monster night":"Custom play"} · ${esc(NBAMK[p.market]||p.market)}</div>
+      <b>${esc(p.player)}</b>
+      <span>${esc(p.team)} ${p.home?"vs":"@"} ${esc(p.opponent)} · forecast ${p.mu} ${NBAUNIT[p.market]||""}${p.avg!=null?` · usually ${p.avg}`:""}${
+        p.availability==="doubt"&&p.injury_note?` · ${esc(p.injury_note)}`:""}</span></div>
+    <div class="bs"><b class="sel">${p.milestone}+ ${NBAUNIT[p.market]||""}</b>${kind}${p.locked?`<span class="bsn">Locked</span>`:""}</div>
+    ${probCell(p.p_model)}
+    ${valCell(`${esc(p.book||"Book")} price`, p.book_price!=null?Number(p.book_price).toFixed(2):"—")}
+    ${valCell("Expected return", ev!=null?`${ev>0?"+":""}${(ev*100).toFixed(1)}%`:"—", ev==null?"off":ev>=0?"pos":"neg")}</div>`;
+}
+function nbaPlaysSection(d){
+  const pl=d.plays||{}, rp=d.record_plays||{};
+  const fit=p=>filter==="all"||filter===p.market;
+  const rec=(r)=>r&&r.all&&(r.all.settled||r.all.pending)?` · record ${r.all.correct}–${r.all.wrong}${r.all.settled?` (${Math.round(100*r.all.hit_rate)}%, model said ${Math.round(100*(r.all.said||0))}%)`:""}${r.all.pending?`, ${r.all.pending} pending`:""}`:"";
+  let h="";
+  const cu=(pl.custom||[]).filter(fit), mo=(pl.monster||[]).filter(fit);
+  h+=sectHead("Custom plays",`Milestones · ${cu.length} play${cu.length===1?"":"s"}${rec(rp.custom)}`,
+    "Overs only, a team's three focal players. The model's chance is its own (70%+ needed); in two seasons replayed, its 70%+ milestones landed as often as it said. Priced on the book's alternate ladder.");
+  h+=cu.length?btable(PCOLS,cu.map(nbaPlayRow).join("")):`<div class="glass rowc">${emptyRow("No custom plays yet — alternate ladders usually post on game day")}</div>`;
+  h+=sectHead("Monster nights",`Long shots · ${mo.length}${rec(rp.monster)}`,
+    "A big night (30+ points, 12+ rebounds, 10+ assists or 5+ threes, well above his average). The model flags these 3–5x more often than chance, but most still miss — listed only where the price pays for the misses.");
+  h+=mo.length?btable(PCOLS,mo.map(nbaPlayRow).join("")):`<div class="glass rowc">${emptyRow("No monster night at a price worth taking")}</div>`;
+  return h;
+}
+
 const MLBMK={team_winner:"Team winner",hits:"Hits",hrr:"Hits + runs + RBIs",hr:"Home runs",
   rbi:"RBIs",strikeouts:"Pitcher strikeouts",team_runs:"Team total runs"};
 
@@ -2766,6 +2797,7 @@ function viewNBA(){
       h+=games.length?btable(PCOLS,games.map(nbaGameTableRow).join(""))
         :`<div class="glass rowc">${emptyRow((d.games||[]).length?"No games match these filters":"No NBA games in the next day and a half")}</div>`;
     }
+    if(filter!=="team_winner") h+=nbaPlaysSection(d);
     const pm=["points","rebounds","assists","threes"];
     for(const m of (filter==="all"?pm:pm.filter(x=>x===filter))){
       const block=(d.props||{})[m]; if(!block) continue;
@@ -2978,6 +3010,10 @@ const GRADE_LABEL={goal:"Anytime", shots:"Attempts", sot:"On target",
                    rushing_yards:"Rushing", passing_yards:"Passing",
                    hits:"Hits", hrr:"Hits + runs + RBIs", hr:"Home runs", rbi:"RBIs",
                    strikeouts:"Strikeouts", team_runs:"Team total",
+                   custom_points:"Custom plays · points", custom_rebounds:"Custom plays · rebounds",
+                   custom_assists:"Custom plays · assists", custom_threes:"Custom plays · threes",
+                   monster_points:"Monster nights · points", monster_rebounds:"Monster nights · rebounds",
+                   monster_assists:"Monster nights · assists", monster_threes:"Monster nights · threes",
                    points:"Points", rebounds:"Rebounds", assists:"Assists", threes:"Threes"};
 const gradeName=m=>GRADE_LABEL[m]||(MK[m]||NFLMK[m]||{name:m}).name;
 

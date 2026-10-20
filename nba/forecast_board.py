@@ -199,8 +199,107 @@ def select(priced: list) -> list:
     return out
 
 
+# CUSTOM PLAYS and MONSTER NIGHTS (owner, 2026-10-20). Walk-forward over 2024-25 and
+# 2025-26, overs only, a team's focal players: milestone ("k+") chances were the
+# model's best-calibrated product -- at 70%+ said/landed PTS 20+ 78/80, REB 8+ 80/82,
+# AST 6+ 81/81, FG3M 3+ 75/74 -- and its top monster-night pick each night hit 3-5x
+# the base rate (PTS 30+: 21% against 5.5%). Priced on the books' ALTERNATE ladders.
+FOCAL_TOP = 3              # a team's top three by expected usage this game...
+FOCAL_MIN = 26.0           # ...who play real minutes
+CUSTOM_BAR = 0.70          # the model's own chance a milestone needs
+CUSTOM_PER_GAME = 4
+CUSTOM_MIN_PRICE = 1.40    # a milestone worth betting: "2+ assists at 1.10" lands and pays nothing
+ALT_OVERROUND = 1.06       # a one-sided ladder rung's margin, removed for its fair chance
+MONSTER = {"points": (30, 1.5), "rebounds": (12, 1.5), "assists": (10, 1.5), "threes": (5, 2.0)}
+MONSTER_MIN_P = 0.12
+MONSTER_PER_NIGHT = 3
+
+
+# PLAYOFFS (walk-forward over five playoffs 2022-26, 8,923 player-games). The forecast
+# carried regular-season usage into the playoffs: a team's focal players kept their
+# points (1.00) and out-rebounded it (1.08) on bigger minutes, while everyone else fell
+# well short (points 0.87, assists 0.81) as rotations shorten. Scaled by group; each
+# season's factors fitted on the other four left its bias within about 5%.
+PLAYOFF_ADJ = {True: {"PTS": 1.000, "REB": 1.081, "AST": 0.942, "FG3M": 0.949},
+               False: {"PTS": 0.874, "REB": 0.947, "AST": 0.807, "FG3M": 0.862}}
+
+
+def playoff_factor(stage: str, focal: bool, stat: str) -> float:
+    return PLAYOFF_ADJ[bool(focal)][stat] if stage == current.PLAYOFFS else 1.0
+
+
+def _focal(ask: pd.DataFrame) -> set:
+    """(PLAYER_ID, GAME_ID) of each team's focal players in its next game."""
+    a = ask.assign(_use=ask["usage_pm10"] * ask["min_ewm10"])
+    a["_rank"] = a.groupby(["GAME_ID", "TEAM_ABBREVIATION"])["_use"].rank(ascending=False, method="first")
+    a = a[(a["_rank"] <= FOCAL_TOP) & (a["min_ewm10"] >= FOCAL_MIN)]
+    return {(int(r.PLAYER_ID), r.GAME_ID) for r in a.itertuples()}
+
+
+def _rungs(market, r, m_, a_, info, alt, w, stat):
+    """Every ladder rung for one focal player, priced: model chance, the book's fair
+    chance, the combined chance, and the price check."""
+    from tracking import pricecheck
+    g = info["game"]
+    avg = float(r[f"{stat}_pm10"] * r["min_ewm10"]) if pd.notna(r[f"{stat}_pm10"]) else None
+    out = []
+    for line, price in alt.get("ladder") or []:
+        p_model = float(dist.p_over(m_, a_, float(line)))
+        book_p = min(0.99, (1.0 / float(price)) / ALT_OVERROUND)
+        prob = combine(p_model, book_p, w.get(stat))
+        c = {"market": market, "player": info["name"], "player_id": int(r["PLAYER_ID"]),
+             "team": info["team"], "opponent": info["opponent"], "home": info["home"],
+             "game_id": g.game_id, "tipoff": g.tipoff, "kickoff": g.tipoff,
+             "line": float(line), "milestone": int(float(line) + 0.5), "side": "over",
+             "book": alt.get("book"), "line_source": alt.get("source"), "fair": False,
+             "book_price": float(price), "book_p": round(book_p, 4),
+             "probability": round(prob, 4), "p_model": round(p_model, 4),
+             "mu": round(float(m_), 2), "avg": None if avg is None else round(avg, 1),
+             "engine": ENGINE}
+        pricecheck.qualifies(c)
+        out.append(c)
+    return out
+
+
+def custom_plays(cands: list) -> dict:
+    """{"custom": [...], "monster": [...]} from every focal player's priced rungs.
+    CUSTOM: the model at CUSTOM_BAR+, a price of CUSTOM_MIN_PRICE+, and the price check
+    passed (value or proving);
+    per player and market the HIGHEST such milestone (the best price); CUSTOM_PER_GAME
+    a game. MONSTER: a rung at the monster threshold, the model at MONSTER_MIN_P+, and
+    VALUE at bet365's estimated price -- a long shot is a pick only at a price that
+    pays for its misses; MONSTER_PER_NIGHT, best expected return first."""
+    best = {}
+    for c in cands:
+        if (c["p_model"] >= CUSTOM_BAR and c.get("pick_kind") in ("value", "proving")
+                and float(c.get("book_price") or 0) >= CUSTOM_MIN_PRICE):
+            k = (c["game_id"], c["player_id"], c["market"])
+            if k not in best or c["line"] > best[k]["line"]:
+                best[k] = c
+    by_game = {}
+    for c in sorted(best.values(), key=lambda c: -c["p_model"]):
+        by_game.setdefault(c["game_id"], []).append(c)
+    custom = [dict(c, play="custom") for cs in by_game.values() for c in cs[:CUSTOM_PER_GAME]]
+    mons = []
+    for c in cands:
+        floor, mult = MONSTER[c["market"]]
+        thr = max(floor, mult * (c.get("avg") or 0))
+        if (c["milestone"] >= thr and c["p_model"] >= MONSTER_MIN_P
+                and c.get("pick_kind") == "value"):
+            mons.append(dict(c, play="monster"))
+    nights, keep, seen = {}, [], set()
+    for c in sorted(mons, key=lambda c: -((c.get("price_check") or {}).get("ev") or 0)):
+        night = str(c["tipoff"])[:10]
+        if (c["game_id"], c["player_id"], c["market"]) in seen or nights.get(night, 0) >= MONSTER_PER_NIGHT:
+            continue
+        seen.add((c["game_id"], c["player_id"], c["market"]))
+        nights[night] = nights.get(night, 0) + 1
+        keep.append(c)
+    return {"custom": sorted(custom, key=lambda c: -c["probability"]), "monster": keep}
+
+
 def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
-          vacated_out=None) -> tuple:
+          vacated_out=None, plays=None) -> tuple:
     """({market: [picks]}, {market: unpriced count}) on the rebuilt model."""
     odds_games = odds_store.get("games") or {}
     rows = history_rows()
@@ -234,16 +333,28 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
     w = weights()
     real = rows.copy()
     real["game_date"] = pd.to_datetime(real["GAME_DATE"].astype(str).str[:10])
+    focal = _focal(ask)
+    rungs = []
     for market, stat in fc.MARKET_STAT.items():
         # Teammates-out: trained and fed on the same official report (see VACATED_STATS).
         model = fc.StatModel(stat, vacated=use_vacated and stat in VACATED_STATS).fit(train)
         mu = model.mean(ask)
+        # Playoff games: the measured playoff correction, by focal player or not.
+        mu = mu * np.array([playoff_factor(
+            str(getattr((meta.get((int(pid), gid)) or {}).get("game"), "stage", "")),
+            (int(pid), gid) in focal, stat) for pid, gid in zip(ask["PLAYER_ID"], ask["GAME_ID"])])
         alpha = model.disp(mu)
         last5 = recent.last_n(real, ask["PLAYER_ID"], stat, played="MIN")
         priced, unpriced = [], 0
         for (_, r), m_, a_ in zip(ask.iterrows(), mu, alpha):
             info = meta.get((int(r["PLAYER_ID"]), r["GAME_ID"]))
             g = info["game"]
+            if plays is not None and (int(r["PLAYER_ID"]), r["GAME_ID"]) in focal:
+                alt = odds_mod.match_player(
+                    ((odds_games.get(g.game_id) or {}).get("alt") or {}).get(market) or {},
+                    info["name"])
+                if alt:
+                    rungs += _rungs(market, r, m_, a_, info, alt, w, stat)
             quote = odds_mod.match_player(
                 ((odds_games.get(g.game_id) or {}).get("props") or {}).get(market) or {},
                 info["name"])
@@ -281,4 +392,8 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
               f"at {PUBLISH_BAR:.0%}+", flush=True)
     from tracking import pricecheck
     out = pricecheck.one_per_player(out)        # one pick per player per game
+    if plays is not None:
+        plays.update(custom_plays(rungs))
+        print(f"  custom plays: {len(rungs)} focal rungs priced, {len(plays['custom'])} custom, "
+              f"{len(plays['monster'])} monster", flush=True)
     return out, held
