@@ -279,7 +279,10 @@ def props_output(r, now):
     picks = sum(len((v or {}).get("picks") or []) for v in (d.get("props") or {}).values()
                 if isinstance(v, dict))
     priced = sum(v.get("priced") or 0 for v in mk.values() if isinstance(v, dict))
-    slate = sum(v.get("slate") or 0 for v in mk.values() if isinstance(v, dict))
+    # Bookmaker LINES, not slate rows: the anytime-TD slate lists every player on the
+    # game (155 for one Thursday game) whether or not a book prices him, so counting
+    # the slate read "170 lines" when books had posted 15 (2026-10-21).
+    lines = sum(v.get("with_book_price") or 0 for v in mk.values() if isinstance(v, dict))
     if st.get("forecast") or errs or broken:
         why = st.get("forecast") and "the forecast failed" or (
             f"pricing failed: {', '.join(errs)}" if errs else
@@ -287,8 +290,8 @@ def props_output(r, now):
         r.add("NFL", "props output", "fail", why)
     elif soon and not picks:
         r.add("NFL", "props output", "warn",
-              f"{soon} game(s) in 36h, {slate} lines, {priced} priced, 0 picks published"
-              if slate else f"{soon} game(s) in 36h and no bookmaker prop lines yet")
+              f"{soon} game(s) in 36h, {lines} bookmaker lines, {priced} priced, 0 picks published"
+              if lines else f"{soon} game(s) in 36h and no bookmaker prop lines yet")
     elif soon:
         r.add("NFL", "props output", "ok", f"{picks} pick(s) for {soon} game(s) in 36h")
 

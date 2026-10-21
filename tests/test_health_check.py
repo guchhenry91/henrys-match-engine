@@ -107,6 +107,20 @@ def test_an_empty_nfl_props_board_on_game_day_is_flagged(monkeypatch):
     assert c["status"] == "warn" and "0 picks" in c["message"]
 
 
+def test_empty_nfl_props_count_bookmaker_lines_not_slate_rows(monkeypatch):
+    """2026-10-21: one Thursday game read "170 lines" -- 155 were anytime-TD slate rows
+    no book had priced; the books had posted 15 yardage lines."""
+    board = {"games": [{"kickoff": "2026-10-18T17:00:00+00:00"}],
+             "props_status": {"forecast": None, "markets": {
+                 "anytime_touchdown": {"slate": 155, "with_book_price": 0, "in_forecast": 155, "priced": 0},
+                 "rushing_yards": {"slate": 15, "with_book_price": 15, "in_forecast": 15, "priced": 15}}},
+             "props": {"rushing_yards": {"released": True, "picks": []}}}
+    monkeypatch.setattr(hc, "_read", _board({"data/nfl/board.json": board}))
+    r = hc.Report()
+    hc.props_output(r, NOW)
+    assert "15 bookmaker lines, 15 priced" in r.checks[0]["message"]
+
+
 def test_a_broken_nfl_forecast_join_fails(monkeypatch):
     board = {"games": [{"kickoff": "2026-10-18T17:00:00+00:00"}],
              "props_status": {"forecast": None, "markets": {
