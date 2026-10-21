@@ -1,16 +1,24 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-19",
+  "_verified_on": "2026-10-21",
   "players": {
-    "Anfernee Simons": {
+    "Aaron Nesmith": {
+      "status": "out",
+      "team": "IND",
+      "note": "Out, hamstring, for tonight's (21 Oct) game vs New Orleans -- listed out until at least 23 Oct. Sources: covers.com (logged 19 Oct, names him out specifically for the Pelicans game) and cbssports.com's league-wide injury tracker (updated 20 Oct); corroborated by foxsports.com's Pacers injury page.",
+      "checked": "2026-10-21T10:30:00Z"
+    },
+    "Brandin Podziemski": {
+      "status": "out",
+      "team": "GSW",
+      "note": "Out, back, for tonight's (21/22 Oct UTC) game at the Lakers. Listed Questionable earlier in the week (covers.com, logged 19 Oct) but upgraded to ruled out by 20-21 Oct. Sources: cbssports.com league-wide tracker (updated 20 Oct) and a Fadeaway World report dated for this game (\"Podziemski (back) has been ruled out for Wednesday's game against the Lakers\").",
+      "checked": "2026-10-21T10:30:00Z"
+    },
+    "Franz Wagner": {
       "status": "doubt",
-      "team": "PHI",
-      "note": "Questionable for Tuesday's game at New York, left hamstring tightness/soreness. Source: NBA official injury report, Injury-Report_2026-10-19_07_00PM.pdf (ak-static.cms.nba.com).",
-      "checked": "2026-10-19T23:15:00Z"
+      "team": "ORL",
+      "note": "Day-to-day, right shoulder soreness, for tonight's (21 Oct) game vs Atlanta -- hurt attempting a 3-pointer in the 17 Oct preseason finale vs Miami, not full-go since. Sources: RotoBaller (17 Oct, flags him as a question mark for the Hawks opener) and an iHeart-affiliate Hawks-vs-Magic injury report dated 21 Oct listing him \"Day-to-day -- Shoulder.\"",
+      "checked": "2026-10-21T10:30:00Z"
     }
   }
 }
-
-
-
-
