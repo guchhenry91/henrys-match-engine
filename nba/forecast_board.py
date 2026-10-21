@@ -160,6 +160,7 @@ PROVING_BAR = 0.55
 # (forecast_report.json PTS live.proving_on_blend): picks at 54-55% landed 54.4%, above
 # bet365's ~53.5% break-even; picks at 52-54% landed 51.0%, so the bar stops at 54%.
 PROVING_BAR_BY_MARKET = {"points": 0.54}
+POINTS_APART = ("points",)   # outside the one-pick-per-player cut (see picks())
 
 
 def _clears(p: dict) -> bool:
@@ -310,6 +311,13 @@ def custom_plays(cands: list) -> dict:
     return {"custom": sorted(custom, key=lambda c: -c["probability"]), "monster": keep}
 
 
+def one_each(out: dict) -> dict:
+    """One pick per player per game across rebounds, assists and threes; points apart."""
+    from tracking import pricecheck
+    rest = pricecheck.one_per_player({m: v for m, v in out.items() if m not in POINTS_APART})
+    return {m: (out[m] if m in POINTS_APART else rest[m]) for m in out}
+
+
 def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
           vacated_out=None, plays=None) -> tuple:
     """({market: [picks]}, {market: unpriced count}) on the rebuilt model."""
@@ -402,8 +410,11 @@ def picks(games_ahead, odds_store, teams_now=None, ruled_out=(), collect=None,
         held[market] = 0            # (players simply not quoted in this market are not "held")
         print(f"  {market} [{ENGINE}]: {len(priced)} priced, {len(out[market])} published "
               f"at {PUBLISH_BAR:.0%}+", flush=True)
-    from tracking import pricecheck
-    out = pricecheck.one_per_player(out)        # one pick per player per game
+    # POINTS STAND APART (owner, 2026-10-21): opening night, every points pick that
+    # cleared 54% lost the one-per-player cut to the same man's rebounds or assists
+    # pick, so no points pick reached the board. The other three markets still share
+    # one pick per player. Cost: a player's points and his other pick tend to land together.
+    out = one_each(out)
     if plays is not None:
         plays.update(custom_plays(rungs))
         print(f"  custom plays: {len(rungs)} focal rungs priced, {len(plays['custom'])} custom, "

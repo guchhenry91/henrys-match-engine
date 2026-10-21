@@ -160,3 +160,15 @@ def test_markets_go_live_on_the_new_models_gate(tmp_path, monkeypatch):
 def test_the_live_report_releases_all_four_markets():
     from nba import publish
     assert publish.released_markets()[0] == ["assists", "points", "rebounds", "threes"]
+
+
+def test_points_pick_stands_beside_another_pick_on_the_same_player():
+    """Owner, 2026-10-21: opening night every 54% points pick lost the one-per-player
+    cut to the same man's assists or rebounds pick. Points now stand apart; the other
+    three markets still keep one pick per player."""
+    from nba import forecast_board as fb
+    pts = {"game_id": "g", "player_id": 1, "probability": 0.55}
+    ast = {"game_id": "g", "player_id": 1, "probability": 0.60}
+    reb = {"game_id": "g", "player_id": 1, "probability": 0.58}
+    out = fb.one_each({"points": [pts], "assists": [ast], "rebounds": [reb], "threes": []})
+    assert out["points"] == [pts] and out["assists"] == [ast] and out["rebounds"] == []
