@@ -24,33 +24,43 @@ def test_next_scheduled_run_follows_the_workflow_crons():
     assert bl.next_scheduled_run(_t("2026-09-29T05:05")) == _t("2026-09-29T08:30")
 
 
-def test_the_overnight_grading_run_never_spends_a_lock_check():
-    # Sunday 1pm: board Saturday, lock at 16:00 Sunday -- as before.
+def test_a_sunday_1pm_game_is_checked_at_30h_15h_and_before_the_lock():
+    """Owner, 2026-10-22: three checks -- ~30h, ~15h, and the Worker's pre-lock run
+    ~2h50 out, so the last line is on the board before the 2-hour lock window."""
     kick = "2026-09-27T17:00:00+00:00"
-    checks = ["2026-09-26T16:05:00+00:00"]
-    assert bl.due(checks, kick, _t("2026-09-27T05:05")) is None
-    assert bl.due(checks, kick, _t("2026-09-27T16:05")) == "lock"
-    # Monday night: 05:00 Monday is not the last run before a 00:15 Tuesday kickoff.
-    mnf = "2026-09-29T00:15:00+00:00"
-    assert bl.due(["2026-09-27T09:05:00+00:00"], mnf, _t("2026-09-28T05:05")) is None
-    assert bl.due(["2026-09-27T09:05:00+00:00"], mnf, _t("2026-09-28T16:05")) == "lock"
-
-
-def test_a_sunday_1pm_game_is_checked_on_saturday_then_at_the_last_run():
-    kick = "2026-09-27T17:00:00+00:00"
-    assert bl.due([], kick, _t("2026-09-24T09:05")) is None           # 80h out
+    assert bl.due([], kick, _t("2026-09-26T09:05")) is None           # 32h out
     assert bl.due([], kick, _t("2026-09-26T16:05")) == "board"        # 25h out
-    checks = ["2026-09-26T16:05:00+00:00"]
-    assert bl.due(checks, kick, _t("2026-09-27T09:05")) is None       # not the last run
-    assert bl.due(checks, kick, _t("2026-09-27T16:05")) == "lock"     # last run before
-    assert bl.due(checks + ["2026-09-27T16:05:00+00:00"], kick,
-                  _t("2026-09-27T16:20")) is None                     # never a third
+    one = ["2026-09-26T16:05:00+00:00"]
+    assert bl.due(one, kick, _t("2026-09-26T16:30")) is None          # an hour apart at least
+    assert bl.due(one, kick, _t("2026-09-27T05:05")) == "board"       # 12h out
+    two = one + ["2026-09-27T05:05:00+00:00"]
+    assert bl.due(two, kick, _t("2026-09-27T09:05")) is None          # 8h: wait for the pre-lock run
+    assert bl.due(two, kick, _t("2026-09-27T14:15")) == "lock"        # the pre-lock run
+    three = two + ["2026-09-27T14:15:00+00:00"]
+    assert bl.due(three, kick, _t("2026-09-27T16:05")) is None        # never a fourth
 
 
-def test_sunday_night_football_gets_its_lock_check_at_16_utc():
-    kick = "2026-09-28T00:20:00+00:00"
-    assert bl.due([], kick, _t("2026-09-27T09:05")) == "board"
-    assert bl.due(["2026-09-27T09:05:00+00:00"], kick, _t("2026-09-27T16:05")) == "lock"
+def test_the_scheduled_16_utc_run_never_spends_again_after_the_pre_lock_check():
+    kick = "2026-09-27T17:00:00+00:00"
+    checks = ["2026-09-26T16:05:00+00:00", "2026-09-27T14:15:00+00:00"]   # missed the 15h run
+    assert bl.due(checks, kick, _t("2026-09-27T16:05")) is None
+
+
+def test_thursday_night_football_gets_three_checks():
+    kick = "2026-10-23T00:15:00+00:00"
+    assert bl.due([], kick, _t("2026-10-21T16:05")) is None           # 32h out
+    assert bl.due([], kick, _t("2026-10-22T05:05")) == "board"        # 19h out
+    one = ["2026-10-22T05:05:00+00:00"]
+    assert bl.due(one, kick, _t("2026-10-22T09:05")) is None          # 15.2h: not yet
+    assert bl.due(one, kick, _t("2026-10-22T16:05")) == "board"       # 8h out
+    two = one + ["2026-10-22T16:05:00+00:00"]
+    assert bl.due(two, kick, _t("2026-10-22T21:35")) == "lock"        # pre-lock run
+
+
+def test_kickoffs_for_the_worker_are_upcoming_and_unique():
+    games = [{"kickoff": "2026-10-23T00:15:00+00:00"}, {"kickoff": "2026-10-25T17:00:00+00:00"},
+             {"kickoff": "2026-10-25T17:00:00+00:00"}, {"kickoff": "2026-10-19T00:15:00+00:00"}]
+    assert bl.kickoffs(games, _t("2026-10-22T12:00")) == ["2026-10-23T00:15:00Z", "2026-10-25T17:00:00Z"]
 
 
 def test_nothing_is_spent_on_a_game_about_to_start():

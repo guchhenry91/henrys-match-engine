@@ -160,5 +160,21 @@ const today = new Date().toISOString().slice(0, 10);
   ok(q.length === 1 && q[0] === "nba" && db.raw.prepare("SELECT COUNT(*) n FROM jobs WHERE job='nba' AND status='queued'").get().n === 1,
      "changed NBA news queues the NBA job", JSON.stringify(q));
 }
+// ---- NFL pre-lock run ----
+{
+  const db = makeD1(), e = env(db);
+  const ko = "2026-10-23T00:15:00Z", ko2 = "2026-10-25T17:00:00Z";
+  const data = Buffer.from(JSON.stringify([ko, ko2])).toString("base64");
+  db.raw.prepare("INSERT INTO state_files (ns,path,sha,repo_sha,chunks,size,updated_at) VALUES ('live','data-raw/nfl/kickoffs.json','x','',1,1,0)").run();
+  db.raw.prepare("INSERT INTO state_chunks (ns,path,idx,data) VALUES ('live','data-raw/nfl/kickoffs.json',0,?)").run(data);
+  const nflQueued = () => db.raw.prepare("SELECT COUNT(*) n FROM jobs WHERE job='nfl' AND status='queued'").get().n;
+  let q = await W.nflPreLock(e, Date.parse(ko) - 4 * 3600000);
+  ok(q.length === 0 && nflQueued() === 0, "no pre-lock run four hours out", JSON.stringify(q));
+  q = await W.nflPreLock(e, Date.parse(ko) - 165 * 60000);
+  ok(q.length === 1 && nflQueued() === 1, "a pre-lock NFL run is queued ~2h45 before kickoff", JSON.stringify(q));
+  db.raw.prepare("UPDATE jobs SET status='done'").run();
+  q = await W.nflPreLock(e, Date.parse(ko) - 155 * 60000);
+  ok(q.length === 0 && nflQueued() === 0, "and only once per kickoff", JSON.stringify(q));
+}
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

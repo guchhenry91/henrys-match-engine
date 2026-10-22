@@ -1154,6 +1154,10 @@ Three paid APIs. Every limit is enforced in code BEFORE a request is sent.
   not price, soccer player props (unless API-Football's own odds carry them), and
   NBA/MLB lines. At most TWO odds checks per game -- board build and 60-90 min
   before the lock -- never live odds.
+- **NFL: THREE checks a game (owner approved 2026-10-22, ~+110 credits a week):** ~30h,
+  ~15h, and a pre-lock check on an NFL run the Worker starts ~2h50 before kickoff
+  (`nfl/book_lines.CHECK_HOURS`, `cloudflare/worker.js nflPreLock`), so the last line
+  reaches the board before the 2-hour lock window.
 - **Closing check (owner approved 2026-10-12, ~100-200 credits a day):** ONE more
   look per game that has a LOCKED player prop (NBA, NFL, MLB), inside the last 20
   minutes before the start, asking only the markets those picks need

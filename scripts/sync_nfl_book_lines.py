@@ -1,8 +1,8 @@
 """Fetch DraftKings / FanDuel / Pinnacle yardage lines for the NFL slate.
 
 Phase 2 of the odds budget. Runs in nfl.yml after the bet365 sync. Spends only
-on games nfl.book_lines.due() says are due -- at most two checks per game, 3
-credits each -- through oddsapi.Client, which enforces every agreed cap (off
+on games nfl.book_lines.due() says are due -- at most three checks per game
+(~30h, ~15h, pre-lock), 7 credits each -- through oddsapi.Client, which enforces every agreed cap (off
 switch, 200/run, 1,000/day, 40,000/month). Listing events is free.
 
 Writes data-raw/nfl/odds_api_props.json:

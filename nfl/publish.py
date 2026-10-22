@@ -1059,6 +1059,12 @@ def main():
     tmp = path.with_suffix(".json.tmp")
     tmp.write_text(json_safe.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
+    # Kickoffs for the Worker's pre-lock run (nfl/book_lines.PRE_LOCK_MINUTES).
+    from nfl import book_lines
+    ko_path = ROOT / "data-raw" / "nfl" / "kickoffs.json"
+    ko = book_lines.kickoffs(payload["games"], datetime.now(timezone.utc))
+    if not ko_path.exists() or json.loads(ko_path.read_text(encoding="utf-8")) != ko:
+        ko_path.write_text(json.dumps(ko) + "\n", encoding="utf-8")
     counts = {m: len(v["picks"]) for m, v in payload["props"].items()}
     print(f"season {payload['season']} week {payload['week']}: "
           f"{len(payload['games'])} games, props {counts}")

@@ -13,9 +13,10 @@ then DraftKings, then FanDuel. A player bet365 quotes is never overwritten.
 
 THE BUDGET (CLAUDE.md, "API credit budget"): three markets from three named books
 is ONE region-equivalent, so a game costs 3 credits per check, and each game is
-checked AT MOST TWICE -- once when it comes within BOARD_HOURS, and once on the
-last scheduled NFL run before kickoff, whose line is the one a pick freezes on.
-About 16 games x 2 x 3 = ~100 credits a week. Anytime TD is not asked for: it has
+checked AT MOST THREE TIMES (owner, 2026-10-22): about 30 hours out, about 15
+hours out, and on the pre-lock run ~2h50 before kickoff that the Worker starts
+(cloudflare/worker.js nflPreLock), whose line is the one a pick freezes on. With
+alternates a check is 7 credits: about 16 games x 3 x 7 = ~340 credits a week. Anytime TD is not asked for: it has
 no line to replace, and bet365 already prices it.
 """
 from __future__ import annotations
@@ -36,14 +37,17 @@ MARKETS = {"player_pass_yds": "passing_yards",
 BOOK_ORDER = ("pinnacle", "draftkings", "fanduel")
 BOOK_LABEL = {"pinnacle": "Pinnacle", "draftkings": "DraftKings", "fanduel": "FanDuel"}
 
-# First check once a game is this close. Wide enough that a Thursday game's
-# props reach the board days ahead -- the board now publishes ONLY book lines,
-# so an unchecked game shows no yardage picks at all. Widening costs nothing:
-# the cap is two PAID checks a game wherever they fall, and a check that comes
-# back empty (lines not posted yet) is free and is not counted.
-BOARD_HOURS = 72.0
+# THREE CHECKS A GAME (owner, 2026-10-22). At 72 hours the first check caught 15
+# lines for a Thursday game (books had posted almost nothing) and the board sat on
+# them for two days. Check n is due once the game is within CHECK_HOURS[n]; the
+# last is the PRE-LOCK check, taken on the run the Worker starts ~2h50 before
+# kickoff (PRE_LOCK_MINUTES), so its line is on the board before the 2-hour lock
+# window freezes it. A check that comes back empty is free and is not counted.
+CHECK_HOURS = (30.0, 15.0, 3.0)
+BOARD_HOURS = CHECK_HOURS[0]
+PRE_LOCK_MINUTES = 170      # cloudflare/worker.js NFL_PRE_LOCK_MIN -- keep in step
 MIN_LEAD_HOURS = 0.5        # never spend on a game about to kick off
-MAX_CHECKS = 2
+MAX_CHECKS = len(CHECK_HOURS)
 
 # When .github/workflows/nfl.yml is SCHEDULED to run (UTC): daily 05:00, 09:00
 # and 16:00, plus Tuesday 08:30. 05:00 is the grading pass after the night games;
@@ -80,10 +84,33 @@ def next_scheduled_run(now: datetime) -> datetime:
 
 
 def due(checks: list, kickoff, now) -> str | None:
-    """"board", "lock" or None -- see oddsapi.props.due. At most MAX_CHECKS per
-    game; the second only on the last scheduled run before kickoff."""
-    return shared.due(checks, kickoff, now, RUN_SLOTS, BOARD_HOURS,
-                      MIN_LEAD_HOURS, MAX_CHECKS)
+    """"board", "lock" or None. Check n once the game is within CHECK_HOURS[n], an
+    hour or more after the last; inside the final window the check is "lock", and
+    only one is ever taken there (a later scheduled run must not spend again)."""
+    kickoff, now = _utc(kickoff), _utc(now)
+    hours = (kickoff - now).total_seconds() / 3600.0
+    if hours <= MIN_LEAD_HOURS or len(checks) >= MAX_CHECKS:
+        return None
+    if any((kickoff - _utc(c)).total_seconds() / 3600.0 <= CHECK_HOURS[-1] for c in checks):
+        return None
+    if checks and (now - _utc(checks[-1])).total_seconds() < 3600:
+        return None
+    if hours <= CHECK_HOURS[-1]:
+        return "lock"
+    if hours <= CHECK_HOURS[len(checks)] and len(checks) < MAX_CHECKS - 1:
+        return "board"
+    return None
+
+
+def kickoffs(games, now) -> list:
+    """Upcoming kickoffs (ISO UTC) for the Worker's pre-lock run, soonest first."""
+    now = _utc(now)
+    out = set()
+    for g in games or []:
+        ko = g.get("kickoff")
+        if ko and _utc(ko) > now:
+            out.add(_utc(ko).strftime("%Y-%m-%dT%H:%M:%SZ"))
+    return sorted(out)
 
 
 def parse_event(payload) -> dict:
