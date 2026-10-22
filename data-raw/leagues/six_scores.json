@@ -1,8 +1,8 @@
 {
   "_note": "bet365's 6 Scores Challenge selection. bet365 PRE-SELECT the six Premier League fixtures each week -- you cannot choose them -- and there is no feed for them, so this file is filled in from their published list. Keys are 'Home|Away' in CANONICAL club names as they appear in data/leagues/pl.json. Leave `fixtures` empty when the week's six are not published yet: the board then says so rather than inventing a selection.",
   "_expectation": "MEASURED, not hoped for. On the held-out season the model's correct-score accuracy in the Premier League is 11.84% per fixture, against 12.37% for simply writing 1-1 on every line (scripts/correct_score_check.py). Expect ~0.7 correct out of 6, with 3+ correct in roughly 3% of weeks. This board is published as an honest test of that, not as a tip sheet.",
-  "_verified_on": "2026-10-19",
+  "_verified_on": "2026-10-22",
   "matchweek": 8,
   "fixtures": [],
-  "_source": "Checked 2026-10-19 for matchweek 8 (23-25 Oct window): everytip.co.uk, aceodds.com/promotions/bet365-6-score-challenge.html, footyaccumulators.com/football-tips/6-scores, olbg.com/news and bettingodds.com's gameweek articles were all still showing or indexing matchweek 7 (17/18 Oct, now settled) with no matchweek 8 round published yet. Left empty rather than guessed; re-check next run."
+  "_source": "Re-checked 2026-10-22 for matchweek 8 (23-25 Oct window): everytip.co.uk and aceodds.com/promotions/bet365-6-score-challenge.html are both still explicitly dated 16 Oct 2026 and list the matchweek 7 fixtures (Brentford-Liverpool, Fulham-Hull, Newcastle-Aston Villa, Brighton-Crystal Palace, Leeds-Man Utd, Nottingham Forest-Arsenal) with a 17 Oct deadline -- stale. footyaccumulators.com/football-tips/6-scores did not render a dated six-fixture list at all. bettingodds.com's gameweek-numbered articles run GW1-GW5 only (GW6/GW7/GW8 URLs 404 or unindexed); olbg.com/news has nothing dated for October 2026. Still not published; left empty rather than guessed; re-check next run."
 }
