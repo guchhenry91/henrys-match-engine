@@ -49,6 +49,9 @@ JOBS = {
         # Free and idle-cheap: NFL props grade within minutes of nflverse publishing,
         # not at the next soccer refresh (up to three hours later overnight).
         ("Grade finished NFL games", PY + "scripts.grade_nfl", "soft"),
+        # Same for the NBA: free (stats.nba.com through the stats proxy), so a night's
+        # games grade within hours, not at the next afternoon's NBA run.
+        ("Grade finished NBA games", PY + "scripts.grade_nba", "soft"),
     ]],
     "leagues": [
         [   # the fast lock job (saved on its own, like its own commit)

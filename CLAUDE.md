@@ -1201,7 +1201,11 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
   (`worker.js preRun`, `data-raw/nba/tipoffs.json`) that re-reads the official injury
   report and reprices; picks freeze only in the last hour (`LATE_FREEZE_HOURS`), and the
   fast locker freezes the published board in the last 30 min as a backstop
-  (`lock_picks.lock_nba`). The 21:30 run still takes the second bookmaker check; props grade from the box score -- over wins on
+  (`lock_picks.lock_nba`). The 21:30 run still takes the second bookmaker check.
+  GRADING BETWEEN RUNS (owner, 2026-10-23): `scripts/grade_nba.py`, a step of the
+  10-minute lock job, grades a night's games from stats.nba.com's season log via the
+  stats proxy (free; no /scores credits), re-keyed to the picks' game ids with `only=`
+  so no other game is stored twice; waits 3.5h after tip, retries every 30 min; props grade from the box score -- over wins on
   stat > line, a whole line landing exactly is a push, a player with no row in a box
   score we hold did not play (void), and a game whose box score we do not hold stays
   pending.

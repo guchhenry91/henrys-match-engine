@@ -238,7 +238,7 @@ def league_log(season_type: str, opener=urllib.request.urlopen) -> dict:
                        timeout=45)
 
 
-def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None) -> int:
+def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None, only=None) -> int:
     """Add this season's player rows from stats.nba.com's leaguegamelog (the same
     endpoint, headers and columns as the history, nba.data). Returns games added.
 
@@ -262,6 +262,11 @@ def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None) -> int:
     opp = rows["MATCHUP"].astype(str).str.split(r"\s+(?:@|vs\.)\s+", regex=True).str[-1]
     rows["GAME_ID"] = [by_pair.get((d, frozenset((t, o))), gid) for d, t, o, gid in
                        zip(rows["GAME_DATE"], rows["TEAM_ABBREVIATION"], opp, rows["GAME_ID"])]
+    # `only`: keep just these (re-keyed) games. scripts/grade_nba passes a schedule of
+    # the waiting picks' games alone, so every OTHER game would keep the NBA's own id
+    # and sit beside its schedule-id copy -- the same player-game twice.
+    if only is not None:
+        rows = rows[rows["GAME_ID"].isin({str(g) for g in only})]
     have = _load(stage)
     before = set(have["GAME_ID"].astype(str)) if not have.empty else set()
     out = pd.concat([have, rows], ignore_index=True)
