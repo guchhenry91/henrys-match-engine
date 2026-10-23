@@ -167,3 +167,18 @@ def test_a_tainted_late_lock_still_counts(monkeypatch):
     r = hc.Report()
     hc.late_locks(r, NOW)
     assert r.checks[0]["status"] == "fail"
+
+
+def test_a_game_that_started_without_its_pre_start_run_is_flagged(monkeypatch):
+    """22 Oct 2026: the Thursday game's NFL pre-lock run never queued and nothing
+    noticed. A start in the last 24h with no run in its window is a WARN."""
+    from datetime import datetime, timezone
+    now = datetime(2026, 10, 26, 12, tzinfo=timezone.utc)
+    nba = {"g1:points:1": {"tipoff": "2026-10-25T23:10:00Z", "locked_at": "x"},
+           "g2:points:2": {"tipoff": "2026-10-26T02:10:00Z", "locked_at": "x"}}
+    monkeypatch.setattr(hc, "_read", _board({"data-raw/nba/picks_log.json": nba}))
+    ran = int(datetime(2026, 10, 25, 22, 0, tzinfo=timezone.utc).timestamp())   # 70 min before g1
+    r = hc.Report()
+    hc.pre_runs(r, now, jobs_for=lambda job: [{"enqueued_at": ran}] if job == "nba" else [])
+    c = [c for c in r.checks if c["sport"] == "NBA"][0]
+    assert c["status"] == "warn" and "26 Oct 02:10" in c["message"] and "23:10" not in c["message"]

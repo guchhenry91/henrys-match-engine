@@ -397,6 +397,47 @@ def nba_boxes(r, now):
         r.add("NBA", "box scores", "ok", f"newest box score {last.date()}")
 
 
+# PRE-START RUNS (cloudflare/worker.js preRun): an NFL run ~2h50 before each kickoff
+# (the third odds check) and an NBA run ~75 min before each tip (the late freeze).
+# 22 Oct's Thursday game got none and nothing noticed; picks still froze, from an
+# older board. Window: (job, earliest, latest) minutes before the start.
+PRE_RUN = {"NFL": ("nfl", "data-raw/nfl/picks_log.json", "kickoff", 200, 120),
+           "NBA": ("nba", "data-raw/nba/picks_log.json", "tipoff", 95, 30)}
+PRE_RUN_SINCE = datetime(2026, 10, 23, 12, tzinfo=timezone.utc)   # when both were live
+
+
+def pre_runs(r, now, jobs_for=None):
+    """Warn when a game started in the last 24h without its pre-start run."""
+    if jobs_for is None:
+        if not (os.environ.get("STATE_URL") and os.environ.get("STATE_TOKEN")):
+            return
+        jobs_for = _cloudflare_jobs
+    for sport, (job, rel, key, early, late) in PRE_RUN.items():
+        starts = {_utc(e.get(key)) for e in _entries(_read(rel))}
+        starts = sorted(t for t in starts if t and t >= PRE_RUN_SINCE and 0 < _hours(now, t) <= 24)
+        if not starts:
+            continue
+        try:
+            queued = [datetime.fromtimestamp(x["enqueued_at"], timezone.utc) for x in jobs_for(job)]
+        except Exception as exc:                      # noqa: BLE001
+            r.add(sport, "pre-start run", "warn", f"could not read the job history ({type(exc).__name__})")
+            continue
+        missed = [t for t in starts if not any(
+            timedelta(minutes=late) <= t - q <= timedelta(minutes=early) for q in queued)]
+        r.add(sport, "pre-start run", "warn" if missed else "ok",
+              f"no pre-start run before {', '.join(t.strftime('%d %b %H:%M') for t in missed)} UTC"
+              if missed else f"ran before all {len(starts)} start(s) in the last 24h")
+
+
+def _cloudflare_jobs(job):
+    url = (os.environ["STATE_URL"].rstrip("/") + "/internal/jobs?ns=live&job=" + urllib.parse.quote(job))
+    req = urllib.request.Request(url, headers={
+        "authorization": f"Bearer {os.environ['STATE_TOKEN']}",
+        "user-agent": "henrys-match-engine-runner/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return json.loads(resp.read().decode())
+
+
 def run(now=None, check_workflows=True) -> dict:
     now = now or datetime.now(timezone.utc)
     r = Report()
@@ -412,6 +453,8 @@ def run(now=None, check_workflows=True) -> dict:
     props_output(r, now)
     late_locks(r, now)
     seals(r)
+    if check_workflows:
+        pre_runs(r, now)
     engines(r)
     odds_budget(r)
     if check_workflows:

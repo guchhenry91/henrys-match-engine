@@ -545,14 +545,20 @@ const PRE_RUN = {
 };
 export async function preRun(env, job, now = Date.now()) {
   const { file, minutes } = PRE_RUN[job];
+  // What this tick saw, kept per job (kv "pre_seen:<job>"): the NFL pre-lock run for
+  // 22 Oct's Thursday game never queued and nothing said why (2026-10-23).
+  const seen = (info) => kvSet(env, `pre_seen:${job}`, JSON.stringify({ at: new Date(now).toISOString(), ...info }));
   const chunks = await readFile(env, "live", file);
-  if (!chunks) return [];
+  if (!chunks) { await seen({ file: "missing" }); return []; }
   let starts = [];
-  try { starts = JSON.parse(new TextDecoder().decode(b64ToBytes(chunks))); } catch (e) { return []; }
+  try { starts = JSON.parse(new TextDecoder().decode(b64ToBytes(chunks))); }
+  catch (e) { await seen({ file: `unreadable: ${e}` }); return []; }
   const due = starts.filter((t) => {
     const mins = (Date.parse(t) - now) / 60000;
     return mins <= minutes && mins > minutes - 30;
   });
+  const next = starts.map((t) => Date.parse(t)).filter((t) => t > now).sort()[0];
+  await seen({ starts: starts.length, next: next ? new Date(next).toISOString() : null, due });
   const queued = [];
   for (const t of due) {
     const k = `${job}_pre:${t}`;
@@ -638,7 +644,11 @@ export default {
       const m = at.getUTCMinutes();
       try {
         if (m % 5 === 2) await newsPoll(env);
-        if (m % 10 === 3) for (const job of Object.keys(PRE_RUN)) await preRun(env, job, at.getTime());
+        if (m % 10 === 3) for (const job of Object.keys(PRE_RUN)) {
+          // One job's failure must not stop the other's check; the error is kept.
+          try { await preRun(env, job, at.getTime()); }
+          catch (e) { await kvSet(env, `pre_err:${job}`, `${at.toISOString()} ${e}`); }
+        }
         if (m % 15 === 7) await watchdog(env, at.getTime());
         if (m === 41 && at.getUTCHours() === 3)      // keep 14 days of job history
           await env.DB.prepare("DELETE FROM jobs WHERE enqueued_at < ? AND status IN ('done','failed')")
