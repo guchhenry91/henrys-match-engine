@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-10-18",
+  "_verified_on": "2026-10-23",
   "LALIGA": {
     "Ath Madrid|Real Madrid": {
       "home_goals": 2,
@@ -1571,6 +1571,15 @@
     }
   },
   "LIGUE1": {
+    "Brest|Nice": {
+      "home_goals": 1,
+      "away_goals": 2,
+      "status": "FT",
+      "sources": [
+        "footmercato.net: Ligue 1 : au mental, l'OGC Nice renverse Brest -- Ajorque 15' (Brest), Wahi 61' and Diop 83' (Nice), final Brest 1-2 Nice, 23 Oct 2026",
+        "nicepremium.fr: Ligue 1 : l'OGC Nice renverse Brest -- same scoreline and scorers, corroborated by lephoceen.fr and eurofootnews.net (L'OGC Nice s'impose a l'exterieur face au Stade Brestois en Ligue 1 (1-2), dated 23/10/2026)"
+      ]
+    },
     "Lyon|Nice": {
       "home_goals": 2,
       "away_goals": 1,
@@ -2129,6 +2138,15 @@
     }
   },
   "SERIEA": {
+    "Torino|Monza": {
+      "home_goals": 3,
+      "away_goals": 2,
+      "status": "FT",
+      "sources": [
+        "sport.virgilio.it: Torino-Monza 3-2, risultato finale -- Fitz-Jim 39', Varela 47' (Monza), Belghali 61', Vlasic 72', autogol Patterson nel recupero, anticipo 8a giornata Serie A, 23 ottobre 2026",
+        "laroma24.it: Serie A, il Torino supera il Monza 3-2 e sale a 13 punti -- same scoreline, corroborated by ilovepalermocalcio.com and toronews.net (FINALE! Torino-Monza 3-2)"
+      ]
+    },
     "Juventus|Lazio": {
       "home_goals": 0,
       "away_goals": 3,
