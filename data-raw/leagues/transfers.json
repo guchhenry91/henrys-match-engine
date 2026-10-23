@@ -816,6 +816,14 @@
     "verified_by": "agent web search, current reporting as of 2026-10-16",
     "result": "all 4 confirmed still at the club shown; no transfers.json changes required. Raphinha has reportedly agreed a contract EXTENSION with Barcelona (to 2030, Fabrizio Romano, reported 6 Oct, official announcement expected around 9 Oct) -- not a transfer, and if anything closes off any exit speculation. Sancet remains under a 2032 Athletic Club contract with no transfer signal. Igor Jesus and Tietz: no transfer reporting found either way; nothing in the four leagues' summer windows (long closed) suggests any mid-season move, consistent with no override needed.",
     "not_checked": "No mid-season transfer window is open in any of the five leagues, so this was a sanity check rather than an exhaustive search."
+   },
+   {
+    "date": "2026-10-23T17:08Z",
+    "scope": "team-news sweep (cloud, 2-hourly), player_picks.json 'upcoming' distinct players kicking off in the next 26 hours",
+    "method": "web search per distinct player: Assane Diao (Como), Fábio Vieira (Hamburg), João Pedro (Chelsea), Nadiem Amiri (Mainz), Phillip Tietz (Mainz), Roberto Fernández (Espanyol), Rômulo (RB Leipzig), Sheraldo Becker (Mainz)",
+    "verified_by": "agent web search, current reporting as of 2026-10-23",
+    "result": "all 8 confirmed still at the club shown; no transfers.json changes required. The big-five October transfer window is closed, consistent with no movement. Fábio Vieira's permanent Arsenal -> Hamburg move (completed end of summer window) is already reflected correctly in the live data. Diao, João Pedro, the three Mainz players, Fernández and Rômulo all confirmed current via club/squad listings or recent match/news activity.",
+    "not_checked": "Team-news findings from this same sweep (Chelsea/Tottenham fitness ahead of their 24 Oct fixture) were actioned in data-raw/leagues/news.json, not here -- this entry covers only the club-affiliation (transfer) check."
    }
   ],
   "known_gaps": [
