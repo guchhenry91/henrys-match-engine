@@ -488,6 +488,10 @@
     .brow,.btable.t5 .brow{grid-template-columns:1fr 1fr 1fr}
     .brow>.bt{flex-direction:row;gap:8px}
   }
+/* "Is it working?" table on a phone: Void and Status columns fold into the line under
+   each market so the numbers fit without sideways scrolling. */
+.pv-m{display:none}
+@media (max-width:560px){.pv-wide{display:none}.pv-m{display:inline}}
 </style>
 </head>
 <body>
@@ -1086,15 +1090,20 @@ function provingPanel(pv, updated, engine, learning){
     return `<div class="glass" style="padding:10px 12px;margin:8px 0"><b>Is it working?</b> <span style="color:var(--hot)">Unproven: no rebuilt pick has graded yet (0 of 300 per market). Do not stake.</span>${lrn}</div>${stamp}`;
   const rows=Object.entries(pv).map(([m,v])=>{
     const col=v.bettable?"var(--lime)":v.status==="on target"?"var(--cyan)":v.status.startsWith("behind")?"var(--hot)":"var(--sub)";
-    const rng=v.landed_95&&v.landed_95[0]!=null?` <small>(${pc(v.landed_95[0])}–${pc(v.landed_95[1])})</small>`:"";
+    const rng=v.landed_95&&v.landed_95[0]!=null?`<br><small>(${pc(v.landed_95[0])}–${pc(v.landed_95[1])})</small>`:"";
     const clv=(v.clv?` · beat the close ${pc(v.clv.beat_close)} of ${v.clv.n}`:"")+(v.line_move?` · line moved our way ${pc(v.line_move.ours)} of ${v.line_move.n}`:"");
     const st=v.bettable?"proven at bet365":v.status==="on target"?"on target, not yet profitable":v.status;
+    // The notes (picks still needed, closing-line value) get their own full-width line:
+    // in the status cell they squeezed it to a sliver on a phone (2026-10-23).
+    const notes=(v.needed?`${v.needed} more graded picks to prove`:"")+clv;
     return `<tr><td>${esc(m.replace(/_/g," "))}</td><td>${v.n}</td><td>${pc(v.said)}</td><td>${pc(v.landed)}${rng}</td>`+
-      `<td>${sg(v.roi)}</td><td>${v.void_rate==null?"—":pc(v.void_rate)}</td><td style="color:${col}">${esc(st)}${v.needed?` <small>(${v.needed} more to prove)</small>`:""}${clv}</td></tr>`;
+      `<td>${sg(v.roi)}</td><td class="pv-wide">${v.void_rate==null?"—":pc(v.void_rate)}</td><td class="pv-wide" style="color:${col};min-width:7em">${esc(st)}</td></tr>`+
+      `<tr><td colspan=7 style="font-size:.85em;color:var(--sub);padding:0 0 6px;border-top:0;white-space:normal">`+
+      `<span class="pv-m" style="color:${col}">${esc(st)}${v.void_rate?` · void ${pc(v.void_rate)}`:""}${notes?" · ":""}</span>${esc(notes.replace(/^ · /,""))}</td></tr>`;
   }).join("");
   const any=Object.values(pv).some(v=>v.bettable);
   return `<div class="glass" style="padding:10px 12px;margin:8px 0;overflow-x:auto"><b>Is it working?</b> <small>Rebuilt model only. Profit is at the bet365 price each pick was approved at. A market is proven only after 300 graded picks land at their stated rate AND make money at bet365 (or clearly beat the closing price).</small>${any?"":` <span style="color:var(--hot)">No market is proven yet — do not stake.</span>`}`+
-    `<table style="width:100%;font-size:.86em;margin-top:6px"><tr><th align=left>Market</th><th>Graded</th><th>Said</th><th>Landed</th><th>Profit</th><th>Void</th><th align=left>Status</th></tr>${rows}</table>${lrn}</div>${stamp}`;
+    `<table style="width:100%;font-size:.86em;margin-top:6px;white-space:nowrap"><tr><th align=left>Market</th><th>Graded</th><th>Said</th><th>Landed</th><th>Profit</th><th class="pv-wide">Void</th><th class="pv-wide" align=left>Status</th></tr>${rows}</table>${lrn}</div>${stamp}`;
 }
 function rebuildBanner(k){
   // No explanatory banner (owner, 2026-10-12): each rebuilt sport shows only its
