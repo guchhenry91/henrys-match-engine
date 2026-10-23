@@ -1187,9 +1187,12 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
 - **Team winner**: Elo with parameters fitted once on all completed seasons
   (`data-raw/nba/elo_params.json`, k=8 -- the grid's lower edge, worth widening at the
   next refit). Match odds from one 1-credit `/odds` call per run.
-- **Freezing and grading** (`nba/picks.py`, `data-raw/nba/picks_log.json`): a pick
-  freezes on the last scheduled run before tip-off (the same run that takes the second
-  bookmaker check) or within 2h; props grade from the box score -- over wins on
+- **Freezing and grading** (`nba/picks.py`, `data-raw/nba/picks_log.json`): LATE FREEZE
+  (owner, 2026-10-23): the Worker starts an NBA run ~75 min before each tip-off
+  (`worker.js preRun`, `data-raw/nba/tipoffs.json`) that re-reads the official injury
+  report and reprices; picks freeze only in the last hour (`LATE_FREEZE_HOURS`), and the
+  fast locker freezes the published board in the last 30 min as a backstop
+  (`lock_picks.lock_nba`). The 21:30 run still takes the second bookmaker check; props grade from the box score -- over wins on
   stat > line, a whole line landing exactly is a push, a player with no row in a box
   score we hold did not play (void), and a game whose box score we do not hold stays
   pending.

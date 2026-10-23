@@ -34,12 +34,22 @@ def test_a_matinee_is_locked_at_the_15_utc_run():
     assert not bl.is_last_run_before("2026-12-25T23:00:00+00:00", _t("2026-12-25T15:05"))
 
 
-def test_picks_freeze_on_the_last_run_or_inside_two_hours():
-    last = bl.is_last_run_before
-    assert nba_picks.should_freeze("2026-10-21T23:30:00Z", _t("2026-10-21T21:35"), last)
-    assert not nba_picks.should_freeze("2026-10-21T23:30:00Z", _t("2026-10-21T15:05"), last)
-    assert nba_picks.should_freeze("2026-10-21T23:30:00Z", _t("2026-10-21T22:00"), last)
-    assert not nba_picks.should_freeze("2026-10-21T23:30:00Z", _t("2026-10-21T23:40"), last)
+def test_picks_freeze_only_in_the_last_hour():
+    """Owner, 2026-10-23: the 21:30 run no longer freezes a 23:30 tip; the pre-tip run
+    (~75 min out) does, inside the last hour, after the latest injury report."""
+    tip = "2026-10-21T23:30:00Z"
+    assert not nba_picks.should_freeze(tip, _t("2026-10-21T21:35"))
+    assert nba_picks.should_freeze(tip, _t("2026-10-21T22:35"))
+    assert not nba_picks.should_freeze(tip, _t("2026-10-21T23:40"))
+    # The fast locker's backstop only acts in the final half hour.
+    assert not nba_picks.should_freeze(tip, _t("2026-10-21T22:35"), window=nba_picks.LOCK_BACKSTOP_HOURS)
+    assert nba_picks.should_freeze(tip, _t("2026-10-21T23:05"), window=nba_picks.LOCK_BACKSTOP_HOURS)
+
+
+def test_tipoffs_for_the_worker_are_upcoming_and_unique():
+    games = [{"tipoff": "2026-10-23T23:10:00Z"}, {"tipoff": "2026-10-23T23:10:00+00:00"},
+             {"tipoff": "2026-10-22T23:10:00Z"}]
+    assert nba_picks.tipoffs(games, _t("2026-10-23T12:00")) == ["2026-10-23T23:10:00Z"]
 
 
 # --- parsing and matching --------------------------------------------------------
@@ -135,12 +145,12 @@ def _payload():
 
 def test_freeze_once_then_grade_from_the_box_score():
     log = {}
-    n = nba_picks.freeze(_payload(), log, _t("2026-10-21T21:35"), bl.is_last_run_before)
+    n = nba_picks.freeze(_payload(), log, _t("2026-10-21T22:35"), bl.is_last_run_before)
     assert n == 3
     # A later run with a moved line must not rewrite the frozen pick.
     moved = _payload()
     moved["props"]["points"]["picks"][0]["line"] = 30.5
-    assert nba_picks.freeze(moved, log, _t("2026-10-21T22:00"), bl.is_last_run_before) == 0
+    assert nba_picks.freeze(moved, log, _t("2026-10-21T22:50"), bl.is_last_run_before) == 0
     # Box score not held yet: everything stays pending.
     nba_picks.grade(log, {}, {}, set())
     assert not any(e.get("graded") for e in log.values())
@@ -154,7 +164,7 @@ def test_freeze_once_then_grade_from_the_box_score():
 
 def test_a_whole_number_line_landing_exactly_is_a_push():
     log = {}
-    nba_picks.freeze(_payload(), log, _t("2026-10-21T21:35"), bl.is_last_run_before)
+    nba_picks.freeze(_payload(), log, _t("2026-10-21T22:35"), bl.is_last_run_before)
     nba_picks.grade(log, {}, {("G1", 99): {"PTS": 10}}, {"G1"})
     assert log["G1:points:99"]["graded"] == "void"
 
@@ -181,3 +191,19 @@ def test_the_slate_before_opening_night_is_the_first_game_date_within_a_week():
          "game_date": "2026-10-15", "home_team": "MIA", "away_team": "TOR", "neutral": False}])
     assert list(board.slate(sched, _t("2026-10-16T12:00"))["game_id"]) == ["0022600001"]
     assert board.slate(sched, _t("2026-10-01T12:00")).empty           # more than a week out
+
+
+def test_the_fast_locker_freezes_the_published_board_in_the_last_half_hour(tmp_path, monkeypatch):
+    """Backstop for the late freeze: if the pre-tip NBA run never comes, the lock job
+    freezes what the board last published -- but only in the final half hour, so it
+    never beats the pre-tip run to a stale board."""
+    from scripts import lock_picks
+    (tmp_path / "data" / "nba").mkdir(parents=True)
+    (tmp_path / "data" / "nba" / "board.json").write_text(json.dumps(_payload()))
+    monkeypatch.setattr(lock_picks, "ROOT", tmp_path)
+    monkeypatch.setattr(nba_picks, "LOG", tmp_path / "picks_log.json")
+    monkeypatch.setattr(nba_picks.load_log, "__defaults__", (tmp_path / "picks_log.json",))
+    monkeypatch.setattr(nba_picks.save_log, "__defaults__", (tmp_path / "picks_log.json",))
+    assert lock_picks.lock_nba(_t("2026-10-21T22:40")) == []
+    assert lock_picks.lock_nba(_t("2026-10-21T23:05")) == ["NBA 3 pick(s) (backstop)"]
+    assert len(json.loads((tmp_path / "picks_log.json").read_text())) == 3

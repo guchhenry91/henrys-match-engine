@@ -176,5 +176,19 @@ const today = new Date().toISOString().slice(0, 10);
   q = await W.nflPreLock(e, Date.parse(ko) - 155 * 60000);
   ok(q.length === 0 && nflQueued() === 0, "and only once per kickoff", JSON.stringify(q));
 }
+// ---- NBA pre-tip run ----
+{
+  const db = makeD1(), e = env(db);
+  const tip = "2026-10-23T23:10:00Z";
+  db.raw.prepare("INSERT INTO state_files (ns,path,sha,repo_sha,chunks,size,updated_at) VALUES ('live','data-raw/nba/tipoffs.json','x','',1,1,0)").run();
+  db.raw.prepare("INSERT INTO state_chunks (ns,path,idx,data) VALUES ('live','data-raw/nba/tipoffs.json',0,?)").run(Buffer.from(JSON.stringify([tip])).toString("base64"));
+  const nbaQueued = () => db.raw.prepare("SELECT COUNT(*) n FROM jobs WHERE job='nba' AND status='queued'").get().n;
+  let q = await W.preRun(e, "nba", Date.parse(tip) - 2 * 3600000);
+  ok(q.length === 0 && nbaQueued() === 0, "no NBA pre-tip run two hours out", JSON.stringify(q));
+  q = await W.preRun(e, "nba", Date.parse(tip) - 72 * 60000);
+  ok(q.length === 1 && nbaQueued() === 1, "an NBA run is queued ~75 minutes before tip-off", JSON.stringify(q));
+  q = await W.preRun(e, "nba", Date.parse(tip) - 62 * 60000);
+  ok(q.length === 0, "and only once per tip-off", JSON.stringify(q));
+}
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

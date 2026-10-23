@@ -533,30 +533,37 @@ export async function newsPoll(env) {
   return [...queued];
 }
 
-// NFL PRE-LOCK RUN (owner, 2026-10-22): the third odds check of a game is taken on an
-// NFL run ~2h50 before kickoff, so its line reaches the board before the 2-hour lock
-// window freezes the pick. Kickoffs come from data-raw/nfl/kickoffs.json (written by
-// nfl/publish.py); checked every 10 minutes, each kickoff queues one run.
-const NFL_PRE_LOCK_MIN = 170;            // nfl/book_lines.PRE_LOCK_MINUTES -- keep in step
-export async function nflPreLock(env, now = Date.now()) {
-  const chunks = await readFile(env, "live", "data-raw/nfl/kickoffs.json");
+// PRE-START RUNS. NFL (owner, 2026-10-22): the third odds check of a game is taken on
+// an NFL run ~2h50 before kickoff, so its line reaches the board before the 2-hour
+// lock window freezes the pick. NBA (owner, 2026-10-23): a run ~75 minutes before each
+// tip-off re-reads the official injury report and reprices; NBA picks freeze only in
+// the last hour (nba/picks.LATE_FREEZE_HOURS). Start times come from a file the job
+// writes; checked every 10 minutes, each start time queues one run.
+const PRE_RUN = {
+  nfl: { file: "data-raw/nfl/kickoffs.json", minutes: 170 },   // nfl/book_lines.PRE_LOCK_MINUTES
+  nba: { file: "data-raw/nba/tipoffs.json", minutes: 75 },     // inside nba/picks.LATE_FREEZE_HOURS
+};
+export async function preRun(env, job, now = Date.now()) {
+  const { file, minutes } = PRE_RUN[job];
+  const chunks = await readFile(env, "live", file);
   if (!chunks) return [];
-  let kickoffs = [];
-  try { kickoffs = JSON.parse(new TextDecoder().decode(b64ToBytes(chunks))); } catch (e) { return []; }
-  const due = kickoffs.filter((ko) => {
-    const mins = (Date.parse(ko) - now) / 60000;
-    return mins <= NFL_PRE_LOCK_MIN && mins > NFL_PRE_LOCK_MIN - 30;
+  let starts = [];
+  try { starts = JSON.parse(new TextDecoder().decode(b64ToBytes(chunks))); } catch (e) { return []; }
+  const due = starts.filter((t) => {
+    const mins = (Date.parse(t) - now) / 60000;
+    return mins <= minutes && mins > minutes - 30;
   });
   const queued = [];
-  for (const ko of due) {
-    const k = "nfl_prelock:" + ko;
+  for (const t of due) {
+    const k = `${job}_pre:${t}`;
     if (await kvGet(env, k)) continue;
     await kvSet(env, k, now);
-    queued.push(ko);
+    queued.push(t);
   }
-  if (queued.length) await enqueue(env, "nfl", "live");
+  if (queued.length) await enqueue(env, job, "live");
   return queued;
 }
+export const nflPreLock = (env, now) => preRun(env, "nfl", now);
 
 export async function pump(env) {
   const running = await env.DB.prepare("SELECT id, job, ns, started_at FROM jobs WHERE status='running' ORDER BY id LIMIT 1").first();
@@ -631,7 +638,7 @@ export default {
       const m = at.getUTCMinutes();
       try {
         if (m % 5 === 2) await newsPoll(env);
-        if (m % 10 === 3) await nflPreLock(env, at.getTime());
+        if (m % 10 === 3) for (const job of Object.keys(PRE_RUN)) await preRun(env, job, at.getTime());
         if (m % 15 === 7) await watchdog(env, at.getTime());
         if (m === 41 && at.getUTCHours() === 3)      // keep 14 days of job history
           await env.DB.prepare("DELETE FROM jobs WHERE enqueued_at < ? AND status IN ('done','failed')")

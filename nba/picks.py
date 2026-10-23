@@ -30,7 +30,24 @@ from oddsapi import props as shared
 
 ROOT = Path(__file__).resolve().parent.parent
 LOG = ROOT / "data-raw" / "nba" / "picks_log.json"
-FREEZE_HOURS = 2.0
+FREEZE_HOURS = 2.0          # (kept for older callers; the NBA board now freezes late, below)
+# LATE FREEZE (owner, 2026-10-23, the edge-picks idea): picks used to freeze on the
+# 21:30 UTC run, up to six hours before a late tip, so a player ruled out after it
+# left his teammates' picks frozen on a forecast that thought he would play. The
+# Worker now starts an NBA run ~75 minutes before each tip-off (cloudflare/worker.js
+# preRun) that re-reads the official injury report and reprices; picks freeze only
+# inside LATE_FREEZE_HOURS. The fast locker freezes the published board as a backstop
+# inside LOCK_BACKSTOP_HOURS (scripts/lock_picks.lock_nba), so no game is ever lost.
+LATE_FREEZE_HOURS = 1.0
+LOCK_BACKSTOP_HOURS = 0.5
+
+
+def tipoffs(games, now) -> list:
+    """Upcoming tip-offs (ISO UTC) for the Worker's pre-tip run, soonest first."""
+    now = shared.utc(now)
+    out = {shared.utc(g["tipoff"]).strftime("%Y-%m-%dT%H:%M:%SZ")
+           for g in games or [] if g.get("tipoff") and shared.utc(g["tipoff"]) > now}
+    return sorted(out)
 
 
 def load_log(path=LOG) -> dict:
@@ -62,20 +79,22 @@ def play_key(p: dict) -> str:
     return f"{p['game_id']}:{p['market']}:{p['player_id']}:{p['play']}:{p['line']}"
 
 
-def should_freeze(tipoff, now, last_run_before) -> bool:
-    """Freeze on the last scheduled run before tip-off, or within FREEZE_HOURS."""
+def should_freeze(tipoff, now, last_run_before=None, window=LATE_FREEZE_HOURS) -> bool:
+    """Freeze inside the last `window` hours before tip-off (LATE FREEZE above).
+    `last_run_before` is no longer used: the pre-tip run replaced it."""
     hours = (shared.utc(tipoff) - shared.utc(now)).total_seconds() / 3600.0
-    return hours > 0 and (hours <= FREEZE_HOURS or last_run_before(tipoff, now))
+    return 0 < hours <= window
 
 
-def freeze(payload: dict, log: dict, now, last_run_before) -> int:
+def freeze(payload: dict, log: dict, now, last_run_before=None,
+           window=LATE_FREEZE_HOURS) -> int:
     """Freeze every published pick that is due. Idempotent: a frozen key is never
     rewritten, so a later run cannot move the line or the probability."""
     frozen = 0
     stamp = shared.utc(now).isoformat(timespec="seconds")
     for g in payload.get("games") or []:
         if g.get("pick") and game_key(g) not in log and \
-                should_freeze(g["tipoff"], now, last_run_before):
+                should_freeze(g["tipoff"], now, window=window):
             log[game_key(g)] = {
                 "kind": "winner", "game_id": g["game_id"], "tipoff": g["tipoff"],
                 "home": g["home"], "away": g["away"], "pick": g["pick"],
@@ -85,7 +104,7 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
             frozen += 1
     for market, block in (payload.get("props") or {}).items():
         for p in block.get("picks") or []:
-            if prop_key(p) in log or not should_freeze(p["tipoff"], now, last_run_before):
+            if prop_key(p) in log or not should_freeze(p["tipoff"], now, window=window):
                 continue
             log[prop_key(p)] = {
                 "kind": "prop", "game_id": p["game_id"], "tipoff": p["tipoff"],
@@ -103,7 +122,7 @@ def freeze(payload: dict, log: dict, now, last_run_before) -> int:
     for kind in ("custom", "monster"):
         for p in (payload.get("plays") or {}).get(kind) or []:
             k = play_key(p)
-            if k in log or not should_freeze(p["tipoff"], now, last_run_before):
+            if k in log or not should_freeze(p["tipoff"], now, window=window):
                 continue
             log[k] = {
                 "kind": "play", "play": kind, "game_id": p["game_id"], "tipoff": p["tipoff"],

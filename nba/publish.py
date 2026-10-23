@@ -351,6 +351,11 @@ def main() -> int:
     tmp = path.with_suffix(".json.tmp")
     tmp.write_text(json_safe.dumps(payload, indent=2) + "\n", encoding="utf-8")
     tmp.replace(path)
+    # Tip-offs for the Worker's pre-tip run (nba/picks.LATE_FREEZE_HOURS).
+    tip_path = ROOT / "data-raw" / "nba" / "tipoffs.json"
+    tips = picks_mod.tipoffs(payload.get("games"), now)
+    if not tip_path.exists() or json.loads(tip_path.read_text(encoding="utf-8")) != tips:
+        tip_path.write_text(json.dumps(tips) + "\n", encoding="utf-8")
     print(f"NBA board: status={payload['status']}, "
           f"released={payload['markets_released']}, "
           f"withheld={payload['markets_withheld']}, "

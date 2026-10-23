@@ -292,6 +292,25 @@ def lock_nfl(now) -> list:
     return [f"NFL {after - before} pick(s)"] if after > before else []
 
 
+def lock_nba(now) -> list:
+    """BACKSTOP for the NBA late freeze (nba/picks.LATE_FREEZE_HOURS): the board
+    freezes its own picks on the pre-tip run the Worker starts ~75 minutes out. If
+    that run is late or fails, this freezes what the board last published inside
+    the final LOCK_BACKSTOP_HOURS, so a game is never lost from the record."""
+    board_path = ROOT / "data" / "nba" / "board.json"
+    if not board_path.exists():
+        return []
+    payload = json.loads(board_path.read_text(encoding="utf-8"))
+    from nba import picks as nba_picks
+    log = nba_picks.load_log()
+    n = nba_picks.freeze(payload, log, now, window=nba_picks.LOCK_BACKSTOP_HOURS)
+    if not n:
+        return []
+    manifest.stamp(log.values(), "nba")
+    nba_picks.save_log(log)
+    return [f"NBA {n} pick(s) (backstop)"]
+
+
 def _nfl_locked_count() -> int:
     from nfl import picks as nfl_picks
     log = picks.load_log(nfl_picks.PICKS_LOG)
@@ -320,6 +339,10 @@ def main():
     except Exception as exc:                 # never let NFL sink soccer locking
         print(f"  NFL locking skipped: {exc}")
         nfl = []
+    try:
+        nfl += lock_nba(now)
+    except Exception as exc:                 # never let NBA sink soccer locking
+        print(f"  NBA locking skipped: {exc}")
     lockwindow.beat(now)          # always, even when nothing froze: the NEXT run
                                   # widens from the last time locking was ATTEMPTED
     if not (matches or players or accas or nfl):
