@@ -896,6 +896,26 @@ function healthBanner(s){
     show.map(c=>`${esc(c.sport)} ${esc(c.check)} — ${esc(c.message)}`).join(" · ")}</span></div>`;
 }
 
+// DATA FRESHNESS, always visible (owner, 2026-10-23; idea from edge-picks): how far
+// each sport's results reach, whether grading is current, and whether the frozen picks
+// are sealed (tracking/seal.py) -- read from the health check, so a reader sees how
+// current the numbers are without waiting for something to go wrong.
+function freshLine(s){
+  const h=DATA.health; if(!h) return "";
+  const name={soccer:"Soccer",nfl:"NFL",nba:"NBA",mlb:"MLB",ucl:"Soccer"}[s]; if(!name) return "";
+  const ck=(sport,check)=>(h.checks||[]).find(c=>c.sport===sport&&c.check===check);
+  const bits=[];
+  const box=ck(name,"box scores"), pd=ck(name,"player data"), seal=ck("All","pick log seal");
+  const gr=ck(name,"grading")||ck(name,"player grading");
+  const m=box&&/(\d{4}-\d{2}-\d{2})/.exec(box.message||"");
+  if(m) bits.push(`results to ${new Date(m[1]+"T12:00:00Z").toLocaleDateString(undefined,{day:"numeric",month:"short"})}`);
+  if(pd&&pd.status==="ok") bits.push(`player stats ${esc(pd.message)}`);
+  if(gr) bits.push(gr.status==="ok"?"grading up to date":esc(gr.message));
+  if(seal) bits.push(seal.status==="ok"?"picks sealed ✓":"seal check: "+esc(seal.status));
+  const at=agoOf(h.checked_at);
+  return bits.length?bits.join(" · ")+(at?` (checked ${at})`:""):"";
+}
+
 function feedBanner(s){
   let ok=true, txt;
   if(s==="soccer"){
@@ -923,7 +943,8 @@ function feedBanner(s){
     ok=!!DATA.ucl;
     txt=ok?`Champions League board · updated ${agoOf(stampOf(DATA.ucl))||"—"}`:"Champions League board did not load";
   }
-  return `<div class="feed${ok?"":" warn"}"><span class="dot"></span><span>${esc(txt)}</span>
+  const fr=freshLine(s);
+  return `<div class="feed${ok?"":" warn"}"><span class="dot"></span><span>${esc(txt)}${fr?`<br><small>${fr}</small>`:""}</span>
     <button class="lk" type="button" onclick="toggleDetails()">Data details</button></div>`;
 }
 
@@ -934,10 +955,12 @@ function detailsHtml(){
   const rows=[["Best picks","best"],["Player picks","player_picks"],["Parlays","parlays"],["Correct scores","six_scores"],
     ...LGSLUGS.map(n=>[LG[Object.keys(FILES).find(k=>FILES[k]===n)]||n,n]),
     ["NFL","nfl"],["Champions League","ucl"],["NBA","nba"],["MLB","mlb"]];
+  const checks=((DATA.health||{}).checks||[]).map(c=>
+    `<span>${esc(c.sport)} · ${esc(c.check)}</span><b class="${c.status==="ok"?"":"off"}">${c.status==="ok"?"✓":c.status.toUpperCase()} ${esc(c.message)}</b>`).join("");
   return `<div class="dgrid">`+rows.map(([t,n])=>{
     const a=agoOf(stampOf(DATA[n]));
     return `<span>${esc(t)}</span><b class="${DATA[n]?"":"off"}">${DATA[n]?(a?"updated "+a:"loaded"):"not loaded"}</b>`;
-  }).join("")+`</div>`;
+  }).join("")+(checks?`<span style="grid-column:1/-1;margin-top:8px"><b>Health check</b></span>`+checks:"")+`</div>`;
 }
 function toggleDetails(){
   showDetails=!showDetails;
