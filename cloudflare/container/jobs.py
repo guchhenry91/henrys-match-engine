@@ -16,11 +16,13 @@ JOBS = {
     "nba": [[
         ("Box scores and bookmaker lines", PY + "scripts.sync_nba_odds", "soft"),
         ("Publish the NBA board", PY + "nba.publish", "gate"),
+        ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
         ("Tests", PY + "pytest tests/nba tests/oddsapi -q", "gate"),
     ]],
     "mlb": [[
         ("Box scores and bookmaker lines", PY + "scripts.sync_mlb_odds", "soft"),
         ("Publish the MLB board", PY + "mlb.publish", "gate"),
+        ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
         ("Tests", PY + "pytest tests/mlb tests/oddsapi -q", "gate"),
     ]],
     "nfl": [[
@@ -29,6 +31,7 @@ JOBS = {
         ("Refresh the injury report", PY + "scripts.sync_nfl_injuries", "gate"),
         ("Re-fit model trust", PY + "scripts.fit_nfl_blend", "gate"),
         ("Publish the NFL board", PY + "nfl.publish", "gate"),
+        ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
         ("Tests", PY + "pytest tests/nfl -q", "gate"),
     ]],
     # Tuesday: the release gate and the vacancy fit, then the normal NFL run.
@@ -41,6 +44,7 @@ JOBS = {
         # locker can refuse a benched player instead of waiting for a full refresh.
         ("Refresh confirmed lineups", PY + "scripts.sync_lineups", "soft"),
         ("Freeze picks due to kick off", PY + "scripts.lock_picks", "gate"),
+        ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
         ("Closing prices for locked props", PY + "scripts.close_props", "soft"),
         # Free and idle-cheap: NFL props grade within minutes of nflverse publishing,
         # not at the next soccer refresh (up to three hours later overnight).
@@ -49,6 +53,7 @@ JOBS = {
     "leagues": [
         [   # the fast lock job (saved on its own, like its own commit)
             ("Freeze picks due to kick off", PY + "scripts.lock_picks", "gate"),
+            ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
             ("Grade finished NFL games", PY + "scripts.grade_nfl", "soft"),
             ("Sync results", PY + "scripts.sync_results", "soft"),
             ("Apply results to the boards", PY + "scripts.refresh_results", "gate"),
@@ -68,6 +73,7 @@ JOBS = {
             ("Fetch shots / on-target prices", PY + "scripts.sync_soccer_shot_odds", "soft"),
             ("Refresh confirmed lineups", PY + "scripts.sync_lineups", "soft"),
             ("Publish all four leagues", PY + "leagues.publish", "gate"),
+            ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
             ("Sanity-check the payloads", PY + "scripts.sanity_check", "gate"),
             ("Run tests", PY + "pytest tests/ -q", "gate"),
             ("Send newly-locked picks to Telegram", PY + "scripts.telegram_picks", "soft"),

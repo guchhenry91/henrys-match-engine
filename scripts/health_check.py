@@ -314,7 +314,10 @@ def props_output(r, now):
               f"{n} player pick(s), {soon} match(es) in 36h" if n else f"{soon} match(es) in 36h, 0 player picks")
 
 
-PICK_LOGS = (["data-raw/nfl/picks_log.json", "data-raw/ucl/picks_log.json", "data-raw/ucl/props_log.json"]
+# NBA and MLB were missing (found 2026-10-23): a pick frozen after tip-off there was
+# never counted. Their entries carry "tipoff" where the others carry "kickoff".
+PICK_LOGS = (["data-raw/nfl/picks_log.json", "data-raw/ucl/picks_log.json", "data-raw/ucl/props_log.json",
+              "data-raw/nba/picks_log.json", "data-raw/mlb/picks_log.json"]
              + [f"data-raw/leagues/{lg}/{f}" for lg in ("pl", "laliga", "bundesliga", "seriea", "ligue1")
                 for f in ("picks_log.json", "player_picks_log.json")])
 
@@ -333,7 +336,7 @@ def late_locks(r, now, days=1):
     late, where = 0, set()
     for rel in PICK_LOGS:
         for e in _entries(_read(rel)):
-            lk, ko = _utc(e.get("locked_at")), _utc(e.get("kickoff"))
+            lk, ko = _utc(e.get("locked_at")), _utc(e.get("kickoff") or e.get("tipoff"))
             # Tainted picks count too: they are voided, so the record stays honest,
             # but each one is a pick the pipeline made too late (2026-10-18: ten NFL
             # props frozen after the 17:00 kick-offs, all void).
@@ -347,6 +350,53 @@ def late_locks(r, now, days=1):
           if late else f"no pick frozen after kick-off in the last {24 * days}h")
 
 
+# Every log the seal step covers (scripts/seal_picks.py).
+SEAL_LOGS = list(PICK_LOGS) + ["data-raw/leagues/parlays_log.json"]
+
+
+def seals(r):
+    """TAMPER CHECK (tracking/seal.py): every frozen pick is sealed into a hash chain;
+    a sealed pick whose line, side, chance or price changed -- or that vanished --
+    means the record was edited after the fact."""
+    from tracking import seal
+    sealed, bad, gone = 0, [], []
+    for rel in SEAL_LOGS:
+        v = seal.verify(ROOT / rel)
+        sealed += v["sealed"]
+        bad += [f"{rel.split('/', 1)[1]}: {k}" for k in v["broken"]]
+        gone += [f"{rel.split('/', 1)[1]}: {k}" for k in v["missing"]]
+    if bad:
+        r.add("All", "pick log seal", "fail",
+              f"{len(bad)} sealed pick(s) edited after freezing: " + "; ".join(bad[:5]))
+    elif gone:
+        # A released lock (fixture time moved) is gone until it is frozen again.
+        r.add("All", "pick log seal", "warn",
+              f"{len(gone)} sealed pick(s) no longer in the log (released lock?): " + "; ".join(gone[:5]))
+    else:
+        r.add("All", "pick log seal", "ok", f"{sealed} frozen picks sealed; none changed since")
+
+
+def nba_boxes(r, now):
+    """Freshness of the NBA box scores the picks grade from (like mlb_boxes)."""
+    try:
+        from nba import current
+        rows = current.player_games()
+    except Exception as exc:                          # noqa: BLE001
+        r.add("NBA", "box scores", "warn", f"could not read box scores ({type(exc).__name__})")
+        return
+    if rows.empty:
+        return
+    import pandas as pd
+    last = pd.to_datetime(rows["GAME_DATE"], format="mixed").max()
+    log = _read("data-raw/nba/picks_log.json") or {}
+    waiting = [e for e in log.values() if isinstance(e, dict) and not e.get("graded")
+               and (_hours(now, _utc(e.get("tipoff"))) or 0) > 18]
+    if waiting and (now.date() - last.date()).days > 1:
+        r.add("NBA", "box scores", "fail", f"newest box score {last.date()}, picks waiting on later games")
+    else:
+        r.add("NBA", "box scores", "ok", f"newest box score {last.date()}")
+
+
 def run(now=None, check_workflows=True) -> dict:
     now = now or datetime.now(timezone.utc)
     r = Report()
@@ -358,8 +408,10 @@ def run(now=None, check_workflows=True) -> dict:
     line_sport(r, now, "NBA", "nba", "tipoff")
     line_sport(r, now, "MLB", "mlb", "tipoff")
     mlb_boxes(r, now)
+    nba_boxes(r, now)
     props_output(r, now)
     late_locks(r, now)
+    seals(r)
     engines(r)
     odds_budget(r)
     if check_workflows:

@@ -997,6 +997,15 @@ set; publishing it is what stops the remainder being invisible. A reader can see
 5-4 **and** see which played games are not in it. A record that hides them would
 describe only the fixtures that happened to kick off near a run.
 
+## Tamper-evident pick logs (2026-10-23, idea from edge-picks)
+`tracking/seal.py`: every frozen pick is sealed into a SHA-256 chain beside its log
+(`<log>.seal.json`) by `scripts/seal_picks.py`, a step right after each freeze in every
+job. Sealed: who/what/side/line/chance/price/lock time -- never grading, closing or the
+start time. The health check (`seals`) FAILS on a sealed pick edited after freezing and
+WARNS on one missing (a released lock, `release_moved_lock`, awaiting re-freeze); a
+re-lock with a new `locked_at` is sealed as a new version. Picks frozen before 23 Oct are
+sealed on the first run after it, so the chain proves "unchanged since then".
+
 ## Telegram notifications
 Two separate channels, both gated on `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID`
 being set (silently skip otherwise -- a missing notifier must never fail the
