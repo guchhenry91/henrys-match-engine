@@ -1,6 +1,6 @@
 {
  "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
- "_verified_on": "2026-10-18",
+ "_verified_on": "2026-10-23",
  "PL": {
   "Arsenal": {
    "out": [
@@ -3857,7 +3857,7 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-17T18:10:00Z",
+   "checked": "2026-10-23T11:20:00Z",
    "lineup_api_attempted_fixture": 1550112,
    "lineup_api_attempted_at": "2026-09-04T18:28:58.896504+00:00",
    "lineup_api_rungs": [
@@ -3897,7 +3897,7 @@
    "lineup_checked_at": "2026-09-04T18:28:58.896504+00:00",
    "lineup_source": "API-Football",
    "lineup_fixture_id": 1550112,
-   "note": "Addai (Achilles) confirmed recovered and available. Previous 'Moise Kean' doubt entry removed -- confirmed data error, Kean plays for Fiorentina, not Como. RECHECK 17 Oct ahead of Fiorentina: no current injury news found (only stale, season-old Nico Paz item); clean bill reconfirmed."
+   "note": "Addai (Achilles) confirmed recovered and available. Previous 'Moise Kean' doubt entry removed -- confirmed data error, Kean plays for Fiorentina, not Como. RECHECK 23 Oct ahead of Sassuolo: Assane Diao confirmed still with Como (no transfer found), no current injury news found; clean bill reconfirmed."
   },
   "Fiorentina": {
    "out": [
@@ -4210,13 +4210,13 @@
     "doubt": [],
     "policy": "two-independent-publishers"
    },
-   "checked": "2026-10-15T19:10:07Z",
+   "checked": "2026-10-23T11:20:00Z",
    "lineup_api_attempted_fixture": 1550124,
    "lineup_api_attempted_at": "2026-09-13T18:18:49.921799+00:00",
    "lineup_api_rungs": [
     30
    ],
-   "note": "Kone out until January 2027 with a tibia/fibula fracture."
+   "note": "Kone out until January 2027 with a tibia/fibula fracture. RECHECK 23 Oct ahead of Como: no other injury news found, Kone status unchanged."
   },
   "Juventus": {
    "out": [
