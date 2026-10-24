@@ -1,5 +1,12 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-23",
-  "players": {}
+  "_verified_on": "2026-10-24",
+  "players": {
+    "LeBron James": {
+      "status": "doubt",
+      "team": "PHI",
+      "note": "Questionable (load management) on the NBA's official injury report, 2026-10-24 editions 11:00 AM and 12:30 PM ET (ak-static.cms.nba.com/referee/injury/, fetched directly). Board's own props currently list him as a threes pick for tonight's PHI vs MIL game (22:10 UTC / 6:00 PM ET) with no availability flag. Most other teams playing tonight (MIA, CHA, MIL, SAS, DAL, WAS, CHI, HOU, ATL, GSW) had not yet submitted their official report as of 12:30 PM ET; recheck closer to tip-off.",
+      "checked": "2026-10-24T17:21:15Z"
+    }
+  }
 }
