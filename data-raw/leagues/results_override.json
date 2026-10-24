@@ -1,6 +1,6 @@
 {
   "_note": "Manually verified FINAL results, used ONLY where the fixture feed has not published a score yet. fixturedownload is the sole results source and on 2026-08-15 it still had 0 of 380 scores nearly three hours after the season's first match ended, so nothing could grade. Keys are 'Home|Away' in CANONICAL club names. THE FEED ALWAYS WINS: an override is applied only when the feed's score is missing, and a disagreement once the feed catches up is reported loudly rather than silently preferred -- this is a stopgap for latency, never a way to overrule the source. TWO KINDS OF ENTRY, TWO EVIDENCE BARS. An entry WITHOUT 'auto' was written by hand or by an agent reading match reports, and needs two independent sources or an official club/league page, full-time confirmed -- because prose can be misread and a scoreline can be invented. An entry WITH 'auto': true was fetched by scripts/sync_results.py from API-Football and carries 'api_fixture_id' and 'api_status'; a structured feed can only ever cite itself, so it gets one source, but it must name the fixture and the status must be FT/AET/PEN. The relaxation is about WHO is speaking, never about what counts as finished. A wrong entry here permanently corrupts an append-only record, so verify the STATUS is full time, not just the scoreline.",
-  "_verified_on": "2026-10-23",
+  "_verified_on": "2026-10-24",
   "LALIGA": {
     "Ath Madrid|Real Madrid": {
       "home_goals": 2,
@@ -2135,6 +2135,15 @@
         "Lensois.com match report: Troyes-RC Lens (1-3), vainqueur avec un gros turnover, 7e journee Ligue 1, 17/10/2026, buts Nkada (26') pour Troyes, Monfray csc (13'), Edouard (45+2'), Aguilar (54') pour Lens, Full Time",
         "news.footeo.com match report: Troyes - Lens (1-3), victoire convaincante mais trois blesses pour Lens avant la Ligue des champions, Full Time"
       ]
+    },
+    "Lens|Paris FC": {
+      "home_goals": 2,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "footmercato.net match report: 'Ligue 1 : le RC Lens d'un grand Thauvin renverse le Paris FC dans une fin de match de folie' -- Koleosho 45+2' (Paris FC), Thauvin 63' and Hazard 83' (Lens), final Lens 2-1 Paris FC, 24 Oct 2026 matchweek 8",
+        "Eurosport.fr live commentary page (RC Lens - Paris FC, matchweek 8, 2026-2027): match marked Terminé, final score Lens 2-1 Paris FC, same scorers"
+      ]
     }
   },
   "SERIEA": {
@@ -2506,6 +2515,15 @@
       "sources": [
         "sport.sky.it match report: Roma-Genoa 2-0, gol e highlights, giornata 7 Serie A 2026-27, Castro 50', Lulli 68', Full Time",
         "redscores.com match page: Roma 2-0 Genoa, Full Time, corroborated by onefootball.com (Serie A, Roma 2-0 Genoa, first time special for Castro and Lulli)"
+      ]
+    },
+    "Lazio|Parma": {
+      "home_goals": 2,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": [
+        "football-italia.net: 'Serie A | Lazio 2-1 Parma: Eagles fly in top spot' -- Kenneth Taylor 50', Diego Carlos own goal 58' (both for Lazio), Simone Lontani 90+5' (Parma), 24 Oct 2026, matchweek 8",
+        "365scores.com match page (Lazio-Parma, Serie A matchweek 8): result marked Final / End of 90 Minutes, same scoreline 2-1 and same goal sequence"
       ]
     }
   },
