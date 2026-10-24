@@ -182,3 +182,18 @@ def test_a_game_that_started_without_its_pre_start_run_is_flagged(monkeypatch):
     hc.pre_runs(r, now, jobs_for=lambda job: [{"enqueued_at": ran}] if job == "nba" else [])
     c = [c for c in r.checks if c["sport"] == "NBA"][0]
     assert c["status"] == "warn" and "26 Oct 02:10" in c["message"] and "23:10" not in c["message"]
+
+
+def test_a_finished_mlb_game_with_no_frozen_pick_fails(tmp_path, monkeypatch):
+    """24 Oct 2026: World Series Game 1 was played and never frozen; every check read ok."""
+    import pandas as pd
+    from datetime import datetime, timezone
+    (tmp_path / "data-raw" / "mlb" / "current").mkdir(parents=True)
+    pd.DataFrame({"GAME_ID": ["MLB849805", "MLB849805"], "game_date": ["2026-10-23"] * 2,
+                  "TEAM": ["MIL", "TBA"]}).to_csv(tmp_path / "data-raw/mlb/current/team_2026.csv.gz", index=False)
+    monkeypatch.setattr(hc, "ROOT", tmp_path)
+    monkeypatch.setattr(hc, "_read", _board({"data-raw/mlb/picks_log.json": {}}))
+    r = hc.Report()
+    hc.unlocked_games(r, datetime(2026, 10, 24, 15, tzinfo=timezone.utc))
+    c = [c for c in r.checks if c["sport"] == "MLB"][0]
+    assert c["status"] == "fail" and "849805" in c["message"]

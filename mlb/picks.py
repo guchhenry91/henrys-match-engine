@@ -26,7 +26,21 @@ def save_log(log):
     base.save_log(log, LOG)
 
 
-freeze = base.freeze
+FREEZE_HOURS = 2.0
+
+
+def should_freeze(tipoff, now, last_run_before) -> bool:
+    """MLB's own rule: the last scheduled MLB run before first pitch, or within
+    FREEZE_HOURS. It used nba.picks.should_freeze until the NBA moved to a late
+    freeze (2026-10-23), which locked MLB only in the final hour -- and no MLB run
+    falls there, so World Series Game 1 (24 Oct) was never frozen."""
+    hours = (base.shared.utc(tipoff) - base.shared.utc(now)).total_seconds() / 3600.0
+    return hours > 0 and (hours <= FREEZE_HOURS or last_run_before(tipoff, now))
+
+
+def freeze(payload: dict, log: dict, now, last_run_before) -> int:
+    return base.freeze(payload, log, now,
+                       rule=lambda tipoff, at: should_freeze(tipoff, at, last_run_before))
 game_key = base.game_key
 prop_key = base.prop_key
 

@@ -87,14 +87,17 @@ def should_freeze(tipoff, now, last_run_before=None, window=LATE_FREEZE_HOURS) -
 
 
 def freeze(payload: dict, log: dict, now, last_run_before=None,
-           window=LATE_FREEZE_HOURS) -> int:
+           window=LATE_FREEZE_HOURS, rule=None) -> int:
     """Freeze every published pick that is due. Idempotent: a frozen key is never
     rewritten, so a later run cannot move the line or the probability."""
+    # `rule(tipoff, now)` overrides the NBA late window: MLB shares this code but has
+    # no pre-start run, so it keeps its own rule (mlb/picks.should_freeze).
+    _due = (lambda t: rule(t, now)) if rule else (lambda t: should_freeze(t, now, window=window))
     frozen = 0
     stamp = shared.utc(now).isoformat(timespec="seconds")
     for g in payload.get("games") or []:
         if g.get("pick") and game_key(g) not in log and \
-                should_freeze(g["tipoff"], now, window=window):
+                _due(g["tipoff"]):
             log[game_key(g)] = {
                 "kind": "winner", "game_id": g["game_id"], "tipoff": g["tipoff"],
                 "home": g["home"], "away": g["away"], "pick": g["pick"],
@@ -104,7 +107,7 @@ def freeze(payload: dict, log: dict, now, last_run_before=None,
             frozen += 1
     for market, block in (payload.get("props") or {}).items():
         for p in block.get("picks") or []:
-            if prop_key(p) in log or not should_freeze(p["tipoff"], now, window=window):
+            if prop_key(p) in log or not _due(p["tipoff"]):
                 continue
             log[prop_key(p)] = {
                 "kind": "prop", "game_id": p["game_id"], "tipoff": p["tipoff"],
@@ -122,7 +125,7 @@ def freeze(payload: dict, log: dict, now, last_run_before=None,
     for kind in ("custom", "monster"):
         for p in (payload.get("plays") or {}).get(kind) or []:
             k = play_key(p)
-            if k in log or not should_freeze(p["tipoff"], now, window=window):
+            if k in log or not _due(p["tipoff"]):
                 continue
             log[k] = {
                 "kind": "play", "play": kind, "game_id": p["game_id"], "tipoff": p["tipoff"],

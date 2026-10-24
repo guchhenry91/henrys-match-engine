@@ -438,6 +438,36 @@ def _cloudflare_jobs(job):
         return json.loads(resp.read().decode())
 
 
+def unlocked_games(r, now, days=2):
+    """A finished NBA or MLB game with no frozen pick at all (24 Oct 2026: World Series
+    Game 1 was played and left no entry -- MLB had inherited the NBA's late freeze --
+    while every check read ok). Each game gets a team-winner pick, so a played game
+    missing from the log means its picks were never frozen."""
+    import pandas as pd
+    since = (now - timedelta(days=days)).date().isoformat()
+    for sport, rel in (("NBA", "data-raw/nba/picks_log.json"), ("MLB", "data-raw/mlb/picks_log.json")):
+        try:
+            if sport == "NBA":
+                from nba import current
+                rows = current.player_games()
+                played = {} if rows.empty else dict(zip(rows["GAME_ID"].astype(str), rows["GAME_DATE"].astype(str)))
+            else:
+                path = ROOT / "data-raw" / "mlb" / "current" / f"team_{now.year}.csv.gz"
+                t = pd.read_csv(path) if path.exists() else pd.DataFrame(columns=["GAME_ID", "game_date"])
+                played = dict(zip(t["GAME_ID"].astype(str).str.removeprefix("MLB"), t["game_date"].astype(str)))
+        except Exception:                             # noqa: BLE001
+            continue
+        recent = {g for g, d in played.items() if d[:10] >= since}
+        if not recent:
+            continue
+        log = _read(rel) or {}
+        frozen = {str(e.get("game_id")) for e in log.values() if isinstance(e, dict) and e.get("locked_at")}
+        missing = sorted(recent - frozen)
+        r.add(sport, "picks frozen", "fail" if missing else "ok",
+              f"{len(missing)} finished game(s) since {since} have no frozen pick: {', '.join(missing[:5])}"
+              if missing else f"every game since {since} has frozen picks")
+
+
 def run(now=None, check_workflows=True) -> dict:
     now = now or datetime.now(timezone.utc)
     r = Report()
@@ -452,6 +482,7 @@ def run(now=None, check_workflows=True) -> dict:
     nba_boxes(r, now)
     props_output(r, now)
     late_locks(r, now)
+    unlocked_games(r, now)
     seals(r)
     if check_workflows:
         pre_runs(r, now)
