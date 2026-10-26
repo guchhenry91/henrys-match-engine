@@ -949,6 +949,13 @@ them** — a finished match does not change what the model thinks about the next
 - The `lock` job therefore **does** trigger Render now, but only when a board file
   actually changed. A freeze alone changes the record, not the page.
 
+## Soccer refresh cadence (owner, 2026-10-26, Cloudflare bill)
+The :47 half-hour soccer refresh runs only on a UTC day with a soccer kick-off
+(`worker.js soccerMatchday`, reading `data-raw/leagues/kickoffs.json` written by
+`scripts/soccer_kickoffs.py` each refresh; a missing file counts as a matchday). Quiet days
+keep the hourly :17 runs and the 3-hourly ones; locking and results ride the 10-minute lock
+job regardless. Each job step logs the container's peak memory, to size the instance type.
+
 ## The scheduled-run ration
 Measured, not assumed. `0,15,30,45 11-22` asked for 48 slots a day and was honoured
 55-70% (26-34 runs) until 2026-08-26. Adding `lock.yml`'s `*/10` took the repo's

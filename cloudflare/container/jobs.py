@@ -76,6 +76,7 @@ JOBS = {
             ("Fetch shots / on-target prices", PY + "scripts.sync_soccer_shot_odds", "soft"),
             ("Refresh confirmed lineups", PY + "scripts.sync_lineups", "soft"),
             ("Publish all four leagues", PY + "leagues.publish", "gate"),
+            ("Soccer kick-offs for the scheduler", PY + "scripts.soccer_kickoffs", "soft"),
             ("Seal frozen picks", PY + "scripts.seal_picks", "soft"),
             ("Sanity-check the payloads", PY + "scripts.sanity_check", "gate"),
             ("Run tests", PY + "pytest tests/ -q", "gate"),

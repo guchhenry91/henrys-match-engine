@@ -190,5 +190,18 @@ const today = new Date().toISOString().slice(0, 10);
   q = await W.preRun(e, "nba", Date.parse(tip) - 62 * 60000);
   ok(q.length === 0, "and only once per tip-off", JSON.stringify(q));
 }
+// ---- half-hour soccer runs only on matchdays ----
+{
+  const db = makeD1(), e = env(db);
+  const at = new Date("2026-10-27T13:47:00Z");
+  ok(await W.soccerMatchday(e, at.getTime()), "no kick-off file: treated as a matchday");
+  ok(W.due(at, false).includes("leagues") && !W.due(at, true).includes("leagues"), "a quiet day drops the :47 run");
+  ok(W.due(new Date("2026-10-27T13:17:00Z"), true).includes("leagues"), "the :17 run stays on a quiet day");
+  db.raw.prepare("INSERT INTO state_files (ns,path,sha,repo_sha,chunks,size,updated_at) VALUES ('live','data-raw/leagues/kickoffs.json','x','',1,1,0)").run();
+  db.raw.prepare("INSERT INTO state_chunks (ns,path,idx,data) VALUES ('live','data-raw/leagues/kickoffs.json',0,?)").run(
+    Buffer.from(JSON.stringify(["2026-10-28T20:00:00+00:00"])).toString("base64"));
+  ok(!(await W.soccerMatchday(e, at.getTime())), "no game today: quiet");
+  ok(await W.soccerMatchday(e, Date.parse("2026-10-28T11:47:00Z")), "a game later today: matchday");
+}
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

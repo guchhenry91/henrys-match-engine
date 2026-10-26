@@ -418,7 +418,9 @@ async function internal(request, env, ctx, path) {
 // [hour or null, minute, job, weekday or null] in UTC -- the same slots the GitHub
 // workflows used (and that nfl/nba/mlb book_lines RUN_SLOTS assume).
 export const SLOTS = [
-  ...[...Array(12).keys()].flatMap((i) => [[11 + i, 17, "leagues"], [11 + i, 47, "leagues"]]),
+  // The :47 half-hour runs only on a UTC day with a soccer kick-off (owner, 2026-10-26,
+  // cost): see soccerMatchday. Quiet days keep :17 hourly and the 3-hourly runs.
+  ...[...Array(12).keys()].flatMap((i) => [[11 + i, 17, "leagues"], [11 + i, 47, "leagues", null, "matchday"]]),
   ...[0, 3, 6, 9, 12, 15, 18, 21].map((h) => [h, 15, "leagues"]),
   [6, 0, "leagues", 2],
   ...[...Array(13).keys()].flatMap((i) => [5, 15, 25, 35, 45, 55].map((m) => [11 + i, m, "lock"])),
@@ -432,12 +434,14 @@ export const SLOTS = [
   ...[0, 3, 6, 9, 12, 15, 18, 21].map((h) => [h, 17, "health"]),
 ];
 
-export function due(date) {
+// `quiet`: no soccer kick-off today, so "matchday" slots are skipped.
+export function due(date, quiet = false) {
   const h = date.getUTCHours(), m = date.getUTCMinutes(), dow = date.getUTCDay();
   const out = [];
-  for (const [hour, minute, job, weekday] of SLOTS) {
+  for (const [hour, minute, job, weekday, only] of SLOTS) {
     if (minute !== m || (hour !== null && hour !== h)) continue;
     if (weekday != null && weekday !== dow) continue;
+    if (only === "matchday" && quiet) continue;
     if (!out.includes(job)) out.push(job);
   }
   return out;
@@ -571,6 +575,19 @@ export async function preRun(env, job, now = Date.now()) {
 }
 export const nflPreLock = (env, now) => preRun(env, "nfl", now);
 
+// Is there a soccer kick-off on this UTC day? From data-raw/leagues/kickoffs.json,
+// written by every soccer refresh (scripts/soccer_kickoffs.py). A missing or unreadable
+// file answers yes: the cost of a wrong "no" is a stale board, of a wrong "yes" one run.
+export async function soccerMatchday(env, now = Date.now()) {
+  try {
+    const chunks = await readFile(env, "live", "data-raw/leagues/kickoffs.json");
+    if (!chunks) return true;
+    const day = new Date(now).toISOString().slice(0, 10);
+    return JSON.parse(new TextDecoder().decode(b64ToBytes(chunks)))
+      .some((t) => { const d = Date.parse(t); return !isNaN(d) && new Date(d).toISOString().slice(0, 10) === day; });
+  } catch (e) { return true; }
+}
+
 export async function pump(env) {
   const running = await env.DB.prepare("SELECT id, job, ns, started_at FROM jobs WHERE status='running' ORDER BY id LIMIT 1").first();
   if (running) {
@@ -639,7 +656,9 @@ export default {
     const mode = env.JOBS_MODE || "off";
     if (mode === "off") return;
     const at = new Date(Math.round(controller.scheduledTime / 60000) * 60000);
-    for (const job of due(at)) await enqueue(env, job, mode === "live" ? "live" : "shadow");
+    const gated = SLOTS.some(([h, m, , , only]) => only === "matchday" && m === at.getUTCMinutes() && h === at.getUTCHours());
+    const quiet = gated && !(await soccerMatchday(env, at.getTime()));
+    for (const job of due(at, quiet)) await enqueue(env, job, mode === "live" ? "live" : "shadow");
     if (mode === "live") {
       const m = at.getUTCMinutes();
       try {
