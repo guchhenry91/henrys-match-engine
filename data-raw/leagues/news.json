@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-10-25",
+  "_verified_on": "2026-10-26",
   "PL": {
     "Arsenal": {
       "out": [
@@ -4268,7 +4268,8 @@
     },
     "Sassuolo": {
       "out": [
-        "Ismael Kone"
+        "Ismael Kone",
+        "Fedde Leysen"
       ],
       "doubt": [],
       "automation": {
@@ -4283,13 +4284,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-26T17:50:00Z",
+      "checked": "2026-10-26T19:09:17Z",
       "lineup_api_attempted_fixture": 1550124,
       "lineup_api_attempted_at": "2026-09-13T18:18:49.921799+00:00",
       "lineup_api_rungs": [
         30
       ],
-      "note": "Kone out until January 2027 with a tibia/fibula fracture. RECHECK 23 Oct ahead of Como: no other injury news found, Kone status unchanged. RECHECK 23 Oct ahead of Como: starting11.com (single source) reconfirms Kone (broken leg) out and adds several uncorroborated names (Pieragnolo, Cande, Paz, Boloca, Idzes, Leysen, Volpato out; Walukiewicz doubt) -- not added per the two-source policy. RECHECK 26 Oct ahead of Sassuolo-Lazio (27 Oct, 17:30 UTC): no dated current-season formazioni/preview for this fixture found yet (too early); searches surfaced only an unrelated Fedde Leysen ACL item (11 Oct, vs Milan) and a minor pre-Verona Berardi knock, neither two-source verified for this match. Kone status carried forward unchanged."
+      "note": "Kone out until January 2027 with a tibia/fibula fracture. RECHECK 23 Oct ahead of Como: no other injury news found, Kone status unchanged. RECHECK 23 Oct ahead of Como: starting11.com (single source) reconfirms Kone (broken leg) out and adds several uncorroborated names (Pieragnolo, Cande, Paz, Boloca, Idzes, Leysen, Volpato out; Walukiewicz doubt) -- not added per the two-source policy. RECHECK 26 Oct ahead of Sassuolo-Lazio (27 Oct, 17:30 UTC): no dated current-season formazioni/preview for this fixture found yet (too early); searches surfaced only an unrelated Fedde Leysen ACL item (11 Oct, vs Milan) and a minor pre-Verona Berardi knock, neither two-source verified for this match. Kone status carried forward unchanged. RECHECK 26 Oct ~19:09 UTC (cloud sweep, same fixture): the Leysen ACL item now clears the two-source bar -- confirmed by Sassuolo's own club statement plus independent reporting from fantacalcio.it (12 Oct 2026) and pazzidifanta.com, a full anterior cruciate ligament tear suffered in the 26th minute of the 11 Oct Sassuolo-Milan match, season likely over; added to the out list. Still no dated formazioni/preview for Sassuolo-Lazio itself. Single-source only, NOT added: Jay Idzes described as 'also without' in the same Leysen reporting, but no second source or current date found (he has separate older Sept quad/foot knocks that may be stale) -- flagged, not acted on."
     },
     "Juventus": {
       "out": [
@@ -4411,13 +4412,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-26T17:50:00Z",
+      "checked": "2026-10-26T19:09:17Z",
       "lineup_api_attempted_fixture": 1550121,
       "lineup_api_attempted_at": "2026-09-12T15:38:48.759631+00:00",
       "lineup_api_rungs": [
         30
       ],
-      "note": "Five unavailable for the Monza match per tuttomercatoweb.com's dated preview (9 Oct 2026): Cataldi, Marusic and Rovella out long-term (muscular), Cancellieri on the injury list, Gudmundsson out with a shoulder dislocation suffered on national-team duty. RECHECK 17 Oct ahead of Juventus: the only dated item found on Rovella (already in our out list) is ~1 month old and inconclusive; existing out list carried forward unchanged. RECHECK 26 Oct ahead of Sassuolo-Lazio (27 Oct, 17:30 UTC): existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) is directionally consistent with what fresh searches still surface for these names, but every specific article found this pass carried a confirmed, non-current date (a Cancellieri injury dated 19 Oct 2025, a Rovella 'misses Sassuolo' piece dated 13 Sep 2025) rather than this week's reporting -- no two-source current-season confirmation either way, so the existing list is carried forward unchanged rather than revised on unverified grounds. No current formazioni/preview for this fixture published yet."
+      "note": "Five unavailable for the Monza match per tuttomercatoweb.com's dated preview (9 Oct 2026): Cataldi, Marusic and Rovella out long-term (muscular), Cancellieri on the injury list, Gudmundsson out with a shoulder dislocation suffered on national-team duty. RECHECK 17 Oct ahead of Juventus: the only dated item found on Rovella (already in our out list) is ~1 month old and inconclusive; existing out list carried forward unchanged. RECHECK 26 Oct ahead of Sassuolo-Lazio (27 Oct, 17:30 UTC): existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) is directionally consistent with what fresh searches still surface for these names, but every specific article found this pass carried a confirmed, non-current date (a Cancellieri injury dated 19 Oct 2025, a Rovella 'misses Sassuolo' piece dated 13 Sep 2025) rather than this week's reporting -- no two-source current-season confirmation either way, so the existing list is carried forward unchanged rather than revised on unverified grounds. No current formazioni/preview for this fixture published yet. RECHECK 26 Oct ~19:09 UTC (cloud sweep, same fixture): no new verified information found -- existing out list carried forward unchanged, still no dated formazioni/preview for this fixture."
     }
   }
 }
