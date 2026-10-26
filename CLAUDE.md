@@ -674,6 +674,8 @@ season is refetched).
 - `python -m scripts.sync_ucl_history` — history + the drawn fixture list.
 - `python -m scripts.ucl_backtest` — the gate (walk-forward, RPS vs a home-
   advantage baseline). Writes `data-raw/ucl/backtest_report.json`.
+  Skipped when the finished matches and its code are unchanged (fingerprint `_inputs`
+  in the report; 2026-10-26, cost): it was ~4 of every soccer refresh's ~11 minutes.
 - `python -m ucl.publish` — the board. Writes `data/ucl/board.json`.
 
 **Qualifying rounds are included on purpose.** They are where the small clubs

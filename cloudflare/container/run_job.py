@@ -22,6 +22,7 @@ import io
 import json
 import os
 import re
+import resource
 import shlex
 import shutil
 import subprocess
@@ -296,6 +297,19 @@ def save_changes(before, repo_sha, only=None):
     return snap
 
 
+def mem_peak():
+    """The container's peak memory so far, in MiB: the cgroup's own high-water mark
+    (every process, parallel workers included), else the largest single child's.
+    Logged after each step to size the instance type (owner, 2026-10-26: the bill is
+    mostly memory, which is charged on the size provisioned, not the size used)."""
+    for f in ("/sys/fs/cgroup/memory.peak", "/sys/fs/cgroup/memory/memory.max_usage_in_bytes"):
+        try:
+            return int(Path(f).read_text().strip()) // (1 << 20), "container"
+        except Exception:
+            pass
+    return resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss // 1024, "largest process"
+
+
 def run_step(name, cmd, env):
     log(f"step: {name}")
     # Fixed commands from jobs.py, run without a shell.
@@ -307,7 +321,8 @@ def run_step(name, cmd, env):
         out = ((exc.stdout or b"").decode(errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or ""))
         log(f"step TIMED OUT after {STEP_TIMEOUT // 60} min: {name} :: {out.strip()[-300:]}")
         return False
-    log(f"step finished in {time.time() - t0:.0f}s (exit {p.returncode})")
+    peak, of = mem_peak()
+    log(f"step finished in {time.time() - t0:.0f}s (exit {p.returncode}; peak memory {peak} MiB, {of})")
     tail = (p.stdout + p.stderr).strip().splitlines()[-25:]
     for line in tail:
         print("    " + line, flush=True)
