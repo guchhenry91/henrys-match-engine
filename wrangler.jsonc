@@ -21,8 +21,11 @@
   ],
   // One job container at a time (cloudflare/container/run_job.py).
   "containers": [
+    // 2 vCPU / 6 GiB (2026-10-27, cost): memory is billed on the size provisioned, and
+    // the biggest job (the soccer publish) peaks at ~1.25 GiB -- run_job.py logs each
+    // step's peak. standard-4 (12 GiB) paid for ten times that.
     { "class_name": "JobRunner", "image": "./Dockerfile.jobs",
-      "instance_type": "standard-4", "max_instances": 2 },
+      "instance_type": { "vcpu": 2, "memory_mib": 6144, "disk_mb": 12000 }, "max_instances": 2 },
     // The Henryade dashboard's stats proxy (Dockerfile.proxy), one instance.
     { "class_name": "StatsProxy", "image": "./Dockerfile.proxy",
       "instance_type": "basic", "max_instances": 1 }

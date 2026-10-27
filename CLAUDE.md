@@ -955,6 +955,8 @@ The :47 half-hour soccer refresh runs only on a UTC day with a soccer kick-off
 `scripts/soccer_kickoffs.py` each refresh; a missing file counts as a matchday). Quiet days
 keep the hourly :17 runs and the 3-hourly ones; locking and results ride the 10-minute lock
 job regardless. Each job step logs the container's peak memory, to size the instance type.
+JobRunner is a custom 2 vCPU / 6 GiB instance (2026-10-27; was standard-4, 12 GiB): the
+soccer publish peaks at ~1.25 GiB. A wrangler.jsonc change now also rolls out the containers.
 
 ## The scheduled-run ration
 Measured, not assumed. `0,15,30,45 11-22` asked for 48 slots a day and was honoured
