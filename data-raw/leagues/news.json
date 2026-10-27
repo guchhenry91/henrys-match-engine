@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-10-26",
+  "_verified_on": "2026-10-27",
   "PL": {
     "Arsenal": {
       "out": [
@@ -3749,7 +3749,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-26T23:30:00Z",
+      "checked": "2026-10-27T11:30:00Z",
       "lineup_api_attempted_fixture": 1550128,
       "lineup_api_attempted_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_api_rungs": [
@@ -3786,7 +3786,7 @@
       "lineup_checked_at": "2026-09-19T15:59:18.623585+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1550128,
-      "note": "Ahead of Cagliari (H), 27 Oct (MW9). Malen's red card suspension from Como (11 Oct) was a single match -- he served it against Genoa (17 Oct) and was expected back for the next league game per Gasperini's own post-Genoa comments, corroborated by two independent fantacalcio.it/fantamaster.it reports (both dated 13 Oct 2026) stating the ban covers Genoa only. Moved OUT of out-list. Dybala and Cristante: single-source reports (fantamaster.it, undated this cycle) suggest both have recovered and were available for Napoli/Slovan Bratislava, but this is not two-source corroborated for the Cagliari game specifically -- left as OUT pending a second source rather than acted on. Kone (grade-1 hamstring, ~1 month, aiming for the Sassuolo game after this one) and Svilar (toe stress fracture, officially out for a named list of matches including this Cagliari fixture, confirmed by Gasperini plus fantacalcio.it/tuttomercatoweb.com) both reconfirmed OUT."
+      "note": "Ahead of Cagliari (H), 27 Oct (MW9). Malen's red card suspension from Como (11 Oct) was a single match -- he served it against Genoa (17 Oct) and was expected back for the next league game per Gasperini's own post-Genoa comments, corroborated by two independent fantacalcio.it/fantamaster.it reports (both dated 13 Oct 2026) stating the ban covers Genoa only. Moved OUT of out-list. Dybala and Cristante: single-source reports (fantamaster.it, undated this cycle) suggest both have recovered and were available for Napoli/Slovan Bratislava, but this is not two-source corroborated for the Cagliari game specifically -- left as OUT pending a second source rather than acted on. Kone (grade-1 hamstring, ~1 month, aiming for the Sassuolo game after this one) and Svilar (toe stress fracture, officially out for a named list of matches including this Cagliari fixture, confirmed by Gasperini plus fantacalcio.it/tuttomercatoweb.com) both reconfirmed OUT. Re-checked 27 Oct: aggregator previews conflict (one claims Svilar/Kone/Pellegrini all out, another has Svilar as starting keeper and Kone as a starter playing through pain, a third has Dybala back among the squad); none of this clears the two-source bar against the more specific, dated reporting above, so the out-list is left unchanged."
     },
     "Atalanta": {
       "out": [
@@ -4347,7 +4347,10 @@
       "note": "Full-strength squad reported; Pulisic starting. RECHECK 17 Oct ahead of Atalanta: Rabiot/Pulisic injury items found are dated to the WRONG season (Oct 2025) and excluded as stale; no current-dated news found this pass, full-strength read carried forward."
     },
     "Cagliari": {
-      "out": [],
+      "out": [
+        "Mattia Felici",
+        "Riyad Idrissi"
+      ],
       "doubt": [
         "Adam Obert",
         "Alen Sehic",
@@ -4367,8 +4370,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
-      "note": "Romano and Daniel Maldini returning from international duty, should be available. Doubts per fantamaster.it; Kevin Carlos (thigh) also separately flagged by CagliariNews24."
+      "checked": "2026-10-27T11:30:00Z",
+      "note": "Ahead of Roma (A), 27 Oct (MW9). Felici: season-ending ACL tear suffered 7 Sep vs Lecce, confirmed by club operation statement (fantacalcio.it, goal.com) -- still out. Idrissi: ACL rupture 7 Mar 2026 vs Como, surgery and ~6-7 month recovery confirmed by the club (unionesarda.it, fantacalcio.it, goal.com); September reporting had him doing differentiated training in Sardinia with a possible October return not yet confirmed back in the group, and he is still listed out in matchday-9 previews (williamhillnews.it) -- added to out rather than doubt. Existing doubts (Obert, Sehic, Deiola, Rodriguez, Kevin Carlos) unchanged -- no corroborated update found this cycle. Romano and Daniel Maldini returning from international duty, should be available. Doubts per fantamaster.it; Kevin Carlos (thigh) also separately flagged by CagliariNews24."
     },
     "Udinese": {
       "out": [
