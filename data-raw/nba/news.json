@@ -1,5 +1,30 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
   "_verified_on": "2026-10-28",
-  "players": {}
+  "players": {
+    "Tyrese Haliburton": {
+      "status": "doubt",
+      "team": "IND",
+      "note": "Questionable/GTD, hamstring, for tonight's 23:10 UTC game vs PHI. Corroborated by two independent sources (CBS Sports injuries page, RotoWire NBA lineups), both dated today 28 Oct.",
+      "checked": "2026-10-28T13:55:00Z"
+    },
+    "Andrew Nembhard": {
+      "status": "doubt",
+      "team": "IND",
+      "note": "Questionable/GTD, neck, for tonight's 23:10 UTC game vs PHI. Corroborated by two independent sources (CBS Sports injuries page, RotoWire NBA lineups), both dated today 28 Oct.",
+      "checked": "2026-10-28T13:55:00Z"
+    },
+    "Aaron Wiggins": {
+      "status": "doubt",
+      "team": "ATL",
+      "note": "Questionable/GTD, knee, for tonight's 23:10 UTC game vs MIA. Corroborated by two independent sources (CBS Sports injuries page, RotoWire NBA lineups), both dated today 28 Oct.",
+      "checked": "2026-10-28T13:55:00Z"
+    },
+    "Yaxel Lendeborg": {
+      "status": "doubt",
+      "team": "GSW",
+      "note": "Questionable/GTD, foot, for tonight's 00:10 UTC (29 Oct) game vs MIN. Corroborated by two independent sources (CBS Sports injuries page, RotoWire NBA lineups), both dated today 28 Oct.",
+      "checked": "2026-10-28T13:55:00Z"
+    }
+  }
 }
