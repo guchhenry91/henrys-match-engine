@@ -1,6 +1,6 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-26",
+  "_verified_on": "2026-10-29",
   "players": {
     "Jeremiyah Love": {
       "status": "out",
@@ -59,14 +59,8 @@
     "Chris Brooks": {
       "status": "out",
       "team": "GB",
-      "note": "Out, ankle (depth RB, DNP all week). Source: packers.com official Friday report (9 Oct 2026).",
-      "checked": "2026-10-11T09:16:27Z"
-    },
-    "Savion Williams": {
-      "status": "out",
-      "team": "GB",
-      "note": "Out (IR), ankle (depth WR). Source: packers.com official Friday report (9 Oct 2026).",
-      "checked": "2026-10-11T09:16:27Z"
+      "note": "RECHECK 29 Oct ~15:30 UTC (cloud sweep, ahead of Week 8 TNF vs Carolina): still on injured reserve (ankle), placed there before Week 5 with a 4-game minimum; eligible to return Week 9 vs New England, so remains out for this Thursday's game. Sources: thefantasyfootballers.com (\"Chris Brooks moves to injured reserve\"), corroborated by acmepackingcompany.com's IR-moves report.",
+      "checked": "2026-10-29T15:30:00Z"
     },
     "Tank Dell": {
       "status": "doubt",
