@@ -1,6 +1,6 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-10-28",
+  "_verified_on": "2026-10-29",
   "PL": {
     "Arsenal": {
       "out": [
@@ -3504,7 +3504,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-10-29T18:10:00Z",
       "lineup_api_attempted_fixture": 1552730,
       "lineup_api_attempted_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_api_rungs": [
@@ -3539,7 +3539,7 @@
       "lineup_checked_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1552730,
-      "note": "RECHECK 17 Oct ahead of Auxerre: a single-source (starting11.com) pass lists Mpasi, Jelert, Zagadou, Toure, Mambimbi and Pembele out, Fofana doubtful, and Seko suspended -- none corroborated by a second outlet or official statement this pass, so NOT added; kept at the existing clean read pending confirmation. RECHECK 24 Oct ~23:14 UTC (cloud sweep ahead of tomorrow's Marseille game, a Best Pick on today's board): the same six names now NEWLY CORROBORATED by a second, independent source -- sportsmole.co.uk's round-7 Auxerre preview (18 Oct) separately confirms Mambimbi and Mpasi-Nzau out with Achilles tendon injuries, Toure and Zagadou out with long-term knee problems, and Pembele and Jelert 'ruled out in defence' (leaving coach Didier Digard with only four fit first-team defenders for that game). ADDED to out on that two-source basis; all four injury types (Achilles, knee, defender absences framed as longer-term) are unlikely to have resolved in the week since. Fofana (doubt) and Seko (suspended for that one match, likely served and eligible again by now) remain single-source / time-expired respectively and are NOT added. No club-confirmed squad list for the Marseille fixture found yet. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged."
+      "note": "RECHECK 17 Oct ahead of Auxerre: a single-source (starting11.com) pass lists Mpasi, Jelert, Zagadou, Toure, Mambimbi and Pembele out, Fofana doubtful, and Seko suspended -- none corroborated by a second outlet or official statement this pass, so NOT added; kept at the existing clean read pending confirmation. RECHECK 24 Oct ~23:14 UTC (cloud sweep ahead of tomorrow's Marseille game, a Best Pick on today's board): the same six names now NEWLY CORROBORATED by a second, independent source -- sportsmole.co.uk's round-7 Auxerre preview (18 Oct) separately confirms Mambimbi and Mpasi-Nzau out with Achilles tendon injuries, Toure and Zagadou out with long-term knee problems, and Pembele and Jelert 'ruled out in defence' (leaving coach Didier Digard with only four fit first-team defenders for that game). ADDED to out on that two-source basis; all four injury types (Achilles, knee, defender absences framed as longer-term) are unlikely to have resolved in the week since. Fofana (doubt) and Seko (suspended for that one match, likely served and eligible again by now) remain single-source / time-expired respectively and are NOT added. No club-confirmed squad list for the Marseille fixture found yet. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged. RECHECK 29 Oct ~18:10 UTC (cloud sweep, match is tomorrow 30 Oct): CulturePSG's two dedicated Le Havre/PSG preview articles (28 and 29 Oct) confirm Mpasi (Achilles rupture, Sept), Zagadou (ACL rupture, April) and Mambimbi (Achilles rupture, July) still out, and describe Jelert (thigh, could return) and Pembele (adductor, very uncertain) as uncertain rather than confirmed out -- but this is a single outlet for this specific match, so NOT strong enough on its own to downgrade Jelert/Pembele from the existing two-source 'out'. Toure is not mentioned in either CulturePSG piece; no second source found either confirming or contradicting his status, so he is kept rather than removed on an omission alone. Existing out list stands unchanged pending a second source."
     },
     "Monaco": {
       "out": [],
@@ -3594,12 +3594,13 @@
     },
     "Paris SG": {
       "out": [
-        "Achraf Hakimi",
+        "Khvicha Kvaratskhelia",
+        "Ousmane Dembélé",
+        "Marquinhos",
+        "Nuno Mendes",
         "Senny Mayulu"
       ],
-      "doubt": [
-        "Ferran Torres"
-      ],
+      "doubt": [],
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -3612,7 +3613,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-10-29T18:10:00Z",
       "lineup_api_attempted_fixture": 1552757,
       "lineup_api_attempted_at": "2026-09-13T18:18:49.921799+00:00",
       "lineup_api_rungs": [
@@ -3646,7 +3647,7 @@
       "lineup_checked_at": "2026-09-13T18:18:49.921799+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1552757,
-      "note": "Ferran Torres (ankle) re-confirmed doubtful by two independent sources (roundtable.io, starting11.com). Achraf Hakimi (thigh) and Senny Mayulu (groin) held as out per existing data; neither freshly re-confirmed nor contradicted by a second source this round. RECHECK 17 Oct (Strasbourg match already underway): existing Mayulu out reconfirmed by a second outlet (CulturePSG, 3 Oct infirmary update); Hakimi held as existing. A single-source (starting11.com) list adding Longoni/Dembele/Nuno Mendes out and Zaire-Emery doubt was NOT added."
+      "note": "Ferran Torres (ankle) re-confirmed doubtful by two independent sources (roundtable.io, starting11.com). Achraf Hakimi (thigh) and Senny Mayulu (groin) held as out per existing data; neither freshly re-confirmed nor contradicted by a second source this round. RECHECK 17 Oct (Strasbourg match already underway): existing Mayulu out reconfirmed by a second outlet (CulturePSG, 3 Oct infirmary update); Hakimi held as existing. A single-source (starting11.com) list adding Longoni/Dembele/Nuno Mendes out and Zaire-Emery doubt was NOT added. RECHECK 29 Oct ~18:10 UTC (cloud sweep ahead of tomorrow's Le Havre match): major changes, all confirmed by PSG's own statement plus multiple independent outlets (Al Jazeera, Italpress, TSN, Citizen Digital/SuperSport/ArabNews, Flashscore) -- Kvaratskhelia tore his ACL in the 20 Oct Champions League win over Barcelona and had surgery in Doha 27 Oct, out several months (ADDED, out). Dembélé and Marquinhos both picked up thigh injuries in that same Barcelona match, several weeks out per PSG's statement (ADDED, both out). Nuno Mendes suffered a separate left-thigh injury in the 17 Oct Strasbourg win, also several weeks out, confirmed by thestar.com.my/italpress.com/90min.com plus PSG's own statement (ADDED, out). CulturePSG's two dedicated Le Havre-match preview pieces (28 and 29 Oct) list exactly these four plus Mika Godts (paternity leave, not injury -- not added, personal not medical) as the club's current absentees, and do NOT include Hakimi, Torres or Mayulu. Hakimi: REMOVED from out -- two independent stats sources (Hespress, The Analyst) show him playing 408-409 Ligue 1 minutes across six appearances this season including 27 minutes at Strasbourg on 17 Oct, directly contradicting the stale 'out' tag. Ferran Torres: REMOVED from doubt -- his only found issue (an ankle knock, early Oct, did not stop him training/playing per one source) is unconfirmed as current and he is absent from both of CulturePSG's dedicated absentee lists for this match. Mayulu: HELD as out -- his original injury (26 Sep/2 Oct, left thigh, ~1 month, PSG statement via L'Équipe) was explicitly estimated to end around this exact Le Havre fixture, and CulturePSG's match-specific absentee lists don't include him, but that is one outlet's omission rather than a second source confirming his return, so left unchanged pending clearer confirmation next pass."
     },
     "Rennes": {
       "out": [],
