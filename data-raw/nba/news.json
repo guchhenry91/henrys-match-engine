@@ -36,8 +36,32 @@
       "status": "out",
       "team": "IND",
       "note": "Returned for the 2026-27 opener (21 Oct, at New Orleans) after completing Achilles-tear rehab (multiple pre-season reports, Pacers Media Day). CBS Sports' injury report (2026-10-30) now lists a separate hamstring issue, out to ~13 Nov. Pacers play at Miami tonight (31 Oct).",
-      "checked": "2026-10-30T14:10:00Z"
+      "checked": "2026-10-30T21:14:00Z"
+    },
+    "Tre Johnson": {
+      "status": "doubt",
+      "team": "WAS",
+      "note": "Achilles issue, listed Game Time Decision on CBS Sports' injury report, updated Thu 29 Oct 2026. He is on tonight's board (points/rebounds props); Wizards host Charlotte tonight (30 Oct, tip 23:10 UTC).",
+      "checked": "2026-10-30T21:14:00Z"
+    },
+    "Aaron Nesmith": {
+      "status": "doubt",
+      "team": "IND",
+      "note": "Hamstring issue, listed Game Time Decision on CBS Sports' injury report, updated Thu 29 Oct 2026. He is on tonight's board (threes prop); Pacers play at Miami tonight (30 Oct, tip 00:10 UTC 31 Oct).",
+      "checked": "2026-10-30T21:14:00Z"
+    },
+    "Andrew Nembhard": {
+      "status": "doubt",
+      "team": "IND",
+      "note": "Neck issue, listed Game Time Decision on CBS Sports' injury report, updated Thu 29 Oct 2026. He is on tonight's board (rebounds prop); Pacers play at Miami tonight (30 Oct, tip 00:10 UTC 31 Oct).",
+      "checked": "2026-10-30T21:14:00Z"
+    },
+    "Jaylen Brown": {
+      "status": "doubt",
+      "team": "PHI",
+      "note": "Knee issue, listed Game Time Decision on CBS Sports' injury report, updated Thu 29 Oct 2026 (Brown was traded from Boston to Philadelphia in July 2026, so PHI is correct). He is on tonight's board (rebounds prop); 76ers host the Knicks tonight (30 Oct, tip 23:40 UTC).",
+      "checked": "2026-10-30T21:14:00Z"
     }
   },
-  "_not_added": "Several other names surfaced on aggregator injury pages (sportbusy.com, CBS Sports) for tonight's/tomorrow's teams (e.g. Anthony Edwards/MIN, Ivica Zubac listed under IND, Nic Claxton under CHI, Jose Alvarado under NYK, Mark Williams under PHX, Santi Aldama under DAL) but those pages show clear team-mismatch errors (Zubac, Claxton, Alvarado, Williams and Aldama are not on those rosters), so none of those entries were trusted without independent confirmation. Only the six players above, each confirmed by a specific dated news report naming the correct team, were added."
+  "_not_added": "Several other names surfaced on aggregator injury pages (sportbusy.com, CBS Sports) for tonight's/tomorrow's teams (e.g. Anthony Edwards/MIN, Ivica Zubac listed under IND, Nic Claxton under CHI, Jose Alvarado under NYK, Mark Williams under PHX, Santi Aldama under DAL) but those pages show clear team-mismatch errors (Zubac, Claxton, Alvarado, Williams and Aldama are not on those rosters), so none of those entries were trusted without independent confirmation. RECHECK 30 Oct ~21:14 UTC (cloud sweep ahead of tonight's 10-game slate): re-pulled CBS Sports' full injury report and cross-checked every player in data/nba/board.json's props against it. Four more props players carry a current Game-Time-Decision tag tied to a specific injury (added above as doubt: Tre Johnson/WAS achilles, Aaron Nesmith/IND hamstring, Andrew Nembhard/IND neck, Jaylen Brown/PHI knee -- Brown's PHI tag double-checked and confirmed correct, he was traded there from Boston in July 2026). The original six out entries were reconfirmed unchanged against the same report. No other props player on tonight's ten-game slate (WAS-CHA, BOS-CHI, BKN-DET, PHI-NYK, TOR-ORL, DAL-HOU, MIA-IND, MIN-LAC, PHX-DEN, GSW-LAL) appears on CBS's report."
 }
