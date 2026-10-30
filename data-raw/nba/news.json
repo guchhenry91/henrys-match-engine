@@ -1,5 +1,43 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-29",
-  "players": {}
+  "_verified_on": "2026-10-30",
+  "players": {
+    "Jimmy Butler": {
+      "status": "out",
+      "team": "GSW",
+      "note": "Season-ending right knee ACL tear suffered vs. Miami on 19 Jan 2026 (ESPN/Shams Charania); CBS Sports' injury report (2026-10-30) still lists him out, est. return Jan 2027. Warriors play LAL tonight (31 Oct).",
+      "checked": "2026-10-30T14:10:00Z"
+    },
+    "Paolo Banchero": {
+      "status": "out",
+      "team": "ORL",
+      "note": "Low-grade right high ankle sprain suffered vs. Minnesota ~24 Oct 2026 (MRI-confirmed); ESPN's Shams Charania reported multiple weeks out. CBS Sports' injury report (2026-10-30) lists him out to ~22 Nov. Orlando plays at Toronto tonight (31 Oct).",
+      "checked": "2026-10-30T14:10:00Z"
+    },
+    "Kawhi Leonard": {
+      "status": "out",
+      "team": "TOR",
+      "note": "Left knee swelling, late scratch 25 Oct 2026 vs. Minnesota (CP24); ESPN's Shams Charania reported he is expected to miss a period of weeks, no acute injury on imaging. CBS Sports' injury report (2026-10-30) lists him out to ~23 Nov. Raptors host Orlando tonight (31 Oct).",
+      "checked": "2026-10-30T14:10:00Z"
+    },
+    "Brandon Ingram": {
+      "status": "out",
+      "team": "LAC",
+      "note": "Partially torn right Achilles/heel surgery in May 2026; club said pre-season he would miss the start of the season (NBC Sports). CBS Sports' injury report (2026-10-30) still lists him out to ~8 Nov. Clippers play at Minnesota tonight (31 Oct).",
+      "checked": "2026-10-30T14:10:00Z"
+    },
+    "Bradley Beal": {
+      "status": "out",
+      "team": "LAC",
+      "note": "Right knee inflammation after off-season left hip surgery; reported not ready for start of training camp (RotoBaller/beat reports). CBS Sports' injury report (2026-10-30) still lists him out to ~8 Nov. Clippers play at Minnesota tonight (31 Oct).",
+      "checked": "2026-10-30T14:10:00Z"
+    },
+    "Tyrese Haliburton": {
+      "status": "out",
+      "team": "IND",
+      "note": "Returned for the 2026-27 opener (21 Oct, at New Orleans) after completing Achilles-tear rehab (multiple pre-season reports, Pacers Media Day). CBS Sports' injury report (2026-10-30) now lists a separate hamstring issue, out to ~13 Nov. Pacers play at Miami tonight (31 Oct).",
+      "checked": "2026-10-30T14:10:00Z"
+    }
+  },
+  "_not_added": "Several other names surfaced on aggregator injury pages (sportbusy.com, CBS Sports) for tonight's/tomorrow's teams (e.g. Anthony Edwards/MIN, Ivica Zubac listed under IND, Nic Claxton under CHI, Jose Alvarado under NYK, Mark Williams under PHX, Santi Aldama under DAL) but those pages show clear team-mismatch errors (Zubac, Claxton, Alvarado, Williams and Aldama are not on those rosters), so none of those entries were trusted without independent confirmation. Only the six players above, each confirmed by a specific dated news report naming the correct team, were added."
 }
