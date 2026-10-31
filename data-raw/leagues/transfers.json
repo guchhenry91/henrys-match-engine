@@ -824,6 +824,16 @@
     "verified_by": "agent web search, current reporting as of 2026-10-23",
     "result": "all 8 confirmed still at the club shown; no transfers.json changes required. The big-five October transfer window is closed, consistent with no movement. Fábio Vieira's permanent Arsenal -> Hamburg move (completed end of summer window) is already reflected correctly in the live data. Diao, João Pedro, the three Mainz players, Fernández and Rômulo all confirmed current via club/squad listings or recent match/news activity.",
     "not_checked": "Team-news findings from this same sweep (Chelsea/Tottenham fitness ahead of their 24 Oct fixture) were actioned in data-raw/leagues/news.json, not here -- this entry covers only the club-affiliation (transfer) check."
+   },
+   {
+    "date": "2026-10-31T11:17Z",
+    "scope": "matchday-news board check (cloud team-news sweep)",
+    "clubs": "n/a -- player-by-player check of player_picks.json board only",
+    "players": 16,
+    "method": "web search / lineup-data cross-check per distinct player on the live player_picks.json board: Raphinha, Lassine Sinayoko, Nikola Krstovic, Mattia Zaccagni, Rayan, Evanilson, Jonathan Burkardt, Romulo, Alexander Isak, Armand Lauriente, Harvey Barnes, Ante Budimir, Fermin Lopez, Cody Gakpo, Yoane Wissa, Lamine Yamal",
+    "verified_by": "agent web search (Zaccagni/Burkardt/Lauriente/Barnes/Wissa, not individually re-checked since the 2026-08/09 sweeps) plus current-matchday lineup data in news.json confirming club attribution for the six within this run's 26h window (Raphinha, Fermin Lopez, Lamine Yamal, Rayan, Evanilson, Romulo)",
+    "result": "all 16 confirmed still at the club shown; no transfers.json changes required. The summer/October trading windows are both closed (next window is January 2027), so no mid-season moves were expected or found.",
+    "not_checked": "no in-depth re-verification of the 10 players outside this run's 26h scope beyond what prior sweeps (2026-08-26 through 2026-10-23) already established"
    }
   ],
   "known_gaps": [
