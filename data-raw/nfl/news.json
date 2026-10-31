@@ -1,13 +1,7 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-29",
+  "_verified_on": "2026-10-31",
   "players": {
-    "Jeremiyah Love": {
-      "status": "out",
-      "team": "ARI",
-      "note": "Ruled out for Week 6 at the Rams, left ankle -- DNP three straight days, HC Mike LaFleur confirmed Friday he will miss Sunday's game; no IR move discussed. Tyler Allgeier/Bam Knight take the backfield. Sources: fieldlevelmedia.com (\"Cardinals rule out RB Jeremiyah Love (ankle) vs Rams\"), corroborated by tsn.ca and draftsharks.com.",
-      "checked": "2026-10-18T17:20:00Z"
-    },
     "Saquon Barkley": {
       "status": "doubt",
       "team": "PHI",
@@ -32,29 +26,11 @@
       "note": "Out, concussion (depth TE). Source: legionreport.com, corroborated by rotoballer.com.",
       "checked": "2026-10-11T09:16:27Z"
     },
-    "Dont'e Thornton": {
-      "status": "out",
-      "team": "LV",
-      "note": "Out (IR-R), hamstring -- Week 6 vs Bills report reconfirms him on IR-R. Source: raiders.com reporting / SI Raiders Week 6 preview, 18 Oct 2026; corroborated by tsn.ca (9 Oct 2026).",
-      "checked": "2026-10-18T17:20:00Z"
-    },
     "Breece Hall": {
       "status": "out",
       "team": "NYJ",
       "note": "UPDATE 25 Oct ~17:15 UTC (cloud sweep): declared INACTIVE for today's Week 7 game at Miami per the Jets' own official inactives list (newyorkjets.com, 25 Oct 2026), corroborated by CBS Sports' Week 7 inactives/injury tracker. Supersedes the 24 Oct 'doubt'/Questionable read.",
       "checked": "2026-10-25T17:15:00Z"
-    },
-    "Adonai Mitchell": {
-      "status": "out",
-      "team": "NYJ",
-      "note": "Out, finger -- did not practice all week, official Week 6 designation reconfirmed. Source: nfl.com official Week 6 injury report / patriots.com combined report, 16 Oct 2026.",
-      "checked": "2026-10-17T18:20:00Z"
-    },
-    "Dillon Gabriel": {
-      "status": "out",
-      "team": "CLE",
-      "note": "Out, back -- official Week 6 designation reconfirmed (carried over from Week 5); one source shows an internal inconsistency (listed as a full practice participant yet tagged Out), unresolved this pass -- recommend a same-day recheck of Cleveland's starting QB plan before kickoff. Source: nfl.com official Week 6 injury report, 17 Oct 2026; legionreport.com/ravens-vs-browns, 17 Oct 2026. RECHECK 24 Oct (cloud sweep ahead of Week 7 at Tennessee): still listed Out on nfl.com's official Week 7 injury report, 24 Oct 2026. Unchanged.",
-      "checked": "2026-10-24T15:20:00Z"
     },
     "Chris Brooks": {
       "status": "out",
@@ -89,37 +65,13 @@
     "Zach Charbonnet": {
       "status": "out",
       "team": "SEA",
-      "note": "Not expected to play Week 6 at Denver (TNF, 16 Oct) -- still on PUP recovering from a torn ACL, 21-day practice window opened 1 Oct; HC Mike Macdonald said a short-week return is 'too tricky' ('As of right now, the answer is no'). Emanuel Wilson leads the backfield. Source: seahawks.com (\"RB Zach Charbonnet not expected to make return for Seahawks Week 6 game at Denver\"), corroborated by playerprofiler.com (\"Zach Charbonnet (knee) not expected to play Week 6\").",
-      "checked": "2026-10-14T23:30:00Z"
-    },
-    "Lamar Jackson": {
-      "status": "doubt",
-      "team": "BAL",
-      "note": "Downgraded from his Week 6 'out' -- limited practice participant Wed/Thu/Fri this week, now Questionable (ankle) for Week 7 vs. Cincinnati. Sources: nfl.com official Week 7 injury report, 24 Oct 2026; baltimoreravens.com official injury report (Questionable), 24 Oct 2026.",
-      "checked": "2026-10-24T15:20:00Z"
+      "note": "Confirmed Out again for Week 7 vs. Kansas City (SNF, 26 Oct ~00:20 UTC) despite full practice participation Wed/Thu/Fri -- likely a reserve/PUP-activation technicality (Seattle had until 22 Oct to activate him from reserve/PUP and a hoped-for Week 7 debut did not materialize as an active game status). Emanuel Wilson/George Holani remain the backfield. Sources: chiefs.com official \"Week 7 Injury Report: Chiefs vs. Seahawks 2026\" page (FP/FP/FP, Game Status: Out), corroborated by seahawks.com's official injury report mirroring the same Chiefs/Seahawks combined table (FP/FP/FP, Game Status: OUT). Supersedes the stale 14 Oct Week 6 note.",
+      "checked": "2026-10-25T21:30:00Z"
     },
     "Jaylen Wright": {
       "status": "doubt",
       "team": "MIA",
       "note": "Questionable, foot (likely next man up behind Achane). Source: legionreport.com, corroborated by rotoballer.com.",
-      "checked": "2026-10-11T09:16:27Z"
-    },
-    "Trey Lance": {
-      "status": "doubt",
-      "team": "LAC",
-      "note": "Doubtful, groin (backup QB; Justin Herbert starts). Source: chargers.com official Week 5 report.",
-      "checked": "2026-10-11T09:16:27Z"
-    },
-    "Ladd McConkey": {
-      "status": "doubt",
-      "team": "LAC",
-      "note": "Questionable, foot. Source: chargers.com official Week 5 report.",
-      "checked": "2026-10-11T09:16:27Z"
-    },
-    "Charlie Kolar": {
-      "status": "doubt",
-      "team": "LAC",
-      "note": "Questionable, forearm. Source: chargers.com official Week 5 report.",
       "checked": "2026-10-11T09:16:27Z"
     },
     "Jalen Hurts": {
@@ -140,24 +92,6 @@
       "note": "Out, thumb/toe -- reconfirmed in the Week 7 official report ahead of Thu 22 Oct TNF at home vs NE, did not practice Mon/Tue/Wed. Sources: chicagobears.com official Week 7 injury report, 21 Oct 2026; corroborated by nfl.com official Week 7 injury report and patriots.com's crawl of the same report.",
       "checked": "2026-10-22T16:10:00Z"
     },
-    "Dylan Sampson": {
-      "status": "doubt",
-      "team": "CLE",
-      "note": "Downgraded from his Week 6 IR-R 'out' -- activated and now Questionable (knee) for Week 7 at Tennessee. Sources: nfl.com official Week 7 injury report, 24 Oct 2026; clevelandbrowns.com official injury report (knee, Questionable), 24 Oct 2026.",
-      "checked": "2026-10-24T15:20:00Z"
-    },
-    "Matthew Hibner": {
-      "status": "out",
-      "team": "BAL",
-      "note": "Out, hand -- did not practice. Source: nfl.com official Week 6 injury report, 17 Oct 2026.",
-      "checked": "2026-10-17T18:20:00Z"
-    },
-    "Ashton Dulin": {
-      "status": "out",
-      "team": "IND",
-      "note": "Out, hamstring -- did not practice all week. Source: nfl.com official Week 6 injury report, 17 Oct 2026.",
-      "checked": "2026-10-17T18:20:00Z"
-    },
     "Theo Johnson": {
       "status": "out",
       "team": "NYG",
@@ -170,29 +104,17 @@
       "note": "Out (placed on IR), foot. Source: philadelphiaeagles.com official Week 6 injury report, 16 Oct 2026.",
       "checked": "2026-10-17T18:20:00Z"
     },
-    "Baker Mayfield": {
-      "status": "doubt",
-      "team": "TB",
-      "note": "Downgraded from his Week 6 'out' (dislocated thumb) -- now Questionable for Week 7 at Carolina. Sources: nfl.com official Week 7 injury report, 24 Oct 2026; buccaneers.com official injury report (Questionable), 24 Oct 2026.",
-      "checked": "2026-10-24T15:20:00Z"
-    },
     "Emeka Egbuka": {
       "status": "out",
       "team": "TB",
-      "note": "Ruled Out for Week 7 at Carolina, concussion -- did not practice all week. Board currently shows him as 'doubt' (Thursday's Questionable designation); this is the official Friday-final report. Sources: nfl.com official Week 7 injury report, 24 Oct 2026; buccaneers.com official injury report (game status OUT), 24 Oct 2026.",
-      "checked": "2026-10-24T15:20:00Z"
-    },
-    "Roman Wilson": {
-      "status": "out",
-      "team": "PIT",
-      "note": "Out, finger -- did not practice all week. Source: steelers.com official Week 6 injury report (vs. Buccaneers), 16 Oct 2026.",
-      "checked": "2026-10-17T18:20:00Z"
+      "note": "Still Out for Week 8 at Atlanta, now foot (was concussion in Week 7). Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
     },
     "Ben Skowronek": {
-      "status": "out",
+      "status": "doubt",
       "team": "PIT",
-      "note": "Out, calf -- did not practice all week. Source: steelers.com official Week 6 injury report (vs. Buccaneers), 16 Oct 2026.",
-      "checked": "2026-10-17T18:20:00Z"
+      "note": "Downgraded from his Week 6 'out' (calf) -- now Questionable for Week 8 vs. Cleveland. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
     },
     "Mike Evans": {
       "status": "out",
@@ -203,8 +125,8 @@
     "Brian Robinson": {
       "status": "out",
       "team": "ATL",
-      "note": "Ruled Out for Week 7 vs. San Francisco, hamstring -- limited practice Wednesday, did not practice Thursday/Friday. Board currently shows him as 'doubt' (Thursday's Questionable designation); this is the official Friday-final report. Sources: atlantafalcons.com official injury report headline \"Ruled out vs. 49ers\", dated 23 Oct 2026; corroborated by nfl.com official Week 7 injury report, 24 Oct 2026.",
-      "checked": "2026-10-24T15:20:00Z"
+      "note": "Still Out, hamstring, now reconfirmed for Week 8 vs. Tampa Bay. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
     },
     "Tyler Warren": {
       "status": "out",
@@ -213,10 +135,10 @@
       "checked": "2026-10-24T15:20:00Z"
     },
     "Tyjae Spears": {
-      "status": "doubt",
+      "status": "out",
       "team": "TEN",
-      "note": "Questionable for Week 7 vs. Cleveland. Board currently shows him as 'not reported'. Source: nfl.com official Week 7 injury report, 24 Oct 2026.",
-      "checked": "2026-10-24T15:20:00Z"
+      "note": "Upgraded from his Week 7 'doubt' -- now Out for Week 8 at Cincinnati, knee. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
     },
     "Rashee Rice": {
       "status": "out",
@@ -224,18 +146,41 @@
       "note": "Still Out, hamstring/knee, now for Week 7 at Seattle (SNF, 26 Oct ~00:20 UTC) -- DNP Wed/Thu/Fri, Friday game status Out. Sources: chiefs.com official \"Week 7 Injury Report: Chiefs vs. Seahawks 2026\" page, corroborated by the same Chiefs/Seahawks combined report mirrored on seahawks.com's official injury report (both show Rice DNP all week, Friday Game Status: Out).",
       "checked": "2026-10-25T21:30:00Z"
     },
-    "Zach Charbonnet": {
-      "status": "out",
-      "team": "SEA",
-      "note": "Confirmed Out again for Week 7 vs. Kansas City (SNF, 26 Oct ~00:20 UTC) despite full practice participation Wed/Thu/Fri -- likely a reserve/PUP-activation technicality (Seattle had until 22 Oct to activate him from reserve/PUP and a hoped-for Week 7 debut did not materialize as an active game status). Emanuel Wilson/George Holani remain the backfield. Sources: chiefs.com official \"Week 7 Injury Report: Chiefs vs. Seahawks 2026\" page (FP/FP/FP, Game Status: Out), corroborated by seahawks.com's official injury report mirroring the same Chiefs/Seahawks combined table (FP/FP/FP, Game Status: OUT). Supersedes the stale 14 Oct Week 6 note.",
-      "checked": "2026-10-25T21:30:00Z"
-    },
     "DeVonta Smith": {
       "status": "out",
       "team": "PHI",
       "note": "Ruled Out for Week 7 vs. Dallas (MNF, 26 Oct, 8:15 PM ET / 00:15 UTC 27 Oct), hamstring -- did not participate in practice all week. He is a props candidate on the board (DAL@PHI), currently shown there as 'not reported'. Sources: nfl.com official Week 7 injury report (DNP, Game Status: Out), corroborated by rotowire.com's Eagles-Cowboys game page (\"has been ruled out for Monday's game against the Cowboys\").",
       "checked": "2026-10-26T09:30:00Z"
+    },
+    "Carnell Tate": {
+      "status": "out",
+      "team": "TEN",
+      "note": "Out for Week 8 at Cincinnati, shoulder (hurt in the Week 7 loss to Cleveland). Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
+    },
+    "Tyrell Shavers": {
+      "status": "out",
+      "team": "BUF",
+      "note": "Out for Week 8 vs. Baltimore, knee. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
+    },
+    "KaVontae Turpin": {
+      "status": "out",
+      "team": "DAL",
+      "note": "Out for Week 8 at Arizona, ribs. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
+    },
+    "Anthony Gould": {
+      "status": "out",
+      "team": "IND",
+      "note": "Out for Week 8 at Jacksonville, concussion. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
+    },
+    "Brenen Thompson": {
+      "status": "out",
+      "team": "LAC",
+      "note": "Out for Week 8 vs. L.A. Rams, quadriceps/hamstring. Source: nfl.com official Week 8 injury report, 31 Oct 2026.",
+      "checked": "2026-10-31T19:30:00Z"
     }
   }
 }
-

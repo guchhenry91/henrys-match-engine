@@ -1,4 +1,61 @@
 {
   "_note": "Champions League results the API-Football feed missed, keyed by the fixture id on data/ucl/board.json. Each needs status FT and TWO sources, or it is ignored; the feed always wins where it has the match.",
-  "results": {}
+  "results": {
+    "1635686": {
+      "home": "Liverpool",
+      "away": "Atletico Madrid",
+      "home_goals": 2,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": ["https://www.rctiplus.com/news/detail/olahraga/5469678/hasil-liga-champions--liverpool-tekuk-atletico-madrid-2-1", "https://tixel.com/uk/news/2026/09/10/liverpool-triumphs-over-atltico-madrid-in-champions"]
+    },
+    "1635698": {
+      "home": "Napoli",
+      "away": "Arsenal",
+      "home_goals": 0,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": ["https://www.sportytrader.com/en/results-live/napoli-arsenal-8786601/", "https://littlebigreddot.com/arsenal-napoli-1-0-odegaard-champions-league-9-september-2026/"]
+    },
+    "1635705": {
+      "home": "Paris Saint Germain",
+      "away": "Slovan Bratislava",
+      "home_goals": 6,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": ["https://www.fanatik.com.tr/en/ferran-torres-put-on-a-show-psg-won-6-1-paris-saint-germain-vs-slovan-bratislava-final-score-6-1-2637307", "https://www.thenationalnews.com/sport/football/2026/09/10/ferran-torres-treble-gets-psgs-champions-league-defence-off-to-winning-start/"]
+    },
+    "1635736": {
+      "home": "Sporting CP",
+      "away": "Galatasaray",
+      "home_goals": 3,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": ["https://www.dailysabah.com/sports/football/galatasarays-ucl-away-woes-continue-with-3-1-loss-to-sporting/amp", "https://www.portugoal.net/club-news/6072-sporting-3-1-galatasaray-lions-get-champions-league-campaign-off-to-a-positive-start"]
+    },
+    "1635628": {
+      "home": "Barcelona",
+      "away": "Feyenoord",
+      "home_goals": 5,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": ["https://africasoccer.com/barcelona-score-five-to-beat-feyenoord-in-champions-league-opener/", "https://english.ratopati.com/story/78553/barcelonas-stunning-win-over-feyenoord-rafinha-scores-twice"]
+    },
+    "1635741": {
+      "home": "VfB Stuttgart",
+      "away": "Viking",
+      "home_goals": 3,
+      "away_goals": 1,
+      "status": "FT",
+      "sources": ["https://www.footballwebpages.co.uk/match/2026-2027/uefa-champions-league/vfb-stuttgart/viking-fk/591966", "https://bulinews.com/demirovic-the-star-stuttgart-stroll-victory-viking"]
+    },
+    "1635683": {
+      "home": "Lille",
+      "away": "Real Betis",
+      "home_goals": 2,
+      "away_goals": 3,
+      "status": "FT",
+      "sources": ["https://en.realbetisbalompie.es/news/latest_news/a-winning-return-to-the-champions-league-2-ndash-3-32658", "https://www.irishexaminer.com/sport/soccer/arid-41908477.html"]
+    }
+  }
 }
