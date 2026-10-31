@@ -290,3 +290,19 @@ def test_a_test_client_never_writes_the_repo_archive(tmp_path, monkeypatch):
     monkeypatch.setattr(line_archive, "DIR", tmp_path / "repo_lines")
     _props(_client(tmp_path, Fake(body=EVENT)))
     assert not (tmp_path / "repo_lines").exists()
+
+
+def test_a_refused_key_is_remembered_until_a_call_succeeds(tmp_path):
+    import io
+    import json as _json
+    body = _json.dumps({"message": f"API key is deactivated ({KEY})",
+                        "error_code": "DEACTIVATED_KEY"}).encode()
+
+    def refuse(request, timeout=None):
+        raise urllib.error.HTTPError(request.full_url, 401, "x", {}, io.BytesIO(body))
+    with pytest.raises(RuntimeError, match="refused the key"):
+        _client(tmp_path, refuse).get("sports", sport="-", purpose="x")
+    led = _json.loads((tmp_path / "ledger.json").read_text())
+    assert led["key_error"]["error"] == "DEACTIVATED_KEY" and KEY not in led["key_error"]["message"]
+    _client(tmp_path, Fake()).get("sports", sport="-", purpose="x")
+    assert "key_error" not in _json.loads((tmp_path / "ledger.json").read_text())

@@ -163,6 +163,12 @@ def soccer(r, now):
 
 def odds_budget(r):
     led = _read("data-raw/odds_api/ledger.json") or {}
+    err = led.get("key_error")
+    if err:
+        r.add("Odds API", "key", "fail",
+              f"The Odds API refused the key since {err.get('at')} "
+              f"({err.get('error') or 'HTTP ' + str(err.get('code'))}: {err.get('message')}) -- "
+              f"no bookmaker lines for NBA props, NFL gap-fill or soccer shots until it is fixed")
     used = led.get("account_used")
     if used is None:
         return

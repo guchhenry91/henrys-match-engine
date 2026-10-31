@@ -263,6 +263,7 @@ class Client:
                     self.sleeper(RATE_LIMIT_PAUSE_SECONDS)
                     continue
                 if exc.code in (401, 403):
+                    self._key_refused(exc)
                     raise RuntimeError(f"The Odds API refused the key (HTTP {exc.code}) "
                                        f"for /{_scrub(path, self.key)}") from None
                 raise RuntimeError(f"The Odds API HTTP {exc.code} for "
@@ -274,6 +275,24 @@ class Client:
                                    f"{_scrub(type(exc).__name__ + ': ' + str(exc), self.key)}"
                                    ) from None
         raise RuntimeError(f"The Odds API rate-limited /{_scrub(path, self.key)} twice")
+
+    def _key_refused(self, exc) -> None:
+        """Remember a refused key in the ledger, for the health check (31 Oct 2026: the
+        key was deactivated -- "cancelation or a failed payment" -- and every caller
+        quietly carried on with no bookmaker lines for half a day). Cleared by the
+        next call that succeeds."""
+        try:
+            body = json.loads(exc.read().decode("utf-8") or "{}")
+        except Exception:                         # noqa: BLE001
+            body = {}
+        self.ledger["key_error"] = {
+            "at": self.clock().isoformat(timespec="seconds"), "code": exc.code,
+            "error": _scrub(str(body.get("error_code") or ""), self.key),
+            "message": _scrub(str(body.get("message") or "")[:200], self.key)}
+        try:
+            self._save()
+        except Exception:                         # noqa: BLE001 - never hides the refusal
+            pass
 
     def _read_usage(self, headers, fallback: int) -> int:
         def num(name):
@@ -297,6 +316,7 @@ class Client:
         day["credits"] += spent
         day["by_sport"][sport] = day["by_sport"].get(sport, 0) + spent
         self.ledger["updated"] = now.isoformat()
+        self.ledger.pop("key_error", None)
         self.ledger["calls"].append({
             "at": now.isoformat(timespec="seconds"), "path": _scrub(path, self.key),
             "sport": sport, "purpose": purpose, "credits": spent, "run": self.run_id,

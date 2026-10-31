@@ -197,3 +197,14 @@ def test_a_finished_mlb_game_with_no_frozen_pick_fails(tmp_path, monkeypatch):
     hc.unlocked_games(r, datetime(2026, 10, 24, 15, tzinfo=timezone.utc))
     c = [c for c in r.checks if c["sport"] == "MLB"][0]
     assert c["status"] == "fail" and "849805" in c["message"]
+
+
+def test_a_refused_odds_api_key_fails_the_health_check(monkeypatch):
+    from scripts import health_check as hc
+    led = {"account_used": 25922, "key_error": {"at": "2026-10-31T02:00:00+00:00", "code": 401,
+                                                "error": "DEACTIVATED_KEY", "message": "API key is deactivated"}}
+    monkeypatch.setattr(hc, "_read", lambda rel: led if rel.endswith("ledger.json") else None)
+    r = hc.Report()
+    hc.odds_budget(r)
+    key = [c for c in r.checks if c["check"] == "key"]
+    assert key and key[0]["status"] == "fail" and "DEACTIVATED_KEY" in key[0]["message"]
