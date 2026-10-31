@@ -1298,6 +1298,10 @@ NFL yardage props are likewise published on bookmaker lines only
 
 # MLB engine (`mlb/`, tab: MLB) -- added 2026-09-27
 
+**PAUSED for the off-season (owner, 2026-10-31; World Series ended 28 Oct):** `worker.js
+PAUSED` skips the mlb job and the watchdog ignores it; health_check `PAUSED` stops judging
+the board's age. Remove "mlb" from both before spring training (late Feb).
+
 LIVE since 2026-09-27 (the last day of the regular season; the postseason follows),
 run by `.github/workflows/mlb.yml` (14:00, 17:30, 22:00 UTC). The live season comes
 from MLB's free StatsAPI (`mlb/current.py`: schedule with probable pitchers, one box

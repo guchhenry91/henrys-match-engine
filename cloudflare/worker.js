@@ -28,6 +28,10 @@ export const JOBS = ["leagues", "lock", "nfl", "nfl_backtest", "nba", "mlb", "he
 // by the Worker itself -- the health check runs in the same queue, so if the queue
 // stalls, only the Worker can still say so.
 const STALE_H = { lock: 3, leagues: 4, health: 8, nfl: 26, nba: 26, mlb: 26 };
+// Job types switched off for the off-season (owner, 2026-10-31: the World Series ended
+// 28 Oct). Their slots stay in SLOTS; due() skips them and the watchdog ignores them.
+// Remove "mlb" before spring training (late Feb) to switch it back on.
+export const PAUSED = ["mlb"];
 // Team-news inputs: when the news routine pushes one, the matching job runs straight
 // away (the old workflows had a push trigger on these paths).
 const NEWS_FILES = {
@@ -442,6 +446,7 @@ export function due(date, quiet = false) {
     if (minute !== m || (hour !== null && hour !== h)) continue;
     if (weekday != null && weekday !== dow) continue;
     if (only === "matchday" && quiet) continue;
+    if (PAUSED.includes(job)) continue;
     if (!out.includes(job)) out.push(job);
   }
   return out;
@@ -499,6 +504,7 @@ export async function watchdog(env, now = Date.now()) {
   for (const [job, hours] of Object.entries(STALE_H)) {
     // The lock only runs 11:00-23:59 UTC, so it is judged only from 14:00 to 23:59.
     if (job === "lock" && new Date(now).getUTCHours() < 14) continue;
+    if (PAUSED.includes(job)) continue;
     const row = await env.DB.prepare(
       "SELECT MAX(finished_at) AS t FROM jobs WHERE job=? AND ns='live' AND status='done'").bind(job).first();
     const age = row && row.t ? (now / 1000 - row.t) / 3600 : Infinity;

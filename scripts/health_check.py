@@ -112,13 +112,19 @@ def nfl(r, now):
           f"{len(stuck)} pick(s) ungraded 60h+ after kickoff" if stuck else "no stuck picks")
 
 
+# Sports whose jobs are paused for the off-season (worker.js PAUSED): their board is
+# expected to age, so its freshness is not judged. Keep in step with worker.js.
+PAUSED = {"MLB"}
+
+
 def line_sport(r, now, sport, key, start_key):
     # NBA and MLB run twice/three times a day with a long overnight gap (MLB 22:00 ->
     # 14:00 is 16h, NBA 21:30 -> 15:00 is 17.5h), so a 14h warning fired every
     # morning on boards that were perfectly current. 20h clears the gap; a missed
     # run still shows by the next slot.
     d = board_age(r, now, sport, f"data/{key}/board.json", 20, 30,
-                  active=(_read(f"data/{key}/board.json") or {}).get("status") == "live")
+                  active=sport not in PAUSED
+                  and (_read(f"data/{key}/board.json") or {}).get("status") == "live")
     log = _read(f"data-raw/{key}/picks_log.json") or {}
     stuck = [k for k, e in log.items() if isinstance(e, dict) and not e.get("graded")
              and (_hours(now, _utc(e.get(start_key))) or 0) > 36]

@@ -139,10 +139,10 @@ const today = new Date().toISOString().slice(0, 10);
   const db = makeD1(), e = env(db); tg = [];
   const now = Date.UTC(2026, 9, 4, 16, 7);
   const t = Math.floor(now / 1000);
-  for (const [job, hAgo] of [["lock", 1], ["leagues", 1], ["health", 2], ["nfl", 5], ["nba", 5], ["mlb", 30]])
+  for (const [job, hAgo] of [["lock", 1], ["leagues", 1], ["health", 2], ["nfl", 5], ["nba", 30], ["mlb", 30]])
     db.raw.prepare("INSERT INTO jobs (job, ns, status, enqueued_at, finished_at) VALUES (?,'live','done',?,?)").run(job, t - hAgo * 3600, t - hAgo * 3600);
   let stale = await W.watchdog(e, now);
-  ok(stale.length === 1 && stale[0].startsWith("mlb") && tg.length === 1, "watchdog names only the stale job", JSON.stringify(stale));
+  ok(stale.length === 1 && stale[0].startsWith("nba") && tg.length === 1, "watchdog names only the stale job (paused MLB ignored)", JSON.stringify(stale));
   await W.watchdog(e, now + 15 * 60000);
   ok(tg.length === 1, "and does not repeat it within 12 hours", tg.length);
   stale = await W.watchdog(e, Date.UTC(2026, 9, 4, 8, 7));
@@ -203,5 +203,8 @@ const today = new Date().toISOString().slice(0, 10);
   ok(!(await W.soccerMatchday(e, at.getTime())), "no game today: quiet");
   ok(await W.soccerMatchday(e, Date.parse("2026-10-28T11:47:00Z")), "a game later today: matchday");
 }
+// ---- off-season pause ----
+ok(!W.due(new Date("2026-11-02T14:00:00Z")).includes("mlb"), "a paused job (MLB) is never queued");
+ok(W.due(new Date("2026-11-02T15:00:00Z")).includes("nba"), "other jobs still run");
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
