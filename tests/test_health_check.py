@@ -208,3 +208,18 @@ def test_a_refused_odds_api_key_fails_the_health_check(monkeypatch):
     hc.odds_budget(r)
     key = [c for c in r.checks if c["check"] == "key"]
     assert key and key[0]["status"] == "fail" and "DEACTIVATED_KEY" in key[0]["message"]
+
+
+def test_stale_api_nfl_feeds_fail_while_games_are_near(monkeypatch):
+    from datetime import datetime, timezone
+    from scripts import health_check as hc
+    now = datetime(2026, 11, 1, 15, 0, tzinfo=timezone.utc)
+    files = {"data/nfl/board.json": {"updated": "2026-11-01T14:00:00+00:00",
+                                     "games": [{"kickoff": "2026-11-01T18:00:00+00:00"}]},
+             "data-raw/nfl/injuries.json": {"updated": "2026-10-26T09:28:55+00:00"},
+             "data-raw/nfl/odds.json": {"updated": "2026-11-01T09:00:00+00:00"}}
+    monkeypatch.setattr(hc, "_read", lambda rel: files.get(rel))
+    r = hc.Report()
+    hc.nfl(r, now)
+    got = {c["check"]: c["status"] for c in r.checks}
+    assert got["injury report"] == "fail" and got["bet365 prices"] == "ok"

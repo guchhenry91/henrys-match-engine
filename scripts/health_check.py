@@ -104,6 +104,20 @@ def nfl(r, now):
                       f"{season} week {week} -- form and workload are out of date")
             else:
                 r.add("NFL", "player data", "ok", f"through {thru.get('season')} week {thru.get('week')}")
+    # API-NFL feeds (bet365 prices, the official injury report). On 1 Nov both were
+    # found unchanged since 26 Oct -- every sync had been failing quietly while the
+    # board kept publishing on six-day-old injuries. Judged only while games are near.
+    if d and _upcoming(d.get("games") or [], now, "kickoff", 72):
+        for rel, name in (("data-raw/nfl/injuries.json", "injury report"),
+                          ("data-raw/nfl/odds.json", "bet365 prices")):
+            age = _hours(now, _utc((_read(rel) or {}).get("updated")))
+            if age is None or age > 72:
+                r.add("NFL", name, "fail", f"API-NFL {name} not refreshed for "
+                      f"{'ever' if age is None else f'{age / 24:.1f} days'} -- check the API-NFL key and plan")
+            elif age > 30:
+                r.add("NFL", name, "warn", f"API-NFL {name} last refreshed {age:.0f}h ago")
+            else:
+                r.add("NFL", name, "ok", f"refreshed {age:.1f}h ago")
     log = _read("data-raw/nfl/picks_log.json") or {}
     stuck = [k for sec in ("games", "props") for k, e in (log.get(sec) or {}).items()
              if not k.startswith("_") and isinstance(e, dict) and not e.get("graded")
