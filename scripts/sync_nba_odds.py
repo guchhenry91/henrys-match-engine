@@ -160,6 +160,13 @@ def main() -> int:
         sched = current.cdn_schedule()
     except Exception as exc:
         print(f"NBA CDN schedule unavailable ({type(exc).__name__}: {exc})")
+        try:
+            sched = current.stats_schedule()
+            print(f"using stats.nba.com's schedule ({len(sched)} games)")
+        except Exception as exc2:                 # noqa: BLE001
+            print(f"stats.nba.com schedule unavailable ({type(exc2).__name__}: {exc2})")
+            sched = None
+    if sched is None:
         if client is None:
             print("The Odds API is switched off too; no schedule this run")
             return 0

@@ -63,7 +63,8 @@ def test_schedule_falls_back_when_the_cdn_refuses():
 def test_no_fallback_still_raises():
     def refused(*a, **k):
         raise urllib.error.HTTPError("u", 403, "Access Denied", {}, None)
-    with pytest.raises(urllib.error.HTTPError):
+    # CDN, the stats.nba.com backup (same opener) and the Odds API copy all empty.
+    with pytest.raises(RuntimeError, match="no NBA schedule"):
         current.schedule(opener=refused)
 
 
@@ -74,3 +75,53 @@ def test_box_sync_never_asks_the_cdn_for_odds_api_games(monkeypatch, tmp_path):
     asked = []
     current.sync(sched, opener=lambda *a, **k: asked.append(1), sleeper=lambda s: None)
     assert asked == []
+
+
+def _sched_json():
+    return {"leagueSchedule": {"gameDates": [{"games": [{
+        "gameId": "0022600154", "gameDateTimeUTC": "2026-11-01T20:30:00Z", "gameDateEst": "2026-11-01T00:00:00Z",
+        "homeTeam": {"teamTricode": "ORL", "score": 0}, "awayTeam": {"teamTricode": "BOS", "score": 0},
+        "gameStatus": 1, "isNeutral": False}]}]}}
+
+
+class _Resp:
+    def __init__(self, body):
+        self.body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+    def read(self):
+        import json
+        return json.dumps(self.body).encode()
+
+
+def test_stats_nba_schedule_is_the_backup_when_the_cdn_refuses():
+    def opener(request, timeout=None):
+        if "cdn.nba.com" in request.full_url:
+            raise urllib.error.HTTPError("u", 403, "Access Denied", {}, None)
+        assert "/api/nba/schedule?season=" in request.full_url
+        return _Resp(_sched_json())
+    sched = current.schedule(opener=opener)
+    assert list(sched["game_id"]) == ["0022600154"]
+    assert sched.iloc[0]["home_team"] == "ORL" and sched.iloc[0]["status"] == 1
+
+
+def test_a_game_kept_under_a_stand_in_id_is_not_stored_twice(monkeypatch, tmp_path):
+    monkeypatch.setattr(current, "DIR", tmp_path)
+    old = pd.DataFrame([{"GAME_ID": "0029000050", "GAME_DATE": "2026-10-28", "PLAYER_ID": 1,
+                         "PLAYER_NAME": "A", "TEAM_ABBREVIATION": "ORL", "MATCHUP": "ORL vs. BOS",
+                         "MIN": 30, "PTS": 20}])
+    old.to_csv(current._path(current.REGULAR), index=False)
+    headers = ["PLAYER_ID", "PLAYER_NAME", "TEAM_ABBREVIATION", "GAME_ID", "GAME_DATE", "MATCHUP", "MIN", "PTS"]
+    log = {"resultSets": [{"headers": headers, "rowSet": [
+        [1, "A", "ORL", "0022600140", "2026-10-28", "ORL vs. BOS", 30, 20],
+        [1, "A", "ORL", "0022600154", "2026-11-01", "ORL vs. BOS", 31, 22]]}]}
+    sched = pd.DataFrame([{"game_id": "0022600154", "stage": current.REGULAR, "game_date": "2026-11-01",
+                           "home_team": "ORL", "away_team": "BOS"}])
+    current.sync_from_stats(sched, current.REGULAR, fetch=lambda st: log)
+    kept = current._load(current.REGULAR)
+    assert sorted(kept["GAME_ID"].astype(str)) == ["0022600154", "0029000050"]

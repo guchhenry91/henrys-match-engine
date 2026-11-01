@@ -71,17 +71,49 @@ def schedule(opener=urllib.request.urlopen) -> pd.DataFrame:
     try:
         return cdn_schedule(opener)
     except Exception as exc:
-        fallback = odds_schedule()
-        if fallback.empty:
-            raise
-        print(f"NBA CDN schedule unavailable ({type(exc).__name__}); using The Odds API "
-              f"schedule ({len(fallback)} games)")
-        return fallback
+        print(f"NBA CDN schedule unavailable ({type(exc).__name__})")
+    try:
+        sched = stats_schedule(opener)
+        print(f"using stats.nba.com's schedule via the stats proxy ({len(sched)} games)")
+        return sched
+    except Exception as exc:
+        print(f"stats.nba.com schedule unavailable ({type(exc).__name__}: {exc})")
+    fallback = odds_schedule()
+    if fallback.empty:
+        raise RuntimeError("no NBA schedule: CDN, stats.nba.com and The Odds API copy all failed")
+    print(f"using The Odds API schedule ({len(fallback)} games)")
+    return fallback
 
 
 def cdn_schedule(opener=urllib.request.urlopen) -> pd.DataFrame:
     """Every game of the season on the CDN, one row each."""
-    raw = _get(SCHEDULE_URL, opener)
+    return _parse_schedule(_get(SCHEDULE_URL, opener))
+
+
+def stats_schedule(opener=urllib.request.urlopen) -> pd.DataFrame:
+    """The same schedule from stats.nba.com (scheduleleaguev2), through the Worker's
+    stats proxy (/api/nba/schedule) -- the backup added 2026-11-01. The CDN refuses
+    these servers and the other copy came from The Odds API: when that key failed on
+    31 Oct the board had no games at all. Same JSON and the same real game ids as
+    the CDN, and free."""
+    import os
+    import urllib.parse
+    from nba import data
+    base = (os.environ.get("STATE_URL") or PROXY_URL).rstrip("/")
+    url = base + "/api/nba/schedule?" + urllib.parse.urlencode(
+        {"season": data.season_label(config.CURRENT_SEASON)})
+    with opener(urllib.request.Request(url, headers={"User-Agent": "henrys-match-engine"}),
+                timeout=40) as r:
+        raw = json.loads(r.read().decode("utf-8"))
+    if "leagueSchedule" not in raw:
+        raise RuntimeError(raw.get("error") or "no leagueSchedule")
+    sched = _parse_schedule(raw)
+    if sched.empty:
+        raise RuntimeError("stats.nba.com listed no games")
+    return sched
+
+
+def _parse_schedule(raw: dict) -> pd.DataFrame:
     rows = []
     for day in raw["leagueSchedule"]["gameDates"]:
         for g in day["games"]:
@@ -148,6 +180,18 @@ def _load(stage: str) -> pd.DataFrame:
         return pd.DataFrame(columns=COLUMNS)
 
 
+def _kept_pairs(have: pd.DataFrame) -> set:
+    """{(US date, {team, opponent})} of every game already kept, whatever its id.
+    The same game can carry two ids: the Odds API stand-in ("0029...") it was stored
+    under, and the NBA's own id once the schedule comes from stats.nba.com (the
+    backup added 2026-11-01). Asking by date and teams stops it being stored twice."""
+    if have.empty:
+        return set()
+    opp = have["MATCHUP"].astype(str).str.split(r"\s+(?:@|vs\.)\s+", regex=True).str[-1]
+    return {(str(d)[:10], frozenset((t, o)))
+            for d, t, o in zip(have["GAME_DATE"], have["TEAM_ABBREVIATION"], opp)}
+
+
 def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
          sleeper=time.sleep, fetch=None, today: str | None = None) -> dict:
     """Fetch box scores for finished games not already kept. Returns counts."""
@@ -157,8 +201,13 @@ def sync(sched: pd.DataFrame, opener=urllib.request.urlopen,
     for stage in (PRESEASON,) + COUNTED:
         have = _load(stage)
         known = set(have["GAME_ID"].astype(str)) if not have.empty else set()
+        pairs = _kept_pairs(have)
+        kept = (sched.apply(lambda g: (str(g["game_date"])[:10],
+                                       frozenset((g["home_team"], g["away_team"]))) in pairs,
+                            axis=1)
+                if pairs and not sched.empty else pd.Series(False, index=sched.index))
         todo = sched[(sched["stage"] == stage) & (sched["status"] == FINAL)
-                     & ~sched["game_id"].isin(known)
+                     & ~sched["game_id"].isin(known) & ~kept
                      # Odds API numbering ("0029...") has no CDN box score to ask for.
                      & ~sched["game_id"].astype(str).str.startswith("0029")].sort_values("tipoff")
         new = []
@@ -272,6 +321,9 @@ def sync_from_stats(sched: pd.DataFrame, stage: str, fetch=None, only=None) -> i
     out = pd.concat([have, rows], ignore_index=True)
     out["GAME_ID"] = out["GAME_ID"].astype(str)
     out = out.drop_duplicates(subset=["GAME_ID", "PLAYER_ID"], keep="first")
+    # A player plays once a day: a game already kept under another id (an Odds API
+    # stand-in, before the stats.nba.com schedule) keeps its first copy only.
+    out = out.drop_duplicates(subset=["GAME_DATE", "PLAYER_ID"], keep="first")
     DIR.mkdir(parents=True, exist_ok=True)
     tmp = _path(stage).with_suffix(".csv.tmp")
     out.to_csv(tmp, index=False)

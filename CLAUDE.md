@@ -1233,6 +1233,13 @@ The NBA tab is now a LIVE board (`status: "live"`), run by `.github/workflows/nb
   no regular-season prop could ever grade. Shared scheduling/parsing lives in
   `oddsapi/props.py`, also used by the NFL gap-fill.
 
+SCHEDULE BACKUP (owner, 2026-11-01): `current.schedule()` tries the CDN, then
+stats.nba.com's scheduleleaguev2 through the Worker's stats proxy (`/api/nba/schedule`,
+guchhenry91/nba-stats-proxy; real game ids), then the Odds API copy. On 31 Oct the Odds API
+key was deactivated and the board had no games. Old games kept under Odds API stand-in ids
+are matched by date + teams (`current._kept_pairs`, and a (date, player) dedupe in
+`sync_from_stats`) so nothing is stored twice when the ids switch.
+
 ROSTERS (2026-10-08, `nba/rosters.py` -> `data-raw/nba/rosters.json`): box scores only
 know where a player last PLAYED, so before opening night every team without a preseason
 game sat on last season (10 of 30 on 8 Oct; Durant, Trae Young, LeBron all on old teams).
