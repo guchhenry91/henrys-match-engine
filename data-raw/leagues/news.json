@@ -1,22 +1,22 @@
 {
   "_note": "Team news for every fixture within 72 hours, discovered directly from the canonical fixture feed so a newly generated Best Pick is already covered. The automatic collector searches two free RSS indexes, retains article URL/publisher/time as evidence, and changes out/doubt only after two independent publishers corroborate an explicit player-status claim. One-source and vague reports are recorded but cannot alter the model. Manual official/confirmed entries and confirmed lineups are preserved. 'checked' is written only when both searches succeeded; sanity_check fails an imminent publish when news is missing or stale. Run: python -m scripts.sync_team_news.",
-  "_verified_on": "2026-10-31",
+  "_verified_on": "2026-11-01",
   "PL": {
     "Arsenal": {
       "out": [
         "William Saliba",
         "Bukayo Saka",
-        "Max Dowman"
+        "Max Dowman",
+        "Piero Hincapié"
       ],
       "doubt": [
-        "Piero Hincapié",
         "Martín Zubimendi",
         "Kai Havertz",
         "Ezri Konsa Ngoyo",
         "Christos Tzolis",
         "Noni Madueke"
       ],
-      "note": "RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Liverpool match, kickoff 2026-11-01T16:30Z): two independent, dated (30-31 Oct) sources -- Yahoo Sports and footballfancast.com, corroborated by a third (tips.gg) -- agree Bukayo Saka is now expected to miss AT LEAST SIX WEEKS with a quad/thigh injury, with tendon damage feared pending further scans. UPGRADED Saka from doubt to OUT. ADDED Max Dowman to OUT: Arteta confirmed his red-card appeal failed, ruling him out through suspension (Yahoo + onefootball, both 31 Oct). Saliba reconfirmed OUT (back issue, Arteta says a fresh MRI due this week looked encouraging for the medium term -- still not a return date). MOVED Christos Tzolis from out to DOUBT: both sources say he returned to training Friday alongside Rice and Calafiori, but tips.gg's current list still flags a hamstring doubt, so his availability is unclear rather than confirmed either way. ADDED Noni Madueke to DOUBT: Yahoo reports a late fitness check after Saturday's session. Hincapié, Zubimendi, Havertz and Konsa carried forward unchanged -- not contradicted by either new source.",
+      "note": "RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Liverpool match, kickoff 2026-11-01T16:30Z): two independent, dated (30-31 Oct) sources -- Yahoo Sports and footballfancast.com, corroborated by a third (tips.gg) -- agree Bukayo Saka is now expected to miss AT LEAST SIX WEEKS with a quad/thigh injury, with tendon damage feared pending further scans. UPGRADED Saka from doubt to OUT. ADDED Max Dowman to OUT: Arteta confirmed his red-card appeal failed, ruling him out through suspension (Yahoo + onefootball, both 31 Oct). Saliba reconfirmed OUT (back issue, Arteta says a fresh MRI due this week looked encouraging for the medium term -- still not a return date). MOVED Christos Tzolis from out to DOUBT: both sources say he returned to training Friday alongside Rice and Calafiori, but tips.gg's current list still flags a hamstring doubt, so his availability is unclear rather than confirmed either way. ADDED Noni Madueke to DOUBT: Yahoo reports a late fitness check after Saturday's session. Hincapié, Zubimendi, Havertz and Konsa carried forward unchanged -- not contradicted by either new source. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): UPGRADED Piero Hincapié from doubt to OUT -- multiple independent, dated outlets in mid-October (The Star/Reuters wire 16 Oct 2026, bdnews24 17 Oct 2026, corroborated further by Africa Soccer, Timeslive, Express & Star, OnlineGooner) agree his ankle injury is more serious than Zubimendi's with no firm return date, and he is absent from every dated 31 Oct/1 Nov matchday preview (not listed in the predicted XI by either source) -- consistent with an extended absence rather than merely a doubt for today's match. Zubimendi, Havertz, Konsa and Tzolis stay DOUBT unchanged: Tzolis and Konsa show corroborated signs of trending back to fitness (TheFalse9.com 31 Oct + SI.com ~1 Nov both report Tzolis training Friday and 'on course to play'; multiple predicted-XI pieces pencil Konsa in to start) but neither clears the bar for a hard removal absent official club confirmation -- worth a recheck once the official team sheet lands (~15:30 UTC). Havertz-vs-Gyökeres striker question is single-sourced each way, not acted on. Liverpool's out/doubt list fully reconfirmed unchanged (Ekitiké, Bradley, Leoni, Frimpong out; Szoboszlai, Muñoz doubt) by TheFalse9.com and SI.com, both dated 31 Oct/1 Nov 2026. Transfer check: Cody Gakpo and Alexander Isak both confirmed still at Liverpool (named in both outlets' predicted XI); Harvey Barnes confirmed still at Newcastle United (TheAnalyst player profile, VAVEL 27 Jul 2026 new long-term contract).",
       "automation": {
         "checked_at": "2026-09-19T13:45:18.544258Z",
         "feeds_ok": [
@@ -29,7 +29,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T15:30:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1557409,
       "lineup_api_attempted_at": "2026-09-19T13:46:21.237677+00:00",
       "lineup_api_rungs": [
@@ -1004,7 +1004,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T15:30:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1557375,
       "lineup_api_attempted_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_api_rungs": [
@@ -1039,7 +1039,7 @@
       "lineup_checked_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1557375,
-      "note": "RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Arsenal match, kickoff 2026-11-01T16:30Z): two independent, dated (30-31 Oct) previews -- Liverpool FC's own site and Yahoo Sports -- agree Alexander Isak and Cody Gakpo are EXPECTED BACK in the starting lineup after Isak's Carabao Cup appearance against Chelsea; ESPN's predicted XI for this fixture also starts both. REMOVED Isak and Gakpo from doubt (previously carried there since the 25 Oct note) -- this corrects the player-props board, which still showed both as doubts. ADDED Jeremie Frimpong to OUT: both sources independently report a muscle injury sidelining him. REMOVED Ryan Gravenberch from OUT: the 17 Oct note had him serving a one-match suspension for that fixture; both sources now report he played the full 90 minutes against Chelsea in midweek and should start vs Arsenal -- suspension served. Bradley, Leoni and Ekitike reconfirmed OUT by both sources (Ekitike not expected back until the new year). ADDED Víctor Muñoz to DOUBT: both sources describe him picking up a minor knock at Brentford a fortnight ago and say he 'has a chance' to feature, short of a clean bill of health. Szoboszlai (same Brentford knock) and Chiesa retained as doubts, not contradicted by either source."
+      "note": "RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Arsenal match, kickoff 2026-11-01T16:30Z): two independent, dated (30-31 Oct) previews -- Liverpool FC's own site and Yahoo Sports -- agree Alexander Isak and Cody Gakpo are EXPECTED BACK in the starting lineup after Isak's Carabao Cup appearance against Chelsea; ESPN's predicted XI for this fixture also starts both. REMOVED Isak and Gakpo from doubt (previously carried there since the 25 Oct note) -- this corrects the player-props board, which still showed both as doubts. ADDED Jeremie Frimpong to OUT: both sources independently report a muscle injury sidelining him. REMOVED Ryan Gravenberch from OUT: the 17 Oct note had him serving a one-match suspension for that fixture; both sources now report he played the full 90 minutes against Chelsea in midweek and should start vs Arsenal -- suspension served. Bradley, Leoni and Ekitike reconfirmed OUT by both sources (Ekitike not expected back until the new year). ADDED Víctor Muñoz to DOUBT: both sources describe him picking up a minor knock at Brentford a fortnight ago and say he 'has a chance' to feature, short of a clean bill of health. Szoboszlai (same Brentford knock) and Chiesa retained as doubts, not contradicted by either source. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): Existing out (Ekitiké, Bradley, Leoni, Frimpong) and doubt (Szoboszlai, Muñoz) list fully reconfirmed for today's 16:30 UTC kickoff vs Arsenal by TheFalse9.com (31 Oct 2026) and SI.com (~1 Nov 2026), both naming a predicted XI with Gakpo and Isak starting. No change."
     },
     "Fulham": {
       "out": [
@@ -1209,7 +1209,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1570348,
       "lineup_api_attempted_at": "2026-08-23T17:17:30.317728+00:00",
       "lineup_api_rungs": [
@@ -1246,12 +1246,14 @@
       "lineup_checked_at": "2026-08-23T17:17:30.317728+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1570348,
-      "note": "Uche (season-ending knee) and Juanmi (long-term knee, targeting a Nov 1 return) unchanged. No fresh Oct 2026 reporting found on the five listed doubts specifically -- sourcing for this club was weak/stale across multiple searches; list kept unchanged as plausible but not freshly reverified. Recommend a direct Getafe/Marca/AS check closer to kickoff next time. RECHECK 18 Oct ahead of Vallecano: a single-source (Comuniate, 15 Oct jornada-9 preview) flags Zaid Romero, Azon, Mangala and Unal as possibly unavailable, and Carvajal as not yet expected back -- none corroborated by a second outlet, not added. Existing out/doubt list carried forward unchanged."
+      "note": "Uche (season-ending knee) and Juanmi (long-term knee, targeting a Nov 1 return) unchanged. No fresh Oct 2026 reporting found on the five listed doubts specifically -- sourcing for this club was weak/stale across multiple searches; list kept unchanged as plausible but not freshly reverified. Recommend a direct Getafe/Marca/AS check closer to kickoff next time. RECHECK 18 Oct ahead of Vallecano: a single-source (Comuniate, 15 Oct jornada-9 preview) flags Zaid Romero, Azon, Mangala and Unal as possibly unavailable, and Carvajal as not yet expected back -- none corroborated by a second outlet, not added. Existing out/doubt list carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed for today's/tomorrow's fixture; nothing found clearing the two-independent-source/official bar. (Getafe: single-publisher Comuniate-only reports of Mojica/Mario Martín suspensions and a Zaid Romero doubt not acted on. Real Madrid: a single-publisher Comuniate report that Valverde/Güler/Courtois are newly available conflicts with the file and is not acted on without a second source. Elche: single-publisher Comuniate claims re: Aguado/Bigas not acted on.)"
     },
     "Sevilla": {
       "out": [
         "Arouna Sangante",
-        "Rubén Vargas"
+        "Rubén Vargas",
+        "Marcão",
+        "Miguel Sierra"
       ],
       "doubt": [
         "Lucas Stassin"
@@ -1268,7 +1270,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1570381,
       "lineup_api_attempted_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_api_rungs": [
@@ -1305,7 +1307,7 @@
       "lineup_checked_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1570381,
-      "note": "Vargas (knee) and Sangante (ankle) out. Stassin a minor doubt. Sources: Sports Mole, Yahoo Sports, 19 Sep. RECHECK 17:09 UTC: Vargas/Sangante still out, Stassin doubt unchanged, confirmed via Sports Mole + Goal.com previews ahead of kickoff. RECHECK 23:13 UTC ahead of the 12 Oct Levante fixture: Vargas (knee/parameniscitis, availability conditioned on being able to run) and Sangante (ankle) both still described as unavailable (elgoldigital.com, comuniate.com); Stassin (adductor) still a doubt, not training with the group. No change to the list. RECHECK 17 Oct ahead of Real Madrid: a single-source (El Gol Digital) pass names Jon Guridi as effectively ruled out and Marcao/Iker Munoz/Miguel Sierra as out of normal training -- none corroborated by a second outlet, not added. Existing Vargas/Sangante out, Stassin doubt carried forward unchanged."
+      "note": "Vargas (knee) and Sangante (ankle) out. Stassin a minor doubt. Sources: Sports Mole, Yahoo Sports, 19 Sep. RECHECK 17:09 UTC: Vargas/Sangante still out, Stassin doubt unchanged, confirmed via Sports Mole + Goal.com previews ahead of kickoff. RECHECK 23:13 UTC ahead of the 12 Oct Levante fixture: Vargas (knee/parameniscitis, availability conditioned on being able to run) and Sangante (ankle) both still described as unavailable (elgoldigital.com, comuniate.com); Stassin (adductor) still a doubt, not training with the group. No change to the list. RECHECK 17 Oct ahead of Real Madrid: a single-source (El Gol Digital) pass names Jon Guridi as effectively ruled out and Marcao/Iker Munoz/Miguel Sierra as out of normal training -- none corroborated by a second outlet, not added. Existing Vargas/Sangante out, Stassin doubt carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Marcão (muscle/thigh tear suffered on his comeback appearance after 9 months out, retired before minute 30; corroborated independently by El Gol Digital and Comuniate) and Miguel Sierra (right shoulder acromioclavicular dislocation, operated ~17 Oct 2026, club-stated 12-16 week recovery, reconfirmed still out as of a 28 Oct 2026 update; corroborated independently by El Gol Digital, Comuniate, Fichajes and Asesoriasfantasy) to OUT. Existing Sangante and Vargas out, Stassin doubt, all reconfirmed. A Getafe-style suspension claim (Mojica, Mario Martín both Getafe, not Sevilla) is noted under Getafe, not here. A single-publisher (Comuniate only) claim that Zaid Romero is a fresh doubt -- not added, unverified."
     },
     "Vallecano": {
       "out": [],
@@ -1347,7 +1349,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-24T13:10:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1570348,
       "lineup_api_attempted_at": "2026-08-23T17:17:30.317728+00:00",
       "lineup_api_rungs": [
@@ -1385,7 +1387,7 @@
       "lineup_checked_at": "2026-08-23T17:17:30.317728+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1570348,
-      "note": "Almeida's suspension is served -- he returns to the squad for Celta (futbolfantasy.com, infobae.com, 15-19 Sep), removed from out. Andrés Martín (right knee sprain) and Simon Eriksson (right shoulder tendinopathy) both still away from group training and out. Felipe remains a fitness doubt (hamstring, same area as an earlier micro-tear). RECHECK 17 Oct ahead of Osasuna: no fresh official matchday squad news found; existing Andres Martin/Eriksson out and Felipe doubt reconfirmed as the best available read, though the fresh search found this club's reporting thin/stale this week. RECHECK 23 Oct ahead of Espanol: starting11.com (single source, could not corroborate in Spanish-language search either) reports Almeida suspended for a red card -- this would contradict the existing note that his earlier suspension was already served, so flagged but NOT acted on without a second source. Eriksson (shoulder) reconfirmed as a concern, consistent with the existing out entry. RECHECK 24 Oct (2026-10-24T09:20:00Z): a single Spanish-language source (comuniate.com) describes an earlier Almeida suspension (12 Sept, served) and his return to the XI since, which weighs against starting11.com's single-source red-card claim, but it does not explicitly address today's fixture -- still not a second source for either reading, so left unresolved exactly as before. RECHECK 24 Oct ~13:10 UTC (cloud sweep ahead of today's/tomorrow's kickoff): web search for this club's confirmed lineup and any fresh injury news found no new corroborated update -- official starting XI not yet posted at search time where kickoff is imminent (clubs typically publish ~60 min pre-kickoff); existing out/doubt list stands unchanged."
+      "note": "Almeida's suspension is served -- he returns to the squad for Celta (futbolfantasy.com, infobae.com, 15-19 Sep), removed from out. Andrés Martín (right knee sprain) and Simon Eriksson (right shoulder tendinopathy) both still away from group training and out. Felipe remains a fitness doubt (hamstring, same area as an earlier micro-tear). RECHECK 17 Oct ahead of Osasuna: no fresh official matchday squad news found; existing Andres Martin/Eriksson out and Felipe doubt reconfirmed as the best available read, though the fresh search found this club's reporting thin/stale this week. RECHECK 23 Oct ahead of Espanol: starting11.com (single source, could not corroborate in Spanish-language search either) reports Almeida suspended for a red card -- this would contradict the existing note that his earlier suspension was already served, so flagged but NOT acted on without a second source. Eriksson (shoulder) reconfirmed as a concern, consistent with the existing out entry. RECHECK 24 Oct (2026-10-24T09:20:00Z): a single Spanish-language source (comuniate.com) describes an earlier Almeida suspension (12 Sept, served) and his return to the XI since, which weighs against starting11.com's single-source red-card claim, but it does not explicitly address today's fixture -- still not a second source for either reading, so left unresolved exactly as before. RECHECK 24 Oct ~13:10 UTC (cloud sweep ahead of today's/tomorrow's kickoff): web search for this club's confirmed lineup and any fresh injury news found no new corroborated update -- official starting XI not yet posted at search time where kickoff is imminent (clubs typically publish ~60 min pre-kickoff); existing out/doubt list stands unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated 2026-27-season update found that clears the two-independent-source/official bar."
     },
     "Villarreal": {
       "out": [
@@ -1614,8 +1616,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
-      "note": "Aimar Oroz (new left hamstring injury, confirmed by Clinica Universidad de Navarra tests, explicitly ruled out of this Racing Santander match) and Jorge Herrando (left adductor tear, multi-month, official club medical statement) added to OUT ahead of 18 Oct -- both corroborated across Comuniate, El Gol Digital and Futbolfantasy, all citing the club's own medical reports."
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Aimar Oroz (new left hamstring injury, confirmed by Clinica Universidad de Navarra tests, explicitly ruled out of this Racing Santander match) and Jorge Herrando (left adductor tear, multi-month, official club medical statement) added to OUT ahead of 18 Oct -- both corroborated across Comuniate, El Gol Digital and Futbolfantasy, all citing the club's own medical reports. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated 2026-27-season update found that clears the two-independent-source/official bar."
     },
     "La Coruna": {
       "out": [
@@ -1689,8 +1691,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-23T13:26:01Z",
-      "note": "Ahead of Villarreal (A), 17 Oct. No absentees found -- in fact two returns: Yago Santiago back from knee arthroscopy and Federico Redondo back from suspension (Sports Mole, 16 Oct). Out/doubt kept empty.",
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Ahead of Villarreal (A), 17 Oct. No absentees found -- in fact two returns: Yago Santiago back from knee arthroscopy and Federico Redondo back from suspension (Sports Mole, 16 Oct). Out/doubt kept empty. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed for today's/tomorrow's fixture; nothing found clearing the two-independent-source/official bar. (Getafe: single-publisher Comuniate-only reports of Mojica/Mario Martín suspensions and a Zaid Romero doubt not acted on. Real Madrid: a single-publisher Comuniate report that Valverde/Güler/Courtois are newly available conflicts with the file and is not acted on without a second source. Elche: single-publisher Comuniate claims re: Aguado/Bigas not acted on.)",
       "lineup_api_attempted_fixture": 1570388,
       "lineup_api_attempted_at": "2026-09-15T19:19:09.147118+00:00",
       "starters": [
@@ -1912,7 +1914,7 @@
         "Pablo Marin"
       ],
       "doubt": [],
-      "note": "Igor Zubeldia (hamstring) ruled out for the Valencia match after failing his final sprint test in training; standard recovery protocol applied. Odriozola and Gorrotxategi also out; Pablo Marin remains out (undisclosed injury, 5th straight absence) despite full training. Sources: RotoWire, noticiasdegipuzkoa.eus (x2). RECHECK 17 Oct ahead of Malaga: sources on Odriozola's (already in our out list) availability conflict and are poorly dated -- one undated piece says he's training with the group, an older one has him still in rehab. No October-dated, match-specific confirmation either way found, so kept as out pending a clearer read.",
+      "note": "Igor Zubeldia (hamstring) ruled out for the Valencia match after failing his final sprint test in training; standard recovery protocol applied. Odriozola and Gorrotxategi also out; Pablo Marin remains out (undisclosed injury, 5th straight absence) despite full training. Sources: RotoWire, noticiasdegipuzkoa.eus (x2). RECHECK 17 Oct ahead of Malaga: sources on Odriozola's (already in our out list) availability conflict and are poorly dated -- one undated piece says he's training with the group, an older one has him still in rehab. No October-dated, match-specific confirmation either way found, so kept as out pending a clearer read. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated 2026-27-season update found that clears the two-independent-source/official bar.",
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -1925,7 +1927,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1570392,
       "lineup_api_attempted_at": "2026-09-03T18:48:53.876590+00:00",
       "starters": [
@@ -1983,8 +1985,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
-      "note": "Ahead of Valencia (A), 17 Oct. Update: Sancet and Nico Williams both out with muscle injuries ('continuan al margen del equipo'); Laporte a doubt (already excluded from the previous Rayo Vallecano squad, assessed until the last minute). Two independent sources agree. Sources: comuniate.com (15 Oct), starting11.com.",
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Ahead of Valencia (A), 17 Oct. Update: Sancet and Nico Williams both out with muscle injuries ('continuan al margen del equipo'); Laporte a doubt (already excluded from the previous Rayo Vallecano squad, assessed until the last minute). Two independent sources agree. Sources: comuniate.com (15 Oct), starting11.com. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated 2026-27-season update found that clears the two-independent-source/official bar.",
       "lineup_api_attempted_fixture": 1570393,
       "lineup_api_attempted_at": "2026-09-19T13:46:21.237677+00:00",
       "lineup_api_rungs": [
@@ -2026,7 +2028,9 @@
       "out": [
         "Diego Lopez",
         "Sergi Canos",
-        "Umar Sadiq"
+        "Umar Sadiq",
+        "David Otorbi",
+        "Harvey Elliott"
       ],
       "doubt": [
         "G. Rodriguez",
@@ -2050,7 +2054,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-17T13:40:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1570383,
       "lineup_api_attempted_at": "2026-09-15T17:06:18.548020+00:00",
       "lineup_api_rungs": [
@@ -2087,7 +2091,7 @@
       "lineup_checked_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1570381,
-      "note": "Update 17 Oct (two independent dated sources, elgoldigital.com + comuniate.com, both 15 Oct): Tarrega now training normally and 'fully recovered', Copete training with the group needing match rhythm, Diakhaby in the probable XI at reduced fitness -- all three moved out->doubt, no longer ruled out. New doubts: Hugo Duro, Pablo Maffeo (knocks from the Racing match, trained fine, expected available). Diego Lopez and Sadiq remain out long-term with no timeline. Canos' status could not be reconfirmed either way this sweep (only an undated hamstring mention found) so he stays listed as out unchanged. No suspensions."
+      "note": "Update 17 Oct (two independent dated sources, elgoldigital.com + comuniate.com, both 15 Oct): Tarrega now training normally and 'fully recovered', Copete training with the group needing match rhythm, Diakhaby in the probable XI at reduced fitness -- all three moved out->doubt, no longer ruled out. New doubts: Hugo Duro, Pablo Maffeo (knocks from the Racing match, trained fine, expected available). Diego Lopez and Sadiq remain out long-term with no timeline. Canos' status could not be reconfirmed either way this sweep (only an undated hamstring mention found) so he stays listed as out unchanged. No suspensions. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): FRESH LOOK (file was stale since 17 Oct). ADDED David Otorbi (hamstring tear, grade pending, one return estimate mid-December; corroborated independently by El Gol Digital, Comuniate and Asesoriasfantasy) and Harvey Elliott (suspended -- second yellow card and red card vs Villarreal ~26 Oct 2026, publicly apologized; corroborated independently by El Gol Digital, Fichajes, NST.com.my, Football365 and Comuniate) to OUT. Diego Lopez and Sergi Canos reconfirmed out (ACL until January / knee until November). Existing doubt list (G. Rodriguez, Rioja, Foulquier, Tarrega, Copete, Diakhaby, Duro, Maffeo) left unchanged -- a single-publisher (Comuniate matchday page only) suggestion that Sadiq has improved to doubtful and Foulquier has worsened to out is not corroborated by a second outlet, so neither is acted on."
     },
     "Real Madrid": {
       "out": [
@@ -2102,7 +2106,7 @@
       "doubt": [
         "Federico Valverde"
       ],
-      "note": "RECHECK 25 Oct ~17:08 UTC (cloud sweep, ~2h50 out from kickoff): Thibaut Courtois ADDED to out -- club-announced late withdrawal with flu on matchday itself, two independent sources dated today (etvbharat.com, quoting the club's own statement calling it a 'late withdrawal'; si.com's unavailable-players roundup, both 25 Oct 2026). Illia Voloshyn called up to the squad in his place per the same reporting. No other change found this pass. RECHECK 24 Oct ~17:10 UTC (cloud sweep ahead of tomorrow's Clasico at Camp Nou): no change to the list. Vinícius Júnior's ban stands -- Spain's Appeals Committee upheld the 4-match suspension on 16 Oct (Al Jazeera, Deccan Chronicle, Qatar Tribune, all dated this week); Real Madrid are pursuing a further appeal to the independent Sports Tribunal (TAD) per The Athletic, but no ruling has been found, so he stays OUT for this match rather than being moved back to available. Valverde kept in doubt: the original diagnosis (grade-three left ankle sprain from the Madrid derby, official club statement 22 Sep, ~8-week rehab typical) would rule him out of this Clasico, but an ESPN source report and a 6 Oct SportsMole piece both describe the club expecting him (along with Mbappé and Konaté, both since recovered from their own knee knocks) available for the Clasico, calling him 'the biggest doubt' of the three rather than ruled out -- genuinely conflicting, no Oct 22-24 source found to resolve it either way, so left as doubt rather than guessed. Militao/Mendy/Rodrygo/Asencio/Huijsen unchanged long-term outs. Same 2025-vs-2026 source pollution noted on the Barcelona side applies here too (an old Valverde-Tchouameni head-injury story from the 2025-26 season was found and discarded, not this ankle injury). RECHECK 24 Oct ~19:15 UTC (cloud sweep): web search found no new corroborated update on Valverde or the Vinicius appeal beyond what is already recorded. Existing out/doubt lists stand unchanged. RECHECK 24 Oct ~21:13 UTC (cloud sweep): web search found no new corroborated update on Valverde or the Vinicius appeal beyond what is already recorded. Existing out/doubt lists stand unchanged. RECHECK 24 Oct ~23:14 UTC (cloud sweep, ~21h out from kickoff): fresh 23 Oct-dated previews (rotowire.com, livescore.com) reconfirm Vinícius remains suspended for this Clasico; no new corroborated update on Valverde's ankle beyond what is already recorded. Existing out/doubt lists stand unchanged. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged. RECHECK 25 Oct ~19:10 UTC (cloud sweep, ~50min out from kickoff): no new corroborated update found on Valverde's ankle or the Vinicius appeal beyond what is already recorded (fresh searches surfaced only the same stale/prior-season Clasico coverage already flagged and discarded). Existing out/doubt lists stand unchanged, including today's earlier Courtois-out/flu addition.",
+      "note": "RECHECK 25 Oct ~17:08 UTC (cloud sweep, ~2h50 out from kickoff): Thibaut Courtois ADDED to out -- club-announced late withdrawal with flu on matchday itself, two independent sources dated today (etvbharat.com, quoting the club's own statement calling it a 'late withdrawal'; si.com's unavailable-players roundup, both 25 Oct 2026). Illia Voloshyn called up to the squad in his place per the same reporting. No other change found this pass. RECHECK 24 Oct ~17:10 UTC (cloud sweep ahead of tomorrow's Clasico at Camp Nou): no change to the list. Vinícius Júnior's ban stands -- Spain's Appeals Committee upheld the 4-match suspension on 16 Oct (Al Jazeera, Deccan Chronicle, Qatar Tribune, all dated this week); Real Madrid are pursuing a further appeal to the independent Sports Tribunal (TAD) per The Athletic, but no ruling has been found, so he stays OUT for this match rather than being moved back to available. Valverde kept in doubt: the original diagnosis (grade-three left ankle sprain from the Madrid derby, official club statement 22 Sep, ~8-week rehab typical) would rule him out of this Clasico, but an ESPN source report and a 6 Oct SportsMole piece both describe the club expecting him (along with Mbappé and Konaté, both since recovered from their own knee knocks) available for the Clasico, calling him 'the biggest doubt' of the three rather than ruled out -- genuinely conflicting, no Oct 22-24 source found to resolve it either way, so left as doubt rather than guessed. Militao/Mendy/Rodrygo/Asencio/Huijsen unchanged long-term outs. Same 2025-vs-2026 source pollution noted on the Barcelona side applies here too (an old Valverde-Tchouameni head-injury story from the 2025-26 season was found and discarded, not this ankle injury). RECHECK 24 Oct ~19:15 UTC (cloud sweep): web search found no new corroborated update on Valverde or the Vinicius appeal beyond what is already recorded. Existing out/doubt lists stand unchanged. RECHECK 24 Oct ~21:13 UTC (cloud sweep): web search found no new corroborated update on Valverde or the Vinicius appeal beyond what is already recorded. Existing out/doubt lists stand unchanged. RECHECK 24 Oct ~23:14 UTC (cloud sweep, ~21h out from kickoff): fresh 23 Oct-dated previews (rotowire.com, livescore.com) reconfirm Vinícius remains suspended for this Clasico; no new corroborated update on Valverde's ankle beyond what is already recorded. Existing out/doubt lists stand unchanged. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged. RECHECK 25 Oct ~19:10 UTC (cloud sweep, ~50min out from kickoff): no new corroborated update found on Valverde's ankle or the Vinicius appeal beyond what is already recorded (fresh searches surfaced only the same stale/prior-season Clasico coverage already flagged and discarded). Existing out/doubt lists stand unchanged, including today's earlier Courtois-out/flu addition. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed for today's/tomorrow's fixture; nothing found clearing the two-independent-source/official bar. (Getafe: single-publisher Comuniate-only reports of Mojica/Mario Martín suspensions and a Zaid Romero doubt not acted on. Real Madrid: a single-publisher Comuniate report that Valverde/Güler/Courtois are newly available conflicts with the file and is not acted on without a second source. Elche: single-publisher Comuniate claims re: Aguado/Bigas not acted on.)",
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -2115,7 +2119,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T19:10:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1570388,
       "lineup_api_attempted_at": "2026-09-15T19:19:09.147118+00:00",
       "lineup_api_rungs": [
@@ -2438,7 +2442,8 @@
       "out": [
         "Timo Hubers",
         "Thijs Dallinga",
-        "Ragnar Ache"
+        "Ragnar Ache",
+        "Ellyes Skhiri"
       ],
       "doubt": [
         "Joël Schmied"
@@ -2455,7 +2460,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-23T13:21:27Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1575165,
       "lineup_api_attempted_at": "2026-09-12T15:38:48.759631+00:00",
       "lineup_api_rungs": [
@@ -2489,7 +2494,7 @@
       "lineup_checked_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1575149,
-      "note": "Hubers out long-term (severe knee injury); Dallinga out months (ACL tear, preseason-style friendly vs Viktoria Koln); Ache out 'for now' (muscle). Marius Bulter tipped as fallback striker. Sources: flashscore.de, ran.joyn.de/90min.de. UPDATE 23 Oct ahead of Schalke: Joël Schmied (ankle) added as a doubt -- ms-aktuell.de reports he 'droht auszufallen' (at risk of missing out), corroborated by sportsgambler.com's tracker (23 Oct) listing the same ankle issue with no return date. Van den Berg and Skhiri appear on the tracker too but with no second source found, not added."
+      "note": "Hubers out long-term (severe knee injury); Dallinga out months (ACL tear, preseason-style friendly vs Viktoria Koln); Ache out 'for now' (muscle). Marius Bulter tipped as fallback striker. Sources: flashscore.de, ran.joyn.de/90min.de. UPDATE 23 Oct ahead of Schalke: Joël Schmied (ankle) added as a doubt -- ms-aktuell.de reports he 'droht auszufallen' (at risk of missing out), corroborated by sportsgambler.com's tracker (23 Oct) listing the same ankle issue with no return date. Van den Berg and Skhiri appear on the tracker too but with no second source found, not added. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Ellyes Skhiri to OUT -- ankle/syndesmosis ligament tear suffered in the 2:1 derby win over Mönchengladbach (~12-14 Oct 2026); coach René Wagner called it a 'brutal blow', expected return 'early 2027'. Corroborated independently across LigaInsider, 90min.de, Bulinews, AfricaSoccer, ms-aktuell.de and Volksstimme (all mid/late Oct 2026). Schmied's doubt (ankle, subbed off vs Eintracht Frankfurt 16 Oct) reinforced by two more independent sources but severity still unofficial, kept as doubt not upgraded. Hubers and Dallinga reconfirmed out unchanged. A single-source (come-on-fc.com) report that Ragnar Ache is close to a comeback and could feature today is not corroborated by a second outlet -- not acted on, but flagged: worth a same-day squad-list recheck since it bears directly on his own OUT status."
     },
     "Hoffenheim": {
       "out": [],
@@ -2565,8 +2570,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-23T13:21:27Z",
-      "note": "Ahead of Dortmund (H), 17 Oct. Full refresh from a stale (17 Sep) entry. Latte Lath (muscle), Ilic (recovering from appendix surgery), Juranovic (Achilles/illness) and Nsoki (calf) out -- corroborated across Sports Mole, FotMob and The Hard Tackle previews (16 Oct). Markgraf out long-term after confirmed knee (ACL) surgery following a July friendly injury, per club announcement (via RotoWire)."
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Ahead of Dortmund (H), 17 Oct. Full refresh from a stale (17 Sep) entry. Latte Lath (muscle), Ilic (recovering from appendix surgery), Juranovic (Achilles/illness) and Nsoki (calf) out -- corroborated across Sports Mole, FotMob and The Hard Tackle previews (16 Oct). Markgraf out long-term after confirmed knee (ACL) surgery following a July friendly injury, per club announcement (via RotoWire). RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed for today's fixture; nothing found clearing the two-independent-source/official bar."
     },
     "Ein Frankfurt": {
       "out": [
@@ -2587,8 +2592,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T15:30:00Z",
-      "note": "Kristensen (ankle/ligament) and Theate (meniscus tear, out at least a month) reconfirmed. NEW: Ansgar Knauff added to OUT -- had abdominal surgery, club statement says sidelined 'for the foreseeable future' (getfootballnewsgermany.com, two articles). Arnaud Kalimuendo (shoulder) given the all-clear and back in training -- not added to either list, confirmed fit. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Hamburg match, kickoff 2026-11-01T16:30Z): no October 2026-dated team news found for the club or for Jonathan Burkardt specifically; the most recent dated item located was from May 2026. Existing out list (Kristensen, Theate, Knauff) stands unchanged -- checked but not re-corroborated this sweep."
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Kristensen (ankle/ligament) and Theate (meniscus tear, out at least a month) reconfirmed. NEW: Ansgar Knauff added to OUT -- had abdominal surgery, club statement says sidelined 'for the foreseeable future' (getfootballnewsgermany.com, two articles). Arnaud Kalimuendo (shoulder) given the all-clear and back in training -- not added to either list, confirmed fit. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Hamburg match, kickoff 2026-11-01T16:30Z): no October 2026-dated team news found for the club or for Jonathan Burkardt specifically; the most recent dated item located was from May 2026. Existing out list (Kristensen, Theate, Knauff) stands unchanged -- checked but not re-corroborated this sweep. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed for today's fixture; nothing found clearing the two-independent-source/official bar. Jonathan Burkardt's starting status for today's 16:30 UTC kickoff vs Hamburg (he has a shots prop pick on today's board) could not be confirmed either way -- all search hits were undated or from a prior season/coach; recommend a same-day lineup check closer to kickoff."
     },
     "Mainz": {
       "out": [
@@ -2794,7 +2799,7 @@
         "Sambi Lokonga",
         "Yussuf Poulsen"
       ],
-      "note": "Ahead of Stuttgart (H), 17 Oct. Full refresh from a stale (17 Sep) 'no concerns' entry -- squad has since changed. Captain Remberg out for the season (cruciate ligament tear); Daka and Omari (ankle) also out. Lokonga and Poulsen doubtful, sources disagree on severity. Fabio Vieira (board player) has no fitness concern and is expected to start. RECHECK 23 Oct ahead of Paderborn: starting11.com (single source) lists Vuskovic (doping case) as a new out and moves Daka from out to doubt, drops Omari entirely -- none corroborated by a second source, so the existing out list (Remberg, Daka, Omari) stands unchanged. Confirms Fabio Vieira (today's board props player) is not on the injury list, consistent with him being fit to start. RECHECK 24 Oct (2026-10-24T09:20:00Z, cloud sweep ahead of today's kickoff): no new corroborated update found; existing out/doubt list stands. RECHECK 24 Oct ~13:10 UTC (cloud sweep ahead of today's/tomorrow's kickoff): web search for this club's confirmed lineup and any fresh injury news found no new corroborated update -- official starting XI not yet posted at search time where kickoff is imminent (clubs typically publish ~60 min pre-kickoff); existing out/doubt list stands unchanged. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Ein Frankfurt match, kickoff 2026-11-01T16:30Z): no October 2026-dated club news found beyond an undated aggregator page consistent with the existing list (4 out, Lokonga/Muheim doubt). Existing out (Remberg, Daka, Omari) / doubt (Lokonga, Poulsen) list stands unchanged.",
+      "note": "Ahead of Stuttgart (H), 17 Oct. Full refresh from a stale (17 Sep) 'no concerns' entry -- squad has since changed. Captain Remberg out for the season (cruciate ligament tear); Daka and Omari (ankle) also out. Lokonga and Poulsen doubtful, sources disagree on severity. Fabio Vieira (board player) has no fitness concern and is expected to start. RECHECK 23 Oct ahead of Paderborn: starting11.com (single source) lists Vuskovic (doping case) as a new out and moves Daka from out to doubt, drops Omari entirely -- none corroborated by a second source, so the existing out list (Remberg, Daka, Omari) stands unchanged. Confirms Fabio Vieira (today's board props player) is not on the injury list, consistent with him being fit to start. RECHECK 24 Oct (2026-10-24T09:20:00Z, cloud sweep ahead of today's kickoff): no new corroborated update found; existing out/doubt list stands. RECHECK 24 Oct ~13:10 UTC (cloud sweep ahead of today's/tomorrow's kickoff): web search for this club's confirmed lineup and any fresh injury news found no new corroborated update -- official starting XI not yet posted at search time where kickoff is imminent (clubs typically publish ~60 min pre-kickoff); existing out/doubt list stands unchanged. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Ein Frankfurt match, kickoff 2026-11-01T16:30Z): no October 2026-dated club news found beyond an undated aggregator page consistent with the existing list (4 out, Lokonga/Muheim doubt). Existing out (Remberg, Daka, Omari) / doubt (Lokonga, Poulsen) list stands unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed for today's fixture; nothing found clearing the two-independent-source/official bar.",
       "automation": {
         "checked_at": "2026-09-17T19:23:01.895735Z",
         "feeds_ok": [
@@ -2807,7 +2812,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T15:30:00Z"
+      "checked": "2026-11-01T09:20:43Z"
     },
     "Freiburg": {
       "out": [],
@@ -2939,7 +2944,9 @@
   },
   "LIGUE1": {
     "Marseille": {
-      "out": [],
+      "out": [
+        "Cornelius"
+      ],
       "doubt": [
         "Amine Gouiri",
         "Geoffrey Kondogbia",
@@ -2957,7 +2964,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552763,
       "lineup_api_attempted_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_api_rungs": [
@@ -2991,7 +2998,7 @@
       "lineup_checked_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1552763,
-      "note": "Kondogbia (thigh) returned to full group training and 'could be available' for the Troyes trip per RMC (6 Oct 2026, via maxifoot.fr) -- not yet confirmed in the matchday squad, so kept as a doubt rather than cleared. Update 17 Oct: Nnadi's prior 'out' status is now STALE -- he recovered from his early-Sept knee injury, rejected surgery, returned to the squad, and was an unused-bench-to-sub at Troyes on 11 Oct (came on 73'), per soccernet.ng (12 Oct) corroborated by foot01.com's pre-Troyes report; treated as available/fit, no longer out. Højbjerg (thigh/muscle, 'a few weeks') is a new doubt, two sources (FotMob + starting11.com). RECHECK 24 Oct ~23:14 UTC (cloud sweep ahead of tomorrow's Le Havre game, a Best Pick on today's board): Amine Gouiri ADDED to doubt -- thigh knock picked up on international duty with Algeria during the break, training separately from the group, club 'not taking any risk with him' per getfootballnewsfrance.com (reporting from the week of 6 Oct, most recent found). Kondogbia and Hojbjerg's current fitness could not be confirmed one way or the other this pass (no dated report found after 6 Oct for Kondogbia, after 4 Oct for Hojbjerg); kept as doubts rather than cleared or escalated on stale evidence. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged."
+      "note": "Kondogbia (thigh) returned to full group training and 'could be available' for the Troyes trip per RMC (6 Oct 2026, via maxifoot.fr) -- not yet confirmed in the matchday squad, so kept as a doubt rather than cleared. Update 17 Oct: Nnadi's prior 'out' status is now STALE -- he recovered from his early-Sept knee injury, rejected surgery, returned to the squad, and was an unused-bench-to-sub at Troyes on 11 Oct (came on 73'), per soccernet.ng (12 Oct) corroborated by foot01.com's pre-Troyes report; treated as available/fit, no longer out. Højbjerg (thigh/muscle, 'a few weeks') is a new doubt, two sources (FotMob + starting11.com). RECHECK 24 Oct ~23:14 UTC (cloud sweep ahead of tomorrow's Le Havre game, a Best Pick on today's board): Amine Gouiri ADDED to doubt -- thigh knock picked up on international duty with Algeria during the break, training separately from the group, club 'not taking any risk with him' per getfootballnewsfrance.com (reporting from the week of 6 Oct, most recent found). Kondogbia and Hojbjerg's current fitness could not be confirmed one way or the other this pass (no dated report found after 6 Oct for Kondogbia, after 4 Oct for Hojbjerg); kept as doubts rather than cleared or escalated on stale evidence. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Cornelius (hip) to OUT -- corroborated independently by both TheStatsZone (27 Oct 2026) and Starting11.com for today's Toulouse match. Existing doubts (Gouiri, Kondogbia, Højbjerg) left unchanged: Gouiri is started in TheStatsZone's predicted XI and absent from Starting11's tracker (suggestive of improvement, but neither is an explicit 'returned to training' statement -- not a hard confirmation); Kondogbia is absent from both trackers (weaker signal, no source affirmatively starts him either); Højbjerg is directly conflicting (TheStatsZone starts him, Starting11 lists him doubtful with a muscle injury) -- kept as doubt given the conflict. Single-source (Starting11 only) Moumbagna/Mbondo/Abdallah items not added."
     },
     "Strasbourg": {
       "out": [
@@ -3001,8 +3008,13 @@
         "Otavio",
         "Sangui"
       ],
-      "doubt": [],
-      "note": "Panichelli reconfirmed: ACL/cruciate rupture on Argentina duty, season-ending. Anselmino (hamstring) also confirmed out, long-term. No fresh sourcing on Otavio, Mbemba or Sangui -- no contradiction of the existing list, but no new confirmation either. RECHECK 17 Oct (PSG match already underway): existing Panichelli (season-ending ACL) and Anselmino out reconfirmed; no corroborated new names.",
+      "doubt": [
+        "Baldé",
+        "Nanasi",
+        "Doukouré",
+        "Amo-Ameyaw"
+      ],
+      "note": "Panichelli reconfirmed: ACL/cruciate rupture on Argentina duty, season-ending. Anselmino (hamstring) also confirmed out, long-term. No fresh sourcing on Otavio, Mbemba or Sangui -- no contradiction of the existing list, but no new confirmation either. RECHECK 17 Oct (PSG match already underway): existing Panichelli (season-ending ACL) and Anselmino out reconfirmed; no corroborated new names. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Baldé (leg), Nanasi, Doukouré and Amo-Ameyaw ('major doubt') to DOUBT -- all four independently corroborated by both TheStatsZone's dated 27 Oct 2026 preview and Starting11.com's fixture-specific injury tracker for today's Auxerre match. Panichelli reconfirmed out. Anselmino, Mbemba, Otavio and Sangui not mentioned by either new source -- a coverage gap, not evidence of return; left unchanged.",
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -3015,7 +3027,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552771,
       "lineup_api_attempted_at": "2026-09-19T14:33:00.057683+00:00",
       "lineup_api_rungs": [
@@ -3086,7 +3098,8 @@
         "Coulibaly",
         "Marvin Senaya",
         "Sekou Fofana",
-        "Siwe"
+        "Siwe",
+        "Labeau Lascary"
       ],
       "doubt": [],
       "automation": {
@@ -3101,13 +3114,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552750,
       "lineup_api_attempted_at": "2026-09-04T16:24:56.701452+00:00",
       "lineup_api_rungs": [
         45
       ],
-      "note": "Okoh, Diousse and Senaya reconfirmed out (ACL/hamstring, long-term, unchanged). A single-source suspension claim on Makosso (yellow-card accumulation) could not be corroborated by a second outlet, so not acted on. RECHECK 17 Oct ahead of Le Havre: existing Okoh/Diousse/Senaya/Siwe out list reconfirmed (Siwe and Okoh further corroborated by an independent Sept report); no change."
+      "note": "Okoh, Diousse and Senaya reconfirmed out (ACL/hamstring, long-term, unchanged). A single-source suspension claim on Makosso (yellow-card accumulation) could not be corroborated by a second outlet, so not acted on. RECHECK 17 Oct ahead of Le Havre: existing Okoh/Diousse/Senaya/Siwe out list reconfirmed (Siwe and Okoh further corroborated by an independent Sept report); no change. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Labeau Lascary to OUT -- corroborated independently by both TheStatsZone (27 Oct 2026) and Starting11.com, specific to today's Strasbourg fixture. Okoh and Diousse reconfirmed out by both sources. Siwe, Senaya and Fofana (already out on file) are reconfirmed unavailable but the two sources disagree on exact severity (one calls them doubt, one keeps them out) -- kept as-is (out) given the conflict. A single-source (Starting11 only) Mandengue-out and Akpa-doubt claim not added."
     },
     "Le Mans": {
       "out": [],
@@ -3300,8 +3313,13 @@
       "note": "RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made."
     },
     "Toulouse": {
-      "out": [],
-      "doubt": [],
+      "out": [
+        "Messali"
+      ],
+      "doubt": [
+        "Oppong",
+        "Niflore"
+      ],
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -3314,21 +3332,25 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552736,
       "lineup_api_attempted_at": "2026-08-22T18:00:46.109426+00:00",
       "lineup_api_rungs": [
         60,
         45
       ],
-      "note": "Re-checked 2026-10-15 ahead of the 16 Oct Le Mans match: captain Rasmus Nicolaisen (calf), who had missed the Lorient/Le Havre/Monaco run, is reported fully recovered and training individually-cleared (score.fr, single source, not acted on -- he was never on the out/doubt list to begin with). No other verifiable absences found for either side."
+      "note": "Re-checked 2026-10-15 ahead of the 16 Oct Le Mans match: captain Rasmus Nicolaisen (calf), who had missed the Lorient/Le Havre/Monaco run, is reported fully recovered and training individually-cleared (score.fr, single source, not acted on -- he was never on the out/doubt list to begin with). No other verifiable absences found for either side. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Messali (thigh, picked up vs Troyes) to OUT and Oppong (calf) plus Niflore to DOUBT -- all three corroborated independently by both TheStatsZone (27 Oct 2026) and Starting11.com, specific to today's Marseille match; none were on file before."
     },
     "Lyon": {
       "out": [
-        "Moussa Niakhaté"
+        "Tagliafico",
+        "Šulc",
+        "Openda",
+        "Ouédraogo",
+        "Kango"
       ],
       "doubt": [],
-      "note": "Ahead of the 9 Oct Lens match: Niakhaté (hamstring) now confirmed OUT -- left the Senegal camp in Marseille after the 4 Oct friendly vs Comores, an MRI confirmed the injury, and he returned to Lyon for treatment. Corroborated across multiple independent outlets (foot-africa.com, africasoccer.com, foot01.com, lyonmag.com, afrik-foot.com), all citing L'Equipe's forfeit report for the Lens fixture; also flagged as a doubt for the 15 Oct Europa League game vs Crystal Palace. Duranville, Tagliafico and Himbert remain only on the uncorroborated starting11.com tracker -- still not acted on. No Lens or Lyon player on today's player_picks board is affected either way. RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made.",
+      "note": "Ahead of the 9 Oct Lens match: Niakhaté (hamstring) now confirmed OUT -- left the Senegal camp in Marseille after the 4 Oct friendly vs Comores, an MRI confirmed the injury, and he returned to Lyon for treatment. Corroborated across multiple independent outlets (foot-africa.com, africasoccer.com, foot01.com, lyonmag.com, afrik-foot.com), all citing L'Equipe's forfeit report for the Lens fixture; also flagged as a doubt for the 15 Oct Europa League game vs Crystal Palace. Duranville, Tagliafico and Himbert remain only on the uncorroborated starting11.com tracker -- still not acted on. No Lens or Lyon player on today's player_picks board is affected either way. RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): REMOVED Moussa Niakhaté from OUT -- two independent sources agree he's available for today's Angers match: TheStatsZone's 27 Oct predicted XI names him as the STARTING centre-back, and Starting11.com's fixture-specific injury tracker does not list him at all. ADDED Tagliafico, Šulc, Openda, Ouédraogo and Kango (concussion) to OUT -- all five corroborated by both sources specific to this fixture (Openda's fibula injury since the 9 Oct Lens game separately corroborated, return estimated mid-November, consistent with still out now). Previously Tagliafico had been flagged uncorroborated (starting11.com only) on an earlier sweep -- now cleared the two-source bar. Nakamura (suspended), Morton, Hamdani and Tolisso are each single-sourced only -- not added.",
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -3341,7 +3363,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552750,
       "lineup_api_attempted_at": "2026-09-04T16:24:56.701452+00:00",
       "lineup_api_rungs": [
@@ -3384,7 +3406,12 @@
         "Godo"
       ],
       "doubt": [
-        "Baldé"
+        "Baldé",
+        "Koleosho",
+        "Chergui",
+        "Trapp",
+        "Ham Traoré",
+        "Camara"
       ],
       "automation": {
         "checked_at": "2026-09-19T14:31:26.095673Z",
@@ -3398,21 +3425,24 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T15:30:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552771,
       "lineup_api_attempted_at": "2026-09-19T14:33:00.057683+00:00",
       "lineup_api_rungs": [
         45
       ],
-      "note": "Godo out (injury). Balde in return-to-fitness phase, likely unavailable/limited -- listed as doubt. Predicted XI has Sinayoko starting up top, unaffected. Note: a search result attributed a 'Panichelli' absence to Paris FC, but Panichelli is a Strasbourg player (already correctly recorded there, long-term ACL) -- NOT added here to avoid a cross-team mix-up; the source article most likely described Strasbourg's own absentee list. Sources: footix.fr, kickfootball.fr, 19 Sep. RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Monaco match, kickoff 2026-11-01T16:15Z): no fresh injury news found for the club; multiple sources (getfootballnewsfrance, AP wire, rotowire) confirm Lassine Sinayoko has started all eight Ligue 1 matches this season and played/scored in the most recent fixtures (brace vs Rennes 18 Oct, assist vs Lens 24 Oct) with no injury or fitness concern reported. Existing out (Godo) / doubt (Baldé) list stands unchanged -- not contradicted, but also not re-corroborated by a dated source this sweep."
+      "note": "Godo out (injury). Balde in return-to-fitness phase, likely unavailable/limited -- listed as doubt. Predicted XI has Sinayoko starting up top, unaffected. Note: a search result attributed a 'Panichelli' absence to Paris FC, but Panichelli is a Strasbourg player (already correctly recorded there, long-term ACL) -- NOT added here to avoid a cross-team mix-up; the source article most likely described Strasbourg's own absentee list. Sources: footix.fr, kickfootball.fr, 19 Sep. RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Monaco match, kickoff 2026-11-01T16:15Z): no fresh injury news found for the club; multiple sources (getfootballnewsfrance, AP wire, rotowire) confirm Lassine Sinayoko has started all eight Ligue 1 matches this season and played/scored in the most recent fixtures (brace vs Rennes 18 Oct, assist vs Lens 24 Oct) with no injury or fitness concern reported. Existing out (Godo) / doubt (Baldé) list stands unchanged -- not contradicted, but also not re-corroborated by a dated source this sweep. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Koleosho, Chergui, Trapp (illness), Ham Traoré and Camara to DOUBT, each corroborated by both TheStatsZone's 27 Oct preview and Starting11.com's fixture-specific tracker for today's Monaco match. Godo and Baldé (existing) unchanged -- not mentioned by either new source either direction. LASSINE SINAYOKO (today's shots prop pick): confirmed fit and expected to start -- TheStatsZone's predicted XI names him as starting striker, Starting11's injury tracker does not list him at all, and independent player-data sources (theanalyst.com, NST, Rotowire/Squawka) show he has started all 8 Ligue 1 matches this season (6 goals/4 assists), most recently playing and assisting in the 24 Oct loss at Lens -- no injury signal found anywhere. FLAGGED, NOT ACTED ON: both new sources separately list a player named 'Sangui' as OUT for Paris FC, but the file has Sangui on STRASBOURG's out list -- could be a different player with the same surname or a misattribution in one source; left as-is on Strasbourg pending clearer identification. Matondo, Marchetti and a conflicting Ikoné read are each single-sourced -- not added."
     },
     "Angers": {
       "out": [
-        "Jordan Lefort",
         "Usman Simbakoli"
       ],
-      "doubt": [],
-      "note": "Update 17 Oct, two independent sources each: Lefort (DEF) suspended, sent off at Brest in the prior round (africasoccer.com match report + starting11.com injury tracker); Simbakoli (FWD) unavailable, muscle/groin issue, both sources agree on the absence though injury-type detail conflicts. Single-source-only doubts (Ousmane Camara thigh, Joseph Kalulu groin -- starting11.com only) not corroborated elsewhere, so not added.",
+      "doubt": [
+        "Diatta",
+        "El Ouazzani",
+        "Biumla"
+      ],
+      "note": "Update 17 Oct, two independent sources each: Lefort (DEF) suspended, sent off at Brest in the prior round (africasoccer.com match report + starting11.com injury tracker); Simbakoli (FWD) unavailable, muscle/groin issue, both sources agree on the absence though injury-type detail conflicts. Single-source-only doubts (Ousmane Camara thigh, Joseph Kalulu groin -- starting11.com only) not corroborated elsewhere, so not added. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): REMOVED Jordan Lefort from OUT -- two independent sources agree he's available for today's Lyon match: TheStatsZone's 27 Oct predicted XI names him as the STARTING centre-back, and Starting11.com's fixture-specific injury tracker does not list him. ADDED Diatta, El Ouazzani and Biumla to DOUBT (the conservative reading -- TheStatsZone calls them 'questionable/potentially unavailable', Starting11 calls Diatta/El Ouazzani out and Biumla doubtful; reported at the more conservative level given the disagreement). Usman Simbakoli reconfirmed out by Starting11 (muscle), unchanged. Camara, Belkebla and Kalulu are single-sourced (Starting11 only) doubts -- not added.",
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
         "feeds_ok": [
@@ -3425,7 +3455,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-25T11:11:08.300166Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552729,
       "lineup_api_attempted_at": "2026-08-23T12:01:44.188254+00:00",
       "lineup_api_rungs": [
@@ -3550,7 +3580,11 @@
       "note": "RECHECK 17 Oct ahead of Auxerre: a single-source (starting11.com) pass lists Mpasi, Jelert, Zagadou, Toure, Mambimbi and Pembele out, Fofana doubtful, and Seko suspended -- none corroborated by a second outlet or official statement this pass, so NOT added; kept at the existing clean read pending confirmation. RECHECK 24 Oct ~23:14 UTC (cloud sweep ahead of tomorrow's Marseille game, a Best Pick on today's board): the same six names now NEWLY CORROBORATED by a second, independent source -- sportsmole.co.uk's round-7 Auxerre preview (18 Oct) separately confirms Mambimbi and Mpasi-Nzau out with Achilles tendon injuries, Toure and Zagadou out with long-term knee problems, and Pembele and Jelert 'ruled out in defence' (leaving coach Didier Digard with only four fit first-team defenders for that game). ADDED to out on that two-source basis; all four injury types (Achilles, knee, defender absences framed as longer-term) are unlikely to have resolved in the week since. Fofana (doubt) and Seko (suspended for that one match, likely served and eligible again by now) remain single-source / time-expired respectively and are NOT added. No club-confirmed squad list for the Marseille fixture found yet. RECHECK 25 Oct ~09:14 UTC (cloud sweep): web search found no new corroborated update beyond what is already on file (fresh searches surfaced only the same stale/prior-season coverage already flagged and discarded in earlier passes). Existing out/doubt lists stand unchanged. RECHECK 29 Oct ~18:10 UTC (cloud sweep, match is tomorrow 30 Oct): CulturePSG's two dedicated Le Havre/PSG preview articles (28 and 29 Oct) confirm Mpasi (Achilles rupture, Sept), Zagadou (ACL rupture, April) and Mambimbi (Achilles rupture, July) still out, and describe Jelert (thigh, could return) and Pembele (adductor, very uncertain) as uncertain rather than confirmed out -- but this is a single outlet for this specific match, so NOT strong enough on its own to downgrade Jelert/Pembele from the existing two-source 'out'. Toure is not mentioned in either CulturePSG piece; no second source found either confirming or contradicting his status, so he is kept rather than removed on an omission alone. Existing out list stands unchanged pending a second source. RECHECK 30 Oct ~09:13 UTC (cloud sweep, match today 18:00 UTC, ~8.8h out): Sports Mole's Ligue 1 Gameweek 9 preview (dated today) and Khel Now's 28 Oct preview carry no new corroborated injury/lineup names beyond the existing out list -- Sports Mole's team-news section was empty and no CulturePSG-style dedicated absentee piece for this exact date was found this pass. Existing out list (Mpasi-Nzau, Jelert, Mambimbi, Zagadou, Toure, Pembele) stands unchanged. RECHECK 30 Oct ~11:17 UTC (cloud sweep, match today 18:00 UTC, ~6.7h out): CulturePSG's 28 Oct dedicated absentee piece ('Déjà 7 absents pour Le Havre-PSG') softens Jelert to 'pourrait faire son retour' (possible return to the squad) rather than flat out, and describes Pembele's presence as 'très incertaine' -- both single-source for this exact framing, so NOT downgraded from the existing two-source out list pending a second outlet. The same piece itemises exactly 7 absentees across both clubs and does not name Toure, which could mean he's returned, but that is an inference from omission only (no explicit confirmation found) -- kept on the out list. Mpasi, Zagadou and Mambimbi reconfirmed out by the same piece. No new names. Existing out list stands unchanged. RECHECK 30 Oct ~15:15 UTC (cloud sweep, match today 18:00 UTC, ~2.7h out): no new corroborated update found beyond the 11:17 UTC pass -- fresh searches surfaced only general previews with no fixture-specific team-news section. Existing out list (Mpasi-Nzau, Jelert, Mambimbi, Zagadou, Toure, Pembele) stands unchanged."
     },
     "Monaco": {
-      "out": [],
+      "out": [
+        "Dier",
+        "Idumbo-Muzambo",
+        "Ansu Fati"
+      ],
       "doubt": [],
       "automation": {
         "checked_at": "2026-10-25T11:11:08.300166Z",
@@ -3564,7 +3598,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T15:30:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1552764,
       "lineup_api_attempted_at": "2026-09-12T14:15:30.848407+00:00",
       "lineup_api_rungs": [
@@ -3598,7 +3632,7 @@
       "lineup_checked_at": "2026-08-23T15:00:37.920629+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1552730,
-      "note": "RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Paris FC match, kickoff 2026-11-01T16:15Z): no October 2026-dated team news found; all search results were from spring 2026 or the 2025-26 season. Existing out/doubt list (both empty) stands unchanged pending clearer, dated sourcing."
+      "note": "RECHECK 17 Oct: no report specific to this matchday cleared the two-source/official bar (only an undated, internally-inconsistent aggregator surfaced) -- no change made. RECHECK 31 Oct ~15:30 UTC (cloud sweep ahead of tomorrow's Paris FC match, kickoff 2026-11-01T16:15Z): no October 2026-dated team news found; all search results were from spring 2026 or the 2025-26 season. Existing out/doubt list (both empty) stands unchanged pending clearer, dated sourcing. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): ADDED Dier (muscle), Idumbo-Muzambo (groin) and Ansu Fati (hamstring) to OUT, all three corroborated independently by both TheStatsZone (27 Oct 2026) and Starting11.com, both tied specifically to today's Paris FC fixture -- none were on file before (TheStatsZone's own listing was internally inconsistent on Fati, appearing under both 'doubt' and 'unavailable' in the same article, but Starting11 independently and unambiguously lists him out, so the two-source bar holds). A single-source (Starting11 only) Camara doubt not added."
     },
     "Paris SG": {
       "out": [
@@ -3730,13 +3764,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-28T23:20:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550127,
       "lineup_api_attempted_at": "2026-09-20T17:45:42.645915+00:00",
       "lineup_api_rungs": [
         60
       ],
-      "note": "Berisha still held back by an overload issue in his return from a 9-month layoff. Gandelman away on Israel NT duty with a knee tendinopathy, unavailable regardless. Geubbels expected back specifically for this Bologna match per sosfanta.com/fantamaster.it -- moved to doubt rather than cleared outright. RECHECK 17 Oct ahead of Udinese: no current, dated reporting found this pass (search returned stale 2024 fixtures); existing Berisha/Gandelman out and Geubbels doubt carried forward unchanged. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 28 Oct ~23:20 UTC (cloud sweep, ~18-21h out ahead of this Thursday's fixture): re-searched (fantacalcio.it, fantamaster.it, sportface.it, goal.com) for this club's injury/lineup news; no new dated update found beyond what is already on file (formazioni ufficiali not published this far out, other hits were stale prior-season results). Existing out/doubt carried forward unchanged."
+      "note": "Berisha still held back by an overload issue in his return from a 9-month layoff. Gandelman away on Israel NT duty with a knee tendinopathy, unavailable regardless. Geubbels expected back specifically for this Bologna match per sosfanta.com/fantamaster.it -- moved to doubt rather than cleared outright. RECHECK 17 Oct ahead of Udinese: no current, dated reporting found this pass (search returned stale 2024 fixtures); existing Berisha/Gandelman out and Geubbels doubt carried forward unchanged. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 28 Oct ~23:20 UTC (cloud sweep, ~18-21h out ahead of this Thursday's fixture): re-searched (fantacalcio.it, fantamaster.it, sportface.it, goal.com) for this club's injury/lineup news; no new dated update found beyond what is already on file (formazioni ufficiali not published this far out, other hits were stale prior-season results). Existing out/doubt carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Roma": {
       "out": [
@@ -3876,7 +3910,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-28T17:20:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550112,
       "lineup_api_attempted_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_api_rungs": [
@@ -3915,7 +3949,7 @@
       "lineup_checked_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1550112,
-      "note": "Ahead of Roma (A), 17 Oct. Full refresh from a stale (20 Sep) entry. Colombo, Sow, Havel, Meichtry and Venturino unavailable for this match (OneFootball Serie A preview, 16 Oct, which draws on Sky Sport Italia's per-matchday unavailable-players list). Nuredini (ACL, long-term) kept as out -- not contradicted. Vasquez (previously suspended) dropped from out -- no source still lists him unavailable, suspension presumed served. Amorim DOWNGRADED from out to doubt and Otoa (muscle) added as doubt per the same preview. RECHECK 17 Oct: existing out list (incl. Colombo) reconfirmed; a fresh single-source note on Colombo's ankle is ~2 weeks old and does not change his already-out status. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged."
+      "note": "Ahead of Roma (A), 17 Oct. Full refresh from a stale (20 Sep) entry. Colombo, Sow, Havel, Meichtry and Venturino unavailable for this match (OneFootball Serie A preview, 16 Oct, which draws on Sky Sport Italia's per-matchday unavailable-players list). Nuredini (ACL, long-term) kept as out -- not contradicted. Vasquez (previously suspended) dropped from out -- no source still lists him unavailable, suspension presumed served. Amorim DOWNGRADED from out to doubt and Otoa (muscle) added as doubt per the same preview. RECHECK 17 Oct: existing out list (incl. Colombo) reconfirmed; a fresh single-source note on Colombo's ankle is ~2 weeks old and does not change his already-out status. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Como": {
       "out": [
@@ -3934,7 +3968,7 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T21:30:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550112,
       "lineup_api_attempted_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_api_rungs": [
@@ -3974,7 +4008,7 @@
       "lineup_checked_at": "2026-09-04T18:28:58.896504+00:00",
       "lineup_source": "API-Football",
       "lineup_fixture_id": 1550112,
-      "note": "UPDATE 23 Oct ahead of Sassuolo (24 Oct): Assane Diao OUT -- left thigh (biceps femoris) strain, suffered 14 Oct 2026 vs Feyenoord in the UCL, forced off after 23 minutes. Two independent sources: comofootball.com's official club statement + foot-africa.com, corroborated by starting11.com's live tracker. Club says return is being managed day-to-day with no date given. SUPERSEDES the 23 Oct recheck note below, which found 'no current injury news' before this update -- that check evidently predated or missed the club statement. Diao has a live 2+ shots prop pick on today's board (id 73) that was not shown as doubtful/out; flagging so the pick can be treated with that in mind. Other names on starting11's list (Rodriguez, Chalobah, Addai, Lahdo, Ndengushi, Caqueret, Goldaniga, Vigorito; doubts Kean, Papaccioli, Smolcic) are single-source only and several look like squad-list noise rather than injuries -- NOT added. RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of today's Torino match): could not verify Diao's current status to two-source standard -- search results mixed-vintage (Nov 2025/Jan 2026). Existing out-list left unchanged. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~2.5h before Torino kickoff): search still returns only mixed-vintage items for Diao. Existing out-list left unchanged. RECHECK 31 Oct ~11:17 UTC (cloud sweep, Como v Venezia just entered the 26h window, kickoff 2026-11-01T11:30Z): starting11.com confirms Diao is still listed among Como's absentees but a second, independently dated source could not be found for his status on this specific fixture (search kept surfacing mixed-vintage Nov2025/Jan2026 items) -- existing out-list (Diao) left unchanged per the two-source policy. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of tomorrow's Venezia match): no 2026-27-dated injury item found at all (search surfaced only a stale 2024-25 Alberto Dossena ACL item, discarded). Existing out list (Diao) stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of tomorrow's Venezia match): the only fresh-looking Diao item found (hamstring, Senegal camp) is dated 22 Nov 2025, a year stale -- discarded. No corroborated update either way. Existing out list (Diao) stands unchanged."
+      "note": "UPDATE 23 Oct ahead of Sassuolo (24 Oct): Assane Diao OUT -- left thigh (biceps femoris) strain, suffered 14 Oct 2026 vs Feyenoord in the UCL, forced off after 23 minutes. Two independent sources: comofootball.com's official club statement + foot-africa.com, corroborated by starting11.com's live tracker. Club says return is being managed day-to-day with no date given. SUPERSEDES the 23 Oct recheck note below, which found 'no current injury news' before this update -- that check evidently predated or missed the club statement. Diao has a live 2+ shots prop pick on today's board (id 73) that was not shown as doubtful/out; flagging so the pick can be treated with that in mind. Other names on starting11's list (Rodriguez, Chalobah, Addai, Lahdo, Ndengushi, Caqueret, Goldaniga, Vigorito; doubts Kean, Papaccioli, Smolcic) are single-source only and several look like squad-list noise rather than injuries -- NOT added. RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of today's Torino match): could not verify Diao's current status to two-source standard -- search results mixed-vintage (Nov 2025/Jan 2026). Existing out-list left unchanged. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~2.5h before Torino kickoff): search still returns only mixed-vintage items for Diao. Existing out-list left unchanged. RECHECK 31 Oct ~11:17 UTC (cloud sweep, Como v Venezia just entered the 26h window, kickoff 2026-11-01T11:30Z): starting11.com confirms Diao is still listed among Como's absentees but a second, independently dated source could not be found for his status on this specific fixture (search kept surfacing mixed-vintage Nov2025/Jan2026 items) -- existing out-list (Diao) left unchanged per the two-source policy. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of tomorrow's Venezia match): no 2026-27-dated injury item found at all (search surfaced only a stale 2024-25 Alberto Dossena ACL item, discarded). Existing out list (Diao) stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of tomorrow's Venezia match): the only fresh-looking Diao item found (hamstring, Senegal camp) is dated 22 Nov 2025, a year stale -- discarded. No corroborated update either way. Existing out list (Diao) stands unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Fiorentina": {
       "out": [
@@ -4053,13 +4087,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-27T17:12:30Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550110,
       "lineup_api_attempted_at": "2026-09-05T12:02:07.920958+00:00",
       "lineup_api_rungs": [
         60
       ],
-      "note": "Adams (muscle) missed the Roma and Bologna games, doing personalised work, aiming to rejoin the group before Udinese (SOS Fanta/Tuttosport, corroborated by starting11.com's Torino injury page listing him out for 12 Oct). Pellegri returned to group training this week after his long ACL rehab and is aiming for the squad vs Udinese -- moved to doubt rather than out (SOS Fanta/Tuttosport; starting11.com also lists him, among others not corroborated elsewhere (Casadei, Coco, Simeone), so those three are left out pending a second source). Rechecked 23:13 UTC ahead of the fixture (Simeone has a prop pick on today's board): no fresh reporting found on his fitness, nothing contradicting that he is fit and in the squad -- left off out/doubt. RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of today's Como match): could not verify Adams or Pellegri's current status to two-source standard -- search results were stale (Adams: Nov 2025 report; Pellegri: undated training-return snippet). Existing out/doubt list left unchanged. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~2.5h before Como kickoff): search still returns only stale (Nov 2025 / undated) items for Adams and Pellegri. Existing out/doubt list left unchanged."
+      "note": "Adams (muscle) missed the Roma and Bologna games, doing personalised work, aiming to rejoin the group before Udinese (SOS Fanta/Tuttosport, corroborated by starting11.com's Torino injury page listing him out for 12 Oct). Pellegri returned to group training this week after his long ACL rehab and is aiming for the squad vs Udinese -- moved to doubt rather than out (SOS Fanta/Tuttosport; starting11.com also lists him, among others not corroborated elsewhere (Casadei, Coco, Simeone), so those three are left out pending a second source). Rechecked 23:13 UTC ahead of the fixture (Simeone has a prop pick on today's board): no fresh reporting found on his fitness, nothing contradicting that he is fit and in the squad -- left off out/doubt. RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of today's Como match): could not verify Adams or Pellegri's current status to two-source standard -- search results were stale (Adams: Nov 2025 report; Pellegri: undated training-return snippet). Existing out/doubt list left unchanged. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~2.5h before Como kickoff): search still returns only stale (Nov 2025 / undated) items for Adams and Pellegri. Existing out/doubt list left unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Inter": {
       "out": [
@@ -4138,13 +4172,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-28T17:20:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550123,
       "lineup_api_attempted_at": "2026-09-13T15:00:07.177817+00:00",
       "lineup_api_rungs": [
         60
       ],
-      "note": "Existing out list (Buongiorno, Meret, Spinazzola, Marianucci, McTominay) kept unchanged -- a single-source predicted-lineup page (fantamaster.it, citing a Tuttosport matchday page for this exact Oct 17 Venezia fixture) suggests Meret, McTominay and Spinazzola may have returned to the XI, but that is not corroborated by a second independent source, so not acted on. Buongiorno (long-term) not contradicted anywhere. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged."
+      "note": "Existing out list (Buongiorno, Meret, Spinazzola, Marianucci, McTominay) kept unchanged -- a single-source predicted-lineup page (fantamaster.it, citing a Tuttosport matchday page for this exact Oct 17 Venezia fixture) suggests Meret, McTominay and Spinazzola may have returned to the XI, but that is not corroborated by a second independent source, so not acted on. Buongiorno (long-term) not contradicted anywhere. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Frosinone": {
       "out": [
@@ -4164,8 +4198,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-28T23:20:00Z",
-      "note": "Grillitsch (adductor/muscle problem) and Terzic (muscular injury) both left out of the 25-man squad list for Como. Sources: tuttomercatoweb.com (x2), tuttofrosinone.com. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 28 Oct ~23:20 UTC (cloud sweep, ~18-21h out ahead of this Thursday's fixture): re-searched (fantacalcio.it, fantamaster.it, sportface.it, goal.com) for this club's injury/lineup news; no new dated update found beyond what is already on file (formazioni ufficiali not published this far out, other hits were stale prior-season results). Existing out/doubt carried forward unchanged."
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Grillitsch (adductor/muscle problem) and Terzic (muscular injury) both left out of the 25-man squad list for Como. Sources: tuttomercatoweb.com (x2), tuttofrosinone.com. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 28 Oct ~23:20 UTC (cloud sweep, ~18-21h out ahead of this Thursday's fixture): re-searched (fantacalcio.it, fantamaster.it, sportface.it, goal.com) for this club's injury/lineup news; no new dated update found beyond what is already on file (formazioni ufficiali not published this far out, other hits were stale prior-season results). Existing out/doubt carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Venezia": {
       "out": [
@@ -4187,8 +4221,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T21:30:00Z",
-      "note": "For Atalanta (Mon 12 Oct, 18:30 UTC): Busio, Franjic, Sverko and Adorante are confirmed long-term absentees, none ready to return for this match (Busio's return eyed for the Napoli/Genoa fixtures). Dagasso, Mazzocchi and Basic also carry lingering issues per one source each -- not corroborated to two independent publishers, so left out of this list pending confirmation. Sources: pazzidifanta.com, tuttomercatoweb.com, fantacalcio.it (all 11 Oct window). RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of tomorrow's Inter match): Busio's injury clarified as a club-confirmed (tuttosport.com, 15 Sep 2026) hamstring tear with a quoted 6-8 week recovery, which would put a plausible return window around now -- but nothing found confirming an actual return. Adorante/Franjic/Sverko unchanged. Existing out-list left unchanged. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ahead of tomorrow's Inter match): no new corroborated update found. Existing out-list left unchanged. RECHECK 27 Oct ~19:18 UTC (cloud sweep, ahead of tomorrow's Inter match, 17:30 UTC kickoff): searched again for Venezia lineup/injury news; nothing dated newer than the 17:12 UTC check above. No change. RECHECK 27 Oct ~21:19 UTC (cloud sweep, ahead of tomorrow's Inter match, 17:30 UTC kickoff): a probabili-formazioni aggregator surfaced a single-source, undated claim naming Oristanio as a doubt, with Inter's Bisseck also flagged elsewhere as a thigh-adductor concern -- neither corroborated to a second independent source or dated to this fixture, so both discarded per policy. Existing out-list left unchanged. RECHECK 27 Oct ~23:08 UTC (cloud sweep, ahead of tomorrow's Inter match, 17:30 UTC kickoff): web search for Venezia-Inter probabili formazioni/infortunati returned only stale prior-season previews (2021/2024/2025), nothing dated this week beyond what is already recorded. Existing out-list left unchanged. RECHECK 28 Oct ~09:12 UTC (cloud sweep, ahead of todays 17:30 UTC kickoff): web search for Venezia-Inter formazioni/infortunati returned only stale prior-season previews; nothing dated this week beyond what is already recorded. Existing out-list left unchanged. RECHECK 28 Oct ~11:35 UTC (cloud sweep, ~6h out from today's 17:30 UTC kickoff): re-searched for Venezia-Inter formazioni/infortunati; nothing dated newer than the 09:12 UTC check above, still only stale prior-season previews. Existing out-list left unchanged. RECHECK 28 Oct ~13:40 UTC (cloud sweep, ~3.8h out from today's 17:30 UTC kickoff): re-searched for Venezia-Inter formazioni/probabili; nothing dated newer than the 11:35 UTC check above, only the same stale prior-season previews. Existing out-list left unchanged. RECHECK 28 Oct ~15:19 UTC (cloud sweep, ~2.2h out from today's 17:30 UTC kickoff; pick about to freeze): web search for Venezia-Inter probabili formazioni/infortunati again returned only stale prior-season previews (2021/2024/2025); nothing dated this week beyond what is already recorded. Existing out-list left unchanged. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 31 Oct ~11:17 UTC (cloud sweep ahead of tomorrow's Como match, kickoff 2026-11-01T11:30Z): starting11.com (single source) now lists Busio as a thigh-injury DOUBT rather than out, and adds Helgason, Mazzocchi, Correia and Bella-Kotchap as doubts -- none corroborated by a second independent publisher, so NOT acted on; existing out-list (Adorante, Franjic, Busio, Sverko) left unchanged. Separately, two sources (fantacalcio.it and tuttomercatoweb.com, both dated 20 Oct) agree Adorante's return is being targeted for 'early November' with Como or Udinese as the possible comeback game, but both say the exact date is unclear -- consistent with keeping him on the out list rather than clearing him (zero 2026-27 Serie A appearances per ESPN's player page). No change made. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of tomorrow's Como match): no verified player-status item found. An undated Livescore report of a managerial change (Stroppa) carries no player detail and is uncorroborated. Existing out list stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of tomorrow's Como match): context note, not a player change -- Giovanni Stroppa was sacked as head coach 13 Oct 2026 (fantacalcio.it 13 Oct, tuttosport/diretta.it 16 Oct, Reuters via thestar.com.my), Davide Nicola now in charge since ~18 Oct. On absences: a Nicola-era preview corroborates Busio/Franjic/Sverko still out long-term (consistent with existing list); it also lists Bella-Kotchap and Basic as doubts, partially corroborating starting11.com's earlier single-source flag on Bella-Kotchap, but still only one source each -- NOT added. Helgason/Mazzocchi/Correia remain uncorroborated. Existing out list (Adorante, Franjic, Busio, Sverko) stands unchanged.",
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "For Atalanta (Mon 12 Oct, 18:30 UTC): Busio, Franjic, Sverko and Adorante are confirmed long-term absentees, none ready to return for this match (Busio's return eyed for the Napoli/Genoa fixtures). Dagasso, Mazzocchi and Basic also carry lingering issues per one source each -- not corroborated to two independent publishers, so left out of this list pending confirmation. Sources: pazzidifanta.com, tuttomercatoweb.com, fantacalcio.it (all 11 Oct window). RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of tomorrow's Inter match): Busio's injury clarified as a club-confirmed (tuttosport.com, 15 Sep 2026) hamstring tear with a quoted 6-8 week recovery, which would put a plausible return window around now -- but nothing found confirming an actual return. Adorante/Franjic/Sverko unchanged. Existing out-list left unchanged. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ahead of tomorrow's Inter match): no new corroborated update found. Existing out-list left unchanged. RECHECK 27 Oct ~19:18 UTC (cloud sweep, ahead of tomorrow's Inter match, 17:30 UTC kickoff): searched again for Venezia lineup/injury news; nothing dated newer than the 17:12 UTC check above. No change. RECHECK 27 Oct ~21:19 UTC (cloud sweep, ahead of tomorrow's Inter match, 17:30 UTC kickoff): a probabili-formazioni aggregator surfaced a single-source, undated claim naming Oristanio as a doubt, with Inter's Bisseck also flagged elsewhere as a thigh-adductor concern -- neither corroborated to a second independent source or dated to this fixture, so both discarded per policy. Existing out-list left unchanged. RECHECK 27 Oct ~23:08 UTC (cloud sweep, ahead of tomorrow's Inter match, 17:30 UTC kickoff): web search for Venezia-Inter probabili formazioni/infortunati returned only stale prior-season previews (2021/2024/2025), nothing dated this week beyond what is already recorded. Existing out-list left unchanged. RECHECK 28 Oct ~09:12 UTC (cloud sweep, ahead of todays 17:30 UTC kickoff): web search for Venezia-Inter formazioni/infortunati returned only stale prior-season previews; nothing dated this week beyond what is already recorded. Existing out-list left unchanged. RECHECK 28 Oct ~11:35 UTC (cloud sweep, ~6h out from today's 17:30 UTC kickoff): re-searched for Venezia-Inter formazioni/infortunati; nothing dated newer than the 09:12 UTC check above, still only stale prior-season previews. Existing out-list left unchanged. RECHECK 28 Oct ~13:40 UTC (cloud sweep, ~3.8h out from today's 17:30 UTC kickoff): re-searched for Venezia-Inter formazioni/probabili; nothing dated newer than the 11:35 UTC check above, only the same stale prior-season previews. Existing out-list left unchanged. RECHECK 28 Oct ~15:19 UTC (cloud sweep, ~2.2h out from today's 17:30 UTC kickoff; pick about to freeze): web search for Venezia-Inter probabili formazioni/infortunati again returned only stale prior-season previews (2021/2024/2025); nothing dated this week beyond what is already recorded. Existing out-list left unchanged. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 31 Oct ~11:17 UTC (cloud sweep ahead of tomorrow's Como match, kickoff 2026-11-01T11:30Z): starting11.com (single source) now lists Busio as a thigh-injury DOUBT rather than out, and adds Helgason, Mazzocchi, Correia and Bella-Kotchap as doubts -- none corroborated by a second independent publisher, so NOT acted on; existing out-list (Adorante, Franjic, Busio, Sverko) left unchanged. Separately, two sources (fantacalcio.it and tuttomercatoweb.com, both dated 20 Oct) agree Adorante's return is being targeted for 'early November' with Como or Udinese as the possible comeback game, but both say the exact date is unclear -- consistent with keeping him on the out list rather than clearing him (zero 2026-27 Serie A appearances per ESPN's player page). No change made. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of tomorrow's Como match): no verified player-status item found. An undated Livescore report of a managerial change (Stroppa) carries no player detail and is uncorroborated. Existing out list stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of tomorrow's Como match): context note, not a player change -- Giovanni Stroppa was sacked as head coach 13 Oct 2026 (fantacalcio.it 13 Oct, tuttosport/diretta.it 16 Oct, Reuters via thestar.com.my), Davide Nicola now in charge since ~18 Oct. On absences: a Nicola-era preview corroborates Busio/Franjic/Sverko still out long-term (consistent with existing list); it also lists Bella-Kotchap and Basic as doubts, partially corroborating starting11.com's earlier single-source flag on Bella-Kotchap, but still only one source each -- NOT added. Helgason/Mazzocchi/Correia remain uncorroborated. Existing out list (Adorante, Franjic, Busio, Sverko) stands unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes).",
       "lineup_api_attempted_fixture": 1550126,
       "lineup_api_attempted_at": "2026-09-11T18:40:07.623941+00:00",
       "lineup_api_rungs": [
@@ -4324,13 +4358,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-28T17:20:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550132,
       "lineup_api_attempted_at": "2026-09-20T15:22:57.710723+00:00",
       "lineup_api_rungs": [
         45
       ],
-      "note": "Cambiaso (ankle, since 29 Aug vs Parma) and backup keeper Grabara (ACL tear in training, needs surgery) join the existing six unavailable (Boga, Cabal, Ekhator, Yildiz, Thuram, Locatelli) for the Atalanta match. Re-confirmed 2 Oct 2026 (tuttomercatoweb.com) that Yildiz, Thuram, Locatelli and Boga remain unavailable with no immediate return date; Cambiaso, Grabara, Ekhator unchanged. RECHECK 17 Oct ahead of Lazio: no current (round-7) reporting found, all hits traced to earlier seasons; existing out list (Cambiaso, Boga, Cabal, Ekhator, Grabara, Yildiz, Thuram, Locatelli) carried forward unchanged. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged."
+      "note": "Cambiaso (ankle, since 29 Aug vs Parma) and backup keeper Grabara (ACL tear in training, needs surgery) join the existing six unavailable (Boga, Cabal, Ekhator, Yildiz, Thuram, Locatelli) for the Atalanta match. Re-confirmed 2 Oct 2026 (tuttomercatoweb.com) that Yildiz, Thuram, Locatelli and Boga remain unavailable with no immediate return date; Cambiaso, Grabara, Ekhator unchanged. RECHECK 17 Oct ahead of Lazio: no current (round-7) reporting found, all hits traced to earlier seasons; existing out list (Cambiaso, Boga, Cabal, Ekhator, Grabara, Yildiz, Thuram, Locatelli) carried forward unchanged. RECHECK 28 Oct ~17:20 UTC (cloud sweep): no new dated team news found this pass (formazioni ufficiali not yet published / stale-season results only); existing out/doubt carried forward unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Milan": {
       "out": [],
@@ -4379,8 +4413,8 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T21:30:00Z",
-      "note": "Ahead of Roma (A), 27 Oct (MW9). Felici: season-ending ACL tear suffered 7 Sep vs Lecce, confirmed by club operation statement (fantacalcio.it, goal.com) -- still out. Idrissi: ACL rupture 7 Mar 2026 vs Como, surgery and ~6-7 month recovery confirmed by the club (unionesarda.it, fantacalcio.it, goal.com); September reporting had him doing differentiated training in Sardinia with a possible October return not yet confirmed back in the group, and he is still listed out in matchday-9 previews (williamhillnews.it) -- added to out rather than doubt. Existing doubts (Obert, Sehic, Deiola, Rodriguez, Kevin Carlos) unchanged -- no corroborated update found this cycle. Romano and Daniel Maldini returning from international duty, should be available. Doubts per fantamaster.it; Kevin Carlos (thigh) also separately flagged by CagliariNews24. RECHECK 27 Oct ~13:30 UTC (cloud sweep): no new corroborated team news found for the Roma fixture beyond the 11:30 UTC note above. No change. RECHECK 27 Oct ~15:46 UTC (cloud sweep, light-touch, ~4h before Roma kickoff): no new injury news found; nothing contradicts the existing out/doubt list. No change. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~2.5h before Roma kickoff): no new injury news found. No change. RECHECK 27 Oct ~19:18 UTC (cloud sweep, pick already frozen -- kicks off 19:45 UTC, less than 30 min away): searched again for Cagliari lineup/injury news; nothing dated newer than the 17:12 UTC check above. No change. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of today's Lazio match): searches for this specific 2026-27 fixture resolved only to last season's 2025-11-03 Lazio-Cagliari meeting; no fixture-specific source found. Existing out/doubt list stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of today's Lazio match): an apparent 'Obert suspended' story resolved to recycled 2025-season content (unionesarda piece explicitly dated 31 Oct 2025, Monday kickoff -- doesn't match this year's Sunday fixture) -- discarded as stale. Deiola's late-Sept meniscus surgery (~4-week recovery) has no confirmed return-to-training update found; existing doubt stands. Existing out (Felici, Idrissi) / doubt (Obert, Sehic, Deiola, Rodriguez, Kevin Carlos) list stands unchanged."
+      "checked": "2026-11-01T09:20:43Z",
+      "note": "Ahead of Roma (A), 27 Oct (MW9). Felici: season-ending ACL tear suffered 7 Sep vs Lecce, confirmed by club operation statement (fantacalcio.it, goal.com) -- still out. Idrissi: ACL rupture 7 Mar 2026 vs Como, surgery and ~6-7 month recovery confirmed by the club (unionesarda.it, fantacalcio.it, goal.com); September reporting had him doing differentiated training in Sardinia with a possible October return not yet confirmed back in the group, and he is still listed out in matchday-9 previews (williamhillnews.it) -- added to out rather than doubt. Existing doubts (Obert, Sehic, Deiola, Rodriguez, Kevin Carlos) unchanged -- no corroborated update found this cycle. Romano and Daniel Maldini returning from international duty, should be available. Doubts per fantamaster.it; Kevin Carlos (thigh) also separately flagged by CagliariNews24. RECHECK 27 Oct ~13:30 UTC (cloud sweep): no new corroborated team news found for the Roma fixture beyond the 11:30 UTC note above. No change. RECHECK 27 Oct ~15:46 UTC (cloud sweep, light-touch, ~4h before Roma kickoff): no new injury news found; nothing contradicts the existing out/doubt list. No change. RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~2.5h before Roma kickoff): no new injury news found. No change. RECHECK 27 Oct ~19:18 UTC (cloud sweep, pick already frozen -- kicks off 19:45 UTC, less than 30 min away): searched again for Cagliari lineup/injury news; nothing dated newer than the 17:12 UTC check above. No change. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of today's Lazio match): searches for this specific 2026-27 fixture resolved only to last season's 2025-11-03 Lazio-Cagliari meeting; no fixture-specific source found. Existing out/doubt list stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of today's Lazio match): an apparent 'Obert suspended' story resolved to recycled 2025-season content (unionesarda piece explicitly dated 31 Oct 2025, Monday kickoff -- doesn't match this year's Sunday fixture) -- discarded as stale. Deiola's late-Sept meniscus surgery (~4-week recovery) has no confirmed return-to-training update found; existing doubt stands. Existing out (Felici, Idrissi) / doubt (Obert, Sehic, Deiola, Rodriguez, Kevin Carlos) list stands unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE -- existing out/doubt list reconfirmed; no dated update found that clears the two-independent-source/official bar. Search results were dominated by stale/off-season material (wrong-year fixtures and old injury episodes)."
     },
     "Udinese": {
       "out": [
@@ -4423,13 +4457,13 @@
         "doubt": [],
         "policy": "two-independent-publishers"
       },
-      "checked": "2026-10-31T21:30:00Z",
+      "checked": "2026-11-01T09:20:43Z",
       "lineup_api_attempted_fixture": 1550121,
       "lineup_api_attempted_at": "2026-09-12T15:38:48.759631+00:00",
       "lineup_api_rungs": [
         30
       ],
-      "note": "Five unavailable for the Monza match per tuttomercatoweb.com's dated preview (9 Oct 2026): Cataldi, Marusic and Rovella out long-term (muscular), Cancellieri on the injury list, Gudmundsson out with a shoulder dislocation suffered on national-team duty. RECHECK 17 Oct ahead of Juventus: the only dated item found on Rovella (already in our out list) is ~1 month old and inconclusive; existing out list carried forward unchanged. RECHECK 26 Oct ahead of Sassuolo-Lazio (27 Oct, 17:30 UTC): existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) is directionally consistent with what fresh searches still surface for these names, but every specific article found this pass carried a confirmed, non-current date (a Cancellieri injury dated 19 Oct 2025, a Rovella 'misses Sassuolo' piece dated 13 Sep 2025) rather than this week's reporting -- no two-source current-season confirmation either way, so the existing list is carried forward unchanged rather than revised on unverified grounds. No current formazioni/preview for this fixture published yet. RECHECK 26 Oct ~19:09 UTC (cloud sweep, same fixture): no new verified information found -- existing out list carried forward unchanged, still no dated formazioni/preview for this fixture. RECHECK 26 Oct ~21:09 UTC (cloud sweep, same fixture): fresh search surfaced an aggregator snippet naming Nuno Tavares (muscle tear) and Taty Castellanos (sidelined) alongside Patric (lower leg, estimated return already passed) and Adam Marusic (calf, game-time decision) for a 'Lazio vs Juventus, 26 Oct' preview -- but that fixture conflicts with the board's own next match (Sassuolo, 27 Oct) and the search tool itself flagged the page's date header as unreliable/likely last season, so none of Tavares/Castellanos/Patric were added: single aggregator, no current date confirmed, and no second independent source. Existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) carried forward unchanged; still no dated formazioni/preview for Sassuolo-Lazio itself. RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of today's Sassuolo match): could not corroborate any change to the existing out-list to two-source standard -- a single Goal.com item suggests Rovella (adductor) and single club-sourced items suggest Gudmundsson/Cataldi/Cancellieri/Marusic may be progressing toward return, but nothing dated and double-sourced enough to act on. Existing out-list left unchanged pending a closer-to-kickoff check. (Note: club manager is Gattuso, not Sarri, since late May 2026 -- doesn't affect this list.) RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~18 min before Sassuolo kickoff): no new dated report found; existing out-list carried forward unchanged. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of today's Cagliari match): searches for this specific 2026-27 fixture resolved only to last season's 2025-11-03 Lazio-Cagliari meeting; no fixture-specific source found. Zaccagni: no transfer-away report found (still presumed at Lazio) but current fitness status could not be independently confirmed either way. Existing out list stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of today's Cagliari match): two dated fantacalcio.it pieces (20-21 Oct) show Cancellieri back in group training (targeting the 24 Oct Parma game) and Marusic/Rovella doing individual work (targeting the 28 Oct Sassuolo game), but no follow-up found confirming whether any of the three actually featured since -- treated as trending toward return, not confirmed, so NOT removed from out. Gudmundsson reconfirmed out. Zaccagni (today's board prop player) confirmed still at Lazio, contract to 2029, no transfer; his early-Oct adductor strain (missed Lazio-Torino and Italy's Oct qualifiers) is not reflected in a fresh injury report and he is not currently on this out/doubt list -- left off accordingly, reasonably fit. Existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) stands unchanged."
+      "note": "Five unavailable for the Monza match per tuttomercatoweb.com's dated preview (9 Oct 2026): Cataldi, Marusic and Rovella out long-term (muscular), Cancellieri on the injury list, Gudmundsson out with a shoulder dislocation suffered on national-team duty. RECHECK 17 Oct ahead of Juventus: the only dated item found on Rovella (already in our out list) is ~1 month old and inconclusive; existing out list carried forward unchanged. RECHECK 26 Oct ahead of Sassuolo-Lazio (27 Oct, 17:30 UTC): existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) is directionally consistent with what fresh searches still surface for these names, but every specific article found this pass carried a confirmed, non-current date (a Cancellieri injury dated 19 Oct 2025, a Rovella 'misses Sassuolo' piece dated 13 Sep 2025) rather than this week's reporting -- no two-source current-season confirmation either way, so the existing list is carried forward unchanged rather than revised on unverified grounds. No current formazioni/preview for this fixture published yet. RECHECK 26 Oct ~19:09 UTC (cloud sweep, same fixture): no new verified information found -- existing out list carried forward unchanged, still no dated formazioni/preview for this fixture. RECHECK 26 Oct ~21:09 UTC (cloud sweep, same fixture): fresh search surfaced an aggregator snippet naming Nuno Tavares (muscle tear) and Taty Castellanos (sidelined) alongside Patric (lower leg, estimated return already passed) and Adam Marusic (calf, game-time decision) for a 'Lazio vs Juventus, 26 Oct' preview -- but that fixture conflicts with the board's own next match (Sassuolo, 27 Oct) and the search tool itself flagged the page's date header as unreliable/likely last season, so none of Tavares/Castellanos/Patric were added: single aggregator, no current date confirmed, and no second independent source. Existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) carried forward unchanged; still no dated formazioni/preview for Sassuolo-Lazio itself. RECHECK 27 Oct ~15:46 UTC (cloud sweep, ahead of today's Sassuolo match): could not corroborate any change to the existing out-list to two-source standard -- a single Goal.com item suggests Rovella (adductor) and single club-sourced items suggest Gudmundsson/Cataldi/Cancellieri/Marusic may be progressing toward return, but nothing dated and double-sourced enough to act on. Existing out-list left unchanged pending a closer-to-kickoff check. (Note: club manager is Gattuso, not Sarri, since late May 2026 -- doesn't affect this list.) RECHECK 27 Oct ~17:12 UTC (cloud sweep, ~18 min before Sassuolo kickoff): no new dated report found; existing out-list carried forward unchanged. RECHECK 31 Oct ~13:15 UTC (cloud sweep ahead of today's Cagliari match): searches for this specific 2026-27 fixture resolved only to last season's 2025-11-03 Lazio-Cagliari meeting; no fixture-specific source found. Zaccagni: no transfer-away report found (still presumed at Lazio) but current fitness status could not be independently confirmed either way. Existing out list stands unchanged. RECHECK 31 Oct ~21:30 UTC (cloud sweep ahead of today's Cagliari match): two dated fantacalcio.it pieces (20-21 Oct) show Cancellieri back in group training (targeting the 24 Oct Parma game) and Marusic/Rovella doing individual work (targeting the 28 Oct Sassuolo game), but no follow-up found confirming whether any of the three actually featured since -- treated as trending toward return, not confirmed, so NOT removed from out. Gudmundsson reconfirmed out. Zaccagni (today's board prop player) confirmed still at Lazio, contract to 2029, no transfer; his early-Oct adductor strain (missed Lazio-Torino and Italy's Oct qualifiers) is not reflected in a fresh injury report and he is not currently on this out/doubt list -- left off accordingly, reasonably fit. Existing out list (Marusic, Gudmundsson, Cataldi, Cancellieri, Rovella) stands unchanged. RECHECK 2026-11-01T09:20:43Z (cloud sweep, 2h sweep ahead of today's/tomorrow's fixtures): NO CHANGE to out/doubt list -- nothing cleared the two-source/official bar. MATTIA ZACCAGNI (today's shots prop pick): starting status for the 14:00 UTC Cagliari match could NOT be confirmed either way -- search hits describing a Zaccagni muscle/adductor injury carried internally conflicting dates (at least one explicitly matches the 2025 calendar, not 2026) and are most likely a resurfaced prior-season episode, not current news. Flagged as unresolved rather than acted on."
     }
   }
 }
