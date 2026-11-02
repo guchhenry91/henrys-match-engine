@@ -20,29 +20,43 @@
     },
     "Lille": {
       "out": [
+        "Hamza Igamane",
+        "Loun Srdanovic",
+        "Tanguy Nianzou Kouassi"
+      ],
+      "doubt": [
         "Ethan Mbappe",
         "Tiago Santos"
       ],
-      "doubt": [],
-      "note": "No corroborated current injury news found for the Arsenal fixture; a Squawka preview reports no fresh fitness concerns. An Haraldsson foot injury item appears to date from 2025, not confirmed current. Re-checked for the Galatasaray fixture (20 Oct): a RotoWire item names Hamza Igamane out with a knee problem (ACL surgery), but it is single-sourced with internally conflicting return dates (one estimate already past) -- not added, unverified. A Benjamin Andre suspension item is also stale (return date already past). No two-source-confirmed absence found. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): two new OUTs for tonight's Galatasaray fixture. Ethan Mbappe is SUSPENDED -- UEFA 3-match ban for a straight red card (elbow on Betis's Natan), confirmed by UEFA's own disciplinary ruling plus multiple outlets (Fanatik, Goal, Maxifoot); covers Arsenal, Galatasaray and Bodo/Glimt, eligible again 25 Nov vs Bayern. Tiago Santos is OUT -- serious knee injury, stretchered off in a Ligue 1 match vs Le Havre, confirmed by Lille's own club statement (via Orange Sport/Sportsmole), lengthy rehab expected. This supersedes the earlier 'no fresh concerns' Squawka line, which was vaguer and less current. Ayase Ueda and Berke Ozer are reported as doubts (foot problem / unspecified) by a single source (Sportsmole) only -- not corroborated elsewhere, not added.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Bodo/Glimt, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own LIGUE1 team-news cross-check on Lille (data-raw/leagues/news.json, checked 2026-10-25), more current than this file's prior 21 Oct entry. Ethan Mbappe's suspension has been served and Tiago Santos's knee injury is reported improving -- both moved from OUT to DOUBT; Igamane, Srdanovic and Nianzou Kouassi newly added OUT per that cross-check.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Manchester United": {
       "out": [
-        "Benjamin Sesko",
-        "Leny Yoro"
+        "Amad Diallo",
+        "Manuel Ugarte",
+        "Matthijs de Ligt",
+        "Tom Heaton"
       ],
-      "doubt": [],
-      "note": "Second shin injury, no return timeline. Sources: ESPN (\"No timeline for Sesko return, Carrick says\"), Yardbarker, 3addedminutes.com (all ~10 Oct). A Dorgu hamstring mention in one source traced back to an old Jan 2026 injury already recovered from -- not added as current. Re-checked for the Como fixture (20 Oct): no newer update found either way on Sesko; a Lisandro Martinez \"8 weeks out\" item recirculating is word-for-word identical to a February 2024 report and not treated as current. Sesko out stands. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): Leny Yoro is OUT (SUSPENDED) for tonight's Como fixture -- one-match Champions League ban after a straight red card (74th minute, last-man foul on Jonathan David) in the 2-0 defeat at Atletico Madrid on 13 Oct; corroborated by a UEFA booking/suspension list (dated 15 Oct) plus unitedinfocus.com, sportsmole.co.uk and africasoccer.com. Sesko remains out, unchanged. Luke Shaw and Patrick Dorgu are reported as major doubts and Lisandro Martinez carries an unresolved thigh knock from the Leeds draw, all per a single source (Sportsmole) only -- not corroborated elsewhere, not added as doubts.",
-      "checked": "2026-10-21T10:30:00Z"
+      "doubt": [
+        "Benjamin Sesko",
+        "Carlos Baleba",
+        "Kobbie Mainoo",
+        "Luke Shaw",
+        "Marcus Rashford",
+        "Noussair Mazraoui",
+        "Patrick Dorgu"
+      ],
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of AS Roma, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own PL team-news cross-check on Manchester United (data-raw/leagues/news.json, checked 2026-10-31, two-source automation pipeline), more current than this file's prior 21 Oct entry. Sesko moved from OUT to DOUBT; Leny Yoro's one-match UCL suspension has been served (not carried forward); Ugarte, de Ligt, Diallo and Heaton are long-term OUT; Baleba, Mainoo, Shaw, Rashford, Mazraoui and Dorgu are DOUBT.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Inter": {
       "out": [
         "Lautaro Martinez"
       ],
       "doubt": [],
-      "note": "Re-checked for the Shakhtar Donetsk fixture (21 Oct): captain Lautaro Martinez (left thigh/hamstring strain, suffered scoring vs Club Brugge on 16 Oct) confirmed out via club medical exams at Humanitas Rozzano; recovery window ~5-6 weeks, expected back ~22 Nov vs Atalanta. Corroborated by Fantacalcio.it and Calcio e Finanza (the latter citing the official club statement). No other current (October) Inter injury news found despite targeted searches on other first-team players -- a genuine reporting gap, not a clean bill of health, so do not assume anyone else is fit. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "Re-checked for the Shakhtar Donetsk fixture (21 Oct): captain Lautaro Martinez (left thigh/hamstring strain, suffered scoring vs Club Brugge on 16 Oct) confirmed out via club medical exams at Humanitas Rozzano; recovery window ~5-6 weeks, expected back ~22 Nov vs Atalanta. Corroborated by Fantacalcio.it and Calcio e Finanza (the latter citing the official club statement). No other current (October) Inter injury news found despite targeted searches on other first-team players -- a genuine reporting gap, not a clean bill of health, so do not assume anyone else is fit. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Feyenoord, kickoff 03 Nov 20:00 UTC): the engine's own SERIEA team-news cross-check (data-raw/leagues/news.json, checked 2026-10-31) independently agrees Lautaro Martinez remains the only out player. No other corroborated update found.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Club Brugge KV": {
       "out": [
@@ -55,8 +69,8 @@
     "Villarreal": {
       "out": [],
       "doubt": [],
-      "note": "Re-checked for the Liverpool fixture (20 Oct): no corroborated current injury news found; search returned nothing dated for this match. Still a clean bill as far as two-source verification allows. Re-checked again (20 Oct, matchday): still no corroborated current injury news found for the Liverpool fixture.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "Re-checked for the Liverpool fixture (20 Oct): no corroborated current injury news found; search returned nothing dated for this match. Still a clean bill as far as two-source verification allows. Re-checked again (20 Oct, matchday): still no corroborated current injury news found for the Liverpool fixture. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Paris SG, kickoff 03 Nov 20:00 UTC): the engine's own LALIGA team-news entry for Villarreal (data-raw/leagues/news.json) lists Pau Cabanes/Tajon Buchanan/Nicolas Pepe out and three doubts, but that check is dated 2026-10-17 -- older than this file's own 20 Oct 'nothing found' check -- so not used to override it without a fresher confirmation. No new corroborated update found this pass either. Unchanged.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Napoli": {
       "out": [
@@ -74,14 +88,11 @@
     },
     "Bayern München": {
       "out": [
-        "Michael Olise",
-        "Jamal Musiala"
-      ],
-      "doubt": [
         "Manuel Neuer"
       ],
-      "note": "Re-checked for the Arsenal fixture (21 Oct): Olise suspended (second yellow for throwing the ball at Viking's captain in the 13 Oct 3-3 draw; carries over) -- well corroborated across six outlets (SI.com, Sports Mole, GetFootballNewsGermany, foot-africa.com, TSN.ca, roundtable.io). Musiala (torn right thigh muscle fibre from Germany duty, missed the Augsburg and Viking games) -- fcbayern.com's own news plus three outlets describe his playing against Arsenal as 'almost impossible'/an 'extreme doubt' with the club reportedly unwilling to risk him; carried as out given the official club-site sourcing. Neuer (foot discomfort, missed consecutive training sessions, sat out the Viking tie with Urbig deputising, no diagnosis/return date) -- doubt, corroborated by three outlets. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "doubt": [],
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Atletico Madrid, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own BUNDESLIGA team-news cross-check on Bayern Munich (data-raw/leagues/news.json, checked 2026-10-31, two-source automation pipeline), more current than this file's prior 21 Oct entry. Olise's one-match suspension has been served and Musiala has recovered -- both REMOVED from the out list; neither is corroborated as still absent. Neuer moved from doubt to OUT (foot problem, per the fresher cross-check).",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "RB Leipzig": {
       "out": [
@@ -154,8 +165,8 @@
         "Ramiz Harakate"
       ],
       "doubt": [],
-      "note": "Re-checked for the Sporting CP fixture (21 Oct): Bello and Usor (muscle injuries) and Harakate (ACL tear, long-term, no return date) were reported out for LASK's previous Champions League match (vs Liverpool, 14 Oct) by two corroborating sources (Oddschecker, afrik-foot.com). No match-specific report for the 21 Oct Sporting fixture was found, but given the nature of the injuries (muscle strains needing time to heal; an ACL tear being months-long) it is reasonable they remain out a week later -- this bridges two matches rather than directly confirming this one, so treat with some caution. A separate generic preview claiming 'no fresh concerns' conflicts with this and is not used. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "Re-checked for the Sporting CP fixture (21 Oct): Bello and Usor (muscle injuries) and Harakate (ACL tear, long-term, no return date) were reported out for LASK's previous Champions League match (vs Liverpool, 14 Oct) by two corroborating sources (Oddschecker, afrik-foot.com). No match-specific report for the 21 Oct Sporting fixture was found, but given the nature of the injuries (muscle strains needing time to heal; an ACL tear being months-long) it is reasonable they remain out a week later -- this bridges two matches rather than directly confirming this one, so treat with some caution. A separate generic preview claiming 'no fresh concerns' conflicts with this and is not used. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Slovan Bratislava, kickoff 03 Nov 20:00/17:45 UTC): re-searched; no new two-source-corroborated update found. Existing entry carried forward unchanged.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Liverpool": {
       "out": [
@@ -181,8 +192,8 @@
         "Shaqueel van Persie"
       ],
       "doubt": [],
-      "note": "Re-checked for the Betis fixture (21 Oct): fr12.nl's club injury overview plus a current multi-outlet preview round-up (Sports Mole/Squawka/tips.gg) now both list this six-man group as unavailable -- an unusually long absentee list. Bos (knee, World Cup surgery) and Moder (knee) have clear, consistent reasons; Nieuwkoop's reason is not clearly stated but his absence is corroborated across sources; Nelson and Smal appear in the current round-up without an independently stated reason; van Persie's absence mixes an older (Jan 2026) knee hyperextension with his appearance in the current list, so his status may be a recurrence rather than a fresh injury -- flagged, but his unavailability for this match is still corroborated by the round-up. Van Persie (manager, no relation) left the club in June 2026; current head coach per feyenoord.com's own statement. Re-checked (20 Oct, ~23:11 UTC): a FotMob squad page additionally lists Gernot Trauner and Malcolm Jeng as unavailable, but it is undated and single-sourced -- not added; the six-man out list already on file stands. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "Re-checked for the Betis fixture (21 Oct): fr12.nl's club injury overview plus a current multi-outlet preview round-up (Sports Mole/Squawka/tips.gg) now both list this six-man group as unavailable -- an unusually long absentee list. Bos (knee, World Cup surgery) and Moder (knee) have clear, consistent reasons; Nieuwkoop's reason is not clearly stated but his absence is corroborated across sources; Nelson and Smal appear in the current round-up without an independently stated reason; van Persie's absence mixes an older (Jan 2026) knee hyperextension with his appearance in the current list, so his status may be a recurrence rather than a fresh injury -- flagged, but his unavailability for this match is still corroborated by the round-up. Van Persie (manager, no relation) left the club in June 2026; current head coach per feyenoord.com's own statement. Re-checked (20 Oct, ~23:11 UTC): a FotMob squad page additionally lists Gernot Trauner and Malcolm Jeng as unavailable, but it is undated and single-sourced -- not added; the six-man out list already on file stands. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Inter, kickoff 03 Nov 20:00/17:45 UTC): re-searched; no new two-source-corroborated update found. Existing entry carried forward unchanged.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Como": {
       "out": [],
@@ -192,13 +203,14 @@
     },
     "AS Roma": {
       "out": [
-        "Mile Svilar"
+        "Bryan Cristante",
+        "Manu Kone",
+        "Mile Svilar",
+        "Paulo Dybala"
       ],
-      "doubt": [
-        "Bryan Cristante"
-      ],
-      "note": "Re-verified for this Slovan Bratislava match specifically: Svilar (fifth-metatarsal stress fracture, non-displaced) explicitly named among the games he will certainly miss, Gollini deputising; return expected after the November break, later if reinforcement surgery is needed. Cristante: right knee inflammation, still expected to cost him games including this one. A Squawka predicted-XI piece listing Svilar in goal is outdated/contradicted by the better-corroborated reports and not followed. Sources: Gasperini press conference/allfootballapp, fantacalcio.it (10 Oct), ysscores.com. Re-checked again (20 Oct, matchday): a Squawka preview still lists Svilar in a predicted XI, but this remains outdated/contradicted by the better-corroborated Gasperini-presser reporting already on file -- unchanged.",
-      "checked": "2026-10-20T14:10:00Z"
+      "doubt": [],
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Manchester United, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own SERIEA team-news cross-check on Roma (data-raw/leagues/news.json, checked 2026-10-31, ahead of their Cagliari league match), more current than this file's prior 20 Oct entry. Cristante now OUT (was doubt); Svilar reconfirmed OUT (toe stress fracture); Kone (hamstring) and Dybala newly added OUT per that cross-check.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Real Madrid": {
       "out": [
@@ -212,16 +224,15 @@
     },
     "Aston Villa": {
       "out": [
-        "Johan Manzambi",
-        "Aaron Wan-Bissaka",
+        "Amadou Onana",
         "Matteo Ruggeri",
-        "Amadou Onana"
+        "Modou Keba Cisse"
       ],
       "doubt": [
-        "George Hemmings"
+        "Johan Manzambi"
       ],
-      "note": "Re-checked for the Viking fixture (21 Oct): manager Unai Emery directly confirmed in his Tuesday (20 Oct) press conference, reported by Sports Mole, that Manzambi (minor injury scoring the Newcastle winner), Wan-Bissaka (~3-4 weeks) and Ruggeri (~2 months) are out; Onana (ACL rupture on Belgium World Cup duty) remains out long-term, corroborated by 3addedminutes.com. Hemmings (minor knee) is back in contention but unlikely to feature -- doubt, corroborated by 101greatgoals.com. Ian Maatsen, listed out at the last check, is now reported by Emery himself as 'back in training and rejoining the squad' -- removed from out; an older preview still listing him out is superseded by the manager's own, more current quote. Goretzka (knee) is reportedly back in the squad and could debut around 24 Oct, implying possible fitness, but not confirmed specifically for this match either way. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Barcelona, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own PL team-news cross-check on Aston Villa (data-raw/leagues/news.json, checked 2026-10-31, two-source automation pipeline), which is more current than this file's prior 21 Oct entry. Wan-Bissaka and George Hemmings dropped (no longer corroborated); Modou Keba Cisse added OUT; Manzambi moved from OUT to DOUBT. Onana and Ruggeri remain OUT.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Fenerbahçe": {
       "out": [],
@@ -232,8 +243,8 @@
     "Bodo/Glimt": {
       "out": [],
       "doubt": [],
-      "note": "No corroborated current injury/suspension news. FotMob lists Brynhildsen and Saltnes unavailable and a Sports Mole preview flags a centre-back gap and Helmersen's return, but each is single-sourced -- not added. Re-checked for the Napoli fixture (20 Oct): Squawka expects the same attacking group (Helmersen, Blomberg, Hauge, Berg) to start; no current injury report found. Re-checked again (20 Oct, matchday): still no corroborated absence found for the Napoli tie.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "No corroborated current injury/suspension news. FotMob lists Brynhildsen and Saltnes unavailable and a Sports Mole preview flags a centre-back gap and Helmersen's return, but each is single-sourced -- not added. Re-checked for the Napoli fixture (20 Oct): Squawka expects the same attacking group (Helmersen, Blomberg, Hauge, Berg) to start; no current injury report found. Re-checked again (20 Oct, matchday): still no corroborated absence found for the Napoli tie. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Lille, kickoff 03 Nov 20:00/17:45 UTC): re-searched; no new two-source-corroborated update found. Existing entry carried forward unchanged.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Borussia Dortmund": {
       "out": [
@@ -285,33 +296,39 @@
     "Slovan Bratislava": {
       "out": [],
       "doubt": [],
-      "note": "Two independent previews (Sports Mole, Squawka) both report no notable absences / no fresh fitness concerns for this fixture -- a corroborated clean bill. Re-checked for the Roma fixture (20 Oct), still no current reports of any absence. Re-checked again (20 Oct, matchday): a Squawka preview again reports no fresh absences for either side -- clean bill stands.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "Two independent previews (Sports Mole, Squawka) both report no notable absences / no fresh fitness concerns for this fixture -- a corroborated clean bill. Re-checked for the Roma fixture (20 Oct), still no current reports of any absence. Re-checked again (20 Oct, matchday): a Squawka preview again reports no fresh absences for either side -- clean bill stands. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Lask Linz, kickoff 03 Nov 20:00/17:45 UTC): re-searched; no new two-source-corroborated update found. Existing entry carried forward unchanged.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "VfB Stuttgart": {
       "out": [
         "Tiago Tomas"
       ],
       "doubt": [
+        "Angelo Stiller",
         "Jeff Chabot",
+        "Leo Sauer",
         "Maximilian Mittelstädt"
       ],
-      "note": "Tomas: muscle injury in training per coach Sebastian Hoeneß, expected back only after the international break. Chabot (thigh) and Mittelstädt (foot/heel) both doubtful with late fitness tests pending. Sources: Stuttgarter Zeitung (Hoeneß quote), Sports Mole, buli-tipphilfe (Oct 2026). Nartey/Al-Dakhil/Jaquez single-source \"out\" claims not added. Re-checked for the Atletico Madrid fixture (20 Oct): a starting11 page (date unclear) names no new Stuttgart absences beyond the above, no second source found. Re-checked again (20 Oct, matchday): unchanged -- Tomas (out), Chabot/Mittelstädt (doubt) stand. Re-checked ahead of the Galatasaray fixture (02 Nov, ~16:40 UTC, cloud sweep): Fanatik (English site, dated 30 Oct) and beIN Sports TR/Milli Gazete (29-30 Oct) all report 'two Stuttgart stars injured' ahead of this match and expected to miss it, but NONE of the three names the players -- does not clear the two-source-with-names bar, so NOT added as specific out/doubt entries. Flagging as unverified rather than guessing; Tomas/Chabot/Mittelstadt above may or may not be the two referenced.",
-      "checked": "2026-11-02T16:40:00Z"
+      "note": "Tomas: muscle injury in training per coach Sebastian Hoeneß, expected back only after the international break. Chabot (thigh) and Mittelstädt (foot/heel) both doubtful with late fitness tests pending. Sources: Stuttgarter Zeitung (Hoeneß quote), Sports Mole, buli-tipphilfe (Oct 2026). Nartey/Al-Dakhil/Jaquez single-source \"out\" claims not added. Re-checked for the Atletico Madrid fixture (20 Oct): a starting11 page (date unclear) names no new Stuttgart absences beyond the above, no second source found. Re-checked again (20 Oct, matchday): unchanged -- Tomas (out), Chabot/Mittelstädt (doubt) stand. Re-checked ahead of the Galatasaray fixture (02 Nov, ~16:40 UTC, cloud sweep): Fanatik (English site, dated 30 Oct) and beIN Sports TR/Milli Gazete (29-30 Oct) all report 'two Stuttgart stars injured' ahead of this match and expected to miss it, but NONE of the three names the players -- does not clear the two-source-with-names bar, so NOT added as specific out/doubt entries. Flagging as unverified rather than guessing; Tomas/Chabot/Mittelstadt above may or may not be the two referenced. RECHECK 02 Nov ~21:30 UTC (cloud sweep): the 'two Stuttgart stars' previously flagged as unverified (Fanatik/beIN Sports TR/Milli Gazete, 29-30 Oct) are now identified by name -- Angelo Stiller (adductor strain) and Leo Sauer (hip injury) -- per Stuttgart's own official statement, independently reported by Fanatik and Milli Gazete (both 29-30 Oct). Added as DOUBT. Tomas remains OUT; Chabot/Mittelstadt remain DOUBT.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Atletico Madrid": {
       "out": [],
       "doubt": [],
-      "note": "No current (October) injury reports found for the Manchester United fixture with two-source confirmation. Re-checked for the VfB Stuttgart fixture (20 Oct): a single-sourced starting11 item names a muscle injury for Sorloth, but a direct search on Sorloth found no report tying an injury to this match (only an unrelated April 2026 head-knock item, since resolved, and older 2025 items) -- not added, uncorroborated. Re-checked again (20 Oct, matchday): the same single-sourced, unconfirmed Sorloth muscle-injury mention turned up again (ambiguous which club it refers to) -- still not added, uncorroborated.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "No current (October) injury reports found for the Manchester United fixture with two-source confirmation. Re-checked for the VfB Stuttgart fixture (20 Oct): a single-sourced starting11 item names a muscle injury for Sorloth, but a direct search on Sorloth found no report tying an injury to this match (only an unrelated April 2026 head-knock item, since resolved, and older 2025 items) -- not added, uncorroborated. Re-checked again (20 Oct, matchday): the same single-sourced, unconfirmed Sorloth muscle-injury mention turned up again (ambiguous which club it refers to) -- still not added, uncorroborated. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Bayern Munich, kickoff 03 Nov 20:00 UTC): Cristian Romero (adductor strain, out since ~19 Oct) was reported by two sources (Goal, Fichajes, both ~19-20 Oct) as expected to miss only two matches (Stuttgart 20 Oct, La Coruna 24 Oct) with a target return of 31 Oct vs Levante -- that window has now passed, so he is treated as recovered and not added as OUT. Single-sourced, undated mentions of Julian Alvarez/Alexander Sorloth/Pablo Barrios absences from an Osasuna match could not be corroborated or dated precisely -- not added. No two-source-confirmed absence found for this fixture.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Paris Saint Germain": {
       "out": [
-        "Nuno Mendes"
+        "Khvicha Kvaratskhelia",
+        "Ousmane Dembele",
+        "Marquinhos",
+        "Nuno Mendes",
+        "Senny Mayulu"
       ],
       "doubt": [],
-      "note": "Nuno Mendes (left-back) ruled out with a thigh injury suffered in Saturday's 3-1 win over Strasbourg; Lucas Digne expected to deputise. Sources: moroccoworldnews.com match preview (20 Oct, day-of) plus consistent reporting via RotoWire/bet365 News/thefalse9.com previews naming the same absence. Senny Mayulu and goalkeeper Alessandro Longoni are mentioned on one preview as having 'recent physical problems' with uncertain availability, but this is single-sourced for this specific fixture (a corroborated Mayulu calf issue found elsewhere relates to an earlier, unrelated Liverpool tie) -- not added.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Villarreal, kickoff 03 Nov 20:00 UTC): own web search (aljazeera.com and lanacion.com, both 21 Oct) independently confirms Kvaratskhelia (torn right ACL, needs surgery, out months) and Marquinhos (left thigh tear, out weeks) picked up in the 21 Oct Barcelona win, matching this file's existing Dembele/Mendes OUT entries. Refreshed from the engine's own LIGUE1 team-news cross-check on Paris SG (data-raw/leagues/news.json, checked 2026-10-30), which additionally carries Senny Mayulu as OUT -- added.",
+      "checked": "2026-11-02T21:30:00Z"
     },
     "Barcelona": {
       "out": [
@@ -321,8 +338,8 @@
         "Roony Bardghji"
       ],
       "doubt": [],
-      "note": "UPDATE (20 Oct): Eric García (quadriceps, ~3-4 weeks) and Jules Koundé (ankle) both newly ruled out, hurt in the win over Real Betis -- corroborated by two independent sources (Sports Mole, citing Fabrizio Romano, published 19 Oct 02:26; moroccoworldnews.com match preview, 20 Oct). Christensen (thigh) and Bardghji (cruciate ligament) remain out, unchanged from the 12 Oct sourcing. Frenkie de Jong and Raphinha REMOVED from this entry: Flick confirmed at Friday's press conference that Barcelona 'can count on both' for this PSG match -- de Jong ready to play a few minutes, Raphinha trained fully and will be managed step by step (Foot-Africa, 20 Oct, citing Flick directly). Gerard Martín is mentioned on one source (moroccoworldnews) as carrying an ankle knock but in the travelling squad -- single-sourced, not added as doubt.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "UPDATE (20 Oct): Eric García (quadriceps, ~3-4 weeks) and Jules Koundé (ankle) both newly ruled out, hurt in the win over Real Betis -- corroborated by two independent sources (Sports Mole, citing Fabrizio Romano, published 19 Oct 02:26; moroccoworldnews.com match preview, 20 Oct). Christensen (thigh) and Bardghji (cruciate ligament) remain out, unchanged from the 12 Oct sourcing. Frenkie de Jong and Raphinha REMOVED from this entry: Flick confirmed at Friday's press conference that Barcelona 'can count on both' for this PSG match -- de Jong ready to play a few minutes, Raphinha trained fully and will be managed step by step (Foot-Africa, 20 Oct, citing Flick directly). Gerard Martín is mentioned on one source (moroccoworldnews) as carrying an ankle knock but in the travelling squad -- single-sourced, not added as doubt. RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Aston Villa, kickoff 03 Nov 20:00 UTC): Christensen (left quadriceps/rectus femoris strain, originally ~19 Sep) remains a live concern -- multiple outlets (sportscafe.in, africasoccer.com, livescore.com) report he may miss both this Aston Villa game and the 08 Nov Atletico Madrid match, consistent with him having missed the 26 Oct Clasico on the same injury; kept OUT. Garcia, Kounde and Bardghji: no new corroborated update found, unchanged.",
+      "checked": "2026-11-02T21:30:00Z"
     }
   }
 }
