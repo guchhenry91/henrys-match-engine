@@ -21,14 +21,13 @@
     "Lille": {
       "out": [
         "Hamza Igamane",
+        "Ethan Mbappe",
+        "Tiago Santos",
         "Loun Srdanovic",
         "Tanguy Nianzou Kouassi"
       ],
-      "doubt": [
-        "Ethan Mbappe",
-        "Tiago Santos"
-      ],
-      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Bodo/Glimt, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own LIGUE1 team-news cross-check on Lille (data-raw/leagues/news.json, checked 2026-10-25), more current than this file's prior 21 Oct entry. Ethan Mbappe's suspension has been served and Tiago Santos's knee injury is reported improving -- both moved from OUT to DOUBT; Igamane, Srdanovic and Nianzou Kouassi newly added OUT per that cross-check.",
+      "doubt": [],
+      "note": "CORRECTION 02 Nov ~21:50 UTC: the prior pass wrongly used a Ligue1 domestic cross-check to downgrade Mbappe and Santos -- domestic form does not override a UEFA competition suspension or an injury confirmed by club statement. Ethan Mbappe stays OUT: UEFA's own disciplinary ruling (3-match ban for a straight red card on Real Betis's Natan) explicitly covers Arsenal, Galatasaray AND this Bodo/Glimt match, eligible again only 25 Nov vs Bayern -- corroborated by Fanatik/Goal/Maxifoot and independently by starting11.com's match-dated page for this exact fixture. Tiago Santos stays OUT: serious knee injury, stretchered off vs Le Havre, confirmed by Lille's own club statement (lengthy rehab expected) and independently still listed out by starting11.com for this match; the Ligue1 cross-check's vaguer 'ankle'/'knee, improving' doubt-level note is a separate, lower-quality single-source read and does not override the club-statement sourcing. Igamane (ACL/knee), Srdanovic and Nianzou Kouassi reconfirmed OUT per the Ligue1 cross-check and (Igamane only) independently by starting11.com.",
       "checked": "2026-11-02T21:30:00Z"
     },
     "Manchester United": {
@@ -90,8 +89,10 @@
       "out": [
         "Manuel Neuer"
       ],
-      "doubt": [],
-      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Atletico Madrid, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own BUNDESLIGA team-news cross-check on Bayern Munich (data-raw/leagues/news.json, checked 2026-10-31, two-source automation pipeline), more current than this file's prior 21 Oct entry. Olise's one-match suspension has been served and Musiala has recovered -- both REMOVED from the out list; neither is corroborated as still absent. Neuer moved from doubt to OUT (foot problem, per the fresher cross-check).",
+      "doubt": [
+        "Jamal Musiala"
+      ],
+      "note": "RECHECK 02 Nov ~21:30 UTC (cloud sweep ahead of Atletico Madrid, kickoff 03 Nov 20:00 UTC): refreshed from the engine's own BUNDESLIGA team-news cross-check on Bayern Munich (data-raw/leagues/news.json, checked 2026-10-31, two-source automation pipeline), more current than this file's prior 21 Oct entry. Olise's one-match suspension has been served -- REMOVED from the out list, not corroborated as still absent. Neuer moved from doubt to OUT (foot problem, per the fresher cross-check). Musiala: CONFLICTING signals -- the BUNDESLIGA cross-check (Oct31) no longer lists him, but a separate pass found starting11.com's page dated for this exact Atletico fixture still showing him out, consistent with the original fcbayern.com-sourced thigh injury; starting11.com has shown real player-team mismatch errors elsewhere in this same research pass, so not treated as a confirmed OUT, but downgraded to DOUBT rather than cleared outright pending a fresher check.",
       "checked": "2026-11-02T21:30:00Z"
     },
     "RB Leipzig": {
