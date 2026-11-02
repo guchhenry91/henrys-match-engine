@@ -1,6 +1,6 @@
 {
   "_note": "Champions League team news kept by the cloud team-news routine. clubs: {\"Arsenal\": {\"out\": [], \"doubt\": [], \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}, club names exactly as on data/ucl/board.json. SHOWN on match cards, not modelled. Ignored after 8 days.",
-  "_verified_on": "2026-10-21",
+  "_verified_on": "2026-11-02",
   "clubs": {
     "Arsenal": {
       "out": [
@@ -110,12 +110,10 @@
       "checked": "2026-10-20T14:10:00Z"
     },
     "Galatasaray": {
-      "out": [
-        "Rafael Leao"
-      ],
+      "out": [],
       "doubt": [],
-      "note": "Victor Osimhen returned from his adductor strain and scored twice against Kasimpasa in his comeback; treated as available, not flagged. Sources: cryptobriefing.com, panafricafootball.com. Re-checked for the Lille fixture (20 Oct): no current, dated injury news found; remaining search hits on Osimhen/Lemina/Singo groin and hamstring knocks carry no verifiable date, so not added. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): Rafael Leao is OUT for tonight's Lille fixture -- groin/muscle strain (mild-to-moderate per MRI), confirmed directly by a Galatasaray club statement and reported identically across multiple Turkish outlets (Fanatik, Milli Gazete, Turkiye Gazetesi, beIN Sports TR). No return date given; availability for the upcoming Fenerbahce derby depends on treatment response. Wilfred Singo trained fully and is not an issue.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "Victor Osimhen returned from his adductor strain and scored twice against Kasimpasa; treated as available, not flagged. Rafael Leao's Oct-21 groin strain (previously listed OUT) is now RESOLVED: Sky Sport Italia and Flashscore (both 30 Oct 2026) independently report he scored his first Galatasaray goal, a penalty in a 4-0 Super Lig win away to Konyaspor -- confirming he is back playing, so removed from the out list. Re-checked ahead of the Stuttgart fixture (02 Nov, ~16:40 UTC, cloud sweep): Squawka's preview reports no fresh fitness concerns for either side. Separately, Fanatik (30 Oct) / beIN Sports TR (29 Oct) / Milli Gazete report 'two Stuttgart players' injured ahead of this match, but UNVERIFIED for OUR purposes since no source names the players -- not actioned here (see VfB Stuttgart entry).",
+      "checked": "2026-11-02T16:40:00Z"
     },
     "Sabah FA": {
       "out": [],
@@ -146,8 +144,8 @@
         "Nuno Santos"
       ],
       "doubt": [],
-      "note": "Re-checked for the Lask Linz fixture (21 Oct): Nuno Santos now meets the two-source bar -- A Bola (14 Oct, training-session report naming him among three unavailable for this match) corroborated independently by starting11.com, which separately lists him OUT / INJURED with a muscle injury and not expected to feature in the next match. Zeno Debast and Rodrigo Zalazar remain named by the same A Bola report but still have no second corroborating source despite a targeted search on each (only stale/unrelated injury-history items found) -- reported here, not added as out. Re-checked (20 Oct, ~23:11 UTC): a bolanarede.pt item surfaced mentioning Debast/Zalazar/Nuno Santos but its own headline references a match 'para Lens' rather than LASK -- date/fixture mismatch, not used as a second source for Debast or Zalazar. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "Re-checked for the Lask Linz fixture (21 Oct): Nuno Santos now meets the two-source bar -- A Bola (14 Oct, training-session report naming him among three unavailable for this match) corroborated independently by starting11.com, which separately lists him OUT / INJURED with a muscle injury and not expected to feature in the next match. Zeno Debast and Rodrigo Zalazar remain named by the same A Bola report but still have no second corroborating source despite a targeted search on each (only stale/unrelated injury-history items found) -- reported here, not added as out. Re-checked (20 Oct, ~23:11 UTC): a bolanarede.pt item surfaced mentioning Debast/Zalazar/Nuno Santos but its own headline references a match 'para Lens' rather than LASK -- date/fixture mismatch, not used as a second source for Debast or Zalazar. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found. Re-checked ahead of the Shakhtar fixture (02 Nov, ~16:40 UTC, cloud sweep): Squawka's preview reports no fresh fitness concerns and expects Sporting's strongest available side (Luis Suarez headlines); nothing contradicting or confirming Nuno Santos found, carried forward unchanged.",
+      "checked": "2026-11-02T16:40:00Z"
     },
     "Lask Linz": {
       "out": [
@@ -275,8 +273,8 @@
     "Shakhtar Donetsk": {
       "out": [],
       "doubt": [],
-      "note": "Re-checked for the Inter fixture (21 Oct): no verified, dated October-2026 injury or suspension news found for Shakhtar despite multiple targeted searches. (Note for the record: the club's coach is Arda Turan, not 'Jovicevic' as some stale search results suggested.) A 14 Oct UEFA matchday report shows both Kaua Elias and Pedrinho started vs AEK Athens, suggesting both were fit a week out, but that is lineup presence, not an availability statement -- do not infer a clean squad from absence of reporting. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found.",
-      "checked": "2026-10-21T10:30:00Z"
+      "note": "Re-checked for the Inter fixture (21 Oct): no verified, dated October-2026 injury or suspension news found for Shakhtar despite multiple targeted searches. (Note for the record: the club's coach is Arda Turan, not 'Jovicevic' as some stale search results suggested.) A 14 Oct UEFA matchday report shows both Kaua Elias and Pedrinho started vs AEK Athens, suggesting both were fit a week out, but that is lineup presence, not an availability statement -- do not infer a clean squad from absence of reporting. Re-checked (20 Oct, ~23:11 UTC, next-matchday sweep): no new corroborated update found. Re-checked (21 Oct, ~10:30 UTC, pre-matchday sweep): no new corroborated update found. Re-checked ahead of the Sporting CP fixture (02 Nov, ~16:40 UTC, cloud sweep): Squawka's preview reports no fresh fitness concerns for either side; no dated official or two-source injury report found.",
+      "checked": "2026-11-02T16:40:00Z"
     },
     "AEK Athens FC": {
       "out": [],
@@ -298,8 +296,8 @@
         "Jeff Chabot",
         "Maximilian Mittelstädt"
       ],
-      "note": "Tomas: muscle injury in training per coach Sebastian Hoeneß, expected back only after the international break. Chabot (thigh) and Mittelstädt (foot/heel) both doubtful with late fitness tests pending. Sources: Stuttgarter Zeitung (Hoeneß quote), Sports Mole, buli-tipphilfe (Oct 2026). Nartey/Al-Dakhil/Jaquez single-source \"out\" claims not added. Re-checked for the Atletico Madrid fixture (20 Oct): a starting11 page (date unclear) names no new Stuttgart absences beyond the above, no second source found. Re-checked again (20 Oct, matchday): unchanged -- Tomas (out), Chabot/Mittelstädt (doubt) stand.",
-      "checked": "2026-10-20T14:10:00Z"
+      "note": "Tomas: muscle injury in training per coach Sebastian Hoeneß, expected back only after the international break. Chabot (thigh) and Mittelstädt (foot/heel) both doubtful with late fitness tests pending. Sources: Stuttgarter Zeitung (Hoeneß quote), Sports Mole, buli-tipphilfe (Oct 2026). Nartey/Al-Dakhil/Jaquez single-source \"out\" claims not added. Re-checked for the Atletico Madrid fixture (20 Oct): a starting11 page (date unclear) names no new Stuttgart absences beyond the above, no second source found. Re-checked again (20 Oct, matchday): unchanged -- Tomas (out), Chabot/Mittelstädt (doubt) stand. Re-checked ahead of the Galatasaray fixture (02 Nov, ~16:40 UTC, cloud sweep): Fanatik (English site, dated 30 Oct) and beIN Sports TR/Milli Gazete (29-30 Oct) all report 'two Stuttgart stars injured' ahead of this match and expected to miss it, but NONE of the three names the players -- does not clear the two-source-with-names bar, so NOT added as specific out/doubt entries. Flagging as unverified rather than guessing; Tomas/Chabot/Mittelstadt above may or may not be the two referenced.",
+      "checked": "2026-11-02T16:40:00Z"
     },
     "Atletico Madrid": {
       "out": [],
