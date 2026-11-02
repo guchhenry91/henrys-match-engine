@@ -1,6 +1,6 @@
 {
   "_note": "Hand-curated player availability kept by the cloud team-news routine (nfl/news.py). players: {\"Name\": {\"status\": \"out\" or \"doubt\", \"team\": \"KC\", \"note\": \"reason + sources\", \"checked\": \"ISO UTC\"}}. Only ever more cautious than the official report; entries older than 8 days are ignored.",
-  "_verified_on": "2026-10-31",
+  "_verified_on": "2026-11-02",
   "players": {
     "Saquon Barkley": {
       "status": "doubt",
@@ -62,11 +62,17 @@
       "note": "Upgraded from his Week 5 'out' (missed vs. Giants, ruled out 9 Oct) to Questionable for Week 6 MNF at SF, hamstring -- did not practice Thursday, trending toward limited participation Friday. Sources: 49erswebzone.com official Commanders practice report (15 Oct 2026); legionreport.com's Commanders-49ers game status designations page.",
       "checked": "2026-10-19T09:30:00Z"
     },
-    "Zach Charbonnet": {
+    "Rashid Shaheed": {
       "status": "out",
       "team": "SEA",
-      "note": "Confirmed Out again for Week 7 vs. Kansas City (SNF, 26 Oct ~00:20 UTC) despite full practice participation Wed/Thu/Fri -- likely a reserve/PUP-activation technicality (Seattle had until 22 Oct to activate him from reserve/PUP and a hoped-for Week 7 debut did not materialize as an active game status). Emanuel Wilson/George Holani remain the backfield. Sources: chiefs.com official \"Week 7 Injury Report: Chiefs vs. Seahawks 2026\" page (FP/FP/FP, Game Status: Out), corroborated by seahawks.com's official injury report mirroring the same Chiefs/Seahawks combined table (FP/FP/FP, Game Status: OUT). Supersedes the stale 14 Oct Week 6 note.",
-      "checked": "2026-10-25T21:30:00Z"
+      "note": "Ruled Out for Week 8 vs. Chicago (MNF, 2 Nov, kickoff 2026-11-03T01:15:00Z), knee. Sources: seahawks.com official Week 8 injury report (\"Week 8 Injury Report: Bears at Seahawks\"), corroborated by sports.mynorthwest.com's Seahawks injury report and bleachernation.com's Seahawks/Bears inactives-and-injury-report page. Supersedes Zach Charbonnet's prior Week 7 'out' entry: he is confirmed to make his 2026 season debut tonight (full practice participant all week, HC Mike Macdonald), so that entry is removed.",
+      "checked": "2026-11-02T11:09:19Z"
+    },
+    "Velus Jones Jr.": {
+      "status": "out",
+      "team": "SEA",
+      "note": "Ruled Out for Week 8 vs. Chicago (MNF, 2 Nov, kickoff 2026-11-03T01:15:00Z), hamstring. Sources: seahawks.com official Week 8 injury report, corroborated by bleachernation.com's Seahawks vs. Bears injury report/inactives page.",
+      "checked": "2026-11-02T11:09:19Z"
     },
     "Jaylen Wright": {
       "status": "doubt",
@@ -89,8 +95,8 @@
     "Kyle Monangai": {
       "status": "out",
       "team": "CHI",
-      "note": "Out, thumb/toe -- reconfirmed in the Week 7 official report ahead of Thu 22 Oct TNF at home vs NE, did not practice Mon/Tue/Wed. Sources: chicagobears.com official Week 7 injury report, 21 Oct 2026; corroborated by nfl.com official Week 7 injury report and patriots.com's crawl of the same report.",
-      "checked": "2026-10-22T16:10:00Z"
+      "note": "Out again for Week 8 at Seattle (MNF, 2 Nov, kickoff 2026-11-03T01:15:00Z), thumb/toe -- his 4th straight missed game. Final Week 8 official designation: Out. Sources: nbcchicago.com (\"Chicago Bears' injury report: Kyle Monangai out\"), corroborated by sports.yahoo.com's \"Bears vs. Seahawks Injury Report: Kyle Monangai is out for Chicago\". Colston Loveland and the Bears' other backs (D'Andre Swift) remain the backfield options.",
+      "checked": "2026-11-02T11:09:19Z"
     },
     "Theo Johnson": {
       "status": "out",
