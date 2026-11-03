@@ -7,6 +7,13 @@ a league a week), and data-raw/leagues/understat_matches/upcoming.json lists eve
 unplayed fixture with Understat's match id, so the board can ask the model about it.
 
 Never fatal: a league that fails keeps its previous file.
+
+FAIL FAST (2026-11-03). This runs inside the soccer publish, which has 20 minutes.
+With the backfill's patience (4 tries, 60s each) an unreachable Understat cost ~4.5
+minutes a league, 22 for five -- every refresh timed out for a day and no soccer or
+Champions League board was published. Live runs now try twice with a 20s timeout,
+and once Understat fails to list one league the rest are skipped for this run: the
+model trains on the rows on hand, as it would for any failed league.
 """
 import json
 import sys
@@ -16,7 +23,14 @@ from pathlib import Path
 import pandas as pd
 
 from leagues import forecast as fc
-from scripts.export_understat_matches import LEAGUES, get
+from scripts.export_understat_matches import LEAGUES
+from scripts.export_understat_matches import get as _get
+
+TRIES, TIMEOUT = 2, 20
+
+
+def get(url: str):
+    return _get(url, tries=TRIES, timeout=TIMEOUT)
 
 UPCOMING = fc.MATCHES_DIR / "upcoming.json"
 
@@ -68,7 +82,12 @@ def main() -> int:
     now = datetime.now(timezone.utc)
     year = season_year(now)
     upcoming, failed = [], []
+    unreachable = False
     for code in LEAGUES:
+        if unreachable:
+            failed.append(code)
+            print(f"{code} {year}: skipped (Understat unreachable this run)")
+            continue
         try:
             added, up = sync_league(code, year, fc.MATCHES_DIR)
             upcoming += up
@@ -76,6 +95,8 @@ def main() -> int:
         except Exception as exc:                       # noqa: BLE001 - keep the old file
             failed.append(code)
             print(f"{code} {year}: FAILED {type(exc).__name__}: {exc}")
+            # A timeout or refused connection is the site, not this league.
+            unreachable = isinstance(exc, (OSError, TimeoutError))
     if upcoming or not UPCOMING.exists():
         UPCOMING.write_text(json.dumps({"updated": now.isoformat(timespec="seconds"),
                                         "failed": failed, "matches": upcoming}, indent=1) + "\n",

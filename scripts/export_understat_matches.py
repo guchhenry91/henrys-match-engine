@@ -33,10 +33,10 @@ PAUSE = 0.35
 WORKERS = 4
 
 
-def get(url: str, tries: int = 4):
+def get(url: str, tries: int = 4, timeout: float = 60):
     for attempt in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=60) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS), timeout=timeout) as r:
                 body = r.read()
                 if r.headers.get("Content-Encoding") == "gzip" or body[:2] == b"\x1f\x8b":
                     body = gzip.decompress(body)
