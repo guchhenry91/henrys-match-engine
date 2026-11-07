@@ -1,5 +1,18 @@
 # Henry's Match Engine
 
+> **SITE PAUSED (owner, 2026-11-07): not paying for Cloudflare or the API keys for now.**
+> Done: `wrangler.jsonc` JOBS_MODE "off" (deployed -- no jobs, no API calls); the
+> account is on Workers FREE (cron/containers unavailable); GitHub workflow "Deploy to
+> Cloudflare" disabled; claude.ai routines off (team news trig_01WtXHNnYsdeDxTDZhTfxQpT,
+> daily health sweep trig_012vBSDnS5Lrk7x3PNHvXern, NBA re-check, MLB spring reminder).
+> Full D1 backup: `C:\Users\John\match-engine-backup-2026-11-07\d1-full.sql` (198 MB,
+> `wrangler d1 export`). Nothing was deleted.
+> RESTART: renew Workers Paid + API-Football / Odds API / API-NFL keys (update the Worker
+> secrets if keys changed); set JOBS_MODE "live"; `npx wrangler deploy` (Docker running);
+> `gh workflow enable deploy-cloudflare.yml`; re-enable the routines; if D1 was lost,
+> restore it from the backup (`wrangler d1 execute henrys-match-engine --remote --file ...`).
+> MLB stays PAUSED in worker.js/health_check.py until spring regardless.
+
 > **AUDIT FIXES (2026-10-12, two rounds):** every board (a) trusts the book until real
 > lines prove the model -- the book moved part way toward the forecast, never stacked
 > (`tracking/combine_fit.prior/shrink`), (b) publishes only picks at +3% at bet365 with
