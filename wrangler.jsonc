@@ -40,7 +40,7 @@
   // calls a minute per address.
   "ratelimits": [ { "name": "RELAY_LIMIT", "namespace_id": "1001", "simple": { "limit": 30, "period": 60 } } ],
   "vars": {
-    "JOBS_MODE": "live",
+    "JOBS_MODE": "off",        // PAUSED by the owner 2026-11-07 (costs); "live" to restart
     "TELEGRAM_FROM_CLOUDFLARE": "on",
     "STATE_URL": "https://henrys-match-engine.henrys-edge-engine.workers.dev"
   },
